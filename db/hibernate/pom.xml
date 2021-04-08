@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>io.loom</groupId>
+		<artifactId>loom-db</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>loom-db-hibernate</artifactId>
+	<name>Loom - DB - Hibernate</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<hibernate.orm.version>5.4.26.Final</hibernate.orm.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.hibernate.reactive</groupId>
+			<artifactId>hibernate-reactive-core</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.reactive</groupId>
+			<artifactId>hibernate-reactive-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.1.5.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>${hibernate.orm.version}</version>
+		</dependency>
+		<dependency>
+			<artifactId>vertx-pg-client</artifactId>
+			<groupId>io.vertx</groupId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>11</source>
+					<target>11</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

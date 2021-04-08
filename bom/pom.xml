@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>io.loom</groupId>
+		<artifactId>loom</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>loom-bom</artifactId>
+	<name>Loom - BOM</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<vertx.version>4.0.0</vertx.version>
+		<dagger.version>2.24</dagger.version>
+		<hazelcast.version>3.12.8</hazelcast.version>
+		<tika.version>1.22</tika.version>
+		<aws.sdk.version>2.1.0</aws.sdk.version>
+		<jackson.version>2.11.3</jackson.version>
+		<jackson-databind.version>2.11.3</jackson-databind.version>
+		<hibernate.version>1.0.0-SNAPSHOT</hibernate.version>
+		<netty.version>4.1.49.Final</netty.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Hibernate / DB -->
+			<dependency>
+				<groupId>org.hibernate.reactive</groupId>
+				<artifactId>hibernate-reactive-core</artifactId>
+				<version>${hibernate.version}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate.reactive</groupId>
+				<artifactId>hibernate-reactive-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<artifactId>vertx-mysql-client</artifactId>
+				<groupId>io.vertx</groupId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<artifactId>vertx-pg-client</artifactId>
+				<groupId>io.vertx</groupId>
+				<version>${vertx.version}</version>
+			</dependency>
+
+			<!-- Dagger -->
+			<dependency>
+				<groupId>com.google.dagger</groupId>
+				<artifactId>dagger</artifactId>
+				<version>${dagger.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.dagger</groupId>
+				<artifactId>dagger-compiler</artifactId>
+				<version>${dagger.version}</version>
+				<optional>true</optional>
+			</dependency>
+
+			<!-- Utilities -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>25.0-jre</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-cli</groupId>
+				<artifactId>commons-cli</artifactId>
+				<version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.3.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.4</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.10</version>
+			</dependency>
+
+			<!-- RX -->
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-rx-java2</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.reactivex</groupId>
+				<artifactId>rxjava</artifactId>
+				<version>1.3.8</version>
+			</dependency>
+			<dependency>
+				<groupId>io.reactivex.rxjava2</groupId>
+				<artifactId>rxjava</artifactId>
+				<version>2.2.12</version>
+				<exclusions>
+					<exclusion>
+						<groupId>io.reactivestreams</groupId>
+						<artifactId>reactive-streams</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.reactivestreams</groupId>
+				<artifactId>reactive-streams</artifactId>
+				<version>1.0.3</version>
+			</dependency>
+
+			<!-- S3 -->
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>s3</artifactId>
+				<version>${aws.sdk.version}</version>
+			</dependency>
+
+			<!-- Vert.x -->
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-web</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-auth-oauth2</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+
+			<!-- Metrics -->
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-micrometer-metrics</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.micrometer</groupId>
+				<artifactId>micrometer-registry-prometheus</artifactId>
+				<version>1.3.0</version>
+			</dependency>
+
+			<!-- Test Tools -->
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>3.4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>2.18.3</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.jsonpath</groupId>
+				<artifactId>json-path</artifactId>
+				<version>2.2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.skyscreamer</groupId>
+				<artifactId>jsonassert</artifactId>
+				<version>1.3.0</version>
+			</dependency>
+
+			<!-- Hazelcast -->
+			<dependency>
+				<groupId>com.hazelcast</groupId>
+				<artifactId>hazelcast</artifactId>
+				<version>${hazelcast.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hazelcast</groupId>
+				<artifactId>hazelcast-kubernetes</artifactId>
+				<version>1.2.2</version>
+			</dependency>
+
+			<!-- Netty -->
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-transport-native-epoll</artifactId>
+				<classifier>linux-x86_64</classifier>
+				<version>${netty.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-buffer</artifactId>
+				<version>${netty.version}</version>
+			</dependency>
+
+			<!-- Tika -->
+			<dependency>
+				<groupId>org.apache.tika</groupId>
+				<artifactId>tika-parsers</artifactId>
+				<version>${tika.version}</version>
+			</dependency>
+
+			<!-- Spring - bcrypt -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+
+			<!-- SSL -->
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcmail-jdk15on</artifactId>
+				<version>1.62</version>
+			</dependency>
+
+			<!-- HTTP Client -->
+			<dependency>
+				<groupId>com.squareup.okhttp3</groupId>
+				<artifactId>okhttp</artifactId>
+				<version>3.12.1</version>
+			</dependency>
+
+			<!-- Caching -->
+			<dependency>
+				<groupId>com.github.ben-manes.caffeine</groupId>
+				<artifactId>caffeine</artifactId>
+				<version>2.5.6</version>
+			</dependency>
+
+			<!-- Jackson -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson-databind.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.module</groupId>
+				<artifactId>jackson-module-jsonSchema</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+
+			<!-- Loom Core -->
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-doc</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- Loom Public -->
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-rest-client</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-rest-model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- Loom DB -->
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-db</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-db-model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-db-hibernate</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- Loom Services -->
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-service-s3</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-service-graphql</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-service-image</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.loom</groupId>
+				<artifactId>loom-service-video</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+
+
+
+	</dependencyManagement>
+
+</project>
