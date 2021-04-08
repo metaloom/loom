@@ -10,18 +10,11 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>loom-service-auth</artifactId>
-	<name>Loom - Service - Authentication</name>
-	<packaging>pom</packaging>
+		<artifactId>loom-service-auth-jwt</artifactId>
+	<name>Loom - Service - Authentication - JWT</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
-	<modules>
-		<module>auth-common</module>
-		<module>auth-jwt</module>
-		<module>auth-keycloak</module>
-	</modules>
 
 </project>
