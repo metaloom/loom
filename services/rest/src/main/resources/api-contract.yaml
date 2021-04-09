@@ -18,6 +18,180 @@ tags:
     description: "Find out more"
     url: "https://metaloom/docs/namespaces"
 paths:
+  /users:
+    summary: "Endpoint to access users."
+  /users/{uuid}:
+    summary: "Endpoint to access specific user"
+    delete:
+      operationId: "deleteUser"
+      responses:
+        '200':
+          description: "User deleted"
+  /groups:
+    summary: "Endpoint to access groups."
+    get:
+      operationId: "loadGroups"
+      responses:
+        '200':
+          description: "Groups loaded"
+  /groups/{uuid}:
+    delete:
+      operationId: "deleteGroup"
+      responses:
+        '200':
+          description: "Group deleted"
+    get:
+      operationId: "loadGroup"
+      responses:
+        '200':
+          description: "Group loaded"
+    head:
+      operationId: "checkGroup"
+      responses:
+        '200':
+          description: "Group checked"
+    post:
+      operationId: "updateGroup"
+      responses:
+        '200':
+          description: "Group updated"
+    put:
+      operationId: "createGroup"
+      responses:
+        '200':
+          description: "Group created"
+  /roles:
+    summary: "Endpoint to access roles."
+    get:
+      operationId: "loadRoles"
+      responses:
+        '200':
+          description: "Roles loaded"
+  /roles/{uuid}:
+    summary: "Endpoint to access roles."
+    delete:
+      operationId: "deleteRole"
+      responses:
+        '200':
+          description: "Role deleted"
+    get:
+      operationId: "loadRole"
+      responses:
+        '200':
+          description: "Role loaded"
+    head:
+      operationId: "checkRole"
+      responses:
+        '200':
+          description: "Role checked"
+    post:
+      operationId: "updateRole"
+      responses:
+        '200':
+          description: "Role updated"
+    put:
+      operationId: "createRole"
+      responses:
+        '200':
+          description: "Role created"
+  /assets:
+    get:
+      operationId: "loadAssets"
+      responses:
+        '200':
+          description: "Load assets"
+    post:
+      operationId: "createAsset"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/LanguageRequest'
+      responses:
+        '200':
+          description: "Create an asset."
+  /assets/{uuid}:
+    head:
+      operationId: "lookupAsset"
+      summary:  "Load the asset with the given uuid."
+      responses:
+        '200':
+          description: OK
+    delete:
+      operationId: "deleteAsset"
+      summary: "Delete the asset with the given uuid."
+      responses:
+        '200':
+          description: OK
+    put:
+      operationId: "updateAsset"
+      summary:  "Update the asset with the given uuid."
+      responses:
+        '200':
+          description: OK
+    get:
+      operationId: "loadAsset"
+      summary: "Load the asset with the given uuid."
+      responses:
+        '200':
+          description: OK
+    post:
+      operationId: "uploadAsset"
+      summary: "Upload a new asset."
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: OK
+  
+  /assets/{uuid}/publish:
+    post:
+      operationId: "publishAsset"
+      summary: "Publish the asset"
+      responses:
+        '200':
+          description: OK
+    delete:
+      operationId: "unpublishAsset"
+      summary: "Unpublish the asset."
+      responses:
+        '200':
+          description: OK
+  
+  /assets/{uuid}/versions:
+    get:
+      operationId: "loadAssetVersions"
+      responses:
+        '200':
+          description: OK
+    
+  /assets/{uuid}/archive:
+    summary: "Archive the asset"
+    get:
+      operationId: "assetArchiveStatus"
+      responses:
+        '200':
+          description: OK
+
+  /languages:
+    summary: "Endpoint to handle languages."
+    get:
+      operationId: "loadLanguages"
+      responses:
+        '200':
+          description: "Language information loaded."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Language'
+    post:
+      responses:
+        '200':
+          description: "Language updated / created"
+  /archive:
+    summary: "Endpoint to access the archive."
   /namespaces:
     get:
       responses:
@@ -29,6 +203,18 @@ paths:
               example: "test"
           description: OK
     post:
+      responses:
+        '200':
+          description: OK
+  /namespaces/{uuid}/webroot/{path}:
+    summary: "Load nodes of the namespace using a webroot path"
+  /namespaces/{uuid}/nodes:
+    summary: "Load nodes of the namespace"
+  /search:
+    summary: "Search endpoint"
+  /graphql:
+    post:
+      operationId: "graphql"
       responses:
         '200':
           description: OK
@@ -49,15 +235,100 @@ paths:
           description: "Namespaces successfully loaded."
       tags:
        - "namespace"
-
     post:
       operationId: "updateNamespace"
       description: "Update a namespace with the given uuid."
       responses:
         '200':
           description: "Namespace successfully updated."
-   
-   
+
 externalDocs:
   description: "Find out more about Loom"
   url: "https://metaloom.io"
+
+components:
+  schemas:
+    User:
+      required:
+        - username
+      properties:
+        username:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+    UserReference:
+      required:
+        - uuid
+        - username
+      properties:
+        username:
+          type: string
+        uuid:
+          type: string
+    Group: 
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    GroupResponse: 
+      required:
+        - uuid
+        - name
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+    Role:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    Asset:
+      required:
+        - uuid
+      properties:
+        filename:
+          type: string
+        size:
+          type: number
+        mimeType:
+          type: string
+    Language:
+      required:
+        - name
+        - nativeName
+      properties:
+        name:
+          type: string
+        nativeName:
+          type: string
+        fallback:
+          type: string
+    LanguageRequest:
+      required:
+        - name
+        - nativeName
+      properties:
+        name:
+          type: string
+        nativeName:
+          type: string
+        fallback:
+          type: string
+    Languages:
+      type: array
+      items:
+        $ref: "#/components/schemas/Language"
+#  examples:
+#    Language:
+#      value:
+#	      name: "de-DE"
+#	      nativeName: "Deutsch"
+#	      fallback: "en-GB"
