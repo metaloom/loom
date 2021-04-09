@@ -1,0 +1,63 @@
+openapi: '3.0.3'
+info:
+  description: "Central Loom REST API"
+  version: "1.0.0"
+  title: "MetaLoom Loom API"
+  termsOfService: "https://metaloom.io/terms/"
+  contact:
+    email: "apiteam@metaloom.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+servers:
+  - url: https://demo.metaloom.io/v1
+tags:
+- name: "namespace"
+  description: "The namespace within a loom instance."
+  externalDocs:
+    description: "Find out more"
+    url: "https://metaloom/docs/namespaces"
+paths:
+  /namespaces:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: "string"
+              example: "test"
+          description: OK
+    post:
+      responses:
+        '200':
+          description: OK
+  /namespaces/{uuid}:
+    parameters:
+      - name: uuid
+        in: "path"
+        description: "UUID of the namespace that should be loaded"
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: "loadNamespace"
+      description: "Load a namespaces with the given uuid."
+      summary:  "The summary"
+      responses:
+        '200':
+          description: "Namespaces successfully loaded."
+      tags:
+       - "namespace"
+
+    post:
+      operationId: "updateNamespace"
+      description: "Update a namespace with the given uuid."
+      responses:
+        '200':
+          description: "Namespace successfully updated."
+   
+   
+externalDocs:
+  description: "Find out more about Loom"
+  url: "https://metaloom.io"
