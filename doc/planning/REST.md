@@ -6,20 +6,6 @@
 
 ## Paging
 
-## Space API
-
-/api/v1/spaces
-
-```json
-{
-	"name": "a",
-	"cdate": "",
-	"creator": {
-
-	}
-}
-```
-
 # User API
 
 /api/v1/users
