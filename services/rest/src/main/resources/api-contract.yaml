@@ -28,6 +28,9 @@ paths:
         '204':
           description: "Users checked"
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["user"]
       operationId: "loadUsers"
       responses:
@@ -66,25 +69,8 @@ paths:
   /users/{userUuid}:
     summary: "Endpoint to access specific user"
     parameters:
-      - name: userUuid
-        in: "path"
-        description: "UUID of the user"
-        required: true
-        schema:
-          type: string
-      - name: fields
-        in: "query"
-        description: "Parameter to control the returned fields"
-        required: false
-        examples:
-          onlyUuid:
-            summary: "Only include the uuid property in the response."
-            value: "uuid"
-          uuidAndUsername:
-            summary: "Only include the uuid and username property in the response."
-            value: "uuid,username"
-        schema:
-          type: string
+      - $ref: "#/components/parameters/userUuid"
+      - $ref: "#/components/parameters/fields"
     get:
       tags: ["user"]
       operationId: "loadUser"
@@ -123,12 +109,7 @@ paths:
   /users/{userUuid}/contents:
     summary: "Contents of the user"
     parameters:
-      - name: userUuid
-        in: "path"
-        description: "UUID of the user"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/userUuid"
     get:
       tags: ["user", "content"]
       operationId: "loadUserContents"
@@ -145,12 +126,7 @@ paths:
 
   /users/{userUuid}/groups:
     parameters:
-      - name: userUuid
-        in: "path"
-        description: "UUID of the user"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/userUuid"
     head:
       tags: ["user", "group"]
       operationId: "checkUserGroups"
@@ -174,12 +150,7 @@ paths:
   # User / Roles
   /users/{userUuid}/roles:
     parameters:
-      - name: userUuid
-        in: "path"
-        description: "UUID of the user"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/userUuid"
     head:
       tags: ["user", "role"]
       operationId: "checkUserRoles"
@@ -203,12 +174,7 @@ paths:
   # User / Token
   /users/{userUuid}/tokens:
     parameters:
-      - name: userUuid
-        in: "path"
-        description: "UUID of the user"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/userUuid"
     head:
       tags: ["user", "auth"]
       operationId: "checkedTokens"
@@ -216,6 +182,9 @@ paths:
         '204':
           description: "Tokens checked"
     get:  
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["user", "auth"]
       operationId: "loadTokens"
       responses:
@@ -247,18 +216,8 @@ paths:
 
   /users/{userUuid}/tokens/{tokenUuid}:
     parameters:
-      - name: userUuid
-        in: "path"
-        description: "UUID of the user"
-        required: true
-        schema:
-          type: string
-      - name: tokenUuid
-        in: "path"
-        description: "UUID of the token"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/userUuid"
+      - $ref: "#/components/parameters/tokenUuid"
     get:
       tags: ["user", "auth"]
       operationId: "loadToken"
@@ -283,6 +242,9 @@ paths:
   /groups:
     summary: "Endpoint to access groups."
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["group"]
       operationId: "loadGroups"
       responses:
@@ -298,12 +260,7 @@ paths:
 
   /groups/{groupUuid}:
     parameters:
-      - name: groupUuid
-        in: "path"
-        description: "UUID of the group"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/groupUuid"
     delete:
       tags: ["group"]
       operationId: "deleteGroup"
@@ -368,12 +325,7 @@ paths:
 
   /groups/{groupUuid}/users:
     parameters:
-      - name: groupUuid
-        in: "path"
-        description: "UUID of the group"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/groupUuid"
     summary: "Load users within the group"
     get:
       tags: ["group", "user"]
@@ -391,12 +343,7 @@ paths:
 
   /groups/{groupUuid}/roles:
     parameters:
-      - name: groupUuid
-        in: "path"
-        description: "UUID of the group"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/groupUuid"
     summary: "Load roles assigned to the group"
     get:
       tags: ["group", "role"]
@@ -413,10 +360,13 @@ paths:
                   $ref: '#/components/schemas/RolesResponse/example'
 
 
-  # Role
+  # Role / List Response
   /roles:
     summary: "Endpoint to access roles."
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["role"]
       operationId: "loadRoles"
       responses:
@@ -427,14 +377,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/RolesResponse'
 
+  # Role
   /roles/{roleUuid}:
     parameters:
-      - name: roleUuid
-        in: "path"
-        description: "UUID of the role"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/roleUuid"
     summary: "Endpoint to access roles."
     delete:
       tags: ["role"]
@@ -447,6 +393,13 @@ paths:
       operationId: "loadRole"
       responses:
         '200':
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/RoleResponse"
+              examples:
+                RoleResponse:
+                  $ref: "#/components/schemas/RoleResponse/example"
           description: "Role loaded"
     head:
       tags: ["role"]
@@ -457,19 +410,54 @@ paths:
     post:
       tags: ["role"]
       operationId: "updateRole"
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/RoleUpdateRequest"
+            examples:
+              RoleUpdateRequest:
+                $ref: "#/components/schemas/RoleUpdateRequest/example"
       responses:
         '200':
           description: "Role updated"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/RoleResponse"
+              examples:
+                RoleResponse:
+                  $ref: "#/components/schemas/RoleResponse/example"
     put:
       tags: ["role"]
       operationId: "createRole"
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/RoleUpdateRequest"
+            examples:
+              RoleUpdateRequest:
+                $ref: "#/components/schemas/RoleUpdateRequest/example"
       responses:
         '200':
           description: "Role created"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/RoleResponse"
+              examples:
+                RoleResponse:
+                  $ref: "#/components/schemas/RoleResponse/example"
 
   # Asset
   /assets:
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["asset"]
       operationId: "loadAssets"
       responses:
@@ -497,12 +485,7 @@ paths:
 
   /assets/{assetUuid}:
     parameters:
-      - name: assetUuid
-        in: "path"
-        description: "UUID of the asset"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/assetUuid"
     head:
       tags: ["asset"]
       operationId: "lookupAsset"
@@ -547,12 +530,7 @@ paths:
 
   /assets/{assetUuid}/blacklist:
     parameters:
-      - name: assetUuid
-        in: "path"
-        description: "UUID of the asset"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/assetUuid"
     summary: "Blacklist the asset"
     get:
       tags: ["asset"]
@@ -577,12 +555,7 @@ paths:
 
   /assets/{assetUuid}/similar:
     parameters:
-      - name: assetUuid
-        in: "path"
-        description: "UUID of the asset"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/assetUuid"
     summary: "Lookup similar assets"
     get:
       tags: ["asset"]
@@ -600,12 +573,7 @@ paths:
   
   /assets/{assetUuid}/thumbnails:
     parameters:
-      - name: assetUuid
-        in: "path"
-        description: "UUID of the asset"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/assetUuid"
     summary: "Load the thumbnails for the asset"
     get:
       tags: ["asset"]
@@ -617,12 +585,7 @@ paths:
 
   /assets/{assetUuid}/publish:
     parameters:
-      - name: assetUuid
-        in: "path"
-        description: "UUID of the asset"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/assetUuid"
     post:
       tags: ["asset"]
       operationId: "publishAsset"
@@ -640,13 +603,11 @@ paths:
   
   /assets/{assetUuid}/versions:
     parameters:
-      - name: assetUuid
-        in: "path"
-        description: "UUID of the asset"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/assetUuid"
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["asset"]
       operationId: "loadAssetVersions"
       responses:
@@ -656,12 +617,7 @@ paths:
   /assets/{assetUuid}/s3/presignedUrl:
     summary: "Return the presigned URL for the asset"
     parameters:
-      - name: assetUuid
-        in: "path"
-        description: "UUID of the asset"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/assetUuid"
     get:
       tags: ["asset", "S3"]
       responses:
@@ -678,12 +634,7 @@ paths:
   /assets/{assetUuid}/bin:
     summary: "Download the binary"
     parameters:
-      - name: assetUuid
-        in: "path"
-        description: "UUID of the asset"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/assetUuid"
     get:
       tags: ["asset"]
       operationId: "assetBinary"
@@ -694,12 +645,7 @@ paths:
   /assets/{assetUuid}/transform:
     summary: "Transform the asset"
     parameters:
-      - name: assetUuid
-        in: "path"
-        description: "UUID of the asset"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/assetUuid"
     post:
       tags: ["asset"]
       operationId: "assetTransform"
@@ -710,12 +656,7 @@ paths:
   /assets/{assetUuid}/archive:
     summary: "Archive the asset"
     parameters:
-      - name: assetUuid
-        in: "path"
-        description: "UUID of the asset"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/assetUuid"
     get:
       tags: ["asset"]
       operationId: "assetArchiveStatus"
@@ -734,6 +675,9 @@ paths:
         '204':
           description: OK
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["model"]
       operationId: "loadModels"
       summary: "Load the models"
@@ -765,12 +709,7 @@ paths:
 
   /models/{modelUuid}:
     parameters:
-      - name: modelUuid
-        in: "path"
-        description: "UUID of the model"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/modelUuid"
     head:
       tags: ["model"]
       operationId: "checkModel"
@@ -818,6 +757,9 @@ paths:
   /languages:
     summary: "Endpoint to handle languages."
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["language"]
       operationId: "loadLanguages"
       responses:
@@ -835,12 +777,7 @@ paths:
 
   /languages/{languageUuid}:
     parameters:
-      - name: languageUuid
-        in: "path"
-        description: "UUID of the language"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/languageUuid"
     get:
       tags: ["language"]
       operationId: "loadLanguage"
@@ -862,6 +799,9 @@ paths:
   # Namespace
   /namespaces:
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["namespace"]
       responses:
         '200':
@@ -906,12 +846,7 @@ paths:
   # Namespace
   /namespaces/{namespaceUuid}:
     parameters:
-      - name: namespaceUuid
-        in: "path"
-        description: "UUID of the namespace that should be loaded"
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/namespaceUuid'
     get:
       tags: ["namespace"]
       operationId: "loadNamespace"
@@ -928,22 +863,30 @@ paths:
         '200':
           description: "Namespace successfully updated."
 
+  # Namespace / Export
+  /namespaces/{namespaceUuid}/export:
+    parameters:
+      - $ref: '#/components/parameters/namespaceUuid'
+    get:
+      responses:
+        '200':
+          description: "Export the namespace."
+
+  # Namespace / Import
+  /namespaces/{namespaceUuid}/import:
+    parameters:
+      - $ref: '#/components/parameters/namespaceUuid'
+    post:
+      responses:
+        '200':
+          description: "Invoke the import of the namespace"
+
   # Namespace / Webroot
   /namespaces/{namespaceUuid}/webroot/{path}:
     summary: "Load content of the namespace using a webroot path"
     parameters:
-      - name: namespaceUuid
-        in: "path"
-        description: "UUID of the namespace that should be loaded"
-        required: true
-        schema:
-          type: string
-      - name: path
-        in: "path"
-        description: "Path to the content"
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/namespaceUuid'
+      - $ref: '#/components/parameters/path'
     get:
       tags: ["namespace"]
       operationId: "loadByWebrootPath"
@@ -962,13 +905,11 @@ paths:
   /namespaces/{namespaceUuid}/contents:
     summary: "Load contents of the namespace"
     parameters:
-      - name: namespaceUuid
-        in: "path"
-        description: "UUID of the namespace that should be loaded"
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/namespaceUuid'
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["content"]
       responses:
         '200':
@@ -984,18 +925,8 @@ paths:
   /namespaces/{namespaceUuid}/contents/{contentUuid}:
     summary: "Load content of the namespace"
     parameters:
-      - name: namespaceUuid
-        in: "path"
-        description: "UUID of the namespace"
-        required: true
-        schema:
-          type: string
-      - name: contentUuid
-        in: "path"
-        description: "UUID of the content that should be loaded"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/namespaceUuid"
+      - $ref: "#/components/parameters/contentUuid"
     get:
       tags: ["content"]
       operationId: "Load the content"
@@ -1013,19 +944,12 @@ paths:
   /namespaces/{namespaceUuid}/content/{contentUuid}/tags:
     summary: "Load the tags of the content"
     parameters:
-      - name: namespaceUuid
-        in: "path"
-        description: "UUID of the namespace that should be loaded"
-        required: true
-        schema:
-          type: string
-      - name: contentUuid
-        in: "path"
-        description: "UUID of the content that should be loaded"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/namespaceUuid"
+      - $ref: "#/components/parameters/contentUuid"
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["tag"]
       responses:
         '200':
@@ -1042,24 +966,9 @@ paths:
   /namespaces/{namespaceUuid}/content/{contentUuid}/tags/{tagUuid}:
     summary: "Load the tag of the content"
     parameters:
-      - name: namespaceUuid
-        in: "path"
-        description: "UUID of the namespace."
-        required: true
-        schema:
-          type: string
-      - name: contentUuid
-        in: "path"
-        description: "UUID of the content."
-        required: true
-        schema:
-          type: string
-      - name: tagUuid
-        in: "path"
-        description: "UUID of the tag that should be loaded."
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/namespaceUuid'
+      - $ref: '#/components/parameters/contentUuid'
+      - $ref: '#/components/parameters/tagUuid'
     get:
       tags: ["tag"]
       responses:
@@ -1077,13 +986,11 @@ paths:
   /namespaces/{namespaceUuid}/tags:
     summary: "Load tags of the namespace"
     parameters:
-      - name: namespaceUuid
-        in: "path"
-        description: "UUID of the namespace that should be loaded"
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/namespaceUuid'
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["tag"]
       responses:
         '200':
@@ -1100,13 +1007,11 @@ paths:
   /namespaces/{namespaceUuid}/tagFamilies:
     summary: "Load the tagfamily of the namespace"
     parameters:
-      - name: namespaceUuid
-        in: "path"
-        description: "UUID of the namespace that should be loaded"
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/namespaceUuid"
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["tagFamily"]
       responses:
         '200':
@@ -1123,19 +1028,12 @@ paths:
   /namespaces/{namespaceUuid}/tagFamilies/{tagFamilyUuid}/tags:
     summary: "Load the tag of the tagfamily"
     parameters:
-      - name: namespaceUuid
-        in: "path"
-        description: "UUID of the namespace."
-        required: true
-        schema:
-          type: string
-      - name: tagFamilyUuid
-        in: "path"
-        description: "UUID of the tagFamily that should be loaded."
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/namespaceUuid"
+      - $ref: "#/components/parameters/tagFamilyUuid"
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["tag"]
       responses:
         '200':
@@ -1246,6 +1144,9 @@ paths:
 
   /webhooks:
     get:
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       tags: ["webhook"]
       operationId: "loadWebhooks"
       responses:
@@ -1273,12 +1174,7 @@ paths:
 
   /webhooks/{webhookUuid}:
     parameters:
-      - name: webhookUuid
-        in: "path"
-        description: "UUID of the webhook."
-        required: true
-        schema:
-          type: string
+      - $ref: "#/components/parameters/webhookUuid"
     head:
       tags: ["webhook"]
       operationId: "checkWebhook"
@@ -1580,6 +1476,16 @@ components:
 
     # Role / Create Request
     RoleCreateRequest: 
+      required:
+        - name
+      properties:
+        name:
+          type: string
+      example:
+        name: "GuestPermissions"
+
+    # Role / Update Request
+    RoleUpdateRequest: 
       required:
         - name
       properties:
@@ -1920,4 +1826,149 @@ components:
       example:
         url: "http://localhost:8080/trigger_me"
 
-    
+  parameters:
+    perPage:
+      name: perPage
+      in: "query"
+      description: "Define how many items should be returned per page."
+      required: false
+      schema:
+        type: string
+      examples:
+        default:
+          summary: "Return 25 items per page."
+          value: "25"
+        none:
+          summary: "Return no items in the page. This will only return the paging metadata."
+          value: "0"
+
+    page:
+      name: page
+      in: "query"
+      description: "Define the page that should be loaded."
+      required: false
+      schema:
+        type: string
+      examples:
+        default:
+          summary: "Return the first page."
+          value: "1"
+
+    fields:  
+      name: fields
+      in: "query"
+      description: "Parameter to control the returned fields"
+      required: false
+      examples:
+        onlyUuid:
+          summary: "Only include the uuid property in the response."
+          value: "uuid"
+        uuidAndUsername:
+          summary: "Only include the uuid and username property in the response."
+          value: "uuid,username"
+      schema:
+        type: string
+
+    namespaceUuid:
+      name: namespaceUuid
+      in: "path"
+      description: "UUID of the namespace that should be loaded"
+      required: true
+      schema:
+        type: string
+
+    assetUuid:
+      name: assetUuid
+      in: "path"
+      description: "UUID of the asset"
+      required: true
+      schema:
+        type: string
+
+    userUuid:
+      name: userUuid
+      in: "path"
+      description: "UUID of the user"
+      required: true
+      schema:
+        type: string
+
+    groupUuid:
+      name: groupUuid
+      in: "path"
+      description: "UUID of the group"
+      required: true
+      schema:
+        type: string
+
+    roleUuid:
+      name: roleUuid
+      in: "path"
+      description: "UUID of the role"
+      required: true
+      schema:
+        type: string
+
+    languageUuid:
+      name: languageUuid
+      in: "path"
+      description: "UUID of the language"
+      required: true
+      schema:
+        type: string
+
+    contentUuid:
+      name: contentUuid
+      in: "path"
+      description: "UUID of the content"
+      required: true
+      schema:
+        type: string
+
+    tokenUuid:
+      name: tokenUuid
+      in: "path"
+      description: "UUID of the token"
+      required: true
+      schema:
+        type: string
+
+    modelUuid:
+      name: modelUuid
+      in: "path"
+      description: "UUID of the model"
+      required: true
+      schema:
+        type: string
+
+    tagFamilyUuid:
+      name: tagFamilyUuid
+      in: "path"
+      description: "UUID of the tagFamily"
+      required: true
+      schema:
+        type: string
+
+    tagUuid:
+      name: tagUuid
+      in: "path"
+      description: "UUID of the tag"
+      required: true
+      schema:
+        type: string
+
+    webhookUuid:
+      name: webhookUuid
+      in: "path"
+      description: "UUID of the webhook."
+      required: true
+      schema:
+        type: string
+
+    path:
+      name: path
+      in: "path"
+      description: "Path to the content"
+      required: true
+      schema:
+        type: string
