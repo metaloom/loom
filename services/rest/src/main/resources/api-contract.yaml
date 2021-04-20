@@ -496,7 +496,7 @@ paths:
       operationId: "lookupAsset"
       summary:  "Load the asset with the given uuid."
       responses:
-        '200':
+        '204':
           description: OK
     delete:
       tags: ["Asset"]
@@ -533,6 +533,8 @@ paths:
         '201':
           description: OK
 
+  # TODO maybe drop in favour of a blacklist file?
+  # How should auditing be done?
   /assets/{assetUuid}/blacklist:
     parameters:
       - $ref: "#/components/parameters/assetUuid"
@@ -544,16 +546,19 @@ paths:
           description: OK
     head:
       tags: ["Asset", "Enterprise"]
+      operationId: "checkAssetBlacklist"
       responses:
-        '200':
+        '204':
           description: OK
     post:
       tags: ["Asset", "Enterprise"]
+      operationId: "assetBlacklist"
       responses:
         '204':
           description: OK
     delete:
       tags: ["Asset", "Enterprise"]
+      operationId: "assetWhitelist"
       responses:
         '204':
           description: OK
@@ -727,7 +732,7 @@ paths:
       operationId: "checkModel"
       summary: "Check the model with the given uuid"
       responses:
-        '200':
+        '204':
           description: OK
     get:
       tags: ["Model"]
@@ -853,7 +858,7 @@ paths:
       tags: ["Namespace"]
       operationId: "checkNamespaces"
       responses:
-        '200':
+        '204':
           description: "Namespaces successfully loaded."
 
   # Namespace
@@ -973,14 +978,24 @@ paths:
     summary: "Load tags of the namespace"
     parameters:
       - $ref: '#/components/parameters/namespaceUuid'
-    get:
+    head:
+      tags: ["Tag"]
+      operationId: "checkTags"
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
+      responses:
+        '204':
+          description: "Checked the tags."
+    get:
       tags: ["Tag"]
+      operationId: "loadTags"
+      parameters: 
+        - $ref: "#/components/parameters/perPage"
+        - $ref: "#/components/parameters/page"
       responses:
         '200':
-          description: "Loaded tags of the node"
+          description: "Loaded tags within the namespace"
           content:
             'application/json':
               schema:
@@ -988,6 +1003,53 @@ paths:
               examples:
                 TagsResponse:
                   $ref: '#/components/schemas/TagsResponse/example'
+
+  # Namespace / Tag
+  /namespaces/{namespaceUuid}/tags/{tagUuid}:
+    summary: "Load a tag from the namespace"
+    parameters:
+      - $ref: '#/components/parameters/namespaceUuid'
+      - $ref: '#/components/parameters/tagUuid'
+    head:
+      tags: ["Tag"]
+      operationId: "checkTag"
+      responses:
+        '204':
+          description: "Checked tag."
+    get:
+      operationId: "loadTag"
+      tags: ["Tag"]
+      responses:
+        '200':
+          description: "Loaded tag."
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/TagResponse'
+              examples:
+                TagsResponse:
+                  $ref: '#/components/schemas/TagResponse/example'
+    post:
+      operationId: "updateTag"
+      tags: ["Tag"]
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/TagUpdateRequest"
+            examples:
+              TagUpdateRequest:
+                $ref: "#/components/schemas/TagUpdateRequest/example"
+      responses:
+        '200':
+          description: "Updated tag."
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/TagResponse'
+              examples:
+                TagsResponse:
+                  $ref: '#/components/schemas/TagResponse/example'
 
   # Search  
   /search/sync:
@@ -1285,6 +1347,8 @@ components:
   schemas:
     # User / Response
     UserResponse:
+      allOf:
+        - $ref: "#/components/schemas/EditableElement"
       required:
         - username
       properties:
@@ -1324,6 +1388,14 @@ components:
           birthday: "02-04-1987"
           favoriteColor: "blue"
           securityQuestionAnswer: "42"
+        creator:
+          username: "joedoe"
+          uuid: "eaf23fea-f6b2-46a7-84af-a7335471df5e"
+        editor:
+          username: "joedoe"
+          uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
+        cdate: "2021-03-20T20:12:01.084Z"
+        edate: "2021-03-20T21:12:01.084Z"
 
     # User / List Response
     UsersResponse:
@@ -1386,6 +1458,9 @@ components:
         password:
           type: string
           description: "Plaintext password of the user (Can't be loaded again)."
+        properties:
+          type: object
+          description: "Additional user properties."
       example:
         username: "janedoe"
         email: "janedoe@metaloom.io"
@@ -1459,6 +1534,8 @@ components:
 
     # Group / Response
     GroupResponse: 
+      allOf:
+        - $ref: "#/components/schemas/EditableElement"
       required:
         - uuid
         - name
@@ -1469,9 +1546,20 @@ components:
         name:
           type: string
           description: "Name of the group."
+        properties:
+          type: object
+          description: "Additional group properties."
       example:
         uuid: "44993003-40bd-4757-a7ac-29f6e11fcd00"
         name: "Guests"
+        creator:
+          username: "joedoe"
+          uuid: "eaf23fea-f6b2-46a7-84af-a7335471df5e"
+        editor:
+          username: "joedoe"
+          uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
+        cdate: "2021-03-20T20:12:01.084Z"
+        edate: "2021-03-20T21:12:01.084Z"
 
     # Group / List Response
     GroupsResponse:
@@ -1513,6 +1601,8 @@ components:
 
     # Role / Response
     RoleResponse:
+      allOf:
+        - $ref: "#/components/schemas/EditableElement"
       required:
         - name
         - uuid
@@ -1526,6 +1616,9 @@ components:
         permissions:
           type: array
           description: "List of permissions that are granted by the role."
+        properties:
+          type: object
+          description: "Additional role properties."
       example:
         uuid: "a1f6c35a-2b59-4f7c-83ea-c3a5fd163eaf"
         name: "GuestPermission"
@@ -1573,7 +1666,14 @@ components:
           - "tag_create"
           - "tag_update"
           - "tag_delete"
-
+        creator:
+          username: "joedoe"
+          uuid: "eaf23fea-f6b2-46a7-84af-a7335471df5e"
+        editor:
+          username: "joedoe"
+          uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
+        cdate: "2021-03-20T20:12:01.084Z"
+        edate: "2021-03-20T21:12:01.084Z"
 
     # Role / List Response
     RolesResponse:
@@ -1585,6 +1685,7 @@ components:
           name: "GuestPermissions"
         - uuid: "a5ca4f61-ba05-4bdb-988b-e9ab90bf8877"
           name: "EditorPermissions"
+
 
     # Role / Create Request
     RoleCreateRequest: 
@@ -1599,8 +1700,6 @@ components:
 
     # Role / Update Request
     RoleUpdateRequest: 
-      required:
-        - name
       properties:
         name:
           type: string
@@ -1609,6 +1708,8 @@ components:
 
     # Namespace / Response
     NamespaceResponse:
+      allOf:
+        - $ref: "#/components/schemas/EditableElement"
       required:
         - uuid
         - name
@@ -1619,9 +1720,21 @@ components:
         name:
           type: string
           description: "Name of the namespace."
+        properties:
+          type: object
+          description: "Additional namespace properties."
       example:
         name: "Sol"
         uuid: "5cef456a-50bc-4a5a-ae58-9442821ba58e"
+        creator:
+          username: "joedoe"
+          uuid: "eaf23fea-f6b2-46a7-84af-a7335471df5e"
+        editor:
+          username: "joedoe"
+          uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
+        cdate: "2021-03-20T20:12:01.084Z"
+        edate: "2021-03-20T21:12:01.084Z"
+
 
     # Namespace / List Response
     NamespacesResponse:
@@ -1639,20 +1752,37 @@ components:
       required:
         - name
       properties:
-        model_filters:
-          type: array
-          description: "List of filters which can be used to include or exclude access to models for the namespace. The filter syntax supports regular expressions. Updated filters will not affect already created contents."
         name:
           type: string
           description: "Name of the namespace to be created."
+        pathPrefix:
+          type: string
+#        hostname:
+#          type: string
+#        ssl:
+#          type: boolean
+#          description: "Flag which indicates that the namespace is used in a SSL context"
+        properties:
+          type: object
+          description: "Additional namespace properties."
+        modelFilters:
+          type: array
+          description: "List of filters which can be used to include or exclude access to models for the namespace. The filter syntax supports regular expressions. Updated filters will not affect already created contents."
       example:
         name: "Sol"
-        model_filters:
+ #       hostname: "myhost.tld"
+ #       ssl: true
+        properties:
+          usage: "For my new blog"
+          custom: "Lorem ipsum"
+        modelFilters:
           - "BlogPost.*"
           - "!Vehicle.*"
 
     # Tag
     TagResponse:
+      allOf:
+        - $ref: "#/components/schemas/EditableElement"
       required:
         - uuid
         - name
@@ -1670,10 +1800,43 @@ components:
       example:
         - uuid: "6f9bb8aa-790b-4d0c-8f35-b33d377bbf4a"
           name: "red"
+          creator:
+            username: "joedoe"
+            uuid: "eaf23fea-f6b2-46a7-84af-a7335471df5e"
+          editor:
+            username: "joedoe"
+            uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
+          cdate: "2021-03-20T20:12:01.084Z"
+          edate: "2021-03-20T21:12:01.084Z"
           collection: "Colors"
+
+    TagUpdateRequest:
+      $ref: "#/components/schemas/TagCreateRequest"
+      example:
+        $ref: "#/components/schemas/TagCreateRequest/example"
 
     TagCreateRequest:
       required:
+        - name
+        - collection
+      properties:
+        uuid:
+          type: string
+          description: "UUID of the tag."
+        name:
+          type: string
+          description: "Text value of the tag."
+        collection:
+          type: string
+          description: "Name of the collection to which the tag belongs."
+      example:
+        - uuid: "6f9bb8aa-790b-4d0c-8f35-b33d377bbf4a"
+          name: "red"
+          collection: "Colors"
+
+    TagReference:
+      required:
+        - uuid
         - name
         - collection
       properties:
@@ -1706,6 +1869,8 @@ components:
 
     # Content / Response
     ContentResponse:
+      allOf:
+        - $ref: "#/components/schemas/EditableElement"
       required:
         - uuid
       properties:
@@ -1739,6 +1904,14 @@ components:
           en:
             name: "Latest Post.html"
             header: "Dummy header of the blogpost"
+        creator:
+          username: "joedoe"
+          uuid: "eaf23fea-f6b2-46a7-84af-a7335471df5e"
+        editor:
+          username: "joedoe"
+          uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
+        cdate: "2021-03-20T20:12:01.084Z"
+        edate: "2021-03-20T21:12:01.084Z"
 
     # Content / List Response
     ContentsResponse:
@@ -1753,6 +1926,8 @@ components:
 
     # Model / Response
     ModelResponse:
+      allOf:
+        - $ref: "#/components/schemas/EditableElement"
       required:
         - uuid
         - name
@@ -1792,6 +1967,14 @@ components:
             type: "date"
           - name: "image"
             type: "asset"
+        creator:
+          username: "joedoe"
+          uuid: "eaf23fea-f6b2-46a7-84af-a7335471df5e"
+        editor:
+          username: "joedoe"
+          uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
+        cdate: "2021-03-20T20:12:01.084Z"
+        edate: "2021-03-20T21:12:01.084Z"
 
     # Model / List Response
     ModelsResponse:
@@ -1923,6 +2106,8 @@ components:
 
     # Asset / Response
     AssetResponse:
+      allOf:
+        - $ref: "#/components/schemas/EditableElement"
       required:
         - uuid
       properties:
@@ -1954,6 +2139,14 @@ components:
           lat: 51.48
         meta:
           Author: "Peter Pan"
+        creator:
+          username: "joedoe"
+          uuid: "eaf23fea-f6b2-46a7-84af-a7335471df5e"
+        editor:
+          username: "joedoe"
+          uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
+        cdate: "2021-03-20T20:12:01.084Z"
+        edate: "2021-03-20T21:12:01.084Z"
 
     # Asset / List Response
     AssetsResponse:
@@ -1992,6 +2185,8 @@ components:
 
     # Language / Response
     LanguageResponse:
+      allOf:
+        - $ref: "#/components/schemas/EditableElement"
       required:
         - name
         - nativeName
@@ -2009,6 +2204,15 @@ components:
         name: "en-US"
         nativeName: "English"
         fallback: "en-GB"
+        creator:
+          username: "joedoe"
+          uuid: "eaf23fea-f6b2-46a7-84af-a7335471df5e"
+        editor:
+          username: "joedoe"
+          uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
+        cdate: "2021-03-20T20:12:01.084Z"
+        edate: "2021-03-20T21:12:01.084Z"
+        
 
     LanguageRequest:
       required:
@@ -2130,6 +2334,22 @@ components:
       example:
         url: "http://localhost:8080/trigger_me"
 
+    EditableElement:
+      properties:
+        creator:
+          type: object
+          description: "Reference to the creator of the tag."
+        cdate:
+          type: string
+          description: "Date at which the tag was created."
+        editor:
+          type: object
+          description: "Reference to the editor of the tag."
+        edate:
+          type: string
+          description: "Date at which the tag was last changed."
+
+  # Query Parameters
   parameters:
     perPage:
       name: perPage
