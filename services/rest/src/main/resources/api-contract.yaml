@@ -927,10 +927,11 @@ paths:
     parameters:
       - $ref: '#/components/parameters/namespaceUuid'
     get:
+      tags: ["Content"]
+      operationId: "loadContents"
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["Content"]
       responses:
         '200':
           description: "Loaded contents"
@@ -941,7 +942,28 @@ paths:
               examples:
                 ContentsResponse:
                   $ref: '#/components/schemas/ContentsResponse/example'
-
+    post:
+      tags: ["Content"]
+      operationId: "createContent"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/ContentCreateRequest"
+            examples:
+              ContentCreateRequest:
+                $ref: "#/components/schemas/ContentCreateRequest/example"
+      responses:
+        '201':
+          description: "Content created"
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ContentsResponse'
+              examples:
+                ContentsResponse:
+                  $ref: '#/components/schemas/ContentsResponse/example'
+            
   # Content
   /namespaces/{namespaceUuid}/contents/{contentUuid}:
     summary: "Load content of the namespace"
@@ -1876,17 +1898,30 @@ components:
       properties:
         uuid:
           type: string
-        language:
-          type: string
+          description: "UUID of the content."
         version:
           type: number
+          description: "Current version of the content."
+        model:
+          type: string
+          description: "Name of the model used."
+        parent:
+          type: string
+          description: "UUID of the parent content."
         tags:
           type: array
+          description: "List of tags for the content."
         fields:
           type: object
+          description: "Default and translated content fields."
+        # paths?
+        # segmentField value per language?
       example:
         uuid: "a13d0362-f12c-4cc4-9ec0-430bd607c435"
         version: 2.0
+        model: "BlogPost"
+        parent: "9fce3c06-a497-44d3-b517-0fa3c6849ccb"
+
         # TODO use reference
         tags:
           - red
@@ -1923,6 +1958,41 @@ components:
           name: "test"
         - uuid: "054e4e69-21b2-4662-aacd-2c7ee2d3dff2"
           name: "test2"
+
+    ContentCreateRequest:
+      properties:
+        model:
+          type: string
+          description: "Name of the model to be used for the content"
+        parent:
+          type: string
+          description: "UUID of the parent content."
+        tags:
+          type: array
+          description: "List of tags for the content."
+        fields:
+          type: object
+          description: "Default or language specific fields."
+      example:
+        model: "BlogPost"
+        parent: "9fce3c06-a497-44d3-b517-0fa3c6849ccb"
+        # TODO use reference
+        tags:
+          - red
+          - green
+          - blue
+        fields:
+          default:
+            image:
+              filename: "blume.jpg"
+              width: 200
+              height: 200
+          de:
+            name: "Neuester Beitrag.html"
+            header: "Titel vom Blogpost"
+          en:
+            name: "Latest Post.html"
+            header: "Dummy header of the blogpost"
 
     # Model / Response
     ModelResponse:
@@ -2523,3 +2593,34 @@ components:
       in: header
       name: X-API-Key
 
+
+# Differences:
+# - non-translatable fields
+# - nestable content references to any depth
+# - content models are directly accessible (no need to assign them)
+# - tag families are gone and were replaced by inline properties ('collection')
+# - roles now have dedicated permissions
+# - branches are gone
+# - binary assets are now managed as a dedicated entity
+# - graphql endpoint is globally accessible and no longer scoped for namespaces (for now)
+# - S3 support
+# - webhook support
+# - plugins are gone and are replaced by external extensions
+# - languages can now be managed via REST
+# - search support has been limited to contents (for now)
+# - users can have multiple API tokens
+# - API tokens have dedicated permissions
+# - Full HTTP HEAD support in the API
+# - Direct native keycloak, auth0 support
+# - Support for asset fingerprinting
+# - Support for asset thumbnail generation
+# - Namespaces can now be import / exported
+# - Microschemas are gone since content models can be nested
+# - Users, Groups, Roles, Namespaces can now have arbitrary properties
+
+# Ideas
+# - Auditing
+# - Waste Bin Management
+# - Add nesting flag to models to control depth of allowed nesting? May be confusing when nesting fails due to hard limitation.
+# - Support models for group, roles, user, namespace as well?
+# - Time scheduled publishing?
