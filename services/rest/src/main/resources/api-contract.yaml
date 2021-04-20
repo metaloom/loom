@@ -17,12 +17,17 @@ tags:
   externalDocs:
     description: "Find out more"
     url: "https://metaloom/docs/namespaces"
+
+
+security:
+  - ApiKeyAuth: []
+
 paths:
   # User
   /users:
     summary: "Endpoint to access users."
     head:
-      tags: ["user"]
+      tags: ["User"]
       operationId: "checkUsers"
       responses:
         '204':
@@ -31,7 +36,7 @@ paths:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["user"]
+      tags: ["User"]
       operationId: "loadUsers"
       responses:
         '200':
@@ -44,7 +49,7 @@ paths:
                 UsersResponse:
                   $ref: '#/components/schemas/UsersResponse/example'
     post:
-      tags: ["user"]
+      tags: ["User"]
       operationId: "createUser"
       requestBody:
         description: "Create request for the user"
@@ -72,7 +77,7 @@ paths:
       - $ref: "#/components/parameters/userUuid"
       - $ref: "#/components/parameters/fields"
     get:
-      tags: ["user"]
+      tags: ["User"]
       operationId: "loadUser"
       responses:
         '404':
@@ -100,7 +105,7 @@ paths:
                 UserResponse:
                   $ref: '#/components/schemas/UserResponse/example'
     delete:
-      tags: ["user"]
+      tags: ["User"]
       operationId: "deleteUser"
       responses:
         '204':
@@ -111,7 +116,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/userUuid"
     get:
-      tags: ["user", "content"]
+      tags: ["User", "Content"]
       operationId: "loadUserContents"
       responses:
         '200':
@@ -128,13 +133,13 @@ paths:
     parameters:
       - $ref: "#/components/parameters/userUuid"
     head:
-      tags: ["user", "group"]
+      tags: ["User", "Group"]
       operationId: "checkUserGroups"
       responses:
-        '200':
+        '204':
           description: "Groups checked"
     get:    
-      tags: ["user", "group"]
+      tags: ["User", "Group"]
       operationId: "loadUserGroups"
       responses:
         '200':
@@ -152,13 +157,13 @@ paths:
     parameters:
       - $ref: "#/components/parameters/userUuid"
     head:
-      tags: ["user", "role"]
+      tags: ["User", "Role"]
       operationId: "checkUserRoles"
       responses:
-        '200':
+        '204':
           description: "User roles checked"
     get:
-      tags: ["user", "role"]
+      tags: ["User", "Role"]
       operationId: "loadUserRoles"
       responses:
         '200':
@@ -176,7 +181,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/userUuid"
     head:
-      tags: ["user", "auth"]
+      tags: ["User", "Auth"]
       operationId: "checkedTokens"
       responses:
         '204':
@@ -185,7 +190,7 @@ paths:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["user", "auth"]
+      tags: ["User", "Auth"]
       operationId: "loadTokens"
       responses:
         '200':
@@ -199,7 +204,7 @@ paths:
                   $ref: '#/components/schemas/UserTokensResponse/example'
 
     post:
-      tags: ["user", "auth"]
+      tags: ["User", "Auth"]
       operationId: "createToken"
       requestBody:
         required: true
@@ -219,7 +224,7 @@ paths:
       - $ref: "#/components/parameters/userUuid"
       - $ref: "#/components/parameters/tokenUuid"
     get:
-      tags: ["user", "auth"]
+      tags: ["User", "Auth"]
       operationId: "loadToken"
       responses:
          '200':
@@ -232,7 +237,7 @@ paths:
                   UserTokenResponse:
                     $ref: '#/components/schemas/UserTokenResponse/example'
     delete:
-      tags: ["user", "auth"]
+      tags: ["User", "Auth"]
       operationId: "deleteToken"
       responses:
         '204':
@@ -245,7 +250,7 @@ paths:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["group"]
+      tags: ["Group"]
       operationId: "loadGroups"
       responses:
         '200':
@@ -262,13 +267,13 @@ paths:
     parameters:
       - $ref: "#/components/parameters/groupUuid"
     delete:
-      tags: ["group"]
+      tags: ["Group"]
       operationId: "deleteGroup"
       responses:
         '204':
           description: "Group deleted"
     get:
-      tags: ["group"]
+      tags: ["Group"]
       operationId: "loadGroup"
       responses:
         '200':
@@ -282,13 +287,13 @@ paths:
                   $ref: '#/components/schemas/GroupResponse/example'
 
     head:
-      tags: ["group"]
+      tags: ["Group"]
       operationId: "checkGroup"
       responses:
-        '200':
+        '204':
           description: "Group checked"
     post:
-      tags: ["group"]
+      tags: ["Group"]
       operationId: "updateGroup"
       requestBody:
         required: true
@@ -310,7 +315,7 @@ paths:
                 GroupResponse:
                   $ref: '#/components/schemas/GroupResponse/example'
     put:
-      tags: ["group"]
+      tags: ["Group"]
       operationId: "createGroup"
       responses:
         '200':
@@ -328,7 +333,7 @@ paths:
       - $ref: "#/components/parameters/groupUuid"
     summary: "Load users within the group"
     get:
-      tags: ["group", "user"]
+      tags: ["Group", "User"]
       operationId: "loadUsersFromGroup"
       responses:
         '200':
@@ -346,7 +351,7 @@ paths:
       - $ref: "#/components/parameters/groupUuid"
     summary: "Load roles assigned to the group"
     get:
-      tags: ["group", "role"]
+      tags: ["Group", "Role"]
       operationId: "loadRolesFromGroup"
       responses:
         '200':
@@ -367,7 +372,7 @@ paths:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["role"]
+      tags: ["Role"]
       operationId: "loadRoles"
       responses:
         '200':
@@ -383,13 +388,13 @@ paths:
       - $ref: "#/components/parameters/roleUuid"
     summary: "Endpoint to access roles."
     delete:
-      tags: ["role"]
+      tags: ["Role"]
       operationId: "deleteRole"
       responses:
         '204':
           description: "Role deleted"
     get:
-      tags: ["role"]
+      tags: ["Role"]
       operationId: "loadRole"
       responses:
         '200':
@@ -402,13 +407,13 @@ paths:
                   $ref: "#/components/schemas/RoleResponse/example"
           description: "Role loaded"
     head:
-      tags: ["role"]
+      tags: ["Role"]
       operationId: "checkRole"
       responses:
-        '200':
+        '204':
           description: "Role checked"
     post:
-      tags: ["role"]
+      tags: ["Role"]
       operationId: "updateRole"
       requestBody:
         required: true
@@ -430,7 +435,7 @@ paths:
                 RoleResponse:
                   $ref: "#/components/schemas/RoleResponse/example"
     put:
-      tags: ["role"]
+      tags: ["Role"]
       operationId: "createRole"
       requestBody:
         required: true
@@ -458,7 +463,7 @@ paths:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "loadAssets"
       responses:
         '200':
@@ -471,7 +476,7 @@ paths:
                     $ref: '#/components/schemas/AssetsResponse/example'
           description: "Load assets"
     post:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "createAsset"
       requestBody:
         required: true
@@ -487,28 +492,28 @@ paths:
     parameters:
       - $ref: "#/components/parameters/assetUuid"
     head:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "lookupAsset"
       summary:  "Load the asset with the given uuid."
       responses:
         '200':
           description: OK
     delete:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "deleteAsset"
       summary: "Delete the asset with the given uuid."
       responses:
         '204':
           description: OK
     put:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "updateAsset"
       summary:  "Update the asset with the given uuid."
       responses:
         '200':
           description: OK
     get:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "loadAsset"
       summary: "Load the asset with the given uuid."
       responses:
@@ -519,7 +524,7 @@ paths:
                 $ref: '#/components/schemas/AssetResponse'
           description: OK
     post:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "uploadAsset"
       summary: "Upload a new asset."
       responses:
@@ -533,22 +538,22 @@ paths:
       - $ref: "#/components/parameters/assetUuid"
     summary: "Blacklist the asset"
     get:
-      tags: ["asset"]
+      tags: ["Asset", "Enterprise"]
       responses:
         '200':
           description: OK
     head:
-      tags: ["asset"]
+      tags: ["Asset", "Enterprise"]
       responses:
         '200':
           description: OK
     post:
-      tags: ["asset"]
+      tags: ["Asset", "Enterprise"]
       responses:
         '204':
           description: OK
     delete:
-      tags: ["asset"]
+      tags: ["Asset", "Enterprise"]
       responses:
         '204':
           description: OK
@@ -558,7 +563,7 @@ paths:
       - $ref: "#/components/parameters/assetUuid"
     summary: "Lookup similar assets"
     get:
-      tags: ["asset"]
+      tags: ["Asset", "Enterprise"]
       responses:
         '200':
           description: "Loaded list of similar contents"
@@ -576,7 +581,7 @@ paths:
       - $ref: "#/components/parameters/assetUuid"
     summary: "Load the thumbnails for the asset"
     get:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "assetThumbnails"
       summary: "Load thumbnails for asset"
       responses:
@@ -587,14 +592,14 @@ paths:
     parameters:
       - $ref: "#/components/parameters/assetUuid"
     post:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "publishAsset"
       summary: "Publish the asset"
       responses:
         '200':
           description: OK
     delete:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "unpublishAsset"
       summary: "Unpublish the asset."
       responses:
@@ -605,10 +610,10 @@ paths:
     parameters:
       - $ref: "#/components/parameters/assetUuid"
     get:
+      tags: ["Asset", "Enterprise"]
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["asset"]
       operationId: "loadAssetVersions"
       responses:
         '200':
@@ -619,7 +624,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/assetUuid"
     get:
-      tags: ["asset", "S3"]
+      tags: ["Asset", "S3", "Enterprise"]
       responses:
         '200':
           description: "Return the presigned URL for the asset"
@@ -636,7 +641,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/assetUuid"
     get:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "assetBinary"
       responses:
         '200':
@@ -647,7 +652,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/assetUuid"
     post:
-      tags: ["asset"]
+      tags: ["Asset"]
       operationId: "assetTransform"
       responses:
         '200':
@@ -658,7 +663,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/assetUuid"
     get:
-      tags: ["asset"]
+      tags: ["Asset", "Enterprise"]
       operationId: "assetArchiveStatus"
       responses:
         '200':
@@ -668,7 +673,7 @@ paths:
   # Model  
   /models:
     head:
-      tags: ["model"]
+      tags: ["Model"]
       operationId: "checkModels"
       summary: "Check the model"
       responses:
@@ -678,14 +683,21 @@ paths:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["model"]
+      tags: ["Model"]
       operationId: "loadModels"
       summary: "Load the models"
       responses:
         '200':
           description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ModelsResponse'
+              examples:
+                ModelsResponse:
+                  $ref: '#/components/schemas/ModelsResponse/example'
     post:
-      tags: ["model"]
+      tags: ["Model"]
       operationId: "createModel"
       summary: "Create the model"
       requestBody:
@@ -711,14 +723,14 @@ paths:
     parameters:
       - $ref: "#/components/parameters/modelUuid"
     head:
-      tags: ["model"]
+      tags: ["Model"]
       operationId: "checkModel"
       summary: "Check the model with the given uuid"
       responses:
         '200':
           description: OK
     get:
-      tags: ["model"]
+      tags: ["Model"]
       operationId: "loadModel"
       summary: "Load the model"
       responses:
@@ -732,21 +744,21 @@ paths:
                 ModelResponse:
                   $ref: '#/components/schemas/ModelResponse/example'
     delete:
-      tags: ["model"]
+      tags: ["Model"]
       operationId: "deleteModel"
       summary: "Delete the model"
       responses:
         '204':
           description: OK
     post:
-      tags: ["model"]
+      tags: ["Model"]
       operationId: "updateModel"
       summary: "Update the model"
       responses:
         '200':
           description: OK
 #    put:
-#      tags: ["model"]
+#      tags: ["Model"]
 #      operationId: "updateModel"
 #      summary: "Update the model"
 #      responses:
@@ -760,7 +772,7 @@ paths:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["language"]
+      tags: ["Language"]
       operationId: "loadLanguages"
       responses:
         '200':
@@ -770,7 +782,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/LanguagesResponse'
     post:
-      tags: ["language"]
+      tags: ["Language"]
       responses:
         '200':
           description: "Language updated / created"
@@ -779,7 +791,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/languageUuid"
     get:
-      tags: ["language"]
+      tags: ["Language"]
       operationId: "loadLanguage"
       responses:
         '200':
@@ -795,6 +807,7 @@ paths:
   # Archive
   /archive:
     summary: "Endpoint to access the archive."
+    # "Enterprise"
   
   # Namespace
   /namespaces:
@@ -802,7 +815,7 @@ paths:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["namespace"]
+      tags: ["Namespace"]
       responses:
         '200':
           description: "Loaded a namespace list"
@@ -814,7 +827,7 @@ paths:
                 NamespacesResponse:
                   $ref: '#/components/schemas/NamespacesResponse/example'
     post:
-      tags: ["namespace"]
+      tags: ["Namespace"]
       operationId: "createNamespace"
       requestBody:
         required: true
@@ -837,7 +850,7 @@ paths:
                 NamespacesResponse:
                   $ref: '#/components/schemas/NamespacesResponse/example'
     head:
-      tags: ["namespace"]
+      tags: ["Namespace"]
       operationId: "checkNamespaces"
       responses:
         '200':
@@ -848,7 +861,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/namespaceUuid'
     get:
-      tags: ["namespace"]
+      tags: ["Namespace"]
       operationId: "loadNamespace"
       description: "Load a namespaces with the given uuid."
       summary:  "The summary"
@@ -856,7 +869,7 @@ paths:
         '200':
           description: "Namespaces successfully loaded."
     post:
-      tags: ["namespace"]
+      tags: ["Namespace"]
       operationId: "updateNamespace"
       description: "Update a namespace with the given uuid."
       responses:
@@ -868,6 +881,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/namespaceUuid'
     get:
+      tags: ["Namespace", "Enterprise"]
       responses:
         '200':
           description: "Export the namespace."
@@ -877,6 +891,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/namespaceUuid'
     post:
+      tags: ["Namespace", "Enterprise"]
       responses:
         '200':
           description: "Invoke the import of the namespace"
@@ -888,7 +903,7 @@ paths:
       - $ref: '#/components/parameters/namespaceUuid'
       - $ref: '#/components/parameters/path'
     get:
-      tags: ["namespace"]
+      tags: ["Namespace", "Content"]
       operationId: "loadByWebrootPath"
       responses:
         '200':
@@ -910,7 +925,7 @@ paths:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["content"]
+      tags: ["Content"]
       responses:
         '200':
           description: "Loaded contents"
@@ -922,13 +937,14 @@ paths:
                 ContentsResponse:
                   $ref: '#/components/schemas/ContentsResponse/example'
 
+  # Content
   /namespaces/{namespaceUuid}/contents/{contentUuid}:
     summary: "Load content of the namespace"
     parameters:
       - $ref: "#/components/parameters/namespaceUuid"
       - $ref: "#/components/parameters/contentUuid"
     get:
-      tags: ["content"]
+      tags: ["Content"]
       operationId: "Load the content"
       responses:
         '200':
@@ -941,46 +957,16 @@ paths:
                 ContentResponse:
                   $ref: '#/components/schemas/ContentResponse/example'
 
-  /namespaces/{namespaceUuid}/content/{contentUuid}/tags:
-    summary: "Load the tags of the content"
+  # Content Versioning
+  #/namespaces/{namespaceUuid}/contents/{contentUuid}/versions:
+  #/namespaces/{namespaceUuid}/contents/{contentUuid}/versions/{version}:
+
+  # Content / Children
+  /namespaces/{namespaceUuid}/contents/{contentUuid}/children:
+    summary: "Load the children of the contents"
     parameters:
       - $ref: "#/components/parameters/namespaceUuid"
       - $ref: "#/components/parameters/contentUuid"
-    get:
-      parameters: 
-        - $ref: "#/components/parameters/perPage"
-        - $ref: "#/components/parameters/page"
-      tags: ["tag"]
-      responses:
-        '200':
-          description: "Loaded tags of the node"
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/TagsResponse'
-              examples:
-                TagsResponse:
-                  $ref: '#/components/schemas/TagsResponse/example'
-
-
-  /namespaces/{namespaceUuid}/content/{contentUuid}/tags/{tagUuid}:
-    summary: "Load the tag of the content"
-    parameters:
-      - $ref: '#/components/parameters/namespaceUuid'
-      - $ref: '#/components/parameters/contentUuid'
-      - $ref: '#/components/parameters/tagUuid'
-    get:
-      tags: ["tag"]
-      responses:
-        '200':
-          description: "Loaded tags of the node"
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/TagsResponse'
-              examples:
-                TagsResponse:
-                  $ref: '#/components/schemas/TagsResponse/example'
 
   # Namespace / Tags
   /namespaces/{namespaceUuid}/tags:
@@ -991,7 +977,7 @@ paths:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["tag"]
+      tags: ["Tag"]
       responses:
         '200':
           description: "Loaded tags of the node"
@@ -1003,54 +989,46 @@ paths:
                 TagsResponse:
                   $ref: '#/components/schemas/TagsResponse/example'
 
-  # Namespace / TagFamilies
-  /namespaces/{namespaceUuid}/tagFamilies:
-    summary: "Load the tagfamily of the namespace"
-    parameters:
-      - $ref: "#/components/parameters/namespaceUuid"
-    get:
-      parameters: 
-        - $ref: "#/components/parameters/perPage"
-        - $ref: "#/components/parameters/page"
-      tags: ["tagFamily"]
-      responses:
-        '200':
-          description: "Loaded tagfamilies"
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/TagFamiliesResponse'
-              examples:
-                TagFamiliesResponse:
-                  $ref: '#/components/schemas/TagFamiliesResponse/example'
-
-  # Namespace / TagFamilies / Tags
-  /namespaces/{namespaceUuid}/tagFamilies/{tagFamilyUuid}/tags:
-    summary: "Load the tag of the tagfamily"
-    parameters:
-      - $ref: "#/components/parameters/namespaceUuid"
-      - $ref: "#/components/parameters/tagFamilyUuid"
-    get:
-      parameters: 
-        - $ref: "#/components/parameters/perPage"
-        - $ref: "#/components/parameters/page"
-      tags: ["tag"]
-      responses:
-        '200':
-          description: "Tag successfully loaded."
-          content:
-            'application/json':
-              schema:
-                $ref: "#/components/schemas/TagsResponse"
-              example:
-                TagsResponse:
-                  $ref: "#/components/schemas/TagsResponse/example"
-
   # Search  
-  /search:
-    summary: "Search endpoint"
+  /search/sync:
+    get:
+      tags: ["Search"]
+      description: "Return the search sync process status."
+      operationId: "searchGetSync"
+      responses:
+        '200':
+          content:
+            'application/json':
+              schema:
+                type: "string"
+              example: "test"
+          description: OK
     post:
-      tags: ["search"]
+      tags: ["Search"]
+      description: "Invoke the search sync process."
+      operationId: "searchTriggerSync"
+      responses:
+        '200':
+          content:
+            'application/json':
+              schema:
+                type: "string"
+              example: "test"
+          description: OK
+
+  # Search Contents
+  /search/contents:
+    summary: "Search content endpoint"
+    post:
+      parameters:
+        - $ref: "#/components/parameters/searchRaw"
+      tags: ["Search", "Enterprise"]
+      operationId: "searchContents"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/SearchRequest"
       responses:
         '200':
           content:
@@ -1063,7 +1041,7 @@ paths:
   # GraphQL
   /graphql:
     post:
-      tags: ["graphql"]
+      tags: ["GraphQL"]
       operationId: "graphql"
       responses:
         '200':
@@ -1072,7 +1050,7 @@ paths:
   # Admin
   /admin/consistency/check:
     post:
-      tags: ["admin"]
+      tags: ["Admin"]
       operationId: "consistencyCheck"
       responses:
         '200':
@@ -1080,7 +1058,7 @@ paths:
 
   /admin/consistency/repair:
     post:
-      tags: ["admin"]
+      tags: ["Admin"]
       operationId: "consistencyRepair"
       responses:
         '200':
@@ -1088,7 +1066,7 @@ paths:
 
   /admin/assets/status:
     get:
-      tags: ["admin", "asset"]
+      tags: ["Admin", "Asset"]
       description: "Return the asset status which includes the processing status."
       operationId: "assetStatus"
       responses:
@@ -1097,17 +1075,23 @@ paths:
 
   /admin/assets/process:
     post:
-      tags: ["admin", "asset"]
+      tags: ["Admin", "Asset"]
       description: "Invoke the asset processing which will extract thumbnails and prepare the fingerprint database."
       operationId: "processAssets"
       responses:
         '200':
           description: OK
 
+
+  #/admin/cluster/status
+  #/admin/shutdown
+
   # Auth
   /auth/login:
     post:
-      tags: ["auth"]
+      security:
+       - BasicAuth: []
+      tags: ["Auth"]
       requestBody:
         content:
           'application/json':
@@ -1122,14 +1106,14 @@ paths:
           description: "User logged in"
   /auth/logout:
     post:
-      tags: ["auth"]
+      tags: ["Auth"]
       operationId: "authLogout"
       responses:
         '200':
           description: "User logged out"
   /auth/me:
     get:
-      tags: ["auth", "user"]
+      tags: ["Auth", "User"]
       operationId: "authMe"
       responses:
         '200':
@@ -1142,12 +1126,16 @@ paths:
                   UserResponse:
                     $ref: "#/components/schemas/UserResponse/example"
 
+  /eventbus:
+    #tags: ["Eventbus", "Enterprise"]
+    description: "Eventbus bridge endpoint."
+
   /webhooks:
     get:
       parameters: 
         - $ref: "#/components/parameters/perPage"
         - $ref: "#/components/parameters/page"
-      tags: ["webhook"]
+      tags: ["Webhook"]
       operationId: "loadWebhooks"
       responses:
         '200':
@@ -1160,23 +1148,77 @@ paths:
                   WebhooksResponse:
                     $ref: "#/components/schemas/WebhooksResponse/example"
     head:
-      tags: ["webhook"]
+      tags: ["Webhook"]
       operationId: "checkWebhooks"
       responses:
         '204':
           description: "Checked webhooks"
     post:
-      tags: ["webhook"]
+      tags: ["Webhook"]
       operationId: "createWebhooks"
       responses:
         '201':
           description: "Webhook created"
 
+  /extensions/{extensionUuid}:
+    parameters:
+      - $ref: "#/components/parameters/extensionUuid"
+    head:
+      tags: ["Extension", "Enterprise"]
+      operationId: "checkExtension"
+      responses:
+        '204':
+          description: "Extension checked"
+    delete:
+      tags: ["Extension", "Enterprise"]
+      operationId: "deleteExtension"
+      responses:
+        '204':
+          description: "Extension deleted"
+    post:
+      tags: ["Extension", "Enterprise"]
+      operationId: "updateExtension"
+      responses:
+        '200':
+          description: "Extension updated"
+    get:
+      tags: ["Extension", "Enterprise"]
+      operationId: "loadExtension"
+      responses:
+        '200':
+          description: "Extension found"
+          content:
+            'application/json':
+                schema:
+                  $ref: "#/components/schemas/ExtensionResponse"
+                examples:
+                  ExtensionResponse:
+                    $ref: "#/components/schemas/ExtensionResponse/example"
+        '404':
+          description: "Extension not found"
+
+  /extensions/{extensionUuid}/test:
+    parameters:
+      - $ref: "#/components/parameters/extensionUuid"
+    post:
+      tags: ["Extension", "Enterprise"]
+      operationId: "testExtension"
+      responses:
+        '200':
+          description: "Invoke the extension test"
+          content:
+            'application/json':
+                schema:
+                  $ref: "#/components/schemas/ExtensionTestResponse"
+                examples:
+                  ExtensionResponse:
+                    $ref: "#/components/schemas/ExtensionTestResponse/example"
+
   /webhooks/{webhookUuid}:
     parameters:
       - $ref: "#/components/parameters/webhookUuid"
     head:
-      tags: ["webhook"]
+      tags: ["Webhook"]
       operationId: "checkWebhook"
       responses:
         '204':
@@ -1184,7 +1226,7 @@ paths:
         '404':
           description: "Webhook not found."
     get:
-      tags: ["webhook"]
+      tags: ["Webhook"]
       operationId: "loadWebhook"
       responses:
         '200':
@@ -1197,7 +1239,7 @@ paths:
                   WebhooksResponse:
                     $ref: "#/components/schemas/WebhookResponse/example"
     post:
-      tags: ["webhook"]
+      tags: ["Webhook"]
       operationId: "createWebhook"
       requestBody:
         content:
@@ -1212,7 +1254,7 @@ paths:
         '201':
           description: "Webhook created"
     delete:
-      tags: ["webhook"]
+      tags: ["Webhook"]
       operationId: "deleteWebhook"
       responses:
         '204':
@@ -1248,20 +1290,28 @@ components:
       properties:
         uuid:
           type: string
+          description: "UUID of the user."
         username:
           type: string
+          description: "Username of the user."
         firstname:
           type: string
+          description: "Firstname of the user."
         lastname:
           type: string
+          description: "Lastname of the user."
         email:
           type: string
+          description: "E-Mail address of the user."
         enabled:
           type: boolean
+          description: "Flag which indicates that the user is enabled."
         admin:
           type: boolean
+          description: "Flag which indicates that the user has admin permissions."
         properties:
           type: object
+          description: "Additional user properties."
       example:
         uuid: "217f8c981ada4642bf8c981adaa642c3"
         username: "joedoe"
@@ -1285,14 +1335,14 @@ components:
               description: "Current number of the returned page."
               type: number
             count: 
+              type: number
               description: "Return the total count of returned items."
-              type: number
             perPage:
+              type: number
               description: "Return the used perPage value that was used when requesting the data."
-              type: number
             pageCount:
-              description: "Return tht total amount of found pages with data the user can request."
               type: number
+              description: "Return tht total amount of found pages with data the user can request."
         items:
           type: array
           description: "Retrieved items."
@@ -1323,14 +1373,19 @@ components:
       properties:
         username:
           type: string
+          description: "Username of the user which is used for login."
         firstName:
           type: string
+          description: "Firstname of the user."
         lastName:
           type: string
+          description: "Lastname of the user."
         email:
           type: string
+          description: "E-Mail address of the user."
         password:
           type: string
+          description: "Plaintext password of the user (Can't be loaded again)."
       example:
         username: "janedoe"
         email: "janedoe@metaloom.io"
@@ -1359,8 +1414,10 @@ components:
       properties:
         permissions:
           type: array
+          description: "List of permissions which are granted for the token."
         note:
           type: string
+          description: "Descriptive note for the token."
       example:
         note: "Deployment Token"
         permissions:
@@ -1374,14 +1431,14 @@ components:
         - token
       properties:
         uuid:
+          type: string
           description: "UUID of the generated token."
-          type: string
         note:
+          type: string
           description: "Note that was entered during the creation of the token."
-          type: string
         token:
-          description: "Token to be used to authenticate against the API"
           type: string
+          description: "Token to be used to authenticate against the API"
         permissions:
           type: array
       example:
@@ -1408,8 +1465,10 @@ components:
       properties:
         uuid:
           type: string
+          description: "UUID of the group."
         name:
           type: string
+          description: "Name of the group."
       example:
         uuid: "44993003-40bd-4757-a7ac-29f6e11fcd00"
         name: "Guests"
@@ -1432,6 +1491,7 @@ components:
       properties:
         name:
           type: string
+          description: "Name of the group."
       example:
         name: "Guests"
 
@@ -1443,8 +1503,10 @@ components:
       properties:
         uuid:
           type: string
+          description: "UUID of the group."
         name:
           type: string
+          description: "Name of the referenced group."
       example:
         uuid: "5cef456a-50bc-4a5a-ae58-9442821ba58e"
         name: "Guests"
@@ -1457,11 +1519,61 @@ components:
       properties:
         uuid:
           type: string
+          description: "UUID of the role."
         name:
           type: string
+          description: "Name of the role."
+        permissions:
+          type: array
+          description: "List of permissions that are granted by the role."
       example:
         uuid: "a1f6c35a-2b59-4f7c-83ea-c3a5fd163eaf"
         name: "GuestPermission"
+        permissions:
+          
+          - "project_read"
+          - "project_create"
+          - "project_update"
+          - "project_delete"
+          
+          - "namespace_read"
+          - "namespace_create"
+          - "namespace_update"
+          - "namespace_delete"
+
+          - "content_read"
+          - "content_create"
+          - "content_update"
+          - "content_delete"
+          - "content_upload"
+          - "content_download"
+
+          - "eventbus_node"
+          - "eventbus_project"
+          - "eventbus_group"
+          - "eventbus_user"
+          - "eventbus_role"
+
+          - "group_read"
+          - "group_create"
+          - "group_update"
+          - "group_delete"
+
+          - "role_read"
+          - "role_create"
+          - "role_update"
+          - "role_delete"
+
+          - "user_read"
+          - "user_create"
+          - "user_update"
+          - "user_delete"
+
+          - "tag_read"
+          - "tag_create"
+          - "tag_update"
+          - "tag_delete"
+
 
     # Role / List Response
     RolesResponse:
@@ -1481,6 +1593,7 @@ components:
       properties:
         name:
           type: string
+          description: "Name of the role."
       example:
         name: "GuestPermissions"
 
@@ -1502,8 +1615,10 @@ components:
       properties:
         uuid:
           type: string
+          description: "UUID of the namespace."
         name:
           type: string
+          description: "Name of the namespace."
       example:
         name: "Sol"
         uuid: "5cef456a-50bc-4a5a-ae58-9442821ba58e"
@@ -1524,24 +1639,57 @@ components:
       required:
         - name
       properties:
+        model_filters:
+          type: array
+          description: "List of filters which can be used to include or exclude access to models for the namespace. The filter syntax supports regular expressions. Updated filters will not affect already created contents."
         name:
           type: string
+          description: "Name of the namespace to be created."
       example:
         name: "Sol"
+        model_filters:
+          - "BlogPost.*"
+          - "!Vehicle.*"
 
     # Tag
     TagResponse:
       required:
         - uuid
         - name
+        - collection
       properties:
         uuid:
           type: string
+          description: "UUID of the tag."
         name:
           type: string
+          description: "Text value of the tag."
+        collection:
+          type: string
+          description: "Name of the collection to which the tag belongs."
       example:
         - uuid: "6f9bb8aa-790b-4d0c-8f35-b33d377bbf4a"
           name: "red"
+          collection: "Colors"
+
+    TagCreateRequest:
+      required:
+        - name
+        - collection
+      properties:
+        uuid:
+          type: string
+          description: "UUID of the tag."
+        name:
+          type: string
+          description: "Text value of the tag."
+        collection:
+          type: string
+          description: "Name of the collection to which the tag belongs."
+      example:
+        - uuid: "6f9bb8aa-790b-4d0c-8f35-b33d377bbf4a"
+          name: "red"
+          collection: "Colors"
 
     # Tag / List Response
     TagsResponse:
@@ -1551,33 +1699,10 @@ components:
       example:
         - uuid: "6f9bb8aa-790b-4d0c-8f35-b33d377bbf4a"
           name: "red"
+          collection: "Colors"
         - uuid: "9f8c7f53-ae3b-4cb8-9248-b35b7f0dabd0"
           name: "blue"
-
-    # TagFamily
-    TagFamilyResponse:
-      required:
-        - uuid
-        - name
-      properties:
-        uuid:
-          type: string
-        name:
-          type: string
-      example:
-        - uuid: "a0cd6d95-22be-4a09-8d12-50b141f3b49a"
-          name: "Colors"
-    
-    TagFamiliesResponse:
-      type: array
-      items:
-        $ref: "#/components/schemas/TagFamilyResponse"
-      example:
-        items:
-          - uuid: "a0cd6d95-22be-4a09-8d12-50b141f3b49a"
-            name: "Colors"
-          - uuid: "d0eb0c6f-bd1a-4a9b-a71d-fa430645db33"
-            name: "Fuels"
+          collection: "Colors"
 
     # Content / Response
     ContentResponse:
@@ -1588,19 +1713,32 @@ components:
           type: string
         language:
           type: string
+        version:
+          type: number
+        tags:
+          type: array
         fields:
           type: object
       example:
-        name: "BlogPost"
         uuid: "a13d0362-f12c-4cc4-9ec0-430bd607c435"
-        language: "en"
+        version: 2.0
+        # TODO use reference
+        tags:
+          - red
+          - green
+          - blue
         fields:
-          name: "Latest Post.html"
-          header: "Dummy header of the blogpost"
-          image:
-            filename: "blume.jpg"
-            width: 200
-            height: 200
+          default:
+            image:
+              filename: "blume.jpg"
+              width: 200
+              height: 200
+          de:
+            name: "Neuester Beitrag.html"
+            header: "Titel vom Blogpost"
+          en:
+            name: "Latest Post.html"
+            header: "Dummy header of the blogpost"
 
     # Content / List Response
     ContentsResponse:
@@ -1621,14 +1759,26 @@ components:
       properties:
         uuid:
           type: string
+          description: "UUID of the model."
         name:
           type: string
+          description: "Name of the model."
+        extends:
+          type: string
+          description: "Model from which fields and additional properties will be inherited."
+        description:
+          type: string
+          description: "Description of the model."
         fields:
           type: array
+          description: "Fields which are included in the model."
+        searchable:
+          type: boolean
+          description: "Flag which indicates whether the contents of this model should be searchable."
       example:
         uuid: "6a954931-b51e-4950-bbc2-df2a77368c22"
         name: "BlogPost"
-        parent: "Post"
+        extends: "Post"
         language: "en_US"
         segmentField: "name"
         fields:
@@ -1642,6 +1792,18 @@ components:
             type: "date"
           - name: "image"
             type: "asset"
+
+    # Model / List Response
+    ModelsResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/ModelResponse"
+      example:
+        - uuid: "4fbe29c9-c69a-4572-85e4-19bc433c6cf7"
+          name: "Vehicle"
+        - uuid: "054e4e69-21b2-4662-aacd-2c7ee2d3dff2"
+          name: "Blogpost"
+
  
     # Model / Create Request
     ModelCreateRequest:
@@ -1650,32 +1812,84 @@ components:
       properties:
           name:
             type: string
-          parent:
+            description: "Name of the model."
+          #languages:
+          #  type: array
+          #  description: "List of allowed languages for the contents of this model."  
+          extends:
             type: string
+            description: "Model from which fields and additional properties will be inherited."
           segmentField:
             type: string
+            description: "Reference to the field which will be used for webroot segments in contents."
           fields:
             type: array
             properties:
               name:
                 type: string
+                description: "Name of the field."
               type:
                 type: string
+                description: "Type of the field."
+              index:
+                type: boolean
+                description: "Whether or not to include the field in the search index."
+                default: true
+              i18n:
+                type: boolean
+                description: "Flag which indicates whether the field should be translatable."
+                default: true
       example:
         name: "BlogPost"
-        parent: "Post"
+        extends: "Post"
         segmentField: "name"
+        #languages: ["en", "de"]
         fields:
+          # Text
           - name: "name"
             type: "text"
+            required: true
+            i18n: true
+            index: true
           - name: "header"
             type: "text"
+            required: true
+            i18n: true
+            index: true
+          # HTML
           - name: "footer"
             type: "html"
+            required: true
+            i18n: true
+            index: true
+          # Date
           - name: "customDate"
             type: "date"
+            required: false
+            i18n: false
+            index: false
+          # Asset
           - name: "image"
             type: "asset"
+            required: true
+            i18n: false
+            index: false
+          # Content
+          - name: "category"
+            type: "content"
+            required: false
+            i18n: false
+            index: false
+            allow: ["BlogPost"]
+          # List - Content
+          - name: "categoryList"
+            type: "list"
+            listType: "content"
+            required: false
+            i18n: false
+            index: false
+            allow: ["BlogPost"]
+
 
     # Auth / Login
     AuthLoginRequest:
@@ -1685,11 +1899,27 @@ components:
       properties:
         username:
           type: string
+          description: "Username of the user which needs to login."
         password:
           type: string
+          description: "Plaintext password for the login."
       example:
         - username: "joedoe"
           password: "jei0xoohiedip0Cuphei"
+
+    SearchRequest:
+      properties:
+        from:
+          type: string
+      example: [
+        {
+          "query": {
+            "query_string": {
+              "query":"some name"
+            }
+          }
+        }
+      ]
 
     # Asset / Response
     AssetResponse:
@@ -1698,13 +1928,32 @@ components:
       properties:
         filename:
           type: string
+          description: "Filename of the asset."
         size:
           type: number
+          description: "Size of the asset binary in bytes."
         mimeType:
           type: string
+          description: "MimeType of the asset."
+        meta:
+          type: object
+          description: "Metadata for the asset."
+        dominantColor:
+          type: string
+          description: "Color tag of the dominant color of the picture. (Only applies to images)"
+        location:
+          type: object
+          description: "Longitude and latitude information of the asset. (e.g. extracted Photo GPS information)"
       example:
         uuid: "842fea91-4216-4643-ab6c-ae72d9efcc09"
-        name: "test"
+        name: "test.mp4"
+        mimeType: "video/mp4"
+        dominantColor: "#6495ED"
+        location:
+          lon: 0
+          lat: 51.48
+        meta:
+          Author: "Peter Pan"
 
     # Asset / List Response
     AssetsResponse:
@@ -1719,11 +1968,14 @@ components:
     AssetSimilarResponse:
       type: array
       items:
+        description: "List of found assets which are similar to the given asset."
         properties:
           uuid:
             type: string
+            description: "UUID of the found asset."
           factor:
             type: number
+            description: "Similarity factor for the found asset."
       example:
         - uuid: "842fea91-4216-4643-ab6c-ae72d9efcc09"
           factor: 0.99
@@ -1746,14 +1998,18 @@ components:
       properties:
         name:
           type: string
+          description: "IETF language tag of the language"
         nativeName:
           type: string
+          description: "Native name of the language."
         fallback:
           type: string
+          description: "Optionally defined fallback for the language."
       example:
-        name: "de_DE"
-        nativeName: "Deutsch"
-        fallback: "en_GB"
+        name: "en-US"
+        nativeName: "English"
+        fallback: "en-GB"
+
     LanguageRequest:
       required:
         - name
@@ -1761,10 +2017,13 @@ components:
       properties:
         name:
           type: string
+          description: "IETF language tag of the language"
         nativeName:
           type: string
+          description: "Native name of the language."
         fallback:
           type: string
+          description: "Optionally defined fallback for the language."
 
     # Language / List Response
     LanguagesResponse:
@@ -1773,12 +2032,12 @@ components:
         $ref: "#/components/schemas/LanguageResponse"
       example:
         items:
-          - name: "de_DE"
+          - name: "de"
             nativeName: "Deutsch"
-            fallback: "en_GB"
-          - name: "en_GB"
+            fallback: "en-GB"
+          - name: "en-GB"
             nativeName: "English"
-            fallback: "en_US"
+            fallback: "en-US"
 
     # Errors
     ErrorMissingPerm:
@@ -1788,12 +2047,53 @@ components:
       properties:
         message:
           type: string
+          description: "Error message."
         code:
           type: string
+          description: "Error code."
       example:
         code: "TBD"      
         message: "TBD"
 
+    # Extensions
+    ExtensionResponse:
+      required:
+        - "uuid"
+        - "kind"
+        - "url"
+        - "status"
+      properties:
+        uuid:
+          type: string
+        kind:
+          type: string
+        url:
+          type: string
+        status:
+          type: string
+      example:
+        uuid: "c01cc788-3b03-456b-bc87-c11ea6176b13"
+        kind: "asset_processor"
+        url: "http://loom-extensions/asset_processor"
+        status: "OK"
+
+    ExtensionTestResponse:
+      properties:
+        result:
+          type: string
+          description: "The extension test result."
+        duration:
+          type: number
+          description: "The duration of the test in milliseconds."
+        info:
+          type: string
+          description: "The test response information. This contains debug information on test failures."
+      example:
+        result: "PASSED"
+        duration: 251
+        info: "DEBUG: Asset was processed in 100ms."
+
+    # Webhook
     WebhookResponse:
       required:
         - uuid
@@ -1801,8 +2101,10 @@ components:
       properties:
         uuid:
           type: string
+          description: "UUID of the webhook"
         url:
           type: string
+          description: "Registered webhook URL"
       example:
         uuid: "7b57bbf1-b4cf-4df6-936a-ae1de2756cb3"
         url: "http://localhost:8080/trigger_me"
@@ -1821,8 +2123,10 @@ components:
       required:
         - url
       properties:
+        # TODO add events
         url:
           type: string
+          description: "URL for the webhook"
       example:
         url: "http://localhost:8080/trigger_me"
 
@@ -1857,7 +2161,7 @@ components:
     fields:  
       name: fields
       in: "query"
-      description: "Parameter to control the returned fields"
+      description: "Parameter to control the returned fields."
       required: false
       examples:
         onlyUuid:
@@ -1869,6 +2173,19 @@ components:
       schema:
         type: string
 
+    searchRaw:
+      name: searchRaw
+      in: "query"
+      description: "Parameter to control whether a raw search request should be performed."
+      required: false
+      example:
+        rawSearch:
+          summary: "Enables raw search which will enable the endpoint to accept full Elasticsearch queries."
+          value: "true"
+      schema:
+        type: boolean
+
+    # Parameters - Path
     namespaceUuid:
       name: namespaceUuid
       in: "path"
@@ -1941,18 +2258,18 @@ components:
       schema:
         type: string
 
-    tagFamilyUuid:
-      name: tagFamilyUuid
-      in: "path"
-      description: "UUID of the tagFamily"
-      required: true
-      schema:
-        type: string
-
     tagUuid:
       name: tagUuid
       in: "path"
       description: "UUID of the tag"
+      required: true
+      schema:
+        type: string
+
+    extensionUuid:
+      name: extensionUuid
+      in: "path"
+      description: "UUID of the extension."
       required: true
       schema:
         type: string
@@ -1972,3 +2289,17 @@ components:
       required: true
       schema:
         type: string
+
+  # Security
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
