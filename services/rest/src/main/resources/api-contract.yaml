@@ -662,13 +662,21 @@ paths:
         '200':
           description: OK
 
-  /assets/{assetUuid}/transform:
-    summary: "Transform the asset"
+  /assets/{assetUuid}/operations/resize:
+    summary: "Invoke the resize operation on the asset. The original asset will be replaced by the result of the resize operation."
     parameters:
       - $ref: "#/components/parameters/assetUuid"
     post:
       tags: ["Asset"]
       operationId: "assetTransform"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/AssetResizeRequest"
+            examples:
+              AssetResizeRequest:
+                $ref: "#/components/schemas/AssetResizeRequest/example"
       responses:
         '200':
           description: OK
@@ -679,6 +687,7 @@ paths:
       - $ref: "#/components/parameters/assetUuid"
     get:
       tags: ["Asset", "Enterprise"]
+      description: "Return the asset archive"
       operationId: "assetArchiveStatus"
       responses:
         '200':
@@ -1110,9 +1119,32 @@ paths:
               example: "test"
           description: OK
 
+  # Search Assets
+  /search/assets:
+    summary: "Search assets"
+    post:
+      parameters:
+        - $ref: "#/components/parameters/searchRaw"
+      tags: ["Search", "Enterprise"]
+      operationId: "searchAssets"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/SearchRequest"
+      responses:
+        '200':
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/AssetsResponse"
+              example:
+                $ref: "#/components/schemas/AssetsResponse/example"
+          description: OK
+
   # Search Contents
   /search/contents:
-    summary: "Search content endpoint"
+    summary: "Search contents"
     post:
       parameters:
         - $ref: "#/components/parameters/searchRaw"
@@ -1128,8 +1160,9 @@ paths:
           content:
             'application/json':
               schema:
-                type: "string"
-              example: "test"
+                $ref: "#/components/schemas/ContentsResponse"
+              example:
+                $ref: "#/components/schemas/ContentsResponse/example"
           description: OK
  
   # GraphQL
@@ -1148,15 +1181,23 @@ paths:
       operationId: "consistencyCheck"
       responses:
         '200':
-          description: OK
+          description: "Consistency check performed"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/ConsistencyCheckResponse"
+              examples:
+                ConsistencyCheckResponse:
+                  $ref: "#/components/schemas/ConsistencyCheckResponse/example"
 
+  # TODO Combine with check?
   /admin/consistency/repair:
     post:
       tags: ["Admin"]
       operationId: "consistencyRepair"
       responses:
         '200':
-          description: OK
+          description: "Consistency repair invoked"
 
   /admin/assets/status:
     get:
@@ -1166,6 +1207,14 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/AssetStatusResponse"
+              examples:
+                AssetStatusResponse:
+                  $ref: "#/components/schemas/AssetStatusResponse/example"
+              
 
   /admin/assets/process:
     post:
@@ -1174,8 +1223,14 @@ paths:
       operationId: "processAssets"
       responses:
         '200':
-          description: OK
-
+          description: "Asset process invoked"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/AssetProcessResponse"
+              examples:
+                AssetProcessResponse:
+                  $ref: "#/components/schemas/AssetProcessResponse/example"
 
   #/admin/cluster/status
   #/admin/shutdown
@@ -1250,9 +1305,69 @@ paths:
     post:
       tags: ["Webhook"]
       operationId: "createWebhooks"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/WebhookCreateRequest"
+            examples:
+              WebhookCreateRequest:
+                $ref: "#/components/schemas/WebhookCreateRequest/example"
       responses:
         '201':
           description: "Webhook created"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/WebhookResponse"
+              examples:
+                WebhookResponse:
+                  $ref: "#/components/schemas/WebhookResponse/example"
+
+  /extensions:
+    head:
+      tags: ["Extension", "Enterprise"]
+      description: "Check extensions"
+      operationId: "checkExtensions"
+      responses:
+        '204':
+          description: "Extensions checked"
+    post:
+      tags: ["Extension", "Enterprise"]
+      description: "Create a new extension"
+      operationId: "createExtension"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/ExtensionCreateRequest"
+            examples:
+              ExtensionCreateRequest:
+                $ref: "#/components/schemas/ExtensionCreateRequest/example"
+      responses:
+        '201':
+          description: "Extension created"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/ExtensionResponse"
+              examples:
+                ExtensionResponse:
+                  $ref: "#/components/schemas/ExtensionResponse/example"
+    get:
+      tags: ["Extension", "Enterprise"]
+      description: "Load extensions"
+      operationId: "loadExtensions"
+      responses:
+        '200':
+          description: "Extensions loaded"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/ExtensionsResponse"
+              examples:
+                ExtensionsResponse:
+                  $ref: "#/components/schemas/ExtensionsResponse/example"
 
   /extensions/{extensionUuid}:
     parameters:
@@ -1272,9 +1387,25 @@ paths:
     post:
       tags: ["Extension", "Enterprise"]
       operationId: "updateExtension"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/ExtensionUpdateRequest"
+            examples:
+              ExtensionUpdateRequest:
+                $ref: "#/components/schemas/ExtensionUpdateRequest/example"
+
       responses:
         '200':
           description: "Extension updated"
+          content:
+            'application/json':
+                schema:
+                  $ref: "#/components/schemas/ExtensionResponse"
+                examples:
+                  ExtensionResponse:
+                    $ref: "#/components/schemas/ExtensionResponse/example"
     get:
       tags: ["Extension", "Enterprise"]
       operationId: "loadExtension"
@@ -1612,8 +1743,15 @@ components:
         name:
           type: string
           description: "Name of the group."
+        properties:
+          type: object
+          description: "Additional group properties."
       example:
         name: "Guests"
+        properties:
+          a: "b"
+          c: "d"
+
 
     # Group / Reference
     GroupReference:
@@ -1654,6 +1792,9 @@ components:
       example:
         uuid: "a1f6c35a-2b59-4f7c-83ea-c3a5fd163eaf"
         name: "GuestPermission"
+        properties:
+          a: "b"
+          c: "d"
         permissions:
           
           - "project_read"
@@ -1969,6 +2110,7 @@ components:
         - uuid: "054e4e69-21b2-4662-aacd-2c7ee2d3dff2"
           name: "test2"
 
+    # Content / Create
     ContentCreateRequest:
       properties:
         model:
@@ -2144,6 +2286,14 @@ components:
             i18n: false
             index: false
             allow: ["BlogPost"]
+          # List - Asset
+          - name: "assetList"
+            type: "list"
+            listType: "asset"
+            required: false
+            i18n: false
+            index: false
+            allow: ["video"]
           # List - Content
           - name: "categoryList"
             type: "list"
@@ -2191,29 +2341,58 @@ components:
       required:
         - uuid
       properties:
+        status:
+          type: string
+          enum: ["pending", "processed", "queued", "processing", "failed"]
+        kind:
+          type: string
+          enum: ["video", "audio", "image", "doc", "bin", "3d"]
+          description: >
+            The identified kind of the asset:
+            * video - Movies (e.g. mp4, avi, mpeg)
+            * audio - Audio files (e.g. mp3, wav, ogg, flac)
+            * doc   - Document files (e.g. doc, docx, txt)
+            * 3d    - 3D model data (stl, obj, fbx, 3ds, vrml)
+            * bin   - Other binary files
+        hashes:
+          type: object
+          description: "A set of computed hashsums for the binary data."
         filename:
           type: string
           description: "Filename of the asset."
+          example: "flower.jpeg"
         size:
           type: number
           description: "Size of the asset binary in bytes."
+          example: 1024
         mimeType:
           type: string
           description: "MimeType of the asset."
+          example: "video/mp4"
         meta:
           type: object
           description: "Metadata for the asset."
         dominantColor:
           type: string
           description: "Color tag of the dominant color of the picture. (Only applies to images)"
+          example: "#6495ED"
         location:
           type: object
           description: "Longitude and latitude information of the asset. (e.g. extracted Photo GPS information)"
+        duration:
+          type: number
+          description: "Duration in miliseconds"
+          example: 515000
       example:
         uuid: "842fea91-4216-4643-ab6c-ae72d9efcc09"
         name: "test.mp4"
+        hashes:
+          sha512: "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123"
+          sha256: "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2"
+          md5: "d8e8fca2dc0f896fd7cb4cb0031ba249"
         mimeType: "video/mp4"
         dominantColor: "#6495ED"
+        duration: 515000
         location:
           lon: 0
           lat: 51.48
@@ -2236,6 +2415,18 @@ components:
       example:
         - uuid: "842fea91-4216-4643-ab6c-ae72d9efcc09"
           name: "test"
+        - uuid: "842fea91-4216-4643-ab6c-ae72d9efcc09"
+          name: "test2"
+
+    # Asset / Status
+    AssetStatusResponse:
+      required:
+        - status
+      properties:
+        status:
+          type: string
+      example:
+        status: "OK"
 
     # Asset / Create Request
     AssetCreateRequest:
@@ -2245,6 +2436,12 @@ components:
         filename:
           type: string
           description: "Filename of the asset."
+        localPath:
+          type: string
+          description: "Local filesystem path to the asset. This information can be used to reference existing files from the filesystem. Thus no re-upload is needed. (optional)"
+        s3:
+          type: object
+          description: "S3 information on the asset. (optional)"
         size:
           type: number
           description: "Size of the asset binary in bytes."
@@ -2265,6 +2462,10 @@ components:
           description: "Tags for the asset."
       example:
         name: "test.mp4"
+        localPath: "/opt/media/test.mp4"
+        s3:
+          bucket: "myBucket"
+          key: "test.mp4"
         mimeType: "video/mp4"
         dominantColor: "#6495ED"
         location:
@@ -2275,7 +2476,6 @@ components:
         tags:
           - testvideo
           - video
-
 
     # Asset / Similar Response
     AssetSimilarResponse:
@@ -2295,6 +2495,33 @@ components:
         - uuid: "103d2101-669b-44db-83fb-f24500114ddf"
           factor: 0.75
 
+    # Asset / Resize
+    AssetResizeRequest:
+      properties:
+        width:
+          type: number
+          description: "New width of the image."
+        height:
+          type: number
+          description: "New height of the image."
+        focalPoint:
+          type: object
+          description: "New focalpoint information."
+        cropRect:
+          type: object
+          description: "Area definition for the crop operation."
+      example:
+        height: 200
+        width: 200
+        cropRect:
+          startX: 50
+          startY: 20
+          width: 170
+          height: 150
+        focalPoint:
+          x: 0.3
+          y: 0.6
+
     # Asset / S3 PreSignedURL
     AssetS3PresignedURLResponse:
       properties:
@@ -2302,6 +2529,21 @@ components:
           type: string
       example:
         url: "https://presignedurldemo.s3.eu-west-2.amazonaws.com/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJJWZ7B6WCRGMKFGQ%2F20180210%2Feu-west-2%2Fs3%2Faws4_request&X-Amz-Date=20180210T171315Z&X-Amz-Expires=1800&X-Amz-Signature=12b74b0788aa036bc7c3d03b3f20c61f1f91cc9ad8873e3314255dc479a25351&X-Amz-SignedHeaders=host"
+
+
+    AssetProcessResponse:
+      properties:
+        result:
+          type: string
+      example:
+        result: "RUNNING"
+
+    ConsistencyCheckResponse:
+      properties:
+        result:
+          type: string
+      example:
+        result: "OK"
 
     # Language / Response
     LanguageResponse:
@@ -2400,6 +2642,38 @@ components:
         kind: "asset_processor"
         url: "http://loom-extensions/asset_processor"
         status: "OK"
+
+    ExtensionsResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/ExtensionResponse"
+      example:
+        - uuid: "7b57bbf1-b4cf-4df6-936a-ae1de2756cb3"
+          url: "http://localhost:8080/thumbnail"
+        - uuid: "c48797df-a2e9-4e2e-a672-03e54cfaf3ab"
+          url: "http://localhost:8080/virusscan"
+
+    ExtensionUpdateRequest:
+      properties:
+        kind:
+          type: string
+          enum: ["asset"]
+        url:
+          type: string
+      example:
+        kind: "asset"
+        url: "http://loom-extensions/asset_processor"
+
+    ExtensionCreateRequest:
+      properties:
+        kind:
+          type: string
+          enum: ["asset"]
+        url:
+          type: string
+      example:
+        kind: "asset"
+        url: "http://loom-extensions/asset_processor"
 
     ExtensionTestResponse:
       properties:
@@ -2675,3 +2949,26 @@ components:
 # - Add nesting flag to models to control depth of allowed nesting? May be confusing when nesting fails due to hard limitation.
 # - Support models for group, roles, user, namespace as well?
 # - Time scheduled publishing?
+# - Access history?
+# - Group, USer, Role Content References
+
+# Asset lifecyle:
+# 1: Upload -> Asset
+# 2: Place locally -> Create Asset -> Asset
+# 3: Upload to S3  -> Create Asset -> Asset
+# 4: S3 Event? -> Extension -> Create Asset -> Asset (download, presignedUrl, download redirect, s3 link rendering)
+
+# queued -> (if extension present) -> processing -> processed
+
+
+# User Perm Usecase:
+# Requirements: User A has only write access to its own contents
+
+# SSO Usecase:
+
+
+# TODOs
+# * Put (update - fully, create with id)
+# * Post (ID: update - partially, create)
+# * Patch (update - partially)
+
