@@ -470,10 +470,10 @@ paths:
           content:
             'application/json':
                 schema: 
-                  $ref: '#/components/schemas/AssetsResponse'
+                  $ref: "#/components/schemas/AssetsResponse"
                 examples:
                   AssetsResponse:
-                    $ref: '#/components/schemas/AssetsResponse/example'
+                    $ref: "#/components/schemas/AssetsResponse/example"
           description: "Load assets"
     post:
       tags: ["Asset"]
@@ -483,10 +483,20 @@ paths:
         content:
           'application/json':
             schema:
-              $ref: '#/components/schemas/LanguageRequest'
+              $ref: "#/components/schemas/AssetCreateRequest"
+            examples:
+              AssetCreateRequest:
+                $ref: "#/components/schemas/AssetCreateRequest/example"
       responses:
         '200':
-          description: "Create an asset."
+          description: "Created asset."
+          content:
+            'application/json':
+                schema: 
+                  $ref: "#/components/schemas/AssetsResponse"
+                examples:
+                  AssetsResponse:
+                    $ref: "#/components/schemas/AssetsResponse/example"
 
   /assets/{assetUuid}:
     parameters:
@@ -2227,6 +2237,46 @@ components:
         - uuid: "842fea91-4216-4643-ab6c-ae72d9efcc09"
           name: "test"
 
+    # Asset / Create Request
+    AssetCreateRequest:
+      required:
+        - filename
+      properties:
+        filename:
+          type: string
+          description: "Filename of the asset."
+        size:
+          type: number
+          description: "Size of the asset binary in bytes."
+        mimeType:
+          type: string
+          description: "MimeType of the asset."
+        meta:
+          type: object
+          description: "Metadata for the asset."
+        dominantColor:
+          type: string
+          description: "Color tag of the dominant color of the picture. (Only applies to images)"
+        location:
+          type: object
+          description: "Longitude and latitude information of the asset. (e.g. extracted Photo GPS information)"
+        tags:
+          type: array
+          description: "Tags for the asset."
+      example:
+        name: "test.mp4"
+        mimeType: "video/mp4"
+        dominantColor: "#6495ED"
+        location:
+          lon: 0
+          lat: 51.48
+        meta:
+          Author: "Peter Pan"
+        tags:
+          - testvideo
+          - video
+
+
     # Asset / Similar Response
     AssetSimilarResponse:
       type: array
@@ -2617,6 +2667,7 @@ components:
 # - Namespaces can now be import / exported
 # - Microschemas are gone since content models can be nested
 # - Users, Groups, Roles, Namespaces can now have arbitrary properties
+# - Manual tagging will create tags on-the fly. No need to create tags upfront
 
 # Ideas
 # - Auditing
