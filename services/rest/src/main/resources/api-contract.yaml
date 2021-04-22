@@ -2383,6 +2383,9 @@ components:
           type: number
           description: "Duration in miliseconds"
           example: 515000
+        timeline:
+          type: object
+          description: "Meta information on specific areas on the temporal component of a media" 
       example:
         uuid: "842fea91-4216-4643-ab6c-ae72d9efcc09"
         name: "test.mp4"
@@ -2393,6 +2396,26 @@ components:
         mimeType: "video/mp4"
         dominantColor: "#6495ED"
         duration: 515000
+        # subtitles?
+        # more format information?
+        timeline:
+          - from: 0
+            to: 200
+            thumbnail: "d75e54f8-8f76-44c2-aecb-d09cc358e8f0"
+            meta:
+              myKey: "myValue"
+            tags:
+              - sport
+              - intro
+            description: "Text"
+          - from: 900
+            to: 1200
+            thumbnail: "56fd55f8-5bb7-46e1-8c7a-6e7fa391d659"
+            meta:
+              myKey: "myValue"
+            tags:
+              - outro
+            description: "Text"
         location:
           lon: 0
           lat: 51.48
@@ -2965,6 +2988,10 @@ components:
 # Requirements: User A has only write access to its own contents
 
 # SSO Usecase:
+# * User Login (frontend) -> SSO -> Auth (Gen JWT) -> pass along to loom
+# * Loom -> Map token info to content + authenticate using in-memory SSO user + ad-hoc permissions
+# Q: How to map creator/editor information for in-memory SSO user?
+# Q: How to prevent other users (B) to access content of user A?
 
 
 # TODOs
