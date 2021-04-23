@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.model.user;
 
-public class UserListResponse {
+import io.metaloom.loom.rest.model.common.ListResponse;
+
+public class UserListResponse extends ListResponse<UserResponse> {
 
 }

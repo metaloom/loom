@@ -1,0 +1,10 @@
+{
+  "fields" : null,
+  "tags" : [ {
+    "uuid" : "f04e89d0-076d-4d90-b192-715a25a2cd59",
+    "name" : "red"
+  }, {
+    "uuid" : "86abc160-4da2-4951-a91f-da0c33fbc634",
+    "name" : "blue"
+  } ]
+}

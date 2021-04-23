@@ -1,0 +1,32 @@
+{
+  "uuid" : "0f3332a6-e404-4777-88a9-1fa984a311bc",
+  "creator" : {
+    "uuid" : "f04e89d0-076d-4d90-b192-715a25a2cd59",
+    "name" : "joedoe"
+  },
+  "created" : "2018-10-12T14:15:06.024Z",
+  "editor" : {
+    "uuid" : "f04e89d0-076d-4d90-b192-715a25a2cd59",
+    "name" : "joedoe"
+  },
+  "edited" : "2018-11-20T20:12:01.084Z",
+  "version" : "1.0",
+  "model" : {
+    "uuid" : "86abc160-4da2-4951-a91f-da0c33fbc634",
+    "name" : "BlogPost"
+  },
+  "parent" : {
+    "uuid" : "0f3332a6-e404-4777-88a9-1fa984a311bc",
+    "name" : "posts"
+  },
+  "tags" : [ {
+    "uuid" : "f04e89d0-076d-4d90-b192-715a25a2cd59",
+    "name" : "red"
+  }, {
+    "uuid" : "86abc160-4da2-4951-a91f-da0c33fbc634",
+    "name" : "blue"
+  } ],
+  "fields" : [ {
+    "name" : "text"
+  } ]
+}

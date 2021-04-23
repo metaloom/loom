@@ -2,7 +2,7 @@ package io.metaloom.loom.rest.model.user;
 
 import io.metaloom.loom.rest.model.RestModel;
 
-public class UserCreateRequest implements RestModel {
+public class UserUpdateRequest implements RestModel {
 
 	private String username;
 
@@ -12,14 +12,14 @@ public class UserCreateRequest implements RestModel {
 
 	private String email;
 
-	public UserCreateRequest() {
+	public UserUpdateRequest() {
 	}
 
 	public String getUsername() {
 		return username;
 	}
 
-	public UserCreateRequest setUsername(String username) {
+	public UserUpdateRequest setUsername(String username) {
 		this.username = username;
 		return this;
 	}
@@ -28,7 +28,7 @@ public class UserCreateRequest implements RestModel {
 		return firstname;
 	}
 
-	public UserCreateRequest setFirstname(String firstname) {
+	public UserUpdateRequest setFirstname(String firstname) {
 		this.firstname = firstname;
 		return this;
 	}
@@ -37,7 +37,7 @@ public class UserCreateRequest implements RestModel {
 		return lastname;
 	}
 
-	public UserCreateRequest setLastname(String lastname) {
+	public UserUpdateRequest setLastname(String lastname) {
 		this.lastname = lastname;
 		return this;
 	}
@@ -46,7 +46,7 @@ public class UserCreateRequest implements RestModel {
 		return email;
 	}
 
-	public UserCreateRequest setEmail(String email) {
+	public UserUpdateRequest setEmail(String email) {
 		this.email = email;
 		return this;
 	}

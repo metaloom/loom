@@ -124,10 +124,10 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/ContentsResponse'
+                $ref: '#/components/schemas/ContentListResponse'
               examples:
-                ContentsResponse:
-                  $ref: '#/components/schemas/ContentsResponse/example'
+                ContentListResponse:
+                  $ref: '#/components/schemas/ContentListResponse/example'
 
   /users/{userUuid}/groups:
     parameters:
@@ -716,10 +716,10 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/ModelsResponse'
+                $ref: '#/components/schemas/ModelListResponse'
               examples:
-                ModelsResponse:
-                  $ref: '#/components/schemas/ModelsResponse/example'
+                ModelListResponse:
+                  $ref: '#/components/schemas/ModelListResponse/example'
     post:
       tags: ["Model"]
       operationId: "createModel"
@@ -957,10 +957,10 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/ContentsResponse'
+                $ref: '#/components/schemas/ContentListResponse'
               examples:
-                ContentsResponse:
-                  $ref: '#/components/schemas/ContentsResponse/example'
+                ContentListResponse:
+                  $ref: '#/components/schemas/ContentListResponse/example'
     post:
       tags: ["Content"]
       operationId: "createContent"
@@ -978,10 +978,10 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/ContentsResponse'
+                $ref: '#/components/schemas/ContentListResponse'
               examples:
-                ContentsResponse:
-                  $ref: '#/components/schemas/ContentsResponse/example'
+                ContentListResponse:
+                  $ref: '#/components/schemas/ContentListResponse/example'
             
   # Content
   /namespaces/{namespaceUuid}/contents/{contentUuid}:
@@ -1160,9 +1160,9 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: "#/components/schemas/ContentsResponse"
+                $ref: "#/components/schemas/ContentListResponse"
               example:
-                $ref: "#/components/schemas/ContentsResponse/example"
+                $ref: "#/components/schemas/ContentListResponse/example"
           description: OK
  
   # GraphQL
@@ -1993,9 +1993,6 @@ components:
         - name
         - collection
       properties:
-        uuid:
-          type: string
-          description: "UUID of the tag."
         name:
           type: string
           description: "Text value of the tag."
@@ -2100,7 +2097,7 @@ components:
         edate: "2021-03-20T21:12:01.084Z"
 
     # Content / List Response
-    ContentsResponse:
+    ContentListResponse:
       type: array
       items:
         $ref: "#/components/schemas/ContentResponse"
@@ -2199,7 +2196,7 @@ components:
         edate: "2021-03-20T21:12:01.084Z"
 
     # Model / List Response
-    ModelsResponse:
+    ModelListResponse:
       type: array
       items:
         $ref: "#/components/schemas/ModelResponse"
@@ -2343,10 +2340,10 @@ components:
       properties:
         status:
           type: string
-          enum: ["pending", "processed", "queued", "processing", "failed"]
+          enum: ["processed", "queued", "processing", "failed"]
         kind:
           type: string
-          enum: ["video", "audio", "image", "doc", "bin", "3d"]
+          enum: ["video", "audio", "image", "doc", "bin"]
           description: >
             The identified kind of the asset:
             * video - Movies (e.g. mp4, avi, mpeg)
