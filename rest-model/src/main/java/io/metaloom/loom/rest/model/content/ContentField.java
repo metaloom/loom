@@ -2,20 +2,28 @@ package io.metaloom.loom.rest.model.content;
 
 import io.metaloom.loom.rest.model.RestModel;
 
-public class ContentField implements RestModel {
+public interface ContentField extends RestModel {
 
-	private String name;
+	/**
+	 * Return the model type of the content field.
+	 * 
+	 * @return
+	 */
+	String getType();
 
-	public ContentField() {
-	}
+	/**
+	 * Return corresponding model name for the field.
+	 * 
+	 * @return
+	 */
+	String getName();
 
-	public String getName() {
-		return name;
-	}
-
-	public ContentField setName(String name) {
-		this.name = name;
-		return this;
-	}
+	/**
+	 * Set the corresponding model name for the field.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	ContentField setName(String name);
 
 }

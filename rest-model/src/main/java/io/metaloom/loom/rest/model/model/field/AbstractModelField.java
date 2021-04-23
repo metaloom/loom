@@ -1,8 +1,6 @@
-package io.metaloom.loom.rest.model.model;
+package io.metaloom.loom.rest.model.model.field;
 
-import io.metaloom.loom.rest.model.RestModel;
-
-public class ModelField implements RestModel {
+public abstract class AbstractModelField implements ModelField {
 
 	private String name;
 
@@ -10,31 +8,34 @@ public class ModelField implements RestModel {
 
 	private String listType;
 
-	public ModelField() {
-	}
-
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public ModelField setName(String name) {
 		this.name = name;
 		return this;
 	}
 
+	@Override
 	public String getType() {
 		return type;
 	}
 
+	@Override
 	public ModelField setType(String type) {
 		this.type = type;
 		return this;
 	}
 
+	@Override
 	public String getListType() {
 		return listType;
 	}
 
+	@Override
 	public ModelField setListType(String listType) {
 		this.listType = listType;
 		return this;

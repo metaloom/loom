@@ -30,7 +30,7 @@ public class ExtensionModelTest implements ModelTestcases {
 
 	@Override
 	public void testReference() {
-		// Does not apply
+		// Does not apply to extensions
 	}
 
 	@Test

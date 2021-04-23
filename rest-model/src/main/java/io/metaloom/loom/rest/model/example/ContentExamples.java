@@ -10,6 +10,7 @@ import io.metaloom.loom.rest.model.content.ContentListResponse;
 import io.metaloom.loom.rest.model.content.ContentReference;
 import io.metaloom.loom.rest.model.content.ContentResponse;
 import io.metaloom.loom.rest.model.content.ContentUpdateRequest;
+import io.metaloom.loom.rest.model.content.field.TextContentField;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
 public class ContentExamples extends AbstractExamples {
@@ -33,8 +34,9 @@ public class ContentExamples extends AbstractExamples {
 	}
 
 	public static ContentField textField() {
-		ContentField field = new ContentField();
+		TextContentField field = new TextContentField();
 		field.setName("text");
+		field.setValue("Lorem ipsum dolor sit amet");
 		return field;
 	}
 

@@ -27,6 +27,8 @@
     "name" : "blue"
   } ],
   "fields" : [ {
-    "name" : "text"
+    "name" : "text",
+    "value" : "Lorem ipsum dolor sit amet",
+    "type" : "text"
   } ]
 }
