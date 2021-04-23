@@ -4,9 +4,11 @@ public abstract class AbstractModelField implements ModelField {
 
 	private String name;
 
-	private String type;
+	private Boolean required;
 
-	private String listType;
+	private Boolean i18n;
+
+	private Boolean indexing;
 
 	@Override
 	public String getName() {
@@ -20,24 +22,35 @@ public abstract class AbstractModelField implements ModelField {
 	}
 
 	@Override
-	public String getType() {
-		return type;
+	public Boolean getRequired() {
+		return required;
 	}
 
 	@Override
-	public ModelField setType(String type) {
-		this.type = type;
+	public ModelField  setRequired(Boolean required) {
+		this.required = required;
 		return this;
 	}
 
 	@Override
-	public String getListType() {
-		return listType;
+	public Boolean getI18N() {
+		return this.i18n;
 	}
 
 	@Override
-	public ModelField setListType(String listType) {
-		this.listType = listType;
+	public ModelField setI18N(Boolean i18n) {
+		this.i18n = i18n;
+		return this;
+	}
+
+	@Override
+	public Boolean getIndexing() {
+		return this.indexing;
+	}
+
+	@Override
+	public ModelField setIndexing(Boolean indexing) {
+		this.indexing = indexing;
 		return this;
 	}
 

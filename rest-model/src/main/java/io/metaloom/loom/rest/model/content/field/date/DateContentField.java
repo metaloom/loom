@@ -1,4 +1,6 @@
-package io.metaloom.loom.rest.model.content.field;
+package io.metaloom.loom.rest.model.content.field.date;
+
+import io.metaloom.loom.rest.model.content.field.AbstractContentField;
 
 public class DateContentField extends AbstractContentField {
 

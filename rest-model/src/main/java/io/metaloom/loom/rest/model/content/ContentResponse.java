@@ -1,6 +1,7 @@
 package io.metaloom.loom.rest.model.content;
 
 import java.util.List;
+import java.util.Map;
 
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.model.ModelReference;
@@ -16,7 +17,7 @@ public class ContentResponse extends AbstractCreatorEditorRestResponse {
 
 	private List<TagReference> tags;
 
-	private List<ContentField> fields;
+	private Map<String, List<ContentField>> fields;
 
 	public ContentResponse() {
 
@@ -58,11 +59,11 @@ public class ContentResponse extends AbstractCreatorEditorRestResponse {
 		return this;
 	}
 
-	public List<ContentField> getFields() {
+	public Map<String, List<ContentField>> getFields() {
 		return fields;
 	}
 
-	public ContentResponse setFields(List<ContentField> fields) {
+	public ContentResponse setFields(Map<String, List<ContentField>> fields) {
 		this.fields = fields;
 		return this;
 	}

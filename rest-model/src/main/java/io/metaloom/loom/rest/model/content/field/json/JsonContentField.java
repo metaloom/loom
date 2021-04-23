@@ -1,4 +1,6 @@
-package io.metaloom.loom.rest.model.content.field;
+package io.metaloom.loom.rest.model.content.field.json;
+
+import io.metaloom.loom.rest.model.content.field.AbstractContentField;
 
 public class JsonContentField extends AbstractContentField {
 

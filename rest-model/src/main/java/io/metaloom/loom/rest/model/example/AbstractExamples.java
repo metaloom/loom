@@ -1,7 +1,16 @@
 package io.metaloom.loom.rest.model.example;
 
+import static io.metaloom.loom.rest.model.example.ContentExamples.tagReferenceList;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import io.metaloom.loom.rest.model.asset.AssetHash;
+import io.metaloom.loom.rest.model.asset.AssetLocation;
+import io.metaloom.loom.rest.model.asset.AssetTimelineEntry;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.common.PagingInfo;
 import io.metaloom.loom.rest.model.content.ContentReference;
@@ -79,4 +88,44 @@ public class AbstractExamples {
 		return model;
 	}
 
+	public static Map<String, String> meta() {
+		return Collections.singletonMap("custom", "value");
+	}
+
+	public static AssetHash assetHashes() {
+		AssetHash hashes = new AssetHash();
+		hashes.setSha512(
+			"0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123");
+		hashes.setSha256("f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2");
+		hashes.setMD5("d8e8fca2dc0f896fd7cb4cb0031ba249");
+		return hashes;
+	}
+
+	public static AssetLocation assetLocation() {
+		AssetLocation location = new AssetLocation();
+		location.setLat(52.156);
+		location.setLon(32.56);
+		return location;
+	}
+
+	public static List<AssetTimelineEntry> assetTimeline() {
+		List<AssetTimelineEntry> list = new ArrayList<>();
+
+		AssetTimelineEntry first = new AssetTimelineEntry();
+		first.setArea(0, 200);
+		first.setDescription("The very nice intro");
+		first.setThumbail("???");
+		first.setTags(tagReferenceList());
+		first.setMeta(meta());
+		list.add(first);
+
+		AssetTimelineEntry second = new AssetTimelineEntry();
+		second.setArea(200, 900);
+		second.setDescription("The main part of the movie");
+		second.setThumbail("???");
+		second.setTags(tagReferenceList());
+		second.setMeta(meta());
+		list.add(second);
+		return list;
+	}
 }

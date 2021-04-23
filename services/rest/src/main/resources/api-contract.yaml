@@ -2081,6 +2081,7 @@ components:
               filename: "blume.jpg"
               width: 200
               height: 200
+              size: 20000
           de:
             name: "Neuester Beitrag.html"
             header: "Titel vom Blogpost"
@@ -2160,6 +2161,9 @@ components:
         extends:
           type: string
           description: "Model from which fields and additional properties will be inherited."
+        segmentField:
+          type: string
+          description: "Reference to the field which provides the webroot segment for the content."
         description:
           type: string
           description: "Description of the model."
@@ -2173,7 +2177,6 @@ components:
         uuid: "6a954931-b51e-4950-bbc2-df2a77368c22"
         name: "BlogPost"
         extends: "Post"
-        language: "en_US"
         segmentField: "name"
         fields:
           - name: "name"
@@ -2385,7 +2388,7 @@ components:
           description: "Meta information on specific areas on the temporal component of a media" 
       example:
         uuid: "842fea91-4216-4643-ab6c-ae72d9efcc09"
-        name: "test.mp4"
+        filename: "test.mp4"
         hashes:
           sha512: "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123"
           sha256: "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2"
@@ -2481,8 +2484,12 @@ components:
           type: array
           description: "Tags for the asset."
       example:
-        name: "test.mp4"
+        filename: "test.mp4"
         localPath: "/opt/media/test.mp4"
+        hashes:
+          sha512: "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123"
+          sha256: "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2"
+          md5: "d8e8fca2dc0f896fd7cb4cb0031ba249"
         s3:
           bucket: "myBucket"
           key: "test.mp4"

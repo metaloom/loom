@@ -1,0 +1,187 @@
+package io.metaloom.loom.rest.model.content.field.asset;
+
+import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+
+import io.metaloom.loom.rest.model.asset.AssetHash;
+import io.metaloom.loom.rest.model.asset.AssetLocation;
+import io.metaloom.loom.rest.model.asset.AssetS3Meta;
+import io.metaloom.loom.rest.model.asset.AssetTimelineEntry;
+import io.metaloom.loom.rest.model.content.field.AbstractContentField;
+import io.metaloom.loom.rest.model.tag.TagReference;
+
+public class AssetContentField extends AbstractContentField {
+
+	@JsonPropertyDescription("The filename of the asset.")
+	private String filename;
+
+	@JsonPropertyDescription("The image width in pixel of the asset.")
+	private int width;
+
+	@JsonPropertyDescription("The image height in pixel of the asset.")
+	private int height;
+
+	@JsonPropertyDescription("The size of the asset in bytes.")
+	private long size;
+
+	@JsonPropertyDescription("Duration of the media in milliseconds.")
+	private long duration;
+
+	private String mimeType;
+
+	private String dominantColor;
+
+	private AssetLocation location;
+
+	private List<TagReference> tags;
+
+	private AssetS3Meta s3;
+
+	private Map<String, String> meta;
+
+	private AssetHash hashes;
+
+	private List<AssetTimelineEntry> timeline;
+
+	@JsonPropertyDescription("The local path of the asset. This will only be returned when the asset was created using a local path.")
+	private String localPath;
+
+	@Override
+	public AssetContentField setName(String name) {
+		super.setName(name);
+		return this;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public AssetContentField setFilename(String filename) {
+		this.filename = filename;
+		return this;
+	}
+
+	public long getSize() {
+		return size;
+	}
+
+	public AssetContentField setSize(long size) {
+		this.size = size;
+		return this;
+	}
+
+	public long getDuration() {
+		return duration;
+	}
+
+	public AssetContentField setDuration(long duration) {
+		this.duration = duration;
+		return this;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public AssetContentField setHeight(int height) {
+		this.height = height;
+		return this;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public AssetContentField setWidth(int width) {
+		this.width = width;
+		return this;
+	}
+
+	public String getMimeType() {
+		return mimeType;
+	}
+
+	public AssetContentField setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+		return this;
+	}
+
+	public String getDominantColor() {
+		return dominantColor;
+	}
+
+	public AssetContentField setDominantColor(String dominantColor) {
+		this.dominantColor = dominantColor;
+		return this;
+	}
+
+	public String getLocalPath() {
+		return localPath;
+	}
+
+	public AssetContentField setLocalPath(String localPath) {
+		this.localPath = localPath;
+		return this;
+	}
+
+	public AssetLocation getLocation() {
+		return location;
+	}
+
+	public AssetContentField setLocation(AssetLocation location) {
+		this.location = location;
+		return this;
+	}
+
+	public List<TagReference> getTags() {
+		return tags;
+	}
+
+	public AssetContentField setTags(List<TagReference> tags) {
+		this.tags = tags;
+		return this;
+	}
+
+	public AssetS3Meta getS3() {
+		return s3;
+	}
+
+	public AssetContentField setS3(AssetS3Meta s3) {
+		this.s3 = s3;
+		return this;
+	}
+
+	public Map<String, String> getMeta() {
+		return meta;
+	}
+
+	public AssetContentField setMeta(Map<String, String> meta) {
+		this.meta = meta;
+		return this;
+	}
+
+	public AssetHash getHashes() {
+		return hashes;
+	}
+
+	public AssetContentField setHashes(AssetHash hashes) {
+		this.hashes = hashes;
+		return this;
+	}
+
+	public List<AssetTimelineEntry> getTimeline() {
+		return timeline;
+	}
+
+	public AssetContentField setTimeline(List<AssetTimelineEntry> timeline) {
+		this.timeline = timeline;
+		return this;
+	}
+
+	@Override
+	public String getType() {
+		return "asset";
+	}
+}

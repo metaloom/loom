@@ -1,4 +1,6 @@
-package io.metaloom.loom.rest.model.content.field;
+package io.metaloom.loom.rest.model.content.field.text;
+
+import io.metaloom.loom.rest.model.content.field.AbstractContentField;
 
 public class TextContentField extends AbstractContentField {
 

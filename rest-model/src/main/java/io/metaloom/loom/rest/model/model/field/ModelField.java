@@ -19,12 +19,56 @@ public interface ModelField extends RestModel {
 	 */
 	ModelField setName(String name);
 
-	String getType();
+	/**
+	 * Return the flag which indicates whether the field is required.
+	 * 
+	 * @return
+	 */
+	Boolean getRequired();
 
-	ModelField setType(String type);
+	/**
+	 * Set the required flag for the field.
+	 * 
+	 * @param required
+	 * @return
+	 */
+	ModelField setRequired(Boolean required);
 
-	String getListType();
+	/**
+	 * Return the type of the field.
+	 * 
+	 * @return
+	 */
+	FieldType getType();
 
-	ModelField setListType(String listType);
+	/**
+	 * Return the flag which indicates whether the field should be translatable.
+	 * 
+	 * @return
+	 */
+	Boolean getI18N();
+
+	/**
+	 * Set the flag which indicates whether the field should be translatable.
+	 * 
+	 * @param i18n
+	 * @return
+	 */
+	ModelField setI18N(Boolean i18n);
+
+	/**
+	 * Should the field be included in the search index?
+	 * 
+	 * @return
+	 */
+	Boolean getIndexing();
+
+	/**
+	 * Configure whether the field should be included in the search index.
+	 * 
+	 * @param indexing
+	 * @return
+	 */
+	ModelField setIndexing(Boolean indexing);
 
 }

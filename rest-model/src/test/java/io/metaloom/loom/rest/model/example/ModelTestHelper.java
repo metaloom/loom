@@ -17,8 +17,10 @@ public final class ModelTestHelper {
 	/**
 	 * Assert that the given model matches the reference file.
 	 * 
-	 * @param model Model to be asserted
-	 * @param name  Name of the reference JSON file
+	 * @param model
+	 *            Model to be asserted
+	 * @param name
+	 *            Name of the reference JSON file
 	 */
 	public static void assertModel(RestModel model, String name) {
 		InputStream ins = ModelTestHelper.class.getResourceAsStream("/model/" + name + ".json");
@@ -26,8 +28,12 @@ public final class ModelTestHelper {
 			fail("Model json file for " + name + " could not be found in resources.");
 		}
 		try {
-			String json = IOUtils.toString(ins, Charset.defaultCharset());
-			assertEquals("The JSON of the model did not match with the reference.", json, JsonUtil.toJson(model));
+			String referenceJson = IOUtils.toString(ins, Charset.defaultCharset());
+			String modelJson = JsonUtil.toJson(model);
+			if (!modelJson.equals(referenceJson)) {
+				System.out.println(modelJson);
+			}
+			assertEquals("The JSON of the model did not match with the reference.", referenceJson, modelJson);
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail("Could not read resource");
