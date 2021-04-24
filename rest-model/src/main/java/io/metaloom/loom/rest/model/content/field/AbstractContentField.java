@@ -1,9 +1,14 @@
 package io.metaloom.loom.rest.model.content.field;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+
 import io.metaloom.loom.rest.model.content.ContentField;
 
 public abstract class AbstractContentField implements ContentField {
 
+	@JsonProperty(required = true)
+	@JsonPropertyDescription("The name of the field that was specified in the model.")
 	private String name;
 
 	@Override

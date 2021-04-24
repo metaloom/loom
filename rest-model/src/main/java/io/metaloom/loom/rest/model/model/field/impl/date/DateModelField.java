@@ -1,18 +1,18 @@
-package io.metaloom.loom.rest.model.model.field.impl;
+package io.metaloom.loom.rest.model.model.field.impl.date;
 
 import io.metaloom.loom.rest.model.model.field.AbstractModelField;
 import io.metaloom.loom.rest.model.model.field.FieldType;
 
-public class AssetModelField extends AbstractModelField {
+public class DateModelField extends AbstractModelField {
 
 	@Override
-	public AssetModelField setName(String name) {
+	public DateModelField setName(String name) {
 		super.setName(name);
 		return this;
 	}
 
 	@Override
 	public FieldType getType() {
-		return FieldType.ASSET;
+		return FieldType.DATE;
 	}
 }

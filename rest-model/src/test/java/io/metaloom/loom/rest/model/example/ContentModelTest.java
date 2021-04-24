@@ -2,6 +2,7 @@ package io.metaloom.loom.rest.model.example;
 
 import static io.metaloom.loom.rest.model.example.ContentExamples.assetField;
 import static io.metaloom.loom.rest.model.example.ContentExamples.contentCreateRequest;
+import static io.metaloom.loom.rest.model.example.ContentExamples.contentField;
 import static io.metaloom.loom.rest.model.example.ContentExamples.contentListResponse;
 import static io.metaloom.loom.rest.model.example.ContentExamples.contentReference;
 import static io.metaloom.loom.rest.model.example.ContentExamples.contentResponse;
@@ -19,6 +20,7 @@ import io.metaloom.loom.rest.model.content.field.asset.AssetContentField;
 import io.metaloom.loom.rest.model.content.field.bool.BooleanContentField;
 import io.metaloom.loom.rest.model.content.field.date.DateContentField;
 import io.metaloom.loom.rest.model.content.field.json.JsonContentField;
+import io.metaloom.loom.rest.model.content.field.nested.NestedContentField;
 import io.metaloom.loom.rest.model.content.field.number.NumberContentField;
 import io.metaloom.loom.rest.model.content.field.text.TextContentField;
 
@@ -63,6 +65,9 @@ public class ContentModelTest implements ModelTestcases {
 		JsonContentField json = new JsonContentField().setName("json");
 		BooleanContentField bool = new BooleanContentField().setName("boolean").setValue(true);
 
+		// ContentContentField
+		// ReferenceContentField
+
 		List<ContentField> model = Arrays.asList(text, asset, date, number, json, bool);
 		System.out.println(JsonUtil.toJson(model));
 	}
@@ -70,6 +75,12 @@ public class ContentModelTest implements ModelTestcases {
 	@Test
 	public void testAssetField() {
 		AssetContentField field = assetField();
+		System.out.println(JsonUtil.toJson(field));
+	}
+
+	@Test
+	public void testContentField() {
+		NestedContentField field = contentField();
 		System.out.println(JsonUtil.toJson(field));
 	}
 

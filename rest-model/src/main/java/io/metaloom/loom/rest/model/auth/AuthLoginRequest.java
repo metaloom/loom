@@ -1,11 +1,18 @@
 package io.metaloom.loom.rest.model.auth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+
 import io.metaloom.loom.rest.model.RestModel;
 
 public class AuthLoginRequest implements RestModel {
 
+	@JsonProperty(required = true)
+	@JsonPropertyDescription("Username that should be used for the login process.")
 	private String username;
 
+	@JsonProperty(required = true)
+	@JsonPropertyDescription("Password that should be used for the login process.")
 	private String password;
 
 	public AuthLoginRequest() {

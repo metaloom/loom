@@ -1,15 +1,11 @@
 package io.metaloom.loom.rest.model.example;
 
-import static io.metaloom.loom.rest.model.example.ContentExamples.tagReferenceList;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.metaloom.loom.rest.model.asset.AssetHash;
 import io.metaloom.loom.rest.model.asset.AssetS3Meta;
 import io.metaloom.loom.rest.model.content.ContentCreateRequest;
 import io.metaloom.loom.rest.model.content.ContentField;
@@ -18,6 +14,7 @@ import io.metaloom.loom.rest.model.content.ContentReference;
 import io.metaloom.loom.rest.model.content.ContentResponse;
 import io.metaloom.loom.rest.model.content.ContentUpdateRequest;
 import io.metaloom.loom.rest.model.content.field.asset.AssetContentField;
+import io.metaloom.loom.rest.model.content.field.nested.NestedContentField;
 import io.metaloom.loom.rest.model.content.field.text.TextContentField;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
@@ -122,6 +119,17 @@ public class ContentExamples extends AbstractExamples {
 			.setTimeline(assetTimeline())
 			.setFilename("bigbuckbunny-4k.mp4");
 		return asset;
+	}
+
+	public static NestedContentField contentField() {
+		NestedContentField innerField = new NestedContentField();
+		innerField.setName("inner-content");
+		innerField.setFields(Arrays.asList(textField("text", "Inner value")));
+
+		NestedContentField field = new NestedContentField();
+		field.setName("content");
+		field.setFields(Arrays.asList(textField("text", "ValueA"), innerField));
+		return field;
 	}
 
 }

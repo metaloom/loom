@@ -1,6 +1,7 @@
 package io.metaloom.loom.rest.model.content.field.bool;
 
 import io.metaloom.loom.rest.model.content.field.AbstractContentField;
+import io.metaloom.loom.rest.model.model.field.FieldType;
 
 public class BooleanContentField extends AbstractContentField {
 
@@ -22,7 +23,7 @@ public class BooleanContentField extends AbstractContentField {
 	}
 
 	@Override
-	public String getType() {
-		return "boolean";
+	public FieldType getType() {
+		return FieldType.BOOLEAN;
 	}
 }

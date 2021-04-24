@@ -10,6 +10,7 @@ import io.metaloom.loom.rest.model.asset.AssetLocation;
 import io.metaloom.loom.rest.model.asset.AssetS3Meta;
 import io.metaloom.loom.rest.model.asset.AssetTimelineEntry;
 import io.metaloom.loom.rest.model.content.field.AbstractContentField;
+import io.metaloom.loom.rest.model.model.field.FieldType;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
 public class AssetContentField extends AbstractContentField {
@@ -29,20 +30,27 @@ public class AssetContentField extends AbstractContentField {
 	@JsonPropertyDescription("Duration of the media in milliseconds.")
 	private long duration;
 
+	@JsonPropertyDescription("The mime type of the asset.")
 	private String mimeType;
 
+	@JsonPropertyDescription("The computed dominant color of an image.")
 	private String dominantColor;
 
+	@JsonPropertyDescription("The location information of the asset. Some images may contain GPS information in the image metadata.")
 	private AssetLocation location;
 
 	private List<TagReference> tags;
 
+	@JsonPropertyDescription("The S3 attributes for the asset. This info is only provides when storage in S3 is utilized or when these values have been provided for the asset.")
 	private AssetS3Meta s3;
 
+	@JsonPropertyDescription("Custom metadata that belongs to the asset.")
 	private Map<String, String> meta;
 
+	@JsonPropertyDescription("A set of hashes that have been computed for the asset.")
 	private AssetHash hashes;
 
+	@JsonPropertyDescription("Stored timeline information.")
 	private List<AssetTimelineEntry> timeline;
 
 	@JsonPropertyDescription("The local path of the asset. This will only be returned when the asset was created using a local path.")
@@ -181,7 +189,7 @@ public class AssetContentField extends AbstractContentField {
 	}
 
 	@Override
-	public String getType() {
-		return "asset";
+	public FieldType getType() {
+		return FieldType.ASSET;
 	}
 }

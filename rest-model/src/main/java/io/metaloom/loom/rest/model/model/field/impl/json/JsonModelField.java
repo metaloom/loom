@@ -1,18 +1,18 @@
-package io.metaloom.loom.rest.model.model.field.impl;
+package io.metaloom.loom.rest.model.model.field.impl.json;
 
 import io.metaloom.loom.rest.model.model.field.AbstractModelField;
 import io.metaloom.loom.rest.model.model.field.FieldType;
 
-public class BooleanModelField extends AbstractModelField {
+public class JsonModelField extends AbstractModelField {
 
 	@Override
-	public BooleanModelField setName(String name) {
+	public JsonModelField setName(String name) {
 		super.setName(name);
 		return this;
 	}
 
 	@Override
 	public FieldType getType() {
-		return FieldType.BOOLEAN;
+		return FieldType.JSON;
 	}
 }

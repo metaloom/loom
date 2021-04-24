@@ -1,13 +1,19 @@
 package io.metaloom.loom.rest.model.model.field;
 
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+
 public abstract class AbstractModelField implements ModelField {
 
+	@JsonPropertyDescription("Name of the field by which it will be referenced in the content.")
 	private String name;
 
+	@JsonPropertyDescription("Flag which indicates whether the field should be required in a content.")
 	private Boolean required;
 
+	@JsonPropertyDescription("Flag which indicates whether it should be supported to translate the field.")
 	private Boolean i18n;
 
+	@JsonPropertyDescription("Flag which indicates whether contents should include this field in the search index.")
 	private Boolean indexing;
 
 	@Override

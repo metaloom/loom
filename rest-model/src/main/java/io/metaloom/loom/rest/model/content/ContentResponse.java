@@ -3,20 +3,27 @@ package io.metaloom.loom.rest.model.content;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.model.ModelReference;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
 public class ContentResponse extends AbstractCreatorEditorRestResponse {
 
+	@JsonPropertyDescription("The version of the content.")
 	private String version;
 
+	@JsonPropertyDescription("A reference to the content model. This value is immutable.")
 	private ModelReference model;
 
+	@JsonPropertyDescription("A reference to the parent content.")
 	private ContentReference parent;
 
+	@JsonPropertyDescription("A list of tags that were used to tag the content.")
 	private List<TagReference> tags;
 
+	@JsonPropertyDescription("A map of translations and their corresponding content fields.")
 	private Map<String, List<ContentField>> fields;
 
 	public ContentResponse() {

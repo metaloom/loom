@@ -1,19 +1,19 @@
-package io.metaloom.loom.rest.model.model.field.impl.text;
+package io.metaloom.loom.rest.model.model.field.impl.date;
 
 import io.metaloom.loom.rest.model.model.field.AbstractListModelField;
 import io.metaloom.loom.rest.model.model.field.FieldType;
 
-public class TextListModelField extends AbstractListModelField {
+public class DateListModelField extends AbstractListModelField {
 
 	@Override
-	public TextListModelField setName(String name) {
+	public DateListModelField setName(String name) {
 		super.setName(name);
 		return this;
 	}
 
 	@Override
 	public FieldType getListType() {
-		return FieldType.TEXT;
+		return FieldType.DATE;
 	}
 
 }
