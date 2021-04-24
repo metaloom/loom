@@ -4,8 +4,6 @@ Loom is an asset management API and persistence server for your web applications
 
 ### **Loom is still under development and not yet in a usable state.**
 
-:toc:
-
 
 ## Planned Features
 
