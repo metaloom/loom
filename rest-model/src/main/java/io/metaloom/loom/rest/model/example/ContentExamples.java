@@ -1,5 +1,8 @@
 package io.metaloom.loom.rest.model.example;
 
+import static io.metaloom.loom.rest.model.example.ContentFieldExamples.assetField;
+import static io.metaloom.loom.rest.model.example.ContentFieldExamples.textField;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

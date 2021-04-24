@@ -3,6 +3,7 @@ package io.metaloom.loom.rest.model.example;
 import io.metaloom.loom.rest.model.webhook.WebhookCreateRequest;
 import io.metaloom.loom.rest.model.webhook.WebhookListResponse;
 import io.metaloom.loom.rest.model.webhook.WebhookResponse;
+import io.metaloom.loom.rest.model.webhook.WebhookTrigger;
 import io.metaloom.loom.rest.model.webhook.WebhookUpdateRequest;
 
 public class WebhookExamples extends AbstractExamples {
@@ -11,6 +12,7 @@ public class WebhookExamples extends AbstractExamples {
 		WebhookResponse model = new WebhookResponse();
 		model.setUuid(uuidC());
 		model.setUrl("http://myService/hook");
+		model.setTrigger(WebhookTrigger.ASSET_CREATED);
 		setCreatorEditor(model);
 		return model;
 	}
@@ -26,12 +28,14 @@ public class WebhookExamples extends AbstractExamples {
 	public static WebhookUpdateRequest webhookUpdateRequest() {
 		WebhookUpdateRequest model = new WebhookUpdateRequest();
 		model.setUrl("http://myService/newHook");
+		model.setTrigger(WebhookTrigger.ASSET_CREATED);
 		return model;
 	}
 
 	public static WebhookCreateRequest webhookCreateRequest() {
 		WebhookCreateRequest model = new WebhookCreateRequest();
 		model.setUrl("http://myService/hook");
+		model.setTrigger(WebhookTrigger.ASSET_CREATED);
 		return model;
 	}
 }

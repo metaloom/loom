@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.model.content.field.reference;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.content.field.AbstractContentField;
@@ -8,7 +10,7 @@ import io.metaloom.loom.rest.model.model.field.FieldType;
 public class ReferenceContentField extends AbstractContentField {
 
 	@JsonPropertyDescription("Reference to the element.")
-	private String uuid;
+	private UUID uuid;
 
 	@Override
 	public ReferenceContentField setName(String name) {
@@ -21,11 +23,11 @@ public class ReferenceContentField extends AbstractContentField {
 		return FieldType.REFERENCE;
 	}
 
-	public String getUuid() {
+	public UUID getUuid() {
 		return uuid;
 	}
 
-	public ReferenceContentField setUuid(String uuid) {
+	public ReferenceContentField setUuid(UUID uuid) {
 		this.uuid = uuid;
 		return this;
 	}

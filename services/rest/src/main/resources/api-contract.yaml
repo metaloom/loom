@@ -44,10 +44,10 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/UsersResponse'
+                $ref: '#/components/schemas/UserListResponse'
               examples:
-                UsersResponse:
-                  $ref: '#/components/schemas/UsersResponse/example'
+                UserListResponse:
+                  $ref: '#/components/schemas/UserListResponse/example'
     post:
       tags: ["User"]
       operationId: "createUser"
@@ -147,10 +147,10 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/GroupsResponse'
+                $ref: '#/components/schemas/GroupListResponse'
               examples:
-                GroupsResponse:
-                  $ref: '#/components/schemas/GroupsResponse/example'
+                GroupListResponse:
+                  $ref: '#/components/schemas/GroupListResponse/example'
 
   # User / Roles
   /users/{userUuid}/roles:
@@ -171,10 +171,10 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/RolesResponse'
+                $ref: '#/components/schemas/RoleListResponse'
               examples:
-                RolesResponse:
-                  $ref: '#/components/schemas/RolesResponse/example'
+                RoleListResponse:
+                  $ref: '#/components/schemas/RoleListResponse/example'
 
   # User / Token
   /users/{userUuid}/tokens:
@@ -258,10 +258,10 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/GroupsResponse'
+                $ref: '#/components/schemas/GroupListResponse'
               examples:
-                GroupsResponse:
-                  $ref: '#/components/schemas/GroupsResponse/example'
+                GroupListResponse:
+                  $ref: '#/components/schemas/GroupListResponse/example'
 
   /groups/{groupUuid}:
     parameters:
@@ -283,7 +283,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/GroupResponse'
               examples:
-                GroupsResponse:
+                GroupListResponse:
                   $ref: '#/components/schemas/GroupResponse/example'
 
     head:
@@ -359,10 +359,10 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/RolesResponse'
+                $ref: '#/components/schemas/RoleListResponse'
               examples:
-                RolesResponse:
-                  $ref: '#/components/schemas/RolesResponse/example'
+                RoleListResponse:
+                  $ref: '#/components/schemas/RoleListResponse/example'
 
 
   # Role / List Response
@@ -380,7 +380,7 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/RolesResponse'
+                $ref: '#/components/schemas/RoleListResponse'
 
   # Role
   /roles/{roleUuid}:
@@ -846,10 +846,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NamespacesResponse'
+                $ref: '#/components/schemas/NamespaceListResponse'
               examples:
-                NamespacesResponse:
-                  $ref: '#/components/schemas/NamespacesResponse/example'
+                NamespaceListResponse:
+                  $ref: '#/components/schemas/NamespaceListResponse/example'
     post:
       tags: ["Namespace"]
       operationId: "createNamespace"
@@ -869,10 +869,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NamespacesResponse'
+                $ref: '#/components/schemas/NamespaceListResponse'
               examples:
-                NamespacesResponse:
-                  $ref: '#/components/schemas/NamespacesResponse/example'
+                NamespaceListResponse:
+                  $ref: '#/components/schemas/NamespaceListResponse/example'
     head:
       tags: ["Namespace"]
       operationId: "checkNamespaces"
@@ -1040,10 +1040,10 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/TagsResponse'
+                $ref: '#/components/schemas/TagListResponse'
               examples:
-                TagsResponse:
-                  $ref: '#/components/schemas/TagsResponse/example'
+                TagListResponse:
+                  $ref: '#/components/schemas/TagListResponse/example'
 
   # Namespace / Tag
   /namespaces/{namespaceUuid}/tags/{tagUuid}:
@@ -1068,7 +1068,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TagResponse'
               examples:
-                TagsResponse:
+                TagListResponse:
                   $ref: '#/components/schemas/TagResponse/example'
     post:
       operationId: "updateTag"
@@ -1089,7 +1089,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TagResponse'
               examples:
-                TagsResponse:
+                TagListResponse:
                   $ref: '#/components/schemas/TagResponse/example'
 
   # Search  
@@ -1292,10 +1292,10 @@ paths:
           content:
             'application/json':
                 schema:
-                  $ref: "#/components/schemas/WebhooksResponse"
+                  $ref: "#/components/schemas/WebhookListResponse"
                 examples:
-                  WebhooksResponse:
-                    $ref: "#/components/schemas/WebhooksResponse/example"
+                  WebhookListResponse:
+                    $ref: "#/components/schemas/WebhookListResponse/example"
     head:
       tags: ["Webhook"]
       operationId: "checkWebhooks"
@@ -1323,6 +1323,55 @@ paths:
               examples:
                 WebhookResponse:
                   $ref: "#/components/schemas/WebhookResponse/example"
+
+  /webhooks/{webhookUuid}:
+    parameters:
+      - $ref: "#/components/parameters/webhookUuid"
+    head:
+      tags: ["Webhook"]
+      operationId: "checkWebhook"
+      responses:
+        '204':
+          description: "Checked webhook"
+        '404':
+          description: "Webhook not found."
+    get:
+      tags: ["Webhook"]
+      operationId: "loadWebhook"
+      responses:
+        '200':
+          description: "Loaded webhook with given uuid"
+          content:
+            'application/json':
+                schema:
+                  $ref: "#/components/schemas/WebhookResponse"
+                examples:
+                  WebhookListResponse:
+                    $ref: "#/components/schemas/WebhookResponse/example"
+    post:
+      tags: ["Webhook"]
+      operationId: "updateWebhook"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/WebhookUpdateRequest'
+            examples:
+              WebhookCreateRequest:
+                $ref: '#/components/schemas/WebhookUpdateRequest/example'
+
+      responses:
+        '201':
+          description: "Webhook created"
+    delete:
+      tags: ["Webhook"]
+      operationId: "deleteWebhook"
+      responses:
+        '204':
+          description: "Webhook deleted"
+        '404':
+          description: "Webhook not found."
+
 
   /extensions:
     head:
@@ -1439,53 +1488,6 @@ paths:
                   ExtensionResponse:
                     $ref: "#/components/schemas/ExtensionTestResponse/example"
 
-  /webhooks/{webhookUuid}:
-    parameters:
-      - $ref: "#/components/parameters/webhookUuid"
-    head:
-      tags: ["Webhook"]
-      operationId: "checkWebhook"
-      responses:
-        '204':
-          description: "Checked webhook"
-        '404':
-          description: "Webhook not found."
-    get:
-      tags: ["Webhook"]
-      operationId: "loadWebhook"
-      responses:
-        '200':
-          description: "Loaded webhook with given uuid"
-          content:
-            'application/json':
-                schema:
-                  $ref: "#/components/schemas/WebhookResponse"
-                examples:
-                  WebhooksResponse:
-                    $ref: "#/components/schemas/WebhookResponse/example"
-    post:
-      tags: ["Webhook"]
-      operationId: "createWebhook"
-      requestBody:
-        content:
-          'application/json':
-            schema:
-              $ref: '#/components/schemas/WebhookCreateRequest'
-            examples:
-              WebhookCreateRequest:
-                $ref: '#/components/schemas/WebhookCreateRequest/example'
-
-      responses:
-        '201':
-          description: "Webhook created"
-    delete:
-      tags: ["Webhook"]
-      operationId: "deleteWebhook"
-      responses:
-        '204':
-          description: "Webhook deleted"
-        '404':
-          description: "Webhook not found."
 
 externalDocs:
   description: "Find out more about Loom"
@@ -1561,7 +1563,7 @@ components:
         edate: "2021-03-20T21:12:01.084Z"
 
     # User / List Response
-    UsersResponse:
+    UserListResponse:
       properties:
         info:
           type: object
@@ -1725,7 +1727,7 @@ components:
         edate: "2021-03-20T21:12:01.084Z"
 
     # Group / List Response
-    GroupsResponse:
+    GroupListResponse:
       type: array
       items:
         $ref: "#/components/schemas/GroupResponse"
@@ -1849,7 +1851,7 @@ components:
         edate: "2021-03-20T21:12:01.084Z"
 
     # Role / List Response
-    RolesResponse:
+    RoleListResponse:
       type: array
       items:
         $ref: "#/components/schemas/RoleResponse"
@@ -1910,7 +1912,7 @@ components:
 
 
     # Namespace / List Response
-    NamespacesResponse:
+    NamespaceListResponse:
       type: array
       items:
         $ref: "#/components/schemas/NamespaceResponse"
@@ -2025,7 +2027,7 @@ components:
           collection: "Colors"
 
     # Tag / List Response
-    TagsResponse:
+    TagListResponse:
       type: array
       items:
         $ref: "#/components/schemas/TagResponse"
@@ -2730,11 +2732,18 @@ components:
         url:
           type: string
           description: "Registered webhook URL"
+        trigger:
+          type: string
+          description: "The event on which the webhook will be triggered"
+        secretToken:
+          type: string
+          description: "The specified token which will be included in every webhook request to the endpoint. The endpoint can use this information to verify that the request is legitimate."
       example:
         uuid: "7b57bbf1-b4cf-4df6-936a-ae1de2756cb3"
         url: "http://localhost:8080/trigger_me"
+        secretToken: "fiedei3Eehei0shiicij"
 
-    WebhooksResponse:
+    WebhookListResponse:
       type: array
       items:
         $ref: "#/components/schemas/WebhookResponse"
@@ -2747,13 +2756,42 @@ components:
     WebhookCreateRequest:
       required:
         - url
+        - trigger
       properties:
         # TODO add events
         url:
           type: string
           description: "URL for the webhook"
+        trigger:
+          type: string
+          description: "Event on which the webhook should be triggered."
+        secretToken:
+          type: string
+          description: "The specified token which will be included in every webhook request to the endpoint. The endpoint can use this information to verify that the request is legitimate."
       example:
         url: "http://localhost:8080/trigger_me"
+        trigger: "CONTENT_CREATED"
+        secretToken: "fiedei3Eehei0shiicij"
+
+    WebhookUpdateRequest:
+      required:
+        - url
+        - trigger
+      properties:
+        # TODO add events
+        url:
+          type: string
+          description: "URL for the webhook"
+        trigger:
+          type: string
+          description: "Event on which the webhook should be triggered."
+        secretToken:
+          type: string
+          description: "The specified token which will be included in every webhook request to the endpoint. The endpoint can use this information to verify that the request is legitimate."
+      example:
+        url: "http://localhost:8080/trigger_me"
+        trigger: "CONTENT_CREATED"
+        secretToken: "fiedei3Eehei0shiicij"
 
     EditableElement:
       properties:

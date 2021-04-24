@@ -11,6 +11,13 @@ public class WebhookCreateRequest implements RestModel {
 	@JsonPropertyDescription("The url which should be invoked by the webhook.")
 	private String url;
 
+	@JsonProperty(required = true)
+	@JsonPropertyDescription("The trigger defines the events on which the hook should be invoked.")
+	private WebhookTrigger trigger;
+
+	@JsonPropertyDescription("The specified token which will be included in every webhook request to the endpoint. The endpoint can use this information to verify that the request is legitimate.")
+	private String secretToken;
+
 	public WebhookCreateRequest() {
 	}
 
@@ -20,6 +27,24 @@ public class WebhookCreateRequest implements RestModel {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public WebhookTrigger getTrigger() {
+		return trigger;
+	}
+
+	public WebhookCreateRequest setTrigger(WebhookTrigger trigger) {
+		this.trigger = trigger;
+		return this;
+	}
+
+	public String getSecretToken() {
+		return secretToken;
+	}
+
+	public WebhookCreateRequest setSecretToken(String secretToken) {
+		this.secretToken = secretToken;
+		return this;
 	}
 
 }
