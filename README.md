@@ -4,6 +4,9 @@ Loom is an asset management API and persistence server for your web applications
 
 ### **Loom is still under development and not yet in a usable state.**
 
+:toc:
+
+
 ## Planned Features
 
 * Multi database support for relational databases. (MariaDB, PostgreSQL)
@@ -23,48 +26,40 @@ Loom is an asset management API and persistence server for your web applications
 
 Loom is highly influenced by Gentics Mesh and can be seen as a total rewrite / conversion of Mesh.
 
-### Why a rewrite and not a fork?
-
-Starting all-over gives me the option to address various flaws and create a new project structure.
-
-## Why is there no OrientDB support anymore?
-
-The usage of OrientDB is one of the biggest issues of Gentics Mesh. In my experience the database is not reliable for the usecase. An embedded DB makes it easy to startup a single instance but causes big problems when trying to address scaling. Additionally I have experience a lot of cases database inconsistencies and clustering issues. Futhermore the database does not provide support for transaction isolation and can't cope well in situations which lead to database contention. (e.g. when updating connected types of records in parallel)
-
-## Model
+### Model
 
 - Support for non-translatable fields has been added.
 - Fields can now be nested to any depth using the `nested` field type. Thus microschemas are no longer needed.
 - Content models are directly accessible. The models no longer need to be manually assigned to the namespace.
 - Models can now extend another model
 
-## Tagging
+### Tagging
 
 - Tag families are gone and were replaced by inline properties ('collection')
 - Assets can now also be tagged
 
-## Authentication
+### Authentication
 
 - Roles have dedicated permissions.
 - Direct native keycloak, auth0 support
 - Users can now have multiple API tokens
 - API tokens have dedicated permissions
 
-## Assets
+### Assets
 
 - Binary data can now be managed via the assets entity
 - Support for asset fingerprinting
 - Support for asset thumbnail generation
 
-## GraphQL
+### GraphQL
 
 - The GraphQL endpoint is globally accessible and no longer scoped for namespaces (for now)
 
-## Search 
+### Search 
 
 - The search support has been limited to contents and assets (for now)
 
-## New Features
+### New Features
 
 - Native webhook support.
 - Native S3 support.
@@ -73,17 +68,57 @@ The usage of OrientDB is one of the biggest issues of Gentics Mesh. In my experi
 - Users, Groups, Roles, Namespaces can now have arbitrary properties.
 - Manual tagging of elements will create tags on-the fly. No need to create tags upfront.
 
-## Deprecations
+### Deprecations
 
 - Support for branches has been dropped. The concept of branches made the internal and external API very complicated.
 - Plugins are gone and are replaced by external extensions which can be implemented as microservices
 - Microschemas are gone since content models can be nested
 
-## Under the hood
+### Under the hood
 
 * Upgrade to Vert.x 4
 * No OrientDB support
 * Restructured REST models (No more custom serializes)
+
+## Questions
+
+### Why a rewrite and not a fork?
+
+Starting all-over gives me the option to address various flaws and create a new project structure.
+
+### Why is there no OrientDB support anymore?
+
+The usage of OrientDB is one of the biggest issues of Gentics Mesh. In my experience the database is not reliable for the usecase. An embedded DB makes it easy to startup a single instance but causes big problems when trying to address scaling. Additionally I have experience a lot of cases database inconsistencies and clustering issues. Futhermore the database does not provide support for transaction isolation and can't cope well in situations which lead to database contention. (e.g. when updating connected types of records in parallel)
+
+## Development Status
+
+* Project Structure: 80%
+* REST Model: 80%
+* REST API Spec: 80%
+* REST API Implementation: 0%
+* GraphQL Spec: 0%
+* GraphQL Implementation: 0%
+* Database Models: 0%
+  * Tags
+  * Contents
+  * Assets
+  * Extensions
+  * Users
+  * Groups
+  * Roles
+  * Webhooks
+  * Namespaces
+  * Models
+* Database DAOs: 0%
+* Auth0, Keycloak: 0%
+* Asset Processing: 0%
+* Content Model migrations: 0%
+* Content Model extension handling: 0%
+* Extensions: 0%
+* Webhooks: 0%
+* S3: 0%
+* Clustering: 0%
+* Import/Export: 0%
 
 ## License
 
