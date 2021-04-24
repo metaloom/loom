@@ -14,7 +14,10 @@
     "username" : "joedoe",
     "firstname" : "Joe",
     "lastname" : "Doe",
-    "email" : "joedoe@metaloom.io"
+    "email" : "joedoe@metaloom.io",
+    "meta" : {
+      "custom" : "value"
+    }
   }, {
     "uuid" : "f04e89d0-076d-4d90-b192-715a25a2cd59",
     "creator" : {
@@ -30,7 +33,10 @@
     "username" : "joedoe",
     "firstname" : "Joe",
     "lastname" : "Doe",
-    "email" : "joedoe@metaloom.io"
+    "email" : "joedoe@metaloom.io",
+    "meta" : {
+      "custom" : "value"
+    }
   } ],
   "_metainfo" : {
     "currentPage" : 0,

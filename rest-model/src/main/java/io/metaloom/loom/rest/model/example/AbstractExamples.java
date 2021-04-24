@@ -163,8 +163,20 @@ public class AbstractExamples {
 
 	public static AssetContentField assetField(String name, String filename) {
 		AssetContentField asset = new AssetContentField();
-		asset.setName(name);
-		asset.setFilename(filename);
+		asset.setName(name)
+			.setFilename(filename)
+			.setDominantColor("#FFFF00")
+			.setSize(2005225)
+			.setWidth(4000)
+			.setHeight(2250)
+			.setHashes(assetHashes())
+			.setLocalPath("/opt/movies/bigbuckbunny-4k.mp4")
+			.setS3(new AssetS3Meta().setBucket("big_bucket").setKey("themovie"))
+			.setMeta(meta())
+			.setMimeType("video/mp4")
+			.setLocation(assetLocation())
+			.setTags(tagReferenceList())
+			.setTimeline(assetTimeline());
 		return asset;
 	}
 

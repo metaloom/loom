@@ -13,6 +13,7 @@ public final class TagExamples extends AbstractExamples {
 		model.setUuid(uuidB());
 		model.setName("red");
 		model.setCollection("colors");
+		model.setMeta(meta());
 		setCreatorEditor(model);
 		return model;
 	}
@@ -21,6 +22,7 @@ public final class TagExamples extends AbstractExamples {
 		TagCreateRequest model = new TagCreateRequest();
 		model.setName("red");
 		model.setCollection("colors");
+		model.setMeta(meta());
 		return model;
 	}
 
@@ -28,6 +30,7 @@ public final class TagExamples extends AbstractExamples {
 		TagUpdateRequest model = new TagUpdateRequest();
 		model.setName("red");
 		model.setCollection("colors");
+		model.setMeta(meta());
 		return model;
 	}
 

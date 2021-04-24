@@ -12,7 +12,10 @@
     },
     "edited" : "2018-11-20T20:12:01.084Z",
     "name" : "red",
-    "collection" : "colors"
+    "collection" : "colors",
+    "meta" : {
+      "custom" : "value"
+    }
   }, {
     "uuid" : "86abc160-4da2-4951-a91f-da0c33fbc634",
     "creator" : {
@@ -26,7 +29,10 @@
     },
     "edited" : "2018-11-20T20:12:01.084Z",
     "name" : "red",
-    "collection" : "colors"
+    "collection" : "colors",
+    "meta" : {
+      "custom" : "value"
+    }
   } ],
   "_metainfo" : {
     "currentPage" : 0,

@@ -11,5 +11,8 @@
   },
   "edited" : "2018-11-20T20:12:01.084Z",
   "name" : "red",
-  "collection" : "colors"
+  "collection" : "colors",
+  "meta" : {
+    "custom" : "value"
+  }
 }

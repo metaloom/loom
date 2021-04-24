@@ -1,3 +1,6 @@
 {
-  "name" : "MyProject"
+  "name" : "MyProject",
+  "meta" : {
+    "custom" : "value"
+  }
 }

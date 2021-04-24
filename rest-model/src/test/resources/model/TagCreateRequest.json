@@ -1,4 +1,7 @@
 {
   "name" : "red",
-  "collection" : "colors"
+  "collection" : "colors",
+  "meta" : {
+    "custom" : "value"
+  }
 }

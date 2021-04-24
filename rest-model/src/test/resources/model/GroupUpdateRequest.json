@@ -1,3 +1,6 @@
 {
-  "name" : "NewGuests"
+  "name" : "NewGuests",
+  "meta" : {
+    "custom" : "value"
+  }
 }

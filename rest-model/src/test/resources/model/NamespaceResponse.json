@@ -10,5 +10,8 @@
     "name" : "joedoe"
   },
   "edited" : "2018-11-20T20:12:01.084Z",
-  "name" : "MyProject"
+  "name" : "MyProject",
+  "meta" : {
+    "custom" : "value"
+  }
 }

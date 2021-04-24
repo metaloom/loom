@@ -2,5 +2,8 @@
   "username" : "joedoe",
   "firstname" : "Joe",
   "lastname" : "Doe",
-  "email" : "joedoe@metaloom.io"
+  "email" : "joedoe@metaloom.io",
+  "meta" : {
+    "custom" : "value"
+  }
 }

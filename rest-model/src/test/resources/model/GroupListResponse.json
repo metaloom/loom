@@ -11,7 +11,10 @@
       "name" : "joedoe"
     },
     "edited" : "2018-11-20T20:12:01.084Z",
-    "name" : "Guests"
+    "name" : "Guests",
+    "meta" : {
+      "custom" : "value"
+    }
   }, {
     "uuid" : "0f3332a6-e404-4777-88a9-1fa984a311bc",
     "creator" : {
@@ -24,7 +27,10 @@
       "name" : "joedoe"
     },
     "edited" : "2018-11-20T20:12:01.084Z",
-    "name" : "Guests"
+    "name" : "Guests",
+    "meta" : {
+      "custom" : "value"
+    }
   } ],
   "_metainfo" : {
     "currentPage" : 0,

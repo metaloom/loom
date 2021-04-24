@@ -10,5 +10,7 @@
     "name" : "joedoe"
   },
   "edited" : "2018-11-20T20:12:01.084Z",
-  "url" : "http://localhost:8086/asset"
+  "url" : "http://localhost:8086/asset",
+  "kind" : "ASSET_PROCESSOR",
+  "status" : "NOMINAL"
 }
