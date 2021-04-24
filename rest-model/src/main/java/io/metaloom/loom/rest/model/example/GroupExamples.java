@@ -12,6 +12,7 @@ public class GroupExamples extends AbstractExamples {
 		GroupResponse model = new GroupResponse();
 		model.setUuid(uuidC());
 		model.setName("Guests");
+		model.setMeta(meta());
 		setCreatorEditor(model);
 		return model;
 	}
@@ -26,12 +27,14 @@ public class GroupExamples extends AbstractExamples {
 	public static GroupUpdateRequest groupUpdateRequest() {
 		GroupUpdateRequest model = new GroupUpdateRequest();
 		model.setName("NewGuests");
+		model.setMeta(meta());
 		return model;
 	}
 
 	public static GroupCreateRequest groupCreateRequest() {
 		GroupCreateRequest model = new GroupCreateRequest();
 		model.setName("Guests");
+		model.setMeta(meta());
 		return model;
 	}
 

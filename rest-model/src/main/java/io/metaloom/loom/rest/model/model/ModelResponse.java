@@ -29,7 +29,7 @@ public class ModelResponse extends AbstractCreatorEditorRestResponse {
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Flag which indicates whether the contents of this model should be searchable.")
 	private Boolean searchable;
-	
+
 	public ModelResponse() {
 	}
 
@@ -39,6 +39,42 @@ public class ModelResponse extends AbstractCreatorEditorRestResponse {
 
 	public ModelResponse setName(String name) {
 		this.name = name;
+		return this;
+	}
+
+	public String getSegmentField() {
+		return segmentField;
+	}
+
+	public ModelResponse setSegmentField(String segmentField) {
+		this.segmentField = segmentField;
+		return this;
+	}
+
+	public Boolean getSearchable() {
+		return searchable;
+	}
+
+	public ModelResponse setSearchable(Boolean searchable) {
+		this.searchable = searchable;
+		return this;
+	}
+
+	public List<ModelField> getFields() {
+		return fields;
+	}
+
+	public ModelResponse setFields(List<ModelField> fields) {
+		this.fields = fields;
+		return this;
+	}
+
+	public String getExtension() {
+		return extension;
+	}
+
+	public ModelResponse setExtension(String extension) {
+		this.extension = extension;
 		return this;
 	}
 }

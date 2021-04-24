@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.model.group;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
@@ -11,6 +13,10 @@ public class GroupUpdateRequest implements RestModel {
 	@JsonPropertyDescription("Name of the group")
 	private String name;
 
+	@JsonProperty(required = false)
+	@JsonPropertyDescription("Additional custom meta properties for the element.")
+	private Map<String, String> meta;
+
 	public GroupUpdateRequest() {
 	}
 
@@ -20,6 +26,15 @@ public class GroupUpdateRequest implements RestModel {
 
 	public GroupUpdateRequest setName(String name) {
 		this.name = name;
+		return this;
+	}
+
+	public Map<String, String> getMeta() {
+		return meta;
+	}
+
+	public GroupUpdateRequest setMeta(Map<String, String> meta) {
+		this.meta = meta;
 		return this;
 	}
 

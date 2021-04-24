@@ -11,7 +11,11 @@
       "name" : "joedoe"
     },
     "edited" : "2018-11-20T20:12:01.084Z",
-    "name" : "GuestPermissions"
+    "name" : "GuestPermissions",
+    "meta" : {
+      "custom" : "value"
+    },
+    "permissions" : [ "CREATE_USER" ]
   }, {
     "uuid" : "f04e89d0-076d-4d90-b192-715a25a2cd59",
     "creator" : {
@@ -24,7 +28,11 @@
       "name" : "joedoe"
     },
     "edited" : "2018-11-20T20:12:01.084Z",
-    "name" : "GuestPermissions"
+    "name" : "GuestPermissions",
+    "meta" : {
+      "custom" : "value"
+    },
+    "permissions" : [ "CREATE_USER" ]
   } ],
   "_metainfo" : {
     "currentPage" : 0,

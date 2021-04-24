@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.model.asset;
 
-public class AssetResizeRequest {
+import io.metaloom.loom.rest.model.RestModel;
+
+public class AssetResizeRequest implements RestModel {
 
 }

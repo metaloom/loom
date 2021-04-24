@@ -1,15 +1,17 @@
 package io.metaloom.loom.rest.model.model.field.impl.reference;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import io.metaloom.loom.rest.model.model.field.AbstractModelField;
 import io.metaloom.loom.rest.model.model.field.FieldType;
 
+@JsonPropertyOrder({ "name", "type", "i18N", "indexing", "required" })
 public class ReferenceModelField extends AbstractModelField {
 
 	@JsonPropertyDescription("Specifies the allowed type of the element which can be referenced")
 	private ReferenceType alllow;
-	
+
 	@Override
 	public ReferenceModelField setName(String name) {
 		super.setName(name);
@@ -38,11 +40,11 @@ public class ReferenceModelField extends AbstractModelField {
 	public FieldType getType() {
 		return FieldType.REFERENCE;
 	}
-	
+
 	public ReferenceType getAlllow() {
 		return alllow;
 	}
-	
+
 	public ReferenceModelField setAlllow(ReferenceType alllow) {
 		this.alllow = alllow;
 		return this;

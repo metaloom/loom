@@ -1,0 +1,56 @@
+{
+  "kind" : null,
+  "filename" : "bigbuckbunny-4k.mp4",
+  "mimeType" : "video/mp4",
+  "dominantColor" : "#FFFF00",
+  "meta" : {
+    "custom" : "value"
+  },
+  "location" : {
+    "lon" : 32.56,
+    "lat" : 52.156
+  },
+  "timeline" : [ {
+    "from" : 0,
+    "to" : 200,
+    "thumbail" : "???",
+    "meta" : {
+      "custom" : "value"
+    },
+    "tags" : [ {
+      "uuid" : "f04e89d0-076d-4d90-b192-715a25a2cd59",
+      "name" : "red"
+    }, {
+      "uuid" : "86abc160-4da2-4951-a91f-da0c33fbc634",
+      "name" : "blue"
+    } ],
+    "description" : "The very nice intro"
+  }, {
+    "from" : 200,
+    "to" : 900,
+    "thumbail" : "???",
+    "meta" : {
+      "custom" : "value"
+    },
+    "tags" : [ {
+      "uuid" : "f04e89d0-076d-4d90-b192-715a25a2cd59",
+      "name" : "red"
+    }, {
+      "uuid" : "86abc160-4da2-4951-a91f-da0c33fbc634",
+      "name" : "blue"
+    } ],
+    "description" : "The main part of the movie"
+  } ],
+  "tags" : [ {
+    "uuid" : "f04e89d0-076d-4d90-b192-715a25a2cd59",
+    "name" : "red"
+  }, {
+    "uuid" : "86abc160-4da2-4951-a91f-da0c33fbc634",
+    "name" : "blue"
+  } ],
+  "s3" : {
+    "bucket" : "big_bucket",
+    "key" : "themovie"
+  },
+  "localPath" : "/opt/movies/bigbuckbunny-4k.mp4"
+}

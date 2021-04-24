@@ -1,3 +1,7 @@
 {
-  "name" : "new_role_name"
+  "name" : "new_role_name",
+  "meta" : {
+    "custom" : "value"
+  },
+  "permissions" : [ "CREATE_USER" ]
 }

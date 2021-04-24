@@ -4,21 +4,30 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
-public class AssetTimelineEntry {
+public class AssetTimelineEntry implements RestModel {
 
+	@JsonPropertyDescription("Start time of the entry in milliseconds")
 	private long from;
 
+	@JsonPropertyDescription("End time of the entry in milliseconds")
 	private long to;
 
+	// TODO spec this
+	@JsonPropertyDescription("Thumbnail reference information")
 	private String thumbail;
 
+	@JsonPropertyDescription("Additional custom meta properties.")
 	private Map<String, String> meta;
 
+	@JsonPropertyDescription("List of tags for the entry")
 	private List<TagReference> tags;
 
+	@JsonPropertyDescription("Description of the entry")
 	private String description;
 
 	public long getFrom() {
@@ -76,9 +85,10 @@ public class AssetTimelineEntry {
 	}
 
 	@JsonIgnore
-	public void setArea(long from, long to) {
+	public AssetTimelineEntry setArea(long from, long to) {
 		this.from = from;
 		this.to = to;
+		return this;
 	}
 
 }

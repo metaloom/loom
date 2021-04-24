@@ -27,7 +27,6 @@ public class ModelModelTest implements ModelTestcases {
 	@Override
 	public void testCreateRequest() {
 		assertModel(modelCreateRequest(), "ModelCreateRequest");
-
 	}
 
 	@Test

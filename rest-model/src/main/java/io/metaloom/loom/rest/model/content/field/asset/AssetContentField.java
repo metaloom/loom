@@ -39,6 +39,7 @@ public class AssetContentField extends AbstractContentField {
 	@JsonPropertyDescription("The location information of the asset. Some images may contain GPS information in the image metadata.")
 	private AssetLocation location;
 
+	@JsonPropertyDescription("A list of tags on the asset.")
 	private List<TagReference> tags;
 
 	@JsonPropertyDescription("The S3 attributes for the asset. This info is only provides when storage in S3 is utilized or when these values have been provided for the asset.")

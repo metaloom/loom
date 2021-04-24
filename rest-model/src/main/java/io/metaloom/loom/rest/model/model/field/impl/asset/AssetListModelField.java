@@ -1,8 +1,11 @@
 package io.metaloom.loom.rest.model.model.field.impl.asset;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import io.metaloom.loom.rest.model.model.field.AbstractListModelField;
 import io.metaloom.loom.rest.model.model.field.FieldType;
 
+@JsonPropertyOrder({ "name", "type", "i18N", "indexing", "required" })
 public class AssetListModelField extends AbstractListModelField {
 
 	@Override

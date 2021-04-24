@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.model.tag;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
@@ -14,6 +16,10 @@ public class TagUpdateRequest implements RestModel {
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("Name of the collection to which the tag belongs.")
 	private String collection;
+
+	@JsonProperty(required = false)
+	@JsonPropertyDescription("Additional custom meta properties for the element.")
+	private Map<String, String> meta;
 
 	public TagUpdateRequest() {
 	}
@@ -33,6 +39,15 @@ public class TagUpdateRequest implements RestModel {
 
 	public TagUpdateRequest setCollection(String collection) {
 		this.collection = collection;
+		return this;
+	}
+
+	public Map<String, String> getMeta() {
+		return meta;
+	}
+
+	public TagUpdateRequest setMeta(Map<String, String> meta) {
+		this.meta = meta;
 		return this;
 	}
 

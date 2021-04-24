@@ -10,5 +10,22 @@
     "name" : "joedoe"
   },
   "edited" : "2018-11-20T20:12:01.084Z",
-  "name" : "BlogPost"
+  "name" : "BlogPost",
+  "segmentField" : "name",
+  "fields" : [ {
+    "name" : "name",
+    "type" : "TEXT",
+    "i18N" : false,
+    "indexing" : true,
+    "required" : true,
+    "markup" : "PLAIN"
+  }, {
+    "name" : "image",
+    "type" : "ASSET",
+    "i18N" : false,
+    "indexing" : false,
+    "required" : true
+  } ],
+  "searchable" : true,
+  "extends" : "Post"
 }

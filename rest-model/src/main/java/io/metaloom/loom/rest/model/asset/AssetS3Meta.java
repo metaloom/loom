@@ -1,9 +1,15 @@
 package io.metaloom.loom.rest.model.asset;
 
-public class AssetS3Meta {
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.RestModel;
+
+public class AssetS3Meta implements RestModel {
+
+	@JsonPropertyDescription("The id of the s3 bucket in which the asset is stored.")
 	private String bucket;
 
+	@JsonPropertyDescription("The key to the asset within the s3 bucket.")
 	private String key;
 
 	public AssetS3Meta() {

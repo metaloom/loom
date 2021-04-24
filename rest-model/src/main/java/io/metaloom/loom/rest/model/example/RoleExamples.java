@@ -1,7 +1,10 @@
 package io.metaloom.loom.rest.model.example;
 
+import java.util.Arrays;
+
 import io.metaloom.loom.rest.model.role.RoleCreateRequest;
 import io.metaloom.loom.rest.model.role.RoleListResponse;
+import io.metaloom.loom.rest.model.role.RolePermission;
 import io.metaloom.loom.rest.model.role.RoleReference;
 import io.metaloom.loom.rest.model.role.RoleResponse;
 import io.metaloom.loom.rest.model.role.RoleUpdateRequest;
@@ -12,6 +15,8 @@ public class RoleExamples extends AbstractExamples {
 		RoleResponse model = new RoleResponse();
 		model.setUuid(uuidA());
 		model.setName("GuestPermissions");
+		model.setMeta(meta());
+		model.setPermissions(Arrays.asList(RolePermission.CREATE_USER));
 		setCreatorEditor(model);
 		return model;
 	}
@@ -26,12 +31,16 @@ public class RoleExamples extends AbstractExamples {
 	public static RoleCreateRequest roleCreateRequest() {
 		RoleCreateRequest model = new RoleCreateRequest();
 		model.setName("GuestPermissions");
+		model.setPermissions(Arrays.asList(RolePermission.CREATE_USER));
+		model.setMeta(meta());
 		return model;
 	}
 
 	public static RoleUpdateRequest roleUpdateRequest() {
 		RoleUpdateRequest model = new RoleUpdateRequest();
 		model.setName("new_role_name");
+		model.setPermissions(Arrays.asList(RolePermission.CREATE_USER));
+		model.setMeta(meta());
 		return model;
 	}
 

@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.model.user;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
@@ -22,6 +24,10 @@ public class UserCreateRequest implements RestModel {
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("The email address of the user.")
 	private String email;
+
+	@JsonProperty(required = false)
+	@JsonPropertyDescription("Additional custom meta properties for the element.")
+	private Map<String, String> meta;
 
 	public UserCreateRequest() {
 	}
@@ -59,6 +65,15 @@ public class UserCreateRequest implements RestModel {
 
 	public UserCreateRequest setEmail(String email) {
 		this.email = email;
+		return this;
+	}
+
+	public Map<String, String> getMeta() {
+		return meta;
+	}
+
+	public UserCreateRequest setMeta(Map<String, String> meta) {
+		this.meta = meta;
 		return this;
 	}
 

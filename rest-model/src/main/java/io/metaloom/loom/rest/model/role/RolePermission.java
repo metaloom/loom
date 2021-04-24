@@ -9,4 +9,5 @@ public enum RolePermission {
 	DELETE_USER,
 
 	UPDATE_USER;
+
 }

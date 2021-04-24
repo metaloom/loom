@@ -15,6 +15,7 @@ public class UserExamples extends AbstractExamples {
 		model.setEmail("joedoe@metaloom.io");
 		model.setFirstname("Joe");
 		model.setLastname("Doe");
+		model.setMeta(meta());
 		setCreatorEditor(model);
 		return model;
 	}
@@ -25,7 +26,7 @@ public class UserExamples extends AbstractExamples {
 		model.setEmail("joedoe@metaloom.io");
 		model.setFirstname("Joe");
 		model.setLastname("Doe");
-
+		model.setMeta(meta());
 		return model;
 	}
 
@@ -35,6 +36,7 @@ public class UserExamples extends AbstractExamples {
 		model.setEmail("joedoe@metaloom.io");
 		model.setFirstname("Joe");
 		model.setLastname("Doe");
+		model.setMeta(meta());
 		return model;
 	}
 
