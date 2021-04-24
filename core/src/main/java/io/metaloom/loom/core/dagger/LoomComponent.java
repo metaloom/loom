@@ -23,7 +23,7 @@ public interface LoomComponent {
 		/**
 		 * Inject loom instance.
 		 * 
-		 * @param mesh
+		 * @param loom
 		 * @return
 		 */
 		Builder loom(Loom loom);
