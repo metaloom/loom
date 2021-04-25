@@ -331,9 +331,14 @@
 				<artifactId>loom-service-video</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+
+			<!-- Loom DB -->
+			<dependency>
+				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-db-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
-
-
 
 	</dependencyManagement>
 

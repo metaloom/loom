@@ -6,14 +6,12 @@
 
 	<parent>
 		<groupId>io.metaloom.loom</groupId>
-		<artifactId>loom</artifactId>
+		<artifactId>loom-db</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>loom-db</artifactId>
-	<name>Loom - DB</name>
-	<description>Loom Database</description>
-	<packaging>pom</packaging>
+	<artifactId>loom-db-memory</artifactId>
+	<name>Loom - DB - In-Memory</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,11 +29,29 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<modules>
-		<module>api</module>
-		<module>model</module>
-		<module>memory</module>
-		<module>hibernate</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>io.metaloom.loom</groupId>
+			<artifactId>loom-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom</groupId>
+			<artifactId>loom-db-api</artifactId>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>11</source>
+					<target>11</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
