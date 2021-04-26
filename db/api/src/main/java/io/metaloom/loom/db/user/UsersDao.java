@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.user;
 
+import java.io.IOException;
 import java.util.UUID;
 
 public interface UsersDao {
@@ -13,4 +14,6 @@ public interface UsersDao {
 	void deleteUser(User user);
 
 	void storeUser(User user);
+
+	void clear() throws IOException;
 }

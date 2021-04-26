@@ -1,7 +1,10 @@
 package io.metaloom.loom.db.user;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
+
+import org.apache.commons.io.FileUtils;
 
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
@@ -37,11 +40,16 @@ public class FsUsersDaoImpl extends AbstractFSDao implements UsersDao {
 		Objects.requireNonNull(user, "User must not be null");
 		FilesystemIoHelper.store(getType(), user.getUuid(), user);
 	}
-	
+
 	@Override
 	public void storeUser(User user) {
 		Objects.requireNonNull(user, "User must not be null");
 		FilesystemIoHelper.store(getType(), user.getUuid(), user);
+	}
+
+	@Override
+	public void clear() throws IOException {
+		FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
 	}
 
 }

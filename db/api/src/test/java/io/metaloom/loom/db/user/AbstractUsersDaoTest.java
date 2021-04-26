@@ -4,15 +4,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.io.IOException;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public abstract class AbstractUsersDaoTest {
 
-	abstract public UsersDao createDao();
+	abstract public UsersDao getDao();
+
+	@After
+	@Before
+	public void clearPersistence() throws IOException {
+		getDao().clear();
+	}
 
 	@Test
 	public void testCreate() {
-		UsersDao dao = createDao();
+		UsersDao dao = getDao();
 
 		// Create user
 		User user = dao.createUser();
@@ -24,7 +34,7 @@ public abstract class AbstractUsersDaoTest {
 
 	@Test
 	public void testDelete() {
-		UsersDao dao = createDao();
+		UsersDao dao = getDao();
 
 		// Create user
 		User user = dao.createUser();
@@ -37,7 +47,7 @@ public abstract class AbstractUsersDaoTest {
 
 	@Test
 	public void testUpdate() {
-		UsersDao dao = createDao();
+		UsersDao dao = getDao();
 
 		// Create and store
 		User user = dao.createUser();
@@ -56,7 +66,7 @@ public abstract class AbstractUsersDaoTest {
 
 	@Test
 	public void testLoad() {
-		UsersDao dao = createDao();
+		UsersDao dao = getDao();
 
 		// Create and store user
 		User user = dao.createUser();

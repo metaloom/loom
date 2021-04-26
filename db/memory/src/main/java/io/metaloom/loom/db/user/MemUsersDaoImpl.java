@@ -39,4 +39,9 @@ public class MemUsersDaoImpl implements UsersDao {
 		storage.put(user.getUuid(), user);
 	}
 
+	@Override
+	public void clear() {
+		storage.clear();
+	}
+
 }

@@ -15,28 +15,30 @@ import io.metaloom.loom.json.JsonUtil;
 
 public class FilesystemIoHelper {
 
-	private static final File BASE = new File("storage");
+	public static final File BASE = new File("storage");
+
+	public static File getTypeDir(FSType type) {
+		return new File(BASE, type.name());
+	}
 
 	public static <T> T load(FSType type, UUID uuid, Class<T> clazz) {
-		File fsFile = new File(BASE, type + "-" + uuid.toString() + ".json");
+		File fsFile = new File(getTypeDir(type), uuid.toString() + ".json");
 		if (fsFile.exists()) {
-
-			String json;
 			try {
-				json = FileUtils.readFileToString(fsFile, Charset.defaultCharset());
+				String json = FileUtils.readFileToString(fsFile, Charset.defaultCharset());
+				return JsonUtil.toModel(json, clazz);
 			} catch (IOException e) {
 				// TODO i18n
 				String message = "Could not read model from file {" + fsFile.getAbsolutePath() + "}";
 				throw new LoomRestException(INTERNAL_SERVER_ERROR, message, e);
 			}
-			return JsonUtil.toModel(json, clazz);
 		} else {
 			return null;
 		}
 	}
 
 	public static void delete(FSType type, UUID uuid) {
-		File fsFile = new File(BASE, type + "-" + uuid.toString() + ".json");
+		File fsFile = new File(getTypeDir(type), uuid.toString() + ".json");
 		if (fsFile.exists()) {
 			if (!fsFile.delete()) {
 				// TODO i18n
@@ -48,7 +50,7 @@ public class FilesystemIoHelper {
 	}
 
 	public static void store(FSType type, UUID uuid, User user) {
-		File fsFile = new File(BASE, type + "-" + uuid.toString() + ".json");
+		File fsFile = new File(getTypeDir(type), uuid.toString() + ".json");
 		String json = JsonUtil.toJson(user);
 		try {
 			FileUtils.write(fsFile, json, Charset.defaultCharset());

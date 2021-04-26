@@ -6,9 +6,11 @@ import io.metaloom.loom.db.user.UsersDao;
 
 public class MemUsersDaoTest extends AbstractUsersDaoTest {
 
+	private MemUsersDaoImpl dao = new MemUsersDaoImpl();
+
 	@Override
-	public UsersDao createDao() {
-		return new MemUsersDaoImpl();
+	public UsersDao getDao() {
+		return dao;
 	}
 
 }
