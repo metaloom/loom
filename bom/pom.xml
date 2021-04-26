@@ -338,6 +338,12 @@
 				<artifactId>loom-db-api</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-db-api</artifactId>
+				<version>${project.version}</version>
+				<type>test-jar</type>
+			</dependency>
 		</dependencies>
 
 	</dependencyManagement>

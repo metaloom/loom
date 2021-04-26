@@ -1,10 +1,10 @@
-package io.metaloom.loom.db;
+package io.metaloom.loom.db.user;
 
 import java.util.UUID;
 
 import io.metaloom.loom.db.user.User;
 
-public class MemUserImpl implements User {
+public class FsUserImpl implements User {
 
 	private UUID uuid;
 	private User editor;

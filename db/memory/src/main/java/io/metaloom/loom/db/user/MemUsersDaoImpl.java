@@ -1,14 +1,12 @@
-package io.metaloom.loom.db;
+package io.metaloom.loom.db.user;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import io.metaloom.loom.db.user.User;
-import io.metaloom.loom.db.user.UsersDao;
 import io.metaloom.loom.uuid.UUIDUtil;
 
-public class MemUersDaoImpl implements UsersDao {
+public class MemUsersDaoImpl implements UsersDao {
 
 	private Map<UUID, User> storage = new HashMap<>();
 
@@ -28,13 +26,17 @@ public class MemUersDaoImpl implements UsersDao {
 	public User createUser() {
 		User user = new MemUserImpl();
 		user.setUuid(UUIDUtil.randomUUID());
-		storage.put(user.getUuid(), user);
 		return user;
 	}
 
 	@Override
 	public void updateUser(User user) {
-		// NOOP since memory mode does not persist
+		storage.put(user.getUuid(), user);
+	}
+
+	@Override
+	public void storeUser(User user) {
+		storage.put(user.getUuid(), user);
 	}
 
 }

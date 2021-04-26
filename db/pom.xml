@@ -35,6 +35,7 @@
 		<module>api</module>
 		<module>model</module>
 		<module>memory</module>
+		<module>fs</module>
 		<module>hibernate</module>
 	</modules>
 

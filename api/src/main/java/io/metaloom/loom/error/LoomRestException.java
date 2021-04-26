@@ -13,8 +13,14 @@ public class LoomRestException extends RuntimeException {
 		this.message = message;
 	}
 
+	public LoomRestException(int httpErrorCode, String message) {
+		this.code = httpErrorCode;
+		this.message = message;
+	}
+
 	public int httpCode() {
 		return code;
 	}
+	
 
 }
