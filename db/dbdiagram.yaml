@@ -1,10 +1,7 @@
 Project LOOM {
   Note: '''
-    # MetaLoom - Loom 1.0 Database Schema
+    # MetaLoom - Loom 1.0 Database model
 
-    ## TODOs
-    
-    * Review schema change handling
   '''
 }
 //// -- LEVEL 1
@@ -24,6 +21,7 @@ Table users as U {
   lastname varchar
   email varchar
   enabled boolean [default: true, not null]
+  meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`]
   creator_uuid uuid  [ref: > U.uuid]
@@ -36,9 +34,24 @@ Table users as U {
   }
 }
 
+Table user_tokens as AK {
+  uuid uuid [pk, increment]
+  user_uuid user_uuid [ref: > U.uuid]
+  note varchar
+  token varchar [not null]
+  permissions varchar [not null]
+  
+  Indexes {
+    (uuid) [pk]
+    (user_uuid)
+  }
+
+}
+
 Table roles as R {
   uuid uuid [pk, increment]
   name varchar [unique, not null]
+  meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
@@ -70,6 +83,7 @@ Table role_permissions as PERM {
 Table groups as G {
   uuid uuid [pk, increment]
   name varchar [unique, not null]
+  meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
@@ -104,6 +118,7 @@ Table tags as T {
   uuid uuid [pk, increment]
   name varchar [not null]
   collection varchar [not null]
+  meta varchar [note: "Custom meta properties to the element"]
 
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
@@ -139,6 +154,10 @@ Table assets as ASSET {
   
   size long [not null]
   sha512sum varchar [not null]
+  sha256sum varchar [not null]
+  md5sum varchar [not null]
+  meta varchar [note: "Custom meta properties to the element"]
+
   media_width  int [note: 'Only set for images']
   media_height int [note: 'Only set for images']
 
@@ -152,57 +171,76 @@ Table assets as ASSET {
   }
 }
 
+Table assets_timeline as ASSET_TIMELINE {
+  uuid uuid [pk, increment]
+  asset_uuid uuid [ref: > ASSET.uuid]
+  from int [not null]
+  to int  [not null]
+  description varchar
+  tags varchar
+  meta varchar
+  thumbail varchar
+  
+  note: "This table contains asset timeline entries"
+}
+
+Table assets_timeline_tags as ASSET_TIMELINE_TAGS {
+  assettimeline_uuid uuid [ref: > ASSET_TIMELINE.uuid]
+  tag_uuid           uuid [ref: > T.uuid]
+}
+
 Table contents as C {
   uuid uuid [pk, increment]
   namespace_uuid uuid [ref: > N.uuid, not null]
-  content_uuid uuid [ref: > N.uuid, note: 'May be null for the root node']
+  parent uuid [ref: > C.uuid, note: 'Reference to the parent content.']
   
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
-  schema_uuid uuid [ref: > S.uuid, not null]
+  model_uuid uuid [ref: > M.uuid, not null]
   
   Indexes {
     (uuid) [pk]
   }
 }
 
-Table content_references as NR {
-  source_uuid uuid [ref: > C.uuid, not null]
-  target_uuid uuid [ref: > N.uuid, not null]
-  field_name varchar [not null, note: 'Name of the field in which the node reference was listed.']
-  micronode_field_name varchar [note: 'Optional micronode field name which is used when the refence was listed within a micronode.'] 
-  
+Table fields_references as FR {
+  source_uuid uuid [ref: > F.uuid, not null]
+  target_uuid uuid [ref: > F.uuid, not null]
+  field_name varchar [not null, note: 'Name of the field in which the content reference was listed.']
+
   Indexes {
     (source_uuid, target_uuid) [pk]
   }
   
-  note: 'This table is mainly used to lookup foreign references to contents'
+  note: "This table is mainly used to lookup foreign references to contents"
 }
 
-Table contents_fields as NC {
+Table contents_fields as CF {
   content_uuid uuid [ref: > C.uuid]
   fields_uuid uuid [ref: >  F.uuid, not null]
 
   webroot_path_info varchar [unique, note: 'prefixed with branch']
-  content_type node_type [not null, note: "D or P for draft and published"]
+  content_type content_type [not null, note: "D or P for draft and published"]
   
   Indexes {
     (content_uuid, content_type) [note: 'Index to be used to lookup contents of contents']
     (content_type, webroot_path_info) [note: 'Index to be used to lookup webroot paths']
   }
+  note: "Crosstable that tracks all fields for a content"
 }
 
-Table webroot_nice_urls {
-  content_uuid uuid [ref: > C.uuid]  
-  content_type node_type [not null]
-  url varchar [not null]
 
-  Indexes {
-    (content_type, url) [name:'webroot_url', note: 'Index to be used to lookup nice urls']
-  }
-}
+//Table webroot_nice_urls {
+//  content_uuid uuid [ref: > C.uuid]  
+//  content_type content_type [not null]
+//  url varchar [not null]
+//
+//  Indexes {
+//    (content_type, url) [name:'webroot_url', note: 'Index to be used to lookup nice urls']
+//  }
+//}
 
-Enum node_type {
+Enum content_type {
   D
   P
   I [note: 'Maybe implicitly used']
@@ -211,35 +249,43 @@ Enum node_type {
 
 Table fields as F {
   uuid uuid [pk, increment]
-  content_uuid uuid [ref: > N.uuid]
+  content_uuid uuid [ref: > N.uuid, note: "Reference to the content that uses this fields record"]
   
-  fields_json varchar [note: 'JSON which contains the actual content']
+  fields_json varchar [note: 'JSON which contains the actual fields content']
+  // REF to language table?
   language_tag varchar
   edited timestamp [default: `now()`]
   editor_uuid uuid [ref: > U.uuid]
-  schemaversion_uuid uuid [ref: > SV.uuid]
+  modelversion_uuid uuid [ref: > SV.uuid]
   version int
   
   Indexes {
     (uuid) [pk]
   }
+  
+  note: "Table which stores the actual fields content as JSON"
 }
 
-Table contents_assets as CB {
-  content_uuid uuid [ref: > C.uuid]
+Table fields_assets as FA {
+  field_uuid uuid [ref: > F.uuid]
   asset_uuid uuid [ref: > ASSET.uuid]
   field_name varchar
   
   Indexes {
-    (content_uuid, asset_uuid) [pk]
+    (field_uuid, asset_uuid) [pk]
   }
+  
+  note: "Crosstable which tracks the used assets in a fields record"
 
 }
 
 Table namespaces as N {
   uuid uuid [pk, increment]
   name varchar [unique, not null]
-  content_node_uuid uuid [ref: > N.uuid]
+  root_conten_uuid uuid [ref: > C.uuid]
+  meta varchar [note: "Custom meta properties to the element"]
+  path_prefix varchar [note: "Prefix for webroot paths"]
+  model_filters varchar [note: "filter for models that can be used in the namespace"]
   
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
@@ -252,7 +298,7 @@ Table namespaces as N {
   }
 }
 
-Table schemas as S {
+Table models as M {
   uuid uuid [pk, increment]
   name varchar [unique, not null]
   latest_version_uuid uuid [ref: > SV.uuid]
@@ -263,9 +309,9 @@ Table schemas as S {
   editor_uuid uuid [ref: > U.uuid]
 }
 
-Table schema_versions as SV {
+Table model_versions as SV {
   uuid uuid [pk, increment]
-  schema_uuid uuid [ref: > S.uuid]
+  model_uuid uuid [ref: > M.uuid]
   json varchar [not null]
   next_version_uuid uuid [ref: - SV.uuid]
   prev_version_uuid uuid [ref: - SV.uuid]
@@ -284,4 +330,35 @@ Table languages as L {
     (uuid) [pk]
     (tag)
   }
+}
+
+
+Table extensions as EXT {
+  uuid uuid [pk, increment]
+  url varchar [not null]
+  kind  varchar
+  status varchar
+  
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid [ref: > U.uuid]
+  
+  note: "Table which lists the registered extensions"
+}
+
+
+Table webhooks as WH {
+  uuid uuid [pk, increment]
+  url varchar [not null]
+  status varchar
+  active boolean [default: true, not null]
+  triggers varchar
+  
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid [ref: > U.uuid]
+  
+  note: "Table which stores the registered webhooks"
 }

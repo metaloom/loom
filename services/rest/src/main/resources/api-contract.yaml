@@ -1895,9 +1895,9 @@ components:
         name:
           type: string
           description: "Name of the namespace."
-        properties:
+        meta:
           type: object
-          description: "Additional namespace properties."
+          description: "Additional custom properties."
       example:
         name: "Sol"
         uuid: "5cef456a-50bc-4a5a-ae58-9442821ba58e"
@@ -1907,6 +1907,8 @@ components:
         editor:
           username: "joedoe"
           uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
+        meta:
+          customKey: "customValue"
         cdate: "2021-03-20T20:12:01.084Z"
         edate: "2021-03-20T21:12:01.084Z"
 
@@ -1937,9 +1939,9 @@ components:
 #        ssl:
 #          type: boolean
 #          description: "Flag which indicates that the namespace is used in a SSL context"
-        properties:
+        meta:
           type: object
-          description: "Additional namespace properties."
+          description: "Additional custom properties."
         modelFilters:
           type: array
           description: "List of filters which can be used to include or exclude access to models for the namespace. The filter syntax supports regular expressions. Updated filters will not affect already created contents."
@@ -1947,7 +1949,7 @@ components:
         name: "Sol"
  #       hostname: "myhost.tld"
  #       ssl: true
-        properties:
+        meta:
           usage: "For my new blog"
           custom: "Lorem ipsum"
         modelFilters:
