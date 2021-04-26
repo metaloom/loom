@@ -83,7 +83,7 @@ Table role_permissions as PERM {
   }
 }
 
-Table groups as G {
+Table groups as G [headercolor: #222] {
   uuid uuid [pk, increment]
   name varchar [unique, not null]
   meta varchar [note: "Custom meta properties to the element"]
@@ -115,6 +115,17 @@ Table user_groups as UG {
   Indexes {
     (user_uuid, group_uuid) [pk]
   }
+}
+
+
+tablegroup acl {
+  users
+  roles
+  groups
+  user_groups
+  roles_groups
+  user_tokens
+  role_permissions
 }
 
 Table tags as T {
@@ -152,6 +163,14 @@ Table tags_contents {
   }
 }
 
+
+tablegroup tagging {
+  tags
+  tags_namespaces
+  assets_timeline_tags
+  tags_contents
+}
+
 Table assets as ASSET {
   uuid uuid [pk, increment]
   
@@ -174,7 +193,7 @@ Table assets as ASSET {
   }
 }
 
-Table assets_timeline as ASSET_TIMELINE {
+Table assets_timeline as ASSET_TIMELINE [headercolor: #222]{
   uuid uuid [pk, increment]
   asset_uuid uuid [ref: > ASSET.uuid]
   from int [not null]
@@ -192,7 +211,7 @@ Table assets_timeline_tags as ASSET_TIMELINE_TAGS {
   tag_uuid           uuid [ref: > T.uuid]
 }
 
-Table contents as C {
+Table contents as C [headercolor: #222] {
   uuid uuid [pk, increment]
   namespace_uuid uuid [ref: > N.uuid, not null]
   parent uuid [ref: > C.uuid, note: 'Reference to the parent content.']
@@ -218,9 +237,9 @@ Table fields_references as FR {
   note: "This table is mainly used to lookup foreign references to contents"
 }
 
-Table contents_fields as CF {
-  content_uuid uuid [ref: > C.uuid]
+Table fields_contents as CF {
   fields_uuid uuid [ref: >  F.uuid, not null]
+  content_uuid uuid [ref: > C.uuid]
 
   webroot_path_info varchar [unique, note: 'prefixed with branch']
   content_type content_type [not null, note: "D or P for draft and published"]
@@ -357,6 +376,20 @@ Table fields_assets as FA {
 
 }
 
+tablegroup contents {
+  contents
+  fields
+  fields_contents
+  fields_references
+  languages
+}
+
+tablegroup assets {
+  assets
+  assets_timeline
+  fields_assets
+}
+
 Table namespaces as N {
   uuid uuid [pk, increment]
   name varchar [unique, not null]
@@ -374,6 +407,11 @@ Table namespaces as N {
     (uuid) [pk]
     (name) [unique]
   }
+}
+
+tablegroup namespaces {
+  loom
+  namespaces
 }
 
 Table models as M {
@@ -397,6 +435,11 @@ Table model_versions as MV {
   Indexes {
     (uuid) [pk]
   }
+}
+
+tablegroup models {
+  models
+  model_versions
 }
 
 Table languages as L {
@@ -442,4 +485,10 @@ Table webhooks as W {
   editor_uuid uuid [ref: > U.uuid]
   
   note: "Table which stores the registered webhooks"
+}
+
+
+tablegroup others {
+  webhooks
+  extensions
 }

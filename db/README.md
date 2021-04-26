@@ -8,4 +8,6 @@
 
 ## Domain Model
 
-See https://dbdiagram.io/d/6086e050b29a09603d123272 
+![DB Schema](DB.png "Database Domain Model")
+
+See https://dbdiagram.io/d/6086e050b29a09603d123272
