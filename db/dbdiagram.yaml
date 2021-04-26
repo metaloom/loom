@@ -1,0 +1,287 @@
+Project LOOM {
+  Note: '''
+    # MetaLoom - Loom 1.0 Database Schema
+
+    ## TODOs
+    
+    * Review schema change handling
+  '''
+}
+//// -- LEVEL 1
+//// -- Tables and References
+
+// Creating tables
+
+Table loom as LOOM {
+  db_rev varchar
+  last_used_timestamp timestamp [default: `now()`, not null]
+}
+
+Table users as U {
+  uuid uuid [pk, increment]
+  username varchar [unique, not null]
+  firstname varchar
+  lastname varchar
+  email varchar
+  enabled boolean [default: true, not null]
+  
+  created timestamp [default: `now()`]
+  creator_uuid uuid  [ref: > U.uuid]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid [ref: > U.uuid]
+  
+  Indexes {
+    (uuid) [pk]
+    (username) [unique]
+  }
+}
+
+Table roles as R {
+  uuid uuid [pk, increment]
+  name varchar [unique, not null]
+  
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid [ref: > U.uuid]
+  
+  Indexes {
+    (uuid) [pk]
+    (name) [unique]
+  }
+}
+
+Table role_permissions as PERM {
+  role_uuid uuid [ref: > R.uuid]
+  element_uuid uuid [not null]
+  
+  create_perm boolean [default: false, not null]
+  read_perm boolean [default: false, not null]
+  delete_perm boolean [default: false, not null]
+  update_perm boolean [default: false, not null]
+  read_publish_perm boolean [default: false, not null]
+  publish_perm boolean [default: false, not null]
+  
+  Indexes {
+    (role_uuid, element_uuid) [pk]
+  }
+}
+
+Table groups as G {
+  uuid uuid [pk, increment]
+  name varchar [unique, not null]
+  
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid [ref: > U.uuid]
+  
+  Indexes {
+    (uuid) [pk]
+    (name) [unique]
+  }
+}
+ 
+Table roles_groups as RG {
+   group_uuid uuid [ref: > G.uuid, not null]
+   role_uuid uuid [ref: > R.uuid, not null]
+   
+  Indexes {
+    (group_uuid, role_uuid) [pk]
+  }
+}
+
+Table user_groups as UG {
+   user_uuid uuid [ref: > U.uuid, not null]
+   group_uuid uuid [ref: > G.uuid, not null]
+   
+  Indexes {
+    (user_uuid, group_uuid) [pk]
+  }
+}
+
+Table tags as T {
+  uuid uuid [pk, increment]
+  name varchar [not null]
+  collection varchar [not null]
+
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid [ref: > U.uuid]
+
+  Indexes {
+    (uuid) [pk]
+    (name, collection) [unique]
+  }
+}
+
+Table tags_namespaces {
+  tag_uuid uuid [ref: > T.uuid, not null]
+  namespace_uuid uuid [ref: > N.uuid, not null]
+  
+  Indexes {
+    (tag_uuid, namespace_uuid) [pk]
+  }
+}
+
+Table tags_contents {
+  tag_uuid uuid [ref: > T.uuid, not null]
+  content_uuid uuid [ref: > C.uuid, not null]
+  
+  Indexes {
+    (tag_uuid, content_uuid) [pk]
+  }
+}
+
+Table assets as ASSET {
+  uuid uuid [pk, increment]
+  
+  size long [not null]
+  sha512sum varchar [not null]
+  media_width  int [note: 'Only set for images']
+  media_height int [note: 'Only set for images']
+
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid [ref: > U.uuid]
+  
+  Indexes {
+    (uuid) [pk]
+  }
+}
+
+Table contents as C {
+  uuid uuid [pk, increment]
+  namespace_uuid uuid [ref: > N.uuid, not null]
+  content_uuid uuid [ref: > N.uuid, note: 'May be null for the root node']
+  
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
+  schema_uuid uuid [ref: > S.uuid, not null]
+  
+  Indexes {
+    (uuid) [pk]
+  }
+}
+
+Table content_references as NR {
+  source_uuid uuid [ref: > C.uuid, not null]
+  target_uuid uuid [ref: > N.uuid, not null]
+  field_name varchar [not null, note: 'Name of the field in which the node reference was listed.']
+  micronode_field_name varchar [note: 'Optional micronode field name which is used when the refence was listed within a micronode.'] 
+  
+  Indexes {
+    (source_uuid, target_uuid) [pk]
+  }
+  
+  note: 'This table is mainly used to lookup foreign references to contents'
+}
+
+Table contents_fields as NC {
+  content_uuid uuid [ref: > C.uuid]
+  fields_uuid uuid [ref: >  F.uuid, not null]
+
+  webroot_path_info varchar [unique, note: 'prefixed with branch']
+  content_type node_type [not null, note: "D or P for draft and published"]
+  
+  Indexes {
+    (content_uuid, content_type) [note: 'Index to be used to lookup contents of contents']
+    (content_type, webroot_path_info) [note: 'Index to be used to lookup webroot paths']
+  }
+}
+
+Table webroot_nice_urls {
+  content_uuid uuid [ref: > C.uuid]  
+  content_type node_type [not null]
+  url varchar [not null]
+
+  Indexes {
+    (content_type, url) [name:'webroot_url', note: 'Index to be used to lookup nice urls']
+  }
+}
+
+Enum node_type {
+  D
+  P
+  I [note: 'Maybe implicitly used']
+}
+
+
+Table fields as F {
+  uuid uuid [pk, increment]
+  content_uuid uuid [ref: > N.uuid]
+  
+  fields_json varchar [note: 'JSON which contains the actual content']
+  language_tag varchar
+  edited timestamp [default: `now()`]
+  editor_uuid uuid [ref: > U.uuid]
+  schemaversion_uuid uuid [ref: > SV.uuid]
+  version int
+  
+  Indexes {
+    (uuid) [pk]
+  }
+}
+
+Table contents_assets as CB {
+  content_uuid uuid [ref: > C.uuid]
+  asset_uuid uuid [ref: > ASSET.uuid]
+  field_name varchar
+  
+  Indexes {
+    (content_uuid, asset_uuid) [pk]
+  }
+
+}
+
+Table namespaces as N {
+  uuid uuid [pk, increment]
+  name varchar [unique, not null]
+  content_node_uuid uuid [ref: > N.uuid]
+  
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid [ref: > U.uuid]
+  
+  Indexes {
+    (uuid) [pk]
+    (name) [unique]
+  }
+}
+
+Table schemas as S {
+  uuid uuid [pk, increment]
+  name varchar [unique, not null]
+  latest_version_uuid uuid [ref: > SV.uuid]
+
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid [ref: > U.uuid]
+}
+
+Table schema_versions as SV {
+  uuid uuid [pk, increment]
+  schema_uuid uuid [ref: > S.uuid]
+  json varchar [not null]
+  next_version_uuid uuid [ref: - SV.uuid]
+  prev_version_uuid uuid [ref: - SV.uuid]
+  
+  Indexes {
+    (uuid) [pk]
+  }
+}
+
+Table languages as L {
+  uuid uuid [pk, increment]
+  native_name varchar [not null]
+  tag varchar [unique, not null]
+  
+  Indexes {
+    (uuid) [pk]
+    (tag)
+  }
+}
