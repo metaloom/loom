@@ -1538,7 +1538,7 @@ components:
         admin:
           type: boolean
           description: "Flag which indicates that the user has admin permissions."
-        properties:
+        meta:
           type: object
           description: "Additional user properties."
       example:
@@ -1549,7 +1549,7 @@ components:
         lastName: "Doe"
         enabled: true
         admin: false
-        properties:
+        meta:
           birthday: "02-04-1987"
           favoriteColor: "blue"
           securityQuestionAnswer: "42"
@@ -1623,7 +1623,7 @@ components:
         password:
           type: string
           description: "Plaintext password of the user (Can't be loaded again)."
-        properties:
+        meta:
           type: object
           description: "Additional user properties."
       example:
@@ -1632,6 +1632,8 @@ components:
         firstName: "Jane"
         lastName: "Doe"
         password: "shahsieQuit5aishaido"
+        meta:
+          myKey: "myValue"
 
     # User / Reference
     UserReference:
@@ -1711,7 +1713,7 @@ components:
         name:
           type: string
           description: "Name of the group."
-        properties:
+        meta:
           type: object
           description: "Additional group properties."
       example:
@@ -1725,6 +1727,9 @@ components:
           uuid: "2e20fca1-dbe7-4f28-99d7-15bf366b4a82"
         cdate: "2021-03-20T20:12:01.084Z"
         edate: "2021-03-20T21:12:01.084Z"
+        meta:
+          myKey: "myValue"
+
 
     # Group / List Response
     GroupListResponse:
@@ -1745,12 +1750,12 @@ components:
         name:
           type: string
           description: "Name of the group."
-        properties:
+        meta:
           type: object
           description: "Additional group properties."
       example:
         name: "Guests"
-        properties:
+        meta:
           a: "b"
           c: "d"
 
@@ -1788,13 +1793,13 @@ components:
         permissions:
           type: array
           description: "List of permissions that are granted by the role."
-        properties:
+        meta:
           type: object
           description: "Additional role properties."
       example:
         uuid: "a1f6c35a-2b59-4f7c-83ea-c3a5fd163eaf"
         name: "GuestPermission"
-        properties:
+        meta:
           a: "b"
           c: "d"
         permissions:
@@ -2593,6 +2598,9 @@ components:
         fallback:
           type: string
           description: "Optionally defined fallback for the language."
+        meta:
+          type: object
+          description: "Additional custom properties."
       example:
         name: "en-US"
         nativeName: "English"
@@ -2621,6 +2629,15 @@ components:
         fallback:
           type: string
           description: "Optionally defined fallback for the language."
+        meta:
+          type: object
+          description: "Additional custom properties."
+      example:
+        name: "de"
+        nativeName: "Deutsch"
+        fallback: "en-GB"
+        meta:
+          myKey: "myValue"
 
     # Language / List Response
     LanguagesResponse:
@@ -2668,11 +2685,16 @@ components:
           type: string
         status:
           type: string
+        meta:
+          type: object
+          description: "Additional custom properties."
       example:
         uuid: "c01cc788-3b03-456b-bc87-c11ea6176b13"
         kind: "asset_processor"
         url: "http://loom-extensions/asset_processor"
         status: "OK"
+        meta:
+          myKey: "myValue"
 
     ExtensionsResponse:
       type: array
@@ -2691,9 +2713,14 @@ components:
           enum: ["asset"]
         url:
           type: string
+        meta:
+          type: object
+          description: "Additional custom properties."
       example:
         kind: "asset"
         url: "http://loom-extensions/asset_processor"
+        meta:
+          myKey: "myValue"
 
     ExtensionCreateRequest:
       properties:
@@ -2702,9 +2729,14 @@ components:
           enum: ["asset"]
         url:
           type: string
+        meta:
+          type: object
+          description: "Additional custom properties."
       example:
         kind: "asset"
         url: "http://loom-extensions/asset_processor"
+        meta:
+          myKey: "myValue"
 
     ExtensionTestResponse:
       properties:
@@ -2734,16 +2766,28 @@ components:
         url:
           type: string
           description: "Registered webhook URL"
-        trigger:
+        triggers:
           type: string
           description: "The event on which the webhook will be triggered"
+        active:
+          type: boolean
+          description: "The active flag for the webhook. This can be used to temporarily disable the webhook."
         secretToken:
           type: string
           description: "The specified token which will be included in every webhook request to the endpoint. The endpoint can use this information to verify that the request is legitimate."
+        meta:
+          type: object
+          description: "Additional custom properties."
       example:
         uuid: "7b57bbf1-b4cf-4df6-936a-ae1de2756cb3"
         url: "http://localhost:8080/trigger_me"
         secretToken: "fiedei3Eehei0shiicij"
+        triggers:
+          - CREATE_CONTENT
+        active: true
+        meta:
+          myKey: "myValue"
+
 
     WebhookListResponse:
       type: array
@@ -2770,10 +2814,19 @@ components:
         secretToken:
           type: string
           description: "The specified token which will be included in every webhook request to the endpoint. The endpoint can use this information to verify that the request is legitimate."
+        active:
+          type: boolean
+          description: "The active flag for the webhook. This can be used to temporarily disable the webhook."
+        meta:
+          type: object
+          description: "Additional custom properties."
       example:
         url: "http://localhost:8080/trigger_me"
         trigger: "CONTENT_CREATED"
         secretToken: "fiedei3Eehei0shiicij"
+        active: true
+        meta:
+          myKey: "myValue"
 
     WebhookUpdateRequest:
       required:
@@ -2784,16 +2837,25 @@ components:
         url:
           type: string
           description: "URL for the webhook"
+        active:
+          type: boolean
+          description: "The active flag for the webhook. This can be used to temporarily disable the webhook."
         trigger:
           type: string
           description: "Event on which the webhook should be triggered."
         secretToken:
           type: string
           description: "The specified token which will be included in every webhook request to the endpoint. The endpoint can use this information to verify that the request is legitimate."
+        meta:
+          type: object
+          description: "Additional custom properties."
       example:
         url: "http://localhost:8080/trigger_me"
         trigger: "CONTENT_CREATED"
+        active: true
         secretToken: "fiedei3Eehei0shiicij"
+        meta:
+          myKey: "myValue"
 
     EditableElement:
       properties:

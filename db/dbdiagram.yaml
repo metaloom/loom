@@ -22,6 +22,7 @@ Table users as U {
   email varchar
   enabled boolean [default: true, not null]
   meta varchar [note: "Custom meta properties to the element"]
+  permissions permission_flag
   
   created timestamp [default: `now()`]
   creator_uuid uuid  [ref: > U.uuid]
@@ -39,7 +40,7 @@ Table user_tokens as AK {
   user_uuid user_uuid [ref: > U.uuid]
   note varchar
   token varchar [not null]
-  permissions varchar [not null]
+  permissions permission_flag
   
   Indexes {
     (uuid) [pk]
@@ -51,6 +52,7 @@ Table user_tokens as AK {
 Table roles as R {
   uuid uuid [pk, increment]
   name varchar [unique, not null]
+  permissions permission_flag
   meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
@@ -64,6 +66,7 @@ Table roles as R {
   }
 }
 
+// Do we require custom object level permissions?
 Table role_permissions as PERM {
   role_uuid uuid [ref: > R.uuid]
   element_uuid uuid [not null]
@@ -246,6 +249,81 @@ Enum content_type {
   I [note: 'Maybe implicitly used']
 }
 
+Enum permission_flag {
+  // C
+  CREATE_CONTENT
+  READ_CONTENT
+  UPDATE_CONTENT
+  DELETE_CONTENT
+  PUBLISH_CONTENT
+  UNPUBLISH_CONTENT
+
+  // N
+  CREATE_NAMESPACE
+  READ_NAMESPACE
+  UPDATE_NAMESPACE
+  DELETE_NAMESPACE
+  
+  // U
+  CREATE_USER
+  READ_USER
+  UPDATE_USER
+  DELETE_USER
+  
+  // G
+  CREATE_GROUP
+  READ_GROUP
+  UPDATE_GROUP
+  DELETE_GROUP
+  
+  // R
+  CREATE_ROLE
+  READ_ROLE
+  UPDATE_ROLE
+  DELETE_ROLE
+  
+  // T
+  CREATE_TAG
+  READ_TAG
+  UPDATE_TAG
+  DELETE_TAG
+  
+  // M
+  CREATE_MODEL
+  READ_MODEL
+  UPDATE_MODEL
+  DELETE_MODEL
+  
+  // A
+  CREATE_ASSET
+  READ_ASSET
+  UPDATE_ASSET
+  DELETE_ASSET
+  UPLOAD_ASSET
+  DOWNLOAD_ASSET
+  
+  // W
+  CREATE_WEBHOOK
+  READ_WEBHOOK
+  UPDATE_WEBHOOK
+  DELETE_WEBHOOK
+
+  // E
+  CREATE_EXTENSION
+  READ_EXTENSION
+  UPDATE_EXTENSION
+  DELETE_EXTENSION
+
+  // L
+  CREATE_LANGUAGE
+  READ_LANGUAGE
+  UPDATE_LANGUAGE
+  DELETE_LANGUAGE
+
+  // ADMIN
+  // TBD
+  
+}
 
 Table fields as F {
   uuid uuid [pk, increment]
@@ -256,7 +334,7 @@ Table fields as F {
   language_tag varchar
   edited timestamp [default: `now()`]
   editor_uuid uuid [ref: > U.uuid]
-  modelversion_uuid uuid [ref: > SV.uuid]
+  modelversion_uuid uuid [ref: > MV.uuid]
   version int
   
   Indexes {
@@ -301,7 +379,7 @@ Table namespaces as N {
 Table models as M {
   uuid uuid [pk, increment]
   name varchar [unique, not null]
-  latest_version_uuid uuid [ref: > SV.uuid]
+  latest_version_uuid uuid [ref: > MV.uuid]
 
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
@@ -309,12 +387,12 @@ Table models as M {
   editor_uuid uuid [ref: > U.uuid]
 }
 
-Table model_versions as SV {
+Table model_versions as MV {
   uuid uuid [pk, increment]
   model_uuid uuid [ref: > M.uuid]
   json varchar [not null]
-  next_version_uuid uuid [ref: - SV.uuid]
-  prev_version_uuid uuid [ref: - SV.uuid]
+  next_version_uuid uuid [ref: - MV.uuid]
+  prev_version_uuid uuid [ref: - MV.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -325,19 +403,21 @@ Table languages as L {
   uuid uuid [pk, increment]
   native_name varchar [not null]
   tag varchar [unique, not null]
-  
+  meta varchar [note: "Custom meta properties to the element"]
+
   Indexes {
     (uuid) [pk]
     (tag)
   }
 }
 
-
-Table extensions as EXT {
+Table extensions as E {
   uuid uuid [pk, increment]
   url varchar [not null]
-  kind  varchar
+  // TODO enum
+  kind  varchar [note: "Defines the type of the extension service"]
   status varchar
+  meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
@@ -347,13 +427,14 @@ Table extensions as EXT {
   note: "Table which lists the registered extensions"
 }
 
-
-Table webhooks as WH {
+Table webhooks as W {
   uuid uuid [pk, increment]
   url varchar [not null]
   status varchar
   active boolean [default: true, not null]
   triggers varchar
+  secretToken varchar [note: "Secret token which webhook services can use to authenticate the request."]
+  meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
