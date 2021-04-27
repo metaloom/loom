@@ -1,9 +1,10 @@
 package io.metaloom.loom.db.role;
 
-import java.io.IOException;
 import java.util.UUID;
 
-public interface RolesDao {
+import io.metaloom.loom.db.LoomDao;
+
+public interface RolesDao extends LoomDao {
 
 	Role createRole();
 
@@ -13,7 +14,6 @@ public interface RolesDao {
 
 	Role loadRole(UUID uuid);
 
-	Role storeRole(Role role);
-	
-	void clear() throws IOException;
+	void storeRole(Role role);
+
 }

@@ -5,4 +5,8 @@ import io.metaloom.loom.db.Taggable;
 
 public interface Namespace extends CUDElement, Taggable {
 
+	String getName();
+
+	Namespace setName(String name);
+
 }

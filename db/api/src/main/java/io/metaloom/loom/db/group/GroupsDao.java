@@ -1,9 +1,10 @@
 package io.metaloom.loom.db.group;
 
-import java.io.IOException;
 import java.util.UUID;
 
-public interface GroupsDao {
+import io.metaloom.loom.db.LoomDao;
+
+public interface GroupsDao extends LoomDao {
 
 	Group createGroup();
 
@@ -13,7 +14,6 @@ public interface GroupsDao {
 
 	Group loadGroup(UUID uuid);
 
-	Group storeRole(Group group);
+	void storeGroup(Group group);
 
-	void clear() throws IOException;
 }

@@ -6,5 +6,21 @@ public enum FSType {
 
 	GROUP,
 
-	ROLE;
+	ROLE,
+
+	NAMESPACE,
+
+	TAG,
+
+	WEBHOOK,
+
+	EXTENSION,
+
+	MODEL,
+
+	CONTENT,
+
+	FIELD,
+
+	ASSET;
 }

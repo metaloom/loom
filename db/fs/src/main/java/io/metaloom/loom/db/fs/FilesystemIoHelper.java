@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 
+import io.metaloom.loom.db.CUDElement;
+import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.db.user.User;
 import io.metaloom.loom.error.LoomRestException;
 import io.metaloom.loom.json.JsonUtil;
@@ -49,9 +51,9 @@ public class FilesystemIoHelper {
 
 	}
 
-	public static void store(FSType type, UUID uuid, User user) {
+	public static void store(FSType type, UUID uuid, LoomElement element) {
 		File fsFile = new File(getTypeDir(type), uuid.toString() + ".json");
-		String json = JsonUtil.toJson(user);
+		String json = JsonUtil.toJson(element);
 		try {
 			FileUtils.write(fsFile, json, Charset.defaultCharset());
 		} catch (IOException e) {

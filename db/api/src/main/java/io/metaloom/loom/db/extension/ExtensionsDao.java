@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.extension;
 
-public interface ExtensionsDao {
+import io.metaloom.loom.db.LoomDao;
+
+public interface ExtensionsDao extends LoomDao {
 
 }
