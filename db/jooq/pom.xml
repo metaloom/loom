@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>io.metaloom.loom</groupId>
+		<artifactId>loom-db</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>loom-db-jooq</artifactId>
+	<name>Loom - DB - JOOQ</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-bom</artifactId>
+				<type>pom</type>
+				<scope>import</scope>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.metaloom.loom</groupId>
+			<artifactId>loom-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom</groupId>
+			<artifactId>loom-db-api</artifactId>
+		</dependency>
+
+		<!-- JOOQ -->
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq</artifactId>
+			<version>3.13.3</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.jklingsporn</groupId>
+			<artifactId>vertx-jooq-rx-reactive</artifactId>
+			<version>6.2.0</version>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>io.metaloom.loom</groupId>
+			<artifactId>loom-db-api</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- Specify the maven code generator plugin -->
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
+				<version>3.13.3</version>
+
+				<!-- The plugin should hook into the generate goal -->
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<dependencies>
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>42.2.2</version>
+					</dependency>
+					<dependency>
+						<groupId>io.github.jklingsporn</groupId>
+						<artifactId>vertx-jooq-generate</artifactId>
+						<version>6.2.0</version>
+					</dependency>
+				</dependencies>
+
+				<!-- Specify the plugin configuration. The configuration format is the 
+					same as for the standalone code generator -->
+				<configuration>
+					<!-- JDBC connection parameters -->
+					<jdbc>
+						<driver>org.postgresql.Driver</driver>
+						<url>YOUR_JDBC_URL_HERE</url>
+						<user>YOUR_DB_USER_HERE</user>
+						<password>YOUR_DB_PASSWORD_HERE</password>
+					</jdbc>
+
+					<!-- Generator parameters -->
+					<generator>
+						<name>io.github.jklingsporn.vertx.jooq.generate.rx.RXReactiveVertxGenerator</name>
+						<!-- use 'io.github.jklingsporn.vertx.jooq.generate.rx.RXReactiveGuiceVertxGenerator' 
+							to enable Guice DI -->
+						<database>
+							<name>org.jooq.meta.postgres.PostgresDatabase</name>
+							<includes>.*</includes>
+							<inputSchema>YOUR_INPUT_SCHEMA</inputSchema>
+							<outputSchema>YOUR_OUTPUT_SCHEMA</outputSchema>
+							<unsignedTypes>false</unsignedTypes>
+							<forcedTypes>
+								<!-- Convert tinyint to boolean -->
+								<forcedType>
+									<name>BOOLEAN</name>
+									<types>(?i:TINYINT)</types>
+								</forcedType>
+							</forcedTypes>
+						</database>
+						<target>
+							<!-- This is where jOOQ will put your files -->
+							<packageName>io.metaloom.db.jooq</packageName>
+							<directory>target/generated/annotations</directory>
+						</target>
+						<generate>
+							<interfaces>true</interfaces>
+							<daos>true</daos>
+							<fluentSetters>true</fluentSetters>
+						</generate>
+						<strategy>
+							<name>io.github.jklingsporn.vertx.jooq.generate.VertxGeneratorStrategy</name>
+						</strategy>
+					</generator>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
