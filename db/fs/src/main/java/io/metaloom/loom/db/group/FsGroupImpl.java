@@ -1,49 +1,21 @@
 package io.metaloom.loom.db.group;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.role.Role;
 import io.metaloom.loom.db.user.User;
 
-public class FsGroupImpl implements Group {
+public class FsGroupImpl extends AbstractFSCUDElement implements Group {
 
-	private UUID uuid;
-	private User editor;
-	private User creator;
 	private String name;
 
-	@Override
-	public User getEditor() {
-		return editor;
-	}
-
-	@Override
-	public void setEditor(User editor) {
-		this.editor = editor;
-	}
-
-	@Override
-	public User getCreator() {
-		return creator;
-	}
-
-	@Override
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-
-	@Override
-	public UUID getUuid() {
-		return uuid;
-	}
-
-	@Override
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
-	}
+	private List<Role> roles = new ArrayList<>();
+	private List<User> users = new ArrayList<>();
 
 	@Override
 	public String getName() {
@@ -59,21 +31,36 @@ public class FsGroupImpl implements Group {
 	@Override
 	@JsonIgnore
 	public Stream<User> streamUsers() {
-		return null;
+		return users.stream();
 	}
 
 	@Override
 	public Group addUser(User user) {
+		users.add(user);
+		return this;
+	}
+
+	@Override
+	public Group removeUser(User user) {
+		users.remove(user);
 		return this;
 	}
 
 	@Override
 	public Group addRole(Role role) {
+		roles.add(role);
 		return this;
 	}
 
 	@Override
 	public Group removeRole(Role role) {
+		roles.remove(role);
 		return this;
+	}
+
+	@Override
+	@JsonIgnore
+	public Stream<Role> streamRoles() {
+		return roles.stream();
 	}
 }

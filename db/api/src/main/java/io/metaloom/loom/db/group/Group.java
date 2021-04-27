@@ -13,11 +13,17 @@ public interface Group extends CUDElement, LoomElement {
 
 	Group setName(String name);
 
+	// Users
 	Group addUser(User user);
+
+	Group removeUser(User user);
 
 	Stream<User> streamUsers();
 
+	// Roles
 	Group addRole(Role role);
 
 	Group removeRole(Role role);
+
+	Stream<Role> streamRoles();
 }

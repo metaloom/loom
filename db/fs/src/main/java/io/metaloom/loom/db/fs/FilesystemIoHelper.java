@@ -9,9 +9,7 @@ import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 
-import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.LoomElement;
-import io.metaloom.loom.db.user.User;
 import io.metaloom.loom.error.LoomRestException;
 import io.metaloom.loom.json.JsonUtil;
 

@@ -3,45 +3,13 @@ package io.metaloom.loom.db.model;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.tag.Tag;
 import io.metaloom.loom.db.user.User;
 
-public class FsModelImpl implements Model {
+public class FsModelImpl extends AbstractFSCUDElement implements Model {
 
-	private UUID uuid;
-	private User editor;
-	private User creator;
 	private String name;
-
-	@Override
-	public User getEditor() {
-		return editor;
-	}
-
-	@Override
-	public void setEditor(User editor) {
-		this.editor = editor;
-	}
-
-	@Override
-	public User getCreator() {
-		return creator;
-	}
-
-	@Override
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-
-	@Override
-	public UUID getUuid() {
-		return uuid;
-	}
-
-	@Override
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
-	}
 
 	@Override
 	public String getName() {
