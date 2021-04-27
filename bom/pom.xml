@@ -23,6 +23,7 @@
 		<jackson-databind.version>2.12.2</jackson-databind.version>
 		<hibernate.version>1.0.0-SNAPSHOT</hibernate.version>
 		<netty.version>4.1.63.Final</netty.version>
+		<postgres.driver.version>42.2.2</postgres.driver.version>
 	</properties>
 
 	<dependencyManagement>
@@ -55,6 +56,18 @@
 				<version>${vertx.version}</version>
 			</dependency>
 
+			<!-- JOOQ -->
+			<dependency>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq</artifactId>
+				<version>3.14.8</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.jklingsporn</groupId>
+				<artifactId>vertx-jooq-rx-reactive</artifactId>
+				<version>6.2.0</version>
+			</dependency>
+
 			<!-- Dagger -->
 			<dependency>
 				<groupId>com.google.dagger</groupId>
@@ -66,6 +79,18 @@
 				<artifactId>dagger-compiler</artifactId>
 				<version>${dagger.version}</version>
 				<optional>true</optional>
+			</dependency>
+
+			<!-- JDBC -->
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgres.driver.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-sql-client</artifactId>
+				<version>${vertx.version}</version>
 			</dependency>
 
 			<!-- Utilities -->
