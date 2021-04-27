@@ -14,8 +14,8 @@ Table loom as LOOM {
   last_used_timestamp timestamp [default: `now()`, not null]
 }
 
-Table users as U {
-  uuid uuid [pk, increment]
+Table user as U {
+  uuid uuid [increment]
   username varchar [unique, not null]
   firstname varchar
   lastname varchar
@@ -35,9 +35,9 @@ Table users as U {
   }
 }
 
-Table user_tokens as AK {
-  uuid uuid [pk, increment]
-  user_uuid user_uuid [ref: > U.uuid]
+Table user_token as AK {
+  uuid uuid [increment]
+  user_uuid uuid [ref: > U.uuid]
   note varchar
   token varchar [not null]
   permissions permission_flag
@@ -49,8 +49,8 @@ Table user_tokens as AK {
 
 }
 
-Table roles as R {
-  uuid uuid [pk, increment]
+Table role as R {
+  uuid uuid [increment]
   name varchar [unique, not null]
   permissions permission_flag
   meta varchar [note: "Custom meta properties to the element"]
@@ -67,7 +67,7 @@ Table roles as R {
 }
 
 // Do we require custom object level permissions?
-Table role_permissions as PERM {
+Table role_permission as PERM {
   role_uuid uuid [ref: > R.uuid]
   element_uuid uuid [not null]
   
@@ -83,8 +83,8 @@ Table role_permissions as PERM {
   }
 }
 
-Table groups as G [headercolor: #222] {
-  uuid uuid [pk, increment]
+Table group as G [headercolor: #222] {
+  uuid uuid [increment]
   name varchar [unique, not null]
   meta varchar [note: "Custom meta properties to the element"]
   
@@ -99,7 +99,7 @@ Table groups as G [headercolor: #222] {
   }
 }
  
-Table roles_groups as RG {
+Table role_group as RG {
    group_uuid uuid [ref: > G.uuid, not null]
    role_uuid uuid [ref: > R.uuid, not null]
    
@@ -108,7 +108,7 @@ Table roles_groups as RG {
   }
 }
 
-Table user_groups as UG {
+Table user_group as UG {
    user_uuid uuid [ref: > U.uuid, not null]
    group_uuid uuid [ref: > G.uuid, not null]
    
@@ -118,18 +118,18 @@ Table user_groups as UG {
 }
 
 
-tablegroup acl {
-  users
-  roles
-  groups
-  user_groups
-  roles_groups
-  user_tokens
-  role_permissions
+tablegroup ACL {
+  user
+  role
+  group
+  user_group
+  role_group
+  user_token
+  role_permission
 }
 
-Table tags as T {
-  uuid uuid [pk, increment]
+Table tag as T {
+  uuid uuid [increment]
   name varchar [not null]
   collection varchar [not null]
   meta varchar [note: "Custom meta properties to the element"]
@@ -145,7 +145,7 @@ Table tags as T {
   }
 }
 
-Table tags_namespaces {
+Table tag_namespace {
   tag_uuid uuid [ref: > T.uuid, not null]
   namespace_uuid uuid [ref: > N.uuid, not null]
   
@@ -154,7 +154,7 @@ Table tags_namespaces {
   }
 }
 
-Table tags_contents {
+Table tag_content {
   tag_uuid uuid [ref: > T.uuid, not null]
   content_uuid uuid [ref: > C.uuid, not null]
   
@@ -164,17 +164,17 @@ Table tags_contents {
 }
 
 
-tablegroup tagging {
-  tags
-  tags_namespaces
-  assets_timeline_tags
-  tags_contents
+tablegroup Tagging {
+  tag
+  tag_namespace
+  asset_timeline_tag
+  tag_content
 }
 
-Table assets as ASSET {
-  uuid uuid [pk, increment]
+Table asset as ASSET {
+  uuid uuid [increment]
   
-  size long [not null]
+  size int [not null]
   sha512sum varchar [not null]
   sha256sum varchar [not null]
   md5sum varchar [not null]
@@ -193,8 +193,8 @@ Table assets as ASSET {
   }
 }
 
-Table assets_timeline as ASSET_TIMELINE [headercolor: #222]{
-  uuid uuid [pk, increment]
+Table asset_timeline as ASSET_TIMELINE [headercolor: #222]{
+  uuid uuid [increment]
   asset_uuid uuid [ref: > ASSET.uuid]
   from int [not null]
   to int  [not null]
@@ -203,16 +203,20 @@ Table assets_timeline as ASSET_TIMELINE [headercolor: #222]{
   meta varchar
   thumbail varchar
   
+  Indexes {
+    (uuid) [pk]
+  }
+  
   note: "This table contains asset timeline entries"
 }
 
-Table assets_timeline_tags as ASSET_TIMELINE_TAGS {
+Table asset_timeline_tag as ASSET_TIMELINE_TAGS {
   assettimeline_uuid uuid [ref: > ASSET_TIMELINE.uuid]
   tag_uuid           uuid [ref: > T.uuid]
 }
 
-Table contents as C [headercolor: #222] {
-  uuid uuid [pk, increment]
+Table content as C [headercolor: #222] {
+  uuid uuid [increment]
   namespace_uuid uuid [ref: > N.uuid, not null]
   parent uuid [ref: > C.uuid, note: 'Reference to the parent content.']
   
@@ -225,7 +229,7 @@ Table contents as C [headercolor: #222] {
   }
 }
 
-Table fields_references as FR {
+Table field_reference as FR {
   source_uuid uuid [ref: > F.uuid, not null]
   target_uuid uuid [ref: > F.uuid, not null]
   field_name varchar [not null, note: 'Name of the field in which the content reference was listed.']
@@ -237,7 +241,7 @@ Table fields_references as FR {
   note: "This table is mainly used to lookup foreign references to contents"
 }
 
-Table fields_contents as CF {
+Table field_content as CF {
   fields_uuid uuid [ref: >  F.uuid, not null]
   content_uuid uuid [ref: > C.uuid]
 
@@ -252,7 +256,7 @@ Table fields_contents as CF {
 }
 
 
-//Table webroot_nice_urls {
+//Table webroot_nice_url {
 //  content_uuid uuid [ref: > C.uuid]  
 //  content_type content_type [not null]
 //  url varchar [not null]
@@ -344,8 +348,8 @@ Enum permission_flag {
   
 }
 
-Table fields as F {
-  uuid uuid [pk, increment]
+Table field as F {
+  uuid uuid [increment]
   content_uuid uuid [ref: > N.uuid, note: "Reference to the content that uses this fields record"]
   
   fields_json varchar [note: 'JSON which contains the actual fields content']
@@ -363,7 +367,7 @@ Table fields as F {
   note: "Table which stores the actual fields content as JSON"
 }
 
-Table fields_assets as FA {
+Table field_asset as FA {
   field_uuid uuid [ref: > F.uuid]
   asset_uuid uuid [ref: > ASSET.uuid]
   field_name varchar
@@ -376,22 +380,22 @@ Table fields_assets as FA {
 
 }
 
-tablegroup contents {
-  contents
-  fields
-  fields_contents
-  fields_references
-  languages
+tablegroup Contents {
+  content
+  field
+  field_content
+  field_reference
+  language
 }
 
-tablegroup assets {
-  assets
-  assets_timeline
-  fields_assets
+tablegroup Assets {
+  asset
+  asset_timeline
+  field_asset
 }
 
-Table namespaces as N {
-  uuid uuid [pk, increment]
+Table namespace as N {
+  uuid uuid [increment]
   name varchar [unique, not null]
   root_conten_uuid uuid [ref: > C.uuid]
   meta varchar [note: "Custom meta properties to the element"]
@@ -409,13 +413,8 @@ Table namespaces as N {
   }
 }
 
-tablegroup namespaces {
-  loom
-  namespaces
-}
-
-Table models as M {
-  uuid uuid [pk, increment]
+Table model as M {
+  uuid uuid [increment]
   name varchar [unique, not null]
   latest_version_uuid uuid [ref: > MV.uuid]
 
@@ -423,10 +422,15 @@ Table models as M {
   creator_uuid uuid  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
   editor_uuid uuid [ref: > U.uuid]
+  
+  Indexes {
+    (uuid) [pk]
+    (name) [unique]
+  }
 }
 
-Table model_versions as MV {
-  uuid uuid [pk, increment]
+Table model_version as MV {
+  uuid uuid [increment]
   model_uuid uuid [ref: > M.uuid]
   json varchar [not null]
   next_version_uuid uuid [ref: - MV.uuid]
@@ -437,13 +441,13 @@ Table model_versions as MV {
   }
 }
 
-tablegroup models {
-  models
-  model_versions
+tablegroup Models {
+  model
+  model_version
 }
 
-Table languages as L {
-  uuid uuid [pk, increment]
+Table language as L {
+  uuid uuid [increment]
   native_name varchar [not null]
   tag varchar [unique, not null]
   meta varchar [note: "Custom meta properties to the element"]
@@ -454,8 +458,8 @@ Table languages as L {
   }
 }
 
-Table extensions as E {
-  uuid uuid [pk, increment]
+Table extension as E {
+  uuid uuid [increment]
   url varchar [not null]
   // TODO enum
   kind  varchar [note: "Defines the type of the extension service"]
@@ -467,11 +471,15 @@ Table extensions as E {
   edited timestamp [default: `now()`]
   editor_uuid uuid [ref: > U.uuid]
   
+  Indexes {
+    (uuid) [pk]
+  }
+  
   note: "Table which lists the registered extensions"
 }
 
-Table webhooks as W {
-  uuid uuid [pk, increment]
+Table webhook as W {
+  uuid uuid [increment]
   url varchar [not null]
   status varchar
   active boolean [default: true, not null]
@@ -484,11 +492,19 @@ Table webhooks as W {
   edited timestamp [default: `now()`]
   editor_uuid uuid [ref: > U.uuid]
   
+  Indexes {
+    (uuid) [pk]
+  }
+  
   note: "Table which stores the registered webhooks"
 }
 
 
-tablegroup others {
-  webhooks
-  extensions
+tablegroup Others {
+  loom
+  namespace
+  webhook
+  extension
 }
+
+
