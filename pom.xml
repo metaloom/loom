@@ -28,6 +28,9 @@
 		<jacoco.version>0.8.4</jacoco.version>
 		<jacoco.skip>true</jacoco.skip>
 		<jacoco.env></jacoco.env>
+		
+		<!-- Dagger -->
+		<dagger.version>2.35</dagger.version>
 
 		<loom.build.timestamp>${maven.build.timestamp}</loom.build.timestamp>
 	</properties>

@@ -16,7 +16,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<vertx.version>4.0.3</vertx.version>
-		<dagger.version>2.24</dagger.version>
 		<hazelcast.version>3.12.8</hazelcast.version>
 		<tika.version>1.26</tika.version>
 		<aws.sdk.version>2.16.38</aws.sdk.version>
@@ -73,7 +72,7 @@
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				<version>31.1.1-jre</version>
+				<version>30.1.1-jre</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-cli</groupId>
