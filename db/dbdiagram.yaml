@@ -9,13 +9,13 @@ Project LOOM {
 
 // Creating tables
 
-Table loom as LOOM {
+Table loom as LOOM [headercolor: #16a085] {
   db_rev varchar
   last_used_timestamp timestamp [default: `now()`, not null]
 }
 
-Table user as U {
-  uuid uuid [increment]
+Table user as U [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
   username varchar [unique, not null]
   firstname varchar
   lastname varchar
@@ -27,7 +27,7 @@ Table user as U {
   created timestamp [default: `now()`]
   creator_uuid uuid  [ref: > U.uuid]
   edited timestamp [default: `now()`]
-  editor_uuid uuid [ref: > U.uuid]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -36,8 +36,8 @@ Table user as U {
 }
 
 Table user_token as AK {
-  uuid uuid [increment]
-  user_uuid uuid [ref: > U.uuid]
+  uuid uuid_generate_v4 [increment]
+  user_uuid uuid_generate_v4 [ref: > U.uuid]
   note varchar
   token varchar [not null]
   permissions permission_flag
@@ -49,16 +49,16 @@ Table user_token as AK {
 
 }
 
-Table role as R {
-  uuid uuid [increment]
+Table role as R [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
   name varchar [unique, not null]
   permissions permission_flag
   meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid  [ref: > U.uuid, not null]
+  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid [ref: > U.uuid]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -68,8 +68,8 @@ Table role as R {
 
 // Do we require custom object level permissions?
 Table role_permission as PERM {
-  role_uuid uuid [ref: > R.uuid]
-  element_uuid uuid [not null]
+  role_uuid uuid_generate_v4 [ref: > R.uuid]
+  element_uuid uuid_generate_v4 [not null]
   
   create_perm boolean [default: false, not null]
   read_perm boolean [default: false, not null]
@@ -83,15 +83,15 @@ Table role_permission as PERM {
   }
 }
 
-Table group as G [headercolor: #222] {
-  uuid uuid [increment]
+Table group as G [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
   name varchar [unique, not null]
   meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid  [ref: > U.uuid, not null]
+  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid [ref: > U.uuid]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -100,8 +100,8 @@ Table group as G [headercolor: #222] {
 }
  
 Table role_group as RG {
-   group_uuid uuid [ref: > G.uuid, not null]
-   role_uuid uuid [ref: > R.uuid, not null]
+   group_uuid uuid_generate_v4 [ref: > G.uuid, not null]
+   role_uuid uuid_generate_v4 [ref: > R.uuid, not null]
    
   Indexes {
     (group_uuid, role_uuid) [pk]
@@ -109,8 +109,8 @@ Table role_group as RG {
 }
 
 Table user_group as UG {
-   user_uuid uuid [ref: > U.uuid, not null]
-   group_uuid uuid [ref: > G.uuid, not null]
+   user_uuid uuid_generate_v4 [ref: > U.uuid, not null]
+   group_uuid uuid_generate_v4 [ref: > G.uuid, not null]
    
   Indexes {
     (user_uuid, group_uuid) [pk]
@@ -128,16 +128,16 @@ tablegroup ACL {
   role_permission
 }
 
-Table tag as T {
-  uuid uuid [increment]
+Table tag as T [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
   name varchar [not null]
   collection varchar [not null]
   meta varchar [note: "Custom meta properties to the element"]
 
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid  [ref: > U.uuid, not null]
+  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid [ref: > U.uuid]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
 
   Indexes {
     (uuid) [pk]
@@ -146,8 +146,8 @@ Table tag as T {
 }
 
 Table tag_namespace {
-  tag_uuid uuid [ref: > T.uuid, not null]
-  namespace_uuid uuid [ref: > N.uuid, not null]
+  tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
+  namespace_uuid uuid_generate_v4 [ref: > N.uuid, not null]
   
   Indexes {
     (tag_uuid, namespace_uuid) [pk]
@@ -155,8 +155,8 @@ Table tag_namespace {
 }
 
 Table tag_content {
-  tag_uuid uuid [ref: > T.uuid, not null]
-  content_uuid uuid [ref: > C.uuid, not null]
+  tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
+  content_uuid uuid_generate_v4 [ref: > C.uuid, not null]
   
   Indexes {
     (tag_uuid, content_uuid) [pk]
@@ -171,8 +171,8 @@ tablegroup Tagging {
   tag_content
 }
 
-Table asset as ASSET {
-  uuid uuid [increment]
+Table asset as ASSET [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
   
   size int [not null]
   sha512sum varchar [not null]
@@ -184,18 +184,18 @@ Table asset as ASSET {
   media_height int [note: 'Only set for images']
 
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid  [ref: > U.uuid, not null]
+  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid [ref: > U.uuid]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
   }
 }
 
-Table asset_timeline as ASSET_TIMELINE [headercolor: #222]{
-  uuid uuid [increment]
-  asset_uuid uuid [ref: > ASSET.uuid]
+Table asset_timeline as ASSET_TIMELINE [headercolor: #316896]{
+  uuid uuid_generate_v4 [increment]
+  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid]
   from int [not null]
   to int  [not null]
   description varchar
@@ -211,18 +211,18 @@ Table asset_timeline as ASSET_TIMELINE [headercolor: #222]{
 }
 
 Table asset_timeline_tag as ASSET_TIMELINE_TAGS {
-  assettimeline_uuid uuid [ref: > ASSET_TIMELINE.uuid]
-  tag_uuid           uuid [ref: > T.uuid]
+  assettimeline_uuid uuid_generate_v4 [ref: > ASSET_TIMELINE.uuid]
+  tag_uuid           uuid_generate_v4 [ref: > T.uuid]
 }
 
-Table content as C [headercolor: #222] {
-  uuid uuid [increment]
-  namespace_uuid uuid [ref: > N.uuid, not null]
-  parent uuid [ref: > C.uuid, note: 'Reference to the parent content.']
+Table content as C [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
+  namespace_uuid uuid_generate_v4 [ref: > N.uuid, not null]
+  parent uuid_generate_v4 [ref: > C.uuid, note: 'Reference to the parent content.']
   
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid  [ref: > U.uuid, not null]
-  model_uuid uuid [ref: > M.uuid, not null]
+  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
+  model_uuid uuid_generate_v4 [ref: > M.uuid, not null]
   
   Indexes {
     (uuid) [pk]
@@ -230,8 +230,8 @@ Table content as C [headercolor: #222] {
 }
 
 Table field_reference as FR {
-  source_uuid uuid [ref: > F.uuid, not null]
-  target_uuid uuid [ref: > F.uuid, not null]
+  source_uuid uuid_generate_v4 [ref: > F.uuid, not null]
+  target_uuid uuid_generate_v4 [ref: > F.uuid, not null]
   field_name varchar [not null, note: 'Name of the field in which the content reference was listed.']
 
   Indexes {
@@ -242,8 +242,8 @@ Table field_reference as FR {
 }
 
 Table field_content as CF {
-  fields_uuid uuid [ref: >  F.uuid, not null]
-  content_uuid uuid [ref: > C.uuid]
+  fields_uuid uuid_generate_v4 [ref: >  F.uuid, not null]
+  content_uuid uuid_generate_v4 [ref: > C.uuid]
 
   webroot_path_info varchar [unique, note: 'prefixed with branch']
   content_type content_type [not null, note: "D or P for draft and published"]
@@ -257,7 +257,7 @@ Table field_content as CF {
 
 
 //Table webroot_nice_url {
-//  content_uuid uuid [ref: > C.uuid]  
+//  content_uuid uuid_generate_v4 [ref: > C.uuid]  
 //  content_type content_type [not null]
 //  url varchar [not null]
 //
@@ -348,16 +348,16 @@ Enum permission_flag {
   
 }
 
-Table field as F {
-  uuid uuid [increment]
-  content_uuid uuid [ref: > N.uuid, note: "Reference to the content that uses this fields record"]
+Table field as F [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
+  content_uuid uuid_generate_v4 [ref: > N.uuid, note: "Reference to the content that uses this fields record"]
   
   fields_json varchar [note: 'JSON which contains the actual fields content']
   // REF to language table?
   language_tag varchar
   edited timestamp [default: `now()`]
-  editor_uuid uuid [ref: > U.uuid]
-  modelversion_uuid uuid [ref: > MV.uuid]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  modelversion_uuid uuid_generate_v4 [ref: > MV.uuid]
   version int
   
   Indexes {
@@ -368,8 +368,8 @@ Table field as F {
 }
 
 Table field_asset as FA {
-  field_uuid uuid [ref: > F.uuid]
-  asset_uuid uuid [ref: > ASSET.uuid]
+  field_uuid uuid_generate_v4 [ref: > F.uuid]
+  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid]
   field_name varchar
   
   Indexes {
@@ -394,10 +394,10 @@ tablegroup Assets {
   field_asset
 }
 
-Table namespace as N {
-  uuid uuid [increment]
+Table namespace as N [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
   name varchar [unique, not null]
-  root_conten_uuid uuid [ref: > C.uuid]
+  root_conten_uuid uuid_generate_v4 [ref: > C.uuid]
   meta varchar [note: "Custom meta properties to the element"]
   path_prefix varchar [note: "Prefix for webroot paths"]
   model_filters varchar [note: "filter for models that can be used in the namespace"]
@@ -405,7 +405,7 @@ Table namespace as N {
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid [ref: > U.uuid]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -413,15 +413,15 @@ Table namespace as N {
   }
 }
 
-Table model as M {
-  uuid uuid [increment]
+Table model as M [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
   name varchar [unique, not null]
-  latest_version_uuid uuid [ref: > MV.uuid]
+  latest_version_uuid uuid_generate_v4 [ref: > MV.uuid]
 
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid [ref: > U.uuid]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -430,11 +430,11 @@ Table model as M {
 }
 
 Table model_version as MV {
-  uuid uuid [increment]
-  model_uuid uuid [ref: > M.uuid]
+  uuid uuid_generate_v4 [increment]
+  model_uuid uuid_generate_v4 [ref: > M.uuid]
   json varchar [not null]
-  next_version_uuid uuid [ref: - MV.uuid]
-  prev_version_uuid uuid [ref: - MV.uuid]
+  next_version_uuid uuid_generate_v4 [ref: - MV.uuid]
+  prev_version_uuid uuid_generate_v4 [ref: - MV.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -446,8 +446,8 @@ tablegroup Models {
   model_version
 }
 
-Table language as L {
-  uuid uuid [increment]
+Table language as L [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
   native_name varchar [not null]
   tag varchar [unique, not null]
   meta varchar [note: "Custom meta properties to the element"]
@@ -458,8 +458,8 @@ Table language as L {
   }
 }
 
-Table extension as E {
-  uuid uuid [increment]
+Table extension as E [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
   url varchar [not null]
   // TODO enum
   kind  varchar [note: "Defines the type of the extension service"]
@@ -467,9 +467,9 @@ Table extension as E {
   meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid  [ref: > U.uuid, not null]
+  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid [ref: > U.uuid]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -478,8 +478,8 @@ Table extension as E {
   note: "Table which lists the registered extensions"
 }
 
-Table webhook as W {
-  uuid uuid [increment]
+Table webhook as W [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
   url varchar [not null]
   status varchar
   active boolean [default: true, not null]
@@ -488,9 +488,9 @@ Table webhook as W {
   meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid  [ref: > U.uuid, not null]
+  creator_uuid uuid_generate_v4 [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid [ref: > U.uuid]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]

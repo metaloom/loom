@@ -1,3 +1,10 @@
+
+/*
+Enable UUID V4 Support
+*/
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+
 CREATE TYPE "content_type" AS ENUM (
   'D',
   'P',
@@ -60,8 +67,8 @@ CREATE TABLE "loom" (
   "last_used_timestamp" timestamp NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "users" (
-  "uuid" SERIAL,
+CREATE TABLE "user" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "username" varchar UNIQUE NOT NULL,
   "firstname" varchar,
   "lastname" varchar,
@@ -76,17 +83,17 @@ CREATE TABLE "users" (
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "user_tokens" (
-  "uuid" SERIAL,
-  "user_uuid" user_uuid,
+CREATE TABLE "user_token" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
+  "user_uuid" uuid,
   "note" varchar,
   "token" varchar NOT NULL,
   "permissions" permission_flag,
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "roles" (
-  "uuid" SERIAL,
+CREATE TABLE "role" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar UNIQUE NOT NULL,
   "permissions" permission_flag,
   "meta" varchar,
@@ -97,7 +104,7 @@ CREATE TABLE "roles" (
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "role_permissions" (
+CREATE TABLE "role_permission" (
   "role_uuid" uuid,
   "element_uuid" uuid NOT NULL,
   "create_perm" boolean NOT NULL DEFAULT false,
@@ -109,8 +116,8 @@ CREATE TABLE "role_permissions" (
   PRIMARY KEY ("role_uuid", "element_uuid")
 );
 
-CREATE TABLE "groups" (
-  "uuid" SERIAL,
+CREATE TABLE "group" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar UNIQUE NOT NULL,
   "meta" varchar,
   "created" timestamp NOT NULL DEFAULT (now()),
@@ -120,20 +127,20 @@ CREATE TABLE "groups" (
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "roles_groups" (
+CREATE TABLE "role_group" (
   "group_uuid" uuid NOT NULL,
   "role_uuid" uuid NOT NULL,
   PRIMARY KEY ("group_uuid", "role_uuid")
 );
 
-CREATE TABLE "user_groups" (
+CREATE TABLE "user_group" (
   "user_uuid" uuid NOT NULL,
   "group_uuid" uuid NOT NULL,
   PRIMARY KEY ("user_uuid", "group_uuid")
 );
 
-CREATE TABLE "tags" (
-  "uuid" SERIAL,
+CREATE TABLE "tag" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar NOT NULL,
   "collection" varchar NOT NULL,
   "meta" varchar,
@@ -144,21 +151,21 @@ CREATE TABLE "tags" (
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "tags_namespaces" (
+CREATE TABLE "tag_namespace" (
   "tag_uuid" uuid NOT NULL,
   "namespace_uuid" uuid NOT NULL,
   PRIMARY KEY ("tag_uuid", "namespace_uuid")
 );
 
-CREATE TABLE "tags_contents" (
+CREATE TABLE "tag_content" (
   "tag_uuid" uuid NOT NULL,
   "content_uuid" uuid NOT NULL,
   PRIMARY KEY ("tag_uuid", "content_uuid")
 );
 
-CREATE TABLE "assets" (
-  "uuid" SERIAL PRIMARY KEY,
-  "size" long NOT NULL,
+CREATE TABLE "asset" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
+  "size" int NOT NULL,
   "sha512sum" varchar NOT NULL,
   "sha256sum" varchar NOT NULL,
   "md5sum" varchar NOT NULL,
@@ -172,24 +179,25 @@ CREATE TABLE "assets" (
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "assets_timeline" (
-  "uuid" SERIAL PRIMARY KEY,
+CREATE TABLE "asset_timeline" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "asset_uuid" uuid,
   "from" int NOT NULL,
   "to" int NOT NULL,
   "description" varchar,
   "tags" varchar,
   "meta" varchar,
-  "thumbail" varchar
+  "thumbail" varchar,
+  PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "assets_timeline_tags" (
+CREATE TABLE "asset_timeline_tag" (
   "assettimeline_uuid" uuid,
   "tag_uuid" uuid
 );
 
-CREATE TABLE "contents" (
-  "uuid" SERIAL,
+CREATE TABLE "content" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "namespace_uuid" uuid NOT NULL,
   "parent" uuid,
   "created" timestamp NOT NULL DEFAULT (now()),
@@ -198,22 +206,22 @@ CREATE TABLE "contents" (
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "fields_references" (
+CREATE TABLE "field_reference" (
   "source_uuid" uuid NOT NULL,
   "target_uuid" uuid NOT NULL,
   "field_name" varchar NOT NULL,
   PRIMARY KEY ("source_uuid", "target_uuid")
 );
 
-CREATE TABLE "fields_contents" (
+CREATE TABLE "field_content" (
   "fields_uuid" uuid NOT NULL,
   "content_uuid" uuid,
   "webroot_path_info" varchar UNIQUE,
   "content_type" content_type NOT NULL
 );
 
-CREATE TABLE "fields" (
-  "uuid" SERIAL,
+CREATE TABLE "field" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "content_uuid" uuid,
   "fields_json" varchar,
   "language_tag" varchar,
@@ -224,15 +232,15 @@ CREATE TABLE "fields" (
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "fields_assets" (
+CREATE TABLE "field_asset" (
   "field_uuid" uuid,
   "asset_uuid" uuid,
   "field_name" varchar,
   PRIMARY KEY ("field_uuid", "asset_uuid")
 );
 
-CREATE TABLE "namespaces" (
-  "uuid" SERIAL,
+CREATE TABLE "namespace" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar UNIQUE NOT NULL,
   "root_conten_uuid" uuid,
   "meta" varchar,
@@ -245,18 +253,19 @@ CREATE TABLE "namespaces" (
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "models" (
-  "uuid" SERIAL PRIMARY KEY,
+CREATE TABLE "model" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar UNIQUE NOT NULL,
   "latest_version_uuid" uuid,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid
+  "editor_uuid" uuid,
+  PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "model_versions" (
-  "uuid" SERIAL,
+CREATE TABLE "model_version" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "model_uuid" uuid,
   "json" varchar NOT NULL,
   "next_version_uuid" uuid,
@@ -264,16 +273,16 @@ CREATE TABLE "model_versions" (
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "languages" (
-  "uuid" SERIAL,
+CREATE TABLE "language" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "native_name" varchar NOT NULL,
   "tag" varchar UNIQUE NOT NULL,
   "meta" varchar,
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "extensions" (
-  "uuid" SERIAL,
+CREATE TABLE "extension" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "url" varchar NOT NULL,
   "kind" varchar,
   "status" varchar,
@@ -281,11 +290,12 @@ CREATE TABLE "extensions" (
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid
+  "editor_uuid" uuid,
+  PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "webhooks" (
-  "uuid" SERIAL,
+CREATE TABLE "webhook" (
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "url" varchar NOT NULL,
   "status" varchar,
   "active" boolean NOT NULL DEFAULT true,
@@ -295,177 +305,180 @@ CREATE TABLE "webhooks" (
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid
+  "editor_uuid" uuid,
+  PRIMARY KEY ("uuid")
 );
 
-ALTER TABLE "users" ADD FOREIGN KEY ("creator_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "user" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "users" ADD FOREIGN KEY ("editor_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "user" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "user_tokens" ADD FOREIGN KEY ("user_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "user_token" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "roles" ADD FOREIGN KEY ("creator_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "role" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "roles" ADD FOREIGN KEY ("editor_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "role" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "role_permissions" ADD FOREIGN KEY ("role_uuid") REFERENCES "roles" ("uuid");
+ALTER TABLE "role_permission" ADD FOREIGN KEY ("role_uuid") REFERENCES "role" ("uuid");
 
-ALTER TABLE "groups" ADD FOREIGN KEY ("creator_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "group" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "groups" ADD FOREIGN KEY ("editor_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "group" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "roles_groups" ADD FOREIGN KEY ("group_uuid") REFERENCES "groups" ("uuid");
+ALTER TABLE "role_group" ADD FOREIGN KEY ("group_uuid") REFERENCES "group" ("uuid");
 
-ALTER TABLE "roles_groups" ADD FOREIGN KEY ("role_uuid") REFERENCES "roles" ("uuid");
+ALTER TABLE "role_group" ADD FOREIGN KEY ("role_uuid") REFERENCES "role" ("uuid");
 
-ALTER TABLE "user_groups" ADD FOREIGN KEY ("user_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "user_group" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "user_groups" ADD FOREIGN KEY ("group_uuid") REFERENCES "groups" ("uuid");
+ALTER TABLE "user_group" ADD FOREIGN KEY ("group_uuid") REFERENCES "group" ("uuid");
 
-ALTER TABLE "tags" ADD FOREIGN KEY ("creator_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "tag" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "tags" ADD FOREIGN KEY ("editor_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "tag" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "tags_namespaces" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tags" ("uuid");
+ALTER TABLE "tag_namespace" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
 
-ALTER TABLE "tags_namespaces" ADD FOREIGN KEY ("namespace_uuid") REFERENCES "namespaces" ("uuid");
+ALTER TABLE "tag_namespace" ADD FOREIGN KEY ("namespace_uuid") REFERENCES "namespace" ("uuid");
 
-ALTER TABLE "tags_contents" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tags" ("uuid");
+ALTER TABLE "tag_content" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
 
-ALTER TABLE "tags_contents" ADD FOREIGN KEY ("content_uuid") REFERENCES "contents" ("uuid");
+ALTER TABLE "tag_content" ADD FOREIGN KEY ("content_uuid") REFERENCES "content" ("uuid");
 
-ALTER TABLE "assets" ADD FOREIGN KEY ("creator_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "asset" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "assets" ADD FOREIGN KEY ("editor_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "asset" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "assets_timeline" ADD FOREIGN KEY ("asset_uuid") REFERENCES "assets" ("uuid");
+ALTER TABLE "asset_timeline" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
 
-ALTER TABLE "assets_timeline_tags" ADD FOREIGN KEY ("assettimeline_uuid") REFERENCES "assets_timeline" ("uuid");
+ALTER TABLE "asset_timeline_tag" ADD FOREIGN KEY ("assettimeline_uuid") REFERENCES "asset_timeline" ("uuid");
 
-ALTER TABLE "assets_timeline_tags" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tags" ("uuid");
+ALTER TABLE "asset_timeline_tag" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
 
-ALTER TABLE "contents" ADD FOREIGN KEY ("namespace_uuid") REFERENCES "namespaces" ("uuid");
+ALTER TABLE "content" ADD FOREIGN KEY ("namespace_uuid") REFERENCES "namespace" ("uuid");
 
-ALTER TABLE "contents" ADD FOREIGN KEY ("parent") REFERENCES "contents" ("uuid");
+ALTER TABLE "content" ADD FOREIGN KEY ("parent") REFERENCES "content" ("uuid");
 
-ALTER TABLE "contents" ADD FOREIGN KEY ("creator_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "content" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "contents" ADD FOREIGN KEY ("model_uuid") REFERENCES "models" ("uuid");
+ALTER TABLE "content" ADD FOREIGN KEY ("model_uuid") REFERENCES "model" ("uuid");
 
-ALTER TABLE "fields_references" ADD FOREIGN KEY ("source_uuid") REFERENCES "fields" ("uuid");
+ALTER TABLE "field_reference" ADD FOREIGN KEY ("source_uuid") REFERENCES "field" ("uuid");
 
-ALTER TABLE "fields_references" ADD FOREIGN KEY ("target_uuid") REFERENCES "fields" ("uuid");
+ALTER TABLE "field_reference" ADD FOREIGN KEY ("target_uuid") REFERENCES "field" ("uuid");
 
-ALTER TABLE "fields_contents" ADD FOREIGN KEY ("fields_uuid") REFERENCES "fields" ("uuid");
+ALTER TABLE "field_content" ADD FOREIGN KEY ("fields_uuid") REFERENCES "field" ("uuid");
 
-ALTER TABLE "fields_contents" ADD FOREIGN KEY ("content_uuid") REFERENCES "contents" ("uuid");
+ALTER TABLE "field_content" ADD FOREIGN KEY ("content_uuid") REFERENCES "content" ("uuid");
 
-ALTER TABLE "fields" ADD FOREIGN KEY ("content_uuid") REFERENCES "namespaces" ("uuid");
+ALTER TABLE "field" ADD FOREIGN KEY ("content_uuid") REFERENCES "namespace" ("uuid");
 
-ALTER TABLE "fields" ADD FOREIGN KEY ("editor_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "field" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "fields" ADD FOREIGN KEY ("modelversion_uuid") REFERENCES "model_versions" ("uuid");
+ALTER TABLE "field" ADD FOREIGN KEY ("modelversion_uuid") REFERENCES "model_version" ("uuid");
 
-ALTER TABLE "fields_assets" ADD FOREIGN KEY ("field_uuid") REFERENCES "fields" ("uuid");
+ALTER TABLE "field_asset" ADD FOREIGN KEY ("field_uuid") REFERENCES "field" ("uuid");
 
-ALTER TABLE "fields_assets" ADD FOREIGN KEY ("asset_uuid") REFERENCES "assets" ("uuid");
+ALTER TABLE "field_asset" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
 
-ALTER TABLE "namespaces" ADD FOREIGN KEY ("root_conten_uuid") REFERENCES "contents" ("uuid");
+ALTER TABLE "namespace" ADD FOREIGN KEY ("root_conten_uuid") REFERENCES "content" ("uuid");
 
-ALTER TABLE "namespaces" ADD FOREIGN KEY ("creator_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "namespace" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "namespaces" ADD FOREIGN KEY ("editor_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "namespace" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "models" ADD FOREIGN KEY ("latest_version_uuid") REFERENCES "model_versions" ("uuid");
+ALTER TABLE "model" ADD FOREIGN KEY ("latest_version_uuid") REFERENCES "model_version" ("uuid");
 
-ALTER TABLE "models" ADD FOREIGN KEY ("creator_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "model" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "models" ADD FOREIGN KEY ("editor_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "model" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "model_versions" ADD FOREIGN KEY ("model_uuid") REFERENCES "models" ("uuid");
+ALTER TABLE "model_version" ADD FOREIGN KEY ("model_uuid") REFERENCES "model" ("uuid");
 
-ALTER TABLE "model_versions" ADD FOREIGN KEY ("next_version_uuid") REFERENCES "model_versions" ("uuid");
+ALTER TABLE "model_version" ADD FOREIGN KEY ("next_version_uuid") REFERENCES "model_version" ("uuid");
 
-ALTER TABLE "model_versions" ADD FOREIGN KEY ("prev_version_uuid") REFERENCES "model_versions" ("uuid");
+ALTER TABLE "model_version" ADD FOREIGN KEY ("prev_version_uuid") REFERENCES "model_version" ("uuid");
 
-ALTER TABLE "extensions" ADD FOREIGN KEY ("creator_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "extension" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "extensions" ADD FOREIGN KEY ("editor_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "extension" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "webhooks" ADD FOREIGN KEY ("creator_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "webhook" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "webhooks" ADD FOREIGN KEY ("editor_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "webhook" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-CREATE UNIQUE INDEX ON "users" ("username");
+CREATE UNIQUE INDEX ON "user" ("username");
 
-CREATE INDEX ON "user_tokens" ("user_uuid");
+CREATE INDEX ON "user_token" ("user_uuid");
 
-CREATE UNIQUE INDEX ON "roles" ("name");
+CREATE UNIQUE INDEX ON "role" ("name");
 
-CREATE UNIQUE INDEX ON "groups" ("name");
+CREATE UNIQUE INDEX ON "group" ("name");
 
-CREATE UNIQUE INDEX ON "tags" ("name", "collection");
+CREATE UNIQUE INDEX ON "tag" ("name", "collection");
 
-CREATE INDEX ON "fields_contents" ("content_uuid", "content_type");
+CREATE INDEX ON "field_content" ("content_uuid", "content_type");
 
-CREATE INDEX ON "fields_contents" ("content_type", "webroot_path_info");
+CREATE INDEX ON "field_content" ("content_type", "webroot_path_info");
 
-CREATE UNIQUE INDEX ON "namespaces" ("name");
+CREATE UNIQUE INDEX ON "namespace" ("name");
 
-CREATE INDEX ON "languages" ("tag");
+CREATE UNIQUE INDEX ON "model" ("name");
 
-COMMENT ON COLUMN "users"."meta" IS 'Custom meta properties to the element';
+CREATE INDEX ON "language" ("tag");
 
-COMMENT ON COLUMN "roles"."meta" IS 'Custom meta properties to the element';
+COMMENT ON COLUMN "user"."meta" IS 'Custom meta properties to the element';
 
-COMMENT ON COLUMN "groups"."meta" IS 'Custom meta properties to the element';
+COMMENT ON COLUMN "role"."meta" IS 'Custom meta properties to the element';
 
-COMMENT ON COLUMN "tags"."meta" IS 'Custom meta properties to the element';
+COMMENT ON COLUMN "group"."meta" IS 'Custom meta properties to the element';
 
-COMMENT ON COLUMN "assets"."meta" IS 'Custom meta properties to the element';
+COMMENT ON COLUMN "tag"."meta" IS 'Custom meta properties to the element';
 
-COMMENT ON COLUMN "assets"."media_width" IS 'Only set for images';
+COMMENT ON COLUMN "asset"."meta" IS 'Custom meta properties to the element';
 
-COMMENT ON COLUMN "assets"."media_height" IS 'Only set for images';
+COMMENT ON COLUMN "asset"."media_width" IS 'Only set for images';
 
-COMMENT ON TABLE "assets_timeline" IS 'This table contains asset timeline entries';
+COMMENT ON COLUMN "asset"."media_height" IS 'Only set for images';
 
-COMMENT ON COLUMN "contents"."parent" IS 'Reference to the parent content.';
+COMMENT ON TABLE "asset_timeline" IS 'This table contains asset timeline entries';
 
-COMMENT ON TABLE "fields_references" IS 'This table is mainly used to lookup foreign references to contents';
+COMMENT ON COLUMN "content"."parent" IS 'Reference to the parent content.';
 
-COMMENT ON COLUMN "fields_references"."field_name" IS 'Name of the field in which the content reference was listed.';
+COMMENT ON TABLE "field_reference" IS 'This table is mainly used to lookup foreign references to contents';
 
-COMMENT ON TABLE "fields_contents" IS 'Crosstable that tracks all fields for a content';
+COMMENT ON COLUMN "field_reference"."field_name" IS 'Name of the field in which the content reference was listed.';
 
-COMMENT ON COLUMN "fields_contents"."webroot_path_info" IS 'prefixed with branch';
+COMMENT ON TABLE "field_content" IS 'Crosstable that tracks all fields for a content';
 
-COMMENT ON COLUMN "fields_contents"."content_type" IS 'D or P for draft and published';
+COMMENT ON COLUMN "field_content"."webroot_path_info" IS 'prefixed with branch';
 
-COMMENT ON TABLE "fields" IS 'Table which stores the actual fields content as JSON';
+COMMENT ON COLUMN "field_content"."content_type" IS 'D or P for draft and published';
 
-COMMENT ON COLUMN "fields"."content_uuid" IS 'Reference to the content that uses this fields record';
+COMMENT ON TABLE "field" IS 'Table which stores the actual fields content as JSON';
 
-COMMENT ON COLUMN "fields"."fields_json" IS 'JSON which contains the actual fields content';
+COMMENT ON COLUMN "field"."content_uuid" IS 'Reference to the content that uses this fields record';
 
-COMMENT ON TABLE "fields_assets" IS 'Crosstable which tracks the used assets in a fields record';
+COMMENT ON COLUMN "field"."fields_json" IS 'JSON which contains the actual fields content';
 
-COMMENT ON COLUMN "namespaces"."meta" IS 'Custom meta properties to the element';
+COMMENT ON TABLE "field_asset" IS 'Crosstable which tracks the used assets in a fields record';
 
-COMMENT ON COLUMN "namespaces"."path_prefix" IS 'Prefix for webroot paths';
+COMMENT ON COLUMN "namespace"."meta" IS 'Custom meta properties to the element';
 
-COMMENT ON COLUMN "namespaces"."model_filters" IS 'filter for models that can be used in the namespace';
+COMMENT ON COLUMN "namespace"."path_prefix" IS 'Prefix for webroot paths';
 
-COMMENT ON COLUMN "languages"."meta" IS 'Custom meta properties to the element';
+COMMENT ON COLUMN "namespace"."model_filters" IS 'filter for models that can be used in the namespace';
 
-COMMENT ON TABLE "extensions" IS 'Table which lists the registered extensions';
+COMMENT ON COLUMN "language"."meta" IS 'Custom meta properties to the element';
 
-COMMENT ON COLUMN "extensions"."kind" IS 'Defines the type of the extension service';
+COMMENT ON TABLE "extension" IS 'Table which lists the registered extensions';
 
-COMMENT ON COLUMN "extensions"."meta" IS 'Custom meta properties to the element';
+COMMENT ON COLUMN "extension"."kind" IS 'Defines the type of the extension service';
 
-COMMENT ON TABLE "webhooks" IS 'Table which stores the registered webhooks';
+COMMENT ON COLUMN "extension"."meta" IS 'Custom meta properties to the element';
 
-COMMENT ON COLUMN "webhooks"."secretToken" IS 'Secret token which webhook services can use to authenticate the request.';
+COMMENT ON TABLE "webhook" IS 'Table which stores the registered webhooks';
 
-COMMENT ON COLUMN "webhooks"."meta" IS 'Custom meta properties to the element';
+COMMENT ON COLUMN "webhook"."secretToken" IS 'Secret token which webhook services can use to authenticate the request.';
+
+COMMENT ON COLUMN "webhook"."meta" IS 'Custom meta properties to the element';
