@@ -61,7 +61,7 @@ CREATE TABLE "loom" (
 );
 
 CREATE TABLE "users" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "username" varchar UNIQUE NOT NULL,
   "firstname" varchar,
   "lastname" varchar,
@@ -77,7 +77,7 @@ CREATE TABLE "users" (
 );
 
 CREATE TABLE "user_tokens" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "user_uuid" user_uuid,
   "note" varchar,
   "token" varchar NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE "user_tokens" (
 );
 
 CREATE TABLE "roles" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "name" varchar UNIQUE NOT NULL,
   "permissions" permission_flag,
   "meta" varchar,
@@ -110,7 +110,7 @@ CREATE TABLE "role_permissions" (
 );
 
 CREATE TABLE "groups" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "name" varchar UNIQUE NOT NULL,
   "meta" varchar,
   "created" timestamp NOT NULL DEFAULT (now()),
@@ -133,7 +133,7 @@ CREATE TABLE "user_groups" (
 );
 
 CREATE TABLE "tags" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "name" varchar NOT NULL,
   "collection" varchar NOT NULL,
   "meta" varchar,
@@ -189,7 +189,7 @@ CREATE TABLE "assets_timeline_tags" (
 );
 
 CREATE TABLE "contents" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "namespace_uuid" uuid NOT NULL,
   "parent" uuid,
   "created" timestamp NOT NULL DEFAULT (now()),
@@ -213,7 +213,7 @@ CREATE TABLE "fields_contents" (
 );
 
 CREATE TABLE "fields" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "content_uuid" uuid,
   "fields_json" varchar,
   "language_tag" varchar,
@@ -232,7 +232,7 @@ CREATE TABLE "fields_assets" (
 );
 
 CREATE TABLE "namespaces" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "name" varchar UNIQUE NOT NULL,
   "root_conten_uuid" uuid,
   "meta" varchar,
@@ -256,7 +256,7 @@ CREATE TABLE "models" (
 );
 
 CREATE TABLE "model_versions" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "model_uuid" uuid,
   "json" varchar NOT NULL,
   "next_version_uuid" uuid,
@@ -265,7 +265,7 @@ CREATE TABLE "model_versions" (
 );
 
 CREATE TABLE "languages" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "native_name" varchar NOT NULL,
   "tag" varchar UNIQUE NOT NULL,
   "meta" varchar,
@@ -273,7 +273,7 @@ CREATE TABLE "languages" (
 );
 
 CREATE TABLE "extensions" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "url" varchar NOT NULL,
   "kind" varchar,
   "status" varchar,
@@ -285,7 +285,7 @@ CREATE TABLE "extensions" (
 );
 
 CREATE TABLE "webhooks" (
-  "uuid" SERIAL PRIMARY KEY,
+  "uuid" SERIAL,
   "url" varchar NOT NULL,
   "status" varchar,
   "active" boolean NOT NULL DEFAULT true,

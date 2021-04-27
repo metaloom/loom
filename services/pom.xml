@@ -41,7 +41,6 @@
 		<module>image</module>
 		<module>video</module>
 		<module>fs</module>
-		<module>jwt</module>
 		<module>tika</module>
 		<module>s3</module>
 	</modules>

@@ -10,7 +10,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>loom-service-auth</artifactId>
+	<artifactId>loom-services-auth</artifactId>
 	<name>Loom - Service - Authentication</name>
 	<packaging>pom</packaging>
 
