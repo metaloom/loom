@@ -3,6 +3,7 @@ package io.metaloom.loom.db.model;
 import java.util.UUID;
 
 import io.metaloom.loom.db.LoomDao;
+import io.reactivex.Maybe;
 
 public interface ModelsDao extends LoomDao {
 
@@ -12,7 +13,7 @@ public interface ModelsDao extends LoomDao {
 
 	void updateModel(Model model);
 
-	Model loadModel(UUID uuid);
+	Maybe<? extends Model> loadModel(UUID uuid);
 
 	void storeModel(Model model);
 

@@ -3,6 +3,7 @@ package io.metaloom.loom.db.asset;
 import java.util.UUID;
 
 import io.metaloom.loom.db.LoomDao;
+import io.reactivex.Maybe;
 
 public interface AssetsDao extends LoomDao {
 
@@ -12,7 +13,7 @@ public interface AssetsDao extends LoomDao {
 
 	void updateAsset(Asset asset);
 
-	Asset loadAsset(UUID uuid);
+	Maybe<? extends Asset> loadAsset(UUID uuid);
 
 	void storeAsset(Asset asset);
 }

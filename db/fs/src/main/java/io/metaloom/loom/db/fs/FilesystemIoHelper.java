@@ -12,6 +12,7 @@ import org.apache.commons.io.FileUtils;
 import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.error.LoomRestException;
 import io.metaloom.loom.json.JsonUtil;
+import io.reactivex.Maybe;
 
 public class FilesystemIoHelper {
 
@@ -21,19 +22,20 @@ public class FilesystemIoHelper {
 		return new File(BASE, type.name());
 	}
 
-	public static <T> T load(FSType type, UUID uuid, Class<T> clazz) {
+	public static <T> Maybe<? extends T> load(FSType type, UUID uuid, Class<T> clazz) {
 		File fsFile = new File(getTypeDir(type), uuid.toString() + ".json");
 		if (fsFile.exists()) {
 			try {
 				String json = FileUtils.readFileToString(fsFile, Charset.defaultCharset());
-				return JsonUtil.toModel(json, clazz);
+				T pojo = JsonUtil.toModel(json, clazz);
+				return Maybe.just(pojo);
 			} catch (IOException e) {
 				// TODO i18n
 				String message = "Could not read model from file {" + fsFile.getAbsolutePath() + "}";
 				throw new LoomRestException(INTERNAL_SERVER_ERROR, message, e);
 			}
 		} else {
-			return null;
+			return Maybe.empty();
 		}
 	}
 

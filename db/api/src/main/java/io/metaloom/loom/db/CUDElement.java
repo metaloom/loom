@@ -1,5 +1,7 @@
 package io.metaloom.loom.db;
 
+import java.time.LocalDateTime;
+
 import io.metaloom.loom.db.user.User;
 
 public interface CUDElement extends LoomElement {
@@ -12,11 +14,11 @@ public interface CUDElement extends LoomElement {
 
 	void setCreator(User creator);
 
-	Long getEdate();
+	LocalDateTime getEdate();
 
-	void setEdate(Long edate);
+	void setEdate(LocalDateTime edate);
 
-	Long getCdate();
+	LocalDateTime getCdate();
 
-	void setCdate(Long cdate);
+	void setCdate(LocalDateTime cdate);
 }

@@ -1,14 +1,13 @@
 package io.metaloom.loom.db.content;
 
-import java.util.stream.Stream;
-
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.tag.Tag;
+import io.reactivex.Observable;
 
 public class FsContentImpl extends AbstractFSCUDElement implements Content {
 
 	@Override
-	public Stream<Tag> getTags() {
+	public Observable<Tag> getTags() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -2,13 +2,13 @@ package io.metaloom.loom.db.group;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.role.Role;
 import io.metaloom.loom.db.user.User;
+import io.reactivex.Observable;
 
 public class FsGroupImpl extends AbstractFSCUDElement implements Group {
 
@@ -30,8 +30,8 @@ public class FsGroupImpl extends AbstractFSCUDElement implements Group {
 
 	@Override
 	@JsonIgnore
-	public Stream<User> streamUsers() {
-		return users.stream();
+	public Observable<User> streamUsers() {
+		return Observable.fromIterable(users);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class FsGroupImpl extends AbstractFSCUDElement implements Group {
 
 	@Override
 	@JsonIgnore
-	public Stream<Role> streamRoles() {
-		return roles.stream();
+	public Observable<Role> streamRoles() {
+		return Observable.fromIterable(roles);
 	}
 }

@@ -3,12 +3,13 @@ package io.metaloom.loom.db.user;
 import java.util.UUID;
 
 import io.metaloom.loom.db.LoomDao;
+import io.reactivex.Maybe;
 
 public interface UsersDao extends LoomDao {
 
 	User createUser();
 
-	User loadUser(UUID uuid);
+	Maybe<? extends User> loadUser(UUID uuid);
 
 	void updateUser(User user);
 

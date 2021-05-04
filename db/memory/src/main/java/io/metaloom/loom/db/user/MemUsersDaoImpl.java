@@ -4,15 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import io.metaloom.loom.utils.RxUtils;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Maybe;
 
 public class MemUsersDaoImpl implements UsersDao {
 
 	private Map<UUID, User> storage = new HashMap<>();
 
 	@Override
-	public User loadUser(UUID uuid) {
-		return storage.get(uuid);
+	public Maybe<User> loadUser(UUID uuid) {
+		return RxUtils.ofNullable(storage.get(uuid));
 	}
 
 	@Override

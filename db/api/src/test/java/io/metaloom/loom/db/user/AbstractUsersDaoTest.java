@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.reactivex.Maybe;
+
 public abstract class AbstractUsersDaoTest {
 
 	abstract public UsersDao getDao();
@@ -59,8 +61,8 @@ public abstract class AbstractUsersDaoTest {
 		dao.updateUser(user);
 
 		// Load and assert update was persisted
-		User updatedUser = dao.loadUser(user.getUuid());
-		assertEquals("joedoe2", updatedUser.getUsername());
+		Maybe<? extends User> updatedUser = dao.loadUser(user.getUuid());
+		assertEquals("joedoe2", updatedUser.blockingGet().getUsername());
 
 	}
 

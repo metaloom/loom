@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.reactivex.Maybe;
+
 public abstract class AbstractAssetsDaoTest {
 
 	abstract public AssetsDao getDao();
@@ -59,8 +61,8 @@ public abstract class AbstractAssetsDaoTest {
 		dao.updateAsset(asset);
 
 		// Load and assert update was persisted
-		Asset updatedAsset = dao.loadAsset(asset.getUuid());
-		assertEquals("blume2.jpg", updatedAsset.getFilename());
+		Maybe<? extends Asset> updatedAsset = dao.loadAsset(asset.getUuid());
+		assertEquals("blume2.jpg", updatedAsset.blockingGet().getFilename());
 
 	}
 

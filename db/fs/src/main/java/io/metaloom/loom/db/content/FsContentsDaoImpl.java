@@ -10,6 +10,7 @@ import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Maybe;
 
 public class FsContentsDaoImpl extends AbstractFSDao implements ContentsDao {
 
@@ -18,7 +19,7 @@ public class FsContentsDaoImpl extends AbstractFSDao implements ContentsDao {
 	}
 
 	@Override
-	public Content loadContent(UUID uuid) {
+	public Maybe<? extends Content> loadContent(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsContentImpl.class);
 	}
 

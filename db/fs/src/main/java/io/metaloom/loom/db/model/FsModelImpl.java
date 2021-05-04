@@ -1,11 +1,8 @@
 package io.metaloom.loom.db.model;
 
-import java.util.UUID;
-import java.util.stream.Stream;
-
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.tag.Tag;
-import io.metaloom.loom.db.user.User;
+import io.reactivex.Observable;
 
 public class FsModelImpl extends AbstractFSCUDElement implements Model {
 
@@ -23,7 +20,7 @@ public class FsModelImpl extends AbstractFSCUDElement implements Model {
 	}
 
 	@Override
-	public Stream<Tag> getTags() {
+	public Observable<Tag> getTags() {
 		// TODO Auto-generated method stub
 		return null;
 	}

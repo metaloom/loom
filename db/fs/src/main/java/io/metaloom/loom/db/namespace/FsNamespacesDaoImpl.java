@@ -10,6 +10,7 @@ import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Maybe;
 
 public class FsNamespacesDaoImpl extends AbstractFSDao implements NamespacesDao {
 
@@ -18,7 +19,7 @@ public class FsNamespacesDaoImpl extends AbstractFSDao implements NamespacesDao 
 	}
 
 	@Override
-	public Namespace loadNamespace(UUID uuid) {
+	public Maybe<? extends Namespace> loadNamespace(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsNamespaceImpl.class);
 	}
 

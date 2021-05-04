@@ -2,12 +2,12 @@ package io.metaloom.loom.db.asset;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.tag.Tag;
+import io.reactivex.Observable;
 
 public class FsAssetImpl extends AbstractFSCUDElement implements Asset {
 
@@ -28,8 +28,8 @@ public class FsAssetImpl extends AbstractFSCUDElement implements Asset {
 
 	@Override
 	@JsonIgnore
-	public Stream<Tag> getTags() {
-		return tags.stream();
+	public Observable<Tag> getTags() {
+		return Observable.fromIterable(tags);
 	}
 
 	@Override

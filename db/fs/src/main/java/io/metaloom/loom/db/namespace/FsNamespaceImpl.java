@@ -1,9 +1,8 @@
 package io.metaloom.loom.db.namespace;
 
-import java.util.stream.Stream;
-
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.tag.Tag;
+import io.reactivex.Observable;
 
 public class FsNamespaceImpl extends AbstractFSCUDElement implements Namespace {
 
@@ -21,7 +20,7 @@ public class FsNamespaceImpl extends AbstractFSCUDElement implements Namespace {
 	}
 
 	@Override
-	public Stream<Tag> getTags() {
+	public Observable<Tag> getTags() {
 		return null;
 	}
 

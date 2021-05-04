@@ -1,12 +1,11 @@
 package io.metaloom.loom.db;
 
-import java.util.stream.Stream;
-
 import io.metaloom.loom.db.tag.Tag;
+import io.reactivex.Observable;
 
 public interface Taggable {
 
-	Stream<Tag> getTags();
+	Observable<Tag> getTags();
 
 	void addTag(Tag tag);
 

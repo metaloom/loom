@@ -10,6 +10,7 @@ import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Maybe;
 
 public class FsModelsDaoImpl extends AbstractFSDao implements ModelsDao {
 
@@ -18,7 +19,7 @@ public class FsModelsDaoImpl extends AbstractFSDao implements ModelsDao {
 	}
 
 	@Override
-	public Model loadModel(UUID uuid) {
+	public Maybe<? extends Model> loadModel(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsModelImpl.class);
 	}
 

@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.reactivex.Maybe;
+
 public abstract class AbstractGroupsDaoTest {
 
 	abstract public GroupsDao getDao();
@@ -58,8 +60,8 @@ public abstract class AbstractGroupsDaoTest {
 		dao.updateGroup(group);
 
 		// Load and assert update was persisted
-		Group updatedGroup = dao.loadGroup(group.getUuid());
-		assertEquals("Guests2", updatedGroup.getName());
+		Maybe<? extends Group> updatedGroup = dao.loadGroup(group.getUuid());
+		assertEquals("Guests2", updatedGroup.blockingGet().getName());
 
 	}
 

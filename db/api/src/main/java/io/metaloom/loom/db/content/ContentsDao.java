@@ -3,6 +3,7 @@ package io.metaloom.loom.db.content;
 import java.util.UUID;
 
 import io.metaloom.loom.db.LoomDao;
+import io.reactivex.Maybe;
 
 public interface ContentsDao extends LoomDao {
 
@@ -12,7 +13,7 @@ public interface ContentsDao extends LoomDao {
 
 	void updateContent(Content content);
 
-	Content loadContent(UUID uuid);
+	Maybe<? extends Content> loadContent(UUID uuid);
 
 	void storeContent(Content content);
 

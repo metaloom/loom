@@ -10,6 +10,7 @@ import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Maybe;
 
 public class FsRolesDaoImpl extends AbstractFSDao implements RolesDao {
 
@@ -18,7 +19,7 @@ public class FsRolesDaoImpl extends AbstractFSDao implements RolesDao {
 	}
 
 	@Override
-	public Role loadRole(UUID uuid) {
+	public Maybe<? extends Role> loadRole(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsRoleImpl.class);
 	}
 

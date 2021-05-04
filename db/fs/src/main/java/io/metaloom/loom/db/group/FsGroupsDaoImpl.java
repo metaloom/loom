@@ -10,6 +10,7 @@ import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Maybe;
 
 public class FsGroupsDaoImpl extends AbstractFSDao implements GroupsDao {
 
@@ -18,7 +19,7 @@ public class FsGroupsDaoImpl extends AbstractFSDao implements GroupsDao {
 	}
 
 	@Override
-	public Group loadGroup(UUID uuid) {
+	public Maybe<? extends Group> loadGroup(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsGroupImpl.class);
 	}
 

@@ -10,6 +10,7 @@ import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Maybe;
 
 public class FsAssetsDaoImpl extends AbstractFSDao implements AssetsDao {
 
@@ -18,7 +19,7 @@ public class FsAssetsDaoImpl extends AbstractFSDao implements AssetsDao {
 	}
 
 	@Override
-	public Asset loadAsset(UUID uuid) {
+	public Maybe<? extends Asset> loadAsset(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsAssetImpl.class);
 	}
 

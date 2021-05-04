@@ -1,11 +1,10 @@
 package io.metaloom.loom.db.group;
 
-import java.util.stream.Stream;
-
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.db.role.Role;
 import io.metaloom.loom.db.user.User;
+import io.reactivex.Observable;
 
 public interface Group extends CUDElement, LoomElement {
 
@@ -18,12 +17,12 @@ public interface Group extends CUDElement, LoomElement {
 
 	Group removeUser(User user);
 
-	Stream<User> streamUsers();
+	Observable<User> streamUsers();
 
 	// Roles
 	Group addRole(Role role);
 
 	Group removeRole(Role role);
 
-	Stream<Role> streamRoles();
+	Observable<Role> streamRoles();
 }
