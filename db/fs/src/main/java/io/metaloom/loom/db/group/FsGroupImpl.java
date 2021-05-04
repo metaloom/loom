@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.role.Role;
 import io.metaloom.loom.db.user.User;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 
 public class FsGroupImpl extends AbstractFSCUDElement implements Group {
@@ -30,7 +31,7 @@ public class FsGroupImpl extends AbstractFSCUDElement implements Group {
 
 	@Override
 	@JsonIgnore
-	public Observable<User> streamUsers() {
+	public Observable<User> findUsers() {
 		return Observable.fromIterable(users);
 	}
 
@@ -41,9 +42,10 @@ public class FsGroupImpl extends AbstractFSCUDElement implements Group {
 	}
 
 	@Override
-	public Group removeUser(User user) {
-		users.remove(user);
-		return this;
+	public Completable removeUser(User user) {
+		return Completable.fromAction(() -> {
+			users.remove(user);
+		});
 	}
 
 	@Override
@@ -60,7 +62,7 @@ public class FsGroupImpl extends AbstractFSCUDElement implements Group {
 
 	@Override
 	@JsonIgnore
-	public Observable<Role> streamRoles() {
+	public Observable<Role> findRoles() {
 		return Observable.fromIterable(roles);
 	}
 }

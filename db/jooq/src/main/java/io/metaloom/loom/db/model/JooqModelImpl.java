@@ -14,6 +14,7 @@ public class JooqModelImpl extends AbstractJooqCUDElement implements Model, Jooq
 	private final io.metaloom.loom.db.jooq.tables.pojos.Model delegate;
 
 	public JooqModelImpl(io.metaloom.loom.db.jooq.tables.pojos.Model delegate) {
+		super(null);
 		this.delegate = delegate;
 	}
 

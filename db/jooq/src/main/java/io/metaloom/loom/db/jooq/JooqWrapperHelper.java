@@ -26,6 +26,16 @@ public final class JooqWrapperHelper {
 		return r;
 	}
 
+	public static <T, R> T wrap(R jooq, Class<T> clazz) {
+		try {
+			Constructor<T> constructor = clazz.getConstructor(jooq.getClass());
+			T wrapper = constructor.newInstance(jooq);
+			return wrapper;
+		} catch (Exception e) {
+			throw new RuntimeException("Unable to wrap element {" + jooq.getClass().getName() + "}", e);
+		}
+	}
+
 	public static <T> T unwrap(LoomElement element) {
 		if (JooqWrapper.class.isInstance(element)) {
 			@SuppressWarnings("unchecked")

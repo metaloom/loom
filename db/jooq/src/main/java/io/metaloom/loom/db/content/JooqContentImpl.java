@@ -14,6 +14,7 @@ public class JooqContentImpl extends AbstractJooqCUDElement implements Content, 
 	private final io.metaloom.loom.db.jooq.tables.pojos.Content delegate;
 
 	public JooqContentImpl(io.metaloom.loom.db.jooq.tables.pojos.Content delegate) {
+		super(null);
 		this.delegate = delegate;
 	}
 

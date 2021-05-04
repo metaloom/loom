@@ -12,6 +12,7 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements Tag, JooqWrap
 	private final io.metaloom.loom.db.jooq.tables.pojos.Tag delegate;
 
 	public JooqTagImpl(io.metaloom.loom.db.jooq.tables.pojos.Tag delegate) {
+		super(null);
 		this.delegate = delegate;
 	}
 
@@ -31,12 +32,12 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements Tag, JooqWrap
 		delegate.setCollection(collectionName);
 		return this;
 	}
-	
+
 	@Override
 	public String getCollection() {
-	return delegate.getCollection();
+		return delegate.getCollection();
 	}
-	
+
 	@Override
 	public User getCreator() {
 		// TODO Auto-generated method stub

@@ -11,6 +11,7 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 	private final io.metaloom.loom.db.jooq.tables.pojos.User delegate;
 
 	public JooqUserImpl(io.metaloom.loom.db.jooq.tables.pojos.User delegate) {
+		super(null);
 		this.delegate = delegate;
 	}
 

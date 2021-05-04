@@ -39,14 +39,13 @@ public class JooqGroupsDaoImpl extends AbstractJooqDao implements GroupsDao {
 	public Group createGroup() {
 		io.metaloom.loom.db.jooq.tables.pojos.Group group = new io.metaloom.loom.db.jooq.tables.pojos.Group();
 		delegate.insert(group);
-		return new JooqGroupImpl(group);
+		return new JooqGroupImpl(null, group);
 	}
 
 	@Override
 	public void updateGroup(Group group) {
 		Objects.requireNonNull(group, "Group must not be null");
-		io.metaloom.loom.db.jooq.tables.pojos.Group jooqGroup = unwrap(group);
-		delegate.update(jooqGroup);
+		delegate.update(unwrap(group));
 	}
 
 	@Override

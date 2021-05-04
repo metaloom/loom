@@ -14,6 +14,7 @@ public class JooqAssetImpl extends AbstractJooqCUDElement implements Asset, Jooq
 	private final io.metaloom.loom.db.jooq.tables.pojos.Asset delegate;
 
 	public JooqAssetImpl(io.metaloom.loom.db.jooq.tables.pojos.Asset delegate) {
+		super(null);
 		this.delegate = delegate;
 	}
 

@@ -1,4 +1,4 @@
-package io.metaloom.loom.db;
+package io.metaloom.loom.db.jooq;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -8,7 +8,6 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.DefaultConfiguration;
 
 import io.github.jklingsporn.vertx.jooq.rx.reactivepg.ReactiveRXGenericQueryExecutor;
-import io.metaloom.loom.db.jooq.Tables;
 import io.metaloom.loom.db.jooq.tables.daos.UserDao;
 import io.metaloom.loom.db.jooq.tables.pojos.User;
 import io.reactivex.Single;
@@ -37,7 +36,6 @@ public class JOOQTest {
 			.setPassword("finger");
 		PgPool client = PgPool.pool(vertx, config, new PoolOptions().setMaxSize(32));
 		Pool rxPgClient = new io.vertx.reactivex.sqlclient.Pool(client);
-
 		// instantiate a DAO (which is generated for you)
 		UserDao dao = new UserDao(configuration, rxPgClient);
 

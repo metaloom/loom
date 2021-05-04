@@ -45,15 +45,13 @@ public class JooqUsersDaoImpl extends AbstractJooqDao implements UsersDao {
 	@Override
 	public void updateUser(User user) {
 		Objects.requireNonNull(user, "User must not be null");
-		io.metaloom.loom.db.jooq.tables.pojos.User jooqUser = unwrap(user);
-		delegate.update(jooqUser);
+		delegate.update(unwrap(user));
 	}
 
 	@Override
 	public void storeUser(User user) {
 		Objects.requireNonNull(user, "User must not be null");
-		JooqUserImpl jooqUser = (JooqUserImpl) user;
-		delegate.update(jooqUser.getDelegate());
+		delegate.update(unwrap(user));
 	}
 
 	@Override
