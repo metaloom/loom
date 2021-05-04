@@ -133,6 +133,7 @@ Table tag as T [headercolor: #16a085] {
   name varchar [not null]
   collection varchar [not null]
   meta varchar [note: "Custom meta properties to the element"]
+  rating int [note: "Absolute or buffered/precomputed rating information"]
 
   created timestamp [default: `now()`, not null]
   creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
@@ -143,6 +144,13 @@ Table tag as T [headercolor: #16a085] {
     (uuid) [pk]
     (name, collection) [unique]
   }
+}
+
+Table tag_user_meta as TUM {
+  tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
+  user_uuid uuid_generate_v4 [ref: > U.uuid, not null]
+  rating int [not null, note: "Rating of the tag by the user"]
+  meta varchar [note: "Custom meta properties"]
 }
 
 Table tag_namespace {
@@ -163,12 +171,12 @@ Table tag_content {
   }
 }
 
-
 tablegroup Tagging {
   tag
   tag_namespace
   asset_timeline_tag
   tag_content
+  tag_user_meta
 }
 
 Table asset as ASSET [headercolor: #16a085] {
@@ -179,6 +187,7 @@ Table asset as ASSET [headercolor: #16a085] {
   sha256sum varchar [not null]
   md5sum varchar [not null]
   meta varchar [note: "Custom meta properties to the element"]
+  rating int [note: "Absolute or computed asset rating"]
 
   media_width  int [note: 'Only set for images']
   media_height int [note: 'Only set for images']
@@ -191,6 +200,13 @@ Table asset as ASSET [headercolor: #16a085] {
   Indexes {
     (uuid) [pk]
   }
+}
+
+Table asset_user_meta as AUM {
+  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid]
+  user_uuid uuid_generate_v4 [ref: > U.uuid]
+  rating int [note: "Asset rating of the user"]
+  meta varchar [note: "Custom meta properties"]
 }
 
 Table asset_timeline as ASSET_TIMELINE [headercolor: #316896]{
@@ -227,6 +243,14 @@ Table content as C [headercolor: #16a085] {
   Indexes {
     (uuid) [pk]
   }
+}
+
+Table content_user_meta as CM {
+  content_uuid uuid_generate_v4 [ref: > T.uuid, not null]
+  user_uuid uuid_generate_v4 [ref: > U.uuid, not null]
+  rating int [not null, note: "Rating of the content by the user"]
+  meta varchar [note: "Custom meta properties"]
+  // TODO: Include language reference?
 }
 
 Table field_reference as FR {
@@ -385,6 +409,7 @@ tablegroup Contents {
   field
   field_content
   field_reference
+  content_user_meta
   language
 }
 
@@ -392,6 +417,7 @@ tablegroup Assets {
   asset
   asset_timeline
   field_asset
+  asset_user_meta
 }
 
 Table namespace as N [headercolor: #16a085] {
