@@ -11,6 +11,10 @@ public class FsContentImpl extends AbstractFSCUDElement implements Content {
 		super(daos);
 	}
 
+	public FsContentImpl() {
+		this(null);
+	}
+
 	@Override
 	public Observable<Tag> getTags() {
 		// TODO Auto-generated method stub

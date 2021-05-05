@@ -2,7 +2,7 @@ package io.metaloom.loom.db.role;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
@@ -31,7 +31,6 @@ public abstract class AbstractRolesDaoTest {
 		role.setName("Guests");
 		assertNotNull(role.getUuid());
 		assertEquals("Guests", role.getName());
-
 	}
 
 	@Test
@@ -44,7 +43,7 @@ public abstract class AbstractRolesDaoTest {
 
 		// Now assert deletion
 		dao.deleteRole(role);
-		assertNull(dao.loadRole(role.getUuid()));
+		assertTrue("No role should be found after deletion.", dao.loadRole(role.getUuid()).isEmpty().blockingGet());
 	}
 
 	@Test

@@ -11,6 +11,10 @@ public class FsRoleImpl extends AbstractFSCUDElement implements Role {
 		super(daos);
 	}
 
+	public FsRoleImpl() {
+		this(null);
+	}
+
 	@Override
 	public String getName() {
 		return name;

@@ -13,6 +13,10 @@ public class FsNamespaceImpl extends AbstractFSCUDElement implements Namespace {
 		super(daos);
 	}
 
+	public FsNamespaceImpl() {
+		this(null);
+	}
+
 	@Override
 	public String getName() {
 		return name;

@@ -11,6 +11,10 @@ public class FsExtensionImpl extends AbstractFSCUDElement implements Extension {
 		super(daos);
 	}
 
+	public FsExtensionImpl() {
+		this(null);
+	}
+
 	@Override
 	public String getURL() {
 		return url;

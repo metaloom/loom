@@ -20,6 +20,10 @@ public class FsAssetImpl extends AbstractFSCUDElement implements Asset {
 		super(daos);
 	}
 
+	public FsAssetImpl() {
+		this(null);
+	}
+
 	@Override
 	public String getFilename() {
 		return name;

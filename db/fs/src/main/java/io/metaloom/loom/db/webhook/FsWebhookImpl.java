@@ -9,6 +9,10 @@ public class FsWebhookImpl extends AbstractFSCUDElement implements Webhook {
 		super(daos);
 	}
 
+	public FsWebhookImpl() {
+		this(null);
+	}
+
 	private String url;
 
 	@Override

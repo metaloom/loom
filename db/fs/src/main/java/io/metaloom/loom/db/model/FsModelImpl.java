@@ -13,6 +13,10 @@ public class FsModelImpl extends AbstractFSCUDElement implements Model {
 		super(daos);
 	}
 
+	public FsModelImpl() {
+		this(null);
+	}
+
 	@Override
 	public String getName() {
 		return name;

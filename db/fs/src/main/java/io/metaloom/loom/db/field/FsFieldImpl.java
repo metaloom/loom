@@ -9,4 +9,8 @@ public class FsFieldImpl extends AbstractFSCUDElement implements Field {
 		super(daos);
 	}
 
+	public FsFieldImpl() {
+		this(null);
+	}
+
 }

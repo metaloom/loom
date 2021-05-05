@@ -23,6 +23,10 @@ public class FsGroupImpl extends AbstractFSCUDElement implements Group {
 		super(daos);
 	}
 
+	public FsGroupImpl() {
+		this(null);
+	}
+
 	@Override
 	public String getName() {
 		return name;

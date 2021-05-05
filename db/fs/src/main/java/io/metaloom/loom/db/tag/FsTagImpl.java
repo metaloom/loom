@@ -5,13 +5,16 @@ import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
 public class FsTagImpl extends AbstractFSCUDElement implements Tag {
 
-
 	private String name;
 
 	private String collection;
 
 	public FsTagImpl(DaoCollection daos) {
 		super(daos);
+	}
+
+	public FsTagImpl() {
+		this(null);
 	}
 
 	@Override

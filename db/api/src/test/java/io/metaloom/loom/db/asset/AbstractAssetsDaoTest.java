@@ -3,6 +3,7 @@ package io.metaloom.loom.db.asset;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
@@ -31,7 +32,6 @@ public abstract class AbstractAssetsDaoTest {
 		asset.setFilename("blume.jpg");
 		assertNotNull(asset.getUuid());
 		assertEquals("blume.jpg", asset.getFilename());
-
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public abstract class AbstractAssetsDaoTest {
 
 		// Now assert deletion
 		dao.deleteAsset(asset);
-		assertNull(dao.loadAsset(asset.getUuid()));
+		assertTrue("The asset should be deleted", dao.loadAsset(asset.getUuid()).isEmpty().blockingGet());
 	}
 
 	@Test
@@ -63,7 +63,6 @@ public abstract class AbstractAssetsDaoTest {
 		// Load and assert update was persisted
 		Maybe<? extends Asset> updatedAsset = dao.loadAsset(asset.getUuid());
 		assertEquals("blume2.jpg", updatedAsset.blockingGet().getFilename());
-
 	}
 
 	@Test
