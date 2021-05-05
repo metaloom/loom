@@ -30,9 +30,9 @@ public class JooqModelsDaoImpl extends AbstractJooqDao implements ModelsDao {
 	}
 
 	@Override
-	public void deleteModel(Model role) {
-		Objects.requireNonNull(role, "Model must not be null");
-		delegate.deleteById(role.getUuid());
+	public void deleteModel(Model model) {
+		Objects.requireNonNull(model, "Model must not be null");
+		delegate.deleteById(model.getUuid());
 	}
 
 	@Override
@@ -50,9 +50,9 @@ public class JooqModelsDaoImpl extends AbstractJooqDao implements ModelsDao {
 	}
 
 	@Override
-	public void storeModel(Model role) {
-		Objects.requireNonNull(role, "Model must not be null");
-		delegate.update(unwrap(role));
+	public void storeModel(Model model) {
+		Objects.requireNonNull(model, "Model must not be null");
+		delegate.update(unwrap(model));
 	}
 
 	@Override

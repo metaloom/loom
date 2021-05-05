@@ -17,7 +17,7 @@ public class JooqContentsDaoImpl extends AbstractJooqDao implements ContentsDao 
 	private final ContentDao delegate;
 
 	protected JooqType getType() {
-		return JooqType.ASSET;
+		return JooqType.CONTENT;
 	}
 
 	public JooqContentsDaoImpl(ContentDao delegate) {
@@ -30,9 +30,9 @@ public class JooqContentsDaoImpl extends AbstractJooqDao implements ContentsDao 
 	}
 
 	@Override
-	public void deleteContent(Content asset) {
-		Objects.requireNonNull(asset, "Content must not be null");
-		delegate.deleteById(asset.getUuid());
+	public void deleteContent(Content content) {
+		Objects.requireNonNull(content, "Content must not be null");
+		delegate.deleteById(content.getUuid());
 	}
 
 	@Override
@@ -43,16 +43,16 @@ public class JooqContentsDaoImpl extends AbstractJooqDao implements ContentsDao 
 	}
 
 	@Override
-	public void updateContent(Content asset) {
-		Objects.requireNonNull(asset, "Content must not be null");
-		io.metaloom.loom.db.jooq.tables.pojos.Content jooqContent = unwrap(asset);
+	public void updateContent(Content content) {
+		Objects.requireNonNull(content, "Content must not be null");
+		io.metaloom.loom.db.jooq.tables.pojos.Content jooqContent = unwrap(content);
 		delegate.update(jooqContent);
 	}
 
 	@Override
-	public void storeContent(Content asset) {
-		Objects.requireNonNull(asset, "Content must not be null");
-		delegate.update(unwrap(asset));
+	public void storeContent(Content content) {
+		Objects.requireNonNull(content, "Content must not be null");
+		delegate.update(unwrap(content));
 	}
 
 	@Override

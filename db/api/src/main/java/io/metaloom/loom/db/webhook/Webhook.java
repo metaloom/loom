@@ -4,4 +4,7 @@ import io.metaloom.loom.db.CUDElement;
 
 public interface Webhook extends CUDElement {
 
+	String getURL();
+
+	Webhook setURL(String url);
 }

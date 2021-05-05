@@ -11,6 +11,7 @@ import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.JooqType;
 import io.metaloom.loom.db.jooq.tables.daos.TagDao;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 public class JooqTagsDaoImpl extends AbstractJooqDao implements TagsDao {
 
@@ -36,10 +37,12 @@ public class JooqTagsDaoImpl extends AbstractJooqDao implements TagsDao {
 	}
 
 	@Override
-	public Tag createTag() {
-		io.metaloom.loom.db.jooq.tables.pojos.Tag tag = new io.metaloom.loom.db.jooq.tables.pojos.Tag();
-		delegate.insert(tag);
-		return new JooqTagImpl(tag);
+	public Single<Tag> createTag() {
+		return Single.create(sub -> {
+			io.metaloom.loom.db.jooq.tables.pojos.Tag tag = new io.metaloom.loom.db.jooq.tables.pojos.Tag();
+			delegate.insert(tag);
+			sub.onSuccess(new JooqTagImpl(tag));
+		});
 	}
 
 	@Override

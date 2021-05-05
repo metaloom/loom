@@ -17,7 +17,7 @@ public class JooqGroupsDaoImpl extends AbstractJooqDao implements GroupsDao {
 	private final GroupDao delegate;
 
 	protected JooqType getType() {
-		return JooqType.ASSET;
+		return JooqType.GROUP;
 	}
 
 	public JooqGroupsDaoImpl(GroupDao delegate) {
