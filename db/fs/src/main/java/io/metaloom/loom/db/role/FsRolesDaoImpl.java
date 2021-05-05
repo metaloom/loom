@@ -4,15 +4,25 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.apache.commons.io.FileUtils;
 
+import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Maybe;
 
+@Singleton
 public class FsRolesDaoImpl extends AbstractFSDao implements RolesDao {
+
+	@Inject
+	public FsRolesDaoImpl(DaoCollection daos) {
+		super(daos);
+	}
 
 	protected FSType getType() {
 		return FSType.ROLE;
@@ -31,7 +41,7 @@ public class FsRolesDaoImpl extends AbstractFSDao implements RolesDao {
 
 	@Override
 	public Role createRole() {
-		Role role = new FsRoleImpl();
+		Role role = new FsRoleImpl(daos());
 		role.setUuid(UUIDUtil.randomUUID());
 		return role;
 	}

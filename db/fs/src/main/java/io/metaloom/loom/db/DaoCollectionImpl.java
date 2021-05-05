@@ -1,106 +1,105 @@
 package io.metaloom.loom.db;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import dagger.Lazy;
 import io.metaloom.loom.db.asset.AssetsDao;
-import io.metaloom.loom.db.asset.FsAssetsDaoImpl;
 import io.metaloom.loom.db.content.ContentsDao;
-import io.metaloom.loom.db.content.FsContentsDaoImpl;
 import io.metaloom.loom.db.extension.ExtensionsDao;
-import io.metaloom.loom.db.extension.FsExtensionsDaoImpl;
 import io.metaloom.loom.db.field.FieldsDao;
-import io.metaloom.loom.db.field.FsFieldsDaoImpl;
-import io.metaloom.loom.db.group.FsGroupsDaoImpl;
 import io.metaloom.loom.db.group.GroupsDao;
-import io.metaloom.loom.db.model.FsModelsDaoImpl;
 import io.metaloom.loom.db.model.ModelsDao;
-import io.metaloom.loom.db.namespace.FsNamespacesDaoImpl;
 import io.metaloom.loom.db.namespace.NamespacesDao;
-import io.metaloom.loom.db.role.FsRolesDaoImpl;
 import io.metaloom.loom.db.role.RolesDao;
-import io.metaloom.loom.db.user.FsUsersDaoImpl;
 import io.metaloom.loom.db.user.UsersDao;
-import io.metaloom.loom.db.webhook.FsWebhooksDaoImpl;
 import io.metaloom.loom.db.webhook.WebhooksDao;
 
+@Singleton
 public class DaoCollectionImpl implements DaoCollection {
 
-	private final ContentsDao contentsDao;
-	private final FieldsDao fieldsDao;
+	@Inject
+	public Lazy<ContentsDao> contentsDao;
 
-	private final UsersDao usersDao;
-	private final RolesDao rolesDao;
-	private final GroupsDao groupsDao;
+	@Inject
+	public Lazy<FieldsDao> fieldsDao;
 
-	private final AssetsDao assetsDao;
-	private final NamespacesDao namespacesDao;
-	private final ModelsDao modelsDao;
+	@Inject
+	public Lazy<UsersDao> usersDao;
 
-	private final ExtensionsDao extensionsDao;
-	private final WebhooksDao webhooksDao;
+	@Inject
+	public Lazy<RolesDao> rolesDao;
 
+	@Inject
+	public Lazy<GroupsDao> groupsDao;
+
+	@Inject
+	public Lazy<AssetsDao> assetsDao;
+
+	@Inject
+	public Lazy<NamespacesDao> namespacesDao;
+
+	@Inject
+	public Lazy<ModelsDao> modelsDao;
+
+	@Inject
+	public Lazy<ExtensionsDao> extensionsDao;
+
+	@Inject
+	public Lazy<WebhooksDao> webhooksDao;
+
+	@Inject
 	public DaoCollectionImpl() {
-		this.contentsDao = new FsContentsDaoImpl();
-		this.fieldsDao = new FsFieldsDaoImpl();
-
-		this.usersDao = new FsUsersDaoImpl();
-		this.groupsDao = new FsGroupsDaoImpl();
-		this.rolesDao = new FsRolesDaoImpl();
-
-		this.modelsDao = new FsModelsDaoImpl();
-		this.assetsDao = new FsAssetsDaoImpl();
-		this.namespacesDao = new FsNamespacesDaoImpl();
-
-		this.extensionsDao = new FsExtensionsDaoImpl();
-		this.webhooksDao = new FsWebhooksDaoImpl();
 	}
 
 	@Override
 	public ContentsDao getContentsDao() {
-		return contentsDao;
+		return contentsDao.get();
 	}
 
 	@Override
 	public AssetsDao getAssetsDao() {
-		return assetsDao;
+		return assetsDao.get();
 	}
 
 	@Override
 	public ExtensionsDao getExtensionsDao() {
-		return extensionsDao;
+		return extensionsDao.get();
 	}
 
 	@Override
 	public WebhooksDao getWebhooksDao() {
-		return webhooksDao;
+		return webhooksDao.get();
 	}
 
 	@Override
 	public FieldsDao getFieldsDao() {
-		return fieldsDao;
+		return fieldsDao.get();
 	}
 
 	@Override
 	public UsersDao getUsersDao() {
-		return usersDao;
+		return usersDao.get();
 	}
 
 	@Override
 	public GroupsDao getGroupsDao() {
-		return groupsDao;
+		return groupsDao.get();
 	}
 
 	@Override
 	public RolesDao getRolesDao() {
-		return rolesDao;
+		return rolesDao.get();
 	}
 
 	@Override
 	public ModelsDao getModelsDao() {
-		return modelsDao;
+		return modelsDao.get();
 	}
 
 	@Override
 	public NamespacesDao getNamespacesDao() {
-		return namespacesDao;
+		return namespacesDao.get();
 	}
 
 }

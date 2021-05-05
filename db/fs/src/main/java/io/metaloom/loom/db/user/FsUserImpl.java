@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.user;
 
+import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
 public class FsUserImpl extends AbstractFSCUDElement implements User {
@@ -8,6 +9,14 @@ public class FsUserImpl extends AbstractFSCUDElement implements User {
 	private String firstname;
 	private String email;
 	private String username;
+
+	public FsUserImpl(DaoCollection daos) {
+		super(daos);
+	}
+
+	public FsUserImpl() {
+		this(null);
+	}
 
 	@Override
 	public String getUsername() {

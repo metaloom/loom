@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.tag.Tag;
 import io.reactivex.Observable;
@@ -14,6 +15,10 @@ public class FsAssetImpl extends AbstractFSCUDElement implements Asset {
 	private String name;
 
 	private List<Tag> tags = new ArrayList<>();
+
+	public FsAssetImpl(DaoCollection daos) {
+		super(daos);
+	}
 
 	@Override
 	public String getFilename() {

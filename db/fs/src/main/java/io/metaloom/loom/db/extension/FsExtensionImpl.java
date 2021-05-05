@@ -1,10 +1,15 @@
 package io.metaloom.loom.db.extension;
 
+import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
 public class FsExtensionImpl extends AbstractFSCUDElement implements Extension {
 
 	private String url;
+
+	public FsExtensionImpl(DaoCollection daos) {
+		super(daos);
+	}
 
 	@Override
 	public String getURL() {

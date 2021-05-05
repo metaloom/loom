@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.role.Role;
 import io.metaloom.loom.db.user.User;
@@ -17,6 +18,10 @@ public class FsGroupImpl extends AbstractFSCUDElement implements Group {
 
 	private List<Role> roles = new ArrayList<>();
 	private List<User> users = new ArrayList<>();
+
+	public FsGroupImpl(DaoCollection daos) {
+		super(daos);
+	}
 
 	@Override
 	public String getName() {

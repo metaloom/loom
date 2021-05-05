@@ -1,8 +1,10 @@
 package io.metaloom.loom.db.user;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
@@ -44,7 +46,7 @@ public abstract class AbstractUsersDaoTest {
 
 		// Now assert deletion
 		dao.deleteUser(user);
-		assertNull(dao.loadUser(user.getUuid()));
+		assertTrue("The returned maybe should be empty.", dao.loadUser(user.getUuid()).isEmpty().blockingGet());
 	}
 
 	@Test

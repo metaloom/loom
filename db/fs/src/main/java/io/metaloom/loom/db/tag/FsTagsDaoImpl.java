@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.apache.commons.io.FileUtils;
 
+import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
@@ -13,7 +17,13 @@ import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 
+@Singleton
 public class FsTagsDaoImpl extends AbstractFSDao implements TagsDao {
+
+	@Inject
+	public FsTagsDaoImpl(DaoCollection daos) {
+		super(daos);
+	}
 
 	protected FSType getType() {
 		return FSType.TAG;
@@ -32,7 +42,7 @@ public class FsTagsDaoImpl extends AbstractFSDao implements TagsDao {
 
 	@Override
 	public Single<Tag> createTag() {
-		Tag tag = new FsTagImpl();
+		Tag tag = new FsTagImpl(daos());
 		tag.setUuid(UUIDUtil.randomUUID());
 		return Single.just(tag);
 	}

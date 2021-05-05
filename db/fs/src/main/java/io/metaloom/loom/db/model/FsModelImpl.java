@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.model;
 
+import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 import io.metaloom.loom.db.tag.Tag;
 import io.reactivex.Observable;
@@ -7,6 +8,10 @@ import io.reactivex.Observable;
 public class FsModelImpl extends AbstractFSCUDElement implements Model {
 
 	private String name;
+
+	public FsModelImpl(DaoCollection daos) {
+		super(daos);
+	}
 
 	@Override
 	public String getName() {
