@@ -12,6 +12,7 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
@@ -59,8 +60,9 @@ public class JooqUserDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.UserDa
 	}
 
 	@Override
-	public void clear() throws IOException {
+	public Completable clear() throws IOException {
 		// TODO run jooq SQL to delete contents of table
+		return Completable.complete();
 	}
 
 }

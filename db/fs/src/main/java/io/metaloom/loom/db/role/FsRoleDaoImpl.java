@@ -1,13 +1,10 @@
 package io.metaloom.loom.db.role;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import org.apache.commons.io.FileUtils;
 
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
@@ -62,9 +59,5 @@ public class FsRoleDaoImpl extends AbstractFSDao implements RoleDao {
 		FilesystemIoHelper.store(getType(), role.getUuid(), role);
 	}
 
-	@Override
-	public void clear() throws IOException {
-		FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
-	}
 
 }

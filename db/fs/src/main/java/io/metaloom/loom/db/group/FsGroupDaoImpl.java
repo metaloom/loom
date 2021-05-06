@@ -2,14 +2,11 @@ package io.metaloom.loom.db.group;
 
 import static io.metaloom.loom.db.fs.FSWrapperUtil.toFs;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import org.apache.commons.io.FileUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -102,11 +99,6 @@ public class FsGroupDaoImpl extends AbstractFSDao implements GroupDao {
 	@JsonIgnore
 	public Observable<Role> loadRoles(Group group) {
 		return Observable.fromIterable(toFs(group).roles);
-	}
-
-	@Override
-	public void clear() throws IOException {
-		FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
 	}
 
 }

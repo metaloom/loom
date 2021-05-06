@@ -14,6 +14,7 @@ import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 
@@ -61,8 +62,10 @@ public class FsUserDaoImpl extends AbstractFSDao implements UserDao {
 	}
 
 	@Override
-	public void clear() throws IOException {
-		FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
+	public Completable clear() throws IOException {
+		return Completable.fromAction(() -> {
+			FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
+		});
 	}
 
 }

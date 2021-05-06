@@ -68,8 +68,10 @@ public class FsNamespaceDaoImpl extends AbstractFSDao implements NamespaceDao {
 	}
 
 	@Override
-	public void clear() throws IOException {
-		FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
+	public Completable clear() throws IOException {
+		return Completable.fromAction(() -> {
+			FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
+		});
 	}
 
 	@Override

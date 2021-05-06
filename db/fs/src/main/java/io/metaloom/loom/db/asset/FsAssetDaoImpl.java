@@ -1,13 +1,10 @@
 package io.metaloom.loom.db.asset;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import org.apache.commons.io.FileUtils;
 
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
@@ -62,8 +59,8 @@ public class FsAssetDaoImpl extends AbstractFSDao implements AssetDao {
 
 	@Override
 	public Observable<Tag> loadTags(Asset asset) {
-			//return Observable.fromIterable(tags);
-			return null;
+		// return Observable.fromIterable(tags);
+		return null;
 	}
 
 	@Override
@@ -76,11 +73,6 @@ public class FsAssetDaoImpl extends AbstractFSDao implements AssetDao {
 	public void removeTag(Asset asset, Tag tag) {
 		// tags.remove(tag);
 		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void clear() throws IOException {
-		FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
 	}
 
 }

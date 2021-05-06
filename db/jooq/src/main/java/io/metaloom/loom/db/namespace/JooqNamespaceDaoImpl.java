@@ -80,8 +80,9 @@ public class JooqNamespaceDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.N
 	}
 
 	@Override
-	public void clear() throws IOException {
+	public Completable clear() throws IOException {
 		// TODO run jooq SQL to delete contents of table
+		return Completable.complete();
 	}
 
 }

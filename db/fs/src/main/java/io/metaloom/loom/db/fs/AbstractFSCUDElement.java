@@ -4,10 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import io.metaloom.loom.db.CUDElement;
-import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.user.User;
 
 public abstract class AbstractFSCUDElement extends AbstractFSLoomElement implements CUDElement {

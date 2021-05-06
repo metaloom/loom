@@ -1,6 +1,5 @@
 package io.metaloom.loom.db.model;
 
-import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
 public class FsModelImpl extends AbstractFSCUDElement implements Model {

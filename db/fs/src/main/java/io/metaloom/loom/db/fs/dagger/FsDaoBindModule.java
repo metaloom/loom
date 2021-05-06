@@ -2,7 +2,6 @@ package io.metaloom.loom.db.fs.dagger;
 
 import dagger.Binds;
 import dagger.Module;
-import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.asset.AssetDao;
 import io.metaloom.loom.db.asset.FsAssetDaoImpl;
 import io.metaloom.loom.db.content.ContentDao;
@@ -13,7 +12,6 @@ import io.metaloom.loom.db.field.FieldDao;
 import io.metaloom.loom.db.field.FsFieldDaoImpl;
 import io.metaloom.loom.db.group.FsGroupDaoImpl;
 import io.metaloom.loom.db.group.GroupDao;
-import io.metaloom.loom.db.impl.DaoCollectionImpl;
 import io.metaloom.loom.db.model.FsModelDaoImpl;
 import io.metaloom.loom.db.model.ModelDao;
 import io.metaloom.loom.db.namespace.FsNamespaceDaoImpl;

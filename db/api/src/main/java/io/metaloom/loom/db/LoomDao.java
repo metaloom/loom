@@ -2,6 +2,8 @@ package io.metaloom.loom.db;
 
 import java.io.IOException;
 
+import io.reactivex.Completable;
+
 public interface LoomDao {
 
 	/**
@@ -9,5 +11,5 @@ public interface LoomDao {
 	 * 
 	 * @throws IOException
 	 */
-	void clear() throws IOException;
+	Completable clear() throws IOException;
 }

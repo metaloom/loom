@@ -1,6 +1,5 @@
 package io.metaloom.loom.db.tag;
 
-import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
 public class FsTagImpl extends AbstractFSCUDElement implements Tag {

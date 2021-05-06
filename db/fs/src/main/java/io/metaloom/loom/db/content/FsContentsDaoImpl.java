@@ -1,13 +1,10 @@
 package io.metaloom.loom.db.content;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import org.apache.commons.io.FileUtils;
 
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
@@ -61,11 +58,6 @@ public class FsContentsDaoImpl extends AbstractFSDao implements ContentDao {
 	}
 
 	@Override
-	public void clear() throws IOException {
-		FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
-	}
-
-	@Override
 	public Observable<Tag> loadTags(Content content) {
 		// TODO Auto-generated method stub
 		return null;
@@ -81,5 +73,4 @@ public class FsContentsDaoImpl extends AbstractFSDao implements ContentDao {
 		// TODO Auto-generated method stub
 	}
 
-	
 }

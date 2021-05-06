@@ -1,11 +1,13 @@
 package io.metaloom.loom.db.user;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import io.metaloom.loom.utils.RxUtils;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 
@@ -27,10 +29,12 @@ public class MemUsersDaoImpl implements UserDao {
 
 	@Override
 	public Single<? extends User> createUser(String username) {
-		User user = new MemUserImpl();
-		user.setUuid(UUIDUtil.randomUUID());
-		user.setUsername(username);
-		return Single.just(user);
+		return Single.fromCallable(() -> {
+			User user = new MemUserImpl();
+			user.setUuid(UUIDUtil.randomUUID());
+			user.setUsername(username);
+			return user;
+		});
 	}
 
 	@Override
@@ -44,8 +48,10 @@ public class MemUsersDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void clear() {
-		storage.clear();
+	public Completable clear() throws IOException {
+		return Completable.fromAction(() -> {
+			storage.clear();
+		});
 	}
 
 }

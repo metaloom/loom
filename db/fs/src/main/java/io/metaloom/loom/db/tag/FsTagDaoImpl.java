@@ -1,13 +1,10 @@
 package io.metaloom.loom.db.tag;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import org.apache.commons.io.FileUtils;
 
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
@@ -61,11 +58,6 @@ public class FsTagDaoImpl extends AbstractFSDao implements TagDao {
 	public void storeTag(Tag tag) {
 		Objects.requireNonNull(tag, "Tag must not be null");
 		FilesystemIoHelper.store(getType(), tag.getUuid(), tag);
-	}
-
-	@Override
-	public void clear() throws IOException {
-		FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
 	}
 
 }
