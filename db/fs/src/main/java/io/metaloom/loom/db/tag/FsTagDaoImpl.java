@@ -41,10 +41,14 @@ public class FsTagDaoImpl extends AbstractFSDao implements TagDao {
 	}
 
 	@Override
-	public Single<Tag> createTag() {
-		Tag tag = new FsTagImpl();
-		tag.setUuid(UUIDUtil.randomUUID());
-		return Single.just(tag);
+	public Single<? extends Tag> createTag(String name, String collection) {
+		return Single.fromCallable(() -> {
+			Tag tag = new FsTagImpl();
+			tag.setUuid(UUIDUtil.randomUUID());
+			tag.setName(name);
+			tag.setCollection(collection);
+			return tag;
+		});
 	}
 
 	@Override

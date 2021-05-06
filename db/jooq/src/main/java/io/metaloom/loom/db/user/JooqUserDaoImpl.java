@@ -43,7 +43,7 @@ public class JooqUserDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.UserDa
 	public Single<? extends User> createUser(String username) {
 		io.metaloom.loom.db.jooq.tables.pojos.User user = new io.metaloom.loom.db.jooq.tables.pojos.User();
 		user.setUsername(username);
-		return insert(user).map(e -> new JooqUserImpl(user));
+		return insertReturningPrimary(user).map(pk -> new JooqUserImpl(user.setUuid(pk)));
 	}
 
 	@Override

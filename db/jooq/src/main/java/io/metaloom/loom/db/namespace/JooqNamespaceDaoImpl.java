@@ -13,8 +13,10 @@ import javax.inject.Singleton;
 import org.jooq.Configuration;
 
 import io.metaloom.loom.db.tag.Tag;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
@@ -36,16 +38,16 @@ public class JooqNamespaceDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.N
 	}
 
 	@Override
-	public void deleteNamespace(Namespace namespace) {
+	public Completable deleteNamespace(Namespace namespace) {
 		Objects.requireNonNull(namespace, "Namespace must not be null");
-		deleteById(namespace.getUuid());
+		return deleteById(namespace.getUuid()).ignoreElement();
 	}
 
 	@Override
-	public Namespace createNamespace() {
+	public Single<? extends Namespace> createNamespace(String name) {
 		io.metaloom.loom.db.jooq.tables.pojos.Namespace namespace = new io.metaloom.loom.db.jooq.tables.pojos.Namespace();
-		insert(namespace);
-		return new JooqNamespaceImpl(namespace);
+		namespace.setName(name);
+		return insertReturningPrimary(namespace).map(pk -> new JooqNamespaceImpl(namespace.setUuid(pk)));
 	}
 
 	@Override

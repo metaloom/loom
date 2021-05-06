@@ -18,6 +18,7 @@ import org.jooq.Configuration;
 import io.github.jklingsporn.vertx.jooq.rx.reactivepg.ReactiveRXQueryExecutor;
 import io.metaloom.loom.db.jooq.JooqWrapperHelper;
 import io.metaloom.loom.db.jooq.tables.daos.UserGroupDao;
+import io.metaloom.loom.db.jooq.tables.pojos.UserGroup;
 import io.metaloom.loom.db.jooq.tables.records.UserGroupRecord;
 import io.metaloom.loom.db.jooq.tables.records.UserRecord;
 import io.metaloom.loom.db.role.Role;
@@ -63,7 +64,7 @@ public class JooqGroupDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Group
 	public Single<Group> createGroup(String name) {
 		io.metaloom.loom.db.jooq.tables.pojos.Group group = new io.metaloom.loom.db.jooq.tables.pojos.Group();
 		group.setName(name);
-		return insert(group).map(e -> new JooqGroupImpl(group));
+		return insertReturningPrimary(group).map(pk -> new JooqGroupImpl(group.setUuid(pk)));
 	}
 
 	@Override
@@ -79,6 +80,14 @@ public class JooqGroupDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Group
 	}
 
 	@Override
+	public Completable addUser(Group group, User user) {
+		UserGroup userGroup = new UserGroup();
+		userGroup.setGroupUuid(group.getUuid());
+		userGroup.setUserUuid(user.getUuid());
+		return userGroupDao.insert(userGroup).ignoreElement();
+	}
+
+	@Override
 	public Completable removeUser(Group group, User user) {
 		UserGroupRecord record = new UserGroupRecord(user.getUuid(), group.getUuid());
 		return userGroupDao.deleteById(record).ignoreElement();
@@ -86,12 +95,6 @@ public class JooqGroupDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Group
 
 	@Override
 	public void removeRole(Group group, Role role) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void addUser(Group group, User user) {
 		// TODO Auto-generated method stub
 
 	}

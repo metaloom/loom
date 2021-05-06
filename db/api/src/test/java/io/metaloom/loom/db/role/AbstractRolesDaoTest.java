@@ -27,8 +27,7 @@ public abstract class AbstractRolesDaoTest {
 		RoleDao dao = getDao();
 
 		// Create role
-		Role role = dao.createRole();
-		role.setName("Guests");
+		Role role = dao.createRole("Guests").blockingGet();
 		assertNotNull(role.getUuid());
 		assertEquals("Guests", role.getName());
 	}
@@ -38,8 +37,7 @@ public abstract class AbstractRolesDaoTest {
 		RoleDao dao = getDao();
 
 		// Create role
-		Role role = dao.createRole();
-		role.setName("Guests");
+		Role role = dao.createRole("Guests").blockingGet();
 
 		// Now assert deletion
 		dao.deleteRole(role);
@@ -51,8 +49,7 @@ public abstract class AbstractRolesDaoTest {
 		RoleDao dao = getDao();
 
 		// Create and store
-		Role role = dao.createRole();
-		role.setName("Guests");
+		Role role = dao.createRole("Guests").blockingGet();
 		dao.storeRole(role);
 
 		// Now update
@@ -70,8 +67,8 @@ public abstract class AbstractRolesDaoTest {
 		RoleDao dao = getDao();
 
 		// Create and store role
-		Role role = dao.createRole();
-		role.setName("Guests");
+		Role role = dao.createRole("Guests").blockingGet();
+
 		dao.storeRole(role);
 
 		// Now load again

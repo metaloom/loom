@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 import org.jooq.Configuration;
 
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
@@ -39,10 +40,9 @@ public class JooqRoleDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.RoleDa
 	}
 
 	@Override
-	public Role createRole() {
+	public Single<? extends Role> createRole(String name) {
 		io.metaloom.loom.db.jooq.tables.pojos.Role role = new io.metaloom.loom.db.jooq.tables.pojos.Role();
-		insert(role);
-		return new JooqRoleImpl(role);
+		return insertReturningPrimary(role).map(pk -> new JooqRoleImpl(role.setUuid(pk)));
 	}
 
 	@Override

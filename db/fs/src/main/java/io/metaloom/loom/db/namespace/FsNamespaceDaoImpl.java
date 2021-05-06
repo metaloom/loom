@@ -15,8 +15,10 @@ import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.db.tag.Tag;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 @Singleton
 public class FsNamespaceDaoImpl extends AbstractFSDao implements NamespaceDao {
@@ -36,16 +38,21 @@ public class FsNamespaceDaoImpl extends AbstractFSDao implements NamespaceDao {
 	}
 
 	@Override
-	public void deleteNamespace(Namespace namespace) {
+	public Completable deleteNamespace(Namespace namespace) {
 		Objects.requireNonNull(namespace, "Namespace must not be null");
-		FilesystemIoHelper.delete(getType(), namespace.getUuid());
+		return Completable.fromAction(() -> {
+			FilesystemIoHelper.delete(getType(), namespace.getUuid());
+		});
 	}
 
 	@Override
-	public Namespace createNamespace() {
-		Namespace namespace = new FsNamespaceImpl();
-		namespace.setUuid(UUIDUtil.randomUUID());
-		return namespace;
+	public Single<? extends Namespace> createNamespace(String name) {
+		return Single.fromCallable(() -> {
+			Namespace namespace = new FsNamespaceImpl();
+			namespace.setUuid(UUIDUtil.randomUUID());
+			namespace.setName(name);
+			return namespace;
+		});
 	}
 
 	@Override
@@ -65,7 +72,6 @@ public class FsNamespaceDaoImpl extends AbstractFSDao implements NamespaceDao {
 		FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
 	}
 
-	
 	@Override
 	public Observable<Tag> loadTags(Namespace namespace) {
 		// TODO Auto-generated method stub
@@ -83,5 +89,5 @@ public class FsNamespaceDaoImpl extends AbstractFSDao implements NamespaceDao {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 }

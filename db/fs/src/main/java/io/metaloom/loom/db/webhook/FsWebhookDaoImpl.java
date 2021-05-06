@@ -14,7 +14,9 @@ import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 @Singleton
 public class FsWebhookDaoImpl extends AbstractFSDao implements WebhookDao {
@@ -40,16 +42,20 @@ public class FsWebhookDaoImpl extends AbstractFSDao implements WebhookDao {
 	}
 
 	@Override
-	public Webhook createWebhook() {
-		Webhook webhook = new FsWebhookImpl();
-		webhook.setUuid(UUIDUtil.randomUUID());
-		return webhook;
+	public Single<? extends Webhook> createWebhook() {
+		return Single.fromCallable(() -> {
+			Webhook webhook = new FsWebhookImpl();
+			webhook.setUuid(UUIDUtil.randomUUID());
+			return webhook;
+		});
 	}
 
 	@Override
-	public void updateWebhook(Webhook webhook) {
+	public Completable updateWebhook(Webhook webhook) {
 		Objects.requireNonNull(webhook, "Webhook must not be null");
-		FilesystemIoHelper.store(getType(), webhook.getUuid(), webhook);
+		return Completable.fromAction(() -> {
+			FilesystemIoHelper.store(getType(), webhook.getUuid(), webhook);
+		});
 	}
 
 	@Override

@@ -40,12 +40,11 @@ public class JooqTagDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.TagDao 
 	}
 
 	@Override
-	public Single<Tag> createTag() {
-		return Single.create(sub -> {
-			io.metaloom.loom.db.jooq.tables.pojos.Tag tag = new io.metaloom.loom.db.jooq.tables.pojos.Tag();
-			insert(tag);
-			sub.onSuccess(new JooqTagImpl(tag));
-		});
+	public Single<Tag> createTag(String name, String collection) {
+		io.metaloom.loom.db.jooq.tables.pojos.Tag tag = new io.metaloom.loom.db.jooq.tables.pojos.Tag();
+		tag.setName(name);
+		tag.setCollection(collection);
+		return insertReturningPrimary(tag).map(pk -> new JooqTagImpl(tag.setUuid(pk)));
 	}
 
 	@Override

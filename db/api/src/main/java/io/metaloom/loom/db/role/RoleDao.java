@@ -4,10 +4,11 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.LoomDao;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 public interface RoleDao extends LoomDao {
 
-	Role createRole();
+	Single<? extends Role> createRole(String name);
 
 	void deleteRole(Role role);
 

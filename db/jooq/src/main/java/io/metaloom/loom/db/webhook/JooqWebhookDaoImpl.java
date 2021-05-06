@@ -12,7 +12,9 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
@@ -39,17 +41,16 @@ public class JooqWebhookDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Web
 	}
 
 	@Override
-	public Webhook createWebhook() {
+	public Single<? extends Webhook> createWebhook() {
 		io.metaloom.loom.db.jooq.tables.pojos.Webhook webhook = new io.metaloom.loom.db.jooq.tables.pojos.Webhook();
-		insert(webhook);
-		return new JooqWebhookImpl(webhook);
+		return insertReturningPrimary(webhook).map(pk -> new JooqWebhookImpl(webhook.setUuid(pk)));
 	}
 
 	@Override
-	public void updateWebhook(Webhook webhook) {
+	public Completable updateWebhook(Webhook webhook) {
 		Objects.requireNonNull(webhook, "Webhook must not be null");
 		io.metaloom.loom.db.jooq.tables.pojos.Webhook jooqWebhook = unwrap(webhook);
-		update(jooqWebhook);
+		return update(jooqWebhook).ignoreElement();
 	}
 
 	@Override

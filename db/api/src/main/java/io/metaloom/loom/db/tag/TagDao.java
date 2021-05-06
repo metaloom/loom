@@ -8,7 +8,7 @@ import io.reactivex.Single;
 
 public interface TagDao extends LoomDao {
 
-	Single<Tag> createTag();
+	Single<? extends Tag> createTag(String name, String collection);
 
 	void deleteTag(Tag tag);
 

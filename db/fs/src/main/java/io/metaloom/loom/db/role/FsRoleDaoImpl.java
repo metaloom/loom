@@ -15,6 +15,7 @@ import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 @Singleton
 public class FsRoleDaoImpl extends AbstractFSDao implements RoleDao {
@@ -40,10 +41,13 @@ public class FsRoleDaoImpl extends AbstractFSDao implements RoleDao {
 	}
 
 	@Override
-	public Role createRole() {
-		Role role = new FsRoleImpl();
-		role.setUuid(UUIDUtil.randomUUID());
-		return role;
+	public Single<? extends Role> createRole(String name) {
+		return Single.fromCallable(() -> {
+			Role role = new FsRoleImpl();
+			role.setName(name);
+			role.setUuid(UUIDUtil.randomUUID());
+			return role;
+		});
 	}
 
 	@Override

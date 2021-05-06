@@ -75,8 +75,10 @@ public class FsGroupDaoImpl extends AbstractFSDao implements GroupDao {
 	}
 
 	@Override
-	public void addUser(Group group, User user) {
-		toFs(group).users.add(user);
+	public Completable addUser(Group group, User user) {
+		return Completable.fromAction(() -> {
+			toFs(group).users.add(user);
+		});
 	}
 
 	@Override

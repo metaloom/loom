@@ -4,16 +4,18 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.LoomDao;
 import io.metaloom.loom.db.tag.Tag;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public interface NamespaceDao extends LoomDao {
 
 	Maybe<? extends Namespace> loadNamespace(UUID uuid);
 
-	Namespace createNamespace();
+	Single<? extends Namespace> createNamespace(String name);
 
-	void deleteNamespace(Namespace namespace);
+	Completable deleteNamespace(Namespace namespace);
 
 	void updateNamespace(Namespace namespace);
 

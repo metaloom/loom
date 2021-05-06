@@ -25,7 +25,7 @@ public interface GroupDao extends LoomDao {
 	Observable<User> loadUsers(Group group);
 
 	// Users
-	void addUser(Group group, User user);
+	Completable addUser(Group group, User user);
 
 	Completable removeUser(Group group, User user);
 
