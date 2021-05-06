@@ -7,8 +7,9 @@ import java.util.UUID;
 import io.metaloom.loom.utils.RxUtils;
 import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
-public class MemUsersDaoImpl implements UsersDao {
+public class MemUsersDaoImpl implements UserDao {
 
 	private Map<UUID, User> storage = new HashMap<>();
 
@@ -25,10 +26,11 @@ public class MemUsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public User createUser() {
+	public Single<? extends User> createUser(String username) {
 		User user = new MemUserImpl();
 		user.setUuid(UUIDUtil.randomUUID());
-		return user;
+		user.setUsername(username);
+		return Single.just(user);
 	}
 
 	@Override

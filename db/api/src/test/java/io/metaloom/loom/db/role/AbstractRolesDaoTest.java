@@ -14,7 +14,7 @@ import io.reactivex.Maybe;
 
 public abstract class AbstractRolesDaoTest {
 
-	abstract public RolesDao getDao();
+	abstract public RoleDao getDao();
 
 	@After
 	@Before
@@ -24,7 +24,7 @@ public abstract class AbstractRolesDaoTest {
 
 	@Test
 	public void testCreate() {
-		RolesDao dao = getDao();
+		RoleDao dao = getDao();
 
 		// Create role
 		Role role = dao.createRole();
@@ -35,7 +35,7 @@ public abstract class AbstractRolesDaoTest {
 
 	@Test
 	public void testDelete() {
-		RolesDao dao = getDao();
+		RoleDao dao = getDao();
 
 		// Create role
 		Role role = dao.createRole();
@@ -48,7 +48,7 @@ public abstract class AbstractRolesDaoTest {
 
 	@Test
 	public void testUpdate() {
-		RolesDao dao = getDao();
+		RoleDao dao = getDao();
 
 		// Create and store
 		Role role = dao.createRole();
@@ -67,7 +67,7 @@ public abstract class AbstractRolesDaoTest {
 
 	@Test
 	public void testLoad() {
-		RolesDao dao = getDao();
+		RoleDao dao = getDao();
 
 		// Create and store role
 		Role role = dao.createRole();

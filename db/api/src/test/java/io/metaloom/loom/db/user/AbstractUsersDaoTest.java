@@ -14,7 +14,7 @@ import io.reactivex.Maybe;
 
 public abstract class AbstractUsersDaoTest {
 
-	abstract public UsersDao getDao();
+	abstract public UserDao getDao();
 
 	@After
 	@Before
@@ -24,11 +24,10 @@ public abstract class AbstractUsersDaoTest {
 
 	@Test
 	public void testCreate() {
-		UsersDao dao = getDao();
+		UserDao dao = getDao();
 
 		// Create user
-		User user = dao.createUser();
-		user.setUsername("joedoe");
+		User user = dao.createUser("joedoe").blockingGet();
 		assertNotNull(user.getUuid());
 		assertEquals("joedoe", user.getUsername());
 
@@ -36,11 +35,10 @@ public abstract class AbstractUsersDaoTest {
 
 	@Test
 	public void testDelete() {
-		UsersDao dao = getDao();
+		UserDao dao = getDao();
 
 		// Create user
-		User user = dao.createUser();
-		user.setUsername("joedoe");
+		User user = dao.createUser("joeddoe").blockingGet();
 
 		// Now assert deletion
 		dao.deleteUser(user);
@@ -49,12 +47,10 @@ public abstract class AbstractUsersDaoTest {
 
 	@Test
 	public void testUpdate() {
-		UsersDao dao = getDao();
+		UserDao dao = getDao();
 
 		// Create and store
-		User user = dao.createUser();
-		user.setUsername("joedoe");
-		dao.storeUser(user);
+		User user = dao.createUser("joedoe").blockingGet();
 
 		// Now update
 		user.setUsername("joedoe2");
@@ -68,12 +64,10 @@ public abstract class AbstractUsersDaoTest {
 
 	@Test
 	public void testLoad() {
-		UsersDao dao = getDao();
+		UserDao dao = getDao();
 
 		// Create and store user
-		User user = dao.createUser();
-		user.setUsername("joedoe");
-		dao.storeUser(user);
+		User user = dao.createUser("joedoe").blockingGet();
 
 		// Now load again
 		assertNotNull(dao.loadUser(user.getUuid()));

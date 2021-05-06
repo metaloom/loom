@@ -12,7 +12,6 @@ public class JooqWebhookImpl extends AbstractJooqCUDElement implements Webhook, 
 	private final io.metaloom.loom.db.jooq.tables.pojos.Webhook delegate;
 
 	public JooqWebhookImpl(io.metaloom.loom.db.jooq.tables.pojos.Webhook delegate) {
-		super(null);
 		this.delegate = delegate;
 	}
 
@@ -28,12 +27,6 @@ public class JooqWebhookImpl extends AbstractJooqCUDElement implements Webhook, 
 	}
 
 	@Override
-	public User getCreator() {
-		// return wrap(delegate.getCreatorUuid())
-		return null;
-	}
-
-	@Override
 	public LocalDateTime getCdate() {
 		return delegate.getCreated();
 	}
@@ -41,12 +34,6 @@ public class JooqWebhookImpl extends AbstractJooqCUDElement implements Webhook, 
 	@Override
 	public LocalDateTime getEdate() {
 		return delegate.getEdited();
-	}
-
-	@Override
-	public User getEditor() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

@@ -9,14 +9,6 @@ public class FsTagImpl extends AbstractFSCUDElement implements Tag {
 
 	private String collection;
 
-	public FsTagImpl(DaoCollection daos) {
-		super(daos);
-	}
-
-	public FsTagImpl() {
-		this(null);
-	}
-
 	@Override
 	public String getName() {
 		return name;

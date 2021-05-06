@@ -18,18 +18,13 @@ public abstract class AbstractFSCUDElement extends AbstractFSLoomElement impleme
 	private UUID editorUuid;
 	private LocalDateTime edate;
 
-	private final DaoCollection daos;
 
-	public AbstractFSCUDElement(DaoCollection daos) {
-		this.daos = daos;
-	}
-
-	@JsonIgnore
-	@Override
-	public User getEditor() {
-		return daos.getUsersDao().loadUser(editorUuid).blockingGet();
-	}
-
+//	@JsonIgnore
+//	@Override
+//	public User getEditor() {
+//		return daos.getUserDao().loadUser(editorUuid).blockingGet();
+//	}
+//
 	@Override
 	public void setEditor(User editor) {
 		Objects.requireNonNull(editor, "A valid user must be specified");
@@ -54,12 +49,12 @@ public abstract class AbstractFSCUDElement extends AbstractFSLoomElement impleme
 		this.edate = edate;
 	}
 
-	@JsonIgnore
-	@Override
-	public User getCreator() {
-		return daos.getUsersDao().loadUser(creatorUuid).blockingGet();
-	}
-
+//	@JsonIgnore
+//	@Override
+//	public User getCreator() {
+//		return daos.getUserDao().loadUser(creatorUuid).blockingGet();
+//	}
+//
 	@Override
 	public void setCreator(User creator) {
 		Objects.requireNonNull(creator, "A valid user must be specified");

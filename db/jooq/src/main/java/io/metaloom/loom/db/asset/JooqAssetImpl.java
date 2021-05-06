@@ -5,16 +5,13 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.tag.Tag;
 import io.metaloom.loom.db.user.User;
-import io.reactivex.Observable;
 
 public class JooqAssetImpl extends AbstractJooqCUDElement implements Asset, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Asset> {
 
 	private final io.metaloom.loom.db.jooq.tables.pojos.Asset delegate;
 
 	public JooqAssetImpl(io.metaloom.loom.db.jooq.tables.pojos.Asset delegate) {
-		super(null);
 		this.delegate = delegate;
 	}
 
@@ -31,12 +28,6 @@ public class JooqAssetImpl extends AbstractJooqCUDElement implements Asset, Jooq
 	}
 
 	@Override
-	public User getCreator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public LocalDateTime getCdate() {
 		return delegate.getCreated();
 	}
@@ -44,12 +35,6 @@ public class JooqAssetImpl extends AbstractJooqCUDElement implements Asset, Jooq
 	@Override
 	public LocalDateTime getEdate() {
 		return delegate.getEdited();
-	}
-
-	@Override
-	public User getEditor() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -63,13 +48,17 @@ public class JooqAssetImpl extends AbstractJooqCUDElement implements Asset, Jooq
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
-		// TODO Auto-generated method stub
-
+	public void setCreator(User creator) {
+		delegate.setCreatorUuid(creator.getUuid());
 	}
 
 	@Override
-	public void setCreator(User creator) {
+	public void setEditor(User editor) {
+		delegate.setEditorUuid(editor.getUuid());
+	}
+
+	@Override
+	public void setCdate(LocalDateTime cdate) {
 		// TODO Auto-generated method stub
 
 	}
@@ -81,30 +70,8 @@ public class JooqAssetImpl extends AbstractJooqCUDElement implements Asset, Jooq
 	}
 
 	@Override
-	public void setEditor(User editor) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public io.metaloom.loom.db.jooq.tables.pojos.Asset getDelegate() {
 		return delegate;
 	}
 
-	@Override
-	public Observable<Tag> getTags() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addTag(Tag tag) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeTag(Tag tag) {
-		// TODO Auto-generated method stub
-
-	}
 }

@@ -5,16 +5,13 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.tag.Tag;
 import io.metaloom.loom.db.user.User;
-import io.reactivex.Observable;
 
 public class JooqModelImpl extends AbstractJooqCUDElement implements Model, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Model> {
 
 	private final io.metaloom.loom.db.jooq.tables.pojos.Model delegate;
 
 	public JooqModelImpl(io.metaloom.loom.db.jooq.tables.pojos.Model delegate) {
-		super(null);
 		this.delegate = delegate;
 	}
 
@@ -29,11 +26,6 @@ public class JooqModelImpl extends AbstractJooqCUDElement implements Model, Jooq
 		return this;
 	}
 
-	@Override
-	public User getCreator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public LocalDateTime getCdate() {
@@ -45,11 +37,6 @@ public class JooqModelImpl extends AbstractJooqCUDElement implements Model, Jooq
 		return delegate.getEdited();
 	}
 
-	@Override
-	public User getEditor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public UUID getUuid() {
@@ -81,24 +68,6 @@ public class JooqModelImpl extends AbstractJooqCUDElement implements Model, Jooq
 		// TODO Auto-generated method stub
 	}
 
-	@Override
-	public Observable<Tag> getTags() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public void addTag(Tag tag) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void removeTag(Tag tag) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	@Override
 	public io.metaloom.loom.db.jooq.tables.pojos.Model getDelegate() {
 		return delegate;

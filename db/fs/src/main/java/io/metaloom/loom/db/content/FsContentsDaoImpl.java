@@ -13,11 +13,13 @@ import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.fs.FilesystemIoHelper;
+import io.metaloom.loom.db.tag.Tag;
 import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 
 @Singleton
-public class FsContentsDaoImpl extends AbstractFSDao implements ContentsDao {
+public class FsContentsDaoImpl extends AbstractFSDao implements ContentDao {
 
 	@Inject
 	public FsContentsDaoImpl(DaoCollection daos) {
@@ -41,7 +43,7 @@ public class FsContentsDaoImpl extends AbstractFSDao implements ContentsDao {
 
 	@Override
 	public Content createContent() {
-		Content content = new FsContentImpl(daos());
+		Content content = new FsContentImpl();
 		content.setUuid(UUIDUtil.randomUUID());
 		return content;
 	}
@@ -63,4 +65,21 @@ public class FsContentsDaoImpl extends AbstractFSDao implements ContentsDao {
 		FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
 	}
 
+	@Override
+	public Observable<Tag> loadTags(Content content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addTag(Content content, Tag tag) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void removeTag(Content content, Tag tag) {
+		// TODO Auto-generated method stub
+	}
+
+	
 }

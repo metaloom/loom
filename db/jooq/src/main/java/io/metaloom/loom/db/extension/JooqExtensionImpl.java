@@ -12,7 +12,6 @@ public class JooqExtensionImpl extends AbstractJooqCUDElement implements Extensi
 	private final io.metaloom.loom.db.jooq.tables.pojos.Extension delegate;
 
 	public JooqExtensionImpl(io.metaloom.loom.db.jooq.tables.pojos.Extension delegate) {
-		super(null);
 		this.delegate = delegate;
 	}
 
@@ -27,11 +26,7 @@ public class JooqExtensionImpl extends AbstractJooqCUDElement implements Extensi
 		return this;
 	}
 
-	@Override
-	public User getCreator() {
-		// return wrap(delegate.getCreatorUuid())
-		return null;
-	}
+
 
 	@Override
 	public LocalDateTime getCdate() {
@@ -43,11 +38,7 @@ public class JooqExtensionImpl extends AbstractJooqCUDElement implements Extensi
 		return delegate.getEdited();
 	}
 
-	@Override
-	public User getEditor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public UUID getUuid() {

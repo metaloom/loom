@@ -6,11 +6,11 @@ import io.metaloom.loom.db.user.User;
 
 public interface CUDElement extends LoomElement {
 
-	User getEditor();
+//	User getEditor();
 
 	void setEditor(User editor);
 
-	User getCreator();
+//	User getCreator();
 
 	void setCreator(User creator);
 

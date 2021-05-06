@@ -15,6 +15,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<vertx.jooq.version>6.2.0</vertx.jooq.version>
 	</properties>
 
 	<dependencyManagement>
@@ -47,12 +48,14 @@
 		<dependency>
 			<groupId>io.github.jklingsporn</groupId>
 			<artifactId>vertx-jooq-rx-reactive</artifactId>
+			<version>${vertx.jooq.version}</version>
 		</dependency>
 
 		<!-- JDBC -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
+			<version>${postgres.driver.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.vertx</groupId>
@@ -97,11 +100,12 @@
 					<dependency>
 						<groupId>org.postgresql</groupId>
 						<artifactId>postgresql</artifactId>
+						<version>${postgres.driver.version}</version>
 					</dependency>
 					<dependency>
 						<groupId>io.github.jklingsporn</groupId>
 						<artifactId>vertx-jooq-generate</artifactId>
-						<version>6.2.0</version>
+						<version>${vertx.jooq.version}</version>
 					</dependency>
 				</dependencies>
 
@@ -138,7 +142,7 @@
 						<target>
 							<!-- This is where jOOQ will put your files -->
 							<packageName>io.metaloom.loom.db.jooq</packageName>
-							<directory>target/generated/annotations</directory>
+							<directory>src/jooq/java</directory>
 						</target>
 						<generate>
 							<interfaces>true</interfaces>
@@ -150,6 +154,39 @@
 						</strategy>
 					</generator>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.basedir}/src/jooq/java/</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<forceJavacCompilerUse>true</forceJavacCompilerUse>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.google.dagger</groupId>
+						<artifactId>dagger-compiler</artifactId>
+						<version>${dagger.version}</version>
+						<optional>true</optional>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

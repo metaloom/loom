@@ -1,9 +1,8 @@
 package io.metaloom.loom.db.model;
 
 import io.metaloom.loom.db.CUDElement;
-import io.metaloom.loom.db.Taggable;
 
-public interface Model extends CUDElement, Taggable {
+public interface Model extends CUDElement {
 
 	String getName();
 

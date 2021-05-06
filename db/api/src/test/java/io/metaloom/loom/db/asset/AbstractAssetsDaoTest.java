@@ -2,7 +2,6 @@ package io.metaloom.loom.db.asset;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ import io.reactivex.Maybe;
 
 public abstract class AbstractAssetsDaoTest {
 
-	abstract public AssetsDao getDao();
+	abstract public AssetDao getDao();
 
 	@After
 	@Before
@@ -25,7 +24,7 @@ public abstract class AbstractAssetsDaoTest {
 
 	@Test
 	public void testCreate() {
-		AssetsDao dao = getDao();
+		AssetDao dao = getDao();
 
 		// Create asset
 		Asset asset = dao.createAsset();
@@ -36,7 +35,7 @@ public abstract class AbstractAssetsDaoTest {
 
 	@Test
 	public void testDelete() {
-		AssetsDao dao = getDao();
+		AssetDao dao = getDao();
 
 		// Create asset
 		Asset asset = dao.createAsset();
@@ -49,7 +48,7 @@ public abstract class AbstractAssetsDaoTest {
 
 	@Test
 	public void testUpdate() {
-		AssetsDao dao = getDao();
+		AssetDao dao = getDao();
 
 		// Create and store
 		Asset asset = dao.createAsset();
@@ -67,7 +66,7 @@ public abstract class AbstractAssetsDaoTest {
 
 	@Test
 	public void testLoad() {
-		AssetsDao dao = getDao();
+		AssetDao dao = getDao();
 
 		// Create and store asset
 		Asset asset = dao.createAsset();

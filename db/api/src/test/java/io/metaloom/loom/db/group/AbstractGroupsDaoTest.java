@@ -1,9 +1,7 @@
 package io.metaloom.loom.db.group;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -16,7 +14,7 @@ import io.reactivex.Maybe;
 
 public abstract class AbstractGroupsDaoTest {
 
-	abstract public GroupsDao getDao();
+	abstract public GroupDao getDao();
 
 	@After
 	@Before
@@ -26,22 +24,20 @@ public abstract class AbstractGroupsDaoTest {
 
 	@Test
 	public void testCreate() {
-		GroupsDao dao = getDao();
+		GroupDao dao = getDao();
 
 		// Create group
-		Group group = dao.createGroup();
-		group.setName("Guests");
+		Group group = dao.createGroup("Guests").blockingGet();
 		assertNotNull(group.getUuid());
 		assertEquals("Guests", group.getName());
 	}
 
 	@Test
 	public void testDelete() {
-		GroupsDao dao = getDao();
+		GroupDao dao = getDao();
 
 		// Create group
-		Group group = dao.createGroup();
-		group.setName("Guests");
+		Group group = dao.createGroup("Guests").blockingGet();
 
 		// Now assert deletion
 		dao.deleteGroup(group);
@@ -50,12 +46,10 @@ public abstract class AbstractGroupsDaoTest {
 
 	@Test
 	public void testUpdate() {
-		GroupsDao dao = getDao();
+		GroupDao dao = getDao();
 
 		// Create and store
-		Group group = dao.createGroup();
-		group.setName("Guests");
-		dao.storeGroup(group);
+		Group group = dao.createGroup("Guests").blockingGet();
 
 		// Now update
 		group.setName("Guests2");
@@ -69,12 +63,10 @@ public abstract class AbstractGroupsDaoTest {
 
 	@Test
 	public void testLoad() {
-		GroupsDao dao = getDao();
+		GroupDao dao = getDao();
 
 		// Create and store group
-		Group group = dao.createGroup();
-		group.setName("Guests");
-		dao.storeGroup(group);
+		Group group = dao.createGroup("Guests").blockingGet();
 
 		// Now load again
 		assertNotNull(dao.loadGroup(group.getUuid()));

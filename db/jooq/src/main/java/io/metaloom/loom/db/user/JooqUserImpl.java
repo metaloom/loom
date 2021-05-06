@@ -11,7 +11,6 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 	private final io.metaloom.loom.db.jooq.tables.pojos.User delegate;
 
 	public JooqUserImpl(io.metaloom.loom.db.jooq.tables.pojos.User delegate) {
-		super(null);
 		this.delegate = delegate;
 	}
 
@@ -60,12 +59,6 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 	}
 
 	@Override
-	public User getCreator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public LocalDateTime getCdate() {
 		return delegate.getCreated();
 	}
@@ -73,12 +66,6 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 	@Override
 	public LocalDateTime getEdate() {
 		return delegate.getEdited();
-	}
-
-	@Override
-	public User getEditor() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -105,7 +92,7 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 
 	@Override
 	public void setEdate(LocalDateTime edate) {
-		//delegate.setEdited();
+		// delegate.setEdited();
 
 	}
 

@@ -12,7 +12,6 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements Tag, JooqWrap
 	private final io.metaloom.loom.db.jooq.tables.pojos.Tag delegate;
 
 	public JooqTagImpl(io.metaloom.loom.db.jooq.tables.pojos.Tag delegate) {
-		super(null);
 		this.delegate = delegate;
 	}
 
@@ -39,12 +38,6 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements Tag, JooqWrap
 	}
 
 	@Override
-	public User getCreator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public LocalDateTime getCdate() {
 		return delegate.getCreated();
 	}
@@ -52,12 +45,6 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements Tag, JooqWrap
 	@Override
 	public LocalDateTime getEdate() {
 		return delegate.getEdited();
-	}
-
-	@Override
-	public User getEditor() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

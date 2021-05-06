@@ -12,7 +12,6 @@ public class JooqRoleImpl extends AbstractJooqCUDElement implements Role, JooqWr
 	private final io.metaloom.loom.db.jooq.tables.pojos.Role delegate;
 
 	public JooqRoleImpl(io.metaloom.loom.db.jooq.tables.pojos.Role delegate) {
-		super(null);
 		this.delegate = delegate;
 	}
 
@@ -28,12 +27,6 @@ public class JooqRoleImpl extends AbstractJooqCUDElement implements Role, JooqWr
 	}
 
 	@Override
-	public User getCreator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public LocalDateTime getCdate() {
 		return delegate.getCreated();
 	}
@@ -41,12 +34,6 @@ public class JooqRoleImpl extends AbstractJooqCUDElement implements Role, JooqWr
 	@Override
 	public LocalDateTime getEdate() {
 		return delegate.getEdited();
-	}
-
-	@Override
-	public User getEditor() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

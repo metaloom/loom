@@ -3,66 +3,64 @@ package io.metaloom.loom.db.fs.dagger;
 import dagger.Binds;
 import dagger.Module;
 import io.metaloom.loom.db.DaoCollection;
-import io.metaloom.loom.db.DaoCollectionImpl;
-import io.metaloom.loom.db.asset.AssetsDao;
-import io.metaloom.loom.db.asset.FsAssetsDaoImpl;
-import io.metaloom.loom.db.content.ContentsDao;
+import io.metaloom.loom.db.asset.AssetDao;
+import io.metaloom.loom.db.asset.FsAssetDaoImpl;
+import io.metaloom.loom.db.content.ContentDao;
 import io.metaloom.loom.db.content.FsContentsDaoImpl;
-import io.metaloom.loom.db.extension.ExtensionsDao;
-import io.metaloom.loom.db.extension.FsExtensionsDaoImpl;
-import io.metaloom.loom.db.field.FieldsDao;
-import io.metaloom.loom.db.field.FsFieldsDaoImpl;
-import io.metaloom.loom.db.group.FsGroupsDaoImpl;
-import io.metaloom.loom.db.group.GroupsDao;
-import io.metaloom.loom.db.model.FsModelsDaoImpl;
-import io.metaloom.loom.db.model.ModelsDao;
-import io.metaloom.loom.db.namespace.FsNamespacesDaoImpl;
-import io.metaloom.loom.db.namespace.NamespacesDao;
-import io.metaloom.loom.db.role.FsRolesDaoImpl;
-import io.metaloom.loom.db.role.RolesDao;
-import io.metaloom.loom.db.tag.FsTagsDaoImpl;
-import io.metaloom.loom.db.tag.TagsDao;
-import io.metaloom.loom.db.user.FsUsersDaoImpl;
-import io.metaloom.loom.db.user.UsersDao;
-import io.metaloom.loom.db.webhook.FsWebhooksDaoImpl;
-import io.metaloom.loom.db.webhook.WebhooksDao;
+import io.metaloom.loom.db.extension.ExtensionDao;
+import io.metaloom.loom.db.extension.FsExtensionDaoImpl;
+import io.metaloom.loom.db.field.FieldDao;
+import io.metaloom.loom.db.field.FsFieldDaoImpl;
+import io.metaloom.loom.db.group.FsGroupDaoImpl;
+import io.metaloom.loom.db.group.GroupDao;
+import io.metaloom.loom.db.impl.DaoCollectionImpl;
+import io.metaloom.loom.db.model.FsModelDaoImpl;
+import io.metaloom.loom.db.model.ModelDao;
+import io.metaloom.loom.db.namespace.FsNamespaceDaoImpl;
+import io.metaloom.loom.db.namespace.NamespaceDao;
+import io.metaloom.loom.db.role.FsRoleDaoImpl;
+import io.metaloom.loom.db.role.RoleDao;
+import io.metaloom.loom.db.tag.FsTagDaoImpl;
+import io.metaloom.loom.db.tag.TagDao;
+import io.metaloom.loom.db.user.FsUserDaoImpl;
+import io.metaloom.loom.db.user.UserDao;
+import io.metaloom.loom.db.webhook.FsWebhookDaoImpl;
+import io.metaloom.loom.db.webhook.WebhookDao;
 
 @Module
 public abstract class FsDaoBindModule {
 
 	@Binds
-	abstract ModelsDao modelsDao(FsModelsDaoImpl dao);
+	abstract ModelDao modelsDao(FsModelDaoImpl dao);
 
 	@Binds
-	abstract ContentsDao contentsDao(FsContentsDaoImpl dao);
+	abstract ContentDao contentsDao(FsContentsDaoImpl dao);
 
 	@Binds
-	abstract FieldsDao fieldsDao(FsFieldsDaoImpl dao);
+	abstract FieldDao fieldsDao(FsFieldDaoImpl dao);
 
 	@Binds
-	abstract UsersDao usersDao(FsUsersDaoImpl dao);
+	abstract UserDao usersDao(FsUserDaoImpl dao);
 
 	@Binds
-	abstract GroupsDao groupsDao(FsGroupsDaoImpl dao);
+	abstract GroupDao groupsDao(FsGroupDaoImpl dao);
 
 	@Binds
-	abstract RolesDao rolesDao(FsRolesDaoImpl dao);
+	abstract RoleDao rolesDao(FsRoleDaoImpl dao);
 
 	@Binds
-	abstract TagsDao tagsDao(FsTagsDaoImpl dao);
+	abstract TagDao tagsDao(FsTagDaoImpl dao);
 
 	@Binds
-	abstract NamespacesDao namespacesDao(FsNamespacesDaoImpl dao);
+	abstract NamespaceDao namespacesDao(FsNamespaceDaoImpl dao);
 
 	@Binds
-	abstract WebhooksDao webhookDao(FsWebhooksDaoImpl dao);
+	abstract WebhookDao webhookDao(FsWebhookDaoImpl dao);
 
 	@Binds
-	abstract ExtensionsDao extensionsDao(FsExtensionsDaoImpl dao);
+	abstract ExtensionDao extensionsDao(FsExtensionDaoImpl dao);
 
 	@Binds
-	abstract AssetsDao assetsDao(FsAssetsDaoImpl dao);
+	abstract AssetDao assetsDao(FsAssetDaoImpl dao);
 
-	@Binds
-	abstract DaoCollection daoCollection(DaoCollectionImpl collection);
 }

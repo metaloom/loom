@@ -40,17 +40,6 @@
 			<artifactId>loom-db-api</artifactId>
 		</dependency>
 
-		<!-- Dagger -->
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger-compiler</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- Test -->
 		<dependency>
 			<groupId>io.metaloom.loom</groupId>

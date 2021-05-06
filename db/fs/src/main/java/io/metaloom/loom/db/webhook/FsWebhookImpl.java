@@ -1,17 +1,8 @@
 package io.metaloom.loom.db.webhook;
 
-import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
 public class FsWebhookImpl extends AbstractFSCUDElement implements Webhook {
-
-	public FsWebhookImpl(DaoCollection daos) {
-		super(daos);
-	}
-
-	public FsWebhookImpl() {
-		this(null);
-	}
 
 	private String url;
 

@@ -3,7 +3,6 @@ package io.metaloom.loom.rest.model.content;
 import java.util.List;
 
 import io.metaloom.loom.rest.model.RestModel;
-import io.metaloom.loom.rest.model.model.ModelReference;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
 public class ContentUpdateRequest implements RestModel {

@@ -1,36 +1,36 @@
 package io.metaloom.loom.db;
 
-import io.metaloom.loom.db.asset.AssetsDao;
-import io.metaloom.loom.db.content.ContentsDao;
-import io.metaloom.loom.db.extension.ExtensionsDao;
-import io.metaloom.loom.db.field.FieldsDao;
-import io.metaloom.loom.db.group.GroupsDao;
-import io.metaloom.loom.db.model.ModelsDao;
-import io.metaloom.loom.db.namespace.NamespacesDao;
-import io.metaloom.loom.db.role.RolesDao;
-import io.metaloom.loom.db.user.UsersDao;
-import io.metaloom.loom.db.webhook.WebhooksDao;
+import io.metaloom.loom.db.asset.AssetDao;
+import io.metaloom.loom.db.content.ContentDao;
+import io.metaloom.loom.db.extension.ExtensionDao;
+import io.metaloom.loom.db.field.FieldDao;
+import io.metaloom.loom.db.group.GroupDao;
+import io.metaloom.loom.db.model.ModelDao;
+import io.metaloom.loom.db.namespace.NamespaceDao;
+import io.metaloom.loom.db.role.RoleDao;
+import io.metaloom.loom.db.user.UserDao;
+import io.metaloom.loom.db.webhook.WebhookDao;
 
 public interface DaoCollection {
 
-	ContentsDao getContentsDao();
+	ContentDao getContentDao();
 
-	FieldsDao getFieldsDao();
+	FieldDao getFieldDao();
 
-	UsersDao getUsersDao();
+	UserDao getUserDao();
 
-	GroupsDao getGroupsDao();
+	GroupDao getGroupDao();
 
-	RolesDao getRolesDao();
+	RoleDao getRoleDao();
 
-	ExtensionsDao getExtensionsDao();
+	ExtensionDao getExtensionDao();
 
-	WebhooksDao getWebhooksDao();
+	WebhookDao getWebhookDao();
 
-	NamespacesDao getNamespacesDao();
+	NamespaceDao getNamespaceDao();
 
-	ModelsDao getModelsDao();
+	ModelDao getModelDao();
 
-	AssetsDao getAssetsDao();
+	AssetDao getAssetDao();
 
 }

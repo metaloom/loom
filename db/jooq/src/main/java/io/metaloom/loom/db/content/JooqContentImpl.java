@@ -5,23 +5,14 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.tag.Tag;
 import io.metaloom.loom.db.user.User;
-import io.reactivex.Observable;
 
 public class JooqContentImpl extends AbstractJooqCUDElement implements Content, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Content> {
 
 	private final io.metaloom.loom.db.jooq.tables.pojos.Content delegate;
 
 	public JooqContentImpl(io.metaloom.loom.db.jooq.tables.pojos.Content delegate) {
-		super(null);
 		this.delegate = delegate;
-	}
-
-	@Override
-	public User getCreator() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -29,12 +20,6 @@ public class JooqContentImpl extends AbstractJooqCUDElement implements Content, 
 		return delegate.getCreated();
 	}
 
-	@Override
-	public User getEditor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public LocalDateTime getEdate() {
 		// TODO Auto-generated method stub
@@ -79,21 +64,4 @@ public class JooqContentImpl extends AbstractJooqCUDElement implements Content, 
 		return delegate;
 	}
 
-	@Override
-	public Observable<Tag> getTags() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addTag(Tag tag) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeTag(Tag tag) {
-		// TODO Auto-generated method stub
-
-	}
 }

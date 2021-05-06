@@ -29,9 +29,10 @@
 		<jacoco.skip>true</jacoco.skip>
 		<jacoco.env></jacoco.env>
 		
-		<!-- Dagger -->
+		<!-- Some versions need to be managed via parent modules due to open MNG-5588 issue  -->
 		<dagger.version>2.35</dagger.version>
-
+		<postgres.driver.version>42.2.2</postgres.driver.version>
+	
 		<loom.build.timestamp>${maven.build.timestamp}</loom.build.timestamp>
 	</properties>
 

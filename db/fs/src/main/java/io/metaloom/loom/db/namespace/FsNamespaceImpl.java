@@ -1,21 +1,10 @@
 package io.metaloom.loom.db.namespace;
 
-import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
-import io.metaloom.loom.db.tag.Tag;
-import io.reactivex.Observable;
 
 public class FsNamespaceImpl extends AbstractFSCUDElement implements Namespace {
 
 	private String name;
-
-	public FsNamespaceImpl(DaoCollection daos) {
-		super(daos);
-	}
-
-	public FsNamespaceImpl() {
-		this(null);
-	}
 
 	@Override
 	public String getName() {
@@ -26,21 +15,6 @@ public class FsNamespaceImpl extends AbstractFSCUDElement implements Namespace {
 	public Namespace setName(String name) {
 		this.name = name;
 		return this;
-	}
-
-	@Override
-	public Observable<Tag> getTags() {
-		return null;
-	}
-
-	@Override
-	public void removeTag(Tag tag) {
-
-	}
-
-	@Override
-	public void addTag(Tag tag) {
-
 	}
 
 }

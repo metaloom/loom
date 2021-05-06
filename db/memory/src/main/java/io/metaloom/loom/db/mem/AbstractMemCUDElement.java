@@ -13,10 +13,6 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	private User editor;
 	private LocalDateTime edate;
 
-	@Override
-	public User getEditor() {
-		return editor;
-	}
 
 	@Override
 	public void setEditor(User editor) {
@@ -31,11 +27,6 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	@Override
 	public void setEdate(LocalDateTime edate) {
 		this.edate = edate;
-	}
-
-	@Override
-	public User getCreator() {
-		return creator;
 	}
 
 	@Override
