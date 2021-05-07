@@ -73,7 +73,7 @@ public class Group extends TableImpl<GroupRecord> {
     /**
      * The column <code>public.group.creator_uuid</code>.
      */
-    public final TableField<GroupRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<GroupRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.group.edited</code>.

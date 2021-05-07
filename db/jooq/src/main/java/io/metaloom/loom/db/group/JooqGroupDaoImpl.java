@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jooq.Configuration;
+import org.jooq.ResultQuery;
 
 import io.github.jklingsporn.vertx.jooq.rx.reactivepg.ReactiveRXQueryExecutor;
 import io.metaloom.loom.db.jooq.JooqWrapperHelper;
@@ -125,6 +126,75 @@ public class JooqGroupDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Group
 			return Observable.fromIterable(list);
 		}).map(jooq -> {
 			return JooqWrapperHelper.wrap(jooq, JooqUserImpl.class);
+		});
+	}
+
+	private Single<io.metaloom.loom.db.jooq.tables.pojos.User> createUserOp(ReactiveRXQueryExecutor<UserRecord, io.metaloom.loom.db.jooq.tables.pojos.User, UUID> tx,
+		io.metaloom.loom.db.jooq.tables.pojos.User userPojo) {
+		Single<io.metaloom.loom.db.jooq.tables.pojos.User> createUser = tx.insertReturning(ctx -> {
+			return ctx
+				.insertInto(USER)
+				.set(ctx.newRecord(USER, userPojo))
+				.returning(USER.getPrimaryKey().getFieldsArray());
+		}, keyConverter()).map(pk -> userPojo.setUuid(pk));
+		return createUser;
+	}
+
+	@Override
+	public void testMultiOp() {
+		Observable<io.metaloom.loom.db.jooq.tables.pojos.User> txOperation = userDao.queryExecutor().beginTransaction()
+			.flatMapObservable(tx -> {
+				Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> users1 = tx.findMany(ctx -> {
+					ResultQuery<UserRecord> userRecords = ctx.select().from(USER).coerce(USER);
+					return userRecords;
+				});
+
+				io.metaloom.loom.db.jooq.tables.pojos.User userPojo = new io.metaloom.loom.db.jooq.tables.pojos.User();
+				userPojo.setUsername("ABCD");
+				// Single<io.metaloom.loom.db.jooq.tables.pojos.User> createdUser1 = tx.executeAny(ctx -> {
+				// return ctx
+				// .insertInto(USER)
+				// .set(ctx.newRecord(USER, userPojo))
+				// .returning(USER.getPrimaryKey().getFieldsArray());
+				// }).map(rows -> rows.iterator().next())
+				// .map(io.vertx.reactivex.sqlclient.Row::getDelegate)
+				// .map(keyConverter()::apply).map(pk -> userPojo.setUuid(pk));
+
+				io.metaloom.loom.db.jooq.tables.pojos.User userPojo2 = new io.metaloom.loom.db.jooq.tables.pojos.User();
+				userPojo2.setUsername("ABCD2");
+
+				Single<io.metaloom.loom.db.jooq.tables.pojos.User> createdUser1 = createUserOp(tx, userPojo);
+
+				// Single<io.metaloom.loom.db.jooq.tables.pojos.User> createdUser1 = tx.insertReturning(ctx -> {
+				// return ctx
+				// .insertInto(USER)
+				// .set(ctx.newRecord(USER, userPojo))
+				// .returning(USER.getPrimaryKey().getFieldsArray());
+				// }, keyConverter()).map(pk -> userPojo.setUuid(pk));
+
+				Single<io.metaloom.loom.db.jooq.tables.pojos.User> createdUser2 = tx.insertReturning(ctx -> {
+					return ctx
+						.insertInto(USER)
+						.set(ctx.newRecord(USER, userPojo2))
+						.returning(USER.getPrimaryKey().getFieldsArray());
+				}, keyConverter()).map(pk -> userPojo2.setUuid(pk));
+
+				Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> s = Single.zip(users1, createdUser1, createdUser2, (u1, c1, c2) -> {
+					System.out.println("Adding users");
+					u1.add(c1);
+					u1.add(c2);
+					return u1;
+				});
+
+				Observable<io.metaloom.loom.db.jooq.tables.pojos.User> obs = s.flatMapObservable(list -> {
+					System.out.println("Convert to list");
+					return Observable.fromIterable(list);
+				});
+
+				return tx.commit().andThen(obs);
+			});
+		txOperation.blockingForEach(user -> {
+			System.out.println(user.getUsername());
 		});
 	}
 

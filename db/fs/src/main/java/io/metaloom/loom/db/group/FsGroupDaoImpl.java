@@ -94,6 +94,12 @@ public class FsGroupDaoImpl extends AbstractFSDao implements GroupDao {
 	public void removeRole(Group group, Role role) {
 		toFs(group).roles.remove(role);
 	}
+	
+	@Override
+	public void testMultiOp() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	@JsonIgnore

@@ -36,4 +36,6 @@ public interface GroupDao extends LoomDao {
 
 	Observable<Role> loadRoles(Group group);
 
+	void testMultiOp();
+
 }

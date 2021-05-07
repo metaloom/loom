@@ -22,7 +22,12 @@ public class BasicDaoTest {
 		LoomTestComponent loomComponent = DaggerLoomTestComponent.create();
 		User user = loomComponent.daos().getUserDao().createUser("test-" + System.currentTimeMillis()).blockingGet();
 		assertNotNull(user.getUuid());
-
+	}
+	
+	@Test
+	public void testTransactions() {
+		LoomTestComponent loomComponent = DaggerLoomTestComponent.create();
+		loomComponent.daos().getGroupDao().testMultiOp();
 	}
 
 	@Test
