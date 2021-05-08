@@ -36,9 +36,9 @@ public class JooqFieldDaoImpl extends FieldDao implements LoomFieldDao {
 	}
 
 	@Override
-	public void deleteField(LoomField content) {
+	public Completable deleteField(LoomField content) {
 		Objects.requireNonNull(content, "Field must not be null");
-		deleteById(content.getUuid());
+		return deleteById(content.getUuid()).ignoreElement();
 	}
 
 	@Override
@@ -49,16 +49,10 @@ public class JooqFieldDaoImpl extends FieldDao implements LoomFieldDao {
 	}
 
 	@Override
-	public void updateField(LoomField content) {
+	public Completable updateField(LoomField content) {
 		Objects.requireNonNull(content, "Field must not be null");
 		Field jooqField = unwrap(content);
-		update(jooqField);
-	}
-
-	@Override
-	public void storeField(LoomField content) {
-		Objects.requireNonNull(content, "Field must not be null");
-		update(unwrap(content));
+		return update(jooqField).ignoreElement();
 	}
 
 	@Override

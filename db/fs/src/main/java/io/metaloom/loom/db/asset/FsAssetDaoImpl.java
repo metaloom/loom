@@ -9,18 +9,20 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.db.tag.LoomTag;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.vertx.reactivex.core.Vertx;
 
 @Singleton
 public class FsAssetDaoImpl extends AbstractFSDao implements LoomAssetDao {
 
 	@Inject
-	public FsAssetDaoImpl(DaoCollection daos) {
-		super(daos);
+	public FsAssetDaoImpl(DaoCollection daos, Vertx rxVertx) {
+		super(daos, rxVertx);
 	}
 
 	protected FSType getType() {
@@ -29,32 +31,26 @@ public class FsAssetDaoImpl extends AbstractFSDao implements LoomAssetDao {
 
 	@Override
 	public Maybe<? extends LoomAsset> loadAsset(UUID uuid) {
-		return FilesystemIoHelper.load(getType(), uuid, FsAssetImpl.class);
+		return load(uuid, FsAssetImpl.class);
 	}
 
 	@Override
-	public void deleteAsset(LoomAsset asset) {
+	public Completable deleteAsset(LoomAsset asset) {
 		Objects.requireNonNull(asset, "Asset must not be null");
-		FilesystemIoHelper.delete(getType(), asset.getUuid());
+		return delete(asset.getUuid());
 	}
 
 	@Override
-	public LoomAsset createAsset() {
+	public Single<? extends LoomAsset> createAsset() {
 		LoomAsset asset = new FsAssetImpl();
 		asset.setUuid(UUIDUtil.randomUUID());
-		return asset;
+		return store(asset);
 	}
 
 	@Override
-	public void updateAsset(LoomAsset asset) {
+	public Completable updateAsset(LoomAsset asset) {
 		Objects.requireNonNull(asset, "Asset must not be null");
-		FilesystemIoHelper.store(getType(), asset.getUuid(), asset);
-	}
-
-	@Override
-	public void storeAsset(LoomAsset asset) {
-		Objects.requireNonNull(asset, "Asset must not be null");
-		FilesystemIoHelper.store(getType(), asset.getUuid(), asset);
+		return store(asset).ignoreElement();
 	}
 
 	@Override
@@ -64,15 +60,16 @@ public class FsAssetDaoImpl extends AbstractFSDao implements LoomAssetDao {
 	}
 
 	@Override
-	public void addTag(LoomAsset asset, LoomTag tag) {
+	public Completable addTag(LoomAsset asset, LoomTag tag) {
 		// TODO Auto-generated method stub
-
+		return Completable.complete();
 	}
 
 	@Override
-	public void removeTag(LoomAsset asset, LoomTag tag) {
+	public Completable removeTag(LoomAsset asset, LoomTag tag) {
 		// tags.remove(tag);
 		// TODO Auto-generated method stub
+		return Completable.complete();
 	}
 
 }

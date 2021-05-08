@@ -18,6 +18,7 @@ import io.metaloom.loom.db.tag.LoomTag;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
@@ -38,29 +39,23 @@ public class JooqContentDaoImpl extends ContentDao implements LoomContentDao {
 	}
 
 	@Override
-	public void deleteContent(LoomContent content) {
+	public Completable deleteContent(LoomContent content) {
 		Objects.requireNonNull(content, "Content must not be null");
-		deleteById(content.getUuid());
+		return deleteById(content.getUuid()).ignoreElement();
 	}
 
 	@Override
-	public LoomContent createContent() {
+	public Single<? extends LoomContent> createContent() {
 		Content content = new Content();
-		insert(content);
+		return insert(content);
 		return new JooqContentImpl(content);
 	}
 
 	@Override
-	public void updateContent(LoomContent content) {
+	public Completable updateContent(LoomContent content) {
 		Objects.requireNonNull(content, "Content must not be null");
 		Content jooqContent = unwrap(content);
-		update(jooqContent);
-	}
-
-	@Override
-	public void storeContent(LoomContent content) {
-		Objects.requireNonNull(content, "Content must not be null");
-		update(unwrap(content));
+		return update(jooqContent).ignoreElement();
 	}
 
 	@Override
@@ -70,15 +65,15 @@ public class JooqContentDaoImpl extends ContentDao implements LoomContentDao {
 	}
 
 	@Override
-	public void addTag(LoomContent content, LoomTag tag) {
+	public Completable addTag(LoomContent content, LoomTag tag) {
 		// TODO Auto-generated method stub
-
+		return Completable.complete();
 	}
 
 	@Override
-	public void removeTag(LoomContent content, LoomTag tag) {
+	public Completable removeTag(LoomContent content, LoomTag tag) {
 		// TODO Auto-generated method stub
-
+		return Completable.complete();
 	}
 
 	@Override

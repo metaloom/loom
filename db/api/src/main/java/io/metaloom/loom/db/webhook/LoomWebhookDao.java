@@ -15,8 +15,6 @@ public interface LoomWebhookDao extends LoomDao {
 
 	Completable updateWebhook(LoomWebhook webhook);
 
-	void deleteWebhook(LoomWebhook webhook);
-
-	void storeWebhook(LoomWebhook webhook);
+	Completable deleteWebhook(LoomWebhook webhook);
 
 }

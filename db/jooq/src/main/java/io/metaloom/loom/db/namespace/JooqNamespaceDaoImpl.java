@@ -24,15 +24,14 @@ import io.vertx.reactivex.sqlclient.SqlClient;
 @Singleton
 public class JooqNamespaceDaoImpl extends NamespaceDao implements LoomNamespaceDao {
 
-
 	@Inject
 	public JooqNamespaceDaoImpl(Configuration configuration, SqlClient rxSqlClient) {
 		super(configuration, rxSqlClient);
 	}
 
-//	protected JooqType getType() {
-//		return JooqType.NAMESPACE;
-//	}
+	// protected JooqType getType() {
+	// return JooqType.NAMESPACE;
+	// }
 
 	@Override
 	public Maybe<? extends LoomNamespace> loadNamespace(UUID uuid) {
@@ -53,16 +52,10 @@ public class JooqNamespaceDaoImpl extends NamespaceDao implements LoomNamespaceD
 	}
 
 	@Override
-	public void updateNamespace(LoomNamespace namespace) {
+	public Completable updateNamespace(LoomNamespace namespace) {
 		Objects.requireNonNull(namespace, "Namespace must not be null");
 		Namespace jooqNamespace = unwrap(namespace);
-		update(jooqNamespace);
-	}
-
-	@Override
-	public void storeNamespace(LoomNamespace namespace) {
-		Objects.requireNonNull(namespace, "Namespace must not be null");
-		update(unwrap(namespace));
+		return update(jooqNamespace).ignoreElement();
 	}
 
 	@Override
@@ -72,13 +65,15 @@ public class JooqNamespaceDaoImpl extends NamespaceDao implements LoomNamespaceD
 	}
 
 	@Override
-	public void addTag(LoomNamespace namespace, LoomTag tag) {
+	public Completable addTag(LoomNamespace namespace, LoomTag tag) {
 		// TODO Auto-generated method stub
+		return Completable.complete();
 	}
 
 	@Override
-	public void removeTag(LoomNamespace namespace, LoomTag tag) {
+	public Completable removeTag(LoomNamespace namespace, LoomTag tag) {
 		// TODO Auto-generated method stub
+		return Completable.complete();
 	}
 
 	@Override

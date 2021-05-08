@@ -37,9 +37,9 @@ public class JooqWebhookDaoImpl extends WebhookDao implements LoomWebhookDao {
 	}
 
 	@Override
-	public void deleteWebhook(LoomWebhook webhook) {
+	public Completable deleteWebhook(LoomWebhook webhook) {
 		Objects.requireNonNull(webhook, "Webhook must not be null");
-		deleteById(webhook.getUuid());
+		return deleteById(webhook.getUuid()).ignoreElement();
 	}
 
 	@Override
@@ -53,12 +53,6 @@ public class JooqWebhookDaoImpl extends WebhookDao implements LoomWebhookDao {
 		Objects.requireNonNull(webhook, "Webhook must not be null");
 		Webhook jooqWebhook = unwrap(webhook);
 		return update(jooqWebhook).ignoreElement();
-	}
-
-	@Override
-	public void storeWebhook(LoomWebhook webhook) {
-		Objects.requireNonNull(webhook, "Webhook must not be null");
-		update(unwrap(webhook));
 	}
 
 	@Override

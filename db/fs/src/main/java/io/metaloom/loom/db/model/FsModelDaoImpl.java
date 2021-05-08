@@ -9,18 +9,20 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.db.tag.LoomTag;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.vertx.reactivex.core.Vertx;
 
 @Singleton
 public class FsModelDaoImpl extends AbstractFSDao implements LoomModelDao {
 
 	@Inject
-	public FsModelDaoImpl(DaoCollection daos) {
-		super(daos);
+	public FsModelDaoImpl(DaoCollection daos, Vertx rxVertx) {
+		super(daos, rxVertx);
 	}
 
 	protected FSType getType() {
@@ -29,32 +31,26 @@ public class FsModelDaoImpl extends AbstractFSDao implements LoomModelDao {
 
 	@Override
 	public Maybe<? extends LoomModel> loadModel(UUID uuid) {
-		return FilesystemIoHelper.load(getType(), uuid, FsModelImpl.class);
+		return load(uuid, FsModelImpl.class);
 	}
 
 	@Override
-	public void deleteModel(LoomModel model) {
+	public Completable deleteModel(LoomModel model) {
 		Objects.requireNonNull(model, "Model must not be null");
-		FilesystemIoHelper.delete(getType(), model.getUuid());
+		return delete(model.getUuid());
 	}
 
 	@Override
-	public LoomModel createModel() {
+	public Single<? extends LoomModel> createModel() {
 		LoomModel model = new FsModelImpl();
 		model.setUuid(UUIDUtil.randomUUID());
-		return model;
+		return store(model);
 	}
 
 	@Override
-	public void updateModel(LoomModel model) {
+	public Completable updateModel(LoomModel model) {
 		Objects.requireNonNull(model, "Model must not be null");
-		FilesystemIoHelper.store(getType(), model.getUuid(), model);
-	}
-
-	@Override
-	public void storeModel(LoomModel model) {
-		Objects.requireNonNull(model, "Model must not be null");
-		FilesystemIoHelper.store(getType(), model.getUuid(), model);
+		return store(model).ignoreElement();
 	}
 
 	@Override
@@ -64,16 +60,15 @@ public class FsModelDaoImpl extends AbstractFSDao implements LoomModelDao {
 	}
 
 	@Override
-	public void addTag(LoomModel model, LoomTag tag) {
+	public Completable addTag(LoomModel model, LoomTag tag) {
 		// TODO Auto-generated method stub
-
+		return Completable.complete();
 	}
 
 	@Override
-	public void removeTag(LoomModel model, LoomTag tag) {
+	public Completable removeTag(LoomModel model, LoomTag tag) {
 		// TODO Auto-generated method stub
-
+		return Completable.complete();
 	}
-
 
 }

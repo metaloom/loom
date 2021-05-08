@@ -1,4 +1,4 @@
-package io.metaloom.loom.test.dagger;
+package io.metaloom.loom.db.dagger;
 
 import javax.inject.Singleton;
 

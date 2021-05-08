@@ -9,18 +9,20 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.db.tag.LoomTag;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.vertx.reactivex.core.Vertx;
 
 @Singleton
 public class FsContentsDaoImpl extends AbstractFSDao implements LoomContentDao {
 
 	@Inject
-	public FsContentsDaoImpl(DaoCollection daos) {
-		super(daos);
+	public FsContentsDaoImpl(DaoCollection daos, Vertx rxVertx) {
+		super(daos, rxVertx);
 	}
 
 	protected FSType getType() {
@@ -29,32 +31,26 @@ public class FsContentsDaoImpl extends AbstractFSDao implements LoomContentDao {
 
 	@Override
 	public Maybe<? extends LoomContent> loadContent(UUID uuid) {
-		return FilesystemIoHelper.load(getType(), uuid, FsContentImpl.class);
+		return load(uuid, FsContentImpl.class);
 	}
 
 	@Override
-	public void deleteContent(LoomContent content) {
+	public Completable deleteContent(LoomContent content) {
 		Objects.requireNonNull(content, "Content must not be null");
-		FilesystemIoHelper.delete(getType(), content.getUuid());
+		return delete(content.getUuid());
 	}
 
 	@Override
-	public LoomContent createContent() {
+	public Single<? extends LoomContent> createContent() {
 		LoomContent content = new FsContentImpl();
 		content.setUuid(UUIDUtil.randomUUID());
-		return content;
+		return store(content);
 	}
 
 	@Override
-	public void updateContent(LoomContent content) {
+	public Completable updateContent(LoomContent content) {
 		Objects.requireNonNull(content, "Content must not be null");
-		FilesystemIoHelper.store(getType(), content.getUuid(), content);
-	}
-
-	@Override
-	public void storeContent(LoomContent content) {
-		Objects.requireNonNull(content, "Content must not be null");
-		FilesystemIoHelper.store(getType(), content.getUuid(), content);
+		return store(content).ignoreElement();
 	}
 
 	@Override
@@ -64,13 +60,15 @@ public class FsContentsDaoImpl extends AbstractFSDao implements LoomContentDao {
 	}
 
 	@Override
-	public void addTag(LoomContent content, LoomTag tag) {
+	public Completable addTag(LoomContent content, LoomTag tag) {
 		// TODO Auto-generated method stub
+		return Completable.complete();
 	}
 
 	@Override
-	public void removeTag(LoomContent content, LoomTag tag) {
+	public Completable removeTag(LoomContent content, LoomTag tag) {
 		// TODO Auto-generated method stub
+		return Completable.complete();
 	}
 
 }

@@ -4,25 +4,25 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.LoomDao;
 import io.metaloom.loom.db.tag.LoomTag;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public interface LoomContentDao extends LoomDao {
 
-	LoomContent createContent();
+	Single<? extends LoomContent> createContent();
 
-	void deleteContent(LoomContent content);
+	Completable deleteContent(LoomContent content);
 
-	void updateContent(LoomContent content);
+	Completable updateContent(LoomContent content);
 
 	Maybe<? extends LoomContent> loadContent(UUID uuid);
 
-	void storeContent(LoomContent content);
-
 	Observable<LoomTag> loadTags(LoomContent content);
 
-	void addTag(LoomContent content, LoomTag tag);
+	Completable addTag(LoomContent content, LoomTag tag);
 
-	void removeTag(LoomContent content, LoomTag tag);
+	Completable removeTag(LoomContent content, LoomTag tag);
 
 }

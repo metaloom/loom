@@ -12,10 +12,12 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
+import io.metaloom.loom.db.group.JooqGroupImpl;
 import io.metaloom.loom.db.jooq.tables.daos.ExtensionDao;
 import io.metaloom.loom.db.jooq.tables.pojos.Extension;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
@@ -36,29 +38,22 @@ public class JooqExtensionDaoImpl extends ExtensionDao implements LoomExtensionD
 	}
 
 	@Override
-	public void deleteExtension(LoomExtension extension) {
+	public Completable deleteExtension(LoomExtension extension) {
 		Objects.requireNonNull(extension, "Extension must not be null");
-		deleteById(extension.getUuid());
+		return deleteById(extension.getUuid()).ignoreElement();
 	}
 
 	@Override
-	public LoomExtension createExtension() {
+	public Single<? extends LoomExtension> createExtension() {
 		Extension extension = new Extension();
-		insert(extension);
-		return new JooqExtensionImpl(extension);
+		return insertReturningPrimary(extension).map(pk -> new JooqExtensionImpl(extension.setUuid(pk)));
 	}
 
 	@Override
-	public void updateExtension(LoomExtension extension) {
+	public Completable updateExtension(LoomExtension extension) {
 		Objects.requireNonNull(extension, "Extension must not be null");
 		Extension jooqExtension = unwrap(extension);
-		update(jooqExtension);
-	}
-
-	@Override
-	public void storeExtension(LoomExtension extension) {
-		Objects.requireNonNull(extension, "Extension must not be null");
-		update(unwrap(extension));
+		return update(jooqExtension).ignoreElement();
 	}
 
 	@Override

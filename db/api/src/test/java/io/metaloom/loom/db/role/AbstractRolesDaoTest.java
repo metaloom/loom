@@ -50,7 +50,6 @@ public abstract class AbstractRolesDaoTest {
 
 		// Create and store
 		LoomRole role = dao.createRole("Guests").blockingGet();
-		dao.storeRole(role);
 
 		// Now update
 		role.setName("Guests2");
@@ -68,8 +67,6 @@ public abstract class AbstractRolesDaoTest {
 
 		// Create and store role
 		LoomRole role = dao.createRole("Guests").blockingGet();
-
-		dao.storeRole(role);
 
 		// Now load again
 		assertNotNull(dao.loadRole(role.getUuid()));

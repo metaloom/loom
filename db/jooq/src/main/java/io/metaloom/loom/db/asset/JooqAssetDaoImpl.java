@@ -18,6 +18,7 @@ import io.metaloom.loom.db.tag.LoomTag;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
@@ -38,29 +39,23 @@ public class JooqAssetDaoImpl extends AssetDao implements LoomAssetDao {
 	}
 
 	@Override
-	public void deleteAsset(LoomAsset asset) {
+	public Completable deleteAsset(LoomAsset asset) {
 		Objects.requireNonNull(asset, "Asset must not be null");
-		deleteById(asset.getUuid());
+		return deleteById(asset.getUuid()).ignoreElement();
 	}
 
 	@Override
-	public LoomAsset createAsset() {
+	public Single<? extends LoomAsset> createAsset() {
 		Asset asset = new Asset();
 		insert(asset);
-		return new JooqAssetImpl(asset);
+		return insertReturningPrimary(asset).map(pk -> new JooqAssetImpl(asset.setUuid(pk)));
 	}
 
 	@Override
-	public void updateAsset(LoomAsset asset) {
+	public Completable updateAsset(LoomAsset asset) {
 		Objects.requireNonNull(asset, "Asset must not be null");
 		Asset jooqAsset = unwrap(asset);
-		update(jooqAsset);
-	}
-
-	@Override
-	public void storeAsset(LoomAsset asset) {
-		Objects.requireNonNull(asset, "Asset must not be null");
-		update(unwrap(asset));
+		return update(jooqAsset).ignoreElement();
 	}
 
 	@Override
@@ -70,15 +65,15 @@ public class JooqAssetDaoImpl extends AssetDao implements LoomAssetDao {
 	}
 
 	@Override
-	public void addTag(LoomAsset asset, LoomTag tag) {
+	public Completable addTag(LoomAsset asset, LoomTag tag) {
 		// TODO Auto-generated method stub
-
+		return Completable.complete();
 	}
 
 	@Override
-	public void removeTag(LoomAsset asset, LoomTag tag) {
+	public Completable removeTag(LoomAsset asset, LoomTag tag) {
 		// TODO Auto-generated method stub
-
+		return Completable.complete();
 	}
 
 	@Override

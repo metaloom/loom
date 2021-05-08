@@ -3,17 +3,19 @@ package io.metaloom.loom.db.extension;
 import java.util.UUID;
 
 import io.metaloom.loom.db.LoomDao;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 public interface LoomExtensionDao extends LoomDao {
 
-	LoomExtension createExtension();
+	Single<? extends LoomExtension> createExtension();
 
 	Maybe<? extends LoomExtension> loadExtension(UUID uuid);
 
-	void updateExtension(LoomExtension extension);
+	Completable updateExtension(LoomExtension extension);
 
-	void deleteExtension(LoomExtension extension);
+	Completable deleteExtension(LoomExtension extension);
 
-	void storeExtension(LoomExtension extension);
+	Completable storeExtension(LoomExtension extension);
 }

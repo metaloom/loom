@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.dagger.DBBindModule;
+import io.metaloom.loom.db.dagger.VertxModule;
 import io.metaloom.loom.db.jooq.dagger.JooqDaoBindModule;
 import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
 import io.vertx.reactivex.sqlclient.SqlClient;

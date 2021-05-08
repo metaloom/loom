@@ -14,13 +14,11 @@ public interface LoomGroupDao extends LoomDao {
 
 	Single<? extends LoomGroup> createGroup(String name);
 
-	void deleteGroup(LoomGroup group);
+	Completable deleteGroup(LoomGroup group);
 
-	void updateGroup(LoomGroup group);
+	Completable updateGroup(LoomGroup group);
 
 	Maybe<? extends LoomGroup> loadGroup(UUID uuid);
-
-	void storeGroup(LoomGroup group);
 
 	Observable<LoomUser> loadUsers(LoomGroup group);
 
@@ -30,12 +28,12 @@ public interface LoomGroupDao extends LoomDao {
 	Completable removeUser(LoomGroup group, LoomUser user);
 
 	// Roles
-	void addRole(LoomGroup group, LoomRole role);
+	Completable addRole(LoomGroup group, LoomRole role);
 
-	void removeRole(LoomGroup group, LoomRole role);
+	Completable removeRole(LoomGroup group, LoomRole role);
 
 	Observable<LoomRole> loadRoles(LoomGroup group);
 
-	void testMultiOp();
+	Completable testMultiOp();
 
 }

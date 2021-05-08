@@ -37,9 +37,9 @@ public class JooqRoleDaoImpl extends RoleDao implements LoomRoleDao {
 	}
 
 	@Override
-	public void deleteRole(LoomRole role) {
+	public Completable deleteRole(LoomRole role) {
 		Objects.requireNonNull(role, "Role must not be null");
-		deleteById(role.getUuid());
+		return deleteById(role.getUuid()).ignoreElement();
 	}
 
 	@Override
@@ -49,17 +49,10 @@ public class JooqRoleDaoImpl extends RoleDao implements LoomRoleDao {
 	}
 
 	@Override
-	public void updateRole(LoomRole role) {
+	public Completable updateRole(LoomRole role) {
 		Objects.requireNonNull(role, "Role must not be null");
 		Role jooqRole = unwrap(role);
-		update(jooqRole);
-	}
-
-	@Override
-	public void storeRole(LoomRole role) {
-		Objects.requireNonNull(role, "Role must not be null");
-		JooqRoleImpl jooqRole = (JooqRoleImpl) role;
-		update(jooqRole.getDelegate());
+		return update(jooqRole).ignoreElement();
 	}
 
 	@Override

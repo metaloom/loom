@@ -9,17 +9,18 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
+import io.vertx.reactivex.core.Vertx;
 
 @Singleton
 public class FsRoleDaoImpl extends AbstractFSDao implements LoomRoleDao {
 
 	@Inject
-	public FsRoleDaoImpl(DaoCollection daos) {
-		super(daos);
+	public FsRoleDaoImpl(DaoCollection daos, Vertx rxVertx) {
+		super(daos, rxVertx);
 	}
 
 	protected FSType getType() {
@@ -28,36 +29,27 @@ public class FsRoleDaoImpl extends AbstractFSDao implements LoomRoleDao {
 
 	@Override
 	public Maybe<? extends LoomRole> loadRole(UUID uuid) {
-		return FilesystemIoHelper.load(getType(), uuid, FsRoleImpl.class);
+		return load(uuid, FsRoleImpl.class);
 	}
 
 	@Override
-	public void deleteRole(LoomRole role) {
+	public Completable deleteRole(LoomRole role) {
 		Objects.requireNonNull(role, "Role must not be null");
-		FilesystemIoHelper.delete(getType(), role.getUuid());
+		return delete(role.getUuid());
 	}
 
 	@Override
 	public Single<? extends LoomRole> createRole(String name) {
-		return Single.fromCallable(() -> {
-			LoomRole role = new FsRoleImpl();
-			role.setName(name);
-			role.setUuid(UUIDUtil.randomUUID());
-			return role;
-		});
+		LoomRole role = new FsRoleImpl();
+		role.setName(name);
+		role.setUuid(UUIDUtil.randomUUID());
+		return store(role);
 	}
 
 	@Override
-	public void updateRole(LoomRole role) {
+	public Completable updateRole(LoomRole role) {
 		Objects.requireNonNull(role, "Role must not be null");
-		FilesystemIoHelper.store(getType(), role.getUuid(), role);
+		return store(role).ignoreElement();
 	}
-
-	@Override
-	public void storeRole(LoomRole role) {
-		Objects.requireNonNull(role, "Role must not be null");
-		FilesystemIoHelper.store(getType(), role.getUuid(), role);
-	}
-
 
 }

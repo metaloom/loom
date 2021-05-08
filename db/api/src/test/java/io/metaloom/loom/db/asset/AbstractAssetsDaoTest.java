@@ -27,7 +27,7 @@ public abstract class AbstractAssetsDaoTest {
 		LoomAssetDao dao = getDao();
 
 		// Create asset
-		LoomAsset asset = dao.createAsset();
+		LoomAsset asset = dao.createAsset().blockingGet();
 		asset.setFilename("blume.jpg");
 		assertNotNull(asset.getUuid());
 		assertEquals("blume.jpg", asset.getFilename());
@@ -38,7 +38,7 @@ public abstract class AbstractAssetsDaoTest {
 		LoomAssetDao dao = getDao();
 
 		// Create asset
-		LoomAsset asset = dao.createAsset();
+		LoomAsset asset = dao.createAsset().blockingGet();
 		asset.setFilename("blume.jpg");
 
 		// Now assert deletion
@@ -51,9 +51,8 @@ public abstract class AbstractAssetsDaoTest {
 		LoomAssetDao dao = getDao();
 
 		// Create and store
-		LoomAsset asset = dao.createAsset();
+		LoomAsset asset = dao.createAsset().blockingGet();
 		asset.setFilename("blume.jpg");
-		dao.storeAsset(asset);
 
 		// Now update
 		asset.setFilename("blume2.jpg");
@@ -69,9 +68,8 @@ public abstract class AbstractAssetsDaoTest {
 		LoomAssetDao dao = getDao();
 
 		// Create and store asset
-		LoomAsset asset = dao.createAsset();
+		LoomAsset asset = dao.createAsset().blockingGet();
 		asset.setFilename("blume.jpg");
-		dao.storeAsset(asset);
 
 		// Now load again
 		assertNotNull(dao.loadAsset(asset.getUuid()));

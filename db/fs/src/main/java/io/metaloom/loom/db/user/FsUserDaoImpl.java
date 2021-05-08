@@ -12,18 +12,18 @@ import org.apache.commons.io.FileUtils;
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
+import io.vertx.reactivex.core.Vertx;
 
 @Singleton
 public class FsUserDaoImpl extends AbstractFSDao implements LoomUserDao {
 
 	@Inject
-	public FsUserDaoImpl(DaoCollection daos) {
-		super(daos);
+	public FsUserDaoImpl(DaoCollection daos, Vertx rxVertx) {
+		super(daos, rxVertx);
 	}
 
 	protected FSType getType() {
@@ -32,13 +32,13 @@ public class FsUserDaoImpl extends AbstractFSDao implements LoomUserDao {
 
 	@Override
 	public Maybe<? extends LoomUser> loadUser(UUID uuid) {
-		return FilesystemIoHelper.load(getType(), uuid, FsUserImpl.class);
+		return load(uuid, FsUserImpl.class);
 	}
 
 	@Override
-	public void deleteUser(LoomUser user) {
+	public Completable deleteUser(LoomUser user) {
 		Objects.requireNonNull(user, "User must not be null");
-		FilesystemIoHelper.delete(getType(), user.getUuid());
+		return delete(user.getUuid());
 	}
 
 	@Override
@@ -50,21 +50,16 @@ public class FsUserDaoImpl extends AbstractFSDao implements LoomUserDao {
 	}
 
 	@Override
-	public void updateUser(LoomUser user) {
+	public Completable updateUser(LoomUser user) {
 		Objects.requireNonNull(user, "User must not be null");
-		FilesystemIoHelper.store(getType(), user.getUuid(), user);
+		return store(user).ignoreElement();
 	}
 
-	@Override
-	public void storeUser(LoomUser user) {
-		Objects.requireNonNull(user, "User must not be null");
-		FilesystemIoHelper.store(getType(), user.getUuid(), user);
-	}
 
 	@Override
 	public Completable clear() throws IOException {
 		return Completable.fromAction(() -> {
-			FileUtils.deleteDirectory(FilesystemIoHelper.getTypeDir(getType()));
+			FileUtils.deleteDirectory(getTypeDir(getType()));
 		});
 	}
 

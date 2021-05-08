@@ -9,16 +9,17 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.vertx.reactivex.core.Vertx;
 
 @Singleton
 public class FsFieldDaoImpl extends AbstractFSDao implements LoomFieldDao {
 
 	@Inject
-	public FsFieldDaoImpl(DaoCollection daos) {
-		super(daos);
+	public FsFieldDaoImpl(DaoCollection daos, Vertx rxVertx) {
+		super(daos, rxVertx);
 	}
 
 	protected FSType getType() {
@@ -27,13 +28,13 @@ public class FsFieldDaoImpl extends AbstractFSDao implements LoomFieldDao {
 
 	@Override
 	public Maybe<? extends LoomField> loadField(UUID uuid) {
-		return FilesystemIoHelper.load(getType(), uuid, FsFieldImpl.class);
+		return load(uuid, FsFieldImpl.class);
 	}
 
 	@Override
-	public void deleteField(LoomField field) {
+	public Completable deleteField(LoomField field) {
 		Objects.requireNonNull(field, "Field must not be null");
-		FilesystemIoHelper.delete(getType(), field.getUuid());
+		return delete(field.getUuid());
 	}
 
 	@Override
@@ -44,15 +45,9 @@ public class FsFieldDaoImpl extends AbstractFSDao implements LoomFieldDao {
 	}
 
 	@Override
-	public void updateField(LoomField field) {
+	public Completable updateField(LoomField field) {
 		Objects.requireNonNull(field, "Field must not be null");
-		FilesystemIoHelper.store(getType(), field.getUuid(), field);
-	}
-
-	@Override
-	public void storeField(LoomField field) {
-		Objects.requireNonNull(field, "Field must not be null");
-		FilesystemIoHelper.store(getType(), field.getUuid(), field);
+		return store(field).ignoreElement();
 	}
 
 }

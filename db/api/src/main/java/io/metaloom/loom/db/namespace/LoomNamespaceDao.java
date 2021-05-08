@@ -17,13 +17,11 @@ public interface LoomNamespaceDao extends LoomDao {
 
 	Completable deleteNamespace(LoomNamespace namespace);
 
-	void updateNamespace(LoomNamespace namespace);
-
-	void storeNamespace(LoomNamespace namespace);
+	Completable updateNamespace(LoomNamespace namespace);
 
 	Observable<LoomTag> loadTags(LoomNamespace namespace);
 
-	void addTag(LoomNamespace namespace, LoomTag tag);
+	Completable addTag(LoomNamespace namespace, LoomTag tag);
 
-	void removeTag(LoomNamespace namespace, LoomTag tag);
+	Completable removeTag(LoomNamespace namespace, LoomTag tag);
 }

@@ -21,10 +21,11 @@ public class MemUsersDaoImpl implements LoomUserDao {
 	}
 
 	@Override
-	public void deleteUser(LoomUser user) {
+	public Completable deleteUser(LoomUser user) {
 		if (user != null) {
 			storage.remove(user.getUuid());
 		}
+		return Completable.complete();
 	}
 
 	@Override
@@ -38,13 +39,9 @@ public class MemUsersDaoImpl implements LoomUserDao {
 	}
 
 	@Override
-	public void updateUser(LoomUser user) {
+	public Completable updateUser(LoomUser user) {
 		storage.put(user.getUuid(), user);
-	}
-
-	@Override
-	public void storeUser(LoomUser user) {
-		storage.put(user.getUuid(), user);
+		return Completable.complete();
 	}
 
 	@Override

@@ -4,24 +4,24 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.LoomDao;
 import io.metaloom.loom.db.tag.LoomTag;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public interface LoomModelDao extends LoomDao {
 
-	LoomModel createModel();
+	Single<? extends LoomModel> createModel();
 
-	void deleteModel(LoomModel model);
+	Completable deleteModel(LoomModel model);
 
-	void updateModel(LoomModel model);
+	Completable updateModel(LoomModel model);
 
 	Maybe<? extends LoomModel> loadModel(UUID uuid);
 
-	void storeModel(LoomModel model);
+	Completable removeTag(LoomModel model, LoomTag tag);
 
-	void removeTag(LoomModel model, LoomTag tag);
-
-	void addTag(LoomModel model, LoomTag tag);
+	Completable addTag(LoomModel model, LoomTag tag);
 
 	Observable<LoomTag> loadTags(LoomModel model);
 

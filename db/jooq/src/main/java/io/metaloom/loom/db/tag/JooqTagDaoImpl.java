@@ -37,9 +37,9 @@ public class JooqTagDaoImpl extends TagDao implements LoomTagDao {
 	}
 
 	@Override
-	public void deleteTag(LoomTag role) {
+	public Completable deleteTag(LoomTag role) {
 		Objects.requireNonNull(role, "Tag must not be null");
-		deleteById(role.getUuid());
+		return deleteById(role.getUuid()).ignoreElement();
 	}
 
 	@Override
@@ -51,16 +51,10 @@ public class JooqTagDaoImpl extends TagDao implements LoomTagDao {
 	}
 
 	@Override
-	public void updateTag(LoomTag tag) {
+	public Completable updateTag(LoomTag tag) {
 		Objects.requireNonNull(tag, "Tag must not be null");
 		Tag jooqTag = unwrap(tag);
-		update(jooqTag);
-	}
-
-	@Override
-	public void storeTag(LoomTag tag) {
-		Objects.requireNonNull(tag, "Tag must not be null");
-		update(unwrap(tag));
+		return update(jooqTag).ignoreElement();
 	}
 
 	@Override

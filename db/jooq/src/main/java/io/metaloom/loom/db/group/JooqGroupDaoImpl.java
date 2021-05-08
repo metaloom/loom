@@ -59,9 +59,9 @@ public class JooqGroupDaoImpl extends GroupDao implements LoomGroupDao {
 	}
 
 	@Override
-	public void deleteGroup(LoomGroup group) {
+	public Completable deleteGroup(LoomGroup group) {
 		Objects.requireNonNull(group, "Group must not be null");
-		deleteById(group.getUuid());
+		return deleteById(group.getUuid()).ignoreElement();
 	}
 
 	@Override
@@ -72,15 +72,9 @@ public class JooqGroupDaoImpl extends GroupDao implements LoomGroupDao {
 	}
 
 	@Override
-	public void updateGroup(LoomGroup group) {
+	public Completable updateGroup(LoomGroup group) {
 		Objects.requireNonNull(group, "Group must not be null");
-		update(unwrap(group));
-	}
-
-	@Override
-	public void storeGroup(LoomGroup group) {
-		Objects.requireNonNull(group, "Group must not be null");
-		update(unwrap(group));
+		return update(unwrap(group)).ignoreElement();
 	}
 
 	@Override
@@ -98,15 +92,15 @@ public class JooqGroupDaoImpl extends GroupDao implements LoomGroupDao {
 	}
 
 	@Override
-	public void removeRole(LoomGroup group, LoomRole role) {
+	public Completable removeRole(LoomGroup group, LoomRole role) {
 		// TODO Auto-generated method stub
-
+		return Completable.complete();
 	}
 
 	@Override
-	public void addRole(LoomGroup group, LoomRole role) {
+	public Completable addRole(LoomGroup group, LoomRole role) {
 		// TODO Auto-generated method stub
-
+		return Completable.complete();
 	}
 
 	@Override
@@ -132,9 +126,8 @@ public class JooqGroupDaoImpl extends GroupDao implements LoomGroupDao {
 		});
 	}
 
-
 	@Override
-	public void testMultiOp() {
+	public Completable testMultiOp() {
 		Observable<User> txOperation = userDao.queryExecutor().beginTransaction()
 			.flatMapObservable(tx -> {
 				Single<List<User>> users1 = tx.findMany(ctx -> {
@@ -181,9 +174,11 @@ public class JooqGroupDaoImpl extends GroupDao implements LoomGroupDao {
 
 				return tx.commit().andThen(obs);
 			});
-		txOperation.blockingForEach(user -> {
-			System.out.println(user.getUsername());
-		});
+
+//		.blockingForEach(user -> {
+//			System.out.println(user.getUsername());
+//		});
+		return txOperation.ignoreElements();
 	}
 
 	@Override

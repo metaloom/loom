@@ -37,9 +37,9 @@ public class JooqUserDaoImpl extends UserDao implements LoomUserDao {
 	}
 
 	@Override
-	public void deleteUser(LoomUser user) {
+	public Completable deleteUser(LoomUser user) {
 		Objects.requireNonNull(user, "User must not be null");
-		deleteById(user.getUuid());
+		return deleteById(user.getUuid()).ignoreElement();
 	}
 
 	@Override
@@ -50,15 +50,9 @@ public class JooqUserDaoImpl extends UserDao implements LoomUserDao {
 	}
 
 	@Override
-	public void updateUser(LoomUser user) {
+	public Completable updateUser(LoomUser user) {
 		Objects.requireNonNull(user, "User must not be null");
-		update(unwrap(user));
-	}
-
-	@Override
-	public void storeUser(LoomUser user) {
-		Objects.requireNonNull(user, "User must not be null");
-		update(unwrap(user));
+		return update(unwrap(user)).ignoreElement();
 	}
 
 	@Override

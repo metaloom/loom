@@ -9,17 +9,18 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.fs.FilesystemIoHelper;
 import io.metaloom.loom.uuid.UUIDUtil;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
+import io.vertx.reactivex.core.Vertx;
 
 @Singleton
 public class FsTagDaoImpl extends AbstractFSDao implements LoomTagDao {
 
 	@Inject
-	public FsTagDaoImpl(DaoCollection daos) {
-		super(daos);
+	public FsTagDaoImpl(DaoCollection daos, Vertx rxVertx) {
+		super(daos, rxVertx);
 	}
 
 	protected FSType getType() {
@@ -28,13 +29,13 @@ public class FsTagDaoImpl extends AbstractFSDao implements LoomTagDao {
 
 	@Override
 	public Maybe<? extends LoomTag> loadTag(UUID uuid) {
-		return FilesystemIoHelper.load(getType(), uuid, FsTagImpl.class);
+		return load(uuid, FsTagImpl.class);
 	}
 
 	@Override
-	public void deleteTag(LoomTag tag) {
+	public Completable deleteTag(LoomTag tag) {
 		Objects.requireNonNull(tag, "Tag must not be null");
-		FilesystemIoHelper.delete(getType(), tag.getUuid());
+		return delete(tag.getUuid());
 	}
 
 	@Override
@@ -49,15 +50,9 @@ public class FsTagDaoImpl extends AbstractFSDao implements LoomTagDao {
 	}
 
 	@Override
-	public void updateTag(LoomTag tag) {
+	public Completable updateTag(LoomTag tag) {
 		Objects.requireNonNull(tag, "Tag must not be null");
-		FilesystemIoHelper.store(getType(), tag.getUuid(), tag);
-	}
-
-	@Override
-	public void storeTag(LoomTag tag) {
-		Objects.requireNonNull(tag, "Tag must not be null");
-		FilesystemIoHelper.store(getType(), tag.getUuid(), tag);
+		return store(tag).ignoreElement();
 	}
 
 }
