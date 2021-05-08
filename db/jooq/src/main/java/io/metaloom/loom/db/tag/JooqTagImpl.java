@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.jooq.tables.pojos.Tag;
+import io.metaloom.loom.db.user.LoomUser;
 
-public class JooqTagImpl extends AbstractJooqCUDElement implements Tag, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Tag> {
+public class JooqTagImpl extends AbstractJooqCUDElement implements LoomTag, JooqWrapper<Tag> {
 
-	private final io.metaloom.loom.db.jooq.tables.pojos.Tag delegate;
+	private final Tag delegate;
 
-	public JooqTagImpl(io.metaloom.loom.db.jooq.tables.pojos.Tag delegate) {
+	public JooqTagImpl(Tag delegate) {
 		this.delegate = delegate;
 	}
 
@@ -21,13 +22,13 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements Tag, JooqWrap
 	}
 
 	@Override
-	public Tag setName(String name) {
+	public LoomTag setName(String name) {
 		delegate.setName(name);
 		return this;
 	}
 
 	@Override
-	public Tag setCollection(String collectionName) {
+	public LoomTag setCollection(String collectionName) {
 		delegate.setCollection(collectionName);
 		return this;
 	}
@@ -63,7 +64,7 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements Tag, JooqWrap
 	}
 
 	@Override
-	public void setCreator(User creator) {
+	public void setCreator(LoomUser creator) {
 		// TODO Auto-generated method stub
 	}
 
@@ -73,12 +74,12 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements Tag, JooqWrap
 	}
 
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public io.metaloom.loom.db.jooq.tables.pojos.Tag getDelegate() {
+	public Tag getDelegate() {
 		return delegate;
 	}
 

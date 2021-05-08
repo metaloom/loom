@@ -2,7 +2,7 @@ package io.metaloom.loom.db.tag;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
-public class FsTagImpl extends AbstractFSCUDElement implements Tag {
+public class FsTagImpl extends AbstractFSCUDElement implements LoomTag {
 
 	private String name;
 
@@ -14,7 +14,7 @@ public class FsTagImpl extends AbstractFSCUDElement implements Tag {
 	}
 
 	@Override
-	public Tag setName(String name) {
+	public LoomTag setName(String name) {
 		this.name = name;
 		return this;
 	}
@@ -25,7 +25,7 @@ public class FsTagImpl extends AbstractFSCUDElement implements Tag {
 	}
 
 	@Override
-	public Tag setCollection(String collectionName) {
+	public LoomTag setCollection(String collectionName) {
 		this.collection = collectionName;
 		return this;
 	}

@@ -15,7 +15,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 @Singleton
-public class FsRoleDaoImpl extends AbstractFSDao implements RoleDao {
+public class FsRoleDaoImpl extends AbstractFSDao implements LoomRoleDao {
 
 	@Inject
 	public FsRoleDaoImpl(DaoCollection daos) {
@@ -27,20 +27,20 @@ public class FsRoleDaoImpl extends AbstractFSDao implements RoleDao {
 	}
 
 	@Override
-	public Maybe<? extends Role> loadRole(UUID uuid) {
+	public Maybe<? extends LoomRole> loadRole(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsRoleImpl.class);
 	}
 
 	@Override
-	public void deleteRole(Role role) {
+	public void deleteRole(LoomRole role) {
 		Objects.requireNonNull(role, "Role must not be null");
 		FilesystemIoHelper.delete(getType(), role.getUuid());
 	}
 
 	@Override
-	public Single<? extends Role> createRole(String name) {
+	public Single<? extends LoomRole> createRole(String name) {
 		return Single.fromCallable(() -> {
-			Role role = new FsRoleImpl();
+			LoomRole role = new FsRoleImpl();
 			role.setName(name);
 			role.setUuid(UUIDUtil.randomUUID());
 			return role;
@@ -48,13 +48,13 @@ public class FsRoleDaoImpl extends AbstractFSDao implements RoleDao {
 	}
 
 	@Override
-	public void updateRole(Role role) {
+	public void updateRole(LoomRole role) {
 		Objects.requireNonNull(role, "Role must not be null");
 		FilesystemIoHelper.store(getType(), role.getUuid(), role);
 	}
 
 	@Override
-	public void storeRole(Role role) {
+	public void storeRole(LoomRole role) {
 		Objects.requireNonNull(role, "Role must not be null");
 		FilesystemIoHelper.store(getType(), role.getUuid(), role);
 	}

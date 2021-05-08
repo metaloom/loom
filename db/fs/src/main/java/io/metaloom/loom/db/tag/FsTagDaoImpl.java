@@ -15,7 +15,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 @Singleton
-public class FsTagDaoImpl extends AbstractFSDao implements TagDao {
+public class FsTagDaoImpl extends AbstractFSDao implements LoomTagDao {
 
 	@Inject
 	public FsTagDaoImpl(DaoCollection daos) {
@@ -27,20 +27,20 @@ public class FsTagDaoImpl extends AbstractFSDao implements TagDao {
 	}
 
 	@Override
-	public Maybe<? extends Tag> loadTag(UUID uuid) {
+	public Maybe<? extends LoomTag> loadTag(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsTagImpl.class);
 	}
 
 	@Override
-	public void deleteTag(Tag tag) {
+	public void deleteTag(LoomTag tag) {
 		Objects.requireNonNull(tag, "Tag must not be null");
 		FilesystemIoHelper.delete(getType(), tag.getUuid());
 	}
 
 	@Override
-	public Single<? extends Tag> createTag(String name, String collection) {
+	public Single<? extends LoomTag> createTag(String name, String collection) {
 		return Single.fromCallable(() -> {
-			Tag tag = new FsTagImpl();
+			LoomTag tag = new FsTagImpl();
 			tag.setUuid(UUIDUtil.randomUUID());
 			tag.setName(name);
 			tag.setCollection(collection);
@@ -49,13 +49,13 @@ public class FsTagDaoImpl extends AbstractFSDao implements TagDao {
 	}
 
 	@Override
-	public void updateTag(Tag tag) {
+	public void updateTag(LoomTag tag) {
 		Objects.requireNonNull(tag, "Tag must not be null");
 		FilesystemIoHelper.store(getType(), tag.getUuid(), tag);
 	}
 
 	@Override
-	public void storeTag(Tag tag) {
+	public void storeTag(LoomTag tag) {
 		Objects.requireNonNull(tag, "Tag must not be null");
 		FilesystemIoHelper.store(getType(), tag.getUuid(), tag);
 	}

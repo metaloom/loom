@@ -2,7 +2,7 @@ package io.metaloom.loom.db.user;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
-public class FsUserImpl extends AbstractFSCUDElement implements User {
+public class FsUserImpl extends AbstractFSCUDElement implements LoomUser {
 
 	private String lastname;
 	private String firstname;
@@ -15,7 +15,7 @@ public class FsUserImpl extends AbstractFSCUDElement implements User {
 	}
 
 	@Override
-	public User setUsername(String username) {
+	public LoomUser setUsername(String username) {
 		this.username = username;
 		return this;
 	}
@@ -26,7 +26,7 @@ public class FsUserImpl extends AbstractFSCUDElement implements User {
 	}
 
 	@Override
-	public User setEmail(String email) {
+	public LoomUser setEmail(String email) {
 		this.email = email;
 		return this;
 	}
@@ -37,7 +37,7 @@ public class FsUserImpl extends AbstractFSCUDElement implements User {
 	}
 
 	@Override
-	public User setFirstname(String firstname) {
+	public LoomUser setFirstname(String firstname) {
 		this.firstname = firstname;
 		return this;
 	}
@@ -48,7 +48,7 @@ public class FsUserImpl extends AbstractFSCUDElement implements User {
 	}
 
 	@Override
-	public User setLastname(String lastname) {
+	public LoomUser setLastname(String lastname) {
 		this.lastname = lastname;
 		return this;
 	}

@@ -2,7 +2,7 @@ package io.metaloom.loom.db.namespace;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
-public class FsNamespaceImpl extends AbstractFSCUDElement implements Namespace {
+public class FsNamespaceImpl extends AbstractFSCUDElement implements LoomNamespace {
 
 	private String name;
 
@@ -12,7 +12,7 @@ public class FsNamespaceImpl extends AbstractFSCUDElement implements Namespace {
 	}
 
 	@Override
-	public Namespace setName(String name) {
+	public LoomNamespace setName(String name) {
 		this.name = name;
 		return this;
 	}

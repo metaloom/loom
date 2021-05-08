@@ -14,7 +14,7 @@ import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Maybe;
 
 @Singleton
-public class FsFieldDaoImpl extends AbstractFSDao implements FieldDao {
+public class FsFieldDaoImpl extends AbstractFSDao implements LoomFieldDao {
 
 	@Inject
 	public FsFieldDaoImpl(DaoCollection daos) {
@@ -26,31 +26,31 @@ public class FsFieldDaoImpl extends AbstractFSDao implements FieldDao {
 	}
 
 	@Override
-	public Maybe<? extends Field> loadField(UUID uuid) {
+	public Maybe<? extends LoomField> loadField(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsFieldImpl.class);
 	}
 
 	@Override
-	public void deleteField(Field field) {
+	public void deleteField(LoomField field) {
 		Objects.requireNonNull(field, "Field must not be null");
 		FilesystemIoHelper.delete(getType(), field.getUuid());
 	}
 
 	@Override
-	public Field createField() {
-		Field field = new FsFieldImpl();
+	public LoomField createField() {
+		LoomField field = new FsFieldImpl();
 		field.setUuid(UUIDUtil.randomUUID());
 		return field;
 	}
 
 	@Override
-	public void updateField(Field field) {
+	public void updateField(LoomField field) {
 		Objects.requireNonNull(field, "Field must not be null");
 		FilesystemIoHelper.store(getType(), field.getUuid(), field);
 	}
 
 	@Override
-	public void storeField(Field field) {
+	public void storeField(LoomField field) {
 		Objects.requireNonNull(field, "Field must not be null");
 		FilesystemIoHelper.store(getType(), field.getUuid(), field);
 	}

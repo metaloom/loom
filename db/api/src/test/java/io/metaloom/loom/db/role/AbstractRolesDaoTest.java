@@ -14,7 +14,7 @@ import io.reactivex.Maybe;
 
 public abstract class AbstractRolesDaoTest {
 
-	abstract public RoleDao getDao();
+	abstract public LoomRoleDao getDao();
 
 	@After
 	@Before
@@ -24,20 +24,20 @@ public abstract class AbstractRolesDaoTest {
 
 	@Test
 	public void testCreate() {
-		RoleDao dao = getDao();
+		LoomRoleDao dao = getDao();
 
 		// Create role
-		Role role = dao.createRole("Guests").blockingGet();
+		LoomRole role = dao.createRole("Guests").blockingGet();
 		assertNotNull(role.getUuid());
 		assertEquals("Guests", role.getName());
 	}
 
 	@Test
 	public void testDelete() {
-		RoleDao dao = getDao();
+		LoomRoleDao dao = getDao();
 
 		// Create role
-		Role role = dao.createRole("Guests").blockingGet();
+		LoomRole role = dao.createRole("Guests").blockingGet();
 
 		// Now assert deletion
 		dao.deleteRole(role);
@@ -46,10 +46,10 @@ public abstract class AbstractRolesDaoTest {
 
 	@Test
 	public void testUpdate() {
-		RoleDao dao = getDao();
+		LoomRoleDao dao = getDao();
 
 		// Create and store
-		Role role = dao.createRole("Guests").blockingGet();
+		LoomRole role = dao.createRole("Guests").blockingGet();
 		dao.storeRole(role);
 
 		// Now update
@@ -57,17 +57,17 @@ public abstract class AbstractRolesDaoTest {
 		dao.updateRole(role);
 
 		// Load and assert update was persisted
-		Maybe<? extends Role> updatedRole = dao.loadRole(role.getUuid());
+		Maybe<? extends LoomRole> updatedRole = dao.loadRole(role.getUuid());
 		assertEquals("Guests2", updatedRole.blockingGet().getName());
 
 	}
 
 	@Test
 	public void testLoad() {
-		RoleDao dao = getDao();
+		LoomRoleDao dao = getDao();
 
 		// Create and store role
-		Role role = dao.createRole("Guests").blockingGet();
+		LoomRole role = dao.createRole("Guests").blockingGet();
 
 		dao.storeRole(role);
 

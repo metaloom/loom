@@ -5,7 +5,7 @@ import io.metaloom.loom.test.dagger.LoomTestComponent;
 
 public class FsGroupsDaoTest extends AbstractGroupsDaoTest {
 
-	public GroupDao getDao() {
+	public LoomGroupDao getDao() {
 		LoomTestComponent loomTest = DaggerLoomTestComponent.create();
 		return new FsGroupDaoImpl(loomTest.daos());
 	}

@@ -1,5 +1,5 @@
 package io.metaloom.loom.db.model;
 
-public interface ModelVersion {
+public interface LoomModelVersion {
 
 }

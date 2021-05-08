@@ -12,14 +12,16 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
-import io.metaloom.loom.db.tag.Tag;
+import io.metaloom.loom.db.jooq.tables.daos.ContentDao;
+import io.metaloom.loom.db.jooq.tables.pojos.Content;
+import io.metaloom.loom.db.tag.LoomTag;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
-public class JooqContentDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.ContentDao implements ContentDao {
+public class JooqContentDaoImpl extends ContentDao implements LoomContentDao {
 
 	@Inject
 	public JooqContentDaoImpl(Configuration configuration, SqlClient rxSqlClient) {
@@ -31,50 +33,50 @@ public class JooqContentDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Con
 	// }
 
 	@Override
-	public Maybe<? extends Content> loadContent(UUID uuid) {
+	public Maybe<? extends LoomContent> loadContent(UUID uuid) {
 		return wrap(findOneById(uuid), JooqContentImpl.class);
 	}
 
 	@Override
-	public void deleteContent(Content content) {
+	public void deleteContent(LoomContent content) {
 		Objects.requireNonNull(content, "Content must not be null");
 		deleteById(content.getUuid());
 	}
 
 	@Override
-	public Content createContent() {
-		io.metaloom.loom.db.jooq.tables.pojos.Content content = new io.metaloom.loom.db.jooq.tables.pojos.Content();
+	public LoomContent createContent() {
+		Content content = new Content();
 		insert(content);
 		return new JooqContentImpl(content);
 	}
 
 	@Override
-	public void updateContent(Content content) {
+	public void updateContent(LoomContent content) {
 		Objects.requireNonNull(content, "Content must not be null");
-		io.metaloom.loom.db.jooq.tables.pojos.Content jooqContent = unwrap(content);
+		Content jooqContent = unwrap(content);
 		update(jooqContent);
 	}
 
 	@Override
-	public void storeContent(Content content) {
+	public void storeContent(LoomContent content) {
 		Objects.requireNonNull(content, "Content must not be null");
 		update(unwrap(content));
 	}
 
 	@Override
-	public Observable<Tag> loadTags(Content content) {
+	public Observable<LoomTag> loadTags(LoomContent content) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void addTag(Content content, Tag tag) {
+	public void addTag(LoomContent content, LoomTag tag) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void removeTag(Content content, Tag tag) {
+	public void removeTag(LoomContent content, LoomTag tag) {
 		// TODO Auto-generated method stub
 
 	}

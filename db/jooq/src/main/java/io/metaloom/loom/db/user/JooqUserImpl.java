@@ -5,12 +5,13 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
+import io.metaloom.loom.db.jooq.tables.pojos.User;
 
-public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.User> {
+public class JooqUserImpl extends AbstractJooqCUDElement implements LoomUser, JooqWrapper<User> {
 
-	private final io.metaloom.loom.db.jooq.tables.pojos.User delegate;
+	private final User delegate;
 
-	public JooqUserImpl(io.metaloom.loom.db.jooq.tables.pojos.User delegate) {
+	public JooqUserImpl(User delegate) {
 		this.delegate = delegate;
 	}
 
@@ -20,7 +21,7 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 	}
 
 	@Override
-	public User setUsername(String username) {
+	public LoomUser setUsername(String username) {
 		delegate.setUsername(username);
 		return this;
 	}
@@ -31,7 +32,7 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 	}
 
 	@Override
-	public User setEmail(String email) {
+	public LoomUser setEmail(String email) {
 		delegate.setEmail(email);
 		return this;
 	}
@@ -42,7 +43,7 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 	}
 
 	@Override
-	public User setFirstname(String firstname) {
+	public LoomUser setFirstname(String firstname) {
 		delegate.setFirstname(firstname);
 		return this;
 	}
@@ -53,7 +54,7 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 	}
 
 	@Override
-	public User setLastname(String lastname) {
+	public LoomUser setLastname(String lastname) {
 		this.setLastname(lastname);
 		return this;
 	}
@@ -85,7 +86,7 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 	}
 
 	@Override
-	public void setCreator(User creator) {
+	public void setCreator(LoomUser creator) {
 		// TODO Auto-generated method stub
 
 	}
@@ -97,7 +98,7 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements User, JooqWr
 	}
 
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		// TODO Auto-generated method stub
 
 	}

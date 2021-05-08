@@ -11,26 +11,26 @@ import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 
-public class MemUsersDaoImpl implements UserDao {
+public class MemUsersDaoImpl implements LoomUserDao {
 
-	private Map<UUID, User> storage = new HashMap<>();
+	private Map<UUID, LoomUser> storage = new HashMap<>();
 
 	@Override
-	public Maybe<User> loadUser(UUID uuid) {
+	public Maybe<LoomUser> loadUser(UUID uuid) {
 		return RxUtils.ofNullable(storage.get(uuid));
 	}
 
 	@Override
-	public void deleteUser(User user) {
+	public void deleteUser(LoomUser user) {
 		if (user != null) {
 			storage.remove(user.getUuid());
 		}
 	}
 
 	@Override
-	public Single<? extends User> createUser(String username) {
+	public Single<? extends LoomUser> createUser(String username) {
 		return Single.fromCallable(() -> {
-			User user = new MemUserImpl();
+			LoomUser user = new MemUserImpl();
 			user.setUuid(UUIDUtil.randomUUID());
 			user.setUsername(username);
 			return user;
@@ -38,12 +38,12 @@ public class MemUsersDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void updateUser(LoomUser user) {
 		storage.put(user.getUuid(), user);
 	}
 
 	@Override
-	public void storeUser(User user) {
+	public void storeUser(LoomUser user) {
 		storage.put(user.getUuid(), user);
 	}
 

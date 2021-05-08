@@ -2,63 +2,63 @@ package io.metaloom.loom.db.fs.dagger;
 
 import dagger.Binds;
 import dagger.Module;
-import io.metaloom.loom.db.asset.AssetDao;
+import io.metaloom.loom.db.asset.LoomAssetDao;
 import io.metaloom.loom.db.asset.FsAssetDaoImpl;
-import io.metaloom.loom.db.content.ContentDao;
+import io.metaloom.loom.db.content.LoomContentDao;
 import io.metaloom.loom.db.content.FsContentsDaoImpl;
-import io.metaloom.loom.db.extension.ExtensionDao;
+import io.metaloom.loom.db.extension.LoomExtensionDao;
 import io.metaloom.loom.db.extension.FsExtensionDaoImpl;
-import io.metaloom.loom.db.field.FieldDao;
+import io.metaloom.loom.db.field.LoomFieldDao;
 import io.metaloom.loom.db.field.FsFieldDaoImpl;
 import io.metaloom.loom.db.group.FsGroupDaoImpl;
-import io.metaloom.loom.db.group.GroupDao;
+import io.metaloom.loom.db.group.LoomGroupDao;
 import io.metaloom.loom.db.model.FsModelDaoImpl;
-import io.metaloom.loom.db.model.ModelDao;
+import io.metaloom.loom.db.model.LoomModelDao;
 import io.metaloom.loom.db.namespace.FsNamespaceDaoImpl;
-import io.metaloom.loom.db.namespace.NamespaceDao;
+import io.metaloom.loom.db.namespace.LoomNamespaceDao;
 import io.metaloom.loom.db.role.FsRoleDaoImpl;
-import io.metaloom.loom.db.role.RoleDao;
+import io.metaloom.loom.db.role.LoomRoleDao;
 import io.metaloom.loom.db.tag.FsTagDaoImpl;
-import io.metaloom.loom.db.tag.TagDao;
+import io.metaloom.loom.db.tag.LoomTagDao;
 import io.metaloom.loom.db.user.FsUserDaoImpl;
-import io.metaloom.loom.db.user.UserDao;
+import io.metaloom.loom.db.user.LoomUserDao;
 import io.metaloom.loom.db.webhook.FsWebhookDaoImpl;
-import io.metaloom.loom.db.webhook.WebhookDao;
+import io.metaloom.loom.db.webhook.LoomWebhookDao;
 
 @Module
 public abstract class FsDaoBindModule {
 
 	@Binds
-	abstract ModelDao modelsDao(FsModelDaoImpl dao);
+	abstract LoomModelDao modelsDao(FsModelDaoImpl dao);
 
 	@Binds
-	abstract ContentDao contentsDao(FsContentsDaoImpl dao);
+	abstract LoomContentDao contentsDao(FsContentsDaoImpl dao);
 
 	@Binds
-	abstract FieldDao fieldsDao(FsFieldDaoImpl dao);
+	abstract LoomFieldDao fieldsDao(FsFieldDaoImpl dao);
 
 	@Binds
-	abstract UserDao usersDao(FsUserDaoImpl dao);
+	abstract LoomUserDao usersDao(FsUserDaoImpl dao);
 
 	@Binds
-	abstract GroupDao groupsDao(FsGroupDaoImpl dao);
+	abstract LoomGroupDao groupsDao(FsGroupDaoImpl dao);
 
 	@Binds
-	abstract RoleDao rolesDao(FsRoleDaoImpl dao);
+	abstract LoomRoleDao rolesDao(FsRoleDaoImpl dao);
 
 	@Binds
-	abstract TagDao tagsDao(FsTagDaoImpl dao);
+	abstract LoomTagDao tagsDao(FsTagDaoImpl dao);
 
 	@Binds
-	abstract NamespaceDao namespacesDao(FsNamespaceDaoImpl dao);
+	abstract LoomNamespaceDao namespacesDao(FsNamespaceDaoImpl dao);
 
 	@Binds
-	abstract WebhookDao webhookDao(FsWebhookDaoImpl dao);
+	abstract LoomWebhookDao webhookDao(FsWebhookDaoImpl dao);
 
 	@Binds
-	abstract ExtensionDao extensionsDao(FsExtensionDaoImpl dao);
+	abstract LoomExtensionDao extensionsDao(FsExtensionDaoImpl dao);
 
 	@Binds
-	abstract AssetDao assetsDao(FsAssetDaoImpl dao);
+	abstract LoomAssetDao assetsDao(FsAssetDaoImpl dao);
 
 }

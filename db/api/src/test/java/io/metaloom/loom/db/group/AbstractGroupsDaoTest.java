@@ -14,7 +14,7 @@ import io.reactivex.Maybe;
 
 public abstract class AbstractGroupsDaoTest {
 
-	abstract public GroupDao getDao();
+	abstract public LoomGroupDao getDao();
 
 	@After
 	@Before
@@ -24,20 +24,20 @@ public abstract class AbstractGroupsDaoTest {
 
 	@Test
 	public void testCreate() {
-		GroupDao dao = getDao();
+		LoomGroupDao dao = getDao();
 
 		// Create group
-		Group group = dao.createGroup("Guests").blockingGet();
+		LoomGroup group = dao.createGroup("Guests").blockingGet();
 		assertNotNull(group.getUuid());
 		assertEquals("Guests", group.getName());
 	}
 
 	@Test
 	public void testDelete() {
-		GroupDao dao = getDao();
+		LoomGroupDao dao = getDao();
 
 		// Create group
-		Group group = dao.createGroup("Guests").blockingGet();
+		LoomGroup group = dao.createGroup("Guests").blockingGet();
 
 		// Now assert deletion
 		dao.deleteGroup(group);
@@ -46,27 +46,27 @@ public abstract class AbstractGroupsDaoTest {
 
 	@Test
 	public void testUpdate() {
-		GroupDao dao = getDao();
+		LoomGroupDao dao = getDao();
 
 		// Create and store
-		Group group = dao.createGroup("Guests").blockingGet();
+		LoomGroup group = dao.createGroup("Guests").blockingGet();
 
 		// Now update
 		group.setName("Guests2");
 		dao.updateGroup(group);
 
 		// Load and assert update was persisted
-		Maybe<? extends Group> updatedGroup = dao.loadGroup(group.getUuid());
+		Maybe<? extends LoomGroup> updatedGroup = dao.loadGroup(group.getUuid());
 		assertEquals("Guests2", updatedGroup.blockingGet().getName());
 
 	}
 
 	@Test
 	public void testLoad() {
-		GroupDao dao = getDao();
+		LoomGroupDao dao = getDao();
 
 		// Create and store group
-		Group group = dao.createGroup("Guests").blockingGet();
+		LoomGroup group = dao.createGroup("Guests").blockingGet();
 
 		// Now load again
 		assertNotNull(dao.loadGroup(group.getUuid()));

@@ -14,7 +14,7 @@ import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Maybe;
 
 @Singleton
-public class FsExtensionDaoImpl extends AbstractFSDao implements ExtensionDao {
+public class FsExtensionDaoImpl extends AbstractFSDao implements LoomExtensionDao {
 
 	@Inject
 	public FsExtensionDaoImpl(DaoCollection daos) {
@@ -26,31 +26,31 @@ public class FsExtensionDaoImpl extends AbstractFSDao implements ExtensionDao {
 	}
 
 	@Override
-	public Maybe<? extends Extension> loadExtension(UUID uuid) {
+	public Maybe<? extends LoomExtension> loadExtension(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsExtensionImpl.class);
 	}
 
 	@Override
-	public void deleteExtension(Extension extension) {
+	public void deleteExtension(LoomExtension extension) {
 		Objects.requireNonNull(extension, "Extension must not be null");
 		FilesystemIoHelper.delete(getType(), extension.getUuid());
 	}
 
 	@Override
-	public Extension createExtension() {
-		Extension extension = new FsExtensionImpl();
+	public LoomExtension createExtension() {
+		LoomExtension extension = new FsExtensionImpl();
 		extension.setUuid(UUIDUtil.randomUUID());
 		return extension;
 	}
 
 	@Override
-	public void updateExtension(Extension extension) {
+	public void updateExtension(LoomExtension extension) {
 		Objects.requireNonNull(extension, "Extension must not be null");
 		FilesystemIoHelper.store(getType(), extension.getUuid(), extension);
 	}
 
 	@Override
-	public void storeExtension(Extension extension) {
+	public void storeExtension(LoomExtension extension) {
 		Objects.requireNonNull(extension, "Extension must not be null");
 		FilesystemIoHelper.store(getType(), extension.getUuid(), extension);
 	}

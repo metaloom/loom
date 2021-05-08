@@ -12,12 +12,14 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
+import io.metaloom.loom.db.jooq.tables.daos.FieldDao;
+import io.metaloom.loom.db.jooq.tables.pojos.Field;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
-public class JooqFieldDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.FieldDao implements FieldDao {
+public class JooqFieldDaoImpl extends FieldDao implements LoomFieldDao {
 
 	@Inject
 	public JooqFieldDaoImpl(Configuration configuration, SqlClient rxSqlClient) {
@@ -29,32 +31,32 @@ public class JooqFieldDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Field
 	// }
 
 	@Override
-	public Maybe<? extends Field> loadField(UUID uuid) {
+	public Maybe<? extends LoomField> loadField(UUID uuid) {
 		return wrap(findOneById(uuid), JooqFieldImpl.class);
 	}
 
 	@Override
-	public void deleteField(Field content) {
+	public void deleteField(LoomField content) {
 		Objects.requireNonNull(content, "Field must not be null");
 		deleteById(content.getUuid());
 	}
 
 	@Override
-	public Field createField() {
-		io.metaloom.loom.db.jooq.tables.pojos.Field content = new io.metaloom.loom.db.jooq.tables.pojos.Field();
+	public LoomField createField() {
+		Field content = new Field();
 		insert(content);
 		return new JooqFieldImpl(content);
 	}
 
 	@Override
-	public void updateField(Field content) {
+	public void updateField(LoomField content) {
 		Objects.requireNonNull(content, "Field must not be null");
-		io.metaloom.loom.db.jooq.tables.pojos.Field jooqField = unwrap(content);
+		Field jooqField = unwrap(content);
 		update(jooqField);
 	}
 
 	@Override
-	public void storeField(Field content) {
+	public void storeField(LoomField content) {
 		Objects.requireNonNull(content, "Field must not be null");
 		update(unwrap(content));
 	}

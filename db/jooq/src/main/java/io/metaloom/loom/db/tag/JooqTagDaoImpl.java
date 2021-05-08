@@ -12,13 +12,15 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
+import io.metaloom.loom.db.jooq.tables.daos.TagDao;
+import io.metaloom.loom.db.jooq.tables.pojos.Tag;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
-public class JooqTagDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.TagDao implements TagDao {
+public class JooqTagDaoImpl extends TagDao implements LoomTagDao {
 
 	@Inject
 	public JooqTagDaoImpl(Configuration configuration, SqlClient rxSqlClient) {
@@ -30,33 +32,33 @@ public class JooqTagDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.TagDao 
 	// }
 
 	@Override
-	public Maybe<? extends Tag> loadTag(UUID uuid) {
+	public Maybe<? extends LoomTag> loadTag(UUID uuid) {
 		return wrap(findOneById(uuid), JooqTagImpl.class);
 	}
 
 	@Override
-	public void deleteTag(Tag role) {
+	public void deleteTag(LoomTag role) {
 		Objects.requireNonNull(role, "Tag must not be null");
 		deleteById(role.getUuid());
 	}
 
 	@Override
-	public Single<Tag> createTag(String name, String collection) {
-		io.metaloom.loom.db.jooq.tables.pojos.Tag tag = new io.metaloom.loom.db.jooq.tables.pojos.Tag();
+	public Single<LoomTag> createTag(String name, String collection) {
+		Tag tag = new Tag();
 		tag.setName(name);
 		tag.setCollection(collection);
 		return insertReturningPrimary(tag).map(pk -> new JooqTagImpl(tag.setUuid(pk)));
 	}
 
 	@Override
-	public void updateTag(Tag tag) {
+	public void updateTag(LoomTag tag) {
 		Objects.requireNonNull(tag, "Tag must not be null");
-		io.metaloom.loom.db.jooq.tables.pojos.Tag jooqTag = unwrap(tag);
+		Tag jooqTag = unwrap(tag);
 		update(jooqTag);
 	}
 
 	@Override
-	public void storeTag(Tag tag) {
+	public void storeTag(LoomTag tag) {
 		Objects.requireNonNull(tag, "Tag must not be null");
 		update(unwrap(tag));
 	}

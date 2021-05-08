@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
-import io.metaloom.loom.db.role.Role;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.role.LoomRole;
+import io.metaloom.loom.db.user.LoomUser;
 
-public class FsGroupImpl extends AbstractFSCUDElement implements Group {
+public class FsGroupImpl extends AbstractFSCUDElement implements LoomGroup {
 
 	private String name;
 
-	protected List<Role> roles = new ArrayList<>();
-	protected List<User> users = new ArrayList<>();
+	protected List<LoomRole> roles = new ArrayList<>();
+	protected List<LoomUser> users = new ArrayList<>();
 
 	@Override
 	public String getName() {
@@ -20,7 +20,7 @@ public class FsGroupImpl extends AbstractFSCUDElement implements Group {
 	}
 
 	@Override
-	public Group setName(String name) {
+	public LoomGroup setName(String name) {
 		this.name = name;
 		return this;
 	}

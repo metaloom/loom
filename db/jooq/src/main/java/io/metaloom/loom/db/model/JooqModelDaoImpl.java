@@ -12,14 +12,16 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
-import io.metaloom.loom.db.tag.Tag;
+import io.metaloom.loom.db.jooq.tables.daos.ModelDao;
+import io.metaloom.loom.db.jooq.tables.pojos.Model;
+import io.metaloom.loom.db.tag.LoomTag;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
-public class JooqModelDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.ModelDao implements ModelDao {
+public class JooqModelDaoImpl extends ModelDao implements LoomModelDao {
 
 	@Inject
 	public JooqModelDaoImpl(Configuration configuration, SqlClient rxSqlClient) {
@@ -31,50 +33,50 @@ public class JooqModelDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Model
 	// }
 
 	@Override
-	public Maybe<? extends Model> loadModel(UUID uuid) {
+	public Maybe<? extends LoomModel> loadModel(UUID uuid) {
 		return wrap(findOneById(uuid), JooqModelImpl.class);
 	}
 
 	@Override
-	public void deleteModel(Model model) {
+	public void deleteModel(LoomModel model) {
 		Objects.requireNonNull(model, "Model must not be null");
 		deleteById(model.getUuid());
 	}
 
 	@Override
-	public Model createModel() {
-		io.metaloom.loom.db.jooq.tables.pojos.Model model = new io.metaloom.loom.db.jooq.tables.pojos.Model();
+	public LoomModel createModel() {
+		Model model = new Model();
 		insert(model);
 		return new JooqModelImpl(model);
 	}
 
 	@Override
-	public void updateModel(Model model) {
+	public void updateModel(LoomModel model) {
 		Objects.requireNonNull(model, "Model must not be null");
-		io.metaloom.loom.db.jooq.tables.pojos.Model jooqModel = unwrap(model);
+		Model jooqModel = unwrap(model);
 		update(jooqModel);
 	}
 
 	@Override
-	public void storeModel(Model model) {
+	public void storeModel(LoomModel model) {
 		Objects.requireNonNull(model, "Model must not be null");
 		update(unwrap(model));
 	}
 
 	@Override
-	public Observable<Tag> loadTags(Model model) {
+	public Observable<LoomTag> loadTags(LoomModel model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void addTag(Model model, Tag tag) {
+	public void addTag(LoomModel model, LoomTag tag) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void removeTag(Model model, Tag tag) {
+	public void removeTag(LoomModel model, LoomTag tag) {
 		// TODO Auto-generated method stub
 
 	}

@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.jooq.tables.pojos.Extension;
+import io.metaloom.loom.db.user.LoomUser;
 
-public class JooqExtensionImpl extends AbstractJooqCUDElement implements Extension, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Extension> {
+public class JooqExtensionImpl extends AbstractJooqCUDElement implements LoomExtension, JooqWrapper<Extension> {
 
-	private final io.metaloom.loom.db.jooq.tables.pojos.Extension delegate;
+	private final Extension delegate;
 
-	public JooqExtensionImpl(io.metaloom.loom.db.jooq.tables.pojos.Extension delegate) {
+	public JooqExtensionImpl(Extension delegate) {
 		this.delegate = delegate;
 	}
 
@@ -21,12 +22,10 @@ public class JooqExtensionImpl extends AbstractJooqCUDElement implements Extensi
 	}
 
 	@Override
-	public Extension setURL(String url) {
+	public LoomExtension setURL(String url) {
 		delegate.setUrl(url);
 		return this;
 	}
-
-
 
 	@Override
 	public LocalDateTime getCdate() {
@@ -37,8 +36,6 @@ public class JooqExtensionImpl extends AbstractJooqCUDElement implements Extensi
 	public LocalDateTime getEdate() {
 		return delegate.getEdited();
 	}
-
-
 
 	@Override
 	public UUID getUuid() {
@@ -57,7 +54,7 @@ public class JooqExtensionImpl extends AbstractJooqCUDElement implements Extensi
 	}
 
 	@Override
-	public void setCreator(User creator) {
+	public void setCreator(LoomUser creator) {
 		// TODO Auto-generated method stub
 
 	}
@@ -69,12 +66,12 @@ public class JooqExtensionImpl extends AbstractJooqCUDElement implements Extensi
 	}
 
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public io.metaloom.loom.db.jooq.tables.pojos.Extension getDelegate() {
+	public Extension getDelegate() {
 		return delegate;
 	}
 

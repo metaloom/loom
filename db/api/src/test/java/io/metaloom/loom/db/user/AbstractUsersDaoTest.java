@@ -14,7 +14,7 @@ import io.reactivex.Maybe;
 
 public abstract class AbstractUsersDaoTest {
 
-	abstract public UserDao getDao();
+	abstract public LoomUserDao getDao();
 
 	@After
 	@Before
@@ -24,10 +24,10 @@ public abstract class AbstractUsersDaoTest {
 
 	@Test
 	public void testCreate() {
-		UserDao dao = getDao();
+		LoomUserDao dao = getDao();
 
 		// Create user
-		User user = dao.createUser("joedoe").blockingGet();
+		LoomUser user = dao.createUser("joedoe").blockingGet();
 		assertNotNull(user.getUuid());
 		assertEquals("joedoe", user.getUsername());
 
@@ -35,10 +35,10 @@ public abstract class AbstractUsersDaoTest {
 
 	@Test
 	public void testDelete() {
-		UserDao dao = getDao();
+		LoomUserDao dao = getDao();
 
 		// Create user
-		User user = dao.createUser("joeddoe").blockingGet();
+		LoomUser user = dao.createUser("joeddoe").blockingGet();
 
 		// Now assert deletion
 		dao.deleteUser(user);
@@ -47,27 +47,27 @@ public abstract class AbstractUsersDaoTest {
 
 	@Test
 	public void testUpdate() {
-		UserDao dao = getDao();
+		LoomUserDao dao = getDao();
 
 		// Create and store
-		User user = dao.createUser("joedoe").blockingGet();
+		LoomUser user = dao.createUser("joedoe").blockingGet();
 
 		// Now update
 		user.setUsername("joedoe2");
 		dao.updateUser(user);
 
 		// Load and assert update was persisted
-		Maybe<? extends User> updatedUser = dao.loadUser(user.getUuid());
+		Maybe<? extends LoomUser> updatedUser = dao.loadUser(user.getUuid());
 		assertEquals("joedoe2", updatedUser.blockingGet().getUsername());
 
 	}
 
 	@Test
 	public void testLoad() {
-		UserDao dao = getDao();
+		LoomUserDao dao = getDao();
 
 		// Create and store user
-		User user = dao.createUser("joedoe").blockingGet();
+		LoomUser user = dao.createUser("joedoe").blockingGet();
 
 		// Now load again
 		assertNotNull(dao.loadUser(user.getUuid()));

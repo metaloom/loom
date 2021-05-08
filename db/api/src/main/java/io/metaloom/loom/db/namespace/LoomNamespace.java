@@ -3,10 +3,10 @@ package io.metaloom.loom.db.namespace;
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.Taggable;
 
-public interface Namespace extends CUDElement, Taggable {
+public interface LoomNamespace extends CUDElement, Taggable {
 
 	String getName();
 
-	Namespace setName(String name);
+	LoomNamespace setName(String name);
 
 }

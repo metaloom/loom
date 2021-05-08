@@ -16,7 +16,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 @Singleton
-public class FsWebhookDaoImpl extends AbstractFSDao implements WebhookDao {
+public class FsWebhookDaoImpl extends AbstractFSDao implements LoomWebhookDao {
 
 	@Inject
 	public FsWebhookDaoImpl(DaoCollection daos) {
@@ -28,27 +28,27 @@ public class FsWebhookDaoImpl extends AbstractFSDao implements WebhookDao {
 	}
 
 	@Override
-	public Maybe<? extends Webhook> loadWebhook(UUID uuid) {
+	public Maybe<? extends LoomWebhook> loadWebhook(UUID uuid) {
 		return FilesystemIoHelper.load(getType(), uuid, FsWebhookImpl.class);
 	}
 
 	@Override
-	public void deleteWebhook(Webhook webhook) {
+	public void deleteWebhook(LoomWebhook webhook) {
 		Objects.requireNonNull(webhook, "Webhook must not be null");
 		FilesystemIoHelper.delete(getType(), webhook.getUuid());
 	}
 
 	@Override
-	public Single<? extends Webhook> createWebhook() {
+	public Single<? extends LoomWebhook> createWebhook() {
 		return Single.fromCallable(() -> {
-			Webhook webhook = new FsWebhookImpl();
+			LoomWebhook webhook = new FsWebhookImpl();
 			webhook.setUuid(UUIDUtil.randomUUID());
 			return webhook;
 		});
 	}
 
 	@Override
-	public Completable updateWebhook(Webhook webhook) {
+	public Completable updateWebhook(LoomWebhook webhook) {
 		Objects.requireNonNull(webhook, "Webhook must not be null");
 		return Completable.fromAction(() -> {
 			FilesystemIoHelper.store(getType(), webhook.getUuid(), webhook);
@@ -56,7 +56,7 @@ public class FsWebhookDaoImpl extends AbstractFSDao implements WebhookDao {
 	}
 
 	@Override
-	public void storeWebhook(Webhook webhook) {
+	public void storeWebhook(LoomWebhook webhook) {
 		Objects.requireNonNull(webhook, "Webhook must not be null");
 		FilesystemIoHelper.store(getType(), webhook.getUuid(), webhook);
 	}

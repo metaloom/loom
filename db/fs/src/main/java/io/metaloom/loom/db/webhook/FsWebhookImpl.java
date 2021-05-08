@@ -2,7 +2,7 @@ package io.metaloom.loom.db.webhook;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
-public class FsWebhookImpl extends AbstractFSCUDElement implements Webhook {
+public class FsWebhookImpl extends AbstractFSCUDElement implements LoomWebhook {
 
 	private String url;
 
@@ -12,7 +12,7 @@ public class FsWebhookImpl extends AbstractFSCUDElement implements Webhook {
 	}
 
 	@Override
-	public Webhook setURL(String url) {
+	public LoomWebhook setURL(String url) {
 		this.url = url;
 		return this;
 	}

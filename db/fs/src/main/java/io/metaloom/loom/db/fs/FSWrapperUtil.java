@@ -1,18 +1,18 @@
 package io.metaloom.loom.db.fs;
 
 import io.metaloom.loom.db.group.FsGroupImpl;
-import io.metaloom.loom.db.group.Group;
+import io.metaloom.loom.db.group.LoomGroup;
 import io.metaloom.loom.db.role.FsRoleImpl;
-import io.metaloom.loom.db.role.Role;
+import io.metaloom.loom.db.role.LoomRole;
 import io.metaloom.loom.db.user.FsUserImpl;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.user.LoomUser;
 
 public final class FSWrapperUtil {
 
 	private FSWrapperUtil() {
 	}
 
-	public static FsUserImpl toFs(User user) {
+	public static FsUserImpl toFs(LoomUser user) {
 		if (user instanceof FsUserImpl) {
 			return (FsUserImpl) user;
 		} else {
@@ -20,7 +20,7 @@ public final class FSWrapperUtil {
 		}
 	}
 
-	public static FsGroupImpl toFs(Group group) {
+	public static FsGroupImpl toFs(LoomGroup group) {
 		if (group instanceof FsGroupImpl) {
 			return (FsGroupImpl) group;
 		} else {
@@ -28,7 +28,7 @@ public final class FSWrapperUtil {
 		}
 	}
 
-	public static FsRoleImpl toFs(Role role) {
+	public static FsRoleImpl toFs(LoomRole role) {
 		if (role instanceof FsRoleImpl) {
 			return (FsRoleImpl) role;
 		} else {

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
-import io.metaloom.loom.db.tag.Tag;
+import io.metaloom.loom.db.tag.LoomTag;
 
-public class FsAssetImpl extends AbstractFSCUDElement implements Asset {
+public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 
 	private String name;
 
-	private List<Tag> tags = new ArrayList<>();
+	private List<LoomTag> tags = new ArrayList<>();
 
 	@Override
 	public String getFilename() {
@@ -18,7 +18,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements Asset {
 	}
 
 	@Override
-	public Asset setFilename(String name) {
+	public LoomAsset setFilename(String name) {
 		this.name = name;
 		return this;
 	}

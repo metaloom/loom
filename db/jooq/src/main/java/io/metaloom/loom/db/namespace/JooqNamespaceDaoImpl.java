@@ -12,7 +12,9 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
-import io.metaloom.loom.db.tag.Tag;
+import io.metaloom.loom.db.jooq.tables.daos.NamespaceDao;
+import io.metaloom.loom.db.jooq.tables.pojos.Namespace;
+import io.metaloom.loom.db.tag.LoomTag;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -20,7 +22,7 @@ import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
-public class JooqNamespaceDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.NamespaceDao implements NamespaceDao {
+public class JooqNamespaceDaoImpl extends NamespaceDao implements LoomNamespaceDao {
 
 
 	@Inject
@@ -33,49 +35,49 @@ public class JooqNamespaceDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.N
 //	}
 
 	@Override
-	public Maybe<? extends Namespace> loadNamespace(UUID uuid) {
+	public Maybe<? extends LoomNamespace> loadNamespace(UUID uuid) {
 		return wrap(findOneById(uuid), JooqNamespaceImpl.class);
 	}
 
 	@Override
-	public Completable deleteNamespace(Namespace namespace) {
+	public Completable deleteNamespace(LoomNamespace namespace) {
 		Objects.requireNonNull(namespace, "Namespace must not be null");
 		return deleteById(namespace.getUuid()).ignoreElement();
 	}
 
 	@Override
-	public Single<? extends Namespace> createNamespace(String name) {
-		io.metaloom.loom.db.jooq.tables.pojos.Namespace namespace = new io.metaloom.loom.db.jooq.tables.pojos.Namespace();
+	public Single<? extends LoomNamespace> createNamespace(String name) {
+		Namespace namespace = new Namespace();
 		namespace.setName(name);
 		return insertReturningPrimary(namespace).map(pk -> new JooqNamespaceImpl(namespace.setUuid(pk)));
 	}
 
 	@Override
-	public void updateNamespace(Namespace namespace) {
+	public void updateNamespace(LoomNamespace namespace) {
 		Objects.requireNonNull(namespace, "Namespace must not be null");
-		io.metaloom.loom.db.jooq.tables.pojos.Namespace jooqNamespace = unwrap(namespace);
+		Namespace jooqNamespace = unwrap(namespace);
 		update(jooqNamespace);
 	}
 
 	@Override
-	public void storeNamespace(Namespace namespace) {
+	public void storeNamespace(LoomNamespace namespace) {
 		Objects.requireNonNull(namespace, "Namespace must not be null");
 		update(unwrap(namespace));
 	}
 
 	@Override
-	public Observable<Tag> loadTags(Namespace namespace) {
+	public Observable<LoomTag> loadTags(LoomNamespace namespace) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void addTag(Namespace namespace, Tag tag) {
+	public void addTag(LoomNamespace namespace, LoomTag tag) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void removeTag(Namespace namespace, Tag tag) {
+	public void removeTag(LoomNamespace namespace, LoomTag tag) {
 		// TODO Auto-generated method stub
 	}
 

@@ -123,8 +123,6 @@
 					<!-- Generator parameters -->
 					<generator>
 						<name>io.github.jklingsporn.vertx.jooq.generate.rx.RXReactiveVertxGenerator</name>
-						<!-- use 'io.github.jklingsporn.vertx.jooq.generate.rx.RXReactiveGuiceVertxGenerator' 
-							to enable Guice DI -->
 						<database>
 							<name>org.jooq.meta.postgres.PostgresDatabase</name>
 							<includes>.*</includes>
@@ -140,7 +138,6 @@
 							</forcedTypes>
 						</database>
 						<target>
-							<!-- This is where jOOQ will put your files -->
 							<packageName>io.metaloom.loom.db.jooq</packageName>
 							<directory>src/jooq/java</directory>
 						</target>

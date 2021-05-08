@@ -12,13 +12,15 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
+import io.metaloom.loom.db.jooq.tables.daos.RoleDao;
+import io.metaloom.loom.db.jooq.tables.pojos.Role;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
-public class JooqRoleDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.RoleDao implements RoleDao {
+public class JooqRoleDaoImpl extends RoleDao implements LoomRoleDao {
 
 	@Inject
 	public JooqRoleDaoImpl(Configuration configuration, SqlClient rxSqlClient) {
@@ -30,31 +32,31 @@ public class JooqRoleDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.RoleDa
 	// }
 
 	@Override
-	public Maybe<? extends Role> loadRole(UUID uuid) {
+	public Maybe<? extends LoomRole> loadRole(UUID uuid) {
 		return wrap(findOneById(uuid), JooqRoleImpl.class);
 	}
 
 	@Override
-	public void deleteRole(Role role) {
+	public void deleteRole(LoomRole role) {
 		Objects.requireNonNull(role, "Role must not be null");
 		deleteById(role.getUuid());
 	}
 
 	@Override
-	public Single<? extends Role> createRole(String name) {
-		io.metaloom.loom.db.jooq.tables.pojos.Role role = new io.metaloom.loom.db.jooq.tables.pojos.Role();
+	public Single<? extends LoomRole> createRole(String name) {
+		Role role = new Role();
 		return insertReturningPrimary(role).map(pk -> new JooqRoleImpl(role.setUuid(pk)));
 	}
 
 	@Override
-	public void updateRole(Role role) {
+	public void updateRole(LoomRole role) {
 		Objects.requireNonNull(role, "Role must not be null");
-		io.metaloom.loom.db.jooq.tables.pojos.Role jooqRole = unwrap(role);
+		Role jooqRole = unwrap(role);
 		update(jooqRole);
 	}
 
 	@Override
-	public void storeRole(Role role) {
+	public void storeRole(LoomRole role) {
 		Objects.requireNonNull(role, "Role must not be null");
 		JooqRoleImpl jooqRole = (JooqRoleImpl) role;
 		update(jooqRole.getDelegate());

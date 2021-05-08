@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.jooq.tables.pojos.Webhook;
+import io.metaloom.loom.db.user.LoomUser;
 
-public class JooqWebhookImpl extends AbstractJooqCUDElement implements Webhook, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Webhook> {
+public class JooqWebhookImpl extends AbstractJooqCUDElement implements LoomWebhook, JooqWrapper<Webhook> {
 
-	private final io.metaloom.loom.db.jooq.tables.pojos.Webhook delegate;
+	private final Webhook delegate;
 
-	public JooqWebhookImpl(io.metaloom.loom.db.jooq.tables.pojos.Webhook delegate) {
+	public JooqWebhookImpl(Webhook delegate) {
 		this.delegate = delegate;
 	}
 
@@ -21,7 +22,7 @@ public class JooqWebhookImpl extends AbstractJooqCUDElement implements Webhook, 
 	}
 
 	@Override
-	public Webhook setURL(String url) {
+	public LoomWebhook setURL(String url) {
 		delegate.setUrl(url);
 		return this;
 	}
@@ -52,7 +53,7 @@ public class JooqWebhookImpl extends AbstractJooqCUDElement implements Webhook, 
 	}
 
 	@Override
-	public void setCreator(User creator) {
+	public void setCreator(LoomUser creator) {
 		// TODO Auto-generated method stub
 	}
 
@@ -62,12 +63,12 @@ public class JooqWebhookImpl extends AbstractJooqCUDElement implements Webhook, 
 	}
 
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public io.metaloom.loom.db.jooq.tables.pojos.Webhook getDelegate() {
+	public Webhook getDelegate() {
 		return delegate;
 	}
 

@@ -2,7 +2,7 @@ package io.metaloom.loom.db.model;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
-public class FsModelImpl extends AbstractFSCUDElement implements Model {
+public class FsModelImpl extends AbstractFSCUDElement implements LoomModel {
 
 	private String name;
 
@@ -12,7 +12,7 @@ public class FsModelImpl extends AbstractFSCUDElement implements Model {
 	}
 
 	@Override
-	public Model setName(String name) {
+	public LoomModel setName(String name) {
 		this.name = name;
 		return this;
 	}

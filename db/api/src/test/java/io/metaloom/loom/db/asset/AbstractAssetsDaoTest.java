@@ -14,7 +14,7 @@ import io.reactivex.Maybe;
 
 public abstract class AbstractAssetsDaoTest {
 
-	abstract public AssetDao getDao();
+	abstract public LoomAssetDao getDao();
 
 	@After
 	@Before
@@ -24,10 +24,10 @@ public abstract class AbstractAssetsDaoTest {
 
 	@Test
 	public void testCreate() {
-		AssetDao dao = getDao();
+		LoomAssetDao dao = getDao();
 
 		// Create asset
-		Asset asset = dao.createAsset();
+		LoomAsset asset = dao.createAsset();
 		asset.setFilename("blume.jpg");
 		assertNotNull(asset.getUuid());
 		assertEquals("blume.jpg", asset.getFilename());
@@ -35,10 +35,10 @@ public abstract class AbstractAssetsDaoTest {
 
 	@Test
 	public void testDelete() {
-		AssetDao dao = getDao();
+		LoomAssetDao dao = getDao();
 
 		// Create asset
-		Asset asset = dao.createAsset();
+		LoomAsset asset = dao.createAsset();
 		asset.setFilename("blume.jpg");
 
 		// Now assert deletion
@@ -48,10 +48,10 @@ public abstract class AbstractAssetsDaoTest {
 
 	@Test
 	public void testUpdate() {
-		AssetDao dao = getDao();
+		LoomAssetDao dao = getDao();
 
 		// Create and store
-		Asset asset = dao.createAsset();
+		LoomAsset asset = dao.createAsset();
 		asset.setFilename("blume.jpg");
 		dao.storeAsset(asset);
 
@@ -60,16 +60,16 @@ public abstract class AbstractAssetsDaoTest {
 		dao.updateAsset(asset);
 
 		// Load and assert update was persisted
-		Maybe<? extends Asset> updatedAsset = dao.loadAsset(asset.getUuid());
+		Maybe<? extends LoomAsset> updatedAsset = dao.loadAsset(asset.getUuid());
 		assertEquals("blume2.jpg", updatedAsset.blockingGet().getFilename());
 	}
 
 	@Test
 	public void testLoad() {
-		AssetDao dao = getDao();
+		LoomAssetDao dao = getDao();
 
 		// Create and store asset
-		Asset asset = dao.createAsset();
+		LoomAsset asset = dao.createAsset();
 		asset.setFilename("blume.jpg");
 		dao.storeAsset(asset);
 

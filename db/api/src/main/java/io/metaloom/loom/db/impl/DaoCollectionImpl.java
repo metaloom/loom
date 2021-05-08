@@ -5,101 +5,101 @@ import javax.inject.Singleton;
 
 import dagger.Lazy;
 import io.metaloom.loom.db.DaoCollection;
-import io.metaloom.loom.db.asset.AssetDao;
-import io.metaloom.loom.db.content.ContentDao;
-import io.metaloom.loom.db.extension.ExtensionDao;
-import io.metaloom.loom.db.field.FieldDao;
-import io.metaloom.loom.db.group.GroupDao;
-import io.metaloom.loom.db.model.ModelDao;
-import io.metaloom.loom.db.namespace.NamespaceDao;
-import io.metaloom.loom.db.role.RoleDao;
-import io.metaloom.loom.db.user.UserDao;
-import io.metaloom.loom.db.webhook.WebhookDao;
+import io.metaloom.loom.db.asset.LoomAssetDao;
+import io.metaloom.loom.db.content.LoomContentDao;
+import io.metaloom.loom.db.extension.LoomExtensionDao;
+import io.metaloom.loom.db.field.LoomFieldDao;
+import io.metaloom.loom.db.group.LoomGroupDao;
+import io.metaloom.loom.db.model.LoomModelDao;
+import io.metaloom.loom.db.namespace.LoomNamespaceDao;
+import io.metaloom.loom.db.role.LoomRoleDao;
+import io.metaloom.loom.db.user.LoomUserDao;
+import io.metaloom.loom.db.webhook.LoomWebhookDao;
 
 @Singleton
 public class DaoCollectionImpl implements DaoCollection {
 
 	@Inject
-	public Lazy<ContentDao> contentDao;
+	public Lazy<LoomContentDao> contentDao;
 
 	@Inject
-	public Lazy<FieldDao> fieldDao;
+	public Lazy<LoomFieldDao> fieldDao;
 
 	@Inject
-	public Lazy<UserDao> userDao;
+	public Lazy<LoomUserDao> userDao;
 
 	@Inject
-	public Lazy<RoleDao> roleDao;
+	public Lazy<LoomRoleDao> roleDao;
 
 	@Inject
-	public Lazy<GroupDao> groupDao;
+	public Lazy<LoomGroupDao> groupDao;
 
 	@Inject
-	public Lazy<AssetDao> assetDao;
+	public Lazy<LoomAssetDao> assetDao;
 
 	@Inject
-	public Lazy<NamespaceDao> namespaceDao;
+	public Lazy<LoomNamespaceDao> namespaceDao;
 
 	@Inject
-	public Lazy<ModelDao> modelDao;
+	public Lazy<LoomModelDao> modelDao;
 
 	@Inject
-	public Lazy<ExtensionDao> extensionDao;
+	public Lazy<LoomExtensionDao> extensionDao;
 
 	@Inject
-	public Lazy<WebhookDao> webhookDao;
+	public Lazy<LoomWebhookDao> webhookDao;
 
 	@Inject
 	public DaoCollectionImpl() {
 	}
 
 	@Override
-	public ContentDao getContentDao() {
+	public LoomContentDao getContentDao() {
 		return contentDao.get();
 	}
 
 	@Override
-	public AssetDao getAssetDao() {
+	public LoomAssetDao getAssetDao() {
 		return assetDao.get();
 	}
 
 	@Override
-	public ExtensionDao getExtensionDao() {
+	public LoomExtensionDao getExtensionDao() {
 		return extensionDao.get();
 	}
 
 	@Override
-	public WebhookDao getWebhookDao() {
+	public LoomWebhookDao getWebhookDao() {
 		return webhookDao.get();
 	}
 
 	@Override
-	public FieldDao getFieldDao() {
+	public LoomFieldDao getFieldDao() {
 		return fieldDao.get();
 	}
 
 	@Override
-	public UserDao getUserDao() {
+	public LoomUserDao getUserDao() {
 		return userDao.get();
 	}
 
 	@Override
-	public GroupDao getGroupDao() {
+	public LoomGroupDao getGroupDao() {
 		return groupDao.get();
 	}
 
 	@Override
-	public RoleDao getRoleDao() {
+	public LoomRoleDao getRoleDao() {
 		return roleDao.get();
 	}
 
 	@Override
-	public ModelDao getModelDao() {
+	public LoomModelDao getModelDao() {
 		return modelDao.get();
 	}
 
 	@Override
-	public NamespaceDao getNamespaceDao() {
+	public LoomNamespaceDao getNamespaceDao() {
 		return namespaceDao.get();
 	}
 

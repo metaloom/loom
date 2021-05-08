@@ -18,14 +18,17 @@ import org.jooq.ResultQuery;
 
 import io.github.jklingsporn.vertx.jooq.rx.reactivepg.ReactiveRXQueryExecutor;
 import io.metaloom.loom.db.jooq.JooqWrapperHelper;
+import io.metaloom.loom.db.jooq.tables.daos.GroupDao;
 import io.metaloom.loom.db.jooq.tables.daos.UserGroupDao;
+import io.metaloom.loom.db.jooq.tables.pojos.Group;
+import io.metaloom.loom.db.jooq.tables.pojos.User;
 import io.metaloom.loom.db.jooq.tables.pojos.UserGroup;
 import io.metaloom.loom.db.jooq.tables.records.UserGroupRecord;
 import io.metaloom.loom.db.jooq.tables.records.UserRecord;
-import io.metaloom.loom.db.role.Role;
+import io.metaloom.loom.db.role.LoomRole;
 import io.metaloom.loom.db.user.JooqUserDaoImpl;
 import io.metaloom.loom.db.user.JooqUserImpl;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.user.LoomUser;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -33,7 +36,7 @@ import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
-public class JooqGroupDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.GroupDao implements GroupDao {
+public class JooqGroupDaoImpl extends GroupDao implements LoomGroupDao {
 
 	private final UserGroupDao userGroupDao;
 
@@ -51,37 +54,37 @@ public class JooqGroupDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Group
 	// }
 
 	@Override
-	public Maybe<? extends Group> loadGroup(UUID uuid) {
+	public Maybe<? extends LoomGroup> loadGroup(UUID uuid) {
 		return wrap(findOneById(uuid), JooqGroupImpl.class);
 	}
 
 	@Override
-	public void deleteGroup(Group group) {
+	public void deleteGroup(LoomGroup group) {
 		Objects.requireNonNull(group, "Group must not be null");
 		deleteById(group.getUuid());
 	}
 
 	@Override
-	public Single<Group> createGroup(String name) {
-		io.metaloom.loom.db.jooq.tables.pojos.Group group = new io.metaloom.loom.db.jooq.tables.pojos.Group();
+	public Single<LoomGroup> createGroup(String name) {
+		Group group = new Group();
 		group.setName(name);
 		return insertReturningPrimary(group).map(pk -> new JooqGroupImpl(group.setUuid(pk)));
 	}
 
 	@Override
-	public void updateGroup(Group group) {
+	public void updateGroup(LoomGroup group) {
 		Objects.requireNonNull(group, "Group must not be null");
 		update(unwrap(group));
 	}
 
 	@Override
-	public void storeGroup(Group group) {
+	public void storeGroup(LoomGroup group) {
 		Objects.requireNonNull(group, "Group must not be null");
 		update(unwrap(group));
 	}
 
 	@Override
-	public Completable addUser(Group group, User user) {
+	public Completable addUser(LoomGroup group, LoomUser user) {
 		UserGroup userGroup = new UserGroup();
 		userGroup.setGroupUuid(group.getUuid());
 		userGroup.setUserUuid(user.getUuid());
@@ -89,33 +92,33 @@ public class JooqGroupDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Group
 	}
 
 	@Override
-	public Completable removeUser(Group group, User user) {
+	public Completable removeUser(LoomGroup group, LoomUser user) {
 		UserGroupRecord record = new UserGroupRecord(user.getUuid(), group.getUuid());
 		return userGroupDao.deleteById(record).ignoreElement();
 	}
 
 	@Override
-	public void removeRole(Group group, Role role) {
+	public void removeRole(LoomGroup group, LoomRole role) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void addRole(Group group, Role role) {
+	public void addRole(LoomGroup group, LoomRole role) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public Observable<Role> loadRoles(Group group) {
+	public Observable<LoomRole> loadRoles(LoomGroup group) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Observable<User> loadUsers(Group group) {
-		ReactiveRXQueryExecutor<UserRecord, io.metaloom.loom.db.jooq.tables.pojos.User, UUID> queryExecutor = userDao.queryExecutor();
-		Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> result = queryExecutor.findMany(dslContext -> dslContext.select()
+	public Observable<LoomUser> loadUsers(LoomGroup group) {
+		ReactiveRXQueryExecutor<UserRecord, User, UUID> queryExecutor = userDao.queryExecutor();
+		Single<List<User>> result = queryExecutor.findMany(dslContext -> dslContext.select()
 			.from(USER_GROUP
 				.join(USER)
 				.on(USER.UUID.eq(USER_GROUP.USER_UUID))
@@ -129,29 +132,19 @@ public class JooqGroupDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Group
 		});
 	}
 
-	private Single<io.metaloom.loom.db.jooq.tables.pojos.User> createUserOp(ReactiveRXQueryExecutor<UserRecord, io.metaloom.loom.db.jooq.tables.pojos.User, UUID> tx,
-		io.metaloom.loom.db.jooq.tables.pojos.User userPojo) {
-		Single<io.metaloom.loom.db.jooq.tables.pojos.User> createUser = tx.insertReturning(ctx -> {
-			return ctx
-				.insertInto(USER)
-				.set(ctx.newRecord(USER, userPojo))
-				.returning(USER.getPrimaryKey().getFieldsArray());
-		}, keyConverter()).map(pk -> userPojo.setUuid(pk));
-		return createUser;
-	}
 
 	@Override
 	public void testMultiOp() {
-		Observable<io.metaloom.loom.db.jooq.tables.pojos.User> txOperation = userDao.queryExecutor().beginTransaction()
+		Observable<User> txOperation = userDao.queryExecutor().beginTransaction()
 			.flatMapObservable(tx -> {
-				Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> users1 = tx.findMany(ctx -> {
+				Single<List<User>> users1 = tx.findMany(ctx -> {
 					ResultQuery<UserRecord> userRecords = ctx.select().from(USER).coerce(USER);
 					return userRecords;
 				});
 
-				io.metaloom.loom.db.jooq.tables.pojos.User userPojo = new io.metaloom.loom.db.jooq.tables.pojos.User();
+				User userPojo = new User();
 				userPojo.setUsername("ABCD");
-				// Single<io.metaloom.loom.db.jooq.tables.pojos.User> createdUser1 = tx.executeAny(ctx -> {
+				// Single<User> createdUser1 = tx.executeAny(ctx -> {
 				// return ctx
 				// .insertInto(USER)
 				// .set(ctx.newRecord(USER, userPojo))
@@ -160,33 +153,28 @@ public class JooqGroupDaoImpl extends io.metaloom.loom.db.jooq.tables.daos.Group
 				// .map(io.vertx.reactivex.sqlclient.Row::getDelegate)
 				// .map(keyConverter()::apply).map(pk -> userPojo.setUuid(pk));
 
-				io.metaloom.loom.db.jooq.tables.pojos.User userPojo2 = new io.metaloom.loom.db.jooq.tables.pojos.User();
+				User userPojo2 = new User();
 				userPojo2.setUsername("ABCD2");
 
-				Single<io.metaloom.loom.db.jooq.tables.pojos.User> createdUser1 = createUserOp(tx, userPojo);
+				Single<User> createdUser1 = GroupOps.createUserOp(tx, userPojo, keyConverter());
 
-				// Single<io.metaloom.loom.db.jooq.tables.pojos.User> createdUser1 = tx.insertReturning(ctx -> {
+				// Single<User> createdUser1 = tx.insertReturning(ctx -> {
 				// return ctx
 				// .insertInto(USER)
 				// .set(ctx.newRecord(USER, userPojo))
 				// .returning(USER.getPrimaryKey().getFieldsArray());
 				// }, keyConverter()).map(pk -> userPojo.setUuid(pk));
 
-				Single<io.metaloom.loom.db.jooq.tables.pojos.User> createdUser2 = tx.insertReturning(ctx -> {
-					return ctx
-						.insertInto(USER)
-						.set(ctx.newRecord(USER, userPojo2))
-						.returning(USER.getPrimaryKey().getFieldsArray());
-				}, keyConverter()).map(pk -> userPojo2.setUuid(pk));
+				Single<User> createdUser2 = GroupOps.insertUser(tx, userPojo2, keyConverter());
 
-				Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> s = Single.zip(users1, createdUser1, createdUser2, (u1, c1, c2) -> {
+				Single<List<User>> s = Single.zip(users1, createdUser1, createdUser2, (u1, c1, c2) -> {
 					System.out.println("Adding users");
 					u1.add(c1);
 					u1.add(c2);
 					return u1;
 				});
 
-				Observable<io.metaloom.loom.db.jooq.tables.pojos.User> obs = s.flatMapObservable(list -> {
+				Observable<User> obs = s.flatMapObservable(list -> {
 					System.out.println("Convert to list");
 					return Observable.fromIterable(list);
 				});

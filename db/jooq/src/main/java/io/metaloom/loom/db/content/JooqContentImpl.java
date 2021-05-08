@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.jooq.tables.pojos.Content;
+import io.metaloom.loom.db.user.LoomUser;
 
-public class JooqContentImpl extends AbstractJooqCUDElement implements Content, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Content> {
+public class JooqContentImpl extends AbstractJooqCUDElement implements LoomContent, JooqWrapper<Content> {
 
-	private final io.metaloom.loom.db.jooq.tables.pojos.Content delegate;
+	private final Content delegate;
 
-	public JooqContentImpl(io.metaloom.loom.db.jooq.tables.pojos.Content delegate) {
+	public JooqContentImpl(Content delegate) {
 		this.delegate = delegate;
 	}
 
@@ -43,7 +44,7 @@ public class JooqContentImpl extends AbstractJooqCUDElement implements Content, 
 	}
 
 	@Override
-	public void setCreator(User creator) {
+	public void setCreator(LoomUser creator) {
 		// TODO Auto-generated method stub
 
 	}
@@ -55,12 +56,12 @@ public class JooqContentImpl extends AbstractJooqCUDElement implements Content, 
 	}
 
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public io.metaloom.loom.db.jooq.tables.pojos.Content getDelegate() {
+	public Content getDelegate() {
 		return delegate;
 	}
 

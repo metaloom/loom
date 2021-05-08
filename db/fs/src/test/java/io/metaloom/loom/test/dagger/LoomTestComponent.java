@@ -6,7 +6,7 @@ import dagger.Component;
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.dagger.DBBindModule;
 import io.metaloom.loom.db.fs.dagger.FsDaoBindModule;
-import io.metaloom.loom.db.user.UserDao;
+import io.metaloom.loom.db.user.LoomUserDao;
 
 @Singleton
 @Component(modules = { DBBindModule.class, FsDaoBindModule.class })
@@ -14,7 +14,7 @@ public interface LoomTestComponent {
 
 	DaoCollection daos();
 
-	UserDao usersDao();
+	LoomUserDao usersDao();
 
 	/**
 	 * Builder for the main dagger component. It allows injection of options and the mesh instance which will be created by the {@link MeshFactory} outside of

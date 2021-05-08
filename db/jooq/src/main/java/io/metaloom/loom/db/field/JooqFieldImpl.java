@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.jooq.tables.pojos.Field;
+import io.metaloom.loom.db.user.LoomUser;
 
-public class JooqFieldImpl extends AbstractJooqCUDElement implements Field, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Field> {
+public class JooqFieldImpl extends AbstractJooqCUDElement implements LoomField, JooqWrapper<Field> {
 
-	private final io.metaloom.loom.db.jooq.tables.pojos.Field delegate;
+	private final Field delegate;
 
-	public JooqFieldImpl(io.metaloom.loom.db.jooq.tables.pojos.Field delegate) {
+	public JooqFieldImpl(Field delegate) {
 		this.delegate = delegate;
 	}
 
@@ -44,26 +45,26 @@ public class JooqFieldImpl extends AbstractJooqCUDElement implements Field, Jooq
 	}
 
 	@Override
-	public void setCreator(User creator) {
-//		delegate.setCreatorUuid(creator.getUuid());
+	public void setCreator(LoomUser creator) {
+		// delegate.setCreatorUuid(creator.getUuid());
 
 	}
 
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		delegate.setEditorUuid(editor.getUuid());
 
-	}
-
-	@Override
-	public io.metaloom.loom.db.jooq.tables.pojos.Field getDelegate() {
-		return delegate;
 	}
 
 	@Override
 	public LocalDateTime getCdate() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Field getDelegate() {
+		return delegate;
 	}
 
 }

@@ -2,7 +2,7 @@ package io.metaloom.loom.db.extension;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
-public class FsExtensionImpl extends AbstractFSCUDElement implements Extension {
+public class FsExtensionImpl extends AbstractFSCUDElement implements LoomExtension {
 
 	private String url;
 
@@ -12,7 +12,7 @@ public class FsExtensionImpl extends AbstractFSCUDElement implements Extension {
 	}
 
 	@Override
-	public Extension setURL(String url) {
+	public LoomExtension setURL(String url) {
 		this.url = url;
 		return this;
 	}

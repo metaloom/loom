@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.jooq.tables.pojos.Namespace;
+import io.metaloom.loom.db.user.LoomUser;
 
-public class JooqNamespaceImpl extends AbstractJooqCUDElement implements Namespace, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Namespace> {
+public class JooqNamespaceImpl extends AbstractJooqCUDElement implements LoomNamespace, JooqWrapper<Namespace> {
 
-	private final io.metaloom.loom.db.jooq.tables.pojos.Namespace delegate;
+	private final Namespace delegate;
 
-	public JooqNamespaceImpl(io.metaloom.loom.db.jooq.tables.pojos.Namespace delegate) {
+	public JooqNamespaceImpl(Namespace delegate) {
 		this.delegate = delegate;
 	}
 
@@ -21,11 +22,10 @@ public class JooqNamespaceImpl extends AbstractJooqCUDElement implements Namespa
 	}
 
 	@Override
-	public Namespace setName(String name) {
+	public LoomNamespace setName(String name) {
 		delegate.setName(name);
 		return this;
 	}
-
 
 	@Override
 	public LocalDateTime getCdate() {
@@ -36,8 +36,6 @@ public class JooqNamespaceImpl extends AbstractJooqCUDElement implements Namespa
 	public LocalDateTime getEdate() {
 		return delegate.getEdited();
 	}
-
-
 
 	@Override
 	public UUID getUuid() {
@@ -56,7 +54,7 @@ public class JooqNamespaceImpl extends AbstractJooqCUDElement implements Namespa
 	}
 
 	@Override
-	public void setCreator(User creator) {
+	public void setCreator(LoomUser creator) {
 		// TODO Auto-generated method stub
 
 	}
@@ -68,12 +66,12 @@ public class JooqNamespaceImpl extends AbstractJooqCUDElement implements Namespa
 	}
 
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public io.metaloom.loom.db.jooq.tables.pojos.Namespace getDelegate() {
+	public Namespace getDelegate() {
 		return delegate;
 	}
 

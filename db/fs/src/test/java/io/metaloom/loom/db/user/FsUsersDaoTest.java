@@ -5,7 +5,7 @@ import io.metaloom.loom.test.dagger.LoomTestComponent;
 
 public class FsUsersDaoTest extends AbstractUsersDaoTest {
 
-	public UserDao getDao() {
+	public LoomUserDao getDao() {
 		LoomTestComponent loomTest = DaggerLoomTestComponent.create();
 		return new FsUserDaoImpl(loomTest.daos());
 	}

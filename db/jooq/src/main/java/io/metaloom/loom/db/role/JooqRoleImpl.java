@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.jooq.tables.pojos.Role;
+import io.metaloom.loom.db.user.LoomUser;
 
-public class JooqRoleImpl extends AbstractJooqCUDElement implements Role, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Role> {
+public class JooqRoleImpl extends AbstractJooqCUDElement implements LoomRole, JooqWrapper<Role> {
 
-	private final io.metaloom.loom.db.jooq.tables.pojos.Role delegate;
+	private final Role delegate;
 
-	public JooqRoleImpl(io.metaloom.loom.db.jooq.tables.pojos.Role delegate) {
+	public JooqRoleImpl(Role delegate) {
 		this.delegate = delegate;
 	}
 
@@ -21,7 +22,7 @@ public class JooqRoleImpl extends AbstractJooqCUDElement implements Role, JooqWr
 	}
 
 	@Override
-	public Role setName(String name) {
+	public LoomRole setName(String name) {
 		delegate.setName(name);
 		return this;
 	}
@@ -52,7 +53,7 @@ public class JooqRoleImpl extends AbstractJooqCUDElement implements Role, JooqWr
 	}
 
 	@Override
-	public void setCreator(User creator) {
+	public void setCreator(LoomUser creator) {
 		// TODO Auto-generated method stub
 	}
 
@@ -62,12 +63,12 @@ public class JooqRoleImpl extends AbstractJooqCUDElement implements Role, JooqWr
 	}
 
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public io.metaloom.loom.db.jooq.tables.pojos.Role getDelegate() {
+	public Role getDelegate() {
 		return delegate;
 	}
 

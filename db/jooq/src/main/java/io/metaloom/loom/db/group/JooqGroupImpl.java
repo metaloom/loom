@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.jooq.tables.pojos.Group;
+import io.metaloom.loom.db.user.LoomUser;
 
-public class JooqGroupImpl extends AbstractJooqCUDElement implements Group, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Group> {
+public class JooqGroupImpl extends AbstractJooqCUDElement implements LoomGroup, JooqWrapper<Group> {
 
-	private final io.metaloom.loom.db.jooq.tables.pojos.Group delegate;
+	private final Group delegate;
 
-	public JooqGroupImpl(io.metaloom.loom.db.jooq.tables.pojos.Group delegate) {
+	public JooqGroupImpl(Group delegate) {
 		this.delegate = delegate;
 	}
 
@@ -21,7 +22,7 @@ public class JooqGroupImpl extends AbstractJooqCUDElement implements Group, Jooq
 	}
 
 	@Override
-	public Group setName(String name) {
+	public LoomGroup setName(String name) {
 		delegate.setName(name);
 		return this;
 	}
@@ -52,7 +53,7 @@ public class JooqGroupImpl extends AbstractJooqCUDElement implements Group, Jooq
 	}
 
 	@Override
-	public void setCreator(User creator) {
+	public void setCreator(LoomUser creator) {
 		delegate.setCreatorUuid(creator.getUuid());
 	}
 
@@ -62,12 +63,12 @@ public class JooqGroupImpl extends AbstractJooqCUDElement implements Group, Jooq
 	}
 
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		delegate.setEditorUuid(editor.getUuid());
 	}
 
 	@Override
-	public io.metaloom.loom.db.jooq.tables.pojos.Group getDelegate() {
+	public Group getDelegate() {
 		return delegate;
 	}
 

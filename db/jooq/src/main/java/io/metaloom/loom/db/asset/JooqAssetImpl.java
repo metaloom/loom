@@ -5,13 +5,14 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.jooq.tables.pojos.Asset;
+import io.metaloom.loom.db.user.LoomUser;
 
-public class JooqAssetImpl extends AbstractJooqCUDElement implements Asset, JooqWrapper<io.metaloom.loom.db.jooq.tables.pojos.Asset> {
+public class JooqAssetImpl extends AbstractJooqCUDElement implements LoomAsset, JooqWrapper<Asset> {
 
-	private final io.metaloom.loom.db.jooq.tables.pojos.Asset delegate;
+	private final Asset delegate;
 
-	public JooqAssetImpl(io.metaloom.loom.db.jooq.tables.pojos.Asset delegate) {
+	public JooqAssetImpl(Asset delegate) {
 		this.delegate = delegate;
 	}
 
@@ -22,7 +23,7 @@ public class JooqAssetImpl extends AbstractJooqCUDElement implements Asset, Jooq
 	}
 
 	@Override
-	public Asset setFilename(String filename) {
+	public LoomAsset setFilename(String filename) {
 		// return delegate.setFilename(filename);
 		return this;
 	}
@@ -48,12 +49,12 @@ public class JooqAssetImpl extends AbstractJooqCUDElement implements Asset, Jooq
 	}
 
 	@Override
-	public void setCreator(User creator) {
+	public void setCreator(LoomUser creator) {
 		delegate.setCreatorUuid(creator.getUuid());
 	}
 
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		delegate.setEditorUuid(editor.getUuid());
 	}
 
@@ -70,7 +71,7 @@ public class JooqAssetImpl extends AbstractJooqCUDElement implements Asset, Jooq
 	}
 
 	@Override
-	public io.metaloom.loom.db.jooq.tables.pojos.Asset getDelegate() {
+	public Asset getDelegate() {
 		return delegate;
 	}
 

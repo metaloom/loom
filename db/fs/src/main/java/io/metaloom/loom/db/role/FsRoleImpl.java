@@ -2,7 +2,7 @@ package io.metaloom.loom.db.role;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
 
-public class FsRoleImpl extends AbstractFSCUDElement implements Role {
+public class FsRoleImpl extends AbstractFSCUDElement implements LoomRole {
 
 	private String name;
 
@@ -12,7 +12,7 @@ public class FsRoleImpl extends AbstractFSCUDElement implements Role {
 	}
 
 	@Override
-	public Role setName(String name) {
+	public LoomRole setName(String name) {
 		this.name = name;
 		return this;
 	}

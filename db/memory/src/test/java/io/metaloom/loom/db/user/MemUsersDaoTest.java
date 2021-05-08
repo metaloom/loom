@@ -5,7 +5,7 @@ public class MemUsersDaoTest extends AbstractUsersDaoTest {
 	private MemUsersDaoImpl dao = new MemUsersDaoImpl();
 
 	@Override
-	public UserDao getDao() {
+	public LoomUserDao getDao() {
 		return dao;
 	}
 

@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.metaloom.loom.db.CUDElement;
-import io.metaloom.loom.db.user.User;
+import io.metaloom.loom.db.user.LoomUser;
 
 public abstract class AbstractFSCUDElement extends AbstractFSLoomElement implements CUDElement {
 
@@ -23,7 +23,7 @@ public abstract class AbstractFSCUDElement extends AbstractFSLoomElement impleme
 //	}
 //
 	@Override
-	public void setEditor(User editor) {
+	public void setEditor(LoomUser editor) {
 		Objects.requireNonNull(editor, "A valid user must be specified");
 		this.editorUuid = editor.getUuid();
 	}
@@ -53,7 +53,7 @@ public abstract class AbstractFSCUDElement extends AbstractFSLoomElement impleme
 //	}
 //
 	@Override
-	public void setCreator(User creator) {
+	public void setCreator(LoomUser creator) {
 		Objects.requireNonNull(creator, "A valid user must be specified");
 		this.creatorUuid = creator.getUuid();
 	}
