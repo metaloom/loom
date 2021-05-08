@@ -17,5 +17,4 @@ public interface LoomExtensionDao extends LoomDao {
 
 	Completable deleteExtension(LoomExtension extension);
 
-	Completable storeExtension(LoomExtension extension);
 }

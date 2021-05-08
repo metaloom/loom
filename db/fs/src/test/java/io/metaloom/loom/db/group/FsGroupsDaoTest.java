@@ -7,7 +7,7 @@ public class FsGroupsDaoTest extends AbstractGroupsDaoTest {
 
 	public LoomGroupDao getDao() {
 		LoomTestComponent loomTest = DaggerLoomTestComponent.create();
-		return new FsGroupDaoImpl(loomTest.daos());
+		return new FsGroupDaoImpl(loomTest.daos(), null);
 	}
 
 }

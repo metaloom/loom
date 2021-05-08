@@ -7,7 +7,7 @@ public class FsRolesDaoTest extends AbstractRolesDaoTest {
 
 	public LoomRoleDao getDao() {
 		LoomTestComponent loomTest = DaggerLoomTestComponent.create();
-		return new FsRoleDaoImpl(loomTest.daos());
+		return new FsRoleDaoImpl(loomTest.daos(), null);
 	}
 
 }

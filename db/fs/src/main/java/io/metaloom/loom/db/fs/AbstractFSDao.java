@@ -38,7 +38,7 @@ public abstract class AbstractFSDao {
 		return daos;
 	}
 
-	protected Maybe<? extends LoomAsset> load(UUID uuid, Class<? extends LoomElement> clazz) {
+	protected <T> Maybe<? extends T> load(UUID uuid, Class<? extends T> clazz) {
 		return load(getType(), uuid, clazz);
 	}
 
@@ -47,7 +47,9 @@ public abstract class AbstractFSDao {
 	}
 
 	protected <T> Single<? extends T> store(LoomElement element) {
-		return store(getType(), element.getUuid(), element);
+//		return store(getType(), element.getUuid(), element);
+//		return load(getType(), element.getUuid(), element.getClass()).toSingle();
+		return null;
 	}
 
 	public Completable clear() throws IOException {

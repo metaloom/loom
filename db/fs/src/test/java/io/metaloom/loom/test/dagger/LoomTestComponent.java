@@ -4,12 +4,13 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.dagger.DBBindModule;
 import io.metaloom.loom.db.dagger.VertxModule;
 import io.metaloom.loom.db.fs.dagger.FsDaoBindModule;
 import io.metaloom.loom.db.user.LoomUserDao;
 
 @Singleton
-@Component(modules = { VertxModule.class, FsDaoBindModule.class })
+@Component(modules = { VertxModule.class, DBBindModule.class, FsDaoBindModule.class })
 public interface LoomTestComponent {
 
 	DaoCollection daos();

@@ -7,7 +7,7 @@ public class FsUsersDaoTest extends AbstractUsersDaoTest {
 
 	public LoomUserDao getDao() {
 		LoomTestComponent loomTest = DaggerLoomTestComponent.create();
-		return new FsUserDaoImpl(loomTest.daos());
+		return new FsUserDaoImpl(loomTest.daos(), null);
 	}
 
 }

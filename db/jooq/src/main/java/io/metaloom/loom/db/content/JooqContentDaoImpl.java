@@ -12,6 +12,7 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
+import io.metaloom.loom.db.group.JooqGroupImpl;
 import io.metaloom.loom.db.jooq.tables.daos.ContentDao;
 import io.metaloom.loom.db.jooq.tables.pojos.Content;
 import io.metaloom.loom.db.tag.LoomTag;
@@ -47,8 +48,7 @@ public class JooqContentDaoImpl extends ContentDao implements LoomContentDao {
 	@Override
 	public Single<? extends LoomContent> createContent() {
 		Content content = new Content();
-		return insert(content);
-		return new JooqContentImpl(content);
+		return insertReturningPrimary(content).map(pk -> new JooqContentImpl(content.setUuid(pk)));
 	}
 
 	@Override
