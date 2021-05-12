@@ -34,6 +34,11 @@
 			<groupId>io.metaloom.loom</groupId>
 			<artifactId>loom-common</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom</groupId>
+			<artifactId>loom-db-jooq</artifactId>
+		</dependency>
+		
 
 		<dependency>
 			<groupId>com.google.dagger</groupId>

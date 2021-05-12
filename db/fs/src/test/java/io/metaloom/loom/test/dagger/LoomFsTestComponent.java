@@ -11,7 +11,7 @@ import io.metaloom.loom.db.user.LoomUserDao;
 
 @Singleton
 @Component(modules = { VertxModule.class, DBBindModule.class, FsDaoBindModule.class })
-public interface LoomTestComponent {
+public interface LoomFsTestComponent {
 
 	LoomDaoCollection daos();
 
@@ -28,6 +28,6 @@ public interface LoomTestComponent {
 		 * 
 		 * @return
 		 */
-		LoomTestComponent build();
+		LoomFsTestComponent build();
 	}
 }

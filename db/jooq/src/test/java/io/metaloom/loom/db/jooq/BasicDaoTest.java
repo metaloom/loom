@@ -11,28 +11,28 @@ import io.metaloom.loom.db.group.LoomGroup;
 import io.metaloom.loom.db.group.LoomGroupDao;
 import io.metaloom.loom.db.user.LoomUser;
 import io.metaloom.loom.db.user.LoomUserDao;
-import io.metaloom.loom.test.dagger.DaggerLoomTestComponent;
-import io.metaloom.loom.test.dagger.LoomTestComponent;
+import io.metaloom.loom.test.dagger.DaggerLoomJooqTestComponent;
+import io.metaloom.loom.test.dagger.LoomJooqTestComponent;
 import io.reactivex.Observable;
 
 public class BasicDaoTest {
 
 	@Test
 	public void testUserDao() {
-		LoomTestComponent loomComponent = DaggerLoomTestComponent.create();
+		LoomJooqTestComponent loomComponent = DaggerLoomJooqTestComponent.create();
 		LoomUser user = loomComponent.daos().getUserDao().createUser("test-" + System.currentTimeMillis()).blockingGet();
 		assertNotNull(user.getUuid());
 	}
 	
 	@Test
 	public void testTransactions() {
-		LoomTestComponent loomComponent = DaggerLoomTestComponent.create();
+		LoomJooqTestComponent loomComponent = DaggerLoomJooqTestComponent.create();
 		loomComponent.daos().getGroupDao().testMultiOp();
 	}
 
 	@Test
 	public void testGroupDao() {
-		LoomTestComponent loomComponent = DaggerLoomTestComponent.create();
+		LoomJooqTestComponent loomComponent = DaggerLoomJooqTestComponent.create();
 		LoomDaoCollection daos = loomComponent.daos();
 		LoomGroupDao groupDao = daos.getGroupDao();
 		LoomUserDao userDao = daos.getUserDao();

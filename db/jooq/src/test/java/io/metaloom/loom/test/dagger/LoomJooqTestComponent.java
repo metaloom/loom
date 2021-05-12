@@ -12,7 +12,7 @@ import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
 @Component(modules = { VertxModule.class, DBBindModule.class, JooqLoomDaoBindModule.class, JooqNativeDaoModule.class })
-public interface LoomTestComponent {
+public interface LoomJooqTestComponent {
 
 	LoomDaoCollection daos();
 
@@ -29,6 +29,6 @@ public interface LoomTestComponent {
 		 * 
 		 * @return
 		 */
-		LoomTestComponent build();
+		LoomJooqTestComponent build();
 	}
 }

@@ -1,12 +1,12 @@
 package io.metaloom.loom.db.user;
 
-import io.metaloom.loom.test.dagger.DaggerLoomTestComponent;
-import io.metaloom.loom.test.dagger.LoomTestComponent;
+import io.metaloom.loom.test.dagger.DaggerLoomFsTestComponent;
+import io.metaloom.loom.test.dagger.LoomFsTestComponent;
 
 public class FsUserDaoTest extends AbstractUserDaoTest {
 
 	public LoomUserDao getDao() {
-		LoomTestComponent loomTest = DaggerLoomTestComponent.create();
+		LoomFsTestComponent loomTest = DaggerLoomFsTestComponent.create();
 		return new FsUserDaoImpl(loomTest.daos(), null);
 	}
 

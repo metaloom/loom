@@ -285,6 +285,26 @@
 			</dependency>
 			<dependency>
 				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-db-jooq</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-db-fs</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-db-memory</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-db-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom</groupId>
 				<artifactId>loom-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
