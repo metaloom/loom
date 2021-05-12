@@ -2,7 +2,7 @@ package io.metaloom.loom.db.flyway;
 
 import org.flywaydb.core.Flyway;
 
-public class FlywayTest {
+public class FlywayLocalRunner {
 
 	public static void main(String[] args) {
 		int port = 5432;
@@ -11,6 +11,5 @@ public class FlywayTest {
 		String password = "finger";
 		Flyway flyway = Flyway.configure().dataSource(url, user, password).load();
 		flyway.migrate();
-
 	}
 }

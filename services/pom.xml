@@ -36,6 +36,7 @@
 		<module>elasticsearch</module>
 		<module>graphql</module>
 		<module>monitoring</module>
+		<module>logger</module>
 		<module>plugins</module>
 		<module>rest</module>
 		<module>image</module>

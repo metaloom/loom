@@ -30,8 +30,6 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 
 	private Integer rating;
 
-	private List<LoomTag> tags = new ArrayList<>();
-
 	@Override
 	public String getFilename() {
 		return filename;

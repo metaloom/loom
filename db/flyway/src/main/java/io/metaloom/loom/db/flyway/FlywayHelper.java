@@ -7,7 +7,6 @@ import io.metaloom.loom.options.DatabaseOptions;
 public final class FlywayHelper {
 
 	private FlywayHelper() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void migrate(DatabaseOptions options) {

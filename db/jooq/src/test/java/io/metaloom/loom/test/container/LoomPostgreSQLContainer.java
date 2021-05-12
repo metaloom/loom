@@ -2,6 +2,8 @@ package io.metaloom.loom.test.container;
 
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import io.metaloom.loom.options.DatabaseOptions;
+
 /**
  * Preconfigured {@link PostgreSQLContainer}
  */
@@ -18,5 +20,15 @@ public class LoomPostgreSQLContainer extends PostgreSQLContainer<LoomPostgreSQLC
 
 	public int getPort() {
 		return getFirstMappedPort();
+	}
+
+	public DatabaseOptions getOptions() {
+		DatabaseOptions options = new DatabaseOptions();
+		options.setPort(getPort());
+		options.setHost(getContainerIpAddress());
+		options.setUsername(getUsername());
+		options.setPassword(getPassword());
+		options.setDatabaseName(getDatabaseName());
+		return options;
 	}
 }
