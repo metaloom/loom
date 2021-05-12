@@ -2,6 +2,8 @@ package io.metaloom.loom.test.container;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
@@ -11,6 +13,8 @@ import io.metaloom.loom.test.dagger.DaggerLoomJooqTestComponent;
 import io.metaloom.loom.test.dagger.LoomJooqTestComponent;
 
 public class LoomTestContext extends TestWatcher {
+
+	public static final Logger log = LogManager.getLogger(LoomTestContext.class);
 
 	public LoomPostgreSQLContainer container = new LoomPostgreSQLContainer();
 
@@ -34,7 +38,9 @@ public class LoomTestContext extends TestWatcher {
 	}
 
 	private void setupOnce(LoomTestSetting settings) {
+		log.info("Starting postgres container");
 		container.start();
+		log.info("Preparing environment");
 		setupEnvironment();
 	}
 
@@ -79,9 +85,11 @@ public class LoomTestContext extends TestWatcher {
 		options.setDatabase(container.getOptions());
 
 		// Prepare the database
+		log.info("Invoking flyway migration");
 		FlywayHelper.migrate(container.getOptions());
 
 		// Now setup loom
+		log.info("Creating dagger dependency tree");
 		loomComponent = DaggerLoomJooqTestComponent.builder()
 			.configuration(options).build();
 
