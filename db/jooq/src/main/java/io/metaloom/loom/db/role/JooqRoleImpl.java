@@ -1,12 +1,15 @@
 package io.metaloom.loom.db.role;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
+import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
 import io.metaloom.loom.db.jooq.tables.pojos.Role;
 import io.metaloom.loom.db.user.LoomUser;
+import io.vertx.core.json.JsonObject;
 
 public class JooqRoleImpl extends AbstractJooqCUDElement implements LoomRole, JooqWrapper<Role> {
 
@@ -43,28 +46,46 @@ public class JooqRoleImpl extends AbstractJooqCUDElement implements LoomRole, Jo
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomRole setUuid(UUID uuid) {
 		delegate.setUuid(uuid);
+		return this;
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomRole setCdate(LocalDateTime cdate) {
 		delegate.setCreated(cdate);
+		return this;
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
-		// TODO Auto-generated method stub
+	public JsonObject getMeta() {
+		return new JsonObject(delegate.getMeta());
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomRole setMeta(JsonObject meta) {
+		delegate.setMeta(meta.encode());
+		return this;
+	}
+
+	@Override
+	public LoomRole setCreator(LoomUser creator) {
+		Objects.requireNonNull(creator, "Invalid creator specified.");
+		delegate.setCreatorUuid(creator.getUuid());
+		return this;
+	}
+
+	@Override
+	public LoomRole setEdate(LocalDateTime edate) {
 		delegate.setEdited(edate);
+		return this;
 	}
 
 	@Override
-	public void setEditor(LoomUser editor) {
-		// TODO Auto-generated method stub
+	public LoomRole setEditor(LoomUser editor) {
+		Objects.requireNonNull(editor, "Invalid editor specified.");
+		delegate.setEditorUuid(editor.getUuid());
+		return this;
 	}
 
 	@Override

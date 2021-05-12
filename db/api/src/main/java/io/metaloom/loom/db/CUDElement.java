@@ -8,17 +8,17 @@ public interface CUDElement extends LoomElement {
 
 //	User getEditor();
 
-	void setEditor(LoomUser editor);
+	LoomElement setEditor(LoomUser editor);
 
 //	User getCreator();
 
-	void setCreator(LoomUser creator);
+	LoomElement setCreator(LoomUser creator);
 
 	LocalDateTime getEdate();
 
-	void setEdate(LocalDateTime edate);
+	LoomElement setEdate(LocalDateTime edate);
 
 	LocalDateTime getCdate();
 
-	void setCdate(LocalDateTime cdate);
+	LoomElement setCdate(LocalDateTime cdate);
 }

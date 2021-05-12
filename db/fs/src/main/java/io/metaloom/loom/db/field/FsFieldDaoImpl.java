@@ -12,6 +12,7 @@ import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 import io.vertx.reactivex.core.Vertx;
 
 @Singleton
@@ -38,10 +39,10 @@ public class FsFieldDaoImpl extends AbstractFSDao implements LoomFieldDao {
 	}
 
 	@Override
-	public LoomField createField() {
+	public Single<? extends LoomField> createField() {
 		LoomField field = new FsFieldImpl();
 		field.setUuid(UUIDUtil.randomUUID());
-		return field;
+		return Single.just(field);
 	}
 
 	@Override

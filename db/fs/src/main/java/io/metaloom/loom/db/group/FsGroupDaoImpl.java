@@ -66,27 +66,27 @@ public class FsGroupDaoImpl extends AbstractFSDao implements LoomGroupDao {
 	}
 
 	@Override
-	public Completable addUser(LoomGroup group, LoomUser user) {
+	public Completable addUserToGroup(LoomGroup group, LoomUser user) {
 		return Completable.fromAction(() -> {
 			toFs(group).users.add(user);
 		});
 	}
 
 	@Override
-	public Completable removeUser(LoomGroup group, LoomUser user) {
+	public Completable removeUserFromGroup(LoomGroup group, LoomUser user) {
 		return Completable.fromAction(() -> {
 			toFs(group).users.remove(user);
 		});
 	}
 
 	@Override
-	public Completable addRole(LoomGroup group, LoomRole role) {
+	public Completable addRoleToGroup(LoomGroup group, LoomRole role) {
 		toFs(group).roles.add(role);
 		return Completable.complete();
 	}
 
 	@Override
-	public Completable removeRole(LoomGroup group, LoomRole role) {
+	public Completable removeRoleFromGroup(LoomGroup group, LoomRole role) {
 		toFs(group).roles.remove(role);
 		return Completable.complete();
 	}

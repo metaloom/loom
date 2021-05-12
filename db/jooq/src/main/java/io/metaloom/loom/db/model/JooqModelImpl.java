@@ -43,28 +43,33 @@ public class JooqModelImpl extends AbstractJooqCUDElement implements LoomModel, 
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomModel setUuid(UUID uuid) {
 		delegate.setUuid(uuid);
+		return this;
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomModel setCdate(LocalDateTime cdate) {
 		delegate.setCreated(cdate);
+		return this;
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
+	public LoomModel setCreator(LoomUser creator) {
 		// TODO Auto-generated method stub
+		return this;
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomModel setEdate(LocalDateTime edate) {
 		delegate.setEdited(edate);
+		return this;
 	}
 
 	@Override
-	public void setEditor(LoomUser editor) {
+	public LoomModel setEditor(LoomUser editor) {
 		// TODO Auto-generated method stub
+		return this;
 	}
 
 	@Override

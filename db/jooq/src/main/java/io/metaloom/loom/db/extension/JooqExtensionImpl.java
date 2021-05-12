@@ -7,6 +7,7 @@ import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
 import io.metaloom.loom.db.jooq.tables.pojos.Extension;
 import io.metaloom.loom.db.user.LoomUser;
+import io.vertx.core.json.JsonObject;
 
 public class JooqExtensionImpl extends AbstractJooqCUDElement implements LoomExtension, JooqWrapper<Extension> {
 
@@ -28,6 +29,17 @@ public class JooqExtensionImpl extends AbstractJooqCUDElement implements LoomExt
 	}
 
 	@Override
+	public JsonObject getMeta() {
+		return new JsonObject(delegate.getMeta());
+	}
+
+	@Override
+	public LoomExtension setMeta(JsonObject meta) {
+		this.delegate.setMeta(meta.encode());
+		return this;
+	}
+
+	@Override
 	public LocalDateTime getCdate() {
 		return delegate.getCreated();
 	}
@@ -43,31 +55,29 @@ public class JooqExtensionImpl extends AbstractJooqCUDElement implements LoomExt
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomExtension setUuid(UUID uuid) {
 		delegate.setUuid(uuid);
+		return this;
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
-		// TODO Auto-generated method stub
-
+	public LoomExtension setCdate(LocalDateTime cdate) {
+		return this;
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
-		// TODO Auto-generated method stub
-
+	public LoomExtension setCreator(LoomUser creator) {
+		return this;
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
-		// delegate.setEdited();
-
+	public LoomExtension setEdate(LocalDateTime edate) {
+		return this;
 	}
 
 	@Override
-	public void setEditor(LoomUser editor) {
-		// TODO Auto-generated method stub
+	public LoomExtension setEditor(LoomUser editor) {
+		return this;
 	}
 
 	@Override

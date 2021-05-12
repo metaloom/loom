@@ -54,28 +54,33 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements LoomTag, Jooq
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomTag setUuid(UUID uuid) {
 		delegate.setUuid(uuid);
+		return this;
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomTag setCdate(LocalDateTime cdate) {
 		delegate.setCreated(cdate);
+		return this;
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
+	public LoomTag setCreator(LoomUser creator) {
 		// TODO Auto-generated method stub
+		return this;
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomTag setEdate(LocalDateTime edate) {
 		delegate.setEdited(edate);
+		return this;
 	}
 
 	@Override
-	public void setEditor(LoomUser editor) {
+	public LoomTag setEditor(LoomUser editor) {
 		// TODO Auto-generated method stub
+		return this;
 	}
 
 	@Override

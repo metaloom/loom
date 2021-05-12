@@ -14,8 +14,9 @@ public class AbstractFSLoomElement implements LoomElement {
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomElement setUuid(UUID uuid) {
 		this.uuid = uuid;
+		return this;
 	}
 
 }

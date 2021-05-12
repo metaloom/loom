@@ -7,6 +7,7 @@ import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
 import io.metaloom.loom.db.jooq.tables.pojos.Content;
 import io.metaloom.loom.db.user.LoomUser;
+import io.vertx.core.json.JsonObject;
 
 public class JooqContentImpl extends AbstractJooqCUDElement implements LoomContent, JooqWrapper<Content> {
 
@@ -33,31 +34,46 @@ public class JooqContentImpl extends AbstractJooqCUDElement implements LoomConte
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomContent setUuid(UUID uuid) {
 		delegate.setUuid(uuid);
+		return this;
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomContent setCdate(LocalDateTime cdate) {
 		// TODO Auto-generated method stub
+		return this;
 
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
+	public LoomContent setCreator(LoomUser creator) {
 		// TODO Auto-generated method stub
-
+		return this;
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomContent setEdate(LocalDateTime edate) {
 		// delegate.setEdited();
-
+		return this;
 	}
 
 	@Override
-	public void setEditor(LoomUser editor) {
-		// TODO Auto-generated method stub
+	public LoomContent setEditor(LoomUser editor) {
+		return this;
+	}
+
+	
+	@Override
+	public JsonObject getMeta() {
+//		return new JsonObject(delegate.getMeta());
+		return null;
+	}
+
+	@Override
+	public LoomContent setMeta(JsonObject meta) {
+//		delegate.setMeta(meta.encode());
+		return this;
 	}
 
 	@Override

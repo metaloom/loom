@@ -15,6 +15,7 @@ public interface LoomElement {
 	 * Set the UUID of the element.
 	 * 
 	 * @param uuid
+	 * @return Fluent API
 	 */
-	void setUuid(UUID uuid);
+	LoomElement setUuid(UUID uuid);
 }

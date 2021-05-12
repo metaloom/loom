@@ -43,7 +43,7 @@ public class BasicDaoTest {
 			LoomUser user = userDao.createUser("Name-" + System.currentTimeMillis()).blockingGet();
 			assertNotNull(user.getUuid());
 			// Group group = groupDao.createGroup("Test").blockingGet();
-			groupDao.addUser(group, user).blockingAwait();
+			groupDao.addUserToGroup(group, user).blockingAwait();
 		}
 
 		// userDao.updateUser(user);

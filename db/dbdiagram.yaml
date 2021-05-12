@@ -272,7 +272,7 @@ Table content_tree as CT {
   language varchar
   content_type loom_content_type [not null, note: "D or P for draft and published"]
   field_uuid uuid_generate_v4 [ref: > F.uuid, not null]
-  
+  meta varchar [note: "Custom meta properties"]
   webroot_path_info varchar [unique]
 
   Indexes {

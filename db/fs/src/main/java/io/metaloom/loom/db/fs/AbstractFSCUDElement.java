@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import io.metaloom.loom.db.CUDElement;
+import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.db.user.LoomUser;
 
 public abstract class AbstractFSCUDElement extends AbstractFSLoomElement implements CUDElement {
@@ -23,9 +24,10 @@ public abstract class AbstractFSCUDElement extends AbstractFSLoomElement impleme
 //	}
 //
 	@Override
-	public void setEditor(LoomUser editor) {
+	public LoomElement setEditor(LoomUser editor) {
 		Objects.requireNonNull(editor, "A valid user must be specified");
 		this.editorUuid = editor.getUuid();
+		return this;
 	}
 
 	public UUID getEditorUuid() {
@@ -42,8 +44,9 @@ public abstract class AbstractFSCUDElement extends AbstractFSLoomElement impleme
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomElement setEdate(LocalDateTime edate) {
 		this.edate = edate;
+		return this;
 	}
 
 //	@JsonIgnore
@@ -53,9 +56,10 @@ public abstract class AbstractFSCUDElement extends AbstractFSLoomElement impleme
 //	}
 //
 	@Override
-	public void setCreator(LoomUser creator) {
+	public LoomElement setCreator(LoomUser creator) {
 		Objects.requireNonNull(creator, "A valid user must be specified");
 		this.creatorUuid = creator.getUuid();
+		return this;
 	}
 
 	public UUID getCreatorUuid() {
@@ -72,8 +76,9 @@ public abstract class AbstractFSCUDElement extends AbstractFSLoomElement impleme
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomElement setCdate(LocalDateTime cdate) {
 		this.cdate = cdate;
+		return this;
 	}
 
 }

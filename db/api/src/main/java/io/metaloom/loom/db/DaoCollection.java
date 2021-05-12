@@ -11,6 +11,9 @@ import io.metaloom.loom.db.role.LoomRoleDao;
 import io.metaloom.loom.db.user.LoomUserDao;
 import io.metaloom.loom.db.webhook.LoomWebhookDao;
 
+/**
+ * Aggregated list of all loom DAOs.
+ */
 public interface DaoCollection {
 
 	LoomContentDao getContentDao();

@@ -3,6 +3,7 @@ package io.metaloom.loom.db.mem;
 import java.time.LocalDateTime;
 
 import io.metaloom.loom.db.CUDElement;
+import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.db.user.LoomUser;
 
 public abstract class AbstractMemCUDElement extends AbstractMemLoomElement implements CUDElement {
@@ -13,10 +14,10 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	private LoomUser editor;
 	private LocalDateTime edate;
 
-
 	@Override
-	public void setEditor(LoomUser editor) {
+	public LoomElement setEditor(LoomUser editor) {
 		this.editor = editor;
+		return this;
 	}
 
 	@Override
@@ -25,13 +26,15 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomElement setEdate(LocalDateTime edate) {
 		this.edate = edate;
+		return this;
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
+	public LoomElement setCreator(LoomUser creator) {
 		this.creator = creator;
+		return this;
 	}
 
 	@Override
@@ -40,8 +43,9 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomElement setCdate(LocalDateTime cdate) {
 		this.cdate = cdate;
+		return this;
 
 	}
 

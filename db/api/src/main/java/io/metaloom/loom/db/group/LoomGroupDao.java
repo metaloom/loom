@@ -20,17 +20,17 @@ public interface LoomGroupDao extends LoomDao {
 
 	Maybe<? extends LoomGroup> loadGroup(UUID uuid);
 
+	// Users
+	Completable addUserToGroup(LoomGroup group, LoomUser user);
+
+	Completable removeUserFromGroup(LoomGroup group, LoomUser user);
+
 	Observable<LoomUser> loadUsers(LoomGroup group);
 
-	// Users
-	Completable addUser(LoomGroup group, LoomUser user);
-
-	Completable removeUser(LoomGroup group, LoomUser user);
-
 	// Roles
-	Completable addRole(LoomGroup group, LoomRole role);
+	Completable addRoleToGroup(LoomGroup group, LoomRole role);
 
-	Completable removeRole(LoomGroup group, LoomRole role);
+	Completable removeRoleFromGroup(LoomGroup group, LoomRole role);
 
 	Observable<LoomRole> loadRoles(LoomGroup group);
 

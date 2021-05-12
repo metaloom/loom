@@ -6,6 +6,7 @@ import java.util.UUID;
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
 import io.metaloom.loom.db.jooq.tables.pojos.User;
+import io.vertx.core.json.JsonObject;
 
 public class JooqUserImpl extends AbstractJooqCUDElement implements LoomUser, JooqWrapper<User> {
 
@@ -60,6 +61,53 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements LoomUser, Jo
 	}
 
 	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public LoomUser setEnabled(boolean flag) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isSSO() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public LoomUser setSSO(boolean flag) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public JsonObject getMeta() {
+		return new JsonObject(delegate.getMeta());
+	}
+
+	@Override
+	public LoomUser setMeta(JsonObject meta) {
+		delegate.setMeta(meta.encode());
+		return this;
+	}
+
+	@Override
+	public String getPasswordHash() {
+		// return delegate.getPasswordHash();
+		return null;
+	}
+
+	@Override
+	public LoomUser setPasswordHash(String hash) {
+		// delegate.setPasswordHash(hash);
+		return this;
+	}
+
+	@Override
 	public LocalDateTime getCdate() {
 		return delegate.getCreated();
 	}
@@ -75,32 +123,33 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements LoomUser, Jo
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomUser setUuid(UUID uuid) {
 		delegate.setUuid(uuid);
+		return this;
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomUser setCdate(LocalDateTime cdate) {
 		// TODO Auto-generated method stub
-
+		return this;
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
-		// TODO Auto-generated method stub
-
+	public LoomUser setCreator(LoomUser creator) {
+		delegate.setCreatorUuid(creator.getUuid());
+		return this;
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomUser setEdate(LocalDateTime edate) {
 		// delegate.setEdited();
-
+		return this;
 	}
 
 	@Override
-	public void setEditor(LoomUser editor) {
-		// TODO Auto-generated method stub
-
+	public LoomUser setEditor(LoomUser editor) {
+		delegate.setEditorUuid(editor.getUuid());
+		return this;
 	}
 
 	@Override

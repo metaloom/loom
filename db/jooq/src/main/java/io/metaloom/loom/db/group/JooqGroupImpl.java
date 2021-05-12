@@ -7,6 +7,7 @@ import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
 import io.metaloom.loom.db.jooq.tables.pojos.Group;
 import io.metaloom.loom.db.user.LoomUser;
+import io.vertx.core.json.JsonObject;
 
 public class JooqGroupImpl extends AbstractJooqCUDElement implements LoomGroup, JooqWrapper<Group> {
 
@@ -43,28 +44,44 @@ public class JooqGroupImpl extends AbstractJooqCUDElement implements LoomGroup, 
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomGroup setUuid(UUID uuid) {
 		delegate.setUuid(uuid);
+		return this;
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomGroup setCdate(LocalDateTime cdate) {
 		delegate.setCreated(cdate);
+		return this;
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
+	public LoomGroup setCreator(LoomUser creator) {
 		delegate.setCreatorUuid(creator.getUuid());
+		return this;
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomGroup setEdate(LocalDateTime edate) {
 		delegate.setEdited(edate);
+		return this;
 	}
 
 	@Override
-	public void setEditor(LoomUser editor) {
+	public LoomGroup setEditor(LoomUser editor) {
 		delegate.setEditorUuid(editor.getUuid());
+		return this;
+	}
+
+	@Override
+	public JsonObject getMeta() {
+		return new JsonObject(delegate.getMeta());
+	}
+
+	@Override
+	public LoomGroup setMeta(JsonObject meta) {
+		delegate.setMeta(meta.encode());
+		return this;
 	}
 
 	@Override

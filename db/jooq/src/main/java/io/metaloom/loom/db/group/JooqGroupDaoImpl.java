@@ -78,7 +78,7 @@ public class JooqGroupDaoImpl extends GroupDao implements LoomGroupDao {
 	}
 
 	@Override
-	public Completable addUser(LoomGroup group, LoomUser user) {
+	public Completable addUserToGroup(LoomGroup group, LoomUser user) {
 		UserGroup userGroup = new UserGroup();
 		userGroup.setGroupUuid(group.getUuid());
 		userGroup.setUserUuid(user.getUuid());
@@ -86,19 +86,19 @@ public class JooqGroupDaoImpl extends GroupDao implements LoomGroupDao {
 	}
 
 	@Override
-	public Completable removeUser(LoomGroup group, LoomUser user) {
+	public Completable removeUserFromGroup(LoomGroup group, LoomUser user) {
 		UserGroupRecord record = new UserGroupRecord(user.getUuid(), group.getUuid());
 		return userGroupDao.deleteById(record).ignoreElement();
 	}
 
 	@Override
-	public Completable removeRole(LoomGroup group, LoomRole role) {
+	public Completable removeRoleFromGroup(LoomGroup group, LoomRole role) {
 		// TODO Auto-generated method stub
 		return Completable.complete();
 	}
 
 	@Override
-	public Completable addRole(LoomGroup group, LoomRole role) {
+	public Completable addRoleToGroup(LoomGroup group, LoomRole role) {
 		// TODO Auto-generated method stub
 		return Completable.complete();
 	}

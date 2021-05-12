@@ -1,12 +1,14 @@
 package io.metaloom.loom.db.namespace;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
 import io.metaloom.loom.db.jooq.tables.pojos.Namespace;
 import io.metaloom.loom.db.user.LoomUser;
+import io.vertx.core.json.JsonObject;
 
 public class JooqNamespaceImpl extends AbstractJooqCUDElement implements LoomNamespace, JooqWrapper<Namespace> {
 
@@ -43,31 +45,47 @@ public class JooqNamespaceImpl extends AbstractJooqCUDElement implements LoomNam
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomNamespace setUuid(UUID uuid) {
 		delegate.setUuid(uuid);
+		return this;
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomNamespace setCdate(LocalDateTime cdate) {
 		// TODO Auto-generated method stub
+		return this;
 
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
-		// TODO Auto-generated method stub
-
+	public LoomNamespace setCreator(LoomUser creator) {
+		Objects.requireNonNull(creator, "Invalid creator provided");
+		delegate.setCreatorUuid(creator.getUuid());
+		return this;
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomNamespace setEdate(LocalDateTime edate) {
 		// delegate.setEdited();
-
+		return this;
 	}
 
 	@Override
-	public void setEditor(LoomUser editor) {
-		// TODO Auto-generated method stub
+	public LoomNamespace setEditor(LoomUser editor) {
+		Objects.requireNonNull(editor, "Invalid editor provided");
+		delegate.setEditorUuid(editor.getUuid());
+		return this;
+	}
+
+	@Override
+	public JsonObject getMeta() {
+		return new JsonObject(delegate.getMeta());
+	}
+
+	@Override
+	public LoomNamespace setMeta(JsonObject meta) {
+		delegate.setMeta(meta.encode());
+		return this;
 	}
 
 	@Override

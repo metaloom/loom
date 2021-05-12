@@ -16,6 +16,7 @@ import io.metaloom.loom.db.jooq.tables.daos.FieldDao;
 import io.metaloom.loom.db.jooq.tables.pojos.Field;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
@@ -42,10 +43,10 @@ public class JooqFieldDaoImpl extends FieldDao implements LoomFieldDao {
 	}
 
 	@Override
-	public LoomField createField() {
+	public Single<? extends LoomField> createField() {
 		Field content = new Field();
 		insert(content);
-		return new JooqFieldImpl(content);
+		return Single.just(new JooqFieldImpl(content));
 	}
 
 	@Override

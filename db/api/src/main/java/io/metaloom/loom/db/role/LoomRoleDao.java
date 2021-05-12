@@ -9,6 +9,12 @@ import io.reactivex.Single;
 
 public interface LoomRoleDao extends LoomDao {
 
+	/**
+	 * Create and persist a new role.
+	 * 
+	 * @param name
+	 * @return
+	 */
 	Single<? extends LoomRole> createRole(String name);
 
 	Completable deleteRole(LoomRole role);

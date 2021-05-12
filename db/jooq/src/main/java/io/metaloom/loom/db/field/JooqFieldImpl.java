@@ -28,32 +28,34 @@ public class JooqFieldImpl extends AbstractJooqCUDElement implements LoomField, 
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomField setUuid(UUID uuid) {
 		delegate.setUuid(uuid);
+		return this;
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomField setCdate(LocalDateTime cdate) {
 		// TODO Auto-generated method stub
-
+		return this;
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomField setEdate(LocalDateTime edate) {
 		// delegate.setEdited();
+		return this;
 
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
+	public LoomField setCreator(LoomUser creator) {
 		// delegate.setCreatorUuid(creator.getUuid());
-
+		return this;
 	}
 
 	@Override
-	public void setEditor(LoomUser editor) {
+	public LoomField setEditor(LoomUser editor) {
 		delegate.setEditorUuid(editor.getUuid());
-
+		return this;
 	}
 
 	@Override

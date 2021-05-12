@@ -1,12 +1,16 @@
 package io.metaloom.loom.db.webhook;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
+import io.metaloom.loom.db.LoomElement;
+import io.metaloom.loom.db.group.LoomGroup;
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
 import io.metaloom.loom.db.jooq.tables.pojos.Webhook;
 import io.metaloom.loom.db.user.LoomUser;
+import io.vertx.core.json.JsonObject;
 
 public class JooqWebhookImpl extends AbstractJooqCUDElement implements LoomWebhook, JooqWrapper<Webhook> {
 
@@ -43,28 +47,46 @@ public class JooqWebhookImpl extends AbstractJooqCUDElement implements LoomWebho
 	}
 
 	@Override
-	public void setUuid(UUID uuid) {
+	public LoomWebhook setUuid(UUID uuid) {
 		delegate.setUuid(uuid);
+		return this;
 	}
 
 	@Override
-	public void setCdate(LocalDateTime cdate) {
+	public LoomWebhook setCdate(LocalDateTime cdate) {
 		// TODO Auto-generated method stub
+		return this;
 	}
 
 	@Override
-	public void setCreator(LoomUser creator) {
-		// TODO Auto-generated method stub
+	public LoomWebhook setCreator(LoomUser creator) {
+		Objects.requireNonNull(creator, "Invalid creator provided");
+		delegate.setCreatorUuid(creator.getUuid());
+		return this;
 	}
 
 	@Override
-	public void setEdate(LocalDateTime edate) {
+	public LoomWebhook setEdate(LocalDateTime edate) {
 		// delegate.setEdited();
+		return this;
 	}
 
 	@Override
-	public void setEditor(LoomUser editor) {
-		// TODO Auto-generated method stub
+	public LoomWebhook setEditor(LoomUser editor) {
+		Objects.requireNonNull(editor, "Invalid editor provided");
+		delegate.setEditorUuid(editor.getUuid());
+		return this;
+	}
+
+	@Override
+	public JsonObject getMeta() {
+		return new JsonObject(delegate.getMeta());
+	}
+
+	@Override
+	public LoomWebhook setMeta(JsonObject meta) {
+		delegate.setMeta(meta.encode());
+		return this;
 	}
 
 	@Override
