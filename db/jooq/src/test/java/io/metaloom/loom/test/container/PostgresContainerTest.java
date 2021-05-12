@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import io.metaloom.loom.db.namespace.LoomNamespaceDao;
 
-public class PostgresContainerTest extends AbstractLoomContainerTest {
+public class PostgresContainerTest extends LoomTestContext {
 
 	@Test
 	public void testContainer() {
