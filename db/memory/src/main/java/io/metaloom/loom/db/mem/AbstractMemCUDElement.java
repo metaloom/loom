@@ -21,12 +21,12 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	}
 
 	@Override
-	public LocalDateTime getEdate() {
+	public LocalDateTime getEdited() {
 		return edate;
 	}
 
 	@Override
-	public LoomElement setEdate(LocalDateTime edate) {
+	public LoomElement setEdited(LocalDateTime edate) {
 		this.edate = edate;
 		return this;
 	}
@@ -38,12 +38,12 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	}
 
 	@Override
-	public LocalDateTime getCdate() {
+	public LocalDateTime getCreated() {
 		return cdate;
 	}
 
 	@Override
-	public LoomElement setCdate(LocalDateTime cdate) {
+	public LoomElement setCreated(LocalDateTime cdate) {
 		this.cdate = cdate;
 		return this;
 

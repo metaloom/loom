@@ -33,7 +33,6 @@
 
 	<modules>
 		<module>api</module>
-		<module>model</module>
 		<module>memory</module>
 		<module>fs</module>
 		<module>jooq</module>

@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.group.LoomGroup;
 import io.metaloom.loom.db.group.LoomGroupDao;
 import io.metaloom.loom.db.user.LoomUser;
@@ -33,7 +33,7 @@ public class BasicDaoTest {
 	@Test
 	public void testGroupDao() {
 		LoomTestComponent loomComponent = DaggerLoomTestComponent.create();
-		DaoCollection daos = loomComponent.daos();
+		LoomDaoCollection daos = loomComponent.daos();
 		LoomGroupDao groupDao = daos.getGroupDao();
 		LoomUserDao userDao = daos.getUserDao();
 		// SqlClient client = loomComponent.sqlClient();

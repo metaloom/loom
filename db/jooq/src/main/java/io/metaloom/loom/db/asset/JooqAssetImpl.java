@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.asset;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,24 +21,13 @@ public class JooqAssetImpl extends AbstractJooqCUDElement implements LoomAsset, 
 
 	@Override
 	public String getFilename() {
-		// return delegate.getFilename();
-		return null;
+		return delegate.getFilename();
 	}
 
 	@Override
 	public LoomAsset setFilename(String filename) {
-		// return delegate.setFilename(filename);
+		delegate.setFilename(filename);
 		return this;
-	}
-
-	@Override
-	public LocalDateTime getCdate() {
-		return delegate.getCreated();
-	}
-
-	@Override
-	public LocalDateTime getEdate() {
-		return delegate.getEdited();
 	}
 
 	@Override
@@ -66,74 +56,79 @@ public class JooqAssetImpl extends AbstractJooqCUDElement implements LoomAsset, 
 	}
 
 	@Override
-	public LoomAsset setCdate(LocalDateTime cdate) {
-		// TODO Auto-generated method stub
+	public LocalDateTime getCreated() {
+		return delegate.getCreated();
+	}
+
+	@Override
+	public LoomAsset setCreated(LocalDateTime cdate) {
+		delegate.setCreated(cdate);
 		return this;
 	}
 
 	@Override
-	public LoomAsset setEdate(LocalDateTime edate) {
-		// delegate.setEdited();
+	public LocalDateTime getEdited() {
+		return delegate.getEdited();
+	}
+
+	@Override
+	public LoomAsset setEdited(LocalDateTime edate) {
+		delegate.setEdited(edate);
 		return this;
 	}
 
 	@Override
 	public String getS3BucketName() {
-		// TODO Auto-generated method stub
-		return null;
+		return delegate.getS3BucketName();
 	}
 
 	@Override
 	public LoomAsset setS3BucketName(String bucketName) {
-		// TODO Auto-generated method stub
+		delegate.setS3BucketName(bucketName);
 		return this;
 	}
 
 	@Override
 	public String getS3ObjectPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return delegate.getS3ObjectPath();
 	}
 
 	@Override
 	public LoomAsset setS3ObjectPath(String path) {
-		// TODO Auto-generated method stub
+		delegate.setS3ObjectPath(path);
 		return this;
 	}
 
 	@Override
 	public String getDominantColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return delegate.getDominantcolor();
 	}
 
 	@Override
 	public LoomAsset setDominantColor(String color) {
-		// TODO Auto-generated method stub
+		delegate.setDominantcolor(color);
 		return this;
 	}
 
 	@Override
-	public Double getGPSLat() {
-		// TODO Auto-generated method stub
-		return null;
+	public BigDecimal getGPSLat() {
+		return delegate.getGpsLat();
 	}
 
 	@Override
-	public LoomAsset setGPSLat(Double lat) {
-		// TODO Auto-generated method stub
+	public LoomAsset setGPSLat(BigDecimal lat) {
+		delegate.setGpsLat(lat);
 		return this;
 	}
 
 	@Override
-	public Double getGPSLon() {
-		// TODO Auto-generated method stub
-		return null;
+	public BigDecimal getGPSLon() {
+		return delegate.getGpsLon();
 	}
 
 	@Override
-	public LoomAsset setGPSLon(Double lon) {
-		// TODO Auto-generated method stub
+	public LoomAsset setGPSLon(BigDecimal lon) {
+		delegate.setGpsLon(lon);
 		return this;
 	}
 

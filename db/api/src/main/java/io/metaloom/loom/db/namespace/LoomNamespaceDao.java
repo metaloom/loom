@@ -11,11 +11,29 @@ import io.reactivex.Single;
 
 public interface LoomNamespaceDao extends LoomDao {
 
+	/**
+	 * Load the namespace with the given uuid.
+	 * 
+	 * @param uuid
+	 * @return
+	 */
 	Maybe<? extends LoomNamespace> loadNamespace(UUID uuid);
 
+	/**
+	 * Create a new namespace with the given name.
+	 * 
+	 * @param name
+	 * @return
+	 */
 	Single<? extends LoomNamespace> createNamespace(String name);
 
-	Completable deleteNamespace(LoomNamespace namespace);
+	/**
+	 * Delete the namespace with the given uuid.
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	Completable deleteNamespace(UUID uuid);
 
 	Completable updateNamespace(LoomNamespace namespace);
 

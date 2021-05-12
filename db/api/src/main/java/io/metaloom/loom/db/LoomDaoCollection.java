@@ -14,7 +14,7 @@ import io.metaloom.loom.db.webhook.LoomWebhookDao;
 /**
  * Aggregated list of all loom DAOs.
  */
-public interface DaoCollection {
+public interface LoomDaoCollection {
 
 	LoomContentDao getContentDao();
 

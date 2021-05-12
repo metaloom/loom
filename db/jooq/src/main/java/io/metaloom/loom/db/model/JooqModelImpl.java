@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
@@ -28,12 +29,12 @@ public class JooqModelImpl extends AbstractJooqCUDElement implements LoomModel, 
 	}
 
 	@Override
-	public LocalDateTime getCdate() {
+	public LocalDateTime getCreated() {
 		return delegate.getCreated();
 	}
 
 	@Override
-	public LocalDateTime getEdate() {
+	public LocalDateTime getEdited() {
 		return delegate.getEdited();
 	}
 
@@ -49,26 +50,28 @@ public class JooqModelImpl extends AbstractJooqCUDElement implements LoomModel, 
 	}
 
 	@Override
-	public LoomModel setCdate(LocalDateTime cdate) {
+	public LoomModel setCreated(LocalDateTime cdate) {
 		delegate.setCreated(cdate);
 		return this;
 	}
 
 	@Override
 	public LoomModel setCreator(LoomUser creator) {
-		// TODO Auto-generated method stub
+		Objects.requireNonNull(creator, "The creator is invalid");
+		delegate.setCreatorUuid(creator.getUuid());
 		return this;
 	}
 
 	@Override
-	public LoomModel setEdate(LocalDateTime edate) {
+	public LoomModel setEdited(LocalDateTime edate) {
 		delegate.setEdited(edate);
 		return this;
 	}
 
 	@Override
 	public LoomModel setEditor(LoomUser editor) {
-		// TODO Auto-generated method stub
+		Objects.requireNonNull(editor, "The editor is invalid");
+		delegate.setEditorUuid(editor.getUuid());
 		return this;
 	}
 

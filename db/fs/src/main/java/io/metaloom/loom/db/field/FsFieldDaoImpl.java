@@ -6,7 +6,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.uuid.UUIDUtil;
@@ -19,7 +19,7 @@ import io.vertx.reactivex.core.Vertx;
 public class FsFieldDaoImpl extends AbstractFSDao implements LoomFieldDao {
 
 	@Inject
-	public FsFieldDaoImpl(DaoCollection daos, Vertx rxVertx) {
+	public FsFieldDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
 		super(daos, rxVertx);
 	}
 

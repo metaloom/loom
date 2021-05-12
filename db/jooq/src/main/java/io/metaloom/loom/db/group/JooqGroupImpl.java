@@ -29,12 +29,12 @@ public class JooqGroupImpl extends AbstractJooqCUDElement implements LoomGroup, 
 	}
 
 	@Override
-	public LocalDateTime getCdate() {
+	public LocalDateTime getCreated() {
 		return delegate.getCreated();
 	}
 
 	@Override
-	public LocalDateTime getEdate() {
+	public LocalDateTime getEdited() {
 		return delegate.getEdited();
 	}
 
@@ -50,7 +50,7 @@ public class JooqGroupImpl extends AbstractJooqCUDElement implements LoomGroup, 
 	}
 
 	@Override
-	public LoomGroup setCdate(LocalDateTime cdate) {
+	public LoomGroup setCreated(LocalDateTime cdate) {
 		delegate.setCreated(cdate);
 		return this;
 	}
@@ -62,7 +62,7 @@ public class JooqGroupImpl extends AbstractJooqCUDElement implements LoomGroup, 
 	}
 
 	@Override
-	public LoomGroup setEdate(LocalDateTime edate) {
+	public LoomGroup setEdited(LocalDateTime edate) {
 		delegate.setEdited(edate);
 		return this;
 	}

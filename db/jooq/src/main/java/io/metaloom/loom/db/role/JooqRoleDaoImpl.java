@@ -37,9 +37,9 @@ public class JooqRoleDaoImpl extends RoleDao implements LoomRoleDao {
 	}
 
 	@Override
-	public Completable deleteRole(LoomRole role) {
-		Objects.requireNonNull(role, "Role must not be null");
-		return deleteById(role.getUuid()).ignoreElement();
+	public Completable deleteRole(UUID uuid) {
+		Objects.requireNonNull(uuid, "Role uuid must not be null");
+		return deleteById(uuid).ignoreElement();
 	}
 
 	@Override

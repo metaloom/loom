@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.asset;
 
+import java.math.BigDecimal;
+
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.MetaElement;
 import io.metaloom.loom.db.Taggable;
@@ -25,13 +27,13 @@ public interface LoomAsset extends CUDElement, Taggable, MetaElement {
 
 	LoomAsset setRating(Integer rating);
 
-	Double getGPSLon();
+	BigDecimal getGPSLon();
 
-	LoomAsset setGPSLon(Double lon);
+	LoomAsset setGPSLon(BigDecimal lon);
 
-	Double getGPSLat();
+	BigDecimal getGPSLat();
 
-	LoomAsset setGPSLat(Double lat);
+	LoomAsset setGPSLat(BigDecimal lat);
 
 	String getLocalPath();
 

@@ -9,9 +9,8 @@ import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.LoomElement;
-import io.metaloom.loom.db.asset.LoomAsset;
 import io.metaloom.loom.error.LoomRestException;
 import io.metaloom.loom.json.JsonUtil;
 import io.reactivex.Completable;
@@ -23,18 +22,18 @@ public abstract class AbstractFSDao {
 
 	public static final File BASE = new File("storage");
 
-	private final DaoCollection daos;
+	private final LoomDaoCollection daos;
 
 	private final Vertx rxVertx;
 
-	public AbstractFSDao(DaoCollection daos, Vertx rxVertx) {
+	public AbstractFSDao(LoomDaoCollection daos, Vertx rxVertx) {
 		this.daos = daos;
 		this.rxVertx = rxVertx;
 	}
 
 	abstract protected FSType getType();
 
-	public DaoCollection daos() {
+	public LoomDaoCollection daos() {
 		return daos;
 	}
 

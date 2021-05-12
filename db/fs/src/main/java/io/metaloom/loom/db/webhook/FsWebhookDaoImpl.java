@@ -6,7 +6,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.uuid.UUIDUtil;
@@ -19,7 +19,7 @@ import io.vertx.reactivex.core.Vertx;
 public class FsWebhookDaoImpl extends AbstractFSDao implements LoomWebhookDao {
 
 	@Inject
-	public FsWebhookDaoImpl(DaoCollection daos, Vertx rxVertx) {
+	public FsWebhookDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
 		super(daos, rxVertx);
 	}
 

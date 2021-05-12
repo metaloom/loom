@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.db.role.LoomRole;
@@ -26,7 +26,7 @@ import io.vertx.reactivex.core.Vertx;
 public class FsGroupDaoImpl extends AbstractFSDao implements LoomGroupDao {
 
 	@Inject
-	public FsGroupDaoImpl(DaoCollection daos, Vertx rxVertx) {
+	public FsGroupDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
 		super(daos, rxVertx);
 	}
 

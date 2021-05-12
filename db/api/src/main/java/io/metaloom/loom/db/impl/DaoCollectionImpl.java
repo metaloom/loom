@@ -4,7 +4,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Lazy;
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.asset.LoomAssetDao;
 import io.metaloom.loom.db.content.LoomContentDao;
 import io.metaloom.loom.db.extension.LoomExtensionDao;
@@ -17,7 +17,7 @@ import io.metaloom.loom.db.user.LoomUserDao;
 import io.metaloom.loom.db.webhook.LoomWebhookDao;
 
 @Singleton
-public class DaoCollectionImpl implements DaoCollection {
+public class DaoCollectionImpl implements LoomDaoCollection {
 
 	@Inject
 	public Lazy<LoomContentDao> contentDao;

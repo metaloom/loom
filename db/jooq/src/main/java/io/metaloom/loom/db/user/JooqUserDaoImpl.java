@@ -22,9 +22,10 @@ import io.vertx.reactivex.sqlclient.SqlClient;
 @Singleton
 public class JooqUserDaoImpl extends UserDao implements LoomUserDao {
 
+
 	@Inject
-	public JooqUserDaoImpl(Configuration configuration, SqlClient rxSqlClient) {
-		super(configuration, rxSqlClient);
+	public JooqUserDaoImpl(Configuration configuration, SqlClient rxClient) {
+		super(configuration, rxClient);
 	}
 
 	// protected JooqType getType() {

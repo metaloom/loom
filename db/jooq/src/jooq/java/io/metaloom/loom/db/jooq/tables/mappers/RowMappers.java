@@ -271,6 +271,15 @@ public class RowMappers {
                 };
         }
 
+        public static Function<Row,io.metaloom.loom.db.jooq.tables.pojos.TagAsset> getTagAssetMapper() {
+                return row -> {
+                        io.metaloom.loom.db.jooq.tables.pojos.TagAsset pojo = new io.metaloom.loom.db.jooq.tables.pojos.TagAsset();
+                        pojo.setTagUuid(row.getUUID("tag_uuid"));
+                        pojo.setAssetUuid(row.getUUID("asset_uuid"));
+                        return pojo;
+                };
+        }
+
         public static Function<Row,io.metaloom.loom.db.jooq.tables.pojos.TagContent> getTagContentMapper() {
                 return row -> {
                         io.metaloom.loom.db.jooq.tables.pojos.TagContent pojo = new io.metaloom.loom.db.jooq.tables.pojos.TagContent();
@@ -305,6 +314,7 @@ public class RowMappers {
                         pojo.setCreatorUuid(row.getUUID("creator_uuid"));
                         pojo.setEdited(row.getLocalDateTime("edited"));
                         pojo.setEditorUuid(row.getUUID("editor_uuid"));
+                        pojo.setPasswordhash(row.getString("passwordhash"));
                         return pojo;
                 };
         }

@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.tag;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
@@ -8,6 +9,9 @@ import io.metaloom.loom.db.jooq.JooqWrapper;
 import io.metaloom.loom.db.jooq.tables.pojos.Tag;
 import io.metaloom.loom.db.user.LoomUser;
 
+/**
+ * @See {@link LoomTag}
+ */
 public class JooqTagImpl extends AbstractJooqCUDElement implements LoomTag, JooqWrapper<Tag> {
 
 	private final Tag delegate;
@@ -39,12 +43,12 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements LoomTag, Jooq
 	}
 
 	@Override
-	public LocalDateTime getCdate() {
+	public LocalDateTime getCreated() {
 		return delegate.getCreated();
 	}
 
 	@Override
-	public LocalDateTime getEdate() {
+	public LocalDateTime getEdited() {
 		return delegate.getEdited();
 	}
 
@@ -60,26 +64,28 @@ public class JooqTagImpl extends AbstractJooqCUDElement implements LoomTag, Jooq
 	}
 
 	@Override
-	public LoomTag setCdate(LocalDateTime cdate) {
+	public LoomTag setCreated(LocalDateTime cdate) {
 		delegate.setCreated(cdate);
 		return this;
 	}
 
 	@Override
 	public LoomTag setCreator(LoomUser creator) {
-		// TODO Auto-generated method stub
+		Objects.requireNonNull(creator, "The provided creator is invalid");
+		delegate.setCreatorUuid(creator.getUuid());
 		return this;
 	}
 
 	@Override
-	public LoomTag setEdate(LocalDateTime edate) {
+	public LoomTag setEdited(LocalDateTime edate) {
 		delegate.setEdited(edate);
 		return this;
 	}
 
 	@Override
 	public LoomTag setEditor(LoomUser editor) {
-		// TODO Auto-generated method stub
+		Objects.requireNonNull(editor, "The provided editor is invalid");
+		delegate.setEditorUuid(editor.getUuid());
 		return this;
 	}
 

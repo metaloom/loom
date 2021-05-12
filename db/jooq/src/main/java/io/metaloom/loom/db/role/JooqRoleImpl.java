@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
 import io.metaloom.loom.db.jooq.tables.pojos.Role;
@@ -31,12 +30,12 @@ public class JooqRoleImpl extends AbstractJooqCUDElement implements LoomRole, Jo
 	}
 
 	@Override
-	public LocalDateTime getCdate() {
+	public LocalDateTime getCreated() {
 		return delegate.getCreated();
 	}
 
 	@Override
-	public LocalDateTime getEdate() {
+	public LocalDateTime getEdited() {
 		return delegate.getEdited();
 	}
 
@@ -52,7 +51,7 @@ public class JooqRoleImpl extends AbstractJooqCUDElement implements LoomRole, Jo
 	}
 
 	@Override
-	public LoomRole setCdate(LocalDateTime cdate) {
+	public LoomRole setCreated(LocalDateTime cdate) {
 		delegate.setCreated(cdate);
 		return this;
 	}
@@ -76,7 +75,7 @@ public class JooqRoleImpl extends AbstractJooqCUDElement implements LoomRole, Jo
 	}
 
 	@Override
-	public LoomRole setEdate(LocalDateTime edate) {
+	public LoomRole setEdited(LocalDateTime edate) {
 		delegate.setEdited(edate);
 		return this;
 	}

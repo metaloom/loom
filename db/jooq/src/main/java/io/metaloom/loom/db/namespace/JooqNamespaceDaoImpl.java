@@ -39,9 +39,9 @@ public class JooqNamespaceDaoImpl extends NamespaceDao implements LoomNamespaceD
 	}
 
 	@Override
-	public Completable deleteNamespace(LoomNamespace namespace) {
-		Objects.requireNonNull(namespace, "Namespace must not be null");
-		return deleteById(namespace.getUuid()).ignoreElement();
+	public Completable deleteNamespace(UUID uuid) {
+		Objects.requireNonNull(uuid, "Namespace uuid must not be null");
+		return deleteById(uuid).ignoreElement();
 	}
 
 	@Override

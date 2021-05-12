@@ -26,6 +26,7 @@ import io.metaloom.loom.db.jooq.tables.Role;
 import io.metaloom.loom.db.jooq.tables.RoleGroup;
 import io.metaloom.loom.db.jooq.tables.RolePermission;
 import io.metaloom.loom.db.jooq.tables.Tag;
+import io.metaloom.loom.db.jooq.tables.TagAsset;
 import io.metaloom.loom.db.jooq.tables.TagContent;
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
 import io.metaloom.loom.db.jooq.tables.TagUserMeta;
@@ -150,6 +151,11 @@ public class Tables {
      * The table <code>public.tag</code>.
      */
     public static final Tag TAG = Tag.TAG;
+
+    /**
+     * The table <code>public.tag_asset</code>.
+     */
+    public static final TagAsset TAG_ASSET = TagAsset.TAG_ASSET;
 
     /**
      * The table <code>public.tag_content</code>.

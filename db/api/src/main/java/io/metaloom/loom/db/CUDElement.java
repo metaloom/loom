@@ -14,11 +14,11 @@ public interface CUDElement extends LoomElement {
 
 	LoomElement setCreator(LoomUser creator);
 
-	LocalDateTime getEdate();
+	LocalDateTime getEdited();
 
-	LoomElement setEdate(LocalDateTime edate);
+	LoomElement setEdited(LocalDateTime edate);
 
-	LocalDateTime getCdate();
+	LocalDateTime getCreated();
 
-	LoomElement setCdate(LocalDateTime cdate);
+	LoomElement setCreated(LocalDateTime cdate);
 }

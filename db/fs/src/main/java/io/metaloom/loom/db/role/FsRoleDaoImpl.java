@@ -6,7 +6,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.uuid.UUIDUtil;
@@ -19,7 +19,7 @@ import io.vertx.reactivex.core.Vertx;
 public class FsRoleDaoImpl extends AbstractFSDao implements LoomRoleDao {
 
 	@Inject
-	public FsRoleDaoImpl(DaoCollection daos, Vertx rxVertx) {
+	public FsRoleDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
 		super(daos, rxVertx);
 	}
 
@@ -33,9 +33,9 @@ public class FsRoleDaoImpl extends AbstractFSDao implements LoomRoleDao {
 	}
 
 	@Override
-	public Completable deleteRole(LoomRole role) {
-		Objects.requireNonNull(role, "Role must not be null");
-		return delete(role.getUuid());
+	public Completable deleteRole(UUID uuid) {
+		Objects.requireNonNull(uuid, "Role uuid must not be null");
+		return delete(uuid);
 	}
 
 	@Override

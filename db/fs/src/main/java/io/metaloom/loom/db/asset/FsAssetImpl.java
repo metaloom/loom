@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.asset;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +24,9 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 
 	private JsonObject meta;
 
-	private Double gpsLon;
+	private BigDecimal gpsLon;
 
-	private Double gpsLat;
+	private BigDecimal gpsLat;
 
 	private Integer rating;
 
@@ -98,23 +99,23 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public Double getGPSLat() {
+	public BigDecimal getGPSLat() {
 		return gpsLat;
 	}
 
 	@Override
-	public LoomAsset setGPSLat(Double lat) {
+	public LoomAsset setGPSLat(BigDecimal lat) {
 		this.gpsLat = lat;
 		return this;
 	}
 
 	@Override
-	public Double getGPSLon() {
+	public BigDecimal getGPSLon() {
 		return gpsLon;
 	}
 
 	@Override
-	public LoomAsset setGPSLon(Double lon) {
+	public LoomAsset setGPSLon(BigDecimal lon) {
 		this.gpsLon = lon;
 		return this;
 	}

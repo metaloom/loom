@@ -26,6 +26,7 @@ import io.metaloom.loom.db.jooq.tables.Role;
 import io.metaloom.loom.db.jooq.tables.RoleGroup;
 import io.metaloom.loom.db.jooq.tables.RolePermission;
 import io.metaloom.loom.db.jooq.tables.Tag;
+import io.metaloom.loom.db.jooq.tables.TagAsset;
 import io.metaloom.loom.db.jooq.tables.TagContent;
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
 import io.metaloom.loom.db.jooq.tables.TagUserMeta;
@@ -166,6 +167,11 @@ public class Public extends SchemaImpl {
     public final Tag TAG = Tag.TAG;
 
     /**
+     * The table <code>public.tag_asset</code>.
+     */
+    public final TagAsset TAG_ASSET = TagAsset.TAG_ASSET;
+
+    /**
      * The table <code>public.tag_content</code>.
      */
     public final TagContent TAG_CONTENT = TagContent.TAG_CONTENT;
@@ -238,6 +244,7 @@ public class Public extends SchemaImpl {
             RoleGroup.ROLE_GROUP,
             RolePermission.ROLE_PERMISSION,
             Tag.TAG,
+            TagAsset.TAG_ASSET,
             TagContent.TAG_CONTENT,
             TagNamespace.TAG_NAMESPACE,
             TagUserMeta.TAG_USER_META,

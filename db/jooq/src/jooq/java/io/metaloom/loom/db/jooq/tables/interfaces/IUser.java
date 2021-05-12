@@ -149,6 +149,16 @@ public interface IUser extends VertxPojo, Serializable {
      */
     public UUID getEditorUuid();
 
+    /**
+     * Setter for <code>public.user.passwordhash</code>.
+     */
+    public IUser setPasswordhash(String value);
+
+    /**
+     * Getter for <code>public.user.passwordhash</code>.
+     */
+    public String getPasswordhash();
+
     // -------------------------------------------------------------------------
     // FROM and INTO
     // -------------------------------------------------------------------------
@@ -178,6 +188,7 @@ public interface IUser extends VertxPojo, Serializable {
                 // Omitting unrecognized type java.util.UUID for column creator_uuid!
                 setOrThrow(this::setEdited,key -> {String s = json.getString(key); return s==null?null:java.time.LocalDateTime.parse(s);},"edited","java.time.LocalDateTime");
                 // Omitting unrecognized type java.util.UUID for column editor_uuid!
+                setOrThrow(this::setPasswordhash,json::getString,"passwordhash","java.lang.String");
                 return this;
         }
 
@@ -198,6 +209,7 @@ public interface IUser extends VertxPojo, Serializable {
                 // Omitting unrecognized type java.util.UUID for column creator_uuid!
                 json.put("edited",getEdited()==null?null:getEdited().toString());
                 // Omitting unrecognized type java.util.UUID for column editor_uuid!
+                json.put("passwordhash",getPasswordhash());
                 return json;
         }
 

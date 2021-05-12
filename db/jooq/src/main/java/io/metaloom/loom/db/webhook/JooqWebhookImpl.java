@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-import io.metaloom.loom.db.LoomElement;
-import io.metaloom.loom.db.group.LoomGroup;
 import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
 import io.metaloom.loom.db.jooq.JooqWrapper;
 import io.metaloom.loom.db.jooq.tables.pojos.Webhook;
@@ -32,13 +30,25 @@ public class JooqWebhookImpl extends AbstractJooqCUDElement implements LoomWebho
 	}
 
 	@Override
-	public LocalDateTime getCdate() {
+	public LocalDateTime getCreated() {
 		return delegate.getCreated();
 	}
 
 	@Override
-	public LocalDateTime getEdate() {
+	public LoomWebhook setCreated(LocalDateTime cdate) {
+		delegate.setCreated(cdate);
+		return this;
+	}
+
+	@Override
+	public LocalDateTime getEdited() {
 		return delegate.getEdited();
+	}
+
+	@Override
+	public LoomWebhook setEdited(LocalDateTime edate) {
+		delegate.setEdited(edate);
+		return this;
 	}
 
 	@Override
@@ -53,21 +63,9 @@ public class JooqWebhookImpl extends AbstractJooqCUDElement implements LoomWebho
 	}
 
 	@Override
-	public LoomWebhook setCdate(LocalDateTime cdate) {
-		// TODO Auto-generated method stub
-		return this;
-	}
-
-	@Override
 	public LoomWebhook setCreator(LoomUser creator) {
 		Objects.requireNonNull(creator, "Invalid creator provided");
 		delegate.setCreatorUuid(creator.getUuid());
-		return this;
-	}
-
-	@Override
-	public LoomWebhook setEdate(LocalDateTime edate) {
-		// delegate.setEdited();
 		return this;
 	}
 

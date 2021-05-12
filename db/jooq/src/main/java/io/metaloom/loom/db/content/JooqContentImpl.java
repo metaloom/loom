@@ -18,12 +18,12 @@ public class JooqContentImpl extends AbstractJooqCUDElement implements LoomConte
 	}
 
 	@Override
-	public LocalDateTime getCdate() {
+	public LocalDateTime getCreated() {
 		return delegate.getCreated();
 	}
 
 	@Override
-	public LocalDateTime getEdate() {
+	public LocalDateTime getEdited() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,7 +40,7 @@ public class JooqContentImpl extends AbstractJooqCUDElement implements LoomConte
 	}
 
 	@Override
-	public LoomContent setCdate(LocalDateTime cdate) {
+	public LoomContent setCreated(LocalDateTime cdate) {
 		// TODO Auto-generated method stub
 		return this;
 
@@ -53,7 +53,7 @@ public class JooqContentImpl extends AbstractJooqCUDElement implements LoomConte
 	}
 
 	@Override
-	public LoomContent setEdate(LocalDateTime edate) {
+	public LoomContent setEdited(LocalDateTime edate) {
 		// delegate.setEdited();
 		return this;
 	}

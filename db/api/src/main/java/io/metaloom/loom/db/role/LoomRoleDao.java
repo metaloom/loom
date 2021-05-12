@@ -17,10 +17,22 @@ public interface LoomRoleDao extends LoomDao {
 	 */
 	Single<? extends LoomRole> createRole(String name);
 
-	Completable deleteRole(LoomRole role);
+	/**
+	 * Load the role with the given uuid.
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	Maybe<? extends LoomRole> loadRole(UUID uuid);
+
+	/**
+	 * Delete the role with the given uuid.
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	Completable deleteRole(UUID uuid);
 
 	Completable updateRole(LoomRole role);
-
-	Maybe<? extends LoomRole> loadRole(UUID uuid);
 
 }

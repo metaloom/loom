@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 
 import org.apache.commons.io.FileUtils;
 
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
 import io.metaloom.loom.uuid.UUIDUtil;
@@ -22,7 +22,7 @@ import io.vertx.reactivex.core.Vertx;
 public class FsUserDaoImpl extends AbstractFSDao implements LoomUserDao {
 
 	@Inject
-	public FsUserDaoImpl(DaoCollection daos, Vertx rxVertx) {
+	public FsUserDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
 		super(daos, rxVertx);
 	}
 

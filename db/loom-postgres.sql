@@ -116,6 +116,7 @@ CREATE TABLE "user" (
   "username" varchar UNIQUE NOT NULL,
   "firstname" varchar,
   "lastname" varchar,
+  "passwordhash" varchar,
   "email" varchar,
   "enabled" boolean NOT NULL DEFAULT true,
   "sso" boolean NOT NULL DEFAULT false,
@@ -209,6 +210,12 @@ CREATE TABLE "tag_namespace" (
   "tag_uuid" uuid NOT NULL,
   "namespace_uuid" uuid NOT NULL,
   PRIMARY KEY ("tag_uuid", "namespace_uuid")
+);
+
+CREATE TABLE "tag_asset" (
+  "tag_uuid" uuid NOT NULL,
+  "asset_uuid" uuid NOT NULL,
+  PRIMARY KEY ("tag_uuid", "asset_uuid")
 );
 
 CREATE TABLE "tag_content" (

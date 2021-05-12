@@ -6,9 +6,12 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.LoomDaoCollection;
+import io.metaloom.loom.db.asset.LoomAsset;
+import io.metaloom.loom.db.content.LoomContent;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
+import io.metaloom.loom.db.namespace.LoomNamespace;
 import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
@@ -19,7 +22,7 @@ import io.vertx.reactivex.core.Vertx;
 public class FsTagDaoImpl extends AbstractFSDao implements LoomTagDao {
 
 	@Inject
-	public FsTagDaoImpl(DaoCollection daos, Vertx rxVertx) {
+	public FsTagDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
 		super(daos, rxVertx);
 	}
 
@@ -33,9 +36,9 @@ public class FsTagDaoImpl extends AbstractFSDao implements LoomTagDao {
 	}
 
 	@Override
-	public Completable deleteTag(LoomTag tag) {
-		Objects.requireNonNull(tag, "Tag must not be null");
-		return delete(tag.getUuid());
+	public Completable deleteTag(UUID uuid) {
+		Objects.requireNonNull(uuid, "Tag must not be null");
+		return delete(uuid);
 	}
 
 	@Override
@@ -53,6 +56,42 @@ public class FsTagDaoImpl extends AbstractFSDao implements LoomTagDao {
 	public Completable updateTag(LoomTag tag) {
 		Objects.requireNonNull(tag, "Tag must not be null");
 		return store(tag).ignoreElement();
+	}
+
+	@Override
+	public Completable tagAsset(LoomTag tag, LoomAsset asset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Completable untagAsset(LoomTag tag, LoomAsset asset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Completable tagContent(LoomTag tag, LoomContent asset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Completable untagContent(LoomTag tag, LoomContent asset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Completable tagNamespace(LoomTag tag, LoomNamespace namespace) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Completable untagNamespace(LoomTag tag, LoomNamespace namespace) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

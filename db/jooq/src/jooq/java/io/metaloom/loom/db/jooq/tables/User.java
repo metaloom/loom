@@ -19,7 +19,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row13;
+import org.jooq.Row14;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -115,6 +115,11 @@ public class User extends TableImpl<UserRecord> {
      * The column <code>public.user.editor_uuid</code>.
      */
     public final TableField<UserRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+
+    /**
+     * The column <code>public.user.passwordhash</code>.
+     */
+    public final TableField<UserRecord, String> PASSWORDHASH = createField(DSL.name("passwordhash"), SQLDataType.VARCHAR, this, "");
 
     private User(Name alias, Table<UserRecord> aliased) {
         this(alias, aliased, null);
@@ -218,11 +223,11 @@ public class User extends TableImpl<UserRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row13 type methods
+    // Row14 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row13<java.util.UUID, String, String, String, String, Boolean, Boolean, String, LoomPermissionFlag, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
-        return (Row13) super.fieldsRow();
+    public Row14<java.util.UUID, String, String, String, String, Boolean, Boolean, String, LoomPermissionFlag, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, String> fieldsRow() {
+        return (Row14) super.fieldsRow();
     }
 }

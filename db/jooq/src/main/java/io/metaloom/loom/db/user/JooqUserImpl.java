@@ -62,26 +62,26 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements LoomUser, Jo
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		// TODO check for NPE
+		return delegate.getEnabled();
 	}
 
 	@Override
 	public LoomUser setEnabled(boolean flag) {
-		// TODO Auto-generated method stub
-		return null;
+		delegate.setEnabled(flag);
+		return this;
 	}
 
 	@Override
 	public boolean isSSO() {
-		// TODO Auto-generated method stub
-		return false;
+		// TODO check for NPE
+		return delegate.getSso();
 	}
 
 	@Override
 	public LoomUser setSSO(boolean flag) {
-		// TODO Auto-generated method stub
-		return null;
+		delegate.setSso(flag);
+		return this;
 	}
 
 	@Override
@@ -97,23 +97,22 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements LoomUser, Jo
 
 	@Override
 	public String getPasswordHash() {
-		// return delegate.getPasswordHash();
-		return null;
+		return delegate.getPasswordhash();
 	}
 
 	@Override
 	public LoomUser setPasswordHash(String hash) {
-		// delegate.setPasswordHash(hash);
+		delegate.setPasswordhash(hash);
 		return this;
 	}
 
 	@Override
-	public LocalDateTime getCdate() {
+	public LocalDateTime getCreated() {
 		return delegate.getCreated();
 	}
 
 	@Override
-	public LocalDateTime getEdate() {
+	public LocalDateTime getEdited() {
 		return delegate.getEdited();
 	}
 
@@ -129,8 +128,8 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements LoomUser, Jo
 	}
 
 	@Override
-	public LoomUser setCdate(LocalDateTime cdate) {
-		// TODO Auto-generated method stub
+	public LoomUser setCreated(LocalDateTime cdate) {
+		delegate.setCreated(cdate);
 		return this;
 	}
 
@@ -141,8 +140,8 @@ public class JooqUserImpl extends AbstractJooqCUDElement implements LoomUser, Jo
 	}
 
 	@Override
-	public LoomUser setEdate(LocalDateTime edate) {
-		// delegate.setEdited();
+	public LoomUser setEdited(LocalDateTime edate) {
+		delegate.setEdited(edate);
 		return this;
 	}
 

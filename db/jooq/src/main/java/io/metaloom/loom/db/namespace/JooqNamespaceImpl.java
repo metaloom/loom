@@ -30,12 +30,12 @@ public class JooqNamespaceImpl extends AbstractJooqCUDElement implements LoomNam
 	}
 
 	@Override
-	public LocalDateTime getCdate() {
+	public LocalDateTime getCreated() {
 		return delegate.getCreated();
 	}
 
 	@Override
-	public LocalDateTime getEdate() {
+	public LocalDateTime getEdited() {
 		return delegate.getEdited();
 	}
 
@@ -51,10 +51,9 @@ public class JooqNamespaceImpl extends AbstractJooqCUDElement implements LoomNam
 	}
 
 	@Override
-	public LoomNamespace setCdate(LocalDateTime cdate) {
-		// TODO Auto-generated method stub
+	public LoomNamespace setCreated(LocalDateTime cdate) {
+		delegate.setCreated(cdate);
 		return this;
-
 	}
 
 	@Override
@@ -65,8 +64,8 @@ public class JooqNamespaceImpl extends AbstractJooqCUDElement implements LoomNam
 	}
 
 	@Override
-	public LoomNamespace setEdate(LocalDateTime edate) {
-		// delegate.setEdited();
+	public LoomNamespace setEdited(LocalDateTime edate) {
+		delegate.setEdited(edate);
 		return this;
 	}
 

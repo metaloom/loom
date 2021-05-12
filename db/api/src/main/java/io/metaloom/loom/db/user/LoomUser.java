@@ -13,15 +13,26 @@ public interface LoomUser extends CUDElement, MetaElement {
 	String getUsername();
 
 	/**
-	 * Set the username
+	 * Set the username.
 	 * 
 	 * @param username
 	 * @return Fluent API
 	 */
 	LoomUser setUsername(String username);
 
+	/**
+	 * Return the stored password hash for the user.
+	 * 
+	 * @return
+	 */
 	String getPasswordHash();
 
+	/**
+	 * Set the password hash.
+	 * 
+	 * @param hash
+	 * @return Fluent API
+	 */
 	LoomUser setPasswordHash(String hash);
 
 	/**
@@ -39,15 +50,36 @@ public interface LoomUser extends CUDElement, MetaElement {
 	 */
 	LoomUser setSSO(boolean flag);
 
+	/**
+	 * Check whether the user is enabled.
+	 * 
+	 * @return
+	 */
 	boolean isEnabled();
 
+	/**
+	 * Set the enabled flag for the user.
+	 * 
+	 * @param flag
+	 * @return Fluent API
+	 */
 	LoomUser setEnabled(boolean flag);
 
+	/**
+	 * Enable the user. This will enable login.
+	 * 
+	 * @return
+	 */
 	default LoomUser enable() {
 		setEnabled(true);
 		return this;
 	}
 
+	/**
+	 * Disable the user. This will prevent login.
+	 * 
+	 * @return
+	 */
 	default LoomUser disable() {
 		setEnabled(false);
 		return this;

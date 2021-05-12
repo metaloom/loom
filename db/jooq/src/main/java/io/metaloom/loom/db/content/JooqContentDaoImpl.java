@@ -12,7 +12,6 @@ import javax.inject.Singleton;
 
 import org.jooq.Configuration;
 
-import io.metaloom.loom.db.group.JooqGroupImpl;
 import io.metaloom.loom.db.jooq.tables.daos.ContentDao;
 import io.metaloom.loom.db.jooq.tables.pojos.Content;
 import io.metaloom.loom.db.tag.LoomTag;

@@ -21,44 +21,49 @@ import io.metaloom.loom.db.role.LoomRoleDao;
 import io.metaloom.loom.db.tag.JooqTagDaoImpl;
 import io.metaloom.loom.db.tag.LoomTagDao;
 import io.metaloom.loom.db.user.JooqUserDaoImpl;
+import io.metaloom.loom.db.user.JooqUserTokenDaoImpl;
 import io.metaloom.loom.db.user.LoomUserDao;
+import io.metaloom.loom.db.user.LoomUserTokenDao;
 import io.metaloom.loom.db.webhook.JooqWebhookDaoImpl;
 import io.metaloom.loom.db.webhook.LoomWebhookDao;
 
 @Module
-public abstract class JooqDaoBindModule {
+public abstract class JooqLoomDaoBindModule {
 
 	@Binds
-	abstract LoomModelDao modelsDao(JooqModelDaoImpl dao);
+	abstract LoomUserDao userDao(JooqUserDaoImpl dao);
 
 	@Binds
-	abstract LoomContentDao contentsDao(JooqContentDaoImpl dao);
+	abstract LoomGroupDao groupDao(JooqGroupDaoImpl dao);
 
 	@Binds
-	abstract LoomFieldDao fieldsDao(JooqFieldDaoImpl dao);
+	abstract LoomRoleDao roleDao(JooqRoleDaoImpl dao);
 
 	@Binds
-	abstract LoomUserDao usersDao(JooqUserDaoImpl dao);
+	abstract LoomModelDao modelDao(JooqModelDaoImpl dao);
 
 	@Binds
-	abstract LoomGroupDao groupsDao(JooqGroupDaoImpl dao);
+	abstract LoomContentDao contentDao(JooqContentDaoImpl dao);
 
 	@Binds
-	abstract LoomRoleDao rolesDao(JooqRoleDaoImpl dao);
+	abstract LoomFieldDao fieldDao(JooqFieldDaoImpl dao);
 
 	@Binds
-	abstract LoomTagDao tagsDao(JooqTagDaoImpl dao);
+	abstract LoomUserTokenDao userTokenDao(JooqUserTokenDaoImpl dao);
 
 	@Binds
-	abstract LoomNamespaceDao namespacesDao(JooqNamespaceDaoImpl dao);
+	abstract LoomTagDao tagDao(JooqTagDaoImpl dao);
+
+	@Binds
+	abstract LoomNamespaceDao namespaceDao(JooqNamespaceDaoImpl dao);
 
 	@Binds
 	abstract LoomWebhookDao webhookDao(JooqWebhookDaoImpl dao);
 
 	@Binds
-	abstract LoomExtensionDao extensionsDao(JooqExtensionDaoImpl dao);
+	abstract LoomExtensionDao extensionDao(JooqExtensionDaoImpl dao);
 
 	@Binds
-	abstract LoomAssetDao assetsDao(JooqAssetDaoImpl dao);
+	abstract LoomAssetDao assetDao(JooqAssetDaoImpl dao);
 
 }

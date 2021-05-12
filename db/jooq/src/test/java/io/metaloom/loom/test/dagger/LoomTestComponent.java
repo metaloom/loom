@@ -3,18 +3,18 @@ package io.metaloom.loom.test.dagger;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.dagger.DBBindModule;
 import io.metaloom.loom.db.dagger.VertxModule;
-import io.metaloom.loom.db.jooq.dagger.JooqDaoBindModule;
+import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
 import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
 import io.vertx.reactivex.sqlclient.SqlClient;
 
 @Singleton
-@Component(modules = { VertxModule.class, DBBindModule.class, JooqDaoBindModule.class, JooqNativeDaoModule.class })
+@Component(modules = { VertxModule.class, DBBindModule.class, JooqLoomDaoBindModule.class, JooqNativeDaoModule.class })
 public interface LoomTestComponent {
 
-	DaoCollection daos();
+	LoomDaoCollection daos();
 
 	SqlClient sqlClient();
 

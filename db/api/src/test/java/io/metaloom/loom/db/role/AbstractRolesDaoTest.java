@@ -40,7 +40,7 @@ public abstract class AbstractRolesDaoTest {
 		LoomRole role = dao.createRole("Guests").blockingGet();
 
 		// Now assert deletion
-		dao.deleteRole(role);
+		dao.deleteRole(role.getUuid());
 		assertTrue("No role should be found after deletion.", dao.loadRole(role.getUuid()).isEmpty().blockingGet());
 	}
 

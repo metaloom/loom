@@ -17,12 +17,6 @@ public class JooqFieldImpl extends AbstractJooqCUDElement implements LoomField, 
 	}
 
 	@Override
-	public LocalDateTime getEdate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public UUID getUuid() {
 		return delegate.getUuid();
 	}
@@ -34,16 +28,25 @@ public class JooqFieldImpl extends AbstractJooqCUDElement implements LoomField, 
 	}
 
 	@Override
-	public LoomField setCdate(LocalDateTime cdate) {
+	public LocalDateTime getCreated() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LoomField setCreated(LocalDateTime cdate) {
 		return this;
 	}
 
 	@Override
-	public LoomField setEdate(LocalDateTime edate) {
-		// delegate.setEdited();
-		return this;
+	public LocalDateTime getEdited() {
+		return delegate.getEdited();
+	}
 
+	@Override
+	public LoomField setEdited(LocalDateTime edate) {
+		delegate.setEdited(edate);
+		return this;
 	}
 
 	@Override
@@ -56,12 +59,6 @@ public class JooqFieldImpl extends AbstractJooqCUDElement implements LoomField, 
 	public LoomField setEditor(LoomUser editor) {
 		delegate.setEditorUuid(editor.getUuid());
 		return this;
-	}
-
-	@Override
-	public LocalDateTime getCdate() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

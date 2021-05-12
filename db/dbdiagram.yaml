@@ -156,6 +156,18 @@ Table tag_namespace {
   note: "Table used to taggings on namespaces"
 }
 
+Table tag_asset {
+  tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
+  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
+  
+  Indexes {
+    (tag_uuid, asset_uuid) [pk]
+  }
+  
+  note: "Table used to taggings on assets"
+}
+
+
 Table tag_content {
   tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
   content_uuid uuid_generate_v4 [ref: > C.uuid, not null]
@@ -512,6 +524,7 @@ tablegroup ACL {
 tablegroup Tagging {
   tag
   tag_namespace
+  tag_asset
   asset_timeline_tag
   tag_content
   tag_user_meta

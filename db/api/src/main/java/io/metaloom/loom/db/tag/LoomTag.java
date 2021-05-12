@@ -2,6 +2,9 @@ package io.metaloom.loom.db.tag;
 
 import io.metaloom.loom.db.CUDElement;
 
+/**
+ * Tags are elements which can be attached to various other elements (e.g. Namespaces, Contents, Assets)
+ */
 public interface LoomTag extends CUDElement {
 
 	/**
