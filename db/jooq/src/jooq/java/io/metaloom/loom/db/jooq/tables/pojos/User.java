@@ -25,6 +25,7 @@ public class User implements VertxPojo, IUser {
     private String             username;
     private String             firstname;
     private String             lastname;
+    private String             passwordhash;
     private String             email;
     private Boolean            enabled;
     private Boolean            sso;
@@ -34,7 +35,6 @@ public class User implements VertxPojo, IUser {
     private UUID               creatorUuid;
     private LocalDateTime      edited;
     private UUID               editorUuid;
-    private String             passwordhash;
 
     public User() {}
 
@@ -43,6 +43,7 @@ public class User implements VertxPojo, IUser {
         this.username = value.getUsername();
         this.firstname = value.getFirstname();
         this.lastname = value.getLastname();
+        this.passwordhash = value.getPasswordhash();
         this.email = value.getEmail();
         this.enabled = value.getEnabled();
         this.sso = value.getSso();
@@ -52,7 +53,6 @@ public class User implements VertxPojo, IUser {
         this.creatorUuid = value.getCreatorUuid();
         this.edited = value.getEdited();
         this.editorUuid = value.getEditorUuid();
-        this.passwordhash = value.getPasswordhash();
     }
 
     public User(
@@ -60,6 +60,7 @@ public class User implements VertxPojo, IUser {
         String             username,
         String             firstname,
         String             lastname,
+        String             passwordhash,
         String             email,
         Boolean            enabled,
         Boolean            sso,
@@ -68,13 +69,13 @@ public class User implements VertxPojo, IUser {
         LocalDateTime      created,
         UUID               creatorUuid,
         LocalDateTime      edited,
-        UUID               editorUuid,
-        String             passwordhash
+        UUID               editorUuid
     ) {
         this.uuid = uuid;
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.passwordhash = passwordhash;
         this.email = email;
         this.enabled = enabled;
         this.sso = sso;
@@ -84,7 +85,6 @@ public class User implements VertxPojo, IUser {
         this.creatorUuid = creatorUuid;
         this.edited = edited;
         this.editorUuid = editorUuid;
-        this.passwordhash = passwordhash;
     }
 
         public User(io.vertx.core.json.JsonObject json) {
@@ -157,6 +157,23 @@ public class User implements VertxPojo, IUser {
     @Override
     public User setLastname(String lastname) {
         this.lastname = lastname;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.user.passwordhash</code>.
+     */
+    @Override
+    public String getPasswordhash() {
+        return this.passwordhash;
+    }
+
+    /**
+     * Setter for <code>public.user.passwordhash</code>.
+     */
+    @Override
+    public User setPasswordhash(String passwordhash) {
+        this.passwordhash = passwordhash;
         return this;
     }
 
@@ -313,23 +330,6 @@ public class User implements VertxPojo, IUser {
         return this;
     }
 
-    /**
-     * Getter for <code>public.user.passwordhash</code>.
-     */
-    @Override
-    public String getPasswordhash() {
-        return this.passwordhash;
-    }
-
-    /**
-     * Setter for <code>public.user.passwordhash</code>.
-     */
-    @Override
-    public User setPasswordhash(String passwordhash) {
-        this.passwordhash = passwordhash;
-        return this;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("User (");
@@ -338,6 +338,7 @@ public class User implements VertxPojo, IUser {
         sb.append(", ").append(username);
         sb.append(", ").append(firstname);
         sb.append(", ").append(lastname);
+        sb.append(", ").append(passwordhash);
         sb.append(", ").append(email);
         sb.append(", ").append(enabled);
         sb.append(", ").append(sso);
@@ -347,7 +348,6 @@ public class User implements VertxPojo, IUser {
         sb.append(", ").append(creatorUuid);
         sb.append(", ").append(edited);
         sb.append(", ").append(editorUuid);
-        sb.append(", ").append(passwordhash);
 
         sb.append(")");
         return sb.toString();
@@ -363,6 +363,7 @@ public class User implements VertxPojo, IUser {
         setUsername(from.getUsername());
         setFirstname(from.getFirstname());
         setLastname(from.getLastname());
+        setPasswordhash(from.getPasswordhash());
         setEmail(from.getEmail());
         setEnabled(from.getEnabled());
         setSso(from.getSso());
@@ -372,7 +373,6 @@ public class User implements VertxPojo, IUser {
         setCreatorUuid(from.getCreatorUuid());
         setEdited(from.getEdited());
         setEditorUuid(from.getEditorUuid());
-        setPasswordhash(from.getPasswordhash());
     }
 
     @Override

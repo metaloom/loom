@@ -16,6 +16,7 @@ import io.metaloom.loom.db.jooq.tables.Field;
 import io.metaloom.loom.db.jooq.tables.FieldAsset;
 import io.metaloom.loom.db.jooq.tables.FieldContent;
 import io.metaloom.loom.db.jooq.tables.FieldReference;
+import io.metaloom.loom.db.jooq.tables.FlywaySchemaHistory;
 import io.metaloom.loom.db.jooq.tables.Group;
 import io.metaloom.loom.db.jooq.tables.Language;
 import io.metaloom.loom.db.jooq.tables.Loom;
@@ -101,6 +102,11 @@ public class Tables {
      * This table is mainly used to lookup foreign references to contents
      */
     public static final FieldReference FIELD_REFERENCE = FieldReference.FIELD_REFERENCE;
+
+    /**
+     * The table <code>public.flyway_schema_history</code>.
+     */
+    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>public.group</code>.

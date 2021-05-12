@@ -33,11 +33,15 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.metaloom.loom</groupId>
-			<artifactId>loom-api</artifactId>
+			<artifactId>loom-common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.metaloom.loom</groupId>
 			<artifactId>loom-db-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom</groupId>
+			<artifactId>loom-db-flyway</artifactId>
 		</dependency>
 
 		<!-- JOOQ -->
@@ -72,6 +76,11 @@
 			<groupId>io.metaloom.loom</groupId>
 			<artifactId>loom-db-api</artifactId>
 			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

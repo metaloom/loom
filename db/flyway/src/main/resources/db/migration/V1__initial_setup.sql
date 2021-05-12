@@ -341,7 +341,7 @@ CREATE TABLE "namespace" (
   "path_prefix" varchar,
   "model_filters" varchar,
   "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid NOT NULL,
+  "creator_uuid" uuid,
   "edited" timestamp DEFAULT (now()),
   "editor_uuid" uuid,
   PRIMARY KEY ("uuid")

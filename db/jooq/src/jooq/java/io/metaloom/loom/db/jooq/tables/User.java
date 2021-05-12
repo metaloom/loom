@@ -72,6 +72,11 @@ public class User extends TableImpl<UserRecord> {
     public final TableField<UserRecord, String> LASTNAME = createField(DSL.name("lastname"), SQLDataType.VARCHAR, this, "");
 
     /**
+     * The column <code>public.user.passwordhash</code>.
+     */
+    public final TableField<UserRecord, String> PASSWORDHASH = createField(DSL.name("passwordhash"), SQLDataType.VARCHAR, this, "");
+
+    /**
      * The column <code>public.user.email</code>.
      */
     public final TableField<UserRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR, this, "");
@@ -115,11 +120,6 @@ public class User extends TableImpl<UserRecord> {
      * The column <code>public.user.editor_uuid</code>.
      */
     public final TableField<UserRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
-
-    /**
-     * The column <code>public.user.passwordhash</code>.
-     */
-    public final TableField<UserRecord, String> PASSWORDHASH = createField(DSL.name("passwordhash"), SQLDataType.VARCHAR, this, "");
 
     private User(Name alias, Table<UserRecord> aliased) {
         this(alias, aliased, null);
@@ -227,7 +227,7 @@ public class User extends TableImpl<UserRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row14<java.util.UUID, String, String, String, String, Boolean, Boolean, String, LoomPermissionFlag, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, String> fieldsRow() {
+    public Row14<java.util.UUID, String, String, String, String, String, Boolean, Boolean, String, LoomPermissionFlag, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row14) super.fieldsRow();
     }
 }

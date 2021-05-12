@@ -20,6 +20,7 @@ import io.metaloom.loom.db.jooq.tables.daos.RolePermissionDao;
 import io.metaloom.loom.db.jooq.tables.daos.TagAssetDao;
 import io.metaloom.loom.db.jooq.tables.daos.TagContentDao;
 import io.metaloom.loom.db.jooq.tables.daos.UserGroupDao;
+import io.metaloom.loom.options.DatabaseOptions;
 import io.vertx.core.Vertx;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
@@ -35,9 +36,20 @@ public class JooqNativeDaoModule {
 
 	@Provides
 	@Singleton
-	public SqlClient rxSqlClient(Vertx vertx) {
-		PgConnectOptions config = new PgConnectOptions().setHost("127.0.0.1").setPort(5432).setUser("postgres").setDatabase("loom")
-			.setPassword("finger");
+	public SqlClient rxSqlClient(Vertx vertx, DatabaseOptions dbOptions) {
+		String host = dbOptions.getHost();
+		int port = dbOptions.getPort();
+		String username = dbOptions.getUsername();
+		String password = dbOptions.getPassword();
+		String database = dbOptions.getDatabaseName();
+
+		PgConnectOptions config = new PgConnectOptions()
+			.setHost(host)
+			.setPort(port)
+			.setUser(username)
+			.setPassword(password)
+			.setDatabase(database);
+
 		PgPool client = PgPool.pool(vertx, config, new PoolOptions().setMaxSize(32));
 		Pool rxPgClient = new io.vertx.reactivex.sqlclient.Pool(client);
 		return rxPgClient;

@@ -4,7 +4,6 @@ import static io.metaloom.loom.utils.ExceptionUtils.isNotFoundError;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -15,7 +14,6 @@ import io.metaloom.loom.json.JsonUtil;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.vertx.core.file.FileSystemException;
 import io.vertx.reactivex.core.buffer.Buffer;
 import io.vertx.reactivex.core.file.FileSystem;
 

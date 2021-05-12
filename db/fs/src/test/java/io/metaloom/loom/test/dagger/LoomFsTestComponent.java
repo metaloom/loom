@@ -3,9 +3,9 @@ package io.metaloom.loom.test.dagger;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import io.metaloom.loom.common.dagger.VertxModule;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.dagger.DBBindModule;
-import io.metaloom.loom.db.dagger.VertxModule;
 import io.metaloom.loom.db.fs.dagger.FsDaoBindModule;
 import io.metaloom.loom.db.user.LoomUserDao;
 

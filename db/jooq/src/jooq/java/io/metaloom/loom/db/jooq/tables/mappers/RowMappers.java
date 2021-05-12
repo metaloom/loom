@@ -147,6 +147,23 @@ public class RowMappers {
                 };
         }
 
+        public static Function<Row,io.metaloom.loom.db.jooq.tables.pojos.FlywaySchemaHistory> getFlywaySchemaHistoryMapper() {
+                return row -> {
+                        io.metaloom.loom.db.jooq.tables.pojos.FlywaySchemaHistory pojo = new io.metaloom.loom.db.jooq.tables.pojos.FlywaySchemaHistory();
+                        pojo.setInstalledRank(row.getInteger("installed_rank"));
+                        pojo.setVersion(row.getString("version"));
+                        pojo.setDescription(row.getString("description"));
+                        pojo.setType(row.getString("type"));
+                        pojo.setScript(row.getString("script"));
+                        pojo.setChecksum(row.getInteger("checksum"));
+                        pojo.setInstalledBy(row.getString("installed_by"));
+                        pojo.setInstalledOn(row.getLocalDateTime("installed_on"));
+                        pojo.setExecutionTime(row.getInteger("execution_time"));
+                        pojo.setSuccess(row.getBoolean("success"));
+                        return pojo;
+                };
+        }
+
         public static Function<Row,io.metaloom.loom.db.jooq.tables.pojos.Group> getGroupMapper() {
                 return row -> {
                         io.metaloom.loom.db.jooq.tables.pojos.Group pojo = new io.metaloom.loom.db.jooq.tables.pojos.Group();
@@ -305,6 +322,7 @@ public class RowMappers {
                         pojo.setUsername(row.getString("username"));
                         pojo.setFirstname(row.getString("firstname"));
                         pojo.setLastname(row.getString("lastname"));
+                        pojo.setPasswordhash(row.getString("passwordhash"));
                         pojo.setEmail(row.getString("email"));
                         pojo.setEnabled(row.getBoolean("enabled"));
                         pojo.setSso(row.getBoolean("sso"));
@@ -314,7 +332,6 @@ public class RowMappers {
                         pojo.setCreatorUuid(row.getUUID("creator_uuid"));
                         pojo.setEdited(row.getLocalDateTime("edited"));
                         pojo.setEditorUuid(row.getUUID("editor_uuid"));
-                        pojo.setPasswordhash(row.getString("passwordhash"));
                         return pojo;
                 };
         }

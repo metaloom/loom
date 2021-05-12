@@ -6,6 +6,7 @@ package io.metaloom.loom.db.jooq;
 
 import io.metaloom.loom.db.jooq.tables.Asset;
 import io.metaloom.loom.db.jooq.tables.FieldContent;
+import io.metaloom.loom.db.jooq.tables.FlywaySchemaHistory;
 import io.metaloom.loom.db.jooq.tables.Group;
 import io.metaloom.loom.db.jooq.tables.Language;
 import io.metaloom.loom.db.jooq.tables.Model;
@@ -34,6 +35,7 @@ public class Indexes {
     public static final Index ASSET_UUID_NAMESPACE_UUID_IDX = Internal.createIndex(DSL.name("asset_uuid_namespace_uuid_idx"), Asset.ASSET, new OrderField[] { Asset.ASSET.UUID, Asset.ASSET.NAMESPACE_UUID }, true);
     public static final Index FIELD_CONTENT_CONTENT_TYPE_WEBROOT_PATH_INFO_IDX = Internal.createIndex(DSL.name("field_content_content_type_webroot_path_info_idx"), FieldContent.FIELD_CONTENT, new OrderField[] { FieldContent.FIELD_CONTENT.CONTENT_TYPE, FieldContent.FIELD_CONTENT.WEBROOT_PATH_INFO }, false);
     public static final Index FIELD_CONTENT_CONTENT_UUID_CONTENT_TYPE_IDX = Internal.createIndex(DSL.name("field_content_content_uuid_content_type_idx"), FieldContent.FIELD_CONTENT, new OrderField[] { FieldContent.FIELD_CONTENT.CONTENT_UUID, FieldContent.FIELD_CONTENT.CONTENT_TYPE }, false);
+    public static final Index FLYWAY_SCHEMA_HISTORY_S_IDX = Internal.createIndex(DSL.name("flyway_schema_history_s_idx"), FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SUCCESS }, false);
     public static final Index GROUP_NAME_IDX = Internal.createIndex(DSL.name("group_name_idx"), Group.GROUP, new OrderField[] { Group.GROUP.NAME }, true);
     public static final Index LANGUAGE_TAG_IDX = Internal.createIndex(DSL.name("language_tag_idx"), Language.LANGUAGE, new OrderField[] { Language.LANGUAGE.TAG }, false);
     public static final Index MODEL_NAME_IDX = Internal.createIndex(DSL.name("model_name_idx"), Model.MODEL, new OrderField[] { Model.MODEL.NAME }, true);

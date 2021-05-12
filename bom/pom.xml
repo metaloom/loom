@@ -82,6 +82,13 @@
 				<version>${vertx.version}</version>
 			</dependency>
 
+			<!-- Flyway -->
+			<dependency>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-core</artifactId>
+				<version>7.8.2</version>
+			</dependency>
+
 			<!-- Utilities -->
 			<dependency>
 				<groupId>com.google.guava</groupId>
@@ -189,6 +196,29 @@
 				<artifactId>jsonassert</artifactId>
 				<version>1.3.0</version>
 			</dependency>
+
+			<!-- Testcontainer -->
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>testcontainers</artifactId>
+				<version>1.15.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>1.15.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>mariadb</artifactId>
+				<version>1.15.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>elasticsearch</artifactId>
+				<version>1.15.3</version>
+			</dependency>
+
 
 			<!-- Hazelcast -->
 			<dependency>
@@ -369,6 +399,11 @@
 			<dependency>
 				<groupId>io.metaloom.loom</groupId>
 				<artifactId>loom-db-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-db-flyway</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

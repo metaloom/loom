@@ -33,6 +33,7 @@
 
 	<modules>
 		<module>api</module>
+		<module>flyway</module>
 		<module>memory</module>
 		<module>fs</module>
 		<module>jooq</module>

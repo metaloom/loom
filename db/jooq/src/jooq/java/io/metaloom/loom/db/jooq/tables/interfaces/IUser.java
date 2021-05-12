@@ -60,6 +60,16 @@ public interface IUser extends VertxPojo, Serializable {
     public String getLastname();
 
     /**
+     * Setter for <code>public.user.passwordhash</code>.
+     */
+    public IUser setPasswordhash(String value);
+
+    /**
+     * Getter for <code>public.user.passwordhash</code>.
+     */
+    public String getPasswordhash();
+
+    /**
      * Setter for <code>public.user.email</code>.
      */
     public IUser setEmail(String value);
@@ -149,16 +159,6 @@ public interface IUser extends VertxPojo, Serializable {
      */
     public UUID getEditorUuid();
 
-    /**
-     * Setter for <code>public.user.passwordhash</code>.
-     */
-    public IUser setPasswordhash(String value);
-
-    /**
-     * Getter for <code>public.user.passwordhash</code>.
-     */
-    public String getPasswordhash();
-
     // -------------------------------------------------------------------------
     // FROM and INTO
     // -------------------------------------------------------------------------
@@ -179,6 +179,7 @@ public interface IUser extends VertxPojo, Serializable {
                 setOrThrow(this::setUsername,json::getString,"username","java.lang.String");
                 setOrThrow(this::setFirstname,json::getString,"firstname","java.lang.String");
                 setOrThrow(this::setLastname,json::getString,"lastname","java.lang.String");
+                setOrThrow(this::setPasswordhash,json::getString,"passwordhash","java.lang.String");
                 setOrThrow(this::setEmail,json::getString,"email","java.lang.String");
                 setOrThrow(this::setEnabled,json::getBoolean,"enabled","java.lang.Boolean");
                 setOrThrow(this::setSso,json::getBoolean,"sso","java.lang.Boolean");
@@ -188,7 +189,6 @@ public interface IUser extends VertxPojo, Serializable {
                 // Omitting unrecognized type java.util.UUID for column creator_uuid!
                 setOrThrow(this::setEdited,key -> {String s = json.getString(key); return s==null?null:java.time.LocalDateTime.parse(s);},"edited","java.time.LocalDateTime");
                 // Omitting unrecognized type java.util.UUID for column editor_uuid!
-                setOrThrow(this::setPasswordhash,json::getString,"passwordhash","java.lang.String");
                 return this;
         }
 
@@ -200,6 +200,7 @@ public interface IUser extends VertxPojo, Serializable {
                 json.put("username",getUsername());
                 json.put("firstname",getFirstname());
                 json.put("lastname",getLastname());
+                json.put("passwordhash",getPasswordhash());
                 json.put("email",getEmail());
                 json.put("enabled",getEnabled());
                 json.put("sso",getSso());
@@ -209,7 +210,6 @@ public interface IUser extends VertxPojo, Serializable {
                 // Omitting unrecognized type java.util.UUID for column creator_uuid!
                 json.put("edited",getEdited()==null?null:getEdited().toString());
                 // Omitting unrecognized type java.util.UUID for column editor_uuid!
-                json.put("passwordhash",getPasswordhash());
                 return json;
         }
 

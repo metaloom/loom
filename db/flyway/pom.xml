@@ -10,9 +10,9 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>loom-db-fs</artifactId>
-	<name>Loom - DB - Filesystem</name>
-	<description>Filesystem DB implementation for Loom</description>
+	<artifactId>loom-db-flyway</artifactId>
+	<name>Loom - DB - Flyway</name>
+	<description>Flyway specific DB parts for Loom</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -33,41 +33,19 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.metaloom.loom</groupId>
-			<artifactId>loom-common</artifactId>
+			<artifactId>loom-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.metaloom.loom</groupId>
-			<artifactId>loom-db-api</artifactId>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
 		</dependency>
-
-		<!-- Test -->
 		<dependency>
-			<groupId>io.metaloom.loom</groupId>
-			<artifactId>loom-db-api</artifactId>
-			<type>test-jar</type>
-			<scope>test</scope>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgres.driver.version}</version>
 		</dependency>
 	</dependencies>
 
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<forceJavacCompilerUse>true</forceJavacCompilerUse>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.google.dagger</groupId>
-						<artifactId>dagger-compiler</artifactId>
-						<version>${dagger.version}</version>
-						<optional>true</optional>
-					</dependency>
-				</dependencies>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

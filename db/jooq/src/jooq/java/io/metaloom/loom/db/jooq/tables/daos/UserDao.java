@@ -82,6 +82,20 @@ public class UserDao extends AbstractReactiveVertxDAO<UserRecord, io.metaloom.lo
         }
 
         /**
+     * Find records that have <code>passwordhash IN (values)</code> asynchronously
+     */
+        public Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> findManyByPasswordhash(Collection<String> values) {
+                return findManyByCondition(User.USER.PASSWORDHASH.in(values));
+        }
+
+        /**
+     * Find records that have <code>passwordhash IN (values)</code> asynchronously limited by the given limit
+     */
+        public Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> findManyByPasswordhash(Collection<String> values, int limit) {
+                return findManyByCondition(User.USER.PASSWORDHASH.in(values),limit);
+        }
+
+        /**
      * Find records that have <code>email IN (values)</code> asynchronously
      */
         public Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> findManyByEmail(Collection<String> values) {
@@ -205,20 +219,6 @@ public class UserDao extends AbstractReactiveVertxDAO<UserRecord, io.metaloom.lo
      */
         public Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> findManyByEditorUuid(Collection<UUID> values, int limit) {
                 return findManyByCondition(User.USER.EDITOR_UUID.in(values),limit);
-        }
-
-        /**
-     * Find records that have <code>passwordhash IN (values)</code> asynchronously
-     */
-        public Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> findManyByPasswordhash(Collection<String> values) {
-                return findManyByCondition(User.USER.PASSWORDHASH.in(values));
-        }
-
-        /**
-     * Find records that have <code>passwordhash IN (values)</code> asynchronously limited by the given limit
-     */
-        public Single<List<io.metaloom.loom.db.jooq.tables.pojos.User>> findManyByPasswordhash(Collection<String> values, int limit) {
-                return findManyByCondition(User.USER.PASSWORDHASH.in(values),limit);
         }
 
         /**

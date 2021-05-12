@@ -19,20 +19,20 @@ public class BasicDaoTest {
 
 	@Test
 	public void testUserDao() {
-		LoomJooqTestComponent loomComponent = DaggerLoomJooqTestComponent.create();
+		LoomJooqTestComponent loomComponent = DaggerLoomJooqTestComponent.builder().build();
 		LoomUser user = loomComponent.daos().getUserDao().createUser("test-" + System.currentTimeMillis()).blockingGet();
 		assertNotNull(user.getUuid());
 	}
 	
 	@Test
 	public void testTransactions() {
-		LoomJooqTestComponent loomComponent = DaggerLoomJooqTestComponent.create();
+		LoomJooqTestComponent loomComponent = DaggerLoomJooqTestComponent.builder().build();
 		loomComponent.daos().getGroupDao().testMultiOp();
 	}
 
 	@Test
 	public void testGroupDao() {
-		LoomJooqTestComponent loomComponent = DaggerLoomJooqTestComponent.create();
+		LoomJooqTestComponent loomComponent = DaggerLoomJooqTestComponent.builder().build();
 		LoomDaoCollection daos = loomComponent.daos();
 		LoomGroupDao groupDao = daos.getGroupDao();
 		LoomUserDao userDao = daos.getUserDao();
