@@ -59,9 +59,9 @@ public class JooqGroupDaoImpl extends GroupDao implements LoomGroupDao {
 	}
 
 	@Override
-	public Completable deleteGroup(LoomGroup group) {
-		Objects.requireNonNull(group, "Group must not be null");
-		return deleteById(group.getUuid()).ignoreElement();
+	public Completable deleteGroup(UUID uuid) {
+		Objects.requireNonNull(uuid, "Group uuid must not be null");
+		return deleteById(uuid).ignoreElement();
 	}
 
 	@Override

@@ -16,14 +16,14 @@ import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.core.file.FileSystem;
 
 @Singleton
 public class FsTagDaoImpl extends AbstractFSDao implements LoomTagDao {
 
 	@Inject
-	public FsTagDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
-		super(daos, rxVertx);
+	public FsTagDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
+		super(daos, rxFilesystem);
 	}
 
 	protected FSType getType() {

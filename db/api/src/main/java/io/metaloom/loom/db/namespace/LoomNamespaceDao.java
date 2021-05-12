@@ -35,11 +35,25 @@ public interface LoomNamespaceDao extends LoomDao {
 	 */
 	Completable deleteNamespace(UUID uuid);
 
+	/**
+	 * Update the namespace with the provided POJO information.
+	 * 
+	 * @param namespace
+	 * @return
+	 */
 	Completable updateNamespace(LoomNamespace namespace);
 
+	/**
+	 * Load the list of tags for the namespace.
+	 * 
+	 * @param namespace
+	 * @return
+	 */
 	Observable<LoomTag> loadTags(LoomNamespace namespace);
 
+	// TODO dup?
 	Completable addTag(LoomNamespace namespace, LoomTag tag);
 
+	// TODO dup?
 	Completable removeTag(LoomNamespace namespace, LoomTag tag);
 }

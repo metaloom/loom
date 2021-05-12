@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import io.reactivex.Maybe;
 
-public abstract class AbstractRolesDaoTest {
+public abstract class AbstractRoleDaoTest {
 
 	abstract public LoomRoleDao getDao();
 

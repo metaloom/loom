@@ -1,6 +1,6 @@
 package io.metaloom.loom.db.user;
 
-public class MemUsersDaoTest extends AbstractUsersDaoTest {
+public class MemUsersDaoTest extends AbstractUserDaoTest {
 
 	private MemUsersDaoImpl dao = new MemUsersDaoImpl();
 

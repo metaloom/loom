@@ -13,14 +13,14 @@ import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.core.file.FileSystem;
 
 @Singleton
 public class FsWebhookDaoImpl extends AbstractFSDao implements LoomWebhookDao {
 
 	@Inject
-	public FsWebhookDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
-		super(daos, rxVertx);
+	public FsWebhookDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
+		super(daos, rxFilesystem);
 	}
 
 	protected FSType getType() {

@@ -1,13 +1,13 @@
-package io.metaloom.loom.db.role;
+package io.metaloom.loom.db.user;
 
 import io.metaloom.loom.test.dagger.DaggerLoomTestComponent;
 import io.metaloom.loom.test.dagger.LoomTestComponent;
 
-public class FsRolesDaoTest extends AbstractRolesDaoTest {
+public class FsUserDaoTest extends AbstractUserDaoTest {
 
-	public LoomRoleDao getDao() {
+	public LoomUserDao getDao() {
 		LoomTestComponent loomTest = DaggerLoomTestComponent.create();
-		return new FsRoleDaoImpl(loomTest.daos(), null);
+		return new FsUserDaoImpl(loomTest.daos(), null);
 	}
 
 }

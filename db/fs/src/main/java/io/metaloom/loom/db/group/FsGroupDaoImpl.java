@@ -20,14 +20,14 @@ import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.core.file.FileSystem;
 
 @Singleton
 public class FsGroupDaoImpl extends AbstractFSDao implements LoomGroupDao {
 
 	@Inject
-	public FsGroupDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
-		super(daos, rxVertx);
+	public FsGroupDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
+		super(daos, rxFilesystem);
 	}
 
 	protected FSType getType() {
@@ -40,9 +40,9 @@ public class FsGroupDaoImpl extends AbstractFSDao implements LoomGroupDao {
 	}
 
 	@Override
-	public Completable deleteGroup(LoomGroup group) {
-		Objects.requireNonNull(group, "Group must not be null");
-		return delete(group.getUuid());
+	public Completable deleteGroup(UUID uuid) {
+		Objects.requireNonNull(uuid, "Group uuid must not be null");
+		return delete(uuid);
 	}
 
 	@Override

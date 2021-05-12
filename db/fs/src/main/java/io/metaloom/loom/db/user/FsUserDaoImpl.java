@@ -16,14 +16,14 @@ import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.core.file.FileSystem;
 
 @Singleton
 public class FsUserDaoImpl extends AbstractFSDao implements LoomUserDao {
 
 	@Inject
-	public FsUserDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
-		super(daos, rxVertx);
+	public FsUserDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
+		super(daos, rxFilesystem);
 	}
 
 	protected FSType getType() {

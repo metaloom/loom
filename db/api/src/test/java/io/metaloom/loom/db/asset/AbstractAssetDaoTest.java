@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import io.reactivex.Maybe;
 
-public abstract class AbstractAssetsDaoTest {
+public abstract class AbstractAssetDaoTest {
 
 	abstract public LoomAssetDao getDao();
 

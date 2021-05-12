@@ -1,22 +1,23 @@
 package io.metaloom.loom.db.fs;
 
-import static io.metaloom.LoomHttpStatusCodes.INTERNAL_SERVER_ERROR;
+import static io.metaloom.loom.utils.ExceptionUtils.isNotFoundError;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.file.NoSuchFileException;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.LoomElement;
-import io.metaloom.loom.error.LoomRestException;
 import io.metaloom.loom.json.JsonUtil;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.vertx.reactivex.core.Vertx;
+import io.vertx.core.file.FileSystemException;
+import io.vertx.reactivex.core.buffer.Buffer;
+import io.vertx.reactivex.core.file.FileSystem;
 
 public abstract class AbstractFSDao {
 
@@ -24,11 +25,11 @@ public abstract class AbstractFSDao {
 
 	private final LoomDaoCollection daos;
 
-	private final Vertx rxVertx;
+	private final FileSystem rxFilesystem;
 
-	public AbstractFSDao(LoomDaoCollection daos, Vertx rxVertx) {
+	public AbstractFSDao(LoomDaoCollection daos, FileSystem rxFilesystem) {
 		this.daos = daos;
-		this.rxVertx = rxVertx;
+		this.rxFilesystem = rxFilesystem;
 	}
 
 	abstract protected FSType getType();
@@ -45,10 +46,9 @@ public abstract class AbstractFSDao {
 		return delete(getType(), uuid);
 	}
 
-	protected <T> Single<? extends T> store(LoomElement element) {
-//		return store(getType(), element.getUuid(), element);
-//		return load(getType(), element.getUuid(), element.getClass()).toSingle();
-		return null;
+	protected <T extends LoomElement> Single<? extends T> store(T element) {
+		return store(getType(), element.getUuid(), element).andThen(Single.just(element));
+		// return load(getType(), element.getUuid(), element.getClass()).toSingle();
 	}
 
 	public Completable clear() throws IOException {
@@ -57,55 +57,68 @@ public abstract class AbstractFSDao {
 		});
 	}
 
-	public File getTypeDir(FSType type) {
-		return new File(BASE, type.name());
-	}
-
 	private <T> Maybe<? extends T> load(FSType type, UUID uuid, Class<T> clazz) {
-		File fsFile = new File(getTypeDir(type), uuid.toString() + ".json");
-		if (fsFile.exists()) {
-			try {
-				String json = FileUtils.readFileToString(fsFile, Charset.defaultCharset());
+		return rxFilesystem.rxReadFile(getElementPath(type, uuid))
+			.toMaybe()
+			.onErrorResumeNext(err -> isNotFoundError(err) ? Maybe.empty() : Maybe.error(err))
+			.flatMap(buffer -> {
+				String json = buffer.toString();
 				T pojo = JsonUtil.toModel(json, clazz);
 				return Maybe.just(pojo);
-			} catch (IOException e) {
-				// TODO i18n
-				String message = "Could not read model from file {" + fsFile.getAbsolutePath() + "}";
-				throw new LoomRestException(INTERNAL_SERVER_ERROR, message, e);
-			}
-		} else {
-			return Maybe.empty();
-		}
+			});
+		// // TODO i18n
+		// String message = "Could not read model from file {" + fsFile.getAbsolutePath() + "}";
+		// throw new LoomRestException(INTERNAL_SERVER_ERROR, message, e);
 	}
 
 	private Completable delete(FSType type, UUID uuid) {
-		File fsFile = new File(getTypeDir(type), uuid.toString() + ".json");
-		if (fsFile.exists()) {
-			if (!fsFile.delete()) {
-				// TODO i18n
-				String message = "Unable to delete file {" + fsFile.getAbsolutePath() + "}";
-				throw new LoomRestException(INTERNAL_SERVER_ERROR, message);
-			}
-		}
-		return Completable.complete();
+		return rxFilesystem.rxDelete(getElementPath(type, uuid));
+		// if (fsFile.exists()) {
+		// if (!fsFile.delete()) {
+		// // TODO i18n
+		// String message = "Unable to delete file {" + fsFile.getAbsolutePath() + "}";
+		// throw new LoomRestException(INTERNAL_SERVER_ERROR, message);
+		// }
+		// }
+		// return Completable.complete();
 
 	}
 
 	private Completable store(FSType type, UUID uuid, LoomElement element) {
-		File fsFile = new File(getTypeDir(type), uuid.toString() + ".json");
+		String folderPath = getFolderPath(type, uuid);
+		String elementPath = getElementPath(type, uuid);
 		String json = JsonUtil.toJson(element);
-		try {
-			FileUtils.write(fsFile, json, Charset.defaultCharset());
-		} catch (IOException e) {
-			// TODO i18n
-			String message = "Failed to write to file {" + fsFile.getAbsolutePath() + "}";
-			throw new LoomRestException(INTERNAL_SERVER_ERROR, message);
-		}
-		return Completable.complete();
+
+		Completable writeFile = rxFilesystem.rxWriteFile(elementPath, Buffer.buffer(json));
+		return rxFilesystem.rxExists(folderPath).flatMapCompletable(fsExists -> {
+			return fsExists ? writeFile : rxFilesystem.rxMkdirs(folderPath).andThen(writeFile);
+		});
+		// try {
+		// FileUtils.write(fsFile, json, Charset.defaultCharset());
+		// } catch (IOException e) {
+		// // TODO i18n
+		// String message = "Failed to write to file {" + fsFile.getAbsolutePath() + "}";
+		// throw new LoomRestException(INTERNAL_SERVER_ERROR, message);
+		// }
+		// return Completable.complete();
+	}
+
+	public String getElementPath(FSType type, UUID uuid) {
+		return new File(getFolderPath(type, uuid), uuid.toString() + ".json").getAbsolutePath();
+	}
+
+	private String getFolderPath(FSType type, UUID uuid) {
+		File base = new File(BASE, type.name());
+		String prefix = uuid.toString().substring(0, 3);
+		return new File(base, prefix).getAbsolutePath();
+	}
+
+	public File getTypeDir(FSType type) {
+		return new File(BASE, type.name());
 	}
 
 	protected Completable clearTypeDir() {
 		String path = getTypeDir(getType()).getAbsolutePath();
-		return rxVertx.fileSystem().rxDeleteRecursive(path, true);
+		return rxFilesystem.rxDeleteRecursive(path, true);
 	}
 }

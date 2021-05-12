@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import io.reactivex.Maybe;
 
-public abstract class AbstractGroupsDaoTest {
+public abstract class AbstractGroupDaoTest {
 
 	abstract public LoomGroupDao getDao();
 
@@ -40,7 +40,7 @@ public abstract class AbstractGroupsDaoTest {
 		LoomGroup group = dao.createGroup("Guests").blockingGet();
 
 		// Now assert deletion
-		dao.deleteGroup(group);
+		dao.deleteGroup(group.getUuid());
 		assertTrue("The group should be deleted.", dao.loadGroup(group.getUuid()).isEmpty().blockingGet());
 	}
 

@@ -15,14 +15,14 @@ import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.core.file.FileSystem;
 
 @Singleton
 public class FsAssetDaoImpl extends AbstractFSDao implements LoomAssetDao {
 
 	@Inject
-	public FsAssetDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
-		super(daos, rxVertx);
+	public FsAssetDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
+		super(daos, rxFilesystem);
 	}
 
 	protected FSType getType() {

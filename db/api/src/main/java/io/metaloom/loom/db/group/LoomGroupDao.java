@@ -14,7 +14,7 @@ public interface LoomGroupDao extends LoomDao {
 
 	Single<? extends LoomGroup> createGroup(String name);
 
-	Completable deleteGroup(LoomGroup group);
+	Completable deleteGroup(UUID uuid);
 
 	Completable updateGroup(LoomGroup group);
 

@@ -16,14 +16,14 @@ import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.core.file.FileSystem;
 
 @Singleton
 public class FsNamespaceDaoImpl extends AbstractFSDao implements LoomNamespaceDao {
 
 	@Inject
-	public FsNamespaceDaoImpl(LoomDaoCollection daos, Vertx rxVertx) {
-		super(daos, rxVertx);
+	public FsNamespaceDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
+		super(daos, rxFilesystem);
 	}
 
 	protected FSType getType() {
@@ -43,11 +43,11 @@ public class FsNamespaceDaoImpl extends AbstractFSDao implements LoomNamespaceDa
 
 	@Override
 	public Single<? extends LoomNamespace> createNamespace(String name) {
-		return Single.fromCallable(() -> {
+		return Single.defer(() -> {
 			LoomNamespace namespace = new FsNamespaceImpl();
 			namespace.setUuid(UUIDUtil.randomUUID());
 			namespace.setName(name);
-			return namespace;
+			return store(namespace);
 		});
 	}
 
