@@ -45,12 +45,6 @@ public class LoomTestContext extends TestWatcher {
 	}
 
 	private void setup(LoomTestSetting settings) {
-		try {
-			component().daos().getNamespaceDao().clear().blockingAwait();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
 	}
 
 	@Override
@@ -69,12 +63,14 @@ public class LoomTestContext extends TestWatcher {
 	}
 
 	private void tearDown(LoomTestSetting settings) {
-		// TODO Auto-generated method stub
-
+		container.stop();
+		container.start();
+		setupEnvironment();
 	}
 
 	private void tearDownOnce(LoomTestSetting settings) {
 		if (container.isRunning()) {
+			log.info("Stopping postgres container");
 			container.stop();
 		}
 	}

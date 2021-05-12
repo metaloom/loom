@@ -231,6 +231,12 @@
 				<version>1.15.3</version>
 			</dependency>
 
+			<!-- ES client -->
+			<dependency>
+				<groupId>io.metaloom.elasticsearch</groupId>
+				<artifactId>elasticsearch-client</artifactId>
+				<version>1.1.2-SNAPSHOT</version>
+			</dependency>
 
 			<!-- Hazelcast -->
 			<dependency>
