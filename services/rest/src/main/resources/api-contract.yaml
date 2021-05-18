@@ -5,7 +5,7 @@ info:
   title: "MetaLoom Loom API"
   termsOfService: "https://metaloom.io/terms/"
   contact:
-    email: "apiteam@metaloom.io"
+    email: "api@metaloom.io"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"

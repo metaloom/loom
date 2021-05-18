@@ -1,11 +1,7 @@
 package io.metaloom.loom.db.asset;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
-import io.metaloom.loom.db.tag.LoomTag;
 import io.vertx.core.json.JsonObject;
 
 public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
