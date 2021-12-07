@@ -42,6 +42,7 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 				return Single.error(new NullPointerException("Name must be set"));
 			}
 			Group group = new GroupImpl(name);
+			group.setUuid(UUID.randomUUID());
 			if (modifier != null) {
 				modifier.accept(group);
 			}
@@ -55,8 +56,8 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 	}
 
 	@Override
-	public Completable updateGroup(Group group) {
-		return persistElement(group);
+	public Single<? extends Group> updateGroup(Group group) {
+		return mergeElement(group);
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 
 	@Override
 	public Completable addUserToGroup(Group group, LoomUser user) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

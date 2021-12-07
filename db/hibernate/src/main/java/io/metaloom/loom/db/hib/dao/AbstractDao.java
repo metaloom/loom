@@ -34,6 +34,13 @@ public abstract class AbstractDao {
 		return Completable.fromCompletionStage(uni.subscribeAsCompletionStage());
 	}
 
+	protected <T extends LoomElement> Single<? extends T> mergeElement(T element) {
+		Uni<T> uni = emf.withSession(session -> {
+			return session.merge(element).call(session::flush);
+		});
+		return Single.fromCompletionStage(uni.subscribeAsCompletionStage());
+	}
+
 	protected <T extends LoomElement> Single<? extends T> persistAndReturnElement(T element) {
 		Uni<T> uni = emf.withSession(session -> {
 			return session.persist(element).call(session::flush).replaceWith(element);

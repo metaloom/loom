@@ -166,8 +166,8 @@ CREATE TABLE "groups" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar UNIQUE NOT NULL,
   "meta" jsonb,
-  "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid NOT NULL,
+  "created" timestamp DEFAULT (now()),
+  "creator_uuid" uuid,
   "edited" timestamp DEFAULT (now()),
   "editor_uuid" uuid,
   PRIMARY KEY ("uuid")
@@ -179,7 +179,7 @@ CREATE TABLE "role_group" (
   PRIMARY KEY ("group_uuid", "role_uuid")
 );
 
-CREATE TABLE "user_group" (
+CREATE TABLE "users_groups" (
   "user_uuid" uuid NOT NULL,
   "group_uuid" uuid NOT NULL,
   PRIMARY KEY ("user_uuid", "group_uuid")
@@ -428,9 +428,9 @@ ALTER TABLE "role_group" ADD FOREIGN KEY ("group_uuid") REFERENCES "groups" ("uu
 
 ALTER TABLE "role_group" ADD FOREIGN KEY ("role_uuid") REFERENCES "roles" ("uuid");
 
-ALTER TABLE "user_group" ADD FOREIGN KEY ("user_uuid") REFERENCES "users" ("uuid");
+ALTER TABLE "users_groups" ADD FOREIGN KEY ("user_uuid") REFERENCES "users" ("uuid");
 
-ALTER TABLE "user_group" ADD FOREIGN KEY ("group_uuid") REFERENCES "groups" ("uuid");
+ALTER TABLE "users_groups" ADD FOREIGN KEY ("group_uuid") REFERENCES "groups" ("uuid");
 
 ALTER TABLE "tags" ADD FOREIGN KEY ("namespace_uuid") REFERENCES "namespaces" ("uuid");
 

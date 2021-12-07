@@ -21,7 +21,7 @@ public interface GroupDao extends LoomDao {
 
 	Completable deleteGroup(UUID uuid);
 
-	Completable updateGroup(Group group);
+	Single<? extends Group> updateGroup(Group group);
 
 	Maybe<? extends Group> loadGroup(UUID uuid);
 
