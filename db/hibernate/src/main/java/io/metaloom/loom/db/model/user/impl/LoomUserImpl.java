@@ -1,21 +1,51 @@
 package io.metaloom.loom.db.model.user.impl;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Type;
+
 import io.metaloom.loom.db.model.AbstractCUDElement;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.vertx.core.json.JsonObject;
 
+@Entity
+@Table(name = "users")
 public class LoomUserImpl extends AbstractCUDElement implements LoomUser {
 
+	@NotNull
+	@Size(max = 128)
 	private String username;
+
+	@Transient
 	private boolean sso;
+
+	@Transient
 	private boolean enabled;
+
+	@Column(columnDefinition = "jsonb")
+	@Type(type = "io.metaloom.loom.db.hib.types.Json")
 	private JsonObject meta;
+
+	@Size(max = 255)
+	@Column(name = "passwordhash")
 	private String hash;
 
+	@Size(max = 255)
 	private String firstname;
+
+	@Size(max = 255)
 	private String lastname;
 
+	@Size(max = 255)
 	private String email;
+
+	public LoomUserImpl() {
+	}
 
 	public LoomUserImpl(String username) {
 		this.username = username;

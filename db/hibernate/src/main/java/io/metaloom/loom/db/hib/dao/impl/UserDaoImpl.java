@@ -39,6 +39,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 				return Single.error(new NullPointerException("Username must be set"));
 			}
 			LoomUser user = new LoomUserImpl(username);
+			user.setUuid(UUID.randomUUID());
 			if (modifier != null) {
 				modifier.accept(user);
 			}

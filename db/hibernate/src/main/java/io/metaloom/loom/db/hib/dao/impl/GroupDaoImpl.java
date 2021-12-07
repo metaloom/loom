@@ -9,10 +9,10 @@ import javax.inject.Singleton;
 
 import org.hibernate.reactive.mutiny.Mutiny;
 
-import io.metaloom.loom.db.group.impl.GroupImpl;
 import io.metaloom.loom.db.hib.dao.AbstractDao;
 import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.group.GroupDao;
+import io.metaloom.loom.db.model.group.impl.GroupImpl;
 import io.metaloom.loom.db.model.role.Role;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.reactivex.rxjava3.core.Completable;

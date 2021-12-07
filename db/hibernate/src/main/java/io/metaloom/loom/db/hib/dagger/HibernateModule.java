@@ -15,8 +15,10 @@ public class HibernateModule {
 
 	@Provides
 	@Singleton
-	public Mutiny.SessionFactory sessionFactory(Vertx rxVertx, DatabaseOptions options ) {
-		boolean logging = false;
+	public Mutiny.SessionFactory sessionFactory(Vertx rxVertx, DatabaseOptions options) {
+		boolean logging = true;
+//		System.setProperty(PropertyKey.PRINT_BANNER.getKey(), "false");
+
 		int poolSize = options.getPoolSize();
 		String jdbcUrl = options.getJdbcUrl();
 		String user = options.getUsername();

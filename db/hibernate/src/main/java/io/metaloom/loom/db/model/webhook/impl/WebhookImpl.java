@@ -1,12 +1,19 @@
 package io.metaloom.loom.db.model.webhook.impl;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
 import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.db.model.AbstractCUDElement;
 import io.metaloom.loom.db.model.webhook.Webhook;
 import io.vertx.core.json.JsonObject;
 
+@Entity
+@Table(name = "webhooks")
 public class WebhookImpl extends AbstractCUDElement implements Webhook {
 
+	@Size(max = 128)
 	private String url;
 
 	public WebhookImpl(String url) {

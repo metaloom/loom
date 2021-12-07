@@ -2,24 +2,43 @@ package io.metaloom.loom.db.model.asset.impl;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+
 import io.metaloom.loom.db.model.AbstractCUDElement;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.vertx.core.json.JsonObject;
 
+@Entity
+@Table(name = "assets")
 public class AssetImpl extends AbstractCUDElement implements Asset {
 
+	@Column(columnDefinition = "jsonb")
+	@Type(type = "io.metaloom.loom.db.hib.types.Json")
 	private JsonObject meta;
+
 	private String filename;
+
 	private Integer rating;
 
 	private String dominantColor;
 
+	@Column(name = "gps_lon")
 	private BigDecimal lon;
+
+	@Column(name = "gps_lat")
 	private BigDecimal lat;
 
 	private String localPath;
 	private String mimeType;
+
+	@Column(name = "s3_object_path")
 	private String s3path;
+
+	@Column(name = "s3_bucket_name")
 	private String s3bucketName;
 
 	@Override

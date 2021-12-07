@@ -1,16 +1,35 @@
 package io.metaloom.loom.db.model.asset.impl;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
 import io.metaloom.loom.db.model.AbstractLoomElement;
 import io.metaloom.loom.db.model.asset.AssetBinary;
 
+@Entity
+@Table(name = "asset_binaries")
 public class AssetBinaryImpl extends AbstractLoomElement implements AssetBinary {
 
+	@Size(max = 133)
 	private String sha512sum;
+
+	@Size(max = 65)
 	private String sha256sum;
+
+	@Size(max = 32)
 	private String md5sum;
+
+	@Column(name = "media_height")
 	private Integer mediaHeight;
+
+	@Column(name = "media_width")
 	private Integer mediaWidth;
+
+	@Size(max = 255)
 	private String fingerprint;
+
 	private Long size;
 
 	@Override
