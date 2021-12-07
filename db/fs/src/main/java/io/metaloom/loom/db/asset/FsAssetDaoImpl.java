@@ -2,6 +2,7 @@ package io.metaloom.loom.db.asset;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -43,15 +44,19 @@ public class FsAssetDaoImpl extends AbstractFSDao implements AssetDao {
 	}
 
 	@Override
-	public Single<? extends Asset> createAsset() {
-		Asset asset = new FsAssetImpl();
-		asset.setUuid(UUIDUtil.randomUUID());
-		return store(asset);
+	public Single<? extends Asset> createAsset(Consumer<Asset> modifier) {
+		return Single.defer(() -> {
+			Asset asset = new FsAssetImpl();
+			asset.setUuid(UUIDUtil.randomUUID());
+			if (modifier != null) {
+				modifier.accept(asset);
+			}
+			return store(asset);
+		});
 	}
 
 	@Override
 	public Completable updateAsset(Asset asset) {
-		Objects.requireNonNull(asset, "Asset must not be null");
 		return store(asset).ignoreElement();
 	}
 

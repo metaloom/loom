@@ -8,6 +8,10 @@ public class TagImpl extends AbstractCUDElement implements Tag {
 	private String name;
 	private String collectionName;
 
+	public TagImpl(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String getName() {
 		return name;

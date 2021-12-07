@@ -2,6 +2,7 @@ package io.metaloom.loom.db.hib.dao.impl;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -11,6 +12,7 @@ import org.hibernate.reactive.mutiny.Mutiny;
 import io.metaloom.loom.db.hib.dao.AbstractDao;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
+import io.metaloom.loom.db.model.asset.impl.AssetImpl;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
@@ -32,27 +34,29 @@ public class AssetDaoImpl extends AbstractDao implements AssetDao {
 	}
 
 	@Override
-	public Single<? extends Asset> createAsset() {
-		// TODO Auto-generated method stub
-		return null;
+	public Single<? extends Asset> createAsset(Consumer<Asset> modifier) {
+		return Single.defer(() -> {
+			Asset asset = new AssetImpl();
+			if (modifier != null) {
+				modifier.accept(asset);
+			}
+			return persistAndReturnElement(asset);
+		});
 	}
 
 	@Override
 	public Completable deleteAsset(Asset asset) {
-		// TODO Auto-generated method stub
-		return null;
+		return deleteElement(asset);
 	}
 
 	@Override
 	public Completable updateAsset(Asset asset) {
-		// TODO Auto-generated method stub
-		return null;
+		return persistElement(asset);
 	}
 
 	@Override
 	public Maybe<? extends Asset> loadAsset(UUID uuid) {
-		// TODO Auto-generated method stub
-		return null;
+		return loadByUuid(AssetImpl.class, uuid);
 	}
 
 	@Override

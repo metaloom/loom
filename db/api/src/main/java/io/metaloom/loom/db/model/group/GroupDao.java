@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.model.group;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import io.metaloom.loom.db.LoomDao;
 import io.metaloom.loom.db.model.role.Role;
@@ -12,7 +13,11 @@ import io.reactivex.rxjava3.core.Single;
 
 public interface GroupDao extends LoomDao {
 
-	Single<? extends Group> createGroup(String name);
+	default Single<? extends Group> createGroup(String name) {
+		return createGroup(name, null);
+	}
+
+	Single<? extends Group> createGroup(String name, Consumer<Group> modifier);
 
 	Completable deleteGroup(UUID uuid);
 

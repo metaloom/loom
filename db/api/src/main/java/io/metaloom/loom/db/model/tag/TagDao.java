@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.model.tag;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import io.metaloom.loom.db.LoomDao;
 import io.metaloom.loom.db.model.asset.Asset;
@@ -22,7 +23,19 @@ public interface TagDao extends LoomDao {
 	 * @param collection
 	 * @return
 	 */
-	Single<? extends Tag> createTag(String name, String collection);
+	default Single<? extends Tag> createTag(String name, String collection) {
+		return createTag(name, collection, null);
+	}
+
+	/**
+	 * Create a new tag.
+	 * 
+	 * @param name
+	 * @param collection
+	 * @param modifier
+	 * @return
+	 */
+	Single<? extends Tag> createTag(String name, String collection, Consumer<Tag> modifier);
 
 	/**
 	 * Load the tag with the given uuid.

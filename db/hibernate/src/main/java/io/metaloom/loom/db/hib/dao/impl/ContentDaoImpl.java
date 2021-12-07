@@ -2,6 +2,7 @@ package io.metaloom.loom.db.hib.dao.impl;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -11,6 +12,7 @@ import org.hibernate.reactive.mutiny.Mutiny;
 import io.metaloom.loom.db.hib.dao.AbstractDao;
 import io.metaloom.loom.db.model.content.Content;
 import io.metaloom.loom.db.model.content.ContentDao;
+import io.metaloom.loom.db.model.content.impl.ContentImpl;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
@@ -33,27 +35,29 @@ public class ContentDaoImpl extends AbstractDao implements ContentDao {
 	}
 
 	@Override
-	public Single<? extends Content> createContent() {
-		// TODO Auto-generated method stub
-		return null;
+	public Single<? extends Content> createContent(Consumer<Content> modifier) {
+		return Single.defer(() -> {
+			Content content  = new ContentImpl();
+			if (modifier != null) {
+				modifier.accept(content);
+			}
+			return persistAndReturnElement(content);
+		});
 	}
 
 	@Override
 	public Completable deleteContent(Content content) {
-		// TODO Auto-generated method stub
-		return null;
+		return deleteElement(content);
 	}
 
 	@Override
 	public Completable updateContent(Content content) {
-		// TODO Auto-generated method stub
-		return null;
+		return persistElement(content);
 	}
 
 	@Override
 	public Maybe<? extends Content> loadContent(UUID uuid) {
-		// TODO Auto-generated method stub
-		return null;
+		return loadByUuid(ContentImpl.class, uuid);
 	}
 
 	@Override

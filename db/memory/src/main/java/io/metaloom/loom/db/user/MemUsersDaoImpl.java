@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.UserDao;
@@ -31,11 +32,14 @@ public class MemUsersDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Single<? extends LoomUser> createUser(String username) {
+	public Single<? extends LoomUser> createUser(String username, Consumer<LoomUser> modifier) {
 		return Single.fromCallable(() -> {
 			LoomUser user = new MemUserImpl();
 			user.setUuid(UUIDUtil.randomUUID());
 			user.setUsername(username);
+			if (modifier != null) {
+				modifier.accept(user);
+			}
 			return user;
 		});
 	}

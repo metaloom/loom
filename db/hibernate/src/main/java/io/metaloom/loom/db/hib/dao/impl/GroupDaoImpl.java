@@ -2,23 +2,23 @@ package io.metaloom.loom.db.hib.dao.impl;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.hibernate.reactive.mutiny.Mutiny;
 
+import io.metaloom.loom.db.group.impl.GroupImpl;
 import io.metaloom.loom.db.hib.dao.AbstractDao;
 import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.role.Role;
 import io.metaloom.loom.db.model.user.LoomUser;
-import io.metaloom.loom.db.model.webhook.impl.WebHookImpl;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
-import io.smallrye.mutiny.Uni;
 
 @Singleton
 public class GroupDaoImpl extends AbstractDao implements GroupDao {
@@ -36,27 +36,32 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 	}
 
 	@Override
-	public Single<? extends Group> createGroup(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public Single<? extends Group> createGroup(String name, Consumer<Group> modifier) {
+		return Single.defer(() -> {
+			if (name == null) {
+				return Single.error(new NullPointerException("Name must be set"));
+			}
+			Group group = new GroupImpl(name);
+			if (modifier != null) {
+				modifier.accept(group);
+			}
+			return persistAndReturnElement(group);
+		});
 	}
 
 	@Override
 	public Completable deleteGroup(UUID uuid) {
-		// TODO Auto-generated method stub
-		return null;
+		return deleteByUuid(GroupImpl.class, uuid);
 	}
 
 	@Override
 	public Completable updateGroup(Group group) {
-		// TODO Auto-generated method stub
-		return null;
+		return persistElement(group);
 	}
 
 	@Override
 	public Maybe<? extends Group> loadGroup(UUID uuid) {
-		Uni<WebHookImpl> uni = emf.withSession(session -> session.find(WebHookImpl.class, uuid));
-		return Maybe.fromCompletionStage(uni.subscribeAsCompletionStage());
+		return loadByUuid(GroupImpl.class, uuid);
 	}
 
 	@Override

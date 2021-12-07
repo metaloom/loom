@@ -2,6 +2,7 @@ package io.metaloom.loom.db.extension;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -41,15 +42,19 @@ public class FsExtensionDaoImpl extends AbstractFSDao implements ExtensionDao {
 	}
 
 	@Override
-	public Single<? extends Extension> createExtension() {
-		Extension extension = new FsExtensionImpl();
-		extension.setUuid(UUIDUtil.randomUUID());
-		return store(extension);
+	public Single<? extends Extension> createExtension(String url, Consumer<Extension> modifier) {
+		return Single.defer(() -> {
+			Extension extension = new FsExtensionImpl();
+			extension.setUuid(UUIDUtil.randomUUID());
+			if (modifier != null) {
+				modifier.accept(extension);
+			}
+			return store(extension);
+		});
 	}
 
 	@Override
 	public Completable updateExtension(Extension extension) {
-		Objects.requireNonNull(extension, "Extension must not be null");
 		return store(extension).ignoreElement();
 	}
 

@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.model.model;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import io.metaloom.loom.db.LoomDao;
 import io.metaloom.loom.db.model.tag.Tag;
@@ -11,7 +12,24 @@ import io.reactivex.rxjava3.core.Single;
 
 public interface ModelDao extends LoomDao {
 
-	Single<? extends Model> createModel();
+	/**
+	 * Create a new model.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	default Single<? extends Model> createModel(String name) {
+		return createModel(name, null);
+	}
+
+	/**
+	 * Create a new model.
+	 * 
+	 * @param name
+	 * @param modifier
+	 * @return
+	 */
+	Single<? extends Model> createModel(String name, Consumer<Model> modifier);
 
 	Completable deleteModel(Model model);
 

@@ -1,6 +1,5 @@
 package io.metaloom.loom.db.model.role.impl;
 
-import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.db.model.AbstractCUDElement;
 import io.metaloom.loom.db.model.role.Role;
 import io.vertx.core.json.JsonObject;
@@ -8,6 +7,8 @@ import io.vertx.core.json.JsonObject;
 public class RoleImpl extends AbstractCUDElement implements Role {
 
 	private String name;
+
+	private JsonObject meta;
 
 	public RoleImpl(String name) {
 		this.name = name;
@@ -26,14 +27,13 @@ public class RoleImpl extends AbstractCUDElement implements Role {
 
 	@Override
 	public JsonObject getMeta() {
-		// TODO Auto-generated method stub
-		return null;
+		return meta;
 	}
 
 	@Override
-	public LoomElement setMeta(JsonObject meta) {
-		// TODO Auto-generated method stub
-		return null;
+	public Role setMeta(JsonObject meta) {
+		this.meta = meta;
+		return this;
 	}
 
 }

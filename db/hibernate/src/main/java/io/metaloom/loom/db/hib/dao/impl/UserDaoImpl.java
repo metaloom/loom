@@ -2,6 +2,7 @@ package io.metaloom.loom.db.hib.dao.impl;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -11,6 +12,7 @@ import org.hibernate.reactive.mutiny.Mutiny;
 import io.metaloom.loom.db.hib.dao.AbstractDao;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.db.model.user.impl.LoomUserImpl;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
@@ -31,26 +33,31 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 	}
 
 	@Override
-	public Single<? extends LoomUser> createUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public Single<? extends LoomUser> createUser(String username, Consumer<LoomUser> modifier) {
+		return Single.defer(() -> {
+			if (username == null) {
+				return Single.error(new NullPointerException("Username must be set"));
+			}
+			LoomUser user = new LoomUserImpl(username);
+			if (modifier != null) {
+				modifier.accept(user);
+			}
+			return persistAndReturnElement(user);
+		});
 	}
 
 	@Override
 	public Maybe<? extends LoomUser> loadUser(UUID uuid) {
-		// TODO Auto-generated method stub
-		return null;
+		return loadByUuid(LoomUserImpl.class, uuid);
 	}
 
 	@Override
 	public Completable updateUser(LoomUser user) {
-		// TODO Auto-generated method stub
-		return null;
+		return persistElement(user);
 	}
 
 	@Override
 	public Completable deleteUser(LoomUser user) {
-		// TODO Auto-generated method stub
-		return null;
+		return deleteElement(user);
 	}
 }

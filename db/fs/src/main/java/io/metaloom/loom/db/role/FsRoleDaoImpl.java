@@ -54,7 +54,6 @@ public class FsRoleDaoImpl extends AbstractFSDao implements RoleDao {
 
 	@Override
 	public Completable updateRole(Role role) {
-		Objects.requireNonNull(role, "Role must not be null");
 		return store(role).ignoreElement();
 	}
 

@@ -8,40 +8,44 @@ import io.metaloom.loom.db.model.user.LoomUser;
 
 public abstract class AbstractCUDElement extends AbstractLoomElement implements CUDElement {
 
+	private LoomUser editor;
+	private LoomUser creator;
+
+	private LocalDateTime edate;
+	private LocalDateTime cdate;
+
 	@Override
 	public LoomElement setEditor(LoomUser editor) {
-		// TODO Auto-generated method stub
-		return null;
+		this.editor = editor;
+		return this;
 	}
 
 	@Override
 	public LoomElement setCreator(LoomUser creator) {
-		// TODO Auto-generated method stub
-		return null;
+		this.creator = creator;
+		return this;
 	}
 
 	@Override
 	public LocalDateTime getEdited() {
-		// TODO Auto-generated method stub
-		return null;
+		return edate;
 	}
 
 	@Override
 	public LoomElement setEdited(LocalDateTime edate) {
-		// TODO Auto-generated method stub
-		return null;
+		this.edate = edate;
+		return this;
 	}
 
 	@Override
 	public LocalDateTime getCreated() {
-		// TODO Auto-generated method stub
-		return null;
+		return cdate;
 	}
 
 	@Override
 	public LoomElement setCreated(LocalDateTime cdate) {
-		// TODO Auto-generated method stub
-		return null;
+		this.cdate = cdate;
+		return this;
 	}
 
 }

@@ -2,6 +2,7 @@ package io.metaloom.loom.db.webhook;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -41,10 +42,13 @@ public class FsWebhookDaoImpl extends AbstractFSDao implements WebhookDao {
 	}
 
 	@Override
-	public Single<? extends Webhook> createWebhook() {
+	public Single<? extends Webhook> createWebhook(String url, Consumer<Webhook> modifier) {
 		return Single.fromCallable(() -> {
-			Webhook webhook = new FsWebhookImpl();
+			Webhook webhook = new FsWebhookImpl(url);
 			webhook.setUuid(UUIDUtil.randomUUID());
+			if (modifier != null) {
+				modifier.accept(webhook);
+			}
 			return webhook;
 		});
 	}

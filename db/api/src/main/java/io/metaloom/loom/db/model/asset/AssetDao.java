@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.model.asset;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import io.metaloom.loom.db.LoomDao;
 import io.metaloom.loom.db.model.tag.Tag;
@@ -11,7 +12,11 @@ import io.reactivex.rxjava3.core.Single;
 
 public interface AssetDao extends LoomDao {
 
-	Single<? extends Asset> createAsset();
+	default Single<? extends Asset> createAsset() {
+		return createAsset(null);
+	}
+
+	Single<? extends Asset> createAsset(Consumer<Asset> modifier);
 
 	Completable deleteAsset(Asset asset);
 

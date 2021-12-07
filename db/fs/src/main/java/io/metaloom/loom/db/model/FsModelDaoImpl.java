@@ -2,6 +2,7 @@ package io.metaloom.loom.db.model;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -43,9 +44,12 @@ public class FsModelDaoImpl extends AbstractFSDao implements ModelDao {
 	}
 
 	@Override
-	public Single<? extends Model> createModel() {
+	public Single<? extends Model> createModel(String name, Consumer<Model> modifier) {
 		Model model = new FsModelImpl();
 		model.setUuid(UUIDUtil.randomUUID());
+		if (modifier != null) {
+			modifier.accept(model);
+		}
 		return store(model);
 	}
 

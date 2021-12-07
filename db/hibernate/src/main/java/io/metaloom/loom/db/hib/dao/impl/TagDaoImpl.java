@@ -2,6 +2,7 @@ package io.metaloom.loom.db.hib.dao.impl;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -18,7 +19,6 @@ import io.metaloom.loom.db.model.tag.impl.TagImpl;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
-import io.smallrye.mutiny.Uni;
 
 @Singleton
 public class TagDaoImpl extends AbstractDao implements TagDao {
@@ -36,33 +36,32 @@ public class TagDaoImpl extends AbstractDao implements TagDao {
 	}
 
 	@Override
-	public Single<? extends Tag> createTag(String name, String collection) {
-		// TODO Auto-generated method stub
-		return null;
+	public Single<? extends Tag> createTag(String name, String collection, Consumer<Tag> modifier) {
+		return Single.defer(() -> {
+			if (name == null) {
+				return Single.error(new NullPointerException("Name must be set"));
+			}
+			Tag tag = new TagImpl(name);
+			if (modifier != null) {
+				modifier.accept(tag);
+			}
+			return persistAndReturnElement(tag);
+		});
 	}
 
 	@Override
 	public Maybe<? extends Tag> loadTag(UUID uuid) {
-		// TODO Auto-generated method stub
-		return null;
+		return loadByUuid(TagImpl.class, uuid);
 	}
 
 	@Override
 	public Completable deleteTag(UUID uuid) {
-		Uni<Void> uni = emf.withSession(session -> {
-			return session.find(TagImpl.class, uuid).flatMap(tag -> {
-				return session.remove(tag).call(session::flush);
-			});
-		});
-		return Completable.fromCompletionStage(uni.subscribeAsCompletionStage());
+		return deleteByUuid(TagImpl.class, uuid);
 	}
 
 	@Override
 	public Completable updateTag(Tag tag) {
-		Uni<Void> uni = emf.withSession(session -> {
-			return session.persist(tag).call(session::flush);
-		});
-		return Completable.fromCompletionStage(uni.subscribeAsCompletionStage());
+		return persistElement(tag);
 	}
 
 	@Override

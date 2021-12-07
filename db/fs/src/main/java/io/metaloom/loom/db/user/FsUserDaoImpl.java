@@ -3,6 +3,7 @@ package io.metaloom.loom.db.user;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -44,19 +45,22 @@ public class FsUserDaoImpl extends AbstractFSDao implements UserDao {
 	}
 
 	@Override
-	public Single<? extends LoomUser> createUser(String username) {
-		LoomUser user = new FsUserImpl();
-		user.setUuid(UUIDUtil.randomUUID());
-		user.setUsername(username);
-		return Single.just(user);
+	public Single<? extends LoomUser> createUser(String username, Consumer<LoomUser> modifier) {
+		return Single.defer(() -> {
+			LoomUser user = new FsUserImpl();
+			user.setUuid(UUIDUtil.randomUUID());
+			user.setUsername(username);
+			if (modifier != null) {
+				modifier.accept(user);
+			}
+			return Single.just(user);
+		});
 	}
 
 	@Override
 	public Completable updateUser(LoomUser user) {
-		Objects.requireNonNull(user, "User must not be null");
 		return store(user).ignoreElement();
 	}
-
 
 	@Override
 	public Completable clear() throws IOException {

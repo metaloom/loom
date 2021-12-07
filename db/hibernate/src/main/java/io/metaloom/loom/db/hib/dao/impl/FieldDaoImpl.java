@@ -37,14 +37,12 @@ public class FieldDaoImpl extends AbstractDao implements FieldDao {
 
 	@Override
 	public Completable deleteField(Field content) {
-		// TODO Auto-generated method stub
-		return null;
+		return deleteElement(content);
 	}
 
 	@Override
-	public Completable updateField(Field content) {
-		// TODO Auto-generated method stub
-		return null;
+	public Completable updateField(Field field) {
+		return updateField(field);
 	}
 
 	@Override

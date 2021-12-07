@@ -13,7 +13,6 @@ import io.metaloom.loom.db.hib.dao.AbstractDao;
 import io.metaloom.loom.db.model.namespace.Namespace;
 import io.metaloom.loom.db.model.namespace.NamespaceDao;
 import io.metaloom.loom.db.model.namespace.impl.NamespaceImpl;
-import io.metaloom.loom.db.model.role.impl.RoleImpl;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;

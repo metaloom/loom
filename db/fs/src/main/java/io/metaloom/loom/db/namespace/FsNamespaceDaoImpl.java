@@ -59,7 +59,6 @@ public class FsNamespaceDaoImpl extends AbstractFSDao implements NamespaceDao {
 
 	@Override
 	public Completable updateNamespace(Namespace namespace) {
-		Objects.requireNonNull(namespace, "Namespace must not be null");
 		return store(namespace).ignoreElement();
 	}
 

@@ -9,6 +9,10 @@ public class FsWebhookImpl extends AbstractFSCUDElement implements Webhook {
 	private String url;
 	private JsonObject meta;
 
+	public FsWebhookImpl(String url) {
+		this.url = url;
+	}
+
 	@Override
 	public String getURL() {
 		return url;

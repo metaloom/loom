@@ -1,23 +1,22 @@
 package io.metaloom.loom.db.model.content.impl;
 
-import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.db.model.AbstractCUDElement;
 import io.metaloom.loom.db.model.content.Content;
 import io.vertx.core.json.JsonObject;
 
 public class ContentImpl extends AbstractCUDElement implements Content {
 
+	private JsonObject meta;
+
 	@Override
 	public JsonObject getMeta() {
-		// TODO Auto-generated method stub
-		return null;
+		return meta;
 	}
 
 	@Override
-	public LoomElement setMeta(JsonObject meta) {
-		// TODO Auto-generated method stub
-		return null;
+	public Content setMeta(JsonObject meta) {
+		this.meta = meta;
+		return this;
 	}
-
 
 }

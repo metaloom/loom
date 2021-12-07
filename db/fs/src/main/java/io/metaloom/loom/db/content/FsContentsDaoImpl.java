@@ -2,6 +2,7 @@ package io.metaloom.loom.db.content;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -43,9 +44,12 @@ public class FsContentsDaoImpl extends AbstractFSDao implements ContentDao {
 	}
 
 	@Override
-	public Single<? extends Content> createContent() {
+	public Single<? extends Content> createContent(Consumer<Content> modifier) {
 		Content content = new FsContentImpl();
 		content.setUuid(UUIDUtil.randomUUID());
+		if (modifier != null) {
+			modifier.accept(content);
+		}
 		return store(content);
 	}
 

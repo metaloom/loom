@@ -4,6 +4,7 @@ import static io.metaloom.loom.utils.ExceptionUtils.isNotFoundError;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -45,6 +46,7 @@ public abstract class AbstractFSDao {
 	}
 
 	protected <T extends LoomElement> Single<? extends T> store(T element) {
+		Objects.requireNonNull(element, "Element must not be null");
 		return store(getType(), element.getUuid(), element).andThen(Single.just(element));
 		// return load(getType(), element.getUuid(), element.getClass()).toSingle();
 	}

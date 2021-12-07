@@ -4,6 +4,7 @@ import static io.metaloom.loom.db.fs.FSWrapperUtil.toFs;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -48,11 +49,16 @@ public class FsGroupDaoImpl extends AbstractFSDao implements GroupDao {
 	}
 
 	@Override
-	public Single<Group> createGroup(String name) {
-		Group group = new FsGroupImpl();
-		group.setUuid(UUIDUtil.randomUUID());
-		group.setName(name);
-		return Single.just(group);
+	public Single<Group> createGroup(String name, Consumer<Group> modifier) {
+		return Single.defer(() -> {
+			Group group = new FsGroupImpl();
+			group.setUuid(UUIDUtil.randomUUID());
+			group.setName(name);
+			if (modifier != null) {
+				modifier.accept(group);
+			}
+			return Single.just(group);
+		});
 	}
 
 	@Override
@@ -92,7 +98,7 @@ public class FsGroupDaoImpl extends AbstractFSDao implements GroupDao {
 		toFs(group).roles.remove(role);
 		return Completable.complete();
 	}
-	
+
 	@Override
 	public Completable testMultiOp() {
 		// TODO Auto-generated method stub

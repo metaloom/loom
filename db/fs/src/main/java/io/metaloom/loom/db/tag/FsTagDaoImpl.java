@@ -2,6 +2,7 @@ package io.metaloom.loom.db.tag;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -44,19 +45,21 @@ public class FsTagDaoImpl extends AbstractFSDao implements TagDao {
 	}
 
 	@Override
-	public Single<? extends Tag> createTag(String name, String collection) {
+	public Single<? extends Tag> createTag(String name, String collection, Consumer<Tag> modifier) {
 		return Single.fromCallable(() -> {
 			Tag tag = new FsTagImpl();
 			tag.setUuid(UUIDUtil.randomUUID());
 			tag.setName(name);
 			tag.setCollection(collection);
+			if (modifier != null) {
+				modifier.accept(tag);
+			}
 			return tag;
 		});
 	}
 
 	@Override
 	public Completable updateTag(Tag tag) {
-		Objects.requireNonNull(tag, "Tag must not be null");
 		return store(tag).ignoreElement();
 	}
 

@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.model.user;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import io.metaloom.loom.db.LoomDao;
 import io.reactivex.rxjava3.core.Completable;
@@ -9,13 +10,18 @@ import io.reactivex.rxjava3.core.Single;
 
 public interface UserDao extends LoomDao {
 
+	default Single<? extends LoomUser> createUser(String username) {
+		return createUser(username, null);
+	}
+
 	/**
 	 * Create and store a new user with the given username.
 	 * 
 	 * @param username
+	 * @param modifier
 	 * @return
 	 */
-	Single<? extends LoomUser> createUser(String username);
+	Single<? extends LoomUser> createUser(String username, Consumer<LoomUser> modifier);
 
 	/**
 	 * Load the user with the given uuid.
@@ -39,6 +45,7 @@ public interface UserDao extends LoomDao {
 	 * @param user
 	 * @return
 	 */
+	// TODO switch to uuid?
 	Completable deleteUser(LoomUser user);
 
 }
