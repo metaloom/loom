@@ -44,6 +44,9 @@
 		<module>fs</module>
 		<module>tika</module>
 		<module>s3</module>
+		<module>io-uring</module>
+		<module>eventbus</module>
+		<module>webhook</module>
 	</modules>
 
 </project>

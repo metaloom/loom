@@ -19,8 +19,8 @@ public class VertxModule {
 
 	@Provides
 	@Singleton
-	public io.vertx.reactivex.core.Vertx rxVertx(Vertx vertx) {
-		return new io.vertx.reactivex.core.Vertx(vertx);
+	public io.vertx.rxjava3.core.Vertx rxVertx(Vertx vertx) {
+		return new io.vertx.rxjava3.core.Vertx(vertx);
 	}
 
 	@Provides
@@ -31,7 +31,7 @@ public class VertxModule {
 
 	@Provides
 	@Singleton
-	public io.vertx.reactivex.core.file.FileSystem rxFilesystem(io.vertx.reactivex.core.Vertx rxVertx) {
+	public io.vertx.rxjava3.core.file.FileSystem rxFilesystem(io.vertx.rxjava3.core.Vertx rxVertx) {
 		return rxVertx.fileSystem();
 	}
 
@@ -43,7 +43,7 @@ public class VertxModule {
 
 	@Provides
 	@Singleton
-	public io.vertx.reactivex.core.eventbus.EventBus rxEventBus(io.vertx.reactivex.core.Vertx rxVertx) {
+	public io.vertx.rxjava3.core.eventbus.EventBus rxEventBus(io.vertx.rxjava3.core.Vertx rxVertx) {
 		return rxVertx.eventBus();
 	}
 

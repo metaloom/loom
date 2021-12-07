@@ -12,6 +12,8 @@ public class DatabaseOptions implements Option {
 
 	public static final String DEFAULT_DATABASE_NAME = "loom";
 
+	public static final int DEFAULT_POOL_SIZE = 16;
+
 	private String host = DEFAULT_HOST;
 
 	private int port = DEFAULT_PORT;
@@ -21,6 +23,8 @@ public class DatabaseOptions implements Option {
 	private String password = DEFAULT_PASSWORD;
 
 	private String databaseName = DEFAULT_DATABASE_NAME;
+
+	private int poolSize = DEFAULT_POOL_SIZE;
 
 	public String getHost() {
 		return host;
@@ -65,6 +69,19 @@ public class DatabaseOptions implements Option {
 	public DatabaseOptions setUsername(String username) {
 		this.username = username;
 		return this;
+	}
+
+	public int getPoolSize() {
+		return poolSize;
+	}
+
+	public DatabaseOptions setPoolSize(int poolSize) {
+		this.poolSize = poolSize;
+		return this;
+	}
+
+	public String getJdbcUrl() {
+		return "jdbc:postgresql://" + getHost() + ":" + getPort() + "/" + getDatabaseName();
 	}
 
 }

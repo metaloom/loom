@@ -10,34 +10,36 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import io.reactivex.Maybe;
+import io.metaloom.loom.db.model.role.Role;
+import io.metaloom.loom.db.model.role.RoleDao;
+import io.reactivex.rxjava3.core.Maybe;
 
 public abstract class AbstractRoleDaoTest {
 
-	abstract public LoomRoleDao getDao();
+	abstract public RoleDao getDao();
 
 	@After
 	@Before
 	public void clearPersistence() throws IOException {
-		getDao().clear();
+		getDao().clear().blockingAwait();
 	}
 
 	@Test
 	public void testCreate() {
-		LoomRoleDao dao = getDao();
+		RoleDao dao = getDao();
 
 		// Create role
-		LoomRole role = dao.createRole("Guests").blockingGet();
+		Role role = dao.createRole("Guests").blockingGet();
 		assertNotNull(role.getUuid());
 		assertEquals("Guests", role.getName());
 	}
 
 	@Test
 	public void testDelete() {
-		LoomRoleDao dao = getDao();
+		RoleDao dao = getDao();
 
 		// Create role
-		LoomRole role = dao.createRole("Guests").blockingGet();
+		Role role = dao.createRole("Guests").blockingGet();
 
 		// Now assert deletion
 		dao.deleteRole(role.getUuid());
@@ -46,27 +48,27 @@ public abstract class AbstractRoleDaoTest {
 
 	@Test
 	public void testUpdate() {
-		LoomRoleDao dao = getDao();
+		RoleDao dao = getDao();
 
 		// Create and store
-		LoomRole role = dao.createRole("Guests").blockingGet();
+		Role role = dao.createRole("Guests").blockingGet();
 
 		// Now update
 		role.setName("Guests2");
 		dao.updateRole(role);
 
 		// Load and assert update was persisted
-		Maybe<? extends LoomRole> updatedRole = dao.loadRole(role.getUuid());
+		Maybe<? extends Role> updatedRole = dao.loadRole(role.getUuid());
 		assertEquals("Guests2", updatedRole.blockingGet().getName());
 
 	}
 
 	@Test
 	public void testLoad() {
-		LoomRoleDao dao = getDao();
+		RoleDao dao = getDao();
 
 		// Create and store role
-		LoomRole role = dao.createRole("Guests").blockingGet();
+		Role role = dao.createRole("Guests").blockingGet();
 
 		// Now load again
 		assertNotNull(dao.loadRole(role.getUuid()));

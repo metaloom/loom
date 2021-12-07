@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.LoomElement;
-import io.metaloom.loom.db.user.LoomUser;
+import io.metaloom.loom.db.model.user.LoomUser;
 
 public abstract class AbstractMemCUDElement extends AbstractMemLoomElement implements CUDElement {
 

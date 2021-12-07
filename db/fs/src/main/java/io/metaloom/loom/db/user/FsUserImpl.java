@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.user;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
+import io.metaloom.loom.db.model.user.LoomUser;
 import io.vertx.core.json.JsonObject;
 
 public class FsUserImpl extends AbstractFSCUDElement implements LoomUser {

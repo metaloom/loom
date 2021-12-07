@@ -1,9 +1,10 @@
 package io.metaloom.loom.db.content;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
+import io.metaloom.loom.db.model.content.Content;
 import io.vertx.core.json.JsonObject;
 
-public class FsContentImpl extends AbstractFSCUDElement implements LoomContent {
+public class FsContentImpl extends AbstractFSCUDElement implements Content {
 
 	private JsonObject meta;
 
@@ -13,7 +14,7 @@ public class FsContentImpl extends AbstractFSCUDElement implements LoomContent {
 	}
 
 	@Override
-	public LoomContent setMeta(JsonObject meta) {
+	public Content setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}

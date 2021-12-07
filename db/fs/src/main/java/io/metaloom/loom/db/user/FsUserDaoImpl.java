@@ -12,14 +12,16 @@ import org.apache.commons.io.FileUtils;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
+import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.uuid.UUIDUtil;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Single;
-import io.vertx.reactivex.core.file.FileSystem;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Single;
+import io.vertx.rxjava3.core.file.FileSystem;
 
 @Singleton
-public class FsUserDaoImpl extends AbstractFSDao implements LoomUserDao {
+public class FsUserDaoImpl extends AbstractFSDao implements UserDao {
 
 	@Inject
 	public FsUserDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {

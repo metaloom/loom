@@ -2,7 +2,7 @@ package io.metaloom.loom.db;
 
 import java.io.IOException;
 
-import io.reactivex.Completable;
+import io.reactivex.rxjava3.core.Completable;
 
 public interface LoomDao {
 

@@ -2,7 +2,9 @@ package io.metaloom.loom.db.asset;
 
 import java.util.UUID;
 
-public class FsAssetBinaryImpl implements LoomAssetBinary {
+import io.metaloom.loom.db.model.asset.AssetBinary;
+
+public class FsAssetBinaryImpl implements AssetBinary {
 
 	private UUID uuid;
 
@@ -26,7 +28,7 @@ public class FsAssetBinaryImpl implements LoomAssetBinary {
 	}
 
 	@Override
-	public LoomAssetBinary setUuid(UUID uuid) {
+	public AssetBinary setUuid(UUID uuid) {
 		this.uuid = uuid;
 		return this;
 	}
@@ -37,7 +39,7 @@ public class FsAssetBinaryImpl implements LoomAssetBinary {
 	}
 
 	@Override
-	public LoomAssetBinary setSHA512(String hashsum) {
+	public AssetBinary setSHA512(String hashsum) {
 		this.sha512 = hashsum;
 		return this;
 	}
@@ -48,7 +50,7 @@ public class FsAssetBinaryImpl implements LoomAssetBinary {
 	}
 
 	@Override
-	public LoomAssetBinary setSHA256(String hashsum) {
+	public AssetBinary setSHA256(String hashsum) {
 		this.sha256 = hashsum;
 		return this;
 	}
@@ -59,7 +61,7 @@ public class FsAssetBinaryImpl implements LoomAssetBinary {
 	}
 
 	@Override
-	public LoomAssetBinary setMD5(String hashsum) {
+	public AssetBinary setMD5(String hashsum) {
 		this.md5 = hashsum;
 		return this;
 	}
@@ -70,7 +72,7 @@ public class FsAssetBinaryImpl implements LoomAssetBinary {
 	}
 
 	@Override
-	public LoomAssetBinary setMediaWidth(Integer width) {
+	public AssetBinary setMediaWidth(Integer width) {
 		this.width = width;
 		return this;
 	}
@@ -81,7 +83,7 @@ public class FsAssetBinaryImpl implements LoomAssetBinary {
 	}
 
 	@Override
-	public LoomAssetBinary setMediaHeight(Integer height) {
+	public AssetBinary setMediaHeight(Integer height) {
 		this.height = height;
 		return this;
 	}
@@ -92,7 +94,7 @@ public class FsAssetBinaryImpl implements LoomAssetBinary {
 	}
 
 	@Override
-	public LoomAssetBinary setFingerprint(String fingerprint) {
+	public AssetBinary setFingerprint(String fingerprint) {
 		this.fingerprint = fingerprint;
 		return this;
 	}
@@ -103,7 +105,7 @@ public class FsAssetBinaryImpl implements LoomAssetBinary {
 	}
 
 	@Override
-	public LoomAssetBinary setSize(long size) {
+	public AssetBinary setSize(long size) {
 		this.size = size;
 		return this;
 	}

@@ -5,13 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.utils.RxUtils;
 import io.metaloom.loom.uuid.UUIDUtil;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Single;
 
-public class MemUsersDaoImpl implements LoomUserDao {
+public class MemUsersDaoImpl implements UserDao {
 
 	private Map<UUID, LoomUser> storage = new HashMap<>();
 

@@ -1,9 +1,10 @@
 package io.metaloom.loom.db.role;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
+import io.metaloom.loom.db.model.role.Role;
 import io.vertx.core.json.JsonObject;
 
-public class FsRoleImpl extends AbstractFSCUDElement implements LoomRole {
+public class FsRoleImpl extends AbstractFSCUDElement implements Role {
 
 	private String name;
 	private JsonObject meta;
@@ -14,7 +15,7 @@ public class FsRoleImpl extends AbstractFSCUDElement implements LoomRole {
 	}
 
 	@Override
-	public LoomRole setName(String name) {
+	public Role setName(String name) {
 		this.name = name;
 		return this;
 	}
@@ -25,7 +26,7 @@ public class FsRoleImpl extends AbstractFSCUDElement implements LoomRole {
 	}
 
 	@Override
-	public LoomRole setMeta(JsonObject meta) {
+	public Role setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}

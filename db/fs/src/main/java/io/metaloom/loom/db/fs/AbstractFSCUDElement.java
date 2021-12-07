@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.LoomElement;
-import io.metaloom.loom.db.user.LoomUser;
+import io.metaloom.loom.db.model.user.LoomUser;
 
 public abstract class AbstractFSCUDElement extends AbstractFSLoomElement implements CUDElement {
 

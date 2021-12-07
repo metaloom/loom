@@ -9,16 +9,18 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.tag.LoomTag;
+import io.metaloom.loom.db.model.model.Model;
+import io.metaloom.loom.db.model.model.ModelDao;
+import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.uuid.UUIDUtil;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.vertx.reactivex.core.file.FileSystem;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.vertx.rxjava3.core.file.FileSystem;
 
 @Singleton
-public class FsModelDaoImpl extends AbstractFSDao implements LoomModelDao {
+public class FsModelDaoImpl extends AbstractFSDao implements ModelDao {
 
 	@Inject
 	public FsModelDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
@@ -30,43 +32,43 @@ public class FsModelDaoImpl extends AbstractFSDao implements LoomModelDao {
 	}
 
 	@Override
-	public Maybe<? extends LoomModel> loadModel(UUID uuid) {
+	public Maybe<? extends Model> loadModel(UUID uuid) {
 		return load(uuid, FsModelImpl.class);
 	}
 
 	@Override
-	public Completable deleteModel(LoomModel model) {
+	public Completable deleteModel(Model model) {
 		Objects.requireNonNull(model, "Model must not be null");
 		return delete(model.getUuid());
 	}
 
 	@Override
-	public Single<? extends LoomModel> createModel() {
-		LoomModel model = new FsModelImpl();
+	public Single<? extends Model> createModel() {
+		Model model = new FsModelImpl();
 		model.setUuid(UUIDUtil.randomUUID());
 		return store(model);
 	}
 
 	@Override
-	public Completable updateModel(LoomModel model) {
+	public Completable updateModel(Model model) {
 		Objects.requireNonNull(model, "Model must not be null");
 		return store(model).ignoreElement();
 	}
 
 	@Override
-	public Observable<LoomTag> loadTags(LoomModel model) {
+	public Observable<Tag> loadTags(Model model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Completable addTag(LoomModel model, LoomTag tag) {
+	public Completable addTag(Model model, Tag tag) {
 		// TODO Auto-generated method stub
 		return Completable.complete();
 	}
 
 	@Override
-	public Completable removeTag(LoomModel model, LoomTag tag) {
+	public Completable removeTag(Model model, Tag tag) {
 		// TODO Auto-generated method stub
 		return Completable.complete();
 	}

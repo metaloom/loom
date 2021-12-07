@@ -11,11 +11,11 @@ import org.apache.commons.io.FileUtils;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.json.JsonUtil;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Single;
-import io.vertx.reactivex.core.buffer.Buffer;
-import io.vertx.reactivex.core.file.FileSystem;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Single;
+import io.vertx.rxjava3.core.buffer.Buffer;
+import io.vertx.rxjava3.core.file.FileSystem;
 
 public abstract class AbstractFSDao {
 

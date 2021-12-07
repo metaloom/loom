@@ -1,9 +1,10 @@
 package io.metaloom.loom.db.namespace;
 
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
+import io.metaloom.loom.db.model.namespace.Namespace;
 import io.vertx.core.json.JsonObject;
 
-public class FsNamespaceImpl extends AbstractFSCUDElement implements LoomNamespace {
+public class FsNamespaceImpl extends AbstractFSCUDElement implements Namespace {
 
 	private String name;
 
@@ -15,7 +16,7 @@ public class FsNamespaceImpl extends AbstractFSCUDElement implements LoomNamespa
 	}
 
 	@Override
-	public LoomNamespace setName(String name) {
+	public Namespace setName(String name) {
 		this.name = name;
 		return this;
 	}
@@ -26,7 +27,7 @@ public class FsNamespaceImpl extends AbstractFSCUDElement implements LoomNamespa
 	}
 
 	@Override
-	public LoomNamespace	 setMeta(JsonObject meta) {
+	public Namespace setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}

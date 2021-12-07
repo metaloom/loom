@@ -10,11 +10,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import io.reactivex.Maybe;
+import io.metaloom.loom.db.model.namespace.Namespace;
+import io.metaloom.loom.db.model.namespace.NamespaceDao;
+import io.reactivex.rxjava3.core.Maybe;
 
 public abstract class AbstractNamespaceDaoTest {
 
-	abstract public LoomNamespaceDao getDao();
+	abstract public NamespaceDao getDao();
 
 	@After
 	@Before
@@ -24,20 +26,20 @@ public abstract class AbstractNamespaceDaoTest {
 
 	@Test
 	public void testCreate() {
-		LoomNamespaceDao dao = getDao();
+		NamespaceDao dao = getDao();
 
 		// Create namespace
-		LoomNamespace namespace = dao.createNamespace("Dummy").blockingGet();
+		Namespace namespace = dao.createNamespace("Dummy").blockingGet();
 		assertNotNull(namespace.getUuid());
 		assertEquals("Dummy", namespace.getName());
 	}
 
 	@Test
 	public void testDelete() {
-		LoomNamespaceDao dao = getDao();
+		NamespaceDao dao = getDao();
 
 		// Create namespace
-		LoomNamespace namespace = dao.createNamespace("Dummy").blockingGet();
+		Namespace namespace = dao.createNamespace("Dummy").blockingGet();
 		assertNotNull(namespace);
 
 		// Now assert deletion
@@ -47,27 +49,27 @@ public abstract class AbstractNamespaceDaoTest {
 
 	@Test
 	public void testUpdate() {
-		LoomNamespaceDao dao = getDao();
+		NamespaceDao dao = getDao();
 
 		// Create and store
-		LoomNamespace namespace = dao.createNamespace("Dummy").blockingGet();
+		Namespace namespace = dao.createNamespace("Dummy").blockingGet();
 
 		// Now update
 		namespace.setName("Dummy2");
 		dao.updateNamespace(namespace).blockingAwait();
 
 		// Load and assert update was persisted
-		Maybe<? extends LoomNamespace> updatedNamespace = dao.loadNamespace(namespace.getUuid());
+		Maybe<? extends Namespace> updatedNamespace = dao.loadNamespace(namespace.getUuid());
 		assertEquals("Dummy2", updatedNamespace.blockingGet().getName());
 
 	}
 
 	@Test
 	public void testLoad() {
-		LoomNamespaceDao dao = getDao();
+		NamespaceDao dao = getDao();
 
 		// Create and store namespace
-		LoomNamespace namespace = dao.createNamespace("Dummy").blockingGet();
+		Namespace namespace = dao.createNamespace("Dummy").blockingGet();
 
 		// Now load again
 		assertNotNull(dao.loadNamespace(namespace.getUuid()).blockingGet());

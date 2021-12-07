@@ -3087,6 +3087,7 @@ components:
 # 3: Upload to S3  -> Create Asset -> Asset
 # 4: S3 Event? -> Extension -> Create Asset -> Asset (download, presignedUrl, download redirect, s3 link rendering)
 
+# Pre-Processor? Blocking? Async?
 # queued -> (if extension present) -> processing -> processed
 
 

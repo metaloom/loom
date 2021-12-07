@@ -3,6 +3,7 @@ package io.metaloom.loom.db.namespace;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -10,16 +11,18 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.tag.LoomTag;
+import io.metaloom.loom.db.model.namespace.Namespace;
+import io.metaloom.loom.db.model.namespace.NamespaceDao;
+import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.uuid.UUIDUtil;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.vertx.reactivex.core.file.FileSystem;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.vertx.rxjava3.core.file.FileSystem;
 
 @Singleton
-public class FsNamespaceDaoImpl extends AbstractFSDao implements LoomNamespaceDao {
+public class FsNamespaceDaoImpl extends AbstractFSDao implements NamespaceDao {
 
 	@Inject
 	public FsNamespaceDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
@@ -31,7 +34,7 @@ public class FsNamespaceDaoImpl extends AbstractFSDao implements LoomNamespaceDa
 	}
 
 	@Override
-	public Maybe<? extends LoomNamespace> loadNamespace(UUID uuid) {
+	public Maybe<? extends Namespace> loadNamespace(UUID uuid) {
 		return load(uuid, FsNamespaceImpl.class);
 	}
 
@@ -42,17 +45,20 @@ public class FsNamespaceDaoImpl extends AbstractFSDao implements LoomNamespaceDa
 	}
 
 	@Override
-	public Single<? extends LoomNamespace> createNamespace(String name) {
+	public Single<? extends Namespace> createNamespace(String name, Consumer<Namespace> modifier) {
 		return Single.defer(() -> {
-			LoomNamespace namespace = new FsNamespaceImpl();
+			Namespace namespace = new FsNamespaceImpl();
 			namespace.setUuid(UUIDUtil.randomUUID());
 			namespace.setName(name);
+			if (modifier != null) {
+				modifier.accept(namespace);
+			}
 			return store(namespace);
 		});
 	}
 
 	@Override
-	public Completable updateNamespace(LoomNamespace namespace) {
+	public Completable updateNamespace(Namespace namespace) {
 		Objects.requireNonNull(namespace, "Namespace must not be null");
 		return store(namespace).ignoreElement();
 	}
@@ -63,19 +69,19 @@ public class FsNamespaceDaoImpl extends AbstractFSDao implements LoomNamespaceDa
 	}
 
 	@Override
-	public Observable<LoomTag> loadTags(LoomNamespace namespace) {
+	public Observable<Tag> loadTags(Namespace namespace) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Completable addTag(LoomNamespace namespace, LoomTag tag) {
+	public Completable addTag(Namespace namespace, Tag tag) {
 		// TODO Auto-generated method stub
 		return Completable.complete();
 	}
 
 	@Override
-	public Completable removeTag(LoomNamespace namespace, LoomTag tag) {
+	public Completable removeTag(Namespace namespace, Tag tag) {
 		// TODO Auto-generated method stub
 		return Completable.complete();
 	}

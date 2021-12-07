@@ -1,6 +1,6 @@
 package io.metaloom.loom.utils;
 
-import io.reactivex.Maybe;
+import io.reactivex.rxjava3.core.Maybe;
 
 public final class RxUtils {
 

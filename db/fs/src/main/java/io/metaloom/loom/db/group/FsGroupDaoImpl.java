@@ -13,17 +13,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.role.LoomRole;
-import io.metaloom.loom.db.user.LoomUser;
+import io.metaloom.loom.db.model.group.Group;
+import io.metaloom.loom.db.model.group.GroupDao;
+import io.metaloom.loom.db.model.role.Role;
+import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.uuid.UUIDUtil;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.vertx.reactivex.core.file.FileSystem;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.vertx.rxjava3.core.file.FileSystem;
 
 @Singleton
-public class FsGroupDaoImpl extends AbstractFSDao implements LoomGroupDao {
+public class FsGroupDaoImpl extends AbstractFSDao implements GroupDao {
 
 	@Inject
 	public FsGroupDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
@@ -35,7 +37,7 @@ public class FsGroupDaoImpl extends AbstractFSDao implements LoomGroupDao {
 	}
 
 	@Override
-	public Maybe<? extends LoomGroup> loadGroup(UUID uuid) {
+	public Maybe<? extends Group> loadGroup(UUID uuid) {
 		return load(uuid, FsGroupImpl.class);
 	}
 
@@ -46,47 +48,47 @@ public class FsGroupDaoImpl extends AbstractFSDao implements LoomGroupDao {
 	}
 
 	@Override
-	public Single<LoomGroup> createGroup(String name) {
-		LoomGroup group = new FsGroupImpl();
+	public Single<Group> createGroup(String name) {
+		Group group = new FsGroupImpl();
 		group.setUuid(UUIDUtil.randomUUID());
 		group.setName(name);
 		return Single.just(group);
 	}
 
 	@Override
-	public Completable updateGroup(LoomGroup group) {
+	public Completable updateGroup(Group group) {
 		Objects.requireNonNull(group, "Group must not be null");
 		return store(group).ignoreElement();
 	}
 
 	@Override
 	@JsonIgnore
-	public Observable<LoomUser> loadUsers(LoomGroup group) {
+	public Observable<LoomUser> loadUsers(Group group) {
 		return Observable.fromIterable(toFs(group).users);
 	}
 
 	@Override
-	public Completable addUserToGroup(LoomGroup group, LoomUser user) {
+	public Completable addUserToGroup(Group group, LoomUser user) {
 		return Completable.fromAction(() -> {
 			toFs(group).users.add(user);
 		});
 	}
 
 	@Override
-	public Completable removeUserFromGroup(LoomGroup group, LoomUser user) {
+	public Completable removeUserFromGroup(Group group, LoomUser user) {
 		return Completable.fromAction(() -> {
 			toFs(group).users.remove(user);
 		});
 	}
 
 	@Override
-	public Completable addRoleToGroup(LoomGroup group, LoomRole role) {
+	public Completable addRoleToGroup(Group group, Role role) {
 		toFs(group).roles.add(role);
 		return Completable.complete();
 	}
 
 	@Override
-	public Completable removeRoleFromGroup(LoomGroup group, LoomRole role) {
+	public Completable removeRoleFromGroup(Group group, Role role) {
 		toFs(group).roles.remove(role);
 		return Completable.complete();
 	}
@@ -99,7 +101,7 @@ public class FsGroupDaoImpl extends AbstractFSDao implements LoomGroupDao {
 
 	@Override
 	@JsonIgnore
-	public Observable<LoomRole> loadRoles(LoomGroup group) {
+	public Observable<Role> loadRoles(Group group) {
 		return Observable.fromIterable(toFs(group).roles);
 	}
 

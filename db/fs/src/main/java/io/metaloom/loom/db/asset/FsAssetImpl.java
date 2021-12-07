@@ -1,10 +1,12 @@
 package io.metaloom.loom.db.asset;
 
 import java.math.BigDecimal;
+
 import io.metaloom.loom.db.fs.AbstractFSCUDElement;
+import io.metaloom.loom.db.model.asset.Asset;
 import io.vertx.core.json.JsonObject;
 
-public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
+public class FsAssetImpl extends AbstractFSCUDElement implements Asset {
 
 	private String filename;
 
@@ -32,7 +34,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public LoomAsset setFilename(String filename) {
+	public Asset setFilename(String filename) {
 		this.filename = filename;
 		return this;
 	}
@@ -43,7 +45,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public LoomAsset setLocalPath(String path) {
+	public Asset setLocalPath(String path) {
 		this.localPath = path;
 		return this;
 	}
@@ -54,7 +56,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public LoomAsset setS3BucketName(String bucketName) {
+	public Asset setS3BucketName(String bucketName) {
 		this.s3BucketName = bucketName;
 		return this;
 	}
@@ -65,7 +67,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public LoomAsset setS3ObjectPath(String path) {
+	public Asset setS3ObjectPath(String path) {
 		this.s3ObjectPath = path;
 		return this;
 	}
@@ -76,7 +78,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public LoomAsset setDominantColor(String color) {
+	public Asset setDominantColor(String color) {
 		this.dominantColor = color;
 		return this;
 	}
@@ -87,7 +89,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public LoomAsset setMeta(JsonObject meta) {
+	public Asset setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}
@@ -98,7 +100,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public LoomAsset setGPSLat(BigDecimal lat) {
+	public Asset setGPSLat(BigDecimal lat) {
 		this.gpsLat = lat;
 		return this;
 	}
@@ -109,7 +111,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public LoomAsset setGPSLon(BigDecimal lon) {
+	public Asset setGPSLon(BigDecimal lon) {
 		this.gpsLon = lon;
 		return this;
 	}
@@ -120,7 +122,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public LoomAsset setRating(Integer rating) {
+	public Asset setRating(Integer rating) {
 		this.rating = rating;
 		return this;
 	}
@@ -131,7 +133,7 @@ public class FsAssetImpl extends AbstractFSCUDElement implements LoomAsset {
 	}
 
 	@Override
-	public LoomAsset setMimeType(String mimeType) {
+	public Asset setMimeType(String mimeType) {
 		this.mimeType = mimeType;
 		return this;
 	}

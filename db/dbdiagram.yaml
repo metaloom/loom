@@ -14,6 +14,63 @@ Table loom as LOOM [headercolor: #16a085] {
   last_used_timestamp timestamp [default: `now()`, not null]
 }
 
+
+Table stage as STAGE [headercolor: #16a085] {
+  uuid uuid_generate_v4 [increment]
+  name varchar [unique, not null]
+  enabled boolean [default: false]
+  meta varchar [note: "Custom meta properties"]
+  next_stage_uuid uuid_generate_v4 [ref: > STAGE.uuid]
+  prev_stage_uuid uuid_generate_v4 [ref: > STAGE.uuid]
+  
+  created timestamp [default: `now()`]
+  creator_uuid uuid  [ref: > U.uuid]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  
+  Indexes {
+    (uuid) [pk]
+    (name) [unique]
+  }
+  note: 'Stages can be used to create workflow processes for contents.'
+}
+
+Table stage_assignment as STA {
+  stage_uuid uuid_generate_v4 [ref: > STAGE.uuid, not null]
+  content_uuid uuid_generate_v4 [ref: > C.uuid, not null]
+  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
+  note varchar [note: "Added description by the reviewer"]
+  status stage_status
+  meta varchar [note: 'Additional meta properties for the stage assignment']
+
+  created timestamp [default: `now()`]
+  creator_uuid uuid  [ref: > U.uuid]
+  reviewed timestamp [default: `now()`]
+  reviewer_uuid uuid_generate_v4 [ref: > U.uuid]
+
+  Indexes {
+    (stage_uuid) [pk]
+    (stage_uuid, content_uuid)
+    (stage_uuid, asset_uuid)
+  }
+  
+  note: 'This crosstable tracks the stage elements'
+  // TODO: Maybe add expiration date for elements?
+  // TODO: Priority? Assigments could also be seen as tickets / tasks - How could this be connected to a TT?
+}
+
+Table stage_ugr {
+  stage_uuid uuid_generate_v4 [ref: > STAGE.uuid, not null]
+
+  user_uuid  uuid_generate_v4 
+  group_uuid  uuid_generate_v4 
+  role_uuid uuid_generate_v4 
+  
+  note: "This table keeps track of the user/group/role stage assignment"
+  
+  //TODO How to handle conflicts? How to prevent duplicates?
+}
+
 Table user as U [headercolor: #16a085] {
   uuid uuid_generate_v4 [increment]
   username varchar [unique, not null]
@@ -210,7 +267,10 @@ Table asset as ASSET [headercolor: #16a085] {
   mimeType varchar
   gps_lon decimal(9,6)
   gps_lat decimal(8,6)
-  
+
+  state varchar
+  locked_by_uuid uuid_generate_v4 [ref: > U.uuid]
+  // Locking reason can be stored in meta? or state? Do we need a dedicated field?
   //author, license, metadata
 
   // S3
@@ -270,6 +330,8 @@ Table content as C [headercolor: #16a085] {
   namespace_uuid uuid_generate_v4 [ref: > N.uuid, not null]
   parent uuid_generate_v4 [ref: > C.uuid, note: 'Reference to the parent content.']
   
+  meta varchar [note: "Custom meta properties"]
+  state varchar
   created timestamp [default: `now()`, not null]
   creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
   model_uuid uuid_generate_v4 [ref: > M.uuid, not null]
@@ -323,9 +385,11 @@ Table field_reference as FR {
 Table field_content as CF {
   fields_uuid uuid_generate_v4 [ref: >  F.uuid, not null]
   content_uuid uuid_generate_v4 [ref: > C.uuid]
+  state varchar
+  webroot_path_info varchar [unique, note: 'The path info contains a unique path to the content. It may thus also be parentUuid+language+namespace+path specific.']
 
-  webroot_path_info varchar [unique]
-  
+  // TODO maybe better move language_uuid / tag into here? 
+  // Guess it depends on the query and uniqueness constaints
   note: "Crosstable that tracks all fields for a content"
 }
 
@@ -484,6 +548,9 @@ tablegroup Namespace {
 
 tablegroup Others {
   loom
+}
+
+tablegroup Connectivity {
   webhook
   extension
 }
@@ -509,6 +576,12 @@ tablegroup Assets {
   asset_binary
   asset_timeline
   asset_user_meta
+}
+
+tablegroup Staging {
+  stage
+  stage_assignment
+  stage_ugr
 }
 
 tablegroup ACL {
@@ -596,6 +669,13 @@ Enum loom_content_type {
   I [note: 'Maybe implicitly used']
 }
 
+Enum state_status {
+  ACCEPTED
+  REJECTED
+  PENDING
+  REVIEW
+}
+
 Enum loom_permission_flag {
   // C
   CREATE_CONTENT
@@ -604,6 +684,8 @@ Enum loom_permission_flag {
   DELETE_CONTENT
   PUBLISH_CONTENT
   UNPUBLISH_CONTENT
+  LOCK_CONTENT
+  UNLOCK_CONTENT
 
   // N
   CREATE_NAMESPACE
@@ -648,6 +730,8 @@ Enum loom_permission_flag {
   DELETE_ASSET
   UPLOAD_ASSET
   DOWNLOAD_ASSET
+  LOCK_ASSET
+  UNLOCK_ASSET
   
   // W
   CREATE_WEBHOOK
@@ -671,3 +755,5 @@ Enum loom_permission_flag {
   // TBD
   
 }
+
+Ref: "asset"."edited" < "asset"."created"

@@ -36,7 +36,10 @@
 		<module>flyway</module>
 		<module>memory</module>
 		<module>fs</module>
+		<module>hibernate</module>
+		<!-- 
 		<module>jooq</module>
+		 -->
 	</modules>
 
 </project>

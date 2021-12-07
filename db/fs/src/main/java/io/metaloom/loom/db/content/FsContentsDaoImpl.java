@@ -9,16 +9,18 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
-import io.metaloom.loom.db.tag.LoomTag;
+import io.metaloom.loom.db.model.content.Content;
+import io.metaloom.loom.db.model.content.ContentDao;
+import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.uuid.UUIDUtil;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.vertx.reactivex.core.file.FileSystem;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.vertx.rxjava3.core.file.FileSystem;
 
 @Singleton
-public class FsContentsDaoImpl extends AbstractFSDao implements LoomContentDao {
+public class FsContentsDaoImpl extends AbstractFSDao implements ContentDao {
 
 	@Inject
 	public FsContentsDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
@@ -30,43 +32,43 @@ public class FsContentsDaoImpl extends AbstractFSDao implements LoomContentDao {
 	}
 
 	@Override
-	public Maybe<? extends LoomContent> loadContent(UUID uuid) {
+	public Maybe<? extends Content> loadContent(UUID uuid) {
 		return load(uuid, FsContentImpl.class);
 	}
 
 	@Override
-	public Completable deleteContent(LoomContent content) {
+	public Completable deleteContent(Content content) {
 		Objects.requireNonNull(content, "Content must not be null");
 		return delete(content.getUuid());
 	}
 
 	@Override
-	public Single<? extends LoomContent> createContent() {
-		LoomContent content = new FsContentImpl();
+	public Single<? extends Content> createContent() {
+		Content content = new FsContentImpl();
 		content.setUuid(UUIDUtil.randomUUID());
 		return store(content);
 	}
 
 	@Override
-	public Completable updateContent(LoomContent content) {
+	public Completable updateContent(Content content) {
 		Objects.requireNonNull(content, "Content must not be null");
 		return store(content).ignoreElement();
 	}
 
 	@Override
-	public Observable<LoomTag> loadTags(LoomContent content) {
+	public Observable<Tag> loadTags(Content content) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Completable addTag(LoomContent content, LoomTag tag) {
+	public Completable addTag(Content content, Tag tag) {
 		// TODO Auto-generated method stub
 		return Completable.complete();
 	}
 
 	@Override
-	public Completable removeTag(LoomContent content, LoomTag tag) {
+	public Completable removeTag(Content content, Tag tag) {
 		// TODO Auto-generated method stub
 		return Completable.complete();
 	}

@@ -2,6 +2,7 @@ package io.metaloom.loom.db.role;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -9,14 +10,16 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.fs.AbstractFSDao;
 import io.metaloom.loom.db.fs.FSType;
+import io.metaloom.loom.db.model.role.Role;
+import io.metaloom.loom.db.model.role.RoleDao;
 import io.metaloom.loom.uuid.UUIDUtil;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Single;
-import io.vertx.reactivex.core.file.FileSystem;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Single;
+import io.vertx.rxjava3.core.file.FileSystem;
 
 @Singleton
-public class FsRoleDaoImpl extends AbstractFSDao implements LoomRoleDao {
+public class FsRoleDaoImpl extends AbstractFSDao implements RoleDao {
 
 	@Inject
 	public FsRoleDaoImpl(LoomDaoCollection daos, FileSystem rxFilesystem) {
@@ -28,7 +31,7 @@ public class FsRoleDaoImpl extends AbstractFSDao implements LoomRoleDao {
 	}
 
 	@Override
-	public Maybe<? extends LoomRole> loadRole(UUID uuid) {
+	public Maybe<? extends Role> loadRole(UUID uuid) {
 		return load(uuid, FsRoleImpl.class);
 	}
 
@@ -39,15 +42,18 @@ public class FsRoleDaoImpl extends AbstractFSDao implements LoomRoleDao {
 	}
 
 	@Override
-	public Single<? extends LoomRole> createRole(String name) {
-		LoomRole role = new FsRoleImpl();
+	public Single<? extends Role> createRole(String name, Consumer<Role> modifier) {
+		Role role = new FsRoleImpl();
 		role.setName(name);
 		role.setUuid(UUIDUtil.randomUUID());
+		if (modifier != null) {
+			modifier.accept(role);
+		}
 		return store(role);
 	}
 
 	@Override
-	public Completable updateRole(LoomRole role) {
+	public Completable updateRole(Role role) {
 		Objects.requireNonNull(role, "Role must not be null");
 		return store(role).ignoreElement();
 	}

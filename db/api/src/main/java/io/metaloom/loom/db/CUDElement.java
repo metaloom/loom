@@ -2,7 +2,7 @@ package io.metaloom.loom.db;
 
 import java.time.LocalDateTime;
 
-import io.metaloom.loom.db.user.LoomUser;
+import io.metaloom.loom.db.model.user.LoomUser;
 
 public interface CUDElement extends LoomElement {
 
