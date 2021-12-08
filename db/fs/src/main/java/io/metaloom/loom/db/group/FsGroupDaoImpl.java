@@ -62,9 +62,8 @@ public class FsGroupDaoImpl extends AbstractFSDao implements GroupDao {
 	}
 
 	@Override
-	public Completable updateGroup(Group group) {
-		Objects.requireNonNull(group, "Group must not be null");
-		return store(group).ignoreElement();
+	public Single<? extends Group> updateGroup(Group group) {
+		return store(group);
 	}
 
 	@Override

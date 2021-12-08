@@ -28,8 +28,8 @@ public abstract class AbstractDaoTest {
 		System.out.println("Username: " + container.getUsername());
 		System.out.println("Password: " + container.getPassword());
 		System.out.println("---");
-		this.flyway = new FlywayModule().flyway(container.getOptions());
-		flyway.migrate();
+//		this.flyway = new FlywayModule().flyway(container.getOptions());
+//		flyway.migrate();
 
 		this.rxVertx = Vertx.vertx();
 		this.emf = new HibernateModule().sessionFactory(rxVertx, container.getOptions());

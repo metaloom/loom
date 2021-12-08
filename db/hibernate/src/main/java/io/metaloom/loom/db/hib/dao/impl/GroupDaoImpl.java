@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.hib.dao.impl;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -15,10 +16,12 @@ import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.group.impl.GroupImpl;
 import io.metaloom.loom.db.model.role.Role;
 import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.user.impl.LoomUserImpl;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
+import io.smallrye.mutiny.Uni;
 
 @Singleton
 public class GroupDaoImpl extends AbstractDao implements GroupDao {
@@ -79,8 +82,10 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 
 	@Override
 	public Observable<LoomUser> loadUsers(Group group) {
-		// TODO Auto-generated method stub
-		return null;
+		Uni<List<LoomUserImpl>> uni = emf.withSession(session -> {
+			return session.createQuery("SELECT g FROM LoomUserImpl g", LoomUserImpl.class).getResultList();
+		});
+		return Single.fromCompletionStage(uni.subscribeAsCompletionStage()).flatMapObservable(list -> Observable.fromIterable(list));
 	}
 
 	@Override

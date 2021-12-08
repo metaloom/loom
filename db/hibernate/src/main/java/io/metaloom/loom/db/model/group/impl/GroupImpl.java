@@ -3,6 +3,7 @@ package io.metaloom.loom.db.model.group.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -30,7 +31,7 @@ public class GroupImpl extends AbstractCUDElement implements Group {
 	@Type(type = "io.metaloom.loom.db.hib.types.Json")
 	private JsonObject meta;
 
-	@ManyToMany(targetEntity = LoomUserImpl.class)
+	@ManyToMany(cascade = { CascadeType.ALL }, targetEntity = LoomUserImpl.class)
 	@JoinTable(name = "users_groups", joinColumns = @JoinColumn(name = "user_uuid", referencedColumnName = "uuid"), inverseJoinColumns = @JoinColumn(name = "group_uuid", referencedColumnName = "uuid"))
 	private List<LoomUser> users = new ArrayList<>();
 

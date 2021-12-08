@@ -43,6 +43,7 @@
 		<module>video</module>
 		<module>fs</module>
 		<module>tika</module>
+		<module>lucene</module>
 		<module>s3</module>
 		<module>io-uring</module>
 		<module>eventbus</module>

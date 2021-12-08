@@ -73,6 +73,6 @@ public class Json implements UserType {
 
 	@Override
 	public Object replace(Object original, Object target, Object owner) throws HibernateException {
-		return owner;
+		return target;
 	}
 }
