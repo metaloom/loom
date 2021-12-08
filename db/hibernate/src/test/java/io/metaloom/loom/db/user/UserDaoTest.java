@@ -48,6 +48,13 @@ public class UserDaoTest extends AbstractDaoTest {
 			json.put("test", "value");
 			u.setMeta(json);
 		}).blockingGet();
+
+		LoomUser user2 = userDao.createUser("dummy2", u -> {
+			JsonObject json = new JsonObject();
+			json.put("test", "value");
+			u.setMeta(json);
+		}).blockingGet();
+
 		assertEquals("value", user.getMeta().getString("test"));
 		System.out.println("User UUID: " + user.getUuid());
 
@@ -60,12 +67,21 @@ public class UserDaoTest extends AbstractDaoTest {
 
 		GroupImpl g = ((GroupImpl) group);
 		g.addUser(user);
-		Group updatedGroup = groupDao.updateGroup(group).blockingGet();
+		Group updatedGroup = groupDao.updateGroup(g).blockingGet();
 		assertEquals("value", updatedGroup.getMeta().getString("test"));
 
 		List<@NonNull LoomUser> foundUsers = groupDao.loadUsers(group).toList().blockingGet();
 		assertEquals(1, foundUsers.size());
 		assertEquals(user.getUuid(), foundUsers.get(0).getUuid());
-		System.out.println("Done");
+
+		// Update the list
+		g.getUsers().clear();
+		g.addUser(user2);
+		Group updatedGroup2 = groupDao.updateGroup(g).blockingGet();
+
+		List<@NonNull LoomUser> foundUsers2 = groupDao.loadUsers(group).toList().blockingGet();
+		assertEquals(2, foundUsers2.size());
+		assertEquals(user2.getUuid(), foundUsers2.get(1).getUuid());
+
 	}
 }

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.hibernate.reactive.mutiny.Mutiny;
+import org.hibernate.reactive.mutiny.Mutiny.Query;
 
 import io.metaloom.loom.db.hib.dao.AbstractDao;
 import io.metaloom.loom.db.model.group.Group;
@@ -70,20 +71,27 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 
 	@Override
 	public Completable addUserToGroup(Group group, LoomUser user) {
-		
-		return null;
+		GroupImpl g = ((GroupImpl) group);
+		LoomUserImpl u = ((LoomUserImpl) user);
+		g.addUser(u);
+		return persistElement(g);
 	}
 
 	@Override
 	public Completable removeUserFromGroup(Group group, LoomUser user) {
-		// TODO Auto-generated method stub
-		return null;
+		GroupImpl g = ((GroupImpl) group);
+		LoomUserImpl u = ((LoomUserImpl) user);
+		g.removeUser(u);
+		return persistElement(g);
 	}
 
 	@Override
 	public Observable<LoomUser> loadUsers(Group group) {
 		Uni<List<LoomUserImpl>> uni = emf.withSession(session -> {
-			return session.createQuery("SELECT g FROM LoomUserImpl g", LoomUserImpl.class).getResultList();
+			// "SELECT g FROM LoomUserImpl g"
+			Query<LoomUserImpl> q = session.createQuery("SELECT u FROM GroupImpl g JOIN g.users u WHERE g.uuid = :groupUuid", LoomUserImpl.class);
+			q.setParameter("groupUuid", group.getUuid());
+			return q.getResultList();
 		});
 		return Single.fromCompletionStage(uni.subscribeAsCompletionStage()).flatMapObservable(list -> Observable.fromIterable(list));
 	}
