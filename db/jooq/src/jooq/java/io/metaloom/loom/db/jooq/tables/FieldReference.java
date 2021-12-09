@@ -59,7 +59,8 @@ public class FieldReference extends TableImpl<FieldReferenceRecord> {
     public final TableField<FieldReferenceRecord, UUID> TARGET_UUID = createField(DSL.name("target_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.field_reference.field_name</code>. Name of the field in which the content reference was listed.
+     * The column <code>public.field_reference.field_name</code>. Name of the
+     * field in which the content reference was listed.
      */
     public final TableField<FieldReferenceRecord, String> FIELD_NAME = createField(DSL.name("field_name"), SQLDataType.VARCHAR.nullable(false), this, "Name of the field in which the content reference was listed.");
 
@@ -98,7 +99,7 @@ public class FieldReference extends TableImpl<FieldReferenceRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -107,13 +108,8 @@ public class FieldReference extends TableImpl<FieldReferenceRecord> {
     }
 
     @Override
-    public List<UniqueKey<FieldReferenceRecord>> getKeys() {
-        return Arrays.<UniqueKey<FieldReferenceRecord>>asList(Keys.FIELD_REFERENCE_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<FieldReferenceRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<FieldReferenceRecord, ?>>asList(Keys.FIELD_REFERENCE__FIELD_REFERENCE_SOURCE_UUID_FKEY, Keys.FIELD_REFERENCE__FIELD_REFERENCE_TARGET_UUID_FKEY);
+        return Arrays.asList(Keys.FIELD_REFERENCE__FIELD_REFERENCE_SOURCE_UUID_FKEY, Keys.FIELD_REFERENCE__FIELD_REFERENCE_TARGET_UUID_FKEY);
     }
 
     private transient io.metaloom.loom.db.jooq.tables.Field _fieldReferenceSourceUuidFkey;

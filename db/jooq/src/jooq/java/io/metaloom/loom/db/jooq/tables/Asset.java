@@ -72,17 +72,20 @@ public class Asset extends TableImpl<AssetRecord> {
     public final TableField<AssetRecord, String> FILENAME = createField(DSL.name("filename"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.asset.localPath</code>. Local path to the asset (when using the local path feature)
+     * The column <code>public.asset.localPath</code>. Local path to the asset
+     * (when using the local path feature)
      */
     public final TableField<AssetRecord, String> LOCALPATH = createField(DSL.name("localPath"), SQLDataType.VARCHAR, this, "Local path to the asset (when using the local path feature)");
 
     /**
-     * The column <code>public.asset.meta</code>. Custom meta properties to the element
+     * The column <code>public.asset.meta</code>. Custom meta properties to the
+     * element
      */
     public final TableField<AssetRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties to the element");
 
     /**
-     * The column <code>public.asset.rating</code>. Absolute or computed asset rating
+     * The column <code>public.asset.rating</code>. Absolute or computed asset
+     * rating
      */
     public final TableField<AssetRecord, Integer> RATING = createField(DSL.name("rating"), SQLDataType.INTEGER, this, "Absolute or computed asset rating");
 
@@ -171,12 +174,12 @@ public class Asset extends TableImpl<AssetRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.ASSET_UUID_NAMESPACE_UUID_IDX);
+        return Arrays.asList(Indexes.ASSET_UUID_NAMESPACE_UUID_IDX);
     }
 
     @Override
@@ -185,13 +188,8 @@ public class Asset extends TableImpl<AssetRecord> {
     }
 
     @Override
-    public List<UniqueKey<AssetRecord>> getKeys() {
-        return Arrays.<UniqueKey<AssetRecord>>asList(Keys.ASSET_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<AssetRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<AssetRecord, ?>>asList(Keys.ASSET__ASSET_ASSET_BINARY_UUID_FKEY, Keys.ASSET__ASSET_NAMESPACE_UUID_FKEY, Keys.ASSET__ASSET_CREATOR_UUID_FKEY, Keys.ASSET__ASSET_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.ASSET__ASSET_ASSET_BINARY_UUID_FKEY, Keys.ASSET__ASSET_NAMESPACE_UUID_FKEY, Keys.ASSET__ASSET_CREATOR_UUID_FKEY, Keys.ASSET__ASSET_EDITOR_UUID_FKEY);
     }
 
     private transient AssetBinary _assetBinary;

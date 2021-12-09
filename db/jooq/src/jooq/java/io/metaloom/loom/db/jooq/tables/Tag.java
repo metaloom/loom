@@ -71,12 +71,14 @@ public class Tag extends TableImpl<TagRecord> {
     public final TableField<TagRecord, java.util.UUID> NAMESPACE_UUID = createField(DSL.name("namespace_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.tag.meta</code>. Custom meta properties to the element
+     * The column <code>public.tag.meta</code>. Custom meta properties to the
+     * element
      */
     public final TableField<TagRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties to the element");
 
     /**
-     * The column <code>public.tag.rating</code>. Absolute or buffered/precomputed rating information
+     * The column <code>public.tag.rating</code>. Absolute or
+     * buffered/precomputed rating information
      */
     public final TableField<TagRecord, Integer> RATING = createField(DSL.name("rating"), SQLDataType.INTEGER, this, "Absolute or buffered/precomputed rating information");
 
@@ -135,12 +137,12 @@ public class Tag extends TableImpl<TagRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.TAG_NAME_COLLECTION_NAMESPACE_UUID_IDX);
+        return Arrays.asList(Indexes.TAG_NAME_COLLECTION_NAMESPACE_UUID_IDX);
     }
 
     @Override
@@ -149,13 +151,8 @@ public class Tag extends TableImpl<TagRecord> {
     }
 
     @Override
-    public List<UniqueKey<TagRecord>> getKeys() {
-        return Arrays.<UniqueKey<TagRecord>>asList(Keys.TAG_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<TagRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<TagRecord, ?>>asList(Keys.TAG__TAG_NAMESPACE_UUID_FKEY, Keys.TAG__TAG_CREATOR_UUID_FKEY, Keys.TAG__TAG_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.TAG__TAG_NAMESPACE_UUID_FKEY, Keys.TAG__TAG_CREATOR_UUID_FKEY, Keys.TAG__TAG_EDITOR_UUID_FKEY);
     }
 
     private transient Namespace _namespace;

@@ -89,7 +89,7 @@ public class Loom extends TableImpl<LoomRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override

@@ -65,7 +65,8 @@ public class Language extends TableImpl<LanguageRecord> {
     public final TableField<LanguageRecord, String> TAG = createField(DSL.name("tag"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.language.meta</code>. Custom meta properties to the element
+     * The column <code>public.language.meta</code>. Custom meta properties to
+     * the element
      */
     public final TableField<LanguageRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties to the element");
 
@@ -104,12 +105,12 @@ public class Language extends TableImpl<LanguageRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.LANGUAGE_TAG_IDX);
+        return Arrays.asList(Indexes.LANGUAGE_TAG_IDX);
     }
 
     @Override
@@ -118,8 +119,8 @@ public class Language extends TableImpl<LanguageRecord> {
     }
 
     @Override
-    public List<UniqueKey<LanguageRecord>> getKeys() {
-        return Arrays.<UniqueKey<LanguageRecord>>asList(Keys.LANGUAGE_PKEY, Keys.LANGUAGE_TAG_KEY);
+    public List<UniqueKey<LanguageRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.LANGUAGE_TAG_KEY);
     }
 
     @Override

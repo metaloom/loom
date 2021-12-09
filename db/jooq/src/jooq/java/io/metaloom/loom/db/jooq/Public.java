@@ -227,7 +227,7 @@ public class Public extends SchemaImpl {
 
     @Override
     public final List<Table<?>> getTables() {
-        return Arrays.<Table<?>>asList(
+        return Arrays.asList(
             Asset.ASSET,
             AssetBinary.ASSET_BINARY,
             AssetTimeline.ASSET_TIMELINE,
@@ -258,6 +258,7 @@ public class Public extends SchemaImpl {
             User.USER,
             UserGroup.USER_GROUP,
             UserToken.USER_TOKEN,
-            Webhook.WEBHOOK);
+            Webhook.WEBHOOK
+        );
     }
 }

@@ -67,7 +67,8 @@ public class Role extends TableImpl<RoleRecord> {
     public final TableField<RoleRecord, LoomPermissionFlag> PERMISSIONS = createField(DSL.name("permissions"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.LoomPermissionFlag.class), this, "");
 
     /**
-     * The column <code>public.role.meta</code>. Custom meta properties to the element
+     * The column <code>public.role.meta</code>. Custom meta properties to the
+     * element
      */
     public final TableField<RoleRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties to the element");
 
@@ -126,12 +127,12 @@ public class Role extends TableImpl<RoleRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.ROLE_NAME_IDX);
+        return Arrays.asList(Indexes.ROLE_NAME_IDX);
     }
 
     @Override
@@ -140,13 +141,13 @@ public class Role extends TableImpl<RoleRecord> {
     }
 
     @Override
-    public List<UniqueKey<RoleRecord>> getKeys() {
-        return Arrays.<UniqueKey<RoleRecord>>asList(Keys.ROLE_PKEY, Keys.ROLE_NAME_KEY);
+    public List<UniqueKey<RoleRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.ROLE_NAME_KEY);
     }
 
     @Override
     public List<ForeignKey<RoleRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<RoleRecord, ?>>asList(Keys.ROLE__ROLE_CREATOR_UUID_FKEY, Keys.ROLE__ROLE_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.ROLE__ROLE_CREATOR_UUID_FKEY, Keys.ROLE__ROLE_EDITOR_UUID_FKEY);
     }
 
     private transient User _roleCreatorUuidFkey;

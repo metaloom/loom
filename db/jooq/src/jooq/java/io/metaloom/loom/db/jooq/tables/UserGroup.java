@@ -93,7 +93,7 @@ public class UserGroup extends TableImpl<UserGroupRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -102,13 +102,8 @@ public class UserGroup extends TableImpl<UserGroupRecord> {
     }
 
     @Override
-    public List<UniqueKey<UserGroupRecord>> getKeys() {
-        return Arrays.<UniqueKey<UserGroupRecord>>asList(Keys.USER_GROUP_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<UserGroupRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<UserGroupRecord, ?>>asList(Keys.USER_GROUP__USER_GROUP_USER_UUID_FKEY, Keys.USER_GROUP__USER_GROUP_GROUP_UUID_FKEY);
+        return Arrays.asList(Keys.USER_GROUP__USER_GROUP_USER_UUID_FKEY, Keys.USER_GROUP__USER_GROUP_GROUP_UUID_FKEY);
     }
 
     private transient User _user;

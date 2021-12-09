@@ -93,7 +93,7 @@ public class TagContent extends TableImpl<TagContentRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -102,13 +102,8 @@ public class TagContent extends TableImpl<TagContentRecord> {
     }
 
     @Override
-    public List<UniqueKey<TagContentRecord>> getKeys() {
-        return Arrays.<UniqueKey<TagContentRecord>>asList(Keys.TAG_CONTENT_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<TagContentRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<TagContentRecord, ?>>asList(Keys.TAG_CONTENT__TAG_CONTENT_TAG_UUID_FKEY, Keys.TAG_CONTENT__TAG_CONTENT_CONTENT_UUID_FKEY);
+        return Arrays.asList(Keys.TAG_CONTENT__TAG_CONTENT_TAG_UUID_FKEY, Keys.TAG_CONTENT__TAG_CONTENT_CONTENT_UUID_FKEY);
     }
 
     private transient Tag _tag;

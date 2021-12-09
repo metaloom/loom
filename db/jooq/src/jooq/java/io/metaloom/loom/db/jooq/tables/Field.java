@@ -53,12 +53,14 @@ public class Field extends TableImpl<FieldRecord> {
     public final TableField<FieldRecord, java.util.UUID> UUID = createField(DSL.name("uuid"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field("uuid_generate_v4()", SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>public.field.content_uuid</code>. Reference to the content that uses this fields record
+     * The column <code>public.field.content_uuid</code>. Reference to the
+     * content that uses this fields record
      */
     public final TableField<FieldRecord, java.util.UUID> CONTENT_UUID = createField(DSL.name("content_uuid"), SQLDataType.UUID, this, "Reference to the content that uses this fields record");
 
     /**
-     * The column <code>public.field.fields_json</code>. JSON which contains the actual fields content
+     * The column <code>public.field.fields_json</code>. JSON which contains the
+     * actual fields content
      */
     public final TableField<FieldRecord, String> FIELDS_JSON = createField(DSL.name("fields_json"), SQLDataType.VARCHAR, this, "JSON which contains the actual fields content");
 
@@ -122,7 +124,7 @@ public class Field extends TableImpl<FieldRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -131,13 +133,8 @@ public class Field extends TableImpl<FieldRecord> {
     }
 
     @Override
-    public List<UniqueKey<FieldRecord>> getKeys() {
-        return Arrays.<UniqueKey<FieldRecord>>asList(Keys.FIELD_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<FieldRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<FieldRecord, ?>>asList(Keys.FIELD__FIELD_CONTENT_UUID_FKEY, Keys.FIELD__FIELD_LANGUAGE_UUID_FKEY, Keys.FIELD__FIELD_EDITOR_UUID_FKEY, Keys.FIELD__FIELD_MODELVERSION_UUID_FKEY);
+        return Arrays.asList(Keys.FIELD__FIELD_CONTENT_UUID_FKEY, Keys.FIELD__FIELD_LANGUAGE_UUID_FKEY, Keys.FIELD__FIELD_EDITOR_UUID_FKEY, Keys.FIELD__FIELD_MODELVERSION_UUID_FKEY);
     }
 
     private transient Namespace _namespace;

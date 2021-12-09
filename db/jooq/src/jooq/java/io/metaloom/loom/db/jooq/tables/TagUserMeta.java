@@ -58,7 +58,8 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
     public final TableField<TagUserMetaRecord, UUID> USER_UUID = createField(DSL.name("user_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.tag_user_meta.rating</code>. Rating of the tag by the user
+     * The column <code>public.tag_user_meta.rating</code>. Rating of the tag by
+     * the user
      */
     public final TableField<TagUserMetaRecord, Integer> RATING = createField(DSL.name("rating"), SQLDataType.INTEGER.nullable(false), this, "Rating of the tag by the user");
 
@@ -102,12 +103,12 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<ForeignKey<TagUserMetaRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<TagUserMetaRecord, ?>>asList(Keys.TAG_USER_META__TAG_USER_META_TAG_UUID_FKEY, Keys.TAG_USER_META__TAG_USER_META_USER_UUID_FKEY);
+        return Arrays.asList(Keys.TAG_USER_META__TAG_USER_META_TAG_UUID_FKEY, Keys.TAG_USER_META__TAG_USER_META_USER_UUID_FKEY);
     }
 
     private transient Tag _tag;

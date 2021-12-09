@@ -98,7 +98,7 @@ public class FieldAsset extends TableImpl<FieldAssetRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -107,13 +107,8 @@ public class FieldAsset extends TableImpl<FieldAssetRecord> {
     }
 
     @Override
-    public List<UniqueKey<FieldAssetRecord>> getKeys() {
-        return Arrays.<UniqueKey<FieldAssetRecord>>asList(Keys.FIELD_ASSET_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<FieldAssetRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<FieldAssetRecord, ?>>asList(Keys.FIELD_ASSET__FIELD_ASSET_FIELD_UUID_FKEY, Keys.FIELD_ASSET__FIELD_ASSET_ASSET_UUID_FKEY);
+        return Arrays.asList(Keys.FIELD_ASSET__FIELD_ASSET_FIELD_UUID_FKEY, Keys.FIELD_ASSET__FIELD_ASSET_ASSET_UUID_FKEY);
     }
 
     private transient io.metaloom.loom.db.jooq.tables.Field _field;

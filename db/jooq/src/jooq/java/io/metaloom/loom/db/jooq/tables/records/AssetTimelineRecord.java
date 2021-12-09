@@ -4,9 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo;
 import io.metaloom.loom.db.jooq.tables.AssetTimeline;
-import io.metaloom.loom.db.jooq.tables.interfaces.IAssetTimeline;
 
 import java.util.UUID;
 
@@ -17,28 +15,24 @@ import org.jooq.Row8;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
-import static io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo.*;
 /**
  * This table contains asset timeline entries
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord> implements VertxPojo, Record8<UUID, UUID, Integer, Integer, String, String, String, String>, IAssetTimeline {
+public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord> implements Record8<UUID, UUID, Integer, Integer, String, String, String, String> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.asset_timeline.uuid</code>.
      */
-    @Override
-    public AssetTimelineRecord setUuid(UUID value) {
+    public void setUuid(UUID value) {
         set(0, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_timeline.uuid</code>.
      */
-    @Override
     public UUID getUuid() {
         return (UUID) get(0);
     }
@@ -46,16 +40,13 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     /**
      * Setter for <code>public.asset_timeline.asset_uuid</code>.
      */
-    @Override
-    public AssetTimelineRecord setAssetUuid(UUID value) {
+    public void setAssetUuid(UUID value) {
         set(1, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_timeline.asset_uuid</code>.
      */
-    @Override
     public UUID getAssetUuid() {
         return (UUID) get(1);
     }
@@ -63,16 +54,13 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     /**
      * Setter for <code>public.asset_timeline.from</code>.
      */
-    @Override
-    public AssetTimelineRecord setFrom(Integer value) {
+    public void setFrom(Integer value) {
         set(2, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_timeline.from</code>.
      */
-    @Override
     public Integer getFrom() {
         return (Integer) get(2);
     }
@@ -80,16 +68,13 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     /**
      * Setter for <code>public.asset_timeline.to</code>.
      */
-    @Override
-    public AssetTimelineRecord setTo(Integer value) {
+    public void setTo(Integer value) {
         set(3, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_timeline.to</code>.
      */
-    @Override
     public Integer getTo() {
         return (Integer) get(3);
     }
@@ -97,16 +82,13 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     /**
      * Setter for <code>public.asset_timeline.description</code>.
      */
-    @Override
-    public AssetTimelineRecord setDescription(String value) {
+    public void setDescription(String value) {
         set(4, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_timeline.description</code>.
      */
-    @Override
     public String getDescription() {
         return (String) get(4);
     }
@@ -114,16 +96,13 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     /**
      * Setter for <code>public.asset_timeline.tags</code>.
      */
-    @Override
-    public AssetTimelineRecord setTags(String value) {
+    public void setTags(String value) {
         set(5, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_timeline.tags</code>.
      */
-    @Override
     public String getTags() {
         return (String) get(5);
     }
@@ -131,16 +110,13 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     /**
      * Setter for <code>public.asset_timeline.meta</code>.
      */
-    @Override
-    public AssetTimelineRecord setMeta(String value) {
+    public void setMeta(String value) {
         set(6, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_timeline.meta</code>.
      */
-    @Override
     public String getMeta() {
         return (String) get(6);
     }
@@ -148,16 +124,13 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     /**
      * Setter for <code>public.asset_timeline.thumbail</code>.
      */
-    @Override
-    public AssetTimelineRecord setThumbail(String value) {
+    public void setThumbail(String value) {
         set(7, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_timeline.thumbail</code>.
      */
-    @Override
     public String getThumbail() {
         return (String) get(7);
     }
@@ -367,28 +340,6 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     }
 
     // -------------------------------------------------------------------------
-    // FROM and INTO
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void from(IAssetTimeline from) {
-        setUuid(from.getUuid());
-        setAssetUuid(from.getAssetUuid());
-        setFrom(from.getFrom());
-        setTo(from.getTo());
-        setDescription(from.getDescription());
-        setTags(from.getTags());
-        setMeta(from.getMeta());
-        setThumbail(from.getThumbail());
-    }
-
-    @Override
-    public <E extends IAssetTimeline> E into(E into) {
-        into.from(this);
-        return into;
-    }
-
-    // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
@@ -414,9 +365,4 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
         setMeta(meta);
         setThumbail(thumbail);
     }
-
-        public AssetTimelineRecord(io.vertx.core.json.JsonObject json) {
-                this();
-                fromJson(json);
-        }
 }

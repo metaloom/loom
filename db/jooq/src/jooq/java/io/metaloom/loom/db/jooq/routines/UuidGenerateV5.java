@@ -57,11 +57,11 @@ public class UuidGenerateV5 extends AbstractRoutine<UUID> {
     }
 
     /**
-     * Set the <code>namespace</code> parameter to the function to be used with a {@link org.jooq.Select} statement
+     * Set the <code>namespace</code> parameter to the function to be used with
+     * a {@link org.jooq.Select} statement
      */
-    public UuidGenerateV5 setNamespace(Field<UUID> field) {
+    public void setNamespace(Field<UUID> field) {
         setField(NAMESPACE, field);
-        return this;
     }
 
     /**
@@ -72,10 +72,10 @@ public class UuidGenerateV5 extends AbstractRoutine<UUID> {
     }
 
     /**
-     * Set the <code>name</code> parameter to the function to be used with a {@link org.jooq.Select} statement
+     * Set the <code>name</code> parameter to the function to be used with a
+     * {@link org.jooq.Select} statement
      */
-    public UuidGenerateV5 setName_(Field<String> field) {
+    public void setName_(Field<String> field) {
         setField(NAME, field);
-        return this;
     }
 }

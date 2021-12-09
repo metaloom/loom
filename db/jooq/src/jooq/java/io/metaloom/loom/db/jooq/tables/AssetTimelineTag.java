@@ -92,12 +92,12 @@ public class AssetTimelineTag extends TableImpl<AssetTimelineTagRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<ForeignKey<AssetTimelineTagRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<AssetTimelineTagRecord, ?>>asList(Keys.ASSET_TIMELINE_TAG__ASSET_TIMELINE_TAG_ASSETTIMELINE_UUID_FKEY, Keys.ASSET_TIMELINE_TAG__ASSET_TIMELINE_TAG_TAG_UUID_FKEY);
+        return Arrays.asList(Keys.ASSET_TIMELINE_TAG__ASSET_TIMELINE_TAG_ASSETTIMELINE_UUID_FKEY, Keys.ASSET_TIMELINE_TAG__ASSET_TIMELINE_TAG_TAG_UUID_FKEY);
     }
 
     private transient AssetTimeline _assetTimeline;

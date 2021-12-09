@@ -122,7 +122,7 @@ public class AssetTimeline extends TableImpl<AssetTimelineRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -131,13 +131,8 @@ public class AssetTimeline extends TableImpl<AssetTimelineRecord> {
     }
 
     @Override
-    public List<UniqueKey<AssetTimelineRecord>> getKeys() {
-        return Arrays.<UniqueKey<AssetTimelineRecord>>asList(Keys.ASSET_TIMELINE_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<AssetTimelineRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<AssetTimelineRecord, ?>>asList(Keys.ASSET_TIMELINE__ASSET_TIMELINE_ASSET_UUID_FKEY);
+        return Arrays.asList(Keys.ASSET_TIMELINE__ASSET_TIMELINE_ASSET_UUID_FKEY);
     }
 
     private transient Asset _asset;

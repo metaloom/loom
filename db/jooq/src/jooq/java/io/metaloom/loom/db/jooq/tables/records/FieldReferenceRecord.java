@@ -4,9 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo;
 import io.metaloom.loom.db.jooq.tables.FieldReference;
-import io.metaloom.loom.db.jooq.tables.interfaces.IFieldReference;
 
 import java.util.UUID;
 
@@ -17,28 +15,24 @@ import org.jooq.Row3;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
-import static io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo.*;
 /**
  * This table is mainly used to lookup foreign references to contents
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class FieldReferenceRecord extends UpdatableRecordImpl<FieldReferenceRecord> implements VertxPojo, Record3<UUID, UUID, String>, IFieldReference {
+public class FieldReferenceRecord extends UpdatableRecordImpl<FieldReferenceRecord> implements Record3<UUID, UUID, String> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.field_reference.source_uuid</code>.
      */
-    @Override
-    public FieldReferenceRecord setSourceUuid(UUID value) {
+    public void setSourceUuid(UUID value) {
         set(0, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field_reference.source_uuid</code>.
      */
-    @Override
     public UUID getSourceUuid() {
         return (UUID) get(0);
     }
@@ -46,33 +40,29 @@ public class FieldReferenceRecord extends UpdatableRecordImpl<FieldReferenceReco
     /**
      * Setter for <code>public.field_reference.target_uuid</code>.
      */
-    @Override
-    public FieldReferenceRecord setTargetUuid(UUID value) {
+    public void setTargetUuid(UUID value) {
         set(1, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field_reference.target_uuid</code>.
      */
-    @Override
     public UUID getTargetUuid() {
         return (UUID) get(1);
     }
 
     /**
-     * Setter for <code>public.field_reference.field_name</code>. Name of the field in which the content reference was listed.
+     * Setter for <code>public.field_reference.field_name</code>. Name of the
+     * field in which the content reference was listed.
      */
-    @Override
-    public FieldReferenceRecord setFieldName(String value) {
+    public void setFieldName(String value) {
         set(2, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.field_reference.field_name</code>. Name of the field in which the content reference was listed.
+     * Getter for <code>public.field_reference.field_name</code>. Name of the
+     * field in which the content reference was listed.
      */
-    @Override
     public String getFieldName() {
         return (String) get(2);
     }
@@ -172,23 +162,6 @@ public class FieldReferenceRecord extends UpdatableRecordImpl<FieldReferenceReco
     }
 
     // -------------------------------------------------------------------------
-    // FROM and INTO
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void from(IFieldReference from) {
-        setSourceUuid(from.getSourceUuid());
-        setTargetUuid(from.getTargetUuid());
-        setFieldName(from.getFieldName());
-    }
-
-    @Override
-    public <E extends IFieldReference> E into(E into) {
-        into.from(this);
-        return into;
-    }
-
-    // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
@@ -209,9 +182,4 @@ public class FieldReferenceRecord extends UpdatableRecordImpl<FieldReferenceReco
         setTargetUuid(targetUuid);
         setFieldName(fieldName);
     }
-
-        public FieldReferenceRecord(io.vertx.core.json.JsonObject json) {
-                this();
-                fromJson(json);
-        }
 }

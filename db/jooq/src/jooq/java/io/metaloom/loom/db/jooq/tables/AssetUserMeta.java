@@ -59,12 +59,14 @@ public class AssetUserMeta extends TableImpl<AssetUserMetaRecord> {
     public final TableField<AssetUserMetaRecord, UUID> USER_UUID = createField(DSL.name("user_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.asset_user_meta.rating</code>. Asset rating by the user
+     * The column <code>public.asset_user_meta.rating</code>. Asset rating by
+     * the user
      */
     public final TableField<AssetUserMetaRecord, Integer> RATING = createField(DSL.name("rating"), SQLDataType.INTEGER, this, "Asset rating by the user");
 
     /**
-     * The column <code>public.asset_user_meta.meta</code>. Custom meta properties
+     * The column <code>public.asset_user_meta.meta</code>. Custom meta
+     * properties
      */
     public final TableField<AssetUserMetaRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties");
 
@@ -103,7 +105,7 @@ public class AssetUserMeta extends TableImpl<AssetUserMetaRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -112,13 +114,8 @@ public class AssetUserMeta extends TableImpl<AssetUserMetaRecord> {
     }
 
     @Override
-    public List<UniqueKey<AssetUserMetaRecord>> getKeys() {
-        return Arrays.<UniqueKey<AssetUserMetaRecord>>asList(Keys.ASSET_USER_META_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<AssetUserMetaRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<AssetUserMetaRecord, ?>>asList(Keys.ASSET_USER_META__ASSET_USER_META_ASSET_UUID_FKEY, Keys.ASSET_USER_META__ASSET_USER_META_USER_UUID_FKEY);
+        return Arrays.asList(Keys.ASSET_USER_META__ASSET_USER_META_ASSET_UUID_FKEY, Keys.ASSET_USER_META__ASSET_USER_META_USER_UUID_FKEY);
     }
 
     private transient Asset _asset;

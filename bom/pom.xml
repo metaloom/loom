@@ -72,13 +72,6 @@
 				<version>${vertx.version}</version>
 			</dependency>
 
-			<!-- JOOQ -->
-			<dependency>
-				<groupId>org.jooq</groupId>
-				<artifactId>jooq</artifactId>
-				<version>3.14.8</version>
-			</dependency>
-
 			<!-- Dagger -->
 			<dependency>
 				<groupId>com.google.dagger</groupId>

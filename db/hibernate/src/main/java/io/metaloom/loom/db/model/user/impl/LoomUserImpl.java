@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -14,7 +15,8 @@ import io.metaloom.loom.db.model.user.LoomUser;
 import io.vertx.core.json.JsonObject;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+	@UniqueConstraint(columnNames = "uuid") })
 public class LoomUserImpl extends AbstractCUDElement implements LoomUser {
 
 	@NotNull

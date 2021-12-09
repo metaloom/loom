@@ -82,17 +82,20 @@ public class User extends TableImpl<UserRecord> {
     public final TableField<UserRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR, this, "");
 
     /**
-     * The column <code>public.user.enabled</code>. Flag to enable or disable the user.
+     * The column <code>public.user.enabled</code>. Flag to enable or disable
+     * the user.
      */
     public final TableField<UserRecord, Boolean> ENABLED = createField(DSL.name("enabled"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("true", SQLDataType.BOOLEAN)), this, "Flag to enable or disable the user.");
 
     /**
-     * The column <code>public.user.sso</code>. Flag that indicates that the user was created via SSO mappings
+     * The column <code>public.user.sso</code>. Flag that indicates that the
+     * user was created via SSO mappings
      */
     public final TableField<UserRecord, Boolean> SSO = createField(DSL.name("sso"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "Flag that indicates that the user was created via SSO mappings");
 
     /**
-     * The column <code>public.user.meta</code>. Custom meta properties to the element
+     * The column <code>public.user.meta</code>. Custom meta properties to the
+     * element
      */
     public final TableField<UserRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties to the element");
 
@@ -156,12 +159,12 @@ public class User extends TableImpl<UserRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.USER_USERNAME_IDX);
+        return Arrays.asList(Indexes.USER_USERNAME_IDX);
     }
 
     @Override
@@ -170,13 +173,13 @@ public class User extends TableImpl<UserRecord> {
     }
 
     @Override
-    public List<UniqueKey<UserRecord>> getKeys() {
-        return Arrays.<UniqueKey<UserRecord>>asList(Keys.USER_PKEY, Keys.USER_USERNAME_KEY);
+    public List<UniqueKey<UserRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.USER_USERNAME_KEY);
     }
 
     @Override
     public List<ForeignKey<UserRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<UserRecord, ?>>asList(Keys.USER__USER_CREATOR_UUID_FKEY, Keys.USER__USER_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.USER__USER_CREATOR_UUID_FKEY, Keys.USER__USER_EDITOR_UUID_FKEY);
     }
 
     private transient User _userCreatorUuidFkey;

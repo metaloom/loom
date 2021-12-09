@@ -70,17 +70,20 @@ public class Webhook extends TableImpl<WebhookRecord> {
     public final TableField<WebhookRecord, Boolean> ACTIVE = createField(DSL.name("active"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("true", SQLDataType.BOOLEAN)), this, "");
 
     /**
-     * The column <code>public.webhook.triggers</code>. List of triggers which can invoke the webhook
+     * The column <code>public.webhook.triggers</code>. List of triggers which
+     * can invoke the webhook
      */
     public final TableField<WebhookRecord, LoomEvents> TRIGGERS = createField(DSL.name("triggers"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.LoomEvents.class), this, "List of triggers which can invoke the webhook");
 
     /**
-     * The column <code>public.webhook.secretToken</code>. Secret token which webhook services can use to authenticate the request.
+     * The column <code>public.webhook.secretToken</code>. Secret token which
+     * webhook services can use to authenticate the request.
      */
     public final TableField<WebhookRecord, String> SECRETTOKEN = createField(DSL.name("secretToken"), SQLDataType.VARCHAR, this, "Secret token which webhook services can use to authenticate the request.");
 
     /**
-     * The column <code>public.webhook.meta</code>. Custom meta properties to the element
+     * The column <code>public.webhook.meta</code>. Custom meta properties to
+     * the element
      */
     public final TableField<WebhookRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties to the element");
 
@@ -139,7 +142,7 @@ public class Webhook extends TableImpl<WebhookRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -148,13 +151,8 @@ public class Webhook extends TableImpl<WebhookRecord> {
     }
 
     @Override
-    public List<UniqueKey<WebhookRecord>> getKeys() {
-        return Arrays.<UniqueKey<WebhookRecord>>asList(Keys.WEBHOOK_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<WebhookRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<WebhookRecord, ?>>asList(Keys.WEBHOOK__WEBHOOK_CREATOR_UUID_FKEY, Keys.WEBHOOK__WEBHOOK_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.WEBHOOK__WEBHOOK_CREATOR_UUID_FKEY, Keys.WEBHOOK__WEBHOOK_EDITOR_UUID_FKEY);
     }
 
     private transient User _webhookCreatorUuidFkey;

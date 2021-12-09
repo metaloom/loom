@@ -4,9 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo;
 import io.metaloom.loom.db.jooq.tables.AssetBinary;
-import io.metaloom.loom.db.jooq.tables.interfaces.IAssetBinary;
 
 import java.util.UUID;
 
@@ -17,28 +15,24 @@ import org.jooq.Row8;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
-import static io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo.*;
 /**
  * This table stores the immutable asset information
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class AssetBinaryRecord extends UpdatableRecordImpl<AssetBinaryRecord> implements VertxPojo, Record8<UUID, String, Integer, String, String, Integer, Integer, String>, IAssetBinary {
+public class AssetBinaryRecord extends UpdatableRecordImpl<AssetBinaryRecord> implements Record8<UUID, String, Integer, String, String, Integer, Integer, String> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.asset_binary.uuid</code>.
      */
-    @Override
-    public AssetBinaryRecord setUuid(UUID value) {
+    public void setUuid(UUID value) {
         set(0, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_binary.uuid</code>.
      */
-    @Override
     public UUID getUuid() {
         return (UUID) get(0);
     }
@@ -46,16 +40,13 @@ public class AssetBinaryRecord extends UpdatableRecordImpl<AssetBinaryRecord> im
     /**
      * Setter for <code>public.asset_binary.sha512sum</code>.
      */
-    @Override
-    public AssetBinaryRecord setSha512sum(String value) {
+    public void setSha512sum(String value) {
         set(1, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_binary.sha512sum</code>.
      */
-    @Override
     public String getSha512sum() {
         return (String) get(1);
     }
@@ -63,16 +54,13 @@ public class AssetBinaryRecord extends UpdatableRecordImpl<AssetBinaryRecord> im
     /**
      * Setter for <code>public.asset_binary.size</code>.
      */
-    @Override
-    public AssetBinaryRecord setSize(Integer value) {
+    public void setSize(Integer value) {
         set(2, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_binary.size</code>.
      */
-    @Override
     public Integer getSize() {
         return (Integer) get(2);
     }
@@ -80,16 +68,13 @@ public class AssetBinaryRecord extends UpdatableRecordImpl<AssetBinaryRecord> im
     /**
      * Setter for <code>public.asset_binary.sha256sum</code>.
      */
-    @Override
-    public AssetBinaryRecord setSha256sum(String value) {
+    public void setSha256sum(String value) {
         set(3, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_binary.sha256sum</code>.
      */
-    @Override
     public String getSha256sum() {
         return (String) get(3);
     }
@@ -97,67 +82,61 @@ public class AssetBinaryRecord extends UpdatableRecordImpl<AssetBinaryRecord> im
     /**
      * Setter for <code>public.asset_binary.md5sum</code>.
      */
-    @Override
-    public AssetBinaryRecord setMd5sum(String value) {
+    public void setMd5sum(String value) {
         set(4, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.asset_binary.md5sum</code>.
      */
-    @Override
     public String getMd5sum() {
         return (String) get(4);
     }
 
     /**
-     * Setter for <code>public.asset_binary.media_width</code>. Only set for images
+     * Setter for <code>public.asset_binary.media_width</code>. Only set for
+     * images
      */
-    @Override
-    public AssetBinaryRecord setMediaWidth(Integer value) {
+    public void setMediaWidth(Integer value) {
         set(5, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.asset_binary.media_width</code>. Only set for images
+     * Getter for <code>public.asset_binary.media_width</code>. Only set for
+     * images
      */
-    @Override
     public Integer getMediaWidth() {
         return (Integer) get(5);
     }
 
     /**
-     * Setter for <code>public.asset_binary.media_height</code>. Only set for images
+     * Setter for <code>public.asset_binary.media_height</code>. Only set for
+     * images
      */
-    @Override
-    public AssetBinaryRecord setMediaHeight(Integer value) {
+    public void setMediaHeight(Integer value) {
         set(6, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.asset_binary.media_height</code>. Only set for images
+     * Getter for <code>public.asset_binary.media_height</code>. Only set for
+     * images
      */
-    @Override
     public Integer getMediaHeight() {
         return (Integer) get(6);
     }
 
     /**
-     * Setter for <code>public.asset_binary.fingerprint</code>. Media fingerprint information
+     * Setter for <code>public.asset_binary.fingerprint</code>. Media
+     * fingerprint information
      */
-    @Override
-    public AssetBinaryRecord setFingerprint(String value) {
+    public void setFingerprint(String value) {
         set(7, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.asset_binary.fingerprint</code>. Media fingerprint information
+     * Getter for <code>public.asset_binary.fingerprint</code>. Media
+     * fingerprint information
      */
-    @Override
     public String getFingerprint() {
         return (String) get(7);
     }
@@ -367,28 +346,6 @@ public class AssetBinaryRecord extends UpdatableRecordImpl<AssetBinaryRecord> im
     }
 
     // -------------------------------------------------------------------------
-    // FROM and INTO
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void from(IAssetBinary from) {
-        setUuid(from.getUuid());
-        setSha512sum(from.getSha512sum());
-        setSize(from.getSize());
-        setSha256sum(from.getSha256sum());
-        setMd5sum(from.getMd5sum());
-        setMediaWidth(from.getMediaWidth());
-        setMediaHeight(from.getMediaHeight());
-        setFingerprint(from.getFingerprint());
-    }
-
-    @Override
-    public <E extends IAssetBinary> E into(E into) {
-        into.from(this);
-        return into;
-    }
-
-    // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
@@ -414,9 +371,4 @@ public class AssetBinaryRecord extends UpdatableRecordImpl<AssetBinaryRecord> im
         setMediaHeight(mediaHeight);
         setFingerprint(fingerprint);
     }
-
-        public AssetBinaryRecord(io.vertx.core.json.JsonObject json) {
-                this();
-                fromJson(json);
-        }
 }

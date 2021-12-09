@@ -2,6 +2,7 @@ package io.metaloom.loom.db.model;
 
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -11,6 +12,7 @@ import io.metaloom.loom.db.LoomElement;
 public abstract class AbstractLoomElement implements LoomElement {
 
 	@Id
+	@Column(name = "uuid", unique = true, nullable = false)
 	private UUID uuid;
 
 	@Override

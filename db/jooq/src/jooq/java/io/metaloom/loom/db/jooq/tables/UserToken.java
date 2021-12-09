@@ -110,12 +110,12 @@ public class UserToken extends TableImpl<UserTokenRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.USER_TOKEN_USER_UUID_IDX);
+        return Arrays.asList(Indexes.USER_TOKEN_USER_UUID_IDX);
     }
 
     @Override
@@ -124,13 +124,8 @@ public class UserToken extends TableImpl<UserTokenRecord> {
     }
 
     @Override
-    public List<UniqueKey<UserTokenRecord>> getKeys() {
-        return Arrays.<UniqueKey<UserTokenRecord>>asList(Keys.USER_TOKEN_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<UserTokenRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<UserTokenRecord, ?>>asList(Keys.USER_TOKEN__USER_TOKEN_USER_UUID_FKEY);
+        return Arrays.asList(Keys.USER_TOKEN__USER_TOKEN_USER_UUID_FKEY);
     }
 
     private transient User _user;

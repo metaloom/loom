@@ -4,9 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo;
 import io.metaloom.loom.db.jooq.tables.FieldAsset;
-import io.metaloom.loom.db.jooq.tables.interfaces.IFieldAsset;
 
 import java.util.UUID;
 
@@ -17,28 +15,24 @@ import org.jooq.Row3;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
-import static io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo.*;
 /**
  * Crosstable which tracks the used assets in a fields record
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class FieldAssetRecord extends UpdatableRecordImpl<FieldAssetRecord> implements VertxPojo, Record3<UUID, UUID, String>, IFieldAsset {
+public class FieldAssetRecord extends UpdatableRecordImpl<FieldAssetRecord> implements Record3<UUID, UUID, String> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.field_asset.field_uuid</code>.
      */
-    @Override
-    public FieldAssetRecord setFieldUuid(UUID value) {
+    public void setFieldUuid(UUID value) {
         set(0, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field_asset.field_uuid</code>.
      */
-    @Override
     public UUID getFieldUuid() {
         return (UUID) get(0);
     }
@@ -46,16 +40,13 @@ public class FieldAssetRecord extends UpdatableRecordImpl<FieldAssetRecord> impl
     /**
      * Setter for <code>public.field_asset.asset_uuid</code>.
      */
-    @Override
-    public FieldAssetRecord setAssetUuid(UUID value) {
+    public void setAssetUuid(UUID value) {
         set(1, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field_asset.asset_uuid</code>.
      */
-    @Override
     public UUID getAssetUuid() {
         return (UUID) get(1);
     }
@@ -63,16 +54,13 @@ public class FieldAssetRecord extends UpdatableRecordImpl<FieldAssetRecord> impl
     /**
      * Setter for <code>public.field_asset.field_name</code>.
      */
-    @Override
-    public FieldAssetRecord setFieldName(String value) {
+    public void setFieldName(String value) {
         set(2, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field_asset.field_name</code>.
      */
-    @Override
     public String getFieldName() {
         return (String) get(2);
     }
@@ -172,23 +160,6 @@ public class FieldAssetRecord extends UpdatableRecordImpl<FieldAssetRecord> impl
     }
 
     // -------------------------------------------------------------------------
-    // FROM and INTO
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void from(IFieldAsset from) {
-        setFieldUuid(from.getFieldUuid());
-        setAssetUuid(from.getAssetUuid());
-        setFieldName(from.getFieldName());
-    }
-
-    @Override
-    public <E extends IFieldAsset> E into(E into) {
-        into.from(this);
-        return into;
-    }
-
-    // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
@@ -209,9 +180,4 @@ public class FieldAssetRecord extends UpdatableRecordImpl<FieldAssetRecord> impl
         setAssetUuid(assetUuid);
         setFieldName(fieldName);
     }
-
-        public FieldAssetRecord(io.vertx.core.json.JsonObject json) {
-                this();
-                fromJson(json);
-        }
 }

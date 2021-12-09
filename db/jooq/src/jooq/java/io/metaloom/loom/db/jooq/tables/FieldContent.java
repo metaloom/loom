@@ -62,12 +62,14 @@ public class FieldContent extends TableImpl<FieldContentRecord> {
     public final TableField<FieldContentRecord, UUID> CONTENT_UUID = createField(DSL.name("content_uuid"), SQLDataType.UUID, this, "");
 
     /**
-     * The column <code>public.field_content.webroot_path_info</code>. prefixed with branch
+     * The column <code>public.field_content.webroot_path_info</code>. prefixed
+     * with branch
      */
     public final TableField<FieldContentRecord, String> WEBROOT_PATH_INFO = createField(DSL.name("webroot_path_info"), SQLDataType.VARCHAR, this, "prefixed with branch");
 
     /**
-     * The column <code>public.field_content.content_type</code>. D or P for draft and published
+     * The column <code>public.field_content.content_type</code>. D or P for
+     * draft and published
      */
     public final TableField<FieldContentRecord, LoomContentType> CONTENT_TYPE = createField(DSL.name("content_type"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(io.metaloom.loom.db.jooq.enums.LoomContentType.class), this, "D or P for draft and published");
 
@@ -106,22 +108,22 @@ public class FieldContent extends TableImpl<FieldContentRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.FIELD_CONTENT_CONTENT_TYPE_WEBROOT_PATH_INFO_IDX, Indexes.FIELD_CONTENT_CONTENT_UUID_CONTENT_TYPE_IDX);
+        return Arrays.asList(Indexes.FIELD_CONTENT_CONTENT_TYPE_WEBROOT_PATH_INFO_IDX, Indexes.FIELD_CONTENT_CONTENT_UUID_CONTENT_TYPE_IDX);
     }
 
     @Override
-    public List<UniqueKey<FieldContentRecord>> getKeys() {
-        return Arrays.<UniqueKey<FieldContentRecord>>asList(Keys.FIELD_CONTENT_WEBROOT_PATH_INFO_KEY);
+    public List<UniqueKey<FieldContentRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.FIELD_CONTENT_WEBROOT_PATH_INFO_KEY);
     }
 
     @Override
     public List<ForeignKey<FieldContentRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<FieldContentRecord, ?>>asList(Keys.FIELD_CONTENT__FIELD_CONTENT_FIELDS_UUID_FKEY, Keys.FIELD_CONTENT__FIELD_CONTENT_CONTENT_UUID_FKEY);
+        return Arrays.asList(Keys.FIELD_CONTENT__FIELD_CONTENT_FIELDS_UUID_FKEY, Keys.FIELD_CONTENT__FIELD_CONTENT_CONTENT_UUID_FKEY);
     }
 
     private transient io.metaloom.loom.db.jooq.tables.Field _field;

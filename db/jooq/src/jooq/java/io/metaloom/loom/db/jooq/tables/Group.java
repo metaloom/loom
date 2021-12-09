@@ -61,7 +61,8 @@ public class Group extends TableImpl<GroupRecord> {
     public final TableField<GroupRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.group.meta</code>. Custom meta properties to the element
+     * The column <code>public.group.meta</code>. Custom meta properties to the
+     * element
      */
     public final TableField<GroupRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties to the element");
 
@@ -120,12 +121,12 @@ public class Group extends TableImpl<GroupRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.GROUP_NAME_IDX);
+        return Arrays.asList(Indexes.GROUP_NAME_IDX);
     }
 
     @Override
@@ -134,13 +135,13 @@ public class Group extends TableImpl<GroupRecord> {
     }
 
     @Override
-    public List<UniqueKey<GroupRecord>> getKeys() {
-        return Arrays.<UniqueKey<GroupRecord>>asList(Keys.GROUP_PKEY, Keys.GROUP_NAME_KEY);
+    public List<UniqueKey<GroupRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.GROUP_NAME_KEY);
     }
 
     @Override
     public List<ForeignKey<GroupRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<GroupRecord, ?>>asList(Keys.GROUP__GROUP_CREATOR_UUID_FKEY, Keys.GROUP__GROUP_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.GROUP__GROUP_CREATOR_UUID_FKEY, Keys.GROUP__GROUP_EDITOR_UUID_FKEY);
     }
 
     private transient User _groupCreatorUuidFkey;

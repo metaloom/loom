@@ -123,7 +123,7 @@ public class RolePermission extends TableImpl<RolePermissionRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -132,13 +132,8 @@ public class RolePermission extends TableImpl<RolePermissionRecord> {
     }
 
     @Override
-    public List<UniqueKey<RolePermissionRecord>> getKeys() {
-        return Arrays.<UniqueKey<RolePermissionRecord>>asList(Keys.ROLE_PERMISSION_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<RolePermissionRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<RolePermissionRecord, ?>>asList(Keys.ROLE_PERMISSION__ROLE_PERMISSION_ROLE_UUID_FKEY);
+        return Arrays.asList(Keys.ROLE_PERMISSION__ROLE_PERMISSION_ROLE_UUID_FKEY);
     }
 
     private transient Role _role;

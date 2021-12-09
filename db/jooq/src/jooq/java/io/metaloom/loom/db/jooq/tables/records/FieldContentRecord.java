@@ -4,10 +4,8 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo;
 import io.metaloom.loom.db.jooq.enums.LoomContentType;
 import io.metaloom.loom.db.jooq.tables.FieldContent;
-import io.metaloom.loom.db.jooq.tables.interfaces.IFieldContent;
 
 import java.util.UUID;
 
@@ -17,28 +15,24 @@ import org.jooq.Row4;
 import org.jooq.impl.TableRecordImpl;
 
 
-import static io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo.*;
 /**
  * Crosstable that tracks all fields for a content
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class FieldContentRecord extends TableRecordImpl<FieldContentRecord> implements VertxPojo, Record4<UUID, UUID, String, LoomContentType>, IFieldContent {
+public class FieldContentRecord extends TableRecordImpl<FieldContentRecord> implements Record4<UUID, UUID, String, LoomContentType> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.field_content.fields_uuid</code>.
      */
-    @Override
-    public FieldContentRecord setFieldsUuid(UUID value) {
+    public void setFieldsUuid(UUID value) {
         set(0, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field_content.fields_uuid</code>.
      */
-    @Override
     public UUID getFieldsUuid() {
         return (UUID) get(0);
     }
@@ -46,50 +40,45 @@ public class FieldContentRecord extends TableRecordImpl<FieldContentRecord> impl
     /**
      * Setter for <code>public.field_content.content_uuid</code>.
      */
-    @Override
-    public FieldContentRecord setContentUuid(UUID value) {
+    public void setContentUuid(UUID value) {
         set(1, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field_content.content_uuid</code>.
      */
-    @Override
     public UUID getContentUuid() {
         return (UUID) get(1);
     }
 
     /**
-     * Setter for <code>public.field_content.webroot_path_info</code>. prefixed with branch
+     * Setter for <code>public.field_content.webroot_path_info</code>. prefixed
+     * with branch
      */
-    @Override
-    public FieldContentRecord setWebrootPathInfo(String value) {
+    public void setWebrootPathInfo(String value) {
         set(2, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.field_content.webroot_path_info</code>. prefixed with branch
+     * Getter for <code>public.field_content.webroot_path_info</code>. prefixed
+     * with branch
      */
-    @Override
     public String getWebrootPathInfo() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>public.field_content.content_type</code>. D or P for draft and published
+     * Setter for <code>public.field_content.content_type</code>. D or P for
+     * draft and published
      */
-    @Override
-    public FieldContentRecord setContentType(LoomContentType value) {
+    public void setContentType(LoomContentType value) {
         set(3, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.field_content.content_type</code>. D or P for draft and published
+     * Getter for <code>public.field_content.content_type</code>. D or P for
+     * draft and published
      */
-    @Override
     public LoomContentType getContentType() {
         return (LoomContentType) get(3);
     }
@@ -202,24 +191,6 @@ public class FieldContentRecord extends TableRecordImpl<FieldContentRecord> impl
     }
 
     // -------------------------------------------------------------------------
-    // FROM and INTO
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void from(IFieldContent from) {
-        setFieldsUuid(from.getFieldsUuid());
-        setContentUuid(from.getContentUuid());
-        setWebrootPathInfo(from.getWebrootPathInfo());
-        setContentType(from.getContentType());
-    }
-
-    @Override
-    public <E extends IFieldContent> E into(E into) {
-        into.from(this);
-        return into;
-    }
-
-    // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
@@ -241,9 +212,4 @@ public class FieldContentRecord extends TableRecordImpl<FieldContentRecord> impl
         setWebrootPathInfo(webrootPathInfo);
         setContentType(contentType);
     }
-
-        public FieldContentRecord(io.vertx.core.json.JsonObject json) {
-                this();
-                fromJson(json);
-        }
 }

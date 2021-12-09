@@ -59,12 +59,14 @@ public class ContentUserMeta extends TableImpl<ContentUserMetaRecord> {
     public final TableField<ContentUserMetaRecord, UUID> USER_UUID = createField(DSL.name("user_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.content_user_meta.rating</code>. Rating of the content by the user
+     * The column <code>public.content_user_meta.rating</code>. Rating of the
+     * content by the user
      */
     public final TableField<ContentUserMetaRecord, Integer> RATING = createField(DSL.name("rating"), SQLDataType.INTEGER.nullable(false), this, "Rating of the content by the user");
 
     /**
-     * The column <code>public.content_user_meta.meta</code>. Custom meta properties
+     * The column <code>public.content_user_meta.meta</code>. Custom meta
+     * properties
      */
     public final TableField<ContentUserMetaRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties");
 
@@ -103,7 +105,7 @@ public class ContentUserMeta extends TableImpl<ContentUserMetaRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -112,13 +114,8 @@ public class ContentUserMeta extends TableImpl<ContentUserMetaRecord> {
     }
 
     @Override
-    public List<UniqueKey<ContentUserMetaRecord>> getKeys() {
-        return Arrays.<UniqueKey<ContentUserMetaRecord>>asList(Keys.CONTENT_USER_META_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<ContentUserMetaRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ContentUserMetaRecord, ?>>asList(Keys.CONTENT_USER_META__CONTENT_USER_META_CONTENT_UUID_FKEY, Keys.CONTENT_USER_META__CONTENT_USER_META_USER_UUID_FKEY);
+        return Arrays.asList(Keys.CONTENT_USER_META__CONTENT_USER_META_CONTENT_UUID_FKEY, Keys.CONTENT_USER_META__CONTENT_USER_META_USER_UUID_FKEY);
     }
 
     private transient Tag _tag;

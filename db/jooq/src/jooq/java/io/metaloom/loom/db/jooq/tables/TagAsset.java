@@ -8,8 +8,6 @@ import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.Public;
 import io.metaloom.loom.db.jooq.tables.records.TagAssetRecord;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 import org.jooq.Field;
@@ -93,17 +91,12 @@ public class TagAsset extends TableImpl<TagAssetRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public UniqueKey<TagAssetRecord> getPrimaryKey() {
         return Keys.TAG_ASSET_PKEY;
-    }
-
-    @Override
-    public List<UniqueKey<TagAssetRecord>> getKeys() {
-        return Arrays.<UniqueKey<TagAssetRecord>>asList(Keys.TAG_ASSET_PKEY);
     }
 
     @Override

@@ -93,7 +93,7 @@ public class TagNamespace extends TableImpl<TagNamespaceRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -102,13 +102,8 @@ public class TagNamespace extends TableImpl<TagNamespaceRecord> {
     }
 
     @Override
-    public List<UniqueKey<TagNamespaceRecord>> getKeys() {
-        return Arrays.<UniqueKey<TagNamespaceRecord>>asList(Keys.TAG_NAMESPACE_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<TagNamespaceRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<TagNamespaceRecord, ?>>asList(Keys.TAG_NAMESPACE__TAG_NAMESPACE_TAG_UUID_FKEY, Keys.TAG_NAMESPACE__TAG_NAMESPACE_NAMESPACE_UUID_FKEY);
+        return Arrays.asList(Keys.TAG_NAMESPACE__TAG_NAMESPACE_TAG_UUID_FKEY, Keys.TAG_NAMESPACE__TAG_NAMESPACE_NAMESPACE_UUID_FKEY);
     }
 
     private transient Tag _tag;

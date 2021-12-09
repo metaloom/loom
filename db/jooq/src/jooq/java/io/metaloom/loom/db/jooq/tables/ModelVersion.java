@@ -107,7 +107,7 @@ public class ModelVersion extends TableImpl<ModelVersionRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -116,13 +116,8 @@ public class ModelVersion extends TableImpl<ModelVersionRecord> {
     }
 
     @Override
-    public List<UniqueKey<ModelVersionRecord>> getKeys() {
-        return Arrays.<UniqueKey<ModelVersionRecord>>asList(Keys.MODEL_VERSION_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<ModelVersionRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ModelVersionRecord, ?>>asList(Keys.MODEL_VERSION__MODEL_VERSION_MODEL_UUID_FKEY, Keys.MODEL_VERSION__MODEL_VERSION_NEXT_VERSION_UUID_FKEY, Keys.MODEL_VERSION__MODEL_VERSION_PREV_VERSION_UUID_FKEY);
+        return Arrays.asList(Keys.MODEL_VERSION__MODEL_VERSION_MODEL_UUID_FKEY, Keys.MODEL_VERSION__MODEL_VERSION_NEXT_VERSION_UUID_FKEY, Keys.MODEL_VERSION__MODEL_VERSION_PREV_VERSION_UUID_FKEY);
     }
 
     private transient Model _model;

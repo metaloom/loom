@@ -66,17 +66,20 @@ public class Namespace extends TableImpl<NamespaceRecord> {
     public final TableField<NamespaceRecord, java.util.UUID> ROOT_CONTENT_UUID = createField(DSL.name("root_content_uuid"), SQLDataType.UUID, this, "");
 
     /**
-     * The column <code>public.namespace.meta</code>. Custom meta properties to the element
+     * The column <code>public.namespace.meta</code>. Custom meta properties to
+     * the element
      */
     public final TableField<NamespaceRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties to the element");
 
     /**
-     * The column <code>public.namespace.path_prefix</code>. Prefix for webroot paths
+     * The column <code>public.namespace.path_prefix</code>. Prefix for webroot
+     * paths
      */
     public final TableField<NamespaceRecord, String> PATH_PREFIX = createField(DSL.name("path_prefix"), SQLDataType.VARCHAR, this, "Prefix for webroot paths");
 
     /**
-     * The column <code>public.namespace.model_filters</code>. filter for models that can be used in the namespace
+     * The column <code>public.namespace.model_filters</code>. filter for models
+     * that can be used in the namespace
      */
     public final TableField<NamespaceRecord, String> MODEL_FILTERS = createField(DSL.name("model_filters"), SQLDataType.VARCHAR, this, "filter for models that can be used in the namespace");
 
@@ -135,12 +138,12 @@ public class Namespace extends TableImpl<NamespaceRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.NAMESPACE_NAME_IDX);
+        return Arrays.asList(Indexes.NAMESPACE_NAME_IDX);
     }
 
     @Override
@@ -149,13 +152,13 @@ public class Namespace extends TableImpl<NamespaceRecord> {
     }
 
     @Override
-    public List<UniqueKey<NamespaceRecord>> getKeys() {
-        return Arrays.<UniqueKey<NamespaceRecord>>asList(Keys.NAMESPACE_PKEY, Keys.NAMESPACE_NAME_KEY);
+    public List<UniqueKey<NamespaceRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.NAMESPACE_NAME_KEY);
     }
 
     @Override
     public List<ForeignKey<NamespaceRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<NamespaceRecord, ?>>asList(Keys.NAMESPACE__NAMESPACE_ROOT_CONTENT_UUID_FKEY, Keys.NAMESPACE__NAMESPACE_CREATOR_UUID_FKEY, Keys.NAMESPACE__NAMESPACE_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.NAMESPACE__NAMESPACE_ROOT_CONTENT_UUID_FKEY, Keys.NAMESPACE__NAMESPACE_CREATOR_UUID_FKEY, Keys.NAMESPACE__NAMESPACE_EDITOR_UUID_FKEY);
     }
 
     private transient Content _content;

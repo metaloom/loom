@@ -4,9 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo;
 import io.metaloom.loom.db.jooq.tables.Field;
-import io.metaloom.loom.db.jooq.tables.interfaces.IField;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -17,62 +15,56 @@ import org.jooq.Row8;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
-import static io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo.*;
 /**
  * Table which stores the actual fields content as JSON
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class FieldRecord extends UpdatableRecordImpl<FieldRecord> implements VertxPojo, Record8<UUID, UUID, String, UUID, LocalDateTime, UUID, UUID, Integer>, IField {
+public class FieldRecord extends UpdatableRecordImpl<FieldRecord> implements Record8<UUID, UUID, String, UUID, LocalDateTime, UUID, UUID, Integer> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.field.uuid</code>.
      */
-    @Override
-    public FieldRecord setUuid(UUID value) {
+    public void setUuid(UUID value) {
         set(0, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field.uuid</code>.
      */
-    @Override
     public UUID getUuid() {
         return (UUID) get(0);
     }
 
     /**
-     * Setter for <code>public.field.content_uuid</code>. Reference to the content that uses this fields record
+     * Setter for <code>public.field.content_uuid</code>. Reference to the
+     * content that uses this fields record
      */
-    @Override
-    public FieldRecord setContentUuid(UUID value) {
+    public void setContentUuid(UUID value) {
         set(1, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.field.content_uuid</code>. Reference to the content that uses this fields record
+     * Getter for <code>public.field.content_uuid</code>. Reference to the
+     * content that uses this fields record
      */
-    @Override
     public UUID getContentUuid() {
         return (UUID) get(1);
     }
 
     /**
-     * Setter for <code>public.field.fields_json</code>. JSON which contains the actual fields content
+     * Setter for <code>public.field.fields_json</code>. JSON which contains the
+     * actual fields content
      */
-    @Override
-    public FieldRecord setFieldsJson(String value) {
+    public void setFieldsJson(String value) {
         set(2, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.field.fields_json</code>. JSON which contains the actual fields content
+     * Getter for <code>public.field.fields_json</code>. JSON which contains the
+     * actual fields content
      */
-    @Override
     public String getFieldsJson() {
         return (String) get(2);
     }
@@ -80,16 +72,13 @@ public class FieldRecord extends UpdatableRecordImpl<FieldRecord> implements Ver
     /**
      * Setter for <code>public.field.language_uuid</code>.
      */
-    @Override
-    public FieldRecord setLanguageUuid(UUID value) {
+    public void setLanguageUuid(UUID value) {
         set(3, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field.language_uuid</code>.
      */
-    @Override
     public UUID getLanguageUuid() {
         return (UUID) get(3);
     }
@@ -97,16 +86,13 @@ public class FieldRecord extends UpdatableRecordImpl<FieldRecord> implements Ver
     /**
      * Setter for <code>public.field.edited</code>.
      */
-    @Override
-    public FieldRecord setEdited(LocalDateTime value) {
+    public void setEdited(LocalDateTime value) {
         set(4, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field.edited</code>.
      */
-    @Override
     public LocalDateTime getEdited() {
         return (LocalDateTime) get(4);
     }
@@ -114,16 +100,13 @@ public class FieldRecord extends UpdatableRecordImpl<FieldRecord> implements Ver
     /**
      * Setter for <code>public.field.editor_uuid</code>.
      */
-    @Override
-    public FieldRecord setEditorUuid(UUID value) {
+    public void setEditorUuid(UUID value) {
         set(5, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field.editor_uuid</code>.
      */
-    @Override
     public UUID getEditorUuid() {
         return (UUID) get(5);
     }
@@ -131,16 +114,13 @@ public class FieldRecord extends UpdatableRecordImpl<FieldRecord> implements Ver
     /**
      * Setter for <code>public.field.modelversion_uuid</code>.
      */
-    @Override
-    public FieldRecord setModelversionUuid(UUID value) {
+    public void setModelversionUuid(UUID value) {
         set(6, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field.modelversion_uuid</code>.
      */
-    @Override
     public UUID getModelversionUuid() {
         return (UUID) get(6);
     }
@@ -148,16 +128,13 @@ public class FieldRecord extends UpdatableRecordImpl<FieldRecord> implements Ver
     /**
      * Setter for <code>public.field.version</code>.
      */
-    @Override
-    public FieldRecord setVersion(Integer value) {
+    public void setVersion(Integer value) {
         set(7, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.field.version</code>.
      */
-    @Override
     public Integer getVersion() {
         return (Integer) get(7);
     }
@@ -367,28 +344,6 @@ public class FieldRecord extends UpdatableRecordImpl<FieldRecord> implements Ver
     }
 
     // -------------------------------------------------------------------------
-    // FROM and INTO
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void from(IField from) {
-        setUuid(from.getUuid());
-        setContentUuid(from.getContentUuid());
-        setFieldsJson(from.getFieldsJson());
-        setLanguageUuid(from.getLanguageUuid());
-        setEdited(from.getEdited());
-        setEditorUuid(from.getEditorUuid());
-        setModelversionUuid(from.getModelversionUuid());
-        setVersion(from.getVersion());
-    }
-
-    @Override
-    public <E extends IField> E into(E into) {
-        into.from(this);
-        return into;
-    }
-
-    // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
@@ -414,9 +369,4 @@ public class FieldRecord extends UpdatableRecordImpl<FieldRecord> implements Ver
         setModelversionUuid(modelversionUuid);
         setVersion(version);
     }
-
-        public FieldRecord(io.vertx.core.json.JsonObject json) {
-                this();
-                fromJson(json);
-        }
 }

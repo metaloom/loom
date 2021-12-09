@@ -4,10 +4,8 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo;
 import io.metaloom.loom.db.jooq.enums.LoomExtensionType;
 import io.metaloom.loom.db.jooq.tables.Extension;
-import io.metaloom.loom.db.jooq.tables.interfaces.IExtension;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -19,28 +17,24 @@ import org.jooq.Row9;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
-import static io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo.*;
 /**
  * Table which lists the registered extensions
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implements VertxPojo, Record9<UUID, String, LoomExtensionType, String, String, LocalDateTime, UUID, LocalDateTime, UUID>, IExtension {
+public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implements Record9<UUID, String, LoomExtensionType, String, String, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.extension.uuid</code>.
      */
-    @Override
-    public ExtensionRecord setUuid(UUID value) {
+    public void setUuid(UUID value) {
         set(0, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.extension.uuid</code>.
      */
-    @Override
     public UUID getUuid() {
         return (UUID) get(0);
     }
@@ -48,33 +42,29 @@ public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implem
     /**
      * Setter for <code>public.extension.url</code>.
      */
-    @Override
-    public ExtensionRecord setUrl(String value) {
+    public void setUrl(String value) {
         set(1, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.extension.url</code>.
      */
-    @Override
     public String getUrl() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>public.extension.kind</code>. Defines the type of the extension service
+     * Setter for <code>public.extension.kind</code>. Defines the type of the
+     * extension service
      */
-    @Override
-    public ExtensionRecord setKind(LoomExtensionType value) {
+    public void setKind(LoomExtensionType value) {
         set(2, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.extension.kind</code>. Defines the type of the extension service
+     * Getter for <code>public.extension.kind</code>. Defines the type of the
+     * extension service
      */
-    @Override
     public LoomExtensionType getKind() {
         return (LoomExtensionType) get(2);
     }
@@ -82,33 +72,29 @@ public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implem
     /**
      * Setter for <code>public.extension.status</code>.
      */
-    @Override
-    public ExtensionRecord setStatus(String value) {
+    public void setStatus(String value) {
         set(3, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.extension.status</code>.
      */
-    @Override
     public String getStatus() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>public.extension.meta</code>. Custom meta properties to the element
+     * Setter for <code>public.extension.meta</code>. Custom meta properties to
+     * the element
      */
-    @Override
-    public ExtensionRecord setMeta(String value) {
+    public void setMeta(String value) {
         set(4, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.extension.meta</code>. Custom meta properties to the element
+     * Getter for <code>public.extension.meta</code>. Custom meta properties to
+     * the element
      */
-    @Override
     public String getMeta() {
         return (String) get(4);
     }
@@ -116,16 +102,13 @@ public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implem
     /**
      * Setter for <code>public.extension.created</code>.
      */
-    @Override
-    public ExtensionRecord setCreated(LocalDateTime value) {
+    public void setCreated(LocalDateTime value) {
         set(5, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.extension.created</code>.
      */
-    @Override
     public LocalDateTime getCreated() {
         return (LocalDateTime) get(5);
     }
@@ -133,16 +116,13 @@ public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implem
     /**
      * Setter for <code>public.extension.creator_uuid</code>.
      */
-    @Override
-    public ExtensionRecord setCreatorUuid(UUID value) {
+    public void setCreatorUuid(UUID value) {
         set(6, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.extension.creator_uuid</code>.
      */
-    @Override
     public UUID getCreatorUuid() {
         return (UUID) get(6);
     }
@@ -150,16 +130,13 @@ public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implem
     /**
      * Setter for <code>public.extension.edited</code>.
      */
-    @Override
-    public ExtensionRecord setEdited(LocalDateTime value) {
+    public void setEdited(LocalDateTime value) {
         set(7, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.extension.edited</code>.
      */
-    @Override
     public LocalDateTime getEdited() {
         return (LocalDateTime) get(7);
     }
@@ -167,16 +144,13 @@ public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implem
     /**
      * Setter for <code>public.extension.editor_uuid</code>.
      */
-    @Override
-    public ExtensionRecord setEditorUuid(UUID value) {
+    public void setEditorUuid(UUID value) {
         set(8, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.extension.editor_uuid</code>.
      */
-    @Override
     public UUID getEditorUuid() {
         return (UUID) get(8);
     }
@@ -408,29 +382,6 @@ public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implem
     }
 
     // -------------------------------------------------------------------------
-    // FROM and INTO
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void from(IExtension from) {
-        setUuid(from.getUuid());
-        setUrl(from.getUrl());
-        setKind(from.getKind());
-        setStatus(from.getStatus());
-        setMeta(from.getMeta());
-        setCreated(from.getCreated());
-        setCreatorUuid(from.getCreatorUuid());
-        setEdited(from.getEdited());
-        setEditorUuid(from.getEditorUuid());
-    }
-
-    @Override
-    public <E extends IExtension> E into(E into) {
-        into.from(this);
-        return into;
-    }
-
-    // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
@@ -457,9 +408,4 @@ public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implem
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-        public ExtensionRecord(io.vertx.core.json.JsonObject json) {
-                this();
-                fromJson(json);
-        }
 }

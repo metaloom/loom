@@ -15,7 +15,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<vertx.jooq.version>6.2.0</vertx.jooq.version>
+		<jooq.version>3.15.5</jooq.version>
+		<db.url>jdbc:postgresql://localhost:5432/loom</db.url>
+		<db.username>postgres</db.username>
+		<db.password>finger</db.password>
 	</properties>
 
 	<dependencyManagement>
@@ -48,11 +51,7 @@
 		<dependency>
 			<groupId>org.jooq</groupId>
 			<artifactId>jooq</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.github.jklingsporn</groupId>
-			<artifactId>vertx-jooq-rx-reactive</artifactId>
-			<version>${vertx.jooq.version}</version>
+			<version>${jooq.version}</version>
 		</dependency>
 
 		<!-- JDBC -->
@@ -70,7 +69,6 @@
 			<artifactId>vertx-pg-client</artifactId>
 		</dependency>
 
-
 		<!-- Test -->
 		<dependency>
 			<groupId>io.metaloom.loom</groupId>
@@ -85,20 +83,46 @@
 		</dependency>
 	</dependencies>
 
-
-
-
 	<build>
 		<plugins>
 			<plugin>
-				<!-- Specify the maven code generator plugin -->
-				<groupId>org.jooq</groupId>
-				<artifactId>jooq-codegen-maven</artifactId>
-				<version>3.14.8</version>
-
-				<!-- The plugin should hook into the generate goal -->
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>3.0</version>
 				<executions>
 					<execution>
+						<?m2e execute ?>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>migrate</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<url>${db.url}</url>
+					<user>${db.username}</user>
+					<password>${db.password}</password>
+					<locations>
+						<location>filesystem:../flyway/src/main/resources/db/migration</location>
+					</locations>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>${postgres.driver.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
+				<version>3.15.5</version>
+
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
@@ -112,26 +136,31 @@
 						<version>${postgres.driver.version}</version>
 					</dependency>
 					<dependency>
-						<groupId>io.github.jklingsporn</groupId>
-						<artifactId>vertx-jooq-generate</artifactId>
-						<version>${vertx.jooq.version}</version>
+						<groupId>org.jooq</groupId>
+						<artifactId>jooq</artifactId>
+						<version>${jooq.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jooq</groupId>
+						<artifactId>jooq-meta</artifactId>
+						<version>${jooq.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jooq</groupId>
+						<artifactId>jooq-codegen</artifactId>
+						<version>${jooq.version}</version>
 					</dependency>
 				</dependencies>
 
-				<!-- Specify the plugin configuration. The configuration format is the 
-					same as for the standalone code generator -->
 				<configuration>
-					<!-- JDBC connection parameters -->
 					<jdbc>
 						<driver>org.postgresql.Driver</driver>
-						<url>jdbc:postgresql://localhost:5432/loom</url>
-						<user>postgres</user>
-						<password>finger</password>
+						<url>${db.url}</url>
+						<user>${db.username}</user>
+						<password>${db.password}</password>
 					</jdbc>
 
-					<!-- Generator parameters -->
 					<generator>
-						<name>io.github.jklingsporn.vertx.jooq.generate.rx.RXReactiveVertxGenerator</name>
 						<database>
 							<name>org.jooq.meta.postgres.PostgresDatabase</name>
 							<includes>.*</includes>
@@ -150,14 +179,6 @@
 							<packageName>io.metaloom.loom.db.jooq</packageName>
 							<directory>src/jooq/java</directory>
 						</target>
-						<generate>
-							<interfaces>true</interfaces>
-							<daos>true</daos>
-							<fluentSetters>true</fluentSetters>
-						</generate>
-						<strategy>
-							<name>io.github.jklingsporn.vertx.jooq.generate.VertxGeneratorStrategy</name>
-						</strategy>
 					</generator>
 				</configuration>
 			</plugin>

@@ -37,9 +37,10 @@
 		<module>memory</module>
 		<module>fs</module>
 		<module>hibernate</module>
-		<!-- 
 		<module>jooq</module>
-		 -->
+		<!-- 
+			<module>vertx-jooq</module>
+		-->
 	</modules>
 
 </project>

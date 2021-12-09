@@ -4,9 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo;
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
-import io.metaloom.loom.db.jooq.tables.interfaces.ITagNamespace;
 
 import java.util.UUID;
 
@@ -16,28 +14,24 @@ import org.jooq.Row2;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
-import static io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo.*;
 /**
  * Table used to taggings on namespaces
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class TagNamespaceRecord extends UpdatableRecordImpl<TagNamespaceRecord> implements VertxPojo, Record2<UUID, UUID>, ITagNamespace {
+public class TagNamespaceRecord extends UpdatableRecordImpl<TagNamespaceRecord> implements Record2<UUID, UUID> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.tag_namespace.tag_uuid</code>.
      */
-    @Override
-    public TagNamespaceRecord setTagUuid(UUID value) {
+    public void setTagUuid(UUID value) {
         set(0, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.tag_namespace.tag_uuid</code>.
      */
-    @Override
     public UUID getTagUuid() {
         return (UUID) get(0);
     }
@@ -45,16 +39,13 @@ public class TagNamespaceRecord extends UpdatableRecordImpl<TagNamespaceRecord> 
     /**
      * Setter for <code>public.tag_namespace.namespace_uuid</code>.
      */
-    @Override
-    public TagNamespaceRecord setNamespaceUuid(UUID value) {
+    public void setNamespaceUuid(UUID value) {
         set(1, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.tag_namespace.namespace_uuid</code>.
      */
-    @Override
     public UUID getNamespaceUuid() {
         return (UUID) get(1);
     }
@@ -132,22 +123,6 @@ public class TagNamespaceRecord extends UpdatableRecordImpl<TagNamespaceRecord> 
     }
 
     // -------------------------------------------------------------------------
-    // FROM and INTO
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void from(ITagNamespace from) {
-        setTagUuid(from.getTagUuid());
-        setNamespaceUuid(from.getNamespaceUuid());
-    }
-
-    @Override
-    public <E extends ITagNamespace> E into(E into) {
-        into.from(this);
-        return into;
-    }
-
-    // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
@@ -167,9 +142,4 @@ public class TagNamespaceRecord extends UpdatableRecordImpl<TagNamespaceRecord> 
         setTagUuid(tagUuid);
         setNamespaceUuid(namespaceUuid);
     }
-
-        public TagNamespaceRecord(io.vertx.core.json.JsonObject json) {
-                this();
-                fromJson(json);
-        }
 }

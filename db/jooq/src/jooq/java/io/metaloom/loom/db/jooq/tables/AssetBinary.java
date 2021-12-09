@@ -8,9 +8,6 @@ import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.Public;
 import io.metaloom.loom.db.jooq.tables.records.AssetBinaryRecord;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
@@ -73,17 +70,20 @@ public class AssetBinary extends TableImpl<AssetBinaryRecord> {
     public final TableField<AssetBinaryRecord, String> MD5SUM = createField(DSL.name("md5sum"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.asset_binary.media_width</code>. Only set for images
+     * The column <code>public.asset_binary.media_width</code>. Only set for
+     * images
      */
     public final TableField<AssetBinaryRecord, Integer> MEDIA_WIDTH = createField(DSL.name("media_width"), SQLDataType.INTEGER, this, "Only set for images");
 
     /**
-     * The column <code>public.asset_binary.media_height</code>. Only set for images
+     * The column <code>public.asset_binary.media_height</code>. Only set for
+     * images
      */
     public final TableField<AssetBinaryRecord, Integer> MEDIA_HEIGHT = createField(DSL.name("media_height"), SQLDataType.INTEGER, this, "Only set for images");
 
     /**
-     * The column <code>public.asset_binary.fingerprint</code>. Media fingerprint information
+     * The column <code>public.asset_binary.fingerprint</code>. Media
+     * fingerprint information
      */
     public final TableField<AssetBinaryRecord, String> FINGERPRINT = createField(DSL.name("fingerprint"), SQLDataType.VARCHAR, this, "Media fingerprint information");
 
@@ -122,17 +122,12 @@ public class AssetBinary extends TableImpl<AssetBinaryRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public UniqueKey<AssetBinaryRecord> getPrimaryKey() {
         return Keys.ASSET_BINARY_PKEY;
-    }
-
-    @Override
-    public List<UniqueKey<AssetBinaryRecord>> getKeys() {
-        return Arrays.<UniqueKey<AssetBinaryRecord>>asList(Keys.ASSET_BINARY_PKEY);
     }
 
     @Override

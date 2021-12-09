@@ -4,10 +4,8 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo;
 import io.metaloom.loom.db.jooq.enums.LoomEvents;
 import io.metaloom.loom.db.jooq.tables.Webhook;
-import io.metaloom.loom.db.jooq.tables.interfaces.IWebhook;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -19,28 +17,24 @@ import org.jooq.Row11;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
-import static io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo.*;
 /**
  * Table which stores the registered webhooks
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements VertxPojo, Record11<UUID, String, String, Boolean, LoomEvents, String, String, LocalDateTime, UUID, LocalDateTime, UUID>, IWebhook {
+public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements Record11<UUID, String, String, Boolean, LoomEvents, String, String, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.webhook.uuid</code>.
      */
-    @Override
-    public WebhookRecord setUuid(UUID value) {
+    public void setUuid(UUID value) {
         set(0, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.webhook.uuid</code>.
      */
-    @Override
     public UUID getUuid() {
         return (UUID) get(0);
     }
@@ -48,16 +42,13 @@ public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements
     /**
      * Setter for <code>public.webhook.url</code>.
      */
-    @Override
-    public WebhookRecord setUrl(String value) {
+    public void setUrl(String value) {
         set(1, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.webhook.url</code>.
      */
-    @Override
     public String getUrl() {
         return (String) get(1);
     }
@@ -65,16 +56,13 @@ public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements
     /**
      * Setter for <code>public.webhook.status</code>.
      */
-    @Override
-    public WebhookRecord setStatus(String value) {
+    public void setStatus(String value) {
         set(2, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.webhook.status</code>.
      */
-    @Override
     public String getStatus() {
         return (String) get(2);
     }
@@ -82,67 +70,61 @@ public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements
     /**
      * Setter for <code>public.webhook.active</code>.
      */
-    @Override
-    public WebhookRecord setActive(Boolean value) {
+    public void setActive(Boolean value) {
         set(3, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.webhook.active</code>.
      */
-    @Override
     public Boolean getActive() {
         return (Boolean) get(3);
     }
 
     /**
-     * Setter for <code>public.webhook.triggers</code>. List of triggers which can invoke the webhook
+     * Setter for <code>public.webhook.triggers</code>. List of triggers which
+     * can invoke the webhook
      */
-    @Override
-    public WebhookRecord setTriggers(LoomEvents value) {
+    public void setTriggers(LoomEvents value) {
         set(4, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.webhook.triggers</code>. List of triggers which can invoke the webhook
+     * Getter for <code>public.webhook.triggers</code>. List of triggers which
+     * can invoke the webhook
      */
-    @Override
     public LoomEvents getTriggers() {
         return (LoomEvents) get(4);
     }
 
     /**
-     * Setter for <code>public.webhook.secretToken</code>. Secret token which webhook services can use to authenticate the request.
+     * Setter for <code>public.webhook.secretToken</code>. Secret token which
+     * webhook services can use to authenticate the request.
      */
-    @Override
-    public WebhookRecord setSecrettoken(String value) {
+    public void setSecrettoken(String value) {
         set(5, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.webhook.secretToken</code>. Secret token which webhook services can use to authenticate the request.
+     * Getter for <code>public.webhook.secretToken</code>. Secret token which
+     * webhook services can use to authenticate the request.
      */
-    @Override
     public String getSecrettoken() {
         return (String) get(5);
     }
 
     /**
-     * Setter for <code>public.webhook.meta</code>. Custom meta properties to the element
+     * Setter for <code>public.webhook.meta</code>. Custom meta properties to
+     * the element
      */
-    @Override
-    public WebhookRecord setMeta(String value) {
+    public void setMeta(String value) {
         set(6, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.webhook.meta</code>. Custom meta properties to the element
+     * Getter for <code>public.webhook.meta</code>. Custom meta properties to
+     * the element
      */
-    @Override
     public String getMeta() {
         return (String) get(6);
     }
@@ -150,16 +132,13 @@ public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements
     /**
      * Setter for <code>public.webhook.created</code>.
      */
-    @Override
-    public WebhookRecord setCreated(LocalDateTime value) {
+    public void setCreated(LocalDateTime value) {
         set(7, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.webhook.created</code>.
      */
-    @Override
     public LocalDateTime getCreated() {
         return (LocalDateTime) get(7);
     }
@@ -167,16 +146,13 @@ public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements
     /**
      * Setter for <code>public.webhook.creator_uuid</code>.
      */
-    @Override
-    public WebhookRecord setCreatorUuid(UUID value) {
+    public void setCreatorUuid(UUID value) {
         set(8, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.webhook.creator_uuid</code>.
      */
-    @Override
     public UUID getCreatorUuid() {
         return (UUID) get(8);
     }
@@ -184,16 +160,13 @@ public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements
     /**
      * Setter for <code>public.webhook.edited</code>.
      */
-    @Override
-    public WebhookRecord setEdited(LocalDateTime value) {
+    public void setEdited(LocalDateTime value) {
         set(9, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.webhook.edited</code>.
      */
-    @Override
     public LocalDateTime getEdited() {
         return (LocalDateTime) get(9);
     }
@@ -201,16 +174,13 @@ public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements
     /**
      * Setter for <code>public.webhook.editor_uuid</code>.
      */
-    @Override
-    public WebhookRecord setEditorUuid(UUID value) {
+    public void setEditorUuid(UUID value) {
         set(10, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.webhook.editor_uuid</code>.
      */
-    @Override
     public UUID getEditorUuid() {
         return (UUID) get(10);
     }
@@ -486,31 +456,6 @@ public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements
     }
 
     // -------------------------------------------------------------------------
-    // FROM and INTO
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void from(IWebhook from) {
-        setUuid(from.getUuid());
-        setUrl(from.getUrl());
-        setStatus(from.getStatus());
-        setActive(from.getActive());
-        setTriggers(from.getTriggers());
-        setSecrettoken(from.getSecrettoken());
-        setMeta(from.getMeta());
-        setCreated(from.getCreated());
-        setCreatorUuid(from.getCreatorUuid());
-        setEdited(from.getEdited());
-        setEditorUuid(from.getEditorUuid());
-    }
-
-    @Override
-    public <E extends IWebhook> E into(E into) {
-        into.from(this);
-        return into;
-    }
-
-    // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
@@ -539,9 +484,4 @@ public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-        public WebhookRecord(io.vertx.core.json.JsonObject json) {
-                this();
-                fromJson(json);
-        }
 }

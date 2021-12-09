@@ -93,7 +93,7 @@ public class RoleGroup extends TableImpl<RoleGroupRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -102,13 +102,8 @@ public class RoleGroup extends TableImpl<RoleGroupRecord> {
     }
 
     @Override
-    public List<UniqueKey<RoleGroupRecord>> getKeys() {
-        return Arrays.<UniqueKey<RoleGroupRecord>>asList(Keys.ROLE_GROUP_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<RoleGroupRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<RoleGroupRecord, ?>>asList(Keys.ROLE_GROUP__ROLE_GROUP_GROUP_UUID_FKEY, Keys.ROLE_GROUP__ROLE_GROUP_ROLE_UUID_FKEY);
+        return Arrays.asList(Keys.ROLE_GROUP__ROLE_GROUP_GROUP_UUID_FKEY, Keys.ROLE_GROUP__ROLE_GROUP_ROLE_UUID_FKEY);
     }
 
     private transient Group _group;

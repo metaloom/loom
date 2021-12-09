@@ -59,7 +59,8 @@ public class Content extends TableImpl<ContentRecord> {
     public final TableField<ContentRecord, java.util.UUID> NAMESPACE_UUID = createField(DSL.name("namespace_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.content.parent</code>. Reference to the parent content.
+     * The column <code>public.content.parent</code>. Reference to the parent
+     * content.
      */
     public final TableField<ContentRecord, java.util.UUID> PARENT = createField(DSL.name("parent"), SQLDataType.UUID, this, "Reference to the parent content.");
 
@@ -113,7 +114,7 @@ public class Content extends TableImpl<ContentRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -122,13 +123,8 @@ public class Content extends TableImpl<ContentRecord> {
     }
 
     @Override
-    public List<UniqueKey<ContentRecord>> getKeys() {
-        return Arrays.<UniqueKey<ContentRecord>>asList(Keys.CONTENT_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<ContentRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ContentRecord, ?>>asList(Keys.CONTENT__CONTENT_NAMESPACE_UUID_FKEY, Keys.CONTENT__CONTENT_PARENT_FKEY, Keys.CONTENT__CONTENT_CREATOR_UUID_FKEY, Keys.CONTENT__CONTENT_MODEL_UUID_FKEY);
+        return Arrays.asList(Keys.CONTENT__CONTENT_NAMESPACE_UUID_FKEY, Keys.CONTENT__CONTENT_PARENT_FKEY, Keys.CONTENT__CONTENT_CREATOR_UUID_FKEY, Keys.CONTENT__CONTENT_MODEL_UUID_FKEY);
     }
 
     private transient Namespace _namespace;

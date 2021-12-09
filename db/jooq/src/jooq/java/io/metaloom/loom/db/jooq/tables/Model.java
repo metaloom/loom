@@ -56,7 +56,8 @@ public class Model extends TableImpl<ModelRecord> {
     public final TableField<ModelRecord, java.util.UUID> UUID = createField(DSL.name("uuid"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field("uuid_generate_v4()", SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>public.model.name</code>. Human readable name of the content model
+     * The column <code>public.model.name</code>. Human readable name of the
+     * content model
      */
     public final TableField<ModelRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR.nullable(false), this, "Human readable name of the content model");
 
@@ -120,12 +121,12 @@ public class Model extends TableImpl<ModelRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.MODEL_NAME_IDX);
+        return Arrays.asList(Indexes.MODEL_NAME_IDX);
     }
 
     @Override
@@ -134,13 +135,13 @@ public class Model extends TableImpl<ModelRecord> {
     }
 
     @Override
-    public List<UniqueKey<ModelRecord>> getKeys() {
-        return Arrays.<UniqueKey<ModelRecord>>asList(Keys.MODEL_PKEY, Keys.MODEL_NAME_KEY);
+    public List<UniqueKey<ModelRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.MODEL_NAME_KEY);
     }
 
     @Override
     public List<ForeignKey<ModelRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ModelRecord, ?>>asList(Keys.MODEL__MODEL_LATEST_VERSION_UUID_FKEY, Keys.MODEL__MODEL_CREATOR_UUID_FKEY, Keys.MODEL__MODEL_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.MODEL__MODEL_LATEST_VERSION_UUID_FKEY, Keys.MODEL__MODEL_CREATOR_UUID_FKEY, Keys.MODEL__MODEL_EDITOR_UUID_FKEY);
     }
 
     private transient ModelVersion _modelVersion;

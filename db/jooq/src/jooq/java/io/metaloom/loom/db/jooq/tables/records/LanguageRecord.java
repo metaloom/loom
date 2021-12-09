@@ -4,9 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo;
 import io.metaloom.loom.db.jooq.tables.Language;
-import io.metaloom.loom.db.jooq.tables.interfaces.ILanguage;
 
 import java.util.UUID;
 
@@ -17,28 +15,24 @@ import org.jooq.Row4;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
-import static io.github.jklingsporn.vertx.jooq.shared.internal.VertxPojo.*;
 /**
  * Table which stores the languages for loom
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class LanguageRecord extends UpdatableRecordImpl<LanguageRecord> implements VertxPojo, Record4<UUID, String, String, String>, ILanguage {
+public class LanguageRecord extends UpdatableRecordImpl<LanguageRecord> implements Record4<UUID, String, String, String> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.language.uuid</code>.
      */
-    @Override
-    public LanguageRecord setUuid(UUID value) {
+    public void setUuid(UUID value) {
         set(0, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.language.uuid</code>.
      */
-    @Override
     public UUID getUuid() {
         return (UUID) get(0);
     }
@@ -46,16 +40,13 @@ public class LanguageRecord extends UpdatableRecordImpl<LanguageRecord> implemen
     /**
      * Setter for <code>public.language.native_name</code>.
      */
-    @Override
-    public LanguageRecord setNativeName(String value) {
+    public void setNativeName(String value) {
         set(1, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.language.native_name</code>.
      */
-    @Override
     public String getNativeName() {
         return (String) get(1);
     }
@@ -63,33 +54,29 @@ public class LanguageRecord extends UpdatableRecordImpl<LanguageRecord> implemen
     /**
      * Setter for <code>public.language.tag</code>.
      */
-    @Override
-    public LanguageRecord setTag(String value) {
+    public void setTag(String value) {
         set(2, value);
-        return this;
     }
 
     /**
      * Getter for <code>public.language.tag</code>.
      */
-    @Override
     public String getTag() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>public.language.meta</code>. Custom meta properties to the element
+     * Setter for <code>public.language.meta</code>. Custom meta properties to
+     * the element
      */
-    @Override
-    public LanguageRecord setMeta(String value) {
+    public void setMeta(String value) {
         set(3, value);
-        return this;
     }
 
     /**
-     * Getter for <code>public.language.meta</code>. Custom meta properties to the element
+     * Getter for <code>public.language.meta</code>. Custom meta properties to
+     * the element
      */
-    @Override
     public String getMeta() {
         return (String) get(3);
     }
@@ -211,24 +198,6 @@ public class LanguageRecord extends UpdatableRecordImpl<LanguageRecord> implemen
     }
 
     // -------------------------------------------------------------------------
-    // FROM and INTO
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void from(ILanguage from) {
-        setUuid(from.getUuid());
-        setNativeName(from.getNativeName());
-        setTag(from.getTag());
-        setMeta(from.getMeta());
-    }
-
-    @Override
-    public <E extends ILanguage> E into(E into) {
-        into.from(this);
-        return into;
-    }
-
-    // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
@@ -250,9 +219,4 @@ public class LanguageRecord extends UpdatableRecordImpl<LanguageRecord> implemen
         setTag(tag);
         setMeta(meta);
     }
-
-        public LanguageRecord(io.vertx.core.json.JsonObject json) {
-                this();
-                fromJson(json);
-        }
 }
