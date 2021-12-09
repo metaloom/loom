@@ -4,37 +4,37 @@
 package io.metaloom.loom.db.jooq;
 
 
-import io.metaloom.loom.db.jooq.tables.Asset;
-import io.metaloom.loom.db.jooq.tables.AssetBinary;
+import io.metaloom.loom.db.jooq.tables.AssetBinaries;
 import io.metaloom.loom.db.jooq.tables.AssetTimeline;
 import io.metaloom.loom.db.jooq.tables.AssetTimelineTag;
 import io.metaloom.loom.db.jooq.tables.AssetUserMeta;
-import io.metaloom.loom.db.jooq.tables.Content;
+import io.metaloom.loom.db.jooq.tables.Assets;
 import io.metaloom.loom.db.jooq.tables.ContentUserMeta;
-import io.metaloom.loom.db.jooq.tables.Extension;
-import io.metaloom.loom.db.jooq.tables.Field;
+import io.metaloom.loom.db.jooq.tables.Contents;
+import io.metaloom.loom.db.jooq.tables.Extensions;
 import io.metaloom.loom.db.jooq.tables.FieldAsset;
 import io.metaloom.loom.db.jooq.tables.FieldContent;
 import io.metaloom.loom.db.jooq.tables.FieldReference;
-import io.metaloom.loom.db.jooq.tables.FlywaySchemaHistory;
-import io.metaloom.loom.db.jooq.tables.Group;
-import io.metaloom.loom.db.jooq.tables.Language;
+import io.metaloom.loom.db.jooq.tables.Fields;
+import io.metaloom.loom.db.jooq.tables.Groups;
+import io.metaloom.loom.db.jooq.tables.Languages;
 import io.metaloom.loom.db.jooq.tables.Loom;
-import io.metaloom.loom.db.jooq.tables.Model;
 import io.metaloom.loom.db.jooq.tables.ModelVersion;
-import io.metaloom.loom.db.jooq.tables.Namespace;
-import io.metaloom.loom.db.jooq.tables.Role;
+import io.metaloom.loom.db.jooq.tables.Models;
+import io.metaloom.loom.db.jooq.tables.Namespaces;
 import io.metaloom.loom.db.jooq.tables.RoleGroup;
 import io.metaloom.loom.db.jooq.tables.RolePermission;
-import io.metaloom.loom.db.jooq.tables.Tag;
+import io.metaloom.loom.db.jooq.tables.Roles;
+import io.metaloom.loom.db.jooq.tables.SchemaVersion;
 import io.metaloom.loom.db.jooq.tables.TagAsset;
 import io.metaloom.loom.db.jooq.tables.TagContent;
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
 import io.metaloom.loom.db.jooq.tables.TagUserMeta;
-import io.metaloom.loom.db.jooq.tables.User;
-import io.metaloom.loom.db.jooq.tables.UserGroup;
+import io.metaloom.loom.db.jooq.tables.Tags;
 import io.metaloom.loom.db.jooq.tables.UserToken;
-import io.metaloom.loom.db.jooq.tables.Webhook;
+import io.metaloom.loom.db.jooq.tables.Users;
+import io.metaloom.loom.db.jooq.tables.UsersGroups;
+import io.metaloom.loom.db.jooq.tables.Webhooks;
 
 
 /**
@@ -44,14 +44,9 @@ import io.metaloom.loom.db.jooq.tables.Webhook;
 public class Tables {
 
     /**
-     * The table <code>public.asset</code>.
-     */
-    public static final Asset ASSET = Asset.ASSET;
-
-    /**
      * This table stores the immutable asset information
      */
-    public static final AssetBinary ASSET_BINARY = AssetBinary.ASSET_BINARY;
+    public static final AssetBinaries ASSET_BINARIES = AssetBinaries.ASSET_BINARIES;
 
     /**
      * This table contains asset timeline entries
@@ -69,9 +64,9 @@ public class Tables {
     public static final AssetUserMeta ASSET_USER_META = AssetUserMeta.ASSET_USER_META;
 
     /**
-     * The table <code>public.content</code>.
+     * The table <code>public.assets</code>.
      */
-    public static final Content CONTENT = Content.CONTENT;
+    public static final Assets ASSETS = Assets.ASSETS;
 
     /**
      * The table <code>public.content_user_meta</code>.
@@ -79,14 +74,14 @@ public class Tables {
     public static final ContentUserMeta CONTENT_USER_META = ContentUserMeta.CONTENT_USER_META;
 
     /**
-     * Table which lists the registered extensions
+     * The table <code>public.contents</code>.
      */
-    public static final Extension EXTENSION = Extension.EXTENSION;
+    public static final Contents CONTENTS = Contents.CONTENTS;
 
     /**
-     * Table which stores the actual fields content as JSON
+     * Table which lists the registered extensions
      */
-    public static final Field FIELD = Field.FIELD;
+    public static final Extensions EXTENSIONS = Extensions.EXTENSIONS;
 
     /**
      * Crosstable which tracks the used assets in a fields record
@@ -104,19 +99,19 @@ public class Tables {
     public static final FieldReference FIELD_REFERENCE = FieldReference.FIELD_REFERENCE;
 
     /**
-     * The table <code>public.flyway_schema_history</code>.
+     * Table which stores the actual fields content as JSON
      */
-    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
+    public static final Fields FIELDS = Fields.FIELDS;
 
     /**
-     * The table <code>public.group</code>.
+     * The table <code>public.groups</code>.
      */
-    public static final Group GROUP = Group.GROUP;
+    public static final Groups GROUPS = Groups.GROUPS;
 
     /**
      * Table which stores the languages for loom
      */
-    public static final Language LANGUAGE = Language.LANGUAGE;
+    public static final Languages LANGUAGES = Languages.LANGUAGES;
 
     /**
      * The table <code>public.loom</code>.
@@ -124,24 +119,19 @@ public class Tables {
     public static final Loom LOOM = Loom.LOOM;
 
     /**
-     * The table <code>public.model</code>.
-     */
-    public static final Model MODEL = Model.MODEL;
-
-    /**
      * The table <code>public.model_version</code>.
      */
     public static final ModelVersion MODEL_VERSION = ModelVersion.MODEL_VERSION;
 
     /**
-     * The table <code>public.namespace</code>.
+     * The table <code>public.models</code>.
      */
-    public static final Namespace NAMESPACE = Namespace.NAMESPACE;
+    public static final Models MODELS = Models.MODELS;
 
     /**
-     * The table <code>public.role</code>.
+     * The table <code>public.namespaces</code>.
      */
-    public static final Role ROLE = Role.ROLE;
+    public static final Namespaces NAMESPACES = Namespaces.NAMESPACES;
 
     /**
      * The table <code>public.role_group</code>.
@@ -154,9 +144,14 @@ public class Tables {
     public static final RolePermission ROLE_PERMISSION = RolePermission.ROLE_PERMISSION;
 
     /**
-     * The table <code>public.tag</code>.
+     * The table <code>public.roles</code>.
      */
-    public static final Tag TAG = Tag.TAG;
+    public static final Roles ROLES = Roles.ROLES;
+
+    /**
+     * The table <code>public.schema_version</code>.
+     */
+    public static final SchemaVersion SCHEMA_VERSION = SchemaVersion.SCHEMA_VERSION;
 
     /**
      * The table <code>public.tag_asset</code>.
@@ -179,14 +174,9 @@ public class Tables {
     public static final TagUserMeta TAG_USER_META = TagUserMeta.TAG_USER_META;
 
     /**
-     * The table <code>public.user</code>.
+     * The table <code>public.tags</code>.
      */
-    public static final User USER = User.USER;
-
-    /**
-     * The table <code>public.user_group</code>.
-     */
-    public static final UserGroup USER_GROUP = UserGroup.USER_GROUP;
+    public static final Tags TAGS = Tags.TAGS;
 
     /**
      * The table <code>public.user_token</code>.
@@ -194,7 +184,17 @@ public class Tables {
     public static final UserToken USER_TOKEN = UserToken.USER_TOKEN;
 
     /**
+     * The table <code>public.users</code>.
+     */
+    public static final Users USERS = Users.USERS;
+
+    /**
+     * The table <code>public.users_groups</code>.
+     */
+    public static final UsersGroups USERS_GROUPS = UsersGroups.USERS_GROUPS;
+
+    /**
      * Table which stores the registered webhooks
      */
-    public static final Webhook WEBHOOK = Webhook.WEBHOOK;
+    public static final Webhooks WEBHOOKS = Webhooks.WEBHOOKS;
 }

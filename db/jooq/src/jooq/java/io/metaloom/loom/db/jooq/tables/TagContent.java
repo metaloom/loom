@@ -106,21 +106,21 @@ public class TagContent extends TableImpl<TagContentRecord> {
         return Arrays.asList(Keys.TAG_CONTENT__TAG_CONTENT_TAG_UUID_FKEY, Keys.TAG_CONTENT__TAG_CONTENT_CONTENT_UUID_FKEY);
     }
 
-    private transient Tag _tag;
-    private transient Content _content;
+    private transient Tags _tags;
+    private transient Contents _contents;
 
-    public Tag tag() {
-        if (_tag == null)
-            _tag = new Tag(this, Keys.TAG_CONTENT__TAG_CONTENT_TAG_UUID_FKEY);
+    public Tags tags() {
+        if (_tags == null)
+            _tags = new Tags(this, Keys.TAG_CONTENT__TAG_CONTENT_TAG_UUID_FKEY);
 
-        return _tag;
+        return _tags;
     }
 
-    public Content content() {
-        if (_content == null)
-            _content = new Content(this, Keys.TAG_CONTENT__TAG_CONTENT_CONTENT_UUID_FKEY);
+    public Contents contents() {
+        if (_contents == null)
+            _contents = new Contents(this, Keys.TAG_CONTENT__TAG_CONTENT_CONTENT_UUID_FKEY);
 
-        return _content;
+        return _contents;
     }
 
     @Override

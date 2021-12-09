@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Row4;
@@ -66,7 +67,7 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
     /**
      * The column <code>public.tag_user_meta.meta</code>. Custom meta properties
      */
-    public final TableField<TagUserMetaRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties");
+    public final TableField<TagUserMetaRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties");
 
     private TagUserMeta(Name alias, Table<TagUserMetaRecord> aliased) {
         this(alias, aliased, null);
@@ -111,21 +112,21 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
         return Arrays.asList(Keys.TAG_USER_META__TAG_USER_META_TAG_UUID_FKEY, Keys.TAG_USER_META__TAG_USER_META_USER_UUID_FKEY);
     }
 
-    private transient Tag _tag;
-    private transient User _user;
+    private transient Tags _tags;
+    private transient Users _users;
 
-    public Tag tag() {
-        if (_tag == null)
-            _tag = new Tag(this, Keys.TAG_USER_META__TAG_USER_META_TAG_UUID_FKEY);
+    public Tags tags() {
+        if (_tags == null)
+            _tags = new Tags(this, Keys.TAG_USER_META__TAG_USER_META_TAG_UUID_FKEY);
 
-        return _tag;
+        return _tags;
     }
 
-    public User user() {
-        if (_user == null)
-            _user = new User(this, Keys.TAG_USER_META__TAG_USER_META_USER_UUID_FKEY);
+    public Users users() {
+        if (_users == null)
+            _users = new Users(this, Keys.TAG_USER_META__TAG_USER_META_USER_UUID_FKEY);
 
-        return _user;
+        return _users;
     }
 
     @Override
@@ -159,7 +160,7 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<UUID, UUID, Integer, String> fieldsRow() {
+    public Row4<UUID, UUID, Integer, JSONB> fieldsRow() {
         return (Row4) super.fieldsRow();
     }
 }

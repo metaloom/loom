@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Row4;
@@ -68,7 +69,7 @@ public class ContentUserMeta extends TableImpl<ContentUserMetaRecord> {
      * The column <code>public.content_user_meta.meta</code>. Custom meta
      * properties
      */
-    public final TableField<ContentUserMetaRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties");
+    public final TableField<ContentUserMetaRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties");
 
     private ContentUserMeta(Name alias, Table<ContentUserMetaRecord> aliased) {
         this(alias, aliased, null);
@@ -118,21 +119,21 @@ public class ContentUserMeta extends TableImpl<ContentUserMetaRecord> {
         return Arrays.asList(Keys.CONTENT_USER_META__CONTENT_USER_META_CONTENT_UUID_FKEY, Keys.CONTENT_USER_META__CONTENT_USER_META_USER_UUID_FKEY);
     }
 
-    private transient Tag _tag;
-    private transient User _user;
+    private transient Tags _tags;
+    private transient Users _users;
 
-    public Tag tag() {
-        if (_tag == null)
-            _tag = new Tag(this, Keys.CONTENT_USER_META__CONTENT_USER_META_CONTENT_UUID_FKEY);
+    public Tags tags() {
+        if (_tags == null)
+            _tags = new Tags(this, Keys.CONTENT_USER_META__CONTENT_USER_META_CONTENT_UUID_FKEY);
 
-        return _tag;
+        return _tags;
     }
 
-    public User user() {
-        if (_user == null)
-            _user = new User(this, Keys.CONTENT_USER_META__CONTENT_USER_META_USER_UUID_FKEY);
+    public Users users() {
+        if (_users == null)
+            _users = new Users(this, Keys.CONTENT_USER_META__CONTENT_USER_META_USER_UUID_FKEY);
 
-        return _user;
+        return _users;
     }
 
     @Override
@@ -166,7 +167,7 @@ public class ContentUserMeta extends TableImpl<ContentUserMetaRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<UUID, UUID, Integer, String> fieldsRow() {
+    public Row4<UUID, UUID, Integer, JSONB> fieldsRow() {
         return (Row4) super.fieldsRow();
     }
 }

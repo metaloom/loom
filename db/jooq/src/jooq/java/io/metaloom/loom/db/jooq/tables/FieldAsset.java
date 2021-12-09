@@ -111,21 +111,21 @@ public class FieldAsset extends TableImpl<FieldAssetRecord> {
         return Arrays.asList(Keys.FIELD_ASSET__FIELD_ASSET_FIELD_UUID_FKEY, Keys.FIELD_ASSET__FIELD_ASSET_ASSET_UUID_FKEY);
     }
 
-    private transient io.metaloom.loom.db.jooq.tables.Field _field;
-    private transient Asset _asset;
+    private transient Fields _fields_;
+    private transient Assets _assets;
 
-    public io.metaloom.loom.db.jooq.tables.Field field() {
-        if (_field == null)
-            _field = new io.metaloom.loom.db.jooq.tables.Field(this, Keys.FIELD_ASSET__FIELD_ASSET_FIELD_UUID_FKEY);
+    public Fields fields_() {
+        if (_fields_ == null)
+            _fields_ = new Fields(this, Keys.FIELD_ASSET__FIELD_ASSET_FIELD_UUID_FKEY);
 
-        return _field;
+        return _fields_;
     }
 
-    public Asset asset() {
-        if (_asset == null)
-            _asset = new Asset(this, Keys.FIELD_ASSET__FIELD_ASSET_ASSET_UUID_FKEY);
+    public Assets assets() {
+        if (_assets == null)
+            _assets = new Assets(this, Keys.FIELD_ASSET__FIELD_ASSET_ASSET_UUID_FKEY);
 
-        return _asset;
+        return _assets;
     }
 
     @Override

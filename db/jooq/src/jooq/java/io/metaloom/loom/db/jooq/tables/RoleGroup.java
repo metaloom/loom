@@ -106,21 +106,21 @@ public class RoleGroup extends TableImpl<RoleGroupRecord> {
         return Arrays.asList(Keys.ROLE_GROUP__ROLE_GROUP_GROUP_UUID_FKEY, Keys.ROLE_GROUP__ROLE_GROUP_ROLE_UUID_FKEY);
     }
 
-    private transient Group _group;
-    private transient Role _role;
+    private transient Groups _groups;
+    private transient Roles _roles;
 
-    public Group group() {
-        if (_group == null)
-            _group = new Group(this, Keys.ROLE_GROUP__ROLE_GROUP_GROUP_UUID_FKEY);
+    public Groups groups() {
+        if (_groups == null)
+            _groups = new Groups(this, Keys.ROLE_GROUP__ROLE_GROUP_GROUP_UUID_FKEY);
 
-        return _group;
+        return _groups;
     }
 
-    public Role role() {
-        if (_role == null)
-            _role = new Role(this, Keys.ROLE_GROUP__ROLE_GROUP_ROLE_UUID_FKEY);
+    public Roles roles() {
+        if (_roles == null)
+            _roles = new Roles(this, Keys.ROLE_GROUP__ROLE_GROUP_ROLE_UUID_FKEY);
 
-        return _role;
+        return _roles;
     }
 
     @Override

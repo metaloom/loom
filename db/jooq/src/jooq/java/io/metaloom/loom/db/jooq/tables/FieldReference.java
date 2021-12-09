@@ -112,19 +112,19 @@ public class FieldReference extends TableImpl<FieldReferenceRecord> {
         return Arrays.asList(Keys.FIELD_REFERENCE__FIELD_REFERENCE_SOURCE_UUID_FKEY, Keys.FIELD_REFERENCE__FIELD_REFERENCE_TARGET_UUID_FKEY);
     }
 
-    private transient io.metaloom.loom.db.jooq.tables.Field _fieldReferenceSourceUuidFkey;
-    private transient io.metaloom.loom.db.jooq.tables.Field _fieldReferenceTargetUuidFkey;
+    private transient Fields _fieldReferenceSourceUuidFkey;
+    private transient Fields _fieldReferenceTargetUuidFkey;
 
-    public io.metaloom.loom.db.jooq.tables.Field fieldReferenceSourceUuidFkey() {
+    public Fields fieldReferenceSourceUuidFkey() {
         if (_fieldReferenceSourceUuidFkey == null)
-            _fieldReferenceSourceUuidFkey = new io.metaloom.loom.db.jooq.tables.Field(this, Keys.FIELD_REFERENCE__FIELD_REFERENCE_SOURCE_UUID_FKEY);
+            _fieldReferenceSourceUuidFkey = new Fields(this, Keys.FIELD_REFERENCE__FIELD_REFERENCE_SOURCE_UUID_FKEY);
 
         return _fieldReferenceSourceUuidFkey;
     }
 
-    public io.metaloom.loom.db.jooq.tables.Field fieldReferenceTargetUuidFkey() {
+    public Fields fieldReferenceTargetUuidFkey() {
         if (_fieldReferenceTargetUuidFkey == null)
-            _fieldReferenceTargetUuidFkey = new io.metaloom.loom.db.jooq.tables.Field(this, Keys.FIELD_REFERENCE__FIELD_REFERENCE_TARGET_UUID_FKEY);
+            _fieldReferenceTargetUuidFkey = new Fields(this, Keys.FIELD_REFERENCE__FIELD_REFERENCE_TARGET_UUID_FKEY);
 
         return _fieldReferenceTargetUuidFkey;
     }

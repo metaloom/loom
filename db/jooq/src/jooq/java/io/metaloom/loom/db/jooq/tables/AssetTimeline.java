@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Row8;
@@ -80,7 +81,7 @@ public class AssetTimeline extends TableImpl<AssetTimelineRecord> {
     /**
      * The column <code>public.asset_timeline.meta</code>.
      */
-    public final TableField<AssetTimelineRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "");
+    public final TableField<AssetTimelineRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "");
 
     /**
      * The column <code>public.asset_timeline.thumbail</code>.
@@ -135,13 +136,13 @@ public class AssetTimeline extends TableImpl<AssetTimelineRecord> {
         return Arrays.asList(Keys.ASSET_TIMELINE__ASSET_TIMELINE_ASSET_UUID_FKEY);
     }
 
-    private transient Asset _asset;
+    private transient Assets _assets;
 
-    public Asset asset() {
-        if (_asset == null)
-            _asset = new Asset(this, Keys.ASSET_TIMELINE__ASSET_TIMELINE_ASSET_UUID_FKEY);
+    public Assets assets() {
+        if (_assets == null)
+            _assets = new Assets(this, Keys.ASSET_TIMELINE__ASSET_TIMELINE_ASSET_UUID_FKEY);
 
-        return _asset;
+        return _assets;
     }
 
     @Override
@@ -175,7 +176,7 @@ public class AssetTimeline extends TableImpl<AssetTimelineRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<java.util.UUID, java.util.UUID, Integer, Integer, String, String, String, String> fieldsRow() {
+    public Row8<java.util.UUID, java.util.UUID, Integer, Integer, String, String, JSONB, String> fieldsRow() {
         return (Row8) super.fieldsRow();
     }
 }

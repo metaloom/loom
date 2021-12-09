@@ -9,6 +9,7 @@ import io.metaloom.loom.db.jooq.tables.AssetTimeline;
 import java.util.UUID;
 
 import org.jooq.Field;
+import org.jooq.JSONB;
 import org.jooq.Record1;
 import org.jooq.Record8;
 import org.jooq.Row8;
@@ -19,7 +20,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * This table contains asset timeline entries
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord> implements Record8<UUID, UUID, Integer, Integer, String, String, String, String> {
+public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord> implements Record8<UUID, UUID, Integer, Integer, String, String, JSONB, String> {
 
     private static final long serialVersionUID = 1L;
 
@@ -110,15 +111,15 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     /**
      * Setter for <code>public.asset_timeline.meta</code>.
      */
-    public void setMeta(String value) {
+    public void setMeta(JSONB value) {
         set(6, value);
     }
 
     /**
      * Getter for <code>public.asset_timeline.meta</code>.
      */
-    public String getMeta() {
-        return (String) get(6);
+    public JSONB getMeta() {
+        return (JSONB) get(6);
     }
 
     /**
@@ -149,12 +150,12 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<UUID, UUID, Integer, Integer, String, String, String, String> fieldsRow() {
+    public Row8<UUID, UUID, Integer, Integer, String, String, JSONB, String> fieldsRow() {
         return (Row8) super.fieldsRow();
     }
 
     @Override
-    public Row8<UUID, UUID, Integer, Integer, String, String, String, String> valuesRow() {
+    public Row8<UUID, UUID, Integer, Integer, String, String, JSONB, String> valuesRow() {
         return (Row8) super.valuesRow();
     }
 
@@ -189,7 +190,7 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     }
 
     @Override
-    public Field<String> field7() {
+    public Field<JSONB> field7() {
         return AssetTimeline.ASSET_TIMELINE.META;
     }
 
@@ -229,7 +230,7 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     }
 
     @Override
-    public String component7() {
+    public JSONB component7() {
         return getMeta();
     }
 
@@ -269,7 +270,7 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     }
 
     @Override
-    public String value7() {
+    public JSONB value7() {
         return getMeta();
     }
 
@@ -315,7 +316,7 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     }
 
     @Override
-    public AssetTimelineRecord value7(String value) {
+    public AssetTimelineRecord value7(JSONB value) {
         setMeta(value);
         return this;
     }
@@ -327,7 +328,7 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     }
 
     @Override
-    public AssetTimelineRecord values(UUID value1, UUID value2, Integer value3, Integer value4, String value5, String value6, String value7, String value8) {
+    public AssetTimelineRecord values(UUID value1, UUID value2, Integer value3, Integer value4, String value5, String value6, JSONB value7, String value8) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -353,7 +354,7 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     /**
      * Create a detached, initialised AssetTimelineRecord
      */
-    public AssetTimelineRecord(UUID uuid, UUID assetUuid, Integer from, Integer to, String description, String tags, String meta, String thumbail) {
+    public AssetTimelineRecord(UUID uuid, UUID assetUuid, Integer from, Integer to, String description, String tags, JSONB meta, String thumbail) {
         super(AssetTimeline.ASSET_TIMELINE);
 
         setUuid(uuid);
