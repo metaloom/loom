@@ -8,8 +8,8 @@ import java.util.List;
 import org.junit.Test;
 
 import io.metaloom.loom.db.AbstractDaoTest;
-import io.metaloom.loom.db.hib.dao.impl.GroupDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.LoomUserDaoImpl;
+import io.metaloom.loom.db.hib.dao.group.GroupDaoImpl;
+import io.metaloom.loom.db.hib.dao.user.HibLoomUserDaoImpl;
 import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.group.impl.GroupImpl;
@@ -22,7 +22,7 @@ public class UserDaoTest extends AbstractDaoTest {
 
 	@Test
 	public void testCreateUser() {
-		LoomUserDao dao = new LoomUserDaoImpl(emf);
+		LoomUserDao dao = new HibLoomUserDaoImpl(emf);
 		LoomUser user = dao.createUser("dummy", u -> {
 			JsonObject json = new JsonObject();
 			json.put("test", "value");
@@ -40,7 +40,7 @@ public class UserDaoTest extends AbstractDaoTest {
 
 	@Test
 	public void testUserGroupDao() {
-		LoomUserDao userDao = new LoomUserDaoImpl(emf);
+		LoomUserDao userDao = new HibLoomUserDaoImpl(emf);
 		GroupDao groupDao = new GroupDaoImpl(emf);
 
 		LoomUser user = userDao.createUser("dummy", u -> {

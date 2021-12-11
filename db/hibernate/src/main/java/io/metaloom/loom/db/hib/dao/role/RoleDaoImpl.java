@@ -1,4 +1,4 @@
-package io.metaloom.loom.db.hib.dao.impl;
+package io.metaloom.loom.db.hib.dao.role;
 
 import java.io.IOException;
 import java.util.UUID;

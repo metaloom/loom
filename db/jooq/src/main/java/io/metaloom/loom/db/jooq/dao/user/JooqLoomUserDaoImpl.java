@@ -24,14 +24,14 @@ import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.core.Single;
 
 @Singleton
-public class LoomUserDaoImpl extends AbstractDao implements LoomUserDao {
+public class JooqLoomUserDaoImpl extends AbstractDao implements LoomUserDao {
 
 	private UserDao userDao;
 	private DSLContext ctx;
 	private Scheduler scheduler;
 
 	@Inject
-	public LoomUserDaoImpl(UserDao userDao, DSLContext context, @Named("jooq") Scheduler scheduler) {
+	public JooqLoomUserDaoImpl(UserDao userDao, DSLContext context, @Named("jooq") Scheduler scheduler) {
 		this.userDao = userDao;
 		this.ctx = context;
 		this.scheduler = scheduler;

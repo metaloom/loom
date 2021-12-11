@@ -1,4 +1,4 @@
-package io.metaloom.loom.db.hib.dao.impl;
+package io.metaloom.loom.db.hib.dao.user;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -19,12 +19,12 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 @Singleton
-public class LoomUserDaoImpl extends AbstractDao implements LoomUserDao {
+public class HibLoomUserDaoImpl extends AbstractDao implements LoomUserDao {
 
 	public static final String TYPE_NAME = "User";
 
 	@Inject
-	public LoomUserDaoImpl(Mutiny.SessionFactory emf) {
+	public HibLoomUserDaoImpl(Mutiny.SessionFactory emf) {
 		super(emf);
 	}
 

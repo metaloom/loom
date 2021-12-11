@@ -3,18 +3,18 @@ package io.metaloom.loom.db.hib.dagger;
 import dagger.Binds;
 import dagger.Module;
 import io.metaloom.loom.db.field.FieldDao;
-import io.metaloom.loom.db.hib.dao.impl.AssetDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.ContentDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.ExtensionDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.FieldDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.GroupDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.ModelDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.NamespaceDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.RoleDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.TagDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.LoomUserDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.UserTokenDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.WebhookDaoImpl;
+import io.metaloom.loom.db.hib.dao.asset.AssetDaoImpl;
+import io.metaloom.loom.db.hib.dao.content.ContentDaoImpl;
+import io.metaloom.loom.db.hib.dao.content.FieldDaoImpl;
+import io.metaloom.loom.db.hib.dao.extension.ExtensionDaoImpl;
+import io.metaloom.loom.db.hib.dao.group.GroupDaoImpl;
+import io.metaloom.loom.db.hib.dao.model.ModelDaoImpl;
+import io.metaloom.loom.db.hib.dao.namespace.NamespaceDaoImpl;
+import io.metaloom.loom.db.hib.dao.role.RoleDaoImpl;
+import io.metaloom.loom.db.hib.dao.tag.TagDaoImpl;
+import io.metaloom.loom.db.hib.dao.user.HibLoomUserDaoImpl;
+import io.metaloom.loom.db.hib.dao.user.UserTokenDaoImpl;
+import io.metaloom.loom.db.hib.dao.webhook.WebhookDaoImpl;
 import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.content.ContentDao;
 import io.metaloom.loom.db.model.extension.ExtensionDao;
@@ -31,7 +31,7 @@ import io.metaloom.loom.db.model.webhook.WebhookDao;
 public abstract class HibernateLoomDaoBindModule {
 
 	@Binds
-	abstract LoomUserDao userDao(LoomUserDaoImpl dao);
+	abstract LoomUserDao userDao(HibLoomUserDaoImpl dao);
 
 	@Binds
 	abstract GroupDao groupDao(GroupDaoImpl dao);

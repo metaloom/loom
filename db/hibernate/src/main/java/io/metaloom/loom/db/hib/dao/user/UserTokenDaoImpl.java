@@ -1,4 +1,4 @@
-package io.metaloom.loom.db.hib.dao.impl;
+package io.metaloom.loom.db.hib.dao.user;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
