@@ -7,6 +7,7 @@ import org.flywaydb.core.Flyway;
 
 import dagger.BindsInstance;
 import dagger.Component;
+import io.metaloom.loom.common.dagger.VertxModule;
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
@@ -16,7 +17,7 @@ import io.metaloom.loom.options.DatabaseOptions;
 import io.r2dbc.spi.ConnectionFactory;
 
 @Singleton
-@Component(modules = { JooqModule.class, FlywayModule.class, LoomDaoBindModule.class, JooqNativeDaoModule.class })
+@Component(modules = { JooqModule.class, FlywayModule.class, LoomDaoBindModule.class, JooqNativeDaoModule.class, VertxModule.class })
 public interface TestComponent {
 
 	Flyway flyway();

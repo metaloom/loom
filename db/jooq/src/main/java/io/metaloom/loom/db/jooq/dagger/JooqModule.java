@@ -2,6 +2,7 @@ package io.metaloom.loom.db.jooq.dagger;
 
 import java.beans.PropertyVetoException;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.sql.DataSource;
 
@@ -18,6 +19,10 @@ import io.metaloom.loom.options.DatabaseOptions;
 import io.r2dbc.spi.ConnectionFactories;
 import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.ConnectionFactoryOptions;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.vertx.rxjava3.core.RxHelper;
+import io.vertx.rxjava3.core.Vertx;
+import io.vertx.rxjava3.core.WorkerExecutor;
 
 @Module
 public class JooqModule {
@@ -43,7 +48,16 @@ public class JooqModule {
 	@Provides
 	@Singleton
 	public DSLContext context(DataSource ds) {
+		System.setProperty("org.jooq.no-logo", "true");
 		return DSL.using(ds, SQLDialect.POSTGRES);
+	}
+
+	@Provides
+	@Singleton
+	@Named("jooq")
+	public Scheduler scheduler(Vertx rxVertx) {
+		WorkerExecutor executor = rxVertx.createSharedWorkerExecutor("jooq", 12);
+		return RxHelper.blockingScheduler(executor);
 	}
 
 	@Provides
