@@ -255,4 +255,19 @@ public class UserTokenRecord extends UpdatableRecordImpl<UserTokenRecord> implem
         setToken(token);
         setPermissions(permissions);
     }
+
+    /**
+     * Create a detached, initialised UserTokenRecord
+     */
+    public UserTokenRecord(io.metaloom.loom.db.jooq.tables.pojos.UserToken value) {
+        super(UserToken.USER_TOKEN);
+
+        if (value != null) {
+            setUuid(value.getUuid());
+            setUserUuid(value.getUserUuid());
+            setNote(value.getNote());
+            setToken(value.getToken());
+            setPermissions(value.getPermissions());
+        }
+    }
 }

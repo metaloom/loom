@@ -133,4 +133,16 @@ public class AssetTimelineTagRecord extends TableRecordImpl<AssetTimelineTagReco
         setAssettimelineUuid(assettimelineUuid);
         setTagUuid(tagUuid);
     }
+
+    /**
+     * Create a detached, initialised AssetTimelineTagRecord
+     */
+    public AssetTimelineTagRecord(io.metaloom.loom.db.jooq.tables.pojos.AssetTimelineTag value) {
+        super(AssetTimelineTag.ASSET_TIMELINE_TAG);
+
+        if (value != null) {
+            setAssettimelineUuid(value.getAssettimelineUuid());
+            setTagUuid(value.getTagUuid());
+        }
+    }
 }

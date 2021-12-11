@@ -11,12 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import io.metaloom.loom.db.model.user.LoomUser;
-import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.reactivex.rxjava3.core.Maybe;
 
 public abstract class AbstractUserDaoTest {
 
-	abstract public UserDao getDao();
+	abstract public LoomUserDao getDao();
 
 	@After
 	@Before
@@ -26,7 +26,7 @@ public abstract class AbstractUserDaoTest {
 
 	@Test
 	public void testCreate() {
-		UserDao dao = getDao();
+		LoomUserDao dao = getDao();
 
 		// Create user
 		LoomUser user = dao.createUser("joedoe").blockingGet();
@@ -37,7 +37,7 @@ public abstract class AbstractUserDaoTest {
 
 	@Test
 	public void testDelete() {
-		UserDao dao = getDao();
+		LoomUserDao dao = getDao();
 
 		// Create user
 		LoomUser user = dao.createUser("joeddoe").blockingGet();
@@ -49,7 +49,7 @@ public abstract class AbstractUserDaoTest {
 
 	@Test
 	public void testUpdate() {
-		UserDao dao = getDao();
+		LoomUserDao dao = getDao();
 
 		// Create and store
 		LoomUser user = dao.createUser("joedoe").blockingGet();
@@ -66,7 +66,7 @@ public abstract class AbstractUserDaoTest {
 
 	@Test
 	public void testLoad() {
-		UserDao dao = getDao();
+		LoomUserDao dao = getDao();
 
 		// Create and store user
 		LoomUser user = dao.createUser("joedoe").blockingGet();

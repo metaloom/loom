@@ -17,7 +17,7 @@ import io.metaloom.loom.db.model.model.ModelDao;
 import io.metaloom.loom.db.model.namespace.NamespaceDao;
 import io.metaloom.loom.db.model.role.RoleDao;
 import io.metaloom.loom.db.model.tag.TagDao;
-import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.metaloom.loom.db.model.webhook.WebhookDao;
 import io.metaloom.loom.db.namespace.FsNamespaceDaoImpl;
 import io.metaloom.loom.db.role.FsRoleDaoImpl;
@@ -38,7 +38,7 @@ public abstract class FsDaoBindModule {
 	abstract FieldDao fieldsDao(FsFieldDaoImpl dao);
 
 	@Binds
-	abstract UserDao usersDao(FsUserDaoImpl dao);
+	abstract LoomUserDao usersDao(FsUserDaoImpl dao);
 
 	@Binds
 	abstract GroupDao groupsDao(FsGroupDaoImpl dao);

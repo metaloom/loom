@@ -8,7 +8,7 @@ import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.model.ModelDao;
 import io.metaloom.loom.db.model.namespace.NamespaceDao;
 import io.metaloom.loom.db.model.role.RoleDao;
-import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.metaloom.loom.db.model.webhook.WebhookDao;
 
 /**
@@ -20,7 +20,7 @@ public interface LoomDaoCollection {
 
 	FieldDao getFieldDao();
 
-	UserDao getUserDao();
+	LoomUserDao getUserDao();
 
 	GroupDao getGroupDao();
 

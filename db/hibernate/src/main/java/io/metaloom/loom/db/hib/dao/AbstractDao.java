@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.hib.dao;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.reactive.mutiny.Mutiny.SessionFactory;
@@ -7,6 +8,7 @@ import org.hibernate.reactive.mutiny.Mutiny.SessionFactory;
 import io.metaloom.loom.db.LoomElement;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.smallrye.mutiny.Uni;
 
@@ -25,6 +27,11 @@ public abstract class AbstractDao {
 	protected <T extends LoomElement> Maybe<? extends T> loadByUuid(Class<T> clazz, UUID uuid) {
 		Uni<T> uni = emf.withSession(session -> session.find(clazz, uuid));
 		return Maybe.fromCompletionStage(uni.subscribeAsCompletionStage());
+	}
+
+	protected <T extends LoomElement> Observable<? extends T> finAll(String typeName, Class<T> clazz) {
+		Uni<List<T>> uni = emf.withSession(session -> session.createQuery("SELECT FROM " + typeName, clazz).getResultList());
+		return Single.fromCompletionStage(uni.subscribeAsCompletionStage()).flatMapObservable(list -> Observable.fromIterable(list));
 	}
 
 	protected Completable persistElement(LoomElement element) {

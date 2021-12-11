@@ -60,6 +60,9 @@ public final class HibernateUtil {
 		// settings.put(Environment.HBM2DDL_DATABASE_ACTION, "drop-and-create");
 		// settings.put(Environment.HBM2DDL_DATABASE_ACTION, "validate");
 
+		// Otherwise the `user` table can't be utilized
+		configuration.setProperty(Environment.GLOBALLY_QUOTED_IDENTIFIERS, "true");
+
 		// Model
 		configuration.setProperties(settings);
 		configuration.addAnnotatedClass(LoomUserImpl.class);

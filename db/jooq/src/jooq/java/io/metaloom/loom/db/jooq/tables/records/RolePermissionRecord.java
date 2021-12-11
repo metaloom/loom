@@ -365,4 +365,22 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
         setReadPublishPerm(readPublishPerm);
         setPublishPerm(publishPerm);
     }
+
+    /**
+     * Create a detached, initialised RolePermissionRecord
+     */
+    public RolePermissionRecord(io.metaloom.loom.db.jooq.tables.pojos.RolePermission value) {
+        super(RolePermission.ROLE_PERMISSION);
+
+        if (value != null) {
+            setRoleUuid(value.getRoleUuid());
+            setElementUuid(value.getElementUuid());
+            setCreatePerm(value.getCreatePerm());
+            setReadPerm(value.getReadPerm());
+            setDeletePerm(value.getDeletePerm());
+            setUpdatePerm(value.getUpdatePerm());
+            setReadPublishPerm(value.getReadPublishPerm());
+            setPublishPerm(value.getPublishPerm());
+        }
+    }
 }

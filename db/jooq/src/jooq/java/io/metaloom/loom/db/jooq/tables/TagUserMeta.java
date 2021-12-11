@@ -112,21 +112,21 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
         return Arrays.asList(Keys.TAG_USER_META__TAG_USER_META_TAG_UUID_FKEY, Keys.TAG_USER_META__TAG_USER_META_USER_UUID_FKEY);
     }
 
-    private transient Tags _tags;
-    private transient Users _users;
+    private transient Tag _tag;
+    private transient User _user;
 
-    public Tags tags() {
-        if (_tags == null)
-            _tags = new Tags(this, Keys.TAG_USER_META__TAG_USER_META_TAG_UUID_FKEY);
+    public Tag tag() {
+        if (_tag == null)
+            _tag = new Tag(this, Keys.TAG_USER_META__TAG_USER_META_TAG_UUID_FKEY);
 
-        return _tags;
+        return _tag;
     }
 
-    public Users users() {
-        if (_users == null)
-            _users = new Users(this, Keys.TAG_USER_META__TAG_USER_META_USER_UUID_FKEY);
+    public User user() {
+        if (_user == null)
+            _user = new User(this, Keys.TAG_USER_META__TAG_USER_META_USER_UUID_FKEY);
 
-        return _users;
+        return _user;
     }
 
     @Override

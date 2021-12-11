@@ -210,4 +210,18 @@ public class TagUserMetaRecord extends TableRecordImpl<TagUserMetaRecord> implem
         setRating(rating);
         setMeta(meta);
     }
+
+    /**
+     * Create a detached, initialised TagUserMetaRecord
+     */
+    public TagUserMetaRecord(io.metaloom.loom.db.jooq.tables.pojos.TagUserMeta value) {
+        super(TagUserMeta.TAG_USER_META);
+
+        if (value != null) {
+            setTagUuid(value.getTagUuid());
+            setUserUuid(value.getUserUuid());
+            setRating(value.getRating());
+            setMeta(value.getMeta());
+        }
+    }
 }

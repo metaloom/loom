@@ -106,21 +106,21 @@ public class TagNamespace extends TableImpl<TagNamespaceRecord> {
         return Arrays.asList(Keys.TAG_NAMESPACE__TAG_NAMESPACE_TAG_UUID_FKEY, Keys.TAG_NAMESPACE__TAG_NAMESPACE_NAMESPACE_UUID_FKEY);
     }
 
-    private transient Tags _tags;
-    private transient Namespaces _namespaces;
+    private transient Tag _tag;
+    private transient Namespace _namespace;
 
-    public Tags tags() {
-        if (_tags == null)
-            _tags = new Tags(this, Keys.TAG_NAMESPACE__TAG_NAMESPACE_TAG_UUID_FKEY);
+    public Tag tag() {
+        if (_tag == null)
+            _tag = new Tag(this, Keys.TAG_NAMESPACE__TAG_NAMESPACE_TAG_UUID_FKEY);
 
-        return _tags;
+        return _tag;
     }
 
-    public Namespaces namespaces() {
-        if (_namespaces == null)
-            _namespaces = new Namespaces(this, Keys.TAG_NAMESPACE__TAG_NAMESPACE_NAMESPACE_UUID_FKEY);
+    public Namespace namespace() {
+        if (_namespace == null)
+            _namespace = new Namespace(this, Keys.TAG_NAMESPACE__TAG_NAMESPACE_NAMESPACE_UUID_FKEY);
 
-        return _namespaces;
+        return _namespace;
     }
 
     @Override

@@ -142,4 +142,16 @@ public class TagAssetRecord extends UpdatableRecordImpl<TagAssetRecord> implemen
         setTagUuid(tagUuid);
         setAssetUuid(assetUuid);
     }
+
+    /**
+     * Create a detached, initialised TagAssetRecord
+     */
+    public TagAssetRecord(io.metaloom.loom.db.jooq.tables.pojos.TagAsset value) {
+        super(TagAsset.TAG_ASSET);
+
+        if (value != null) {
+            setTagUuid(value.getTagUuid());
+            setAssetUuid(value.getAssetUuid());
+        }
+    }
 }

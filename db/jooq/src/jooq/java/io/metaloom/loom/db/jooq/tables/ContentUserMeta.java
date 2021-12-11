@@ -119,21 +119,21 @@ public class ContentUserMeta extends TableImpl<ContentUserMetaRecord> {
         return Arrays.asList(Keys.CONTENT_USER_META__CONTENT_USER_META_CONTENT_UUID_FKEY, Keys.CONTENT_USER_META__CONTENT_USER_META_USER_UUID_FKEY);
     }
 
-    private transient Tags _tags;
-    private transient Users _users;
+    private transient Tag _tag;
+    private transient User _user;
 
-    public Tags tags() {
-        if (_tags == null)
-            _tags = new Tags(this, Keys.CONTENT_USER_META__CONTENT_USER_META_CONTENT_UUID_FKEY);
+    public Tag tag() {
+        if (_tag == null)
+            _tag = new Tag(this, Keys.CONTENT_USER_META__CONTENT_USER_META_CONTENT_UUID_FKEY);
 
-        return _tags;
+        return _tag;
     }
 
-    public Users users() {
-        if (_users == null)
-            _users = new Users(this, Keys.CONTENT_USER_META__CONTENT_USER_META_USER_UUID_FKEY);
+    public User user() {
+        if (_user == null)
+            _user = new User(this, Keys.CONTENT_USER_META__CONTENT_USER_META_USER_UUID_FKEY);
 
-        return _users;
+        return _user;
     }
 
     @Override

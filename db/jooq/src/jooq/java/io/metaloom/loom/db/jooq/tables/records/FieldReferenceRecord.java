@@ -182,4 +182,17 @@ public class FieldReferenceRecord extends UpdatableRecordImpl<FieldReferenceReco
         setTargetUuid(targetUuid);
         setFieldName(fieldName);
     }
+
+    /**
+     * Create a detached, initialised FieldReferenceRecord
+     */
+    public FieldReferenceRecord(io.metaloom.loom.db.jooq.tables.pojos.FieldReference value) {
+        super(FieldReference.FIELD_REFERENCE);
+
+        if (value != null) {
+            setSourceUuid(value.getSourceUuid());
+            setTargetUuid(value.getTargetUuid());
+            setFieldName(value.getFieldName());
+        }
+    }
 }

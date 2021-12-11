@@ -180,4 +180,17 @@ public class FieldAssetRecord extends UpdatableRecordImpl<FieldAssetRecord> impl
         setAssetUuid(assetUuid);
         setFieldName(fieldName);
     }
+
+    /**
+     * Create a detached, initialised FieldAssetRecord
+     */
+    public FieldAssetRecord(io.metaloom.loom.db.jooq.tables.pojos.FieldAsset value) {
+        super(FieldAsset.FIELD_ASSET);
+
+        if (value != null) {
+            setFieldUuid(value.getFieldUuid());
+            setAssetUuid(value.getAssetUuid());
+            setFieldName(value.getFieldName());
+        }
+    }
 }

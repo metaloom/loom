@@ -212,4 +212,18 @@ public class FieldContentRecord extends TableRecordImpl<FieldContentRecord> impl
         setWebrootPathInfo(webrootPathInfo);
         setContentType(contentType);
     }
+
+    /**
+     * Create a detached, initialised FieldContentRecord
+     */
+    public FieldContentRecord(io.metaloom.loom.db.jooq.tables.pojos.FieldContent value) {
+        super(FieldContent.FIELD_CONTENT);
+
+        if (value != null) {
+            setFieldsUuid(value.getFieldsUuid());
+            setContentUuid(value.getContentUuid());
+            setWebrootPathInfo(value.getWebrootPathInfo());
+            setContentType(value.getContentType());
+        }
+    }
 }

@@ -142,4 +142,16 @@ public class TagNamespaceRecord extends UpdatableRecordImpl<TagNamespaceRecord> 
         setTagUuid(tagUuid);
         setNamespaceUuid(namespaceUuid);
     }
+
+    /**
+     * Create a detached, initialised TagNamespaceRecord
+     */
+    public TagNamespaceRecord(io.metaloom.loom.db.jooq.tables.pojos.TagNamespace value) {
+        super(TagNamespace.TAG_NAMESPACE);
+
+        if (value != null) {
+            setTagUuid(value.getTagUuid());
+            setNamespaceUuid(value.getNamespaceUuid());
+        }
+    }
 }

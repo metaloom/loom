@@ -136,13 +136,13 @@ public class RolePermission extends TableImpl<RolePermissionRecord> {
         return Arrays.asList(Keys.ROLE_PERMISSION__ROLE_PERMISSION_ROLE_UUID_FKEY);
     }
 
-    private transient Roles _roles;
+    private transient Role _role;
 
-    public Roles roles() {
-        if (_roles == null)
-            _roles = new Roles(this, Keys.ROLE_PERMISSION__ROLE_PERMISSION_ROLE_UUID_FKEY);
+    public Role role() {
+        if (_role == null)
+            _role = new Role(this, Keys.ROLE_PERMISSION__ROLE_PERMISSION_ROLE_UUID_FKEY);
 
-        return _roles;
+        return _role;
     }
 
     @Override

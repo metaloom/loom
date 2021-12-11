@@ -126,21 +126,21 @@ public class FieldContent extends TableImpl<FieldContentRecord> {
         return Arrays.asList(Keys.FIELD_CONTENT__FIELD_CONTENT_FIELDS_UUID_FKEY, Keys.FIELD_CONTENT__FIELD_CONTENT_CONTENT_UUID_FKEY);
     }
 
-    private transient Fields _fields_;
-    private transient Contents _contents;
+    private transient io.metaloom.loom.db.jooq.tables.Field _field;
+    private transient Content _content;
 
-    public Fields fields_() {
-        if (_fields_ == null)
-            _fields_ = new Fields(this, Keys.FIELD_CONTENT__FIELD_CONTENT_FIELDS_UUID_FKEY);
+    public io.metaloom.loom.db.jooq.tables.Field field() {
+        if (_field == null)
+            _field = new io.metaloom.loom.db.jooq.tables.Field(this, Keys.FIELD_CONTENT__FIELD_CONTENT_FIELDS_UUID_FKEY);
 
-        return _fields_;
+        return _field;
     }
 
-    public Contents contents() {
-        if (_contents == null)
-            _contents = new Contents(this, Keys.FIELD_CONTENT__FIELD_CONTENT_CONTENT_UUID_FKEY);
+    public Content content() {
+        if (_content == null)
+            _content = new Content(this, Keys.FIELD_CONTENT__FIELD_CONTENT_CONTENT_UUID_FKEY);
 
-        return _contents;
+        return _content;
     }
 
     @Override

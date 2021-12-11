@@ -120,15 +120,15 @@ public class ModelVersion extends TableImpl<ModelVersionRecord> {
         return Arrays.asList(Keys.MODEL_VERSION__MODEL_VERSION_MODEL_UUID_FKEY, Keys.MODEL_VERSION__MODEL_VERSION_NEXT_VERSION_UUID_FKEY, Keys.MODEL_VERSION__MODEL_VERSION_PREV_VERSION_UUID_FKEY);
     }
 
-    private transient Models _models;
+    private transient Model _model;
     private transient ModelVersion _modelVersionNextVersionUuidFkey;
     private transient ModelVersion _modelVersionPrevVersionUuidFkey;
 
-    public Models models() {
-        if (_models == null)
-            _models = new Models(this, Keys.MODEL_VERSION__MODEL_VERSION_MODEL_UUID_FKEY);
+    public Model model() {
+        if (_model == null)
+            _model = new Model(this, Keys.MODEL_VERSION__MODEL_VERSION_MODEL_UUID_FKEY);
 
-        return _models;
+        return _model;
     }
 
     public ModelVersion modelVersionNextVersionUuidFkey() {

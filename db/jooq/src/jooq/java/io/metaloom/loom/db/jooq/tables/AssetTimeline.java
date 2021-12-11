@@ -136,13 +136,13 @@ public class AssetTimeline extends TableImpl<AssetTimelineRecord> {
         return Arrays.asList(Keys.ASSET_TIMELINE__ASSET_TIMELINE_ASSET_UUID_FKEY);
     }
 
-    private transient Assets _assets;
+    private transient Asset _asset;
 
-    public Assets assets() {
-        if (_assets == null)
-            _assets = new Assets(this, Keys.ASSET_TIMELINE__ASSET_TIMELINE_ASSET_UUID_FKEY);
+    public Asset asset() {
+        if (_asset == null)
+            _asset = new Asset(this, Keys.ASSET_TIMELINE__ASSET_TIMELINE_ASSET_UUID_FKEY);
 
-        return _assets;
+        return _asset;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package io.metaloom.loom.db.jooq.user;
 
-import static io.metaloom.loom.db.jooq.tables.Users.USERS;
+import static io.metaloom.loom.db.jooq.tables.User.USER;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,14 +12,15 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
-import io.metaloom.loom.db.jooq.AbstractDaoTest;
+import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.jooq.LoomPostgreSQLContainer;
+import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.r2dbc.spi.ConnectionFactories;
 import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.ConnectionFactoryOptions;
 import reactor.core.publisher.Flux;
 
-public class UserDaoTest extends AbstractDaoTest {
+public class UserDaoTest extends AbstractJooqTest {
 
 	@Rule
 	public LoomPostgreSQLContainer container = new LoomPostgreSQLContainer();
@@ -29,28 +30,22 @@ public class UserDaoTest extends AbstractDaoTest {
 
 		new FlywayModule().flyway(container.getOptions()).migrate();
 		System.out.println(container.getOptions().getJdbcUrl());
-		ConnectionFactory connectionFactory = ConnectionFactories.get(
-			ConnectionFactoryOptions
-				.parse("r2dbc:postgresql://" + container.getHost() + ":" + container.getPort() + "/" + container.getDatabaseName())
-				.mutate()
-				.option(ConnectionFactoryOptions.USER, container.getUsername())
-				.option(ConnectionFactoryOptions.PASSWORD, container.getPassword())
-				.build());
+		ConnectionFactory connectionFactory =  new JooqModule().r2dbcConnectionFactory(container.getOptions());
 
 		DSLContext ctx = DSL.using(connectionFactory);
 
-		Flux<Record1<UUID>> f = Flux.from(ctx.insertInto(USERS,
-			USERS.UUID, USERS.USERNAME, USERS.FIRSTNAME, USERS.LASTNAME)
+		Flux<Record1<UUID>> f = Flux.from(ctx.insertInto(USER,
+			USER.UUID, USER.USERNAME, USER.FIRSTNAME, USER.LASTNAME)
 			.values(UUID.randomUUID(), "joedoe", "Joe", "Doe")
-			.returningResult(USERS.UUID));
+			.returningResult(USER.UUID));
 
 		f.blockFirst();
 
 		// Completable.fromCompletionStage(stage).blockingAwait();
 
-		List<String> users = Flux.from(ctx.select(USERS.FIRSTNAME, USERS.LASTNAME)
-			.from(USERS))
-			.map(r -> r.get(USERS.FIRSTNAME) + " " + r.get(USERS.LASTNAME))
+		List<String> users = Flux.from(ctx.select(USER.FIRSTNAME, USER.LASTNAME)
+			.from(USER))
+			.map(r -> r.get(USER.FIRSTNAME) + " " + r.get(USER.LASTNAME))
 			.collectList()
 			.block();
 

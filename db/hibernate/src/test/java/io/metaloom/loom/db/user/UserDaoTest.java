@@ -9,12 +9,12 @@ import org.junit.Test;
 
 import io.metaloom.loom.db.AbstractDaoTest;
 import io.metaloom.loom.db.hib.dao.impl.GroupDaoImpl;
-import io.metaloom.loom.db.hib.dao.impl.UserDaoImpl;
+import io.metaloom.loom.db.hib.dao.impl.LoomUserDaoImpl;
 import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.group.impl.GroupImpl;
 import io.metaloom.loom.db.model.user.LoomUser;
-import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.vertx.core.json.JsonObject;
 
@@ -22,7 +22,7 @@ public class UserDaoTest extends AbstractDaoTest {
 
 	@Test
 	public void testCreateUser() {
-		UserDao dao = new UserDaoImpl(emf);
+		LoomUserDao dao = new LoomUserDaoImpl(emf);
 		LoomUser user = dao.createUser("dummy", u -> {
 			JsonObject json = new JsonObject();
 			json.put("test", "value");
@@ -40,7 +40,7 @@ public class UserDaoTest extends AbstractDaoTest {
 
 	@Test
 	public void testUserGroupDao() {
-		UserDao userDao = new UserDaoImpl(emf);
+		LoomUserDao userDao = new LoomUserDaoImpl(emf);
 		GroupDao groupDao = new GroupDaoImpl(emf);
 
 		LoomUser user = userDao.createUser("dummy", u -> {

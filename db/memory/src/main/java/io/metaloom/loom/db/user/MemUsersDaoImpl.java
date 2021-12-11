@@ -7,14 +7,15 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 import io.metaloom.loom.db.model.user.LoomUser;
-import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.metaloom.loom.utils.RxUtils;
 import io.metaloom.loom.uuid.UUIDUtil;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
-public class MemUsersDaoImpl implements UserDao {
+public class MemUsersDaoImpl implements LoomUserDao {
 
 	private Map<UUID, LoomUser> storage = new HashMap<>();
 
@@ -55,6 +56,11 @@ public class MemUsersDaoImpl implements UserDao {
 		return Completable.fromAction(() -> {
 			storage.clear();
 		});
+	}
+
+	@Override
+	public Observable<LoomUser> findAll() {
+		return null;
 	}
 
 }

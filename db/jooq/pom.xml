@@ -64,6 +64,12 @@
 			<version>0.8.10.RELEASE</version>
 		</dependency>
 
+		<!-- JDBC / Connection Pooling support -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+		</dependency>
+
 		<!-- JDBC <dependency> <groupId>org.postgresql</groupId> <artifactId>postgresql</artifactId> 
 			<version>${postgres.driver.version}</version> </dependency> <dependency> 
 			<groupId>io.vertx</groupId> <artifactId>vertx-sql-client</artifactId> </dependency> 
@@ -92,7 +98,7 @@
 				<version>3.0</version>
 				<executions>
 					<execution>
-						<?m2e execute ?>
+						<?m2e ignore ?>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>migrate</goal>
@@ -162,6 +168,9 @@
 					</jdbc>
 
 					<generator>
+						<generate>
+							<daos>true</daos>
+						</generate>
 						<database>
 							<name>org.jooq.meta.postgres.PostgresDatabase</name>
 							<includes>.*</includes>

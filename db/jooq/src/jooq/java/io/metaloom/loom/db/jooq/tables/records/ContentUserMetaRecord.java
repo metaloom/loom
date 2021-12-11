@@ -222,4 +222,18 @@ public class ContentUserMetaRecord extends UpdatableRecordImpl<ContentUserMetaRe
         setRating(rating);
         setMeta(meta);
     }
+
+    /**
+     * Create a detached, initialised ContentUserMetaRecord
+     */
+    public ContentUserMetaRecord(io.metaloom.loom.db.jooq.tables.pojos.ContentUserMeta value) {
+        super(ContentUserMeta.CONTENT_USER_META);
+
+        if (value != null) {
+            setContentUuid(value.getContentUuid());
+            setUserUuid(value.getUserUuid());
+            setRating(value.getRating());
+            setMeta(value.getMeta());
+        }
+    }
 }

@@ -4,37 +4,37 @@
 package io.metaloom.loom.db.jooq;
 
 
-import io.metaloom.loom.db.jooq.tables.AssetBinaries;
+import io.metaloom.loom.db.jooq.tables.Asset;
+import io.metaloom.loom.db.jooq.tables.AssetBinarie;
 import io.metaloom.loom.db.jooq.tables.AssetTimeline;
 import io.metaloom.loom.db.jooq.tables.AssetTimelineTag;
 import io.metaloom.loom.db.jooq.tables.AssetUserMeta;
-import io.metaloom.loom.db.jooq.tables.Assets;
+import io.metaloom.loom.db.jooq.tables.Content;
 import io.metaloom.loom.db.jooq.tables.ContentUserMeta;
-import io.metaloom.loom.db.jooq.tables.Contents;
-import io.metaloom.loom.db.jooq.tables.Extensions;
+import io.metaloom.loom.db.jooq.tables.Extension;
+import io.metaloom.loom.db.jooq.tables.Field;
 import io.metaloom.loom.db.jooq.tables.FieldAsset;
 import io.metaloom.loom.db.jooq.tables.FieldContent;
 import io.metaloom.loom.db.jooq.tables.FieldReference;
-import io.metaloom.loom.db.jooq.tables.Fields;
-import io.metaloom.loom.db.jooq.tables.Groups;
-import io.metaloom.loom.db.jooq.tables.Languages;
+import io.metaloom.loom.db.jooq.tables.Group;
+import io.metaloom.loom.db.jooq.tables.Language;
 import io.metaloom.loom.db.jooq.tables.Loom;
+import io.metaloom.loom.db.jooq.tables.Model;
 import io.metaloom.loom.db.jooq.tables.ModelVersion;
-import io.metaloom.loom.db.jooq.tables.Models;
-import io.metaloom.loom.db.jooq.tables.Namespaces;
+import io.metaloom.loom.db.jooq.tables.Namespace;
+import io.metaloom.loom.db.jooq.tables.Role;
 import io.metaloom.loom.db.jooq.tables.RoleGroup;
 import io.metaloom.loom.db.jooq.tables.RolePermission;
-import io.metaloom.loom.db.jooq.tables.Roles;
 import io.metaloom.loom.db.jooq.tables.SchemaVersion;
+import io.metaloom.loom.db.jooq.tables.Tag;
 import io.metaloom.loom.db.jooq.tables.TagAsset;
 import io.metaloom.loom.db.jooq.tables.TagContent;
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
 import io.metaloom.loom.db.jooq.tables.TagUserMeta;
-import io.metaloom.loom.db.jooq.tables.Tags;
+import io.metaloom.loom.db.jooq.tables.User;
 import io.metaloom.loom.db.jooq.tables.UserToken;
-import io.metaloom.loom.db.jooq.tables.Users;
-import io.metaloom.loom.db.jooq.tables.UsersGroups;
-import io.metaloom.loom.db.jooq.tables.Webhooks;
+import io.metaloom.loom.db.jooq.tables.UsersGroup;
+import io.metaloom.loom.db.jooq.tables.Webhook;
 
 import java.util.Arrays;
 import java.util.List;
@@ -58,9 +58,14 @@ public class Public extends SchemaImpl {
     public static final Public PUBLIC = new Public();
 
     /**
+     * The table <code>public.asset</code>.
+     */
+    public final Asset ASSET = Asset.ASSET;
+
+    /**
      * This table stores the immutable asset information
      */
-    public final AssetBinaries ASSET_BINARIES = AssetBinaries.ASSET_BINARIES;
+    public final AssetBinarie ASSET_BINARIE = AssetBinarie.ASSET_BINARIE;
 
     /**
      * This table contains asset timeline entries
@@ -78,9 +83,9 @@ public class Public extends SchemaImpl {
     public final AssetUserMeta ASSET_USER_META = AssetUserMeta.ASSET_USER_META;
 
     /**
-     * The table <code>public.assets</code>.
+     * The table <code>public.content</code>.
      */
-    public final Assets ASSETS = Assets.ASSETS;
+    public final Content CONTENT = Content.CONTENT;
 
     /**
      * The table <code>public.content_user_meta</code>.
@@ -88,14 +93,14 @@ public class Public extends SchemaImpl {
     public final ContentUserMeta CONTENT_USER_META = ContentUserMeta.CONTENT_USER_META;
 
     /**
-     * The table <code>public.contents</code>.
-     */
-    public final Contents CONTENTS = Contents.CONTENTS;
-
-    /**
      * Table which lists the registered extensions
      */
-    public final Extensions EXTENSIONS = Extensions.EXTENSIONS;
+    public final Extension EXTENSION = Extension.EXTENSION;
+
+    /**
+     * Table which stores the actual fields content as JSON
+     */
+    public final Field FIELD = Field.FIELD;
 
     /**
      * Crosstable which tracks the used assets in a fields record
@@ -113,19 +118,14 @@ public class Public extends SchemaImpl {
     public final FieldReference FIELD_REFERENCE = FieldReference.FIELD_REFERENCE;
 
     /**
-     * Table which stores the actual fields content as JSON
+     * The table <code>public.group</code>.
      */
-    public final Fields FIELDS = Fields.FIELDS;
-
-    /**
-     * The table <code>public.groups</code>.
-     */
-    public final Groups GROUPS = Groups.GROUPS;
+    public final Group GROUP = Group.GROUP;
 
     /**
      * Table which stores the languages for loom
      */
-    public final Languages LANGUAGES = Languages.LANGUAGES;
+    public final Language LANGUAGE = Language.LANGUAGE;
 
     /**
      * The table <code>public.loom</code>.
@@ -133,19 +133,24 @@ public class Public extends SchemaImpl {
     public final Loom LOOM = Loom.LOOM;
 
     /**
+     * The table <code>public.model</code>.
+     */
+    public final Model MODEL = Model.MODEL;
+
+    /**
      * The table <code>public.model_version</code>.
      */
     public final ModelVersion MODEL_VERSION = ModelVersion.MODEL_VERSION;
 
     /**
-     * The table <code>public.models</code>.
+     * The table <code>public.namespace</code>.
      */
-    public final Models MODELS = Models.MODELS;
+    public final Namespace NAMESPACE = Namespace.NAMESPACE;
 
     /**
-     * The table <code>public.namespaces</code>.
+     * The table <code>public.role</code>.
      */
-    public final Namespaces NAMESPACES = Namespaces.NAMESPACES;
+    public final Role ROLE = Role.ROLE;
 
     /**
      * The table <code>public.role_group</code>.
@@ -158,14 +163,14 @@ public class Public extends SchemaImpl {
     public final RolePermission ROLE_PERMISSION = RolePermission.ROLE_PERMISSION;
 
     /**
-     * The table <code>public.roles</code>.
-     */
-    public final Roles ROLES = Roles.ROLES;
-
-    /**
      * The table <code>public.schema_version</code>.
      */
     public final SchemaVersion SCHEMA_VERSION = SchemaVersion.SCHEMA_VERSION;
+
+    /**
+     * The table <code>public.tag</code>.
+     */
+    public final Tag TAG = Tag.TAG;
 
     /**
      * The table <code>public.tag_asset</code>.
@@ -188,9 +193,9 @@ public class Public extends SchemaImpl {
     public final TagUserMeta TAG_USER_META = TagUserMeta.TAG_USER_META;
 
     /**
-     * The table <code>public.tags</code>.
+     * The table <code>public.user</code>.
      */
-    public final Tags TAGS = Tags.TAGS;
+    public final User USER = User.USER;
 
     /**
      * The table <code>public.user_token</code>.
@@ -198,19 +203,14 @@ public class Public extends SchemaImpl {
     public final UserToken USER_TOKEN = UserToken.USER_TOKEN;
 
     /**
-     * The table <code>public.users</code>.
+     * The table <code>public.users_group</code>.
      */
-    public final Users USERS = Users.USERS;
-
-    /**
-     * The table <code>public.users_groups</code>.
-     */
-    public final UsersGroups USERS_GROUPS = UsersGroups.USERS_GROUPS;
+    public final UsersGroup USERS_GROUP = UsersGroup.USERS_GROUP;
 
     /**
      * Table which stores the registered webhooks
      */
-    public final Webhooks WEBHOOKS = Webhooks.WEBHOOKS;
+    public final Webhook WEBHOOK = Webhook.WEBHOOK;
 
     /**
      * No further instances allowed
@@ -228,37 +228,37 @@ public class Public extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
-            AssetBinaries.ASSET_BINARIES,
+            Asset.ASSET,
+            AssetBinarie.ASSET_BINARIE,
             AssetTimeline.ASSET_TIMELINE,
             AssetTimelineTag.ASSET_TIMELINE_TAG,
             AssetUserMeta.ASSET_USER_META,
-            Assets.ASSETS,
+            Content.CONTENT,
             ContentUserMeta.CONTENT_USER_META,
-            Contents.CONTENTS,
-            Extensions.EXTENSIONS,
+            Extension.EXTENSION,
+            Field.FIELD,
             FieldAsset.FIELD_ASSET,
             FieldContent.FIELD_CONTENT,
             FieldReference.FIELD_REFERENCE,
-            Fields.FIELDS,
-            Groups.GROUPS,
-            Languages.LANGUAGES,
+            Group.GROUP,
+            Language.LANGUAGE,
             Loom.LOOM,
+            Model.MODEL,
             ModelVersion.MODEL_VERSION,
-            Models.MODELS,
-            Namespaces.NAMESPACES,
+            Namespace.NAMESPACE,
+            Role.ROLE,
             RoleGroup.ROLE_GROUP,
             RolePermission.ROLE_PERMISSION,
-            Roles.ROLES,
             SchemaVersion.SCHEMA_VERSION,
+            Tag.TAG,
             TagAsset.TAG_ASSET,
             TagContent.TAG_CONTENT,
             TagNamespace.TAG_NAMESPACE,
             TagUserMeta.TAG_USER_META,
-            Tags.TAGS,
+            User.USER,
             UserToken.USER_TOKEN,
-            Users.USERS,
-            UsersGroups.USERS_GROUPS,
-            Webhooks.WEBHOOKS
+            UsersGroup.USERS_GROUP,
+            Webhook.WEBHOOK
         );
     }
 }

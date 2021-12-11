@@ -133,4 +133,16 @@ public class LoomRecord extends TableRecordImpl<LoomRecord> implements Record2<S
         setDbRev(dbRev);
         setLastUsedTimestamp(lastUsedTimestamp);
     }
+
+    /**
+     * Create a detached, initialised LoomRecord
+     */
+    public LoomRecord(io.metaloom.loom.db.jooq.tables.pojos.Loom value) {
+        super(Loom.LOOM);
+
+        if (value != null) {
+            setDbRev(value.getDbRev());
+            setLastUsedTimestamp(value.getLastUsedTimestamp());
+        }
+    }
 }

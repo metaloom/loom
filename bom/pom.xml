@@ -65,6 +65,14 @@
 				<version>${vertx.version}</version>
 			</dependency>
 
+			<!-- JDBC -->
+			<dependency>
+				<groupId>com.mchange</groupId>
+				<artifactId>c3p0</artifactId>
+				<version>0.9.5.5</version>
+			</dependency>
+
+
 			<!-- REST API -->
 			<dependency>
 				<groupId>io.vertx</groupId>

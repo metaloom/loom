@@ -142,4 +142,16 @@ public class TagContentRecord extends UpdatableRecordImpl<TagContentRecord> impl
         setTagUuid(tagUuid);
         setContentUuid(contentUuid);
     }
+
+    /**
+     * Create a detached, initialised TagContentRecord
+     */
+    public TagContentRecord(io.metaloom.loom.db.jooq.tables.pojos.TagContent value) {
+        super(TagContent.TAG_CONTENT);
+
+        if (value != null) {
+            setTagUuid(value.getTagUuid());
+            setContentUuid(value.getContentUuid());
+        }
+    }
 }

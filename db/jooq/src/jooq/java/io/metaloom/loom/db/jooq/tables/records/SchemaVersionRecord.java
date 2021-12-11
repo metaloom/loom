@@ -476,4 +476,25 @@ public class SchemaVersionRecord extends UpdatableRecordImpl<SchemaVersionRecord
         setExecutionTime(executionTime);
         setSuccess(success);
     }
+
+    /**
+     * Create a detached, initialised SchemaVersionRecord
+     */
+    public SchemaVersionRecord(io.metaloom.loom.db.jooq.tables.pojos.SchemaVersion value) {
+        super(SchemaVersion.SCHEMA_VERSION);
+
+        if (value != null) {
+            setVersionRank(value.getVersionRank());
+            setInstalledRank(value.getInstalledRank());
+            setVersion(value.getVersion());
+            setDescription(value.getDescription());
+            setType(value.getType());
+            setScript(value.getScript());
+            setChecksum(value.getChecksum());
+            setInstalledBy(value.getInstalledBy());
+            setInstalledOn(value.getInstalledOn());
+            setExecutionTime(value.getExecutionTime());
+            setSuccess(value.getSuccess());
+        }
+    }
 }

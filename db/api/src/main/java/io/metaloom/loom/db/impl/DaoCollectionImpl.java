@@ -13,7 +13,7 @@ import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.model.ModelDao;
 import io.metaloom.loom.db.model.namespace.NamespaceDao;
 import io.metaloom.loom.db.model.role.RoleDao;
-import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.metaloom.loom.db.model.webhook.WebhookDao;
 
 @Singleton
@@ -26,7 +26,7 @@ public class DaoCollectionImpl implements LoomDaoCollection {
 	public Lazy<FieldDao> fieldDao;
 
 	@Inject
-	public Lazy<UserDao> userDao;
+	public Lazy<LoomUserDao> userDao;
 
 	@Inject
 	public Lazy<RoleDao> roleDao;
@@ -79,7 +79,7 @@ public class DaoCollectionImpl implements LoomDaoCollection {
 	}
 
 	@Override
-	public UserDao getUserDao() {
+	public LoomUserDao getUserDao() {
 		return userDao.get();
 	}
 

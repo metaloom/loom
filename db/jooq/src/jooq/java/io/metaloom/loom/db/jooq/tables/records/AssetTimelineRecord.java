@@ -366,4 +366,22 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
         setMeta(meta);
         setThumbail(thumbail);
     }
+
+    /**
+     * Create a detached, initialised AssetTimelineRecord
+     */
+    public AssetTimelineRecord(io.metaloom.loom.db.jooq.tables.pojos.AssetTimeline value) {
+        super(AssetTimeline.ASSET_TIMELINE);
+
+        if (value != null) {
+            setUuid(value.getUuid());
+            setAssetUuid(value.getAssetUuid());
+            setFrom(value.getFrom());
+            setTo(value.getTo());
+            setDescription(value.getDescription());
+            setTags(value.getTags());
+            setMeta(value.getMeta());
+            setThumbail(value.getThumbail());
+        }
+    }
 }

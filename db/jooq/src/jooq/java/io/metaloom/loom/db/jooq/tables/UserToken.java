@@ -128,13 +128,13 @@ public class UserToken extends TableImpl<UserTokenRecord> {
         return Arrays.asList(Keys.USER_TOKEN__USER_TOKEN_USER_UUID_FKEY);
     }
 
-    private transient Users _users;
+    private transient User _user;
 
-    public Users users() {
-        if (_users == null)
-            _users = new Users(this, Keys.USER_TOKEN__USER_TOKEN_USER_UUID_FKEY);
+    public User user() {
+        if (_user == null)
+            _user = new User(this, Keys.USER_TOKEN__USER_TOKEN_USER_UUID_FKEY);
 
-        return _users;
+        return _user;
     }
 
     @Override

@@ -119,21 +119,21 @@ public class AssetUserMeta extends TableImpl<AssetUserMetaRecord> {
         return Arrays.asList(Keys.ASSET_USER_META__ASSET_USER_META_ASSET_UUID_FKEY, Keys.ASSET_USER_META__ASSET_USER_META_USER_UUID_FKEY);
     }
 
-    private transient Assets _assets;
-    private transient Users _users;
+    private transient Asset _asset;
+    private transient User _user;
 
-    public Assets assets() {
-        if (_assets == null)
-            _assets = new Assets(this, Keys.ASSET_USER_META__ASSET_USER_META_ASSET_UUID_FKEY);
+    public Asset asset() {
+        if (_asset == null)
+            _asset = new Asset(this, Keys.ASSET_USER_META__ASSET_USER_META_ASSET_UUID_FKEY);
 
-        return _assets;
+        return _asset;
     }
 
-    public Users users() {
-        if (_users == null)
-            _users = new Users(this, Keys.ASSET_USER_META__ASSET_USER_META_USER_UUID_FKEY);
+    public User user() {
+        if (_user == null)
+            _user = new User(this, Keys.ASSET_USER_META__ASSET_USER_META_USER_UUID_FKEY);
 
-        return _users;
+        return _user;
     }
 
     @Override

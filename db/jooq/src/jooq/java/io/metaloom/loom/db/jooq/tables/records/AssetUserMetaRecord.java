@@ -222,4 +222,18 @@ public class AssetUserMetaRecord extends UpdatableRecordImpl<AssetUserMetaRecord
         setRating(rating);
         setMeta(meta);
     }
+
+    /**
+     * Create a detached, initialised AssetUserMetaRecord
+     */
+    public AssetUserMetaRecord(io.metaloom.loom.db.jooq.tables.pojos.AssetUserMeta value) {
+        super(AssetUserMeta.ASSET_USER_META);
+
+        if (value != null) {
+            setAssetUuid(value.getAssetUuid());
+            setUserUuid(value.getUserUuid());
+            setRating(value.getRating());
+            setMeta(value.getMeta());
+        }
+    }
 }

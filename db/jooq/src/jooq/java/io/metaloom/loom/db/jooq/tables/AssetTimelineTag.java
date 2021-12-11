@@ -101,7 +101,7 @@ public class AssetTimelineTag extends TableImpl<AssetTimelineTagRecord> {
     }
 
     private transient AssetTimeline _assetTimeline;
-    private transient Tags _tags;
+    private transient Tag _tag;
 
     public AssetTimeline assetTimeline() {
         if (_assetTimeline == null)
@@ -110,11 +110,11 @@ public class AssetTimelineTag extends TableImpl<AssetTimelineTagRecord> {
         return _assetTimeline;
     }
 
-    public Tags tags() {
-        if (_tags == null)
-            _tags = new Tags(this, Keys.ASSET_TIMELINE_TAG__ASSET_TIMELINE_TAG_TAG_UUID_FKEY);
+    public Tag tag() {
+        if (_tag == null)
+            _tag = new Tag(this, Keys.ASSET_TIMELINE_TAG__ASSET_TIMELINE_TAG_TAG_UUID_FKEY);
 
-        return _tags;
+        return _tag;
     }
 
     @Override

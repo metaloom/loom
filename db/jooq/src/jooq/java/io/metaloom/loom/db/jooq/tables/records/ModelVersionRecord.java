@@ -254,4 +254,19 @@ public class ModelVersionRecord extends UpdatableRecordImpl<ModelVersionRecord> 
         setNextVersionUuid(nextVersionUuid);
         setPrevVersionUuid(prevVersionUuid);
     }
+
+    /**
+     * Create a detached, initialised ModelVersionRecord
+     */
+    public ModelVersionRecord(io.metaloom.loom.db.jooq.tables.pojos.ModelVersion value) {
+        super(ModelVersion.MODEL_VERSION);
+
+        if (value != null) {
+            setUuid(value.getUuid());
+            setModelUuid(value.getModelUuid());
+            setJson(value.getJson());
+            setNextVersionUuid(value.getNextVersionUuid());
+            setPrevVersionUuid(value.getPrevVersionUuid());
+        }
+    }
 }
