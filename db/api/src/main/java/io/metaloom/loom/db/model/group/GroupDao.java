@@ -41,4 +41,6 @@ public interface GroupDao extends LoomDao {
 
 	Completable testMultiOp();
 
+	Observable<? extends Group> findAll();
+
 }

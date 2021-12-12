@@ -31,8 +31,8 @@ import io.metaloom.loom.db.jooq.tables.TagContent;
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
 import io.metaloom.loom.db.jooq.tables.TagUserMeta;
 import io.metaloom.loom.db.jooq.tables.User;
+import io.metaloom.loom.db.jooq.tables.UserGroup;
 import io.metaloom.loom.db.jooq.tables.UserToken;
-import io.metaloom.loom.db.jooq.tables.UsersGroup;
 import io.metaloom.loom.db.jooq.tables.Webhook;
 import io.metaloom.loom.db.jooq.tables.records.AssetBinarieRecord;
 import io.metaloom.loom.db.jooq.tables.records.AssetRecord;
@@ -60,9 +60,9 @@ import io.metaloom.loom.db.jooq.tables.records.TagContentRecord;
 import io.metaloom.loom.db.jooq.tables.records.TagNamespaceRecord;
 import io.metaloom.loom.db.jooq.tables.records.TagRecord;
 import io.metaloom.loom.db.jooq.tables.records.TagUserMetaRecord;
+import io.metaloom.loom.db.jooq.tables.records.UserGroupRecord;
 import io.metaloom.loom.db.jooq.tables.records.UserRecord;
 import io.metaloom.loom.db.jooq.tables.records.UserTokenRecord;
-import io.metaloom.loom.db.jooq.tables.records.UsersGroupRecord;
 import io.metaloom.loom.db.jooq.tables.records.WebhookRecord;
 
 import org.jooq.ForeignKey;
@@ -114,8 +114,8 @@ public class Keys {
     public static final UniqueKey<TagNamespaceRecord> TAG_NAMESPACE_PKEY = Internal.createUniqueKey(TagNamespace.TAG_NAMESPACE, DSL.name("tag_namespace_pkey"), new TableField[] { TagNamespace.TAG_NAMESPACE.TAG_UUID, TagNamespace.TAG_NAMESPACE.NAMESPACE_UUID }, true);
     public static final UniqueKey<UserRecord> USER_PKEY = Internal.createUniqueKey(User.USER, DSL.name("user_pkey"), new TableField[] { User.USER.UUID }, true);
     public static final UniqueKey<UserRecord> USER_USERNAME_KEY = Internal.createUniqueKey(User.USER, DSL.name("user_username_key"), new TableField[] { User.USER.USERNAME }, true);
+    public static final UniqueKey<UserGroupRecord> USER_GROUP_PKEY = Internal.createUniqueKey(UserGroup.USER_GROUP, DSL.name("user_group_pkey"), new TableField[] { UserGroup.USER_GROUP.USER_UUID, UserGroup.USER_GROUP.GROUP_UUID }, true);
     public static final UniqueKey<UserTokenRecord> USER_TOKEN_PKEY = Internal.createUniqueKey(UserToken.USER_TOKEN, DSL.name("user_token_pkey"), new TableField[] { UserToken.USER_TOKEN.UUID }, true);
-    public static final UniqueKey<UsersGroupRecord> USERS_GROUP_PKEY = Internal.createUniqueKey(UsersGroup.USERS_GROUP, DSL.name("users_group_pkey"), new TableField[] { UsersGroup.USERS_GROUP.USER_UUID, UsersGroup.USERS_GROUP.GROUP_UUID }, true);
     public static final UniqueKey<WebhookRecord> WEBHOOK_PKEY = Internal.createUniqueKey(Webhook.WEBHOOK, DSL.name("webhook_pkey"), new TableField[] { Webhook.WEBHOOK.UUID }, true);
 
     // -------------------------------------------------------------------------
@@ -176,9 +176,9 @@ public class Keys {
     public static final ForeignKey<TagUserMetaRecord, UserRecord> TAG_USER_META__TAG_USER_META_USER_UUID_FKEY = Internal.createForeignKey(TagUserMeta.TAG_USER_META, DSL.name("tag_user_meta_user_uuid_fkey"), new TableField[] { TagUserMeta.TAG_USER_META.USER_UUID }, Keys.USER_PKEY, new TableField[] { User.USER.UUID }, true);
     public static final ForeignKey<UserRecord, UserRecord> USER__USER_CREATOR_UUID_FKEY = Internal.createForeignKey(User.USER, DSL.name("user_creator_uuid_fkey"), new TableField[] { User.USER.CREATOR_UUID }, Keys.USER_PKEY, new TableField[] { User.USER.UUID }, true);
     public static final ForeignKey<UserRecord, UserRecord> USER__USER_EDITOR_UUID_FKEY = Internal.createForeignKey(User.USER, DSL.name("user_editor_uuid_fkey"), new TableField[] { User.USER.EDITOR_UUID }, Keys.USER_PKEY, new TableField[] { User.USER.UUID }, true);
+    public static final ForeignKey<UserGroupRecord, GroupRecord> USER_GROUP__USER_GROUP_GROUP_UUID_FKEY = Internal.createForeignKey(UserGroup.USER_GROUP, DSL.name("user_group_group_uuid_fkey"), new TableField[] { UserGroup.USER_GROUP.GROUP_UUID }, Keys.GROUP_PKEY, new TableField[] { Group.GROUP.UUID }, true);
+    public static final ForeignKey<UserGroupRecord, UserRecord> USER_GROUP__USER_GROUP_USER_UUID_FKEY = Internal.createForeignKey(UserGroup.USER_GROUP, DSL.name("user_group_user_uuid_fkey"), new TableField[] { UserGroup.USER_GROUP.USER_UUID }, Keys.USER_PKEY, new TableField[] { User.USER.UUID }, true);
     public static final ForeignKey<UserTokenRecord, UserRecord> USER_TOKEN__USER_TOKEN_USER_UUID_FKEY = Internal.createForeignKey(UserToken.USER_TOKEN, DSL.name("user_token_user_uuid_fkey"), new TableField[] { UserToken.USER_TOKEN.USER_UUID }, Keys.USER_PKEY, new TableField[] { User.USER.UUID }, true);
-    public static final ForeignKey<UsersGroupRecord, GroupRecord> USERS_GROUP__USERS_GROUP_GROUP_UUID_FKEY = Internal.createForeignKey(UsersGroup.USERS_GROUP, DSL.name("users_group_group_uuid_fkey"), new TableField[] { UsersGroup.USERS_GROUP.GROUP_UUID }, Keys.GROUP_PKEY, new TableField[] { Group.GROUP.UUID }, true);
-    public static final ForeignKey<UsersGroupRecord, UserRecord> USERS_GROUP__USERS_GROUP_USER_UUID_FKEY = Internal.createForeignKey(UsersGroup.USERS_GROUP, DSL.name("users_group_user_uuid_fkey"), new TableField[] { UsersGroup.USERS_GROUP.USER_UUID }, Keys.USER_PKEY, new TableField[] { User.USER.UUID }, true);
     public static final ForeignKey<WebhookRecord, UserRecord> WEBHOOK__WEBHOOK_CREATOR_UUID_FKEY = Internal.createForeignKey(Webhook.WEBHOOK, DSL.name("webhook_creator_uuid_fkey"), new TableField[] { Webhook.WEBHOOK.CREATOR_UUID }, Keys.USER_PKEY, new TableField[] { User.USER.UUID }, true);
     public static final ForeignKey<WebhookRecord, UserRecord> WEBHOOK__WEBHOOK_EDITOR_UUID_FKEY = Internal.createForeignKey(Webhook.WEBHOOK, DSL.name("webhook_editor_uuid_fkey"), new TableField[] { Webhook.WEBHOOK.EDITOR_UUID }, Keys.USER_PKEY, new TableField[] { User.USER.UUID }, true);
 }

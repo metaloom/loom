@@ -2,12 +2,14 @@ package io.metaloom.loom.db.jooq.test.dagger;
 
 import javax.sql.DataSource;
 
+
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.db.jooq.LoomPostgreSQLContainer;
+import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 
 public class JooqTestContext extends TestWatcher {
@@ -49,6 +51,10 @@ public class JooqTestContext extends TestWatcher {
 
 	public LoomUserDao userDao() {
 		return component.userDao();
+	}
+
+	public GroupDao groupDao() {
+		return component.groupDao();
 	}
 
 }

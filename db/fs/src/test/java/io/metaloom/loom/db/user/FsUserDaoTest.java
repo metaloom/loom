@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.user;
 
+import io.metaloom.loom.db.fs.dao.user.FsUserDaoImpl;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.metaloom.loom.test.dagger.DaggerLoomFsTestComponent;
 import io.metaloom.loom.test.dagger.LoomFsTestComponent;

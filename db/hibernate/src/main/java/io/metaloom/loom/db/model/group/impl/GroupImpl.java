@@ -1,7 +1,9 @@
 package io.metaloom.loom.db.model.group.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -66,8 +68,14 @@ public class GroupImpl extends AbstractCUDElement implements Group {
 		return this;
 	}
 
-	public Set<LoomUser> getUsers() {
-		return users;
+	public List<LoomUser> getUsers() {
+		return null;
+	}
+	
+	@Override
+	public Group setUsers(List<LoomUser> users) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public Group addUser(LoomUser user) {

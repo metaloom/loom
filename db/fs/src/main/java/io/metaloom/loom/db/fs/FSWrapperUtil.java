@@ -1,11 +1,11 @@
 package io.metaloom.loom.db.fs;
 
-import io.metaloom.loom.db.group.FsGroupImpl;
+import io.metaloom.loom.db.fs.dao.group.GroupImpl;
+import io.metaloom.loom.db.fs.dao.role.FsRoleImpl;
+import io.metaloom.loom.db.fs.dao.user.FsUserImpl;
 import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.role.Role;
 import io.metaloom.loom.db.model.user.LoomUser;
-import io.metaloom.loom.db.role.FsRoleImpl;
-import io.metaloom.loom.db.user.FsUserImpl;
 
 public final class FSWrapperUtil {
 
@@ -20,9 +20,9 @@ public final class FSWrapperUtil {
 		}
 	}
 
-	public static FsGroupImpl toFs(Group group) {
-		if (group instanceof FsGroupImpl) {
-			return (FsGroupImpl) group;
+	public static GroupImpl toFs(Group group) {
+		if (group instanceof GroupImpl) {
+			return (GroupImpl) group;
 		} else {
 			throw new RuntimeException("Group is not a filesystem group");
 		}

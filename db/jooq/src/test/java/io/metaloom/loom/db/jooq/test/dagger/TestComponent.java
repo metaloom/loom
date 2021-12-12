@@ -12,6 +12,7 @@ import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
 import io.metaloom.loom.db.jooq.dagger.LoomDaoBindModule;
+import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.metaloom.loom.options.DatabaseOptions;
 import io.r2dbc.spi.ConnectionFactory;
@@ -27,6 +28,8 @@ public interface TestComponent {
 	ConnectionFactory r2dbcConnectionFactory();
 
 	LoomUserDao userDao();
+
+	GroupDao groupDao();
 
 	@Component.Builder
 	interface Builder {

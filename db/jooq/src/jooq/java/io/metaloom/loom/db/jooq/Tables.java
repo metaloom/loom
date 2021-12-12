@@ -32,8 +32,8 @@ import io.metaloom.loom.db.jooq.tables.TagContent;
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
 import io.metaloom.loom.db.jooq.tables.TagUserMeta;
 import io.metaloom.loom.db.jooq.tables.User;
+import io.metaloom.loom.db.jooq.tables.UserGroup;
 import io.metaloom.loom.db.jooq.tables.UserToken;
-import io.metaloom.loom.db.jooq.tables.UsersGroup;
 import io.metaloom.loom.db.jooq.tables.Webhook;
 
 
@@ -184,14 +184,14 @@ public class Tables {
     public static final User USER = User.USER;
 
     /**
+     * The table <code>public.user_group</code>.
+     */
+    public static final UserGroup USER_GROUP = UserGroup.USER_GROUP;
+
+    /**
      * The table <code>public.user_token</code>.
      */
     public static final UserToken USER_TOKEN = UserToken.USER_TOKEN;
-
-    /**
-     * The table <code>public.users_group</code>.
-     */
-    public static final UsersGroup USERS_GROUP = UsersGroup.USERS_GROUP;
 
     /**
      * Table which stores the registered webhooks

@@ -32,8 +32,8 @@ import io.metaloom.loom.db.jooq.tables.TagContent;
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
 import io.metaloom.loom.db.jooq.tables.TagUserMeta;
 import io.metaloom.loom.db.jooq.tables.User;
+import io.metaloom.loom.db.jooq.tables.UserGroup;
 import io.metaloom.loom.db.jooq.tables.UserToken;
-import io.metaloom.loom.db.jooq.tables.UsersGroup;
 import io.metaloom.loom.db.jooq.tables.Webhook;
 
 import java.util.Arrays;
@@ -198,14 +198,14 @@ public class Public extends SchemaImpl {
     public final User USER = User.USER;
 
     /**
+     * The table <code>public.user_group</code>.
+     */
+    public final UserGroup USER_GROUP = UserGroup.USER_GROUP;
+
+    /**
      * The table <code>public.user_token</code>.
      */
     public final UserToken USER_TOKEN = UserToken.USER_TOKEN;
-
-    /**
-     * The table <code>public.users_group</code>.
-     */
-    public final UsersGroup USERS_GROUP = UsersGroup.USERS_GROUP;
 
     /**
      * Table which stores the registered webhooks
@@ -256,8 +256,8 @@ public class Public extends SchemaImpl {
             TagNamespace.TAG_NAMESPACE,
             TagUserMeta.TAG_USER_META,
             User.USER,
+            UserGroup.USER_GROUP,
             UserToken.USER_TOKEN,
-            UsersGroup.USERS_GROUP,
             Webhook.WEBHOOK
         );
     }

@@ -119,4 +119,10 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public Observable<? extends Group> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
