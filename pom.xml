@@ -4,7 +4,6 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.metaloom.loom</groupId>
 	<artifactId>loom</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 
@@ -28,17 +27,18 @@
 		<jacoco.version>0.8.4</jacoco.version>
 		<jacoco.skip>true</jacoco.skip>
 		<jacoco.env></jacoco.env>
-		
-		<!-- Some versions need to be managed via parent modules due to open MNG-5588 issue  -->
-		<dagger.version>2.35.1</dagger.version>
+
+		<!-- Some versions need to be managed via parent modules due to open
+		MNG-5588 issue  -->
+		<dagger.version>2.45</dagger.version>
 		<postgres.driver.version>42.2.2</postgres.driver.version>
-	
+
 		<loom.build.timestamp>${maven.build.timestamp}</loom.build.timestamp>
 	</properties>
 
 	<parent>
-		<groupId>io.metaloom.vertx</groupId>
-		<artifactId>maven-vertx-parent</artifactId>
+		<groupId>io.metaloom.loom</groupId>
+		<artifactId>maven-loom-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
@@ -66,13 +66,14 @@
 	<modules>
 		<module>bom</module>
 		<module>api</module>
-		<module>cli</module>
 		<module>common</module>
 		<module>core</module>
 		<module>doc</module>
 		<module>db</module>
-		<module>rest-client</module>
 		<module>rest-model</module>
+		<module>client</module>
+		<module>cli</module>
+		<module>worker</module>
 		<module>services</module>
 		<module>containers</module>
 	</modules>
@@ -95,22 +96,6 @@
 					<configuration>
 						<skip>${skip.unit.tests}</skip>
 					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>attach-javadocs</id>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-							<configuration>
-								<failOnError>false</failOnError>
-								<failOnWarnings>false</failOnWarnings>
-							</configuration>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.jacoco</groupId>
@@ -158,9 +143,11 @@
 					<tag>${project.artifactId}-${project.version}</tag>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-gpg-plugin</artifactId> 
-				<executions> <execution> <id>sign-artifacts</id> <phase>verify</phase> <goals> 
-				<goal>sign</goal> </goals> </execution> </executions> </plugin> -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-gpg-plugin</artifactId> 
+				<executions>
+			<execution> <id>sign-artifacts</id> <phase>verify</phase> <goals>
+			<goal>sign</goal> </goals> </execution> </executions> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
@@ -185,15 +172,25 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<failOnError>false</failOnError>
+							<failOnWarnings>false</failOnWarnings>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<verbose>false</verbose>
-					<compilerVersion>11</compilerVersion>
-					<source>11</source>
-					<target>11</target>
+					<release>17</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -207,7 +204,8 @@
 						<configuration>
 							<skip>${jacoco.skip}</skip>
 							<propertyName>jacoco.env</propertyName>
-							<destFile>${project.build.directory}/jacoco-partial.exec</destFile>
+							<destFile>
+								${project.build.directory}/jacoco-partial.exec</destFile>
 							<excludes>
 								<exclude>*OrientSqlTokenManager*</exclude>
 							</excludes>
@@ -220,7 +218,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<skip>${skip.unit.tests}</skip>
-					<jvm>${env.JAVA_1_11_HOME}/bin/java</jvm>
 					<argLine>-Xms128m -Xmx256m ${jacoco.env}</argLine>
 					<forkedProcessTimeoutInSeconds>2700</forkedProcessTimeoutInSeconds>
 					<rerunFailingTestsCount>0</rerunFailingTestsCount>

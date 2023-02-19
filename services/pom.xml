@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>loom-services</artifactId>
-	<name>Loom - Services</name>
+	<name>Loom :: Services</name>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -39,11 +39,13 @@
 		<module>logger</module>
 		<module>plugins</module>
 		<module>rest</module>
+		<module>grpc</module>
 		<module>image</module>
 		<module>video</module>
 		<module>fs</module>
 		<module>tika</module>
 		<module>lucene</module>
+		<module>qdrant</module>
 		<module>s3</module>
 		<module>io-uring</module>
 		<module>eventbus</module>

@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>loom-common</artifactId>
-	<name>Loom - Common</name>
+	<name>Loom :: Common</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -67,6 +67,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<forceJavacCompilerUse>true</forceJavacCompilerUse>
+					<release>17</release>
 				</configuration>
 				<dependencies>
 					<dependency>

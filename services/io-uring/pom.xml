@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>loom-service-io-uring</artifactId>
-	<name>Loom - Service - io uring</name>
+	<name>Loom - Service :: io uring</name>
 
 	<dependencyManagement>
 		<dependencies>

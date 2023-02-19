@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>loom-core</artifactId>
-	<name>Loom - Core</name>
+	<name>Loom :: Core</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,10 +35,9 @@
 			<artifactId>loom-common</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.metaloom.loom</groupId>
+			<groupId>io.metaloom.loom.db</groupId>
 			<artifactId>loom-db-hibernate</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>com.google.dagger</groupId>
 			<artifactId>dagger</artifactId>

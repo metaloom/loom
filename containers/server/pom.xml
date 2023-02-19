@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>loom-container-server</artifactId>
-	<name>Loom - Container - Server</name>
+	<name>Loom - Container :: Server</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

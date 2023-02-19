@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>loom-services-auth</artifactId>
-	<name>Loom - Service - Authentication</name>
+	<name>Loom - Service :: Authentication</name>
 	<packaging>pom</packaging>
 
 	<properties>

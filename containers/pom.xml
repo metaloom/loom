@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>loom-containers</artifactId>
-	<name>Loom - Containers</name>
+	<name>Loom :: Containers</name>
 	<packaging>pom</packaging>
 
 

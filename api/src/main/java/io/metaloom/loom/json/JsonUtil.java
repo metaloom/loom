@@ -32,7 +32,7 @@ public final class JsonUtil {
 	 * 
 	 * @param obj
 	 * @return
-	 * @throws GenericRestException
+	 * @throws LoomRestException
 	 */
 	public static <T> String toJson(T obj) throws LoomRestException {
 		// if (obj instanceof JSONObject) {

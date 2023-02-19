@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>loom-service-distributed</artifactId>
-	<name>Loom - Service - Distributed</name>
+	<name>Loom - Service :: Distributed</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

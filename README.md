@@ -75,18 +75,7 @@ Loom is highly influenced by Gentics Mesh and can be seen as a total rewrite / c
 ### Under the hood
 
 * Upgrade to Vert.x 4
-* No OrientDB support
 * Restructured REST models (No more custom serializes)
-
-## Questions
-
-### Why a rewrite and not a fork?
-
-Starting all-over gives me the option to address various flaws and create a new project structure.
-
-### Why is there no OrientDB support anymore?
-
-The usage of OrientDB is one of the biggest issues of Gentics Mesh. In my experience the database is not reliable for the usecase. An embedded DB makes it easy to startup a single instance but causes big problems when trying to address scaling. Additionally I have experience a lot of cases database inconsistencies and clustering issues. Futhermore the database does not provide support for transaction isolation and can't cope well in situations which lead to database contention. (e.g. when updating connected types of records in parallel)
 
 ## Development Status
 

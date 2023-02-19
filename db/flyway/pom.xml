@@ -5,13 +5,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>io.metaloom.loom</groupId>
+		<groupId>io.metaloom.loom.db</groupId>
 		<artifactId>loom-db</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>loom-db-flyway</artifactId>
-	<name>Loom - DB - Flyway</name>
+	<name>Loom - DB :: Flyway</name>
 	<description>Flyway specific DB parts for Loom</description>
 
 	<properties>

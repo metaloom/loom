@@ -5,13 +5,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>io.metaloom.loom</groupId>
+		<groupId>io.metaloom.loom.db</groupId>
 		<artifactId>loom-db</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>loom-db-fs</artifactId>
-	<name>Loom - DB - Filesystem</name>
+	<name>Loom - DB :: Filesystem</name>
 	<description>Filesystem DB implementation for Loom</description>
 
 	<properties>
@@ -36,13 +36,13 @@
 			<artifactId>loom-common</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.metaloom.loom</groupId>
+			<groupId>io.metaloom.loom.db</groupId>
 			<artifactId>loom-db-api</artifactId>
 		</dependency>
 
 		<!-- Test -->
 		<dependency>
-			<groupId>io.metaloom.loom</groupId>
+			<groupId>io.metaloom.loom.db</groupId>
 			<artifactId>loom-db-api</artifactId>
 			<type>test-jar</type>
 			<scope>test</scope>

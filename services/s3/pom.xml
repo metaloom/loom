@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>loom-service-s3</artifactId>
-	<name>Loom - Service - S3</name>
+	<name>Loom - Service :: S3</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
