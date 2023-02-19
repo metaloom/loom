@@ -22,9 +22,9 @@
 			<dependency>
 				<groupId>io.metaloom.loom</groupId>
 				<artifactId>loom-bom</artifactId>
+				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
-				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -36,16 +36,11 @@
 		</dependency>
 		<dependency>
 			<groupId>io.metaloom.loom.db</groupId>
-			<artifactId>loom-db-hibernate</artifactId>
+			<artifactId>loom-db-jooq</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.dagger</groupId>
 			<artifactId>dagger</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger-compiler</artifactId>
-			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
@@ -55,16 +50,14 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<forceJavacCompilerUse>true</forceJavacCompilerUse>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>com.google.dagger</groupId>
+							<artifactId>dagger-compiler</artifactId>
+							<version>${dagger.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.google.dagger</groupId>
-						<artifactId>dagger-compiler</artifactId>
-						<version>${dagger.version}</version>
-						<optional>true</optional>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

@@ -8,15 +8,16 @@ import io.metaloom.loom.common.dagger.LoomModule;
 import io.metaloom.loom.common.dagger.VertxModule;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.dagger.DBBindModule;
-import io.metaloom.loom.db.hib.dagger.HibernateLoomDaoBindModule;
-import io.metaloom.loom.db.hib.dagger.HibernateModule;
+import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
+import io.metaloom.loom.db.jooq.dagger.JooqModule;
+import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
 import io.metaloom.loom.options.LoomOptions;
 
 /**
  * Central dagger loom component.
  */
 @Singleton
-@Component(modules = { VertxModule.class, LoomModule.class, DBBindModule.class, HibernateLoomDaoBindModule.class, HibernateModule.class })
+@Component(modules = { VertxModule.class, LoomModule.class, DBBindModule.class, JooqLoomDaoBindModule.class, JooqModule.class, JooqNativeDaoModule.class })
 public interface LoomCoreComponent {
 
 	LoomDaoCollection daos();

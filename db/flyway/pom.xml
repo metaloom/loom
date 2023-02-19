@@ -44,15 +44,5 @@
 			<artifactId>postgresql</artifactId>
 			<version>${postgres.driver.version}</version>
 		</dependency>
-
-		<!-- Dagger -->
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger-compiler</artifactId>
-			<optional>true</optional>
-		</dependency>
 	</dependencies>
-
-
-
 </project>

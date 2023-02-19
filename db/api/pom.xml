@@ -54,18 +54,6 @@
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-rx-java3</artifactId>
 		</dependency>
-
-		<!-- Dagger 
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger</artifactId>
-		</dependency>
-		-->
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger-compiler</artifactId>
-			<optional>true</optional>
-		</dependency>
 	</dependencies>
 
 </project>

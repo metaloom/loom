@@ -235,24 +235,24 @@
 			<dependency>
 				<groupId>org.testcontainers</groupId>
 				<artifactId>postgresql</artifactId>
-				<version>1.15.3</version>
+				<version>1.17.6</version>
 			</dependency>
 			<dependency>
 				<groupId>org.testcontainers</groupId>
 				<artifactId>mariadb</artifactId>
-				<version>1.15.3</version>
+				<version>1.17.6</version>
 			</dependency>
 			<dependency>
 				<groupId>org.testcontainers</groupId>
 				<artifactId>elasticsearch</artifactId>
-				<version>1.15.3</version>
+				<version>1.17.6</version>
 			</dependency>
 
 			<!-- ES client -->
 			<dependency>
 				<groupId>io.metaloom.elasticsearch</groupId>
 				<artifactId>elasticsearch-client</artifactId>
-				<version>1.1.2-SNAPSHOT</version>
+				<version>1.2.0-SNAPSHOT</version>
 			</dependency>
 
 			<!-- Hazelcast -->
@@ -473,10 +473,14 @@
 			</dependency>
 			<dependency>
 				<groupId>io.metaloom.video</groupId>
+				<artifactId>video4j-facedetect</artifactId>
+				<version>0.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.video</groupId>
 				<artifactId>video4j-fingerprint</artifactId>
 				<version>${video4j.version}</version>
 			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 

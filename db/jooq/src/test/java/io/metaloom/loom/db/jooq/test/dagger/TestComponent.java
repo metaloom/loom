@@ -11,14 +11,14 @@ import io.metaloom.loom.common.dagger.VertxModule;
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
-import io.metaloom.loom.db.jooq.dagger.LoomDaoBindModule;
+import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
 import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.metaloom.loom.options.DatabaseOptions;
 import io.r2dbc.spi.ConnectionFactory;
 
 @Singleton
-@Component(modules = { JooqModule.class, FlywayModule.class, LoomDaoBindModule.class, JooqNativeDaoModule.class, VertxModule.class })
+@Component(modules = { JooqModule.class, FlywayModule.class, JooqLoomDaoBindModule.class, JooqNativeDaoModule.class, VertxModule.class })
 public interface TestComponent {
 
 	Flyway flyway();

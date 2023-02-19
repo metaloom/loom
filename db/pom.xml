@@ -27,7 +27,7 @@
 				<artifactId>loom-bom</artifactId>
 				<type>pom</type>
 				<scope>import</scope>
-				<version>${project.version}</version>
+				<version>1.0.0-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -36,9 +36,36 @@
 		<module>api</module>
 		<module>flyway</module>
 		<module>memory</module>
+		<!--
 		<module>fs</module>
 		<module>hibernate</module>
+		-->
 		<module>jooq</module>
 	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.dagger</groupId>
+			<artifactId>dagger</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>com.google.dagger</groupId>
+							<artifactId>dagger-compiler</artifactId>
+							<version>${dagger.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
