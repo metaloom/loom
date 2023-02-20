@@ -18,9 +18,9 @@ public class FieldContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID            fieldsUuid;
-    private UUID            contentUuid;
-    private String          webrootPathInfo;
+    private UUID fieldsUuid;
+    private UUID contentUuid;
+    private String webrootPathInfo;
     private LoomContentType contentType;
 
     public FieldContent() {}
@@ -33,9 +33,9 @@ public class FieldContent implements Serializable {
     }
 
     public FieldContent(
-        UUID            fieldsUuid,
-        UUID            contentUuid,
-        String          webrootPathInfo,
+        UUID fieldsUuid,
+        UUID contentUuid,
+        String webrootPathInfo,
         LoomContentType contentType
     ) {
         this.fieldsUuid = fieldsUuid;
@@ -102,6 +102,53 @@ public class FieldContent implements Serializable {
      */
     public void setContentType(LoomContentType contentType) {
         this.contentType = contentType;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final FieldContent other = (FieldContent) obj;
+        if (this.fieldsUuid == null) {
+            if (other.fieldsUuid != null)
+                return false;
+        }
+        else if (!this.fieldsUuid.equals(other.fieldsUuid))
+            return false;
+        if (this.contentUuid == null) {
+            if (other.contentUuid != null)
+                return false;
+        }
+        else if (!this.contentUuid.equals(other.contentUuid))
+            return false;
+        if (this.webrootPathInfo == null) {
+            if (other.webrootPathInfo != null)
+                return false;
+        }
+        else if (!this.webrootPathInfo.equals(other.webrootPathInfo))
+            return false;
+        if (this.contentType == null) {
+            if (other.contentType != null)
+                return false;
+        }
+        else if (!this.contentType.equals(other.contentType))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.fieldsUuid == null) ? 0 : this.fieldsUuid.hashCode());
+        result = prime * result + ((this.contentUuid == null) ? 0 : this.contentUuid.hashCode());
+        result = prime * result + ((this.webrootPathInfo == null) ? 0 : this.webrootPathInfo.hashCode());
+        result = prime * result + ((this.contentType == null) ? 0 : this.contentType.hashCode());
+        return result;
     }
 
     @Override

@@ -63,6 +63,39 @@ public class TagContent implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final TagContent other = (TagContent) obj;
+        if (this.tagUuid == null) {
+            if (other.tagUuid != null)
+                return false;
+        }
+        else if (!this.tagUuid.equals(other.tagUuid))
+            return false;
+        if (this.contentUuid == null) {
+            if (other.contentUuid != null)
+                return false;
+        }
+        else if (!this.contentUuid.equals(other.contentUuid))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.tagUuid == null) ? 0 : this.tagUuid.hashCode());
+        result = prime * result + ((this.contentUuid == null) ? 0 : this.contentUuid.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("TagContent (");
 

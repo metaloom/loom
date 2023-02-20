@@ -10,6 +10,7 @@ import io.metaloom.loom.db.jooq.tables.records.UserRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -65,6 +66,13 @@ public class UserDao extends DAOImpl<UserRecord, io.metaloom.loom.db.jooq.tables
     }
 
     /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.User> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(User.USER.UUID, value);
+    }
+
+    /**
      * Fetch records that have <code>username BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
@@ -84,6 +92,13 @@ public class UserDao extends DAOImpl<UserRecord, io.metaloom.loom.db.jooq.tables
      */
     public io.metaloom.loom.db.jooq.tables.pojos.User fetchOneByUsername(String value) {
         return fetchOne(User.USER.USERNAME, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>username = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.User> fetchOptionalByUsername(String value) {
+        return fetchOptional(User.USER.USERNAME, value);
     }
 
     /**

@@ -18,10 +18,10 @@ public class ContentUserMeta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID    contentUuid;
-    private UUID    userUuid;
+    private UUID contentUuid;
+    private UUID userUuid;
     private Integer rating;
-    private JSONB   meta;
+    private JSONB meta;
 
     public ContentUserMeta() {}
 
@@ -33,10 +33,10 @@ public class ContentUserMeta implements Serializable {
     }
 
     public ContentUserMeta(
-        UUID    contentUuid,
-        UUID    userUuid,
+        UUID contentUuid,
+        UUID userUuid,
         Integer rating,
-        JSONB   meta
+        JSONB meta
     ) {
         this.contentUuid = contentUuid;
         this.userUuid = userUuid;
@@ -102,6 +102,53 @@ public class ContentUserMeta implements Serializable {
      */
     public void setMeta(JSONB meta) {
         this.meta = meta;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final ContentUserMeta other = (ContentUserMeta) obj;
+        if (this.contentUuid == null) {
+            if (other.contentUuid != null)
+                return false;
+        }
+        else if (!this.contentUuid.equals(other.contentUuid))
+            return false;
+        if (this.userUuid == null) {
+            if (other.userUuid != null)
+                return false;
+        }
+        else if (!this.userUuid.equals(other.userUuid))
+            return false;
+        if (this.rating == null) {
+            if (other.rating != null)
+                return false;
+        }
+        else if (!this.rating.equals(other.rating))
+            return false;
+        if (this.meta == null) {
+            if (other.meta != null)
+                return false;
+        }
+        else if (!this.meta.equals(other.meta))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.contentUuid == null) ? 0 : this.contentUuid.hashCode());
+        result = prime * result + ((this.userUuid == null) ? 0 : this.userUuid.hashCode());
+        result = prime * result + ((this.rating == null) ? 0 : this.rating.hashCode());
+        result = prime * result + ((this.meta == null) ? 0 : this.meta.hashCode());
+        return result;
     }
 
     @Override

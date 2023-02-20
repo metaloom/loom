@@ -18,10 +18,10 @@ public class UserToken implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID               uuid;
-    private UUID               userUuid;
-    private String             note;
-    private String             token;
+    private UUID uuid;
+    private UUID userUuid;
+    private String note;
+    private String token;
     private LoomPermissionFlag permissions;
 
     public UserToken() {}
@@ -35,10 +35,10 @@ public class UserToken implements Serializable {
     }
 
     public UserToken(
-        UUID               uuid,
-        UUID               userUuid,
-        String             note,
-        String             token,
+        UUID uuid,
+        UUID userUuid,
+        String note,
+        String token,
         LoomPermissionFlag permissions
     ) {
         this.uuid = uuid;
@@ -116,6 +116,60 @@ public class UserToken implements Serializable {
      */
     public void setPermissions(LoomPermissionFlag permissions) {
         this.permissions = permissions;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final UserToken other = (UserToken) obj;
+        if (this.uuid == null) {
+            if (other.uuid != null)
+                return false;
+        }
+        else if (!this.uuid.equals(other.uuid))
+            return false;
+        if (this.userUuid == null) {
+            if (other.userUuid != null)
+                return false;
+        }
+        else if (!this.userUuid.equals(other.userUuid))
+            return false;
+        if (this.note == null) {
+            if (other.note != null)
+                return false;
+        }
+        else if (!this.note.equals(other.note))
+            return false;
+        if (this.token == null) {
+            if (other.token != null)
+                return false;
+        }
+        else if (!this.token.equals(other.token))
+            return false;
+        if (this.permissions == null) {
+            if (other.permissions != null)
+                return false;
+        }
+        else if (!this.permissions.equals(other.permissions))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
+        result = prime * result + ((this.userUuid == null) ? 0 : this.userUuid.hashCode());
+        result = prime * result + ((this.note == null) ? 0 : this.note.hashCode());
+        result = prime * result + ((this.token == null) ? 0 : this.token.hashCode());
+        result = prime * result + ((this.permissions == null) ? 0 : this.permissions.hashCode());
+        return result;
     }
 
     @Override

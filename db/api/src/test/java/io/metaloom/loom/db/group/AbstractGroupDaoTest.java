@@ -2,7 +2,7 @@ package io.metaloom.loom.db.group;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 
@@ -10,13 +10,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import io.metaloom.loom.db.model.group.Group;
-import io.metaloom.loom.db.model.group.GroupDao;
-import io.reactivex.rxjava3.core.Maybe;
+import io.metaloom.loom.db.model.group.LoomGroup;
+import io.metaloom.loom.db.model.group.LoomGroupDao;
 
 public abstract class AbstractGroupDaoTest {
 
-	abstract public GroupDao getDao();
+	abstract public LoomGroupDao getDao();
 
 	@After
 	@Before
@@ -26,49 +25,49 @@ public abstract class AbstractGroupDaoTest {
 
 	@Test
 	public void testCreate() {
-		GroupDao dao = getDao();
+		LoomGroupDao dao = getDao();
 
 		// Create group
-		Group group = dao.createGroup("Guests").blockingGet();
+		LoomGroup group = dao.createGroup("Guests");
 		assertNotNull(group.getUuid());
 		assertEquals("Guests", group.getName());
 	}
 
 	@Test
 	public void testDelete() {
-		GroupDao dao = getDao();
+		LoomGroupDao dao = getDao();
 
 		// Create group
-		Group group = dao.createGroup("Guests").blockingGet();
+		LoomGroup group = dao.createGroup("Guests");
 
 		// Now assert deletion
 		dao.deleteGroup(group.getUuid());
-		assertTrue("The group should be deleted.", dao.loadGroup(group.getUuid()).isEmpty().blockingGet());
+		assertNull("The group should be deleted.", dao.loadGroup(group.getUuid()));
 	}
 
 	@Test
 	public void testUpdate() {
-		GroupDao dao = getDao();
+		LoomGroupDao dao = getDao();
 
 		// Create and store
-		Group group = dao.createGroup("Guests").blockingGet();
+		LoomGroup group = dao.createGroup("Guests");
 
 		// Now update
 		group.setName("Guests2");
 		dao.updateGroup(group);
 
 		// Load and assert update was persisted
-		Maybe<? extends Group> updatedGroup = dao.loadGroup(group.getUuid());
-		assertEquals("Guests2", updatedGroup.blockingGet().getName());
+		LoomGroup updatedGroup = dao.loadGroup(group.getUuid());
+		assertEquals("Guests2", updatedGroup.getName());
 
 	}
 
 	@Test
 	public void testLoad() {
-		GroupDao dao = getDao();
+		LoomGroupDao dao = getDao();
 
 		// Create and store group
-		Group group = dao.createGroup("Guests").blockingGet();
+		LoomGroup group = dao.createGroup("Guests");
 
 		// Now load again
 		assertNotNull(dao.loadGroup(group.getUuid()));

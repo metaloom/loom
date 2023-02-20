@@ -116,4 +116,11 @@ public enum LoomEvent implements EnumType {
     public String getLiteral() {
         return literal;
     }
+
+    /**
+     * Lookup a value of this EnumType by its literal
+     */
+    public static LoomEvent lookupLiteral(String literal) {
+        return EnumType.lookupLiteral(LoomEvent.class, literal);
+    }
 }

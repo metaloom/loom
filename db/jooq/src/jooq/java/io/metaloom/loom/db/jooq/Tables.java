@@ -12,10 +12,12 @@ import io.metaloom.loom.db.jooq.tables.AssetUserMeta;
 import io.metaloom.loom.db.jooq.tables.Content;
 import io.metaloom.loom.db.jooq.tables.ContentUserMeta;
 import io.metaloom.loom.db.jooq.tables.Extension;
+import io.metaloom.loom.db.jooq.tables.Face;
 import io.metaloom.loom.db.jooq.tables.Field;
 import io.metaloom.loom.db.jooq.tables.FieldAsset;
 import io.metaloom.loom.db.jooq.tables.FieldContent;
 import io.metaloom.loom.db.jooq.tables.FieldReference;
+import io.metaloom.loom.db.jooq.tables.FlywaySchemaHistory;
 import io.metaloom.loom.db.jooq.tables.Group;
 import io.metaloom.loom.db.jooq.tables.Language;
 import io.metaloom.loom.db.jooq.tables.Loom;
@@ -25,7 +27,6 @@ import io.metaloom.loom.db.jooq.tables.Namespace;
 import io.metaloom.loom.db.jooq.tables.Role;
 import io.metaloom.loom.db.jooq.tables.RoleGroup;
 import io.metaloom.loom.db.jooq.tables.RolePermission;
-import io.metaloom.loom.db.jooq.tables.SchemaVersion;
 import io.metaloom.loom.db.jooq.tables.Tag;
 import io.metaloom.loom.db.jooq.tables.TagAsset;
 import io.metaloom.loom.db.jooq.tables.TagContent;
@@ -84,6 +85,11 @@ public class Tables {
     public static final Extension EXTENSION = Extension.EXTENSION;
 
     /**
+     * Stores embeddings
+     */
+    public static final Face FACE = Face.FACE;
+
+    /**
      * Table which stores the actual fields content as JSON
      */
     public static final Field FIELD = Field.FIELD;
@@ -102,6 +108,11 @@ public class Tables {
      * This table is mainly used to lookup foreign references to contents
      */
     public static final FieldReference FIELD_REFERENCE = FieldReference.FIELD_REFERENCE;
+
+    /**
+     * The table <code>public.flyway_schema_history</code>.
+     */
+    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>public.group</code>.
@@ -147,11 +158,6 @@ public class Tables {
      * The table <code>public.role_permission</code>.
      */
     public static final RolePermission ROLE_PERMISSION = RolePermission.ROLE_PERMISSION;
-
-    /**
-     * The table <code>public.schema_version</code>.
-     */
-    public static final SchemaVersion SCHEMA_VERSION = SchemaVersion.SCHEMA_VERSION;
 
     /**
      * The table <code>public.tag</code>.

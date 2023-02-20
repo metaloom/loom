@@ -11,13 +11,17 @@ import io.metaloom.loom.db.jooq.tables.records.FieldRecord;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.ForeignKey;
+import org.jooq.Function10;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row10;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -153,6 +157,9 @@ public class Field extends TableImpl<FieldRecord> {
     private transient User _user;
     private transient ModelVersion _modelVersion;
 
+    /**
+     * Get the implicit join path to the <code>public.namespace</code> table.
+     */
     public Namespace namespace() {
         if (_namespace == null)
             _namespace = new Namespace(this, Keys.FIELD__FIELD_CONTENT_UUID_FKEY);
@@ -160,6 +167,9 @@ public class Field extends TableImpl<FieldRecord> {
         return _namespace;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.language</code> table.
+     */
     public Language language() {
         if (_language == null)
             _language = new Language(this, Keys.FIELD__FIELD_LANGUAGE_UUID_FKEY);
@@ -167,6 +177,9 @@ public class Field extends TableImpl<FieldRecord> {
         return _language;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table.
+     */
     public User user() {
         if (_user == null)
             _user = new User(this, Keys.FIELD__FIELD_EDITOR_UUID_FKEY);
@@ -174,6 +187,10 @@ public class Field extends TableImpl<FieldRecord> {
         return _user;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.model_version</code>
+     * table.
+     */
     public ModelVersion modelVersion() {
         if (_modelVersion == null)
             _modelVersion = new ModelVersion(this, Keys.FIELD__FIELD_MODELVERSION_UUID_FKEY);
@@ -189,6 +206,11 @@ public class Field extends TableImpl<FieldRecord> {
     @Override
     public Field as(Name alias) {
         return new Field(alias, this);
+    }
+
+    @Override
+    public Field as(Table<?> alias) {
+        return new Field(alias.getQualifiedName(), this);
     }
 
     /**
@@ -207,6 +229,14 @@ public class Field extends TableImpl<FieldRecord> {
         return new Field(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Field rename(Table<?> name) {
+        return new Field(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row10 type methods
     // -------------------------------------------------------------------------
@@ -214,5 +244,20 @@ public class Field extends TableImpl<FieldRecord> {
     @Override
     public Row10<java.util.UUID, java.util.UUID, JSONB, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID, Integer> fieldsRow() {
         return (Row10) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function10<? super java.util.UUID, ? super java.util.UUID, ? super JSONB, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super Integer, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function10<? super java.util.UUID, ? super java.util.UUID, ? super JSONB, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super Integer, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

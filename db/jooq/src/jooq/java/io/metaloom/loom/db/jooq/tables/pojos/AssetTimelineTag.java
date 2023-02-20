@@ -63,6 +63,39 @@ public class AssetTimelineTag implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final AssetTimelineTag other = (AssetTimelineTag) obj;
+        if (this.assettimelineUuid == null) {
+            if (other.assettimelineUuid != null)
+                return false;
+        }
+        else if (!this.assettimelineUuid.equals(other.assettimelineUuid))
+            return false;
+        if (this.tagUuid == null) {
+            if (other.tagUuid != null)
+                return false;
+        }
+        else if (!this.tagUuid.equals(other.tagUuid))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.assettimelineUuid == null) ? 0 : this.assettimelineUuid.hashCode());
+        result = prime * result + ((this.tagUuid == null) ? 0 : this.tagUuid.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("AssetTimelineTag (");
 

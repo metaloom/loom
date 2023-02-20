@@ -12,14 +12,18 @@ import io.metaloom.loom.db.jooq.tables.records.ModelRecord;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function7;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row7;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -148,6 +152,10 @@ public class Model extends TableImpl<ModelRecord> {
     private transient User _modelCreatorUuidFkey;
     private transient User _modelEditorUuidFkey;
 
+    /**
+     * Get the implicit join path to the <code>public.model_version</code>
+     * table.
+     */
     public ModelVersion modelVersion() {
         if (_modelVersion == null)
             _modelVersion = new ModelVersion(this, Keys.MODEL__MODEL_LATEST_VERSION_UUID_FKEY);
@@ -155,6 +163,10 @@ public class Model extends TableImpl<ModelRecord> {
         return _modelVersion;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>model_creator_uuid_fkey</code> key.
+     */
     public User modelCreatorUuidFkey() {
         if (_modelCreatorUuidFkey == null)
             _modelCreatorUuidFkey = new User(this, Keys.MODEL__MODEL_CREATOR_UUID_FKEY);
@@ -162,6 +174,10 @@ public class Model extends TableImpl<ModelRecord> {
         return _modelCreatorUuidFkey;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>model_editor_uuid_fkey</code> key.
+     */
     public User modelEditorUuidFkey() {
         if (_modelEditorUuidFkey == null)
             _modelEditorUuidFkey = new User(this, Keys.MODEL__MODEL_EDITOR_UUID_FKEY);
@@ -177,6 +193,11 @@ public class Model extends TableImpl<ModelRecord> {
     @Override
     public Model as(Name alias) {
         return new Model(alias, this);
+    }
+
+    @Override
+    public Model as(Table<?> alias) {
+        return new Model(alias.getQualifiedName(), this);
     }
 
     /**
@@ -195,6 +216,14 @@ public class Model extends TableImpl<ModelRecord> {
         return new Model(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Model rename(Table<?> name) {
+        return new Model(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row7 type methods
     // -------------------------------------------------------------------------
@@ -202,5 +231,20 @@ public class Model extends TableImpl<ModelRecord> {
     @Override
     public Row7<java.util.UUID, String, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row7) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function7<? super java.util.UUID, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super java.util.UUID, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -10,13 +10,17 @@ import io.metaloom.loom.db.jooq.tables.records.ModelVersionRecord;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function5;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row5;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -124,6 +128,9 @@ public class ModelVersion extends TableImpl<ModelVersionRecord> {
     private transient ModelVersion _modelVersionNextVersionUuidFkey;
     private transient ModelVersion _modelVersionPrevVersionUuidFkey;
 
+    /**
+     * Get the implicit join path to the <code>public.model</code> table.
+     */
     public Model model() {
         if (_model == null)
             _model = new Model(this, Keys.MODEL_VERSION__MODEL_VERSION_MODEL_UUID_FKEY);
@@ -131,6 +138,10 @@ public class ModelVersion extends TableImpl<ModelVersionRecord> {
         return _model;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.model_version</code>
+     * table, via the <code>model_version_next_version_uuid_fkey</code> key.
+     */
     public ModelVersion modelVersionNextVersionUuidFkey() {
         if (_modelVersionNextVersionUuidFkey == null)
             _modelVersionNextVersionUuidFkey = new ModelVersion(this, Keys.MODEL_VERSION__MODEL_VERSION_NEXT_VERSION_UUID_FKEY);
@@ -138,6 +149,10 @@ public class ModelVersion extends TableImpl<ModelVersionRecord> {
         return _modelVersionNextVersionUuidFkey;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.model_version</code>
+     * table, via the <code>model_version_prev_version_uuid_fkey</code> key.
+     */
     public ModelVersion modelVersionPrevVersionUuidFkey() {
         if (_modelVersionPrevVersionUuidFkey == null)
             _modelVersionPrevVersionUuidFkey = new ModelVersion(this, Keys.MODEL_VERSION__MODEL_VERSION_PREV_VERSION_UUID_FKEY);
@@ -153,6 +168,11 @@ public class ModelVersion extends TableImpl<ModelVersionRecord> {
     @Override
     public ModelVersion as(Name alias) {
         return new ModelVersion(alias, this);
+    }
+
+    @Override
+    public ModelVersion as(Table<?> alias) {
+        return new ModelVersion(alias.getQualifiedName(), this);
     }
 
     /**
@@ -171,6 +191,14 @@ public class ModelVersion extends TableImpl<ModelVersionRecord> {
         return new ModelVersion(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public ModelVersion rename(Table<?> name) {
+        return new ModelVersion(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row5 type methods
     // -------------------------------------------------------------------------
@@ -178,5 +206,20 @@ public class ModelVersion extends TableImpl<ModelVersionRecord> {
     @Override
     public Row5<java.util.UUID, java.util.UUID, String, java.util.UUID, java.util.UUID> fieldsRow() {
         return (Row5) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function5<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

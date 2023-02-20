@@ -8,6 +8,7 @@ import io.metaloom.loom.db.jooq.tables.AssetTimeline;
 import io.metaloom.loom.db.jooq.tables.records.AssetTimelineRecord;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -60,6 +61,13 @@ public class AssetTimelineDao extends DAOImpl<AssetTimelineRecord, io.metaloom.l
      */
     public io.metaloom.loom.db.jooq.tables.pojos.AssetTimeline fetchOneByUuid(UUID value) {
         return fetchOne(AssetTimeline.ASSET_TIMELINE.UUID, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.AssetTimeline> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(AssetTimeline.ASSET_TIMELINE.UUID, value);
     }
 
     /**

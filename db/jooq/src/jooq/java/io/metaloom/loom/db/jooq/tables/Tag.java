@@ -12,15 +12,19 @@ import io.metaloom.loom.db.jooq.tables.records.TagRecord;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function10;
 import org.jooq.Index;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row10;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -160,6 +164,9 @@ public class Tag extends TableImpl<TagRecord> {
     private transient User _tagCreatorUuidFkey;
     private transient User _tagEditorUuidFkey;
 
+    /**
+     * Get the implicit join path to the <code>public.namespace</code> table.
+     */
     public Namespace namespace() {
         if (_namespace == null)
             _namespace = new Namespace(this, Keys.TAG__TAG_NAMESPACE_UUID_FKEY);
@@ -167,6 +174,10 @@ public class Tag extends TableImpl<TagRecord> {
         return _namespace;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>tag_creator_uuid_fkey</code> key.
+     */
     public User tagCreatorUuidFkey() {
         if (_tagCreatorUuidFkey == null)
             _tagCreatorUuidFkey = new User(this, Keys.TAG__TAG_CREATOR_UUID_FKEY);
@@ -174,6 +185,10 @@ public class Tag extends TableImpl<TagRecord> {
         return _tagCreatorUuidFkey;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>tag_editor_uuid_fkey</code> key.
+     */
     public User tagEditorUuidFkey() {
         if (_tagEditorUuidFkey == null)
             _tagEditorUuidFkey = new User(this, Keys.TAG__TAG_EDITOR_UUID_FKEY);
@@ -189,6 +204,11 @@ public class Tag extends TableImpl<TagRecord> {
     @Override
     public Tag as(Name alias) {
         return new Tag(alias, this);
+    }
+
+    @Override
+    public Tag as(Table<?> alias) {
+        return new Tag(alias.getQualifiedName(), this);
     }
 
     /**
@@ -207,6 +227,14 @@ public class Tag extends TableImpl<TagRecord> {
         return new Tag(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Tag rename(Table<?> name) {
+        return new Tag(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row10 type methods
     // -------------------------------------------------------------------------
@@ -214,5 +242,20 @@ public class Tag extends TableImpl<TagRecord> {
     @Override
     public Row10<java.util.UUID, String, String, java.util.UUID, JSONB, Integer, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row10) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function10<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super JSONB, ? super Integer, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function10<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super JSONB, ? super Integer, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -8,12 +8,17 @@ import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.Public;
 import io.metaloom.loom.db.jooq.tables.records.AssetBinarieRecord;
 
+import java.util.function.Function;
+
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function8;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row8;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -140,6 +145,11 @@ public class AssetBinarie extends TableImpl<AssetBinarieRecord> {
         return new AssetBinarie(alias, this);
     }
 
+    @Override
+    public AssetBinarie as(Table<?> alias) {
+        return new AssetBinarie(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -156,6 +166,14 @@ public class AssetBinarie extends TableImpl<AssetBinarieRecord> {
         return new AssetBinarie(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public AssetBinarie rename(Table<?> name) {
+        return new AssetBinarie(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row8 type methods
     // -------------------------------------------------------------------------
@@ -163,5 +181,20 @@ public class AssetBinarie extends TableImpl<AssetBinarieRecord> {
     @Override
     public Row8<java.util.UUID, String, Long, String, String, Integer, Integer, String> fieldsRow() {
         return (Row8) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function8<? super java.util.UUID, ? super String, ? super Long, ? super String, ? super String, ? super Integer, ? super Integer, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super java.util.UUID, ? super String, ? super Long, ? super String, ? super String, ? super Integer, ? super Integer, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

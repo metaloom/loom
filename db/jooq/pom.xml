@@ -15,7 +15,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jooq.version>3.16.1</jooq.version>
+		<jooq.version>3.17.8</jooq.version>
 		<db.url>jdbc:postgresql://localhost:5432/postgres</db.url>
 		<db.username>postgres</db.username>
 		<db.password>finger</db.password>
@@ -139,6 +139,7 @@
 
 						<executions>
 							<execution>
+								<id>jooq-codegen</id>
 								<phase>generate-sources</phase>
 								<goals>
 									<goal>generate</goal>
@@ -188,13 +189,6 @@
 									<inputSchema>public</inputSchema>
 									<outputSchema>public</outputSchema>
 									<unsignedTypes>false</unsignedTypes>
-									<forcedTypes>
-										<!-- Convert tinyint to boolean -->
-										<forcedType>
-											<name>BOOLEAN</name>
-											<types>(?i:TINYINT)</types>
-										</forcedType>
-									</forcedTypes>
 								</database>
 								<target>
 									<packageName>io.metaloom.loom.db.jooq</packageName>

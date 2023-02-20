@@ -16,8 +16,8 @@ public class FieldAsset implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID   fieldUuid;
-    private UUID   assetUuid;
+    private UUID fieldUuid;
+    private UUID assetUuid;
     private String fieldName;
 
     public FieldAsset() {}
@@ -29,8 +29,8 @@ public class FieldAsset implements Serializable {
     }
 
     public FieldAsset(
-        UUID   fieldUuid,
-        UUID   assetUuid,
+        UUID fieldUuid,
+        UUID assetUuid,
         String fieldName
     ) {
         this.fieldUuid = fieldUuid;
@@ -78,6 +78,46 @@ public class FieldAsset implements Serializable {
      */
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final FieldAsset other = (FieldAsset) obj;
+        if (this.fieldUuid == null) {
+            if (other.fieldUuid != null)
+                return false;
+        }
+        else if (!this.fieldUuid.equals(other.fieldUuid))
+            return false;
+        if (this.assetUuid == null) {
+            if (other.assetUuid != null)
+                return false;
+        }
+        else if (!this.assetUuid.equals(other.assetUuid))
+            return false;
+        if (this.fieldName == null) {
+            if (other.fieldName != null)
+                return false;
+        }
+        else if (!this.fieldName.equals(other.fieldName))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.fieldUuid == null) ? 0 : this.fieldUuid.hashCode());
+        result = prime * result + ((this.assetUuid == null) ? 0 : this.assetUuid.hashCode());
+        result = prime * result + ((this.fieldName == null) ? 0 : this.fieldName.hashCode());
+        return result;
     }
 
     @Override

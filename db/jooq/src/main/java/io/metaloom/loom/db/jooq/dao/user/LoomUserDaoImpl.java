@@ -2,9 +2,9 @@ package io.metaloom.loom.db.jooq.dao.user;
 
 import static io.metaloom.loom.db.jooq.tables.User.USER;
 
-import java.io.IOException;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,7 +17,6 @@ import io.metaloom.loom.db.jooq.tables.daos.UserDao;
 import io.metaloom.loom.db.jooq.tables.pojos.User;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.LoomUserDao;
-import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Scheduler;
@@ -27,70 +26,45 @@ import io.reactivex.rxjava3.core.Single;
 public class LoomUserDaoImpl extends AbstractDao implements LoomUserDao {
 
 	private UserDao userDao;
-	private DSLContext ctx;
 	private Scheduler scheduler;
 
 	@Inject
-	public LoomUserDaoImpl(UserDao userDao, DSLContext context, @Named("jooq") Scheduler scheduler) {
+	public LoomUserDaoImpl(UserDao userDao, DSLContext ctx, @Named("jooq") Scheduler scheduler) {
+		super(ctx);
 		this.userDao = userDao;
-		this.ctx = context;
 		this.scheduler = scheduler;
 	}
 
 	@Override
-	public Completable clear() throws IOException {
-		return Completable.create(sub -> {
-			ctx.deleteFrom(USER).execute();
-			sub.onComplete();
-		}).subscribeOn(scheduler);
+	public void clear() {
+		context().deleteFrom(USER).execute();
 	}
 
 	@Override
-	public Single<? extends LoomUser> createUser(String username, Consumer<LoomUser> modifier) {
-		Single<? extends LoomUser> result = Single.create(sub -> {
-			try {
-				User u = new User();
-				u.setUuid(UUID.randomUUID());
-				u.setUsername("dummy");
-				userDao.insert(u);
-				sub.onSuccess(new LoomUserImpl(u));
-			} catch (Throwable e) {
-				sub.onError(e);
-			}
-		});
-		return result.subscribeOn(scheduler);
+	public LoomUser createUser(String username, Consumer<LoomUser> modifier) {
+		User u = new User();
+		u.setUuid(UUID.randomUUID());
+		u.setUsername("dummy");
+		userDao.insert(u);
+		return new LoomUserImpl(u);
 	}
 
 	@Override
-	public Maybe<? extends LoomUser> loadUser(UUID uuid) {
-		Maybe<? extends LoomUser> result = Maybe.create(sub -> {
-			try {
-				User user = userDao.findById(uuid);
-				if (user == null) {
-					sub.onComplete();
-				} else {
-					sub.onSuccess(new LoomUserImpl(user));
-				}
-			} catch (Throwable t) {
-				sub.onError(t);
-			}
-		});
-		return result.subscribeOn(scheduler);
+	public LoomUser loadUser(UUID uuid) {
+		User user = userDao.findById(uuid);
+		return new LoomUserImpl(user);
 	}
 
 	@Override
-	public Completable updateUser(LoomUser user) {
-		return null;
+	public void updateUser(LoomUser user) {
 	}
 
 	@Override
-	public Completable deleteUser(LoomUser user) {
-		return null;
+	public void deleteUser(LoomUser user) {
 	}
 
 	@Override
-	public Observable<LoomUser> findAll() {
-		Observable<LoomUser> result = Single.just(userDao.findAll()).flatMapObservable(Observable::fromIterable).map(LoomUserImpl::new);
-		return result.observeOn(scheduler);
+	public Stream<LoomUser> findAll() {
+		return userDao.findAll().stream().map(LoomUserImpl::new);
 	}
 }

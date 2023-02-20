@@ -16,8 +16,8 @@ public class RolePermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID    roleUuid;
-    private UUID    elementUuid;
+    private UUID roleUuid;
+    private UUID elementUuid;
     private Boolean createPerm;
     private Boolean readPerm;
     private Boolean deletePerm;
@@ -39,8 +39,8 @@ public class RolePermission implements Serializable {
     }
 
     public RolePermission(
-        UUID    roleUuid,
-        UUID    elementUuid,
+        UUID roleUuid,
+        UUID elementUuid,
         Boolean createPerm,
         Boolean readPerm,
         Boolean deletePerm,
@@ -168,6 +168,81 @@ public class RolePermission implements Serializable {
      */
     public void setPublishPerm(Boolean publishPerm) {
         this.publishPerm = publishPerm;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final RolePermission other = (RolePermission) obj;
+        if (this.roleUuid == null) {
+            if (other.roleUuid != null)
+                return false;
+        }
+        else if (!this.roleUuid.equals(other.roleUuid))
+            return false;
+        if (this.elementUuid == null) {
+            if (other.elementUuid != null)
+                return false;
+        }
+        else if (!this.elementUuid.equals(other.elementUuid))
+            return false;
+        if (this.createPerm == null) {
+            if (other.createPerm != null)
+                return false;
+        }
+        else if (!this.createPerm.equals(other.createPerm))
+            return false;
+        if (this.readPerm == null) {
+            if (other.readPerm != null)
+                return false;
+        }
+        else if (!this.readPerm.equals(other.readPerm))
+            return false;
+        if (this.deletePerm == null) {
+            if (other.deletePerm != null)
+                return false;
+        }
+        else if (!this.deletePerm.equals(other.deletePerm))
+            return false;
+        if (this.updatePerm == null) {
+            if (other.updatePerm != null)
+                return false;
+        }
+        else if (!this.updatePerm.equals(other.updatePerm))
+            return false;
+        if (this.readPublishPerm == null) {
+            if (other.readPublishPerm != null)
+                return false;
+        }
+        else if (!this.readPublishPerm.equals(other.readPublishPerm))
+            return false;
+        if (this.publishPerm == null) {
+            if (other.publishPerm != null)
+                return false;
+        }
+        else if (!this.publishPerm.equals(other.publishPerm))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.roleUuid == null) ? 0 : this.roleUuid.hashCode());
+        result = prime * result + ((this.elementUuid == null) ? 0 : this.elementUuid.hashCode());
+        result = prime * result + ((this.createPerm == null) ? 0 : this.createPerm.hashCode());
+        result = prime * result + ((this.readPerm == null) ? 0 : this.readPerm.hashCode());
+        result = prime * result + ((this.deletePerm == null) ? 0 : this.deletePerm.hashCode());
+        result = prime * result + ((this.updatePerm == null) ? 0 : this.updatePerm.hashCode());
+        result = prime * result + ((this.readPublishPerm == null) ? 0 : this.readPublishPerm.hashCode());
+        result = prime * result + ((this.publishPerm == null) ? 0 : this.publishPerm.hashCode());
+        return result;
     }
 
     @Override

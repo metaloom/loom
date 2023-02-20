@@ -16,14 +16,14 @@ public class AssetBinarie implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID    uuid;
-    private String  sha512sum;
-    private Long    size;
-    private String  sha256sum;
-    private String  md5sum;
+    private UUID uuid;
+    private String sha512sum;
+    private Long size;
+    private String sha256sum;
+    private String md5sum;
     private Integer mediaWidth;
     private Integer mediaHeight;
-    private String  fingerprint;
+    private String fingerprint;
 
     public AssetBinarie() {}
 
@@ -39,14 +39,14 @@ public class AssetBinarie implements Serializable {
     }
 
     public AssetBinarie(
-        UUID    uuid,
-        String  sha512sum,
-        Long    size,
-        String  sha256sum,
-        String  md5sum,
+        UUID uuid,
+        String sha512sum,
+        Long size,
+        String sha256sum,
+        String md5sum,
         Integer mediaWidth,
         Integer mediaHeight,
-        String  fingerprint
+        String fingerprint
     ) {
         this.uuid = uuid;
         this.sha512sum = sha512sum;
@@ -174,6 +174,81 @@ public class AssetBinarie implements Serializable {
      */
     public void setFingerprint(String fingerprint) {
         this.fingerprint = fingerprint;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final AssetBinarie other = (AssetBinarie) obj;
+        if (this.uuid == null) {
+            if (other.uuid != null)
+                return false;
+        }
+        else if (!this.uuid.equals(other.uuid))
+            return false;
+        if (this.sha512sum == null) {
+            if (other.sha512sum != null)
+                return false;
+        }
+        else if (!this.sha512sum.equals(other.sha512sum))
+            return false;
+        if (this.size == null) {
+            if (other.size != null)
+                return false;
+        }
+        else if (!this.size.equals(other.size))
+            return false;
+        if (this.sha256sum == null) {
+            if (other.sha256sum != null)
+                return false;
+        }
+        else if (!this.sha256sum.equals(other.sha256sum))
+            return false;
+        if (this.md5sum == null) {
+            if (other.md5sum != null)
+                return false;
+        }
+        else if (!this.md5sum.equals(other.md5sum))
+            return false;
+        if (this.mediaWidth == null) {
+            if (other.mediaWidth != null)
+                return false;
+        }
+        else if (!this.mediaWidth.equals(other.mediaWidth))
+            return false;
+        if (this.mediaHeight == null) {
+            if (other.mediaHeight != null)
+                return false;
+        }
+        else if (!this.mediaHeight.equals(other.mediaHeight))
+            return false;
+        if (this.fingerprint == null) {
+            if (other.fingerprint != null)
+                return false;
+        }
+        else if (!this.fingerprint.equals(other.fingerprint))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
+        result = prime * result + ((this.sha512sum == null) ? 0 : this.sha512sum.hashCode());
+        result = prime * result + ((this.size == null) ? 0 : this.size.hashCode());
+        result = prime * result + ((this.sha256sum == null) ? 0 : this.sha256sum.hashCode());
+        result = prime * result + ((this.md5sum == null) ? 0 : this.md5sum.hashCode());
+        result = prime * result + ((this.mediaWidth == null) ? 0 : this.mediaWidth.hashCode());
+        result = prime * result + ((this.mediaHeight == null) ? 0 : this.mediaHeight.hashCode());
+        result = prime * result + ((this.fingerprint == null) ? 0 : this.fingerprint.hashCode());
+        return result;
     }
 
     @Override

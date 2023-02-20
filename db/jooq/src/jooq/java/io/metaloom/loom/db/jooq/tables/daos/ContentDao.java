@@ -9,6 +9,7 @@ import io.metaloom.loom.db.jooq.tables.records.ContentRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -61,6 +62,13 @@ public class ContentDao extends DAOImpl<ContentRecord, io.metaloom.loom.db.jooq.
      */
     public io.metaloom.loom.db.jooq.tables.pojos.Content fetchOneByUuid(UUID value) {
         return fetchOne(Content.CONTENT.UUID, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Content> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(Content.CONTENT.UUID, value);
     }
 
     /**

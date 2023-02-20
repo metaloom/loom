@@ -63,6 +63,39 @@ public class RoleGroup implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final RoleGroup other = (RoleGroup) obj;
+        if (this.groupUuid == null) {
+            if (other.groupUuid != null)
+                return false;
+        }
+        else if (!this.groupUuid.equals(other.groupUuid))
+            return false;
+        if (this.roleUuid == null) {
+            if (other.roleUuid != null)
+                return false;
+        }
+        else if (!this.roleUuid.equals(other.roleUuid))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.groupUuid == null) ? 0 : this.groupUuid.hashCode());
+        result = prime * result + ((this.roleUuid == null) ? 0 : this.roleUuid.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("RoleGroup (");
 

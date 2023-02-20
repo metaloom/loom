@@ -12,14 +12,18 @@ import io.metaloom.loom.db.jooq.tables.records.WebhookRecord;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function11;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row11;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -159,6 +163,10 @@ public class Webhook extends TableImpl<WebhookRecord> {
     private transient User _webhookCreatorUuidFkey;
     private transient User _webhookEditorUuidFkey;
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>webhook_creator_uuid_fkey</code> key.
+     */
     public User webhookCreatorUuidFkey() {
         if (_webhookCreatorUuidFkey == null)
             _webhookCreatorUuidFkey = new User(this, Keys.WEBHOOK__WEBHOOK_CREATOR_UUID_FKEY);
@@ -166,6 +174,10 @@ public class Webhook extends TableImpl<WebhookRecord> {
         return _webhookCreatorUuidFkey;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>webhook_editor_uuid_fkey</code> key.
+     */
     public User webhookEditorUuidFkey() {
         if (_webhookEditorUuidFkey == null)
             _webhookEditorUuidFkey = new User(this, Keys.WEBHOOK__WEBHOOK_EDITOR_UUID_FKEY);
@@ -181,6 +193,11 @@ public class Webhook extends TableImpl<WebhookRecord> {
     @Override
     public Webhook as(Name alias) {
         return new Webhook(alias, this);
+    }
+
+    @Override
+    public Webhook as(Table<?> alias) {
+        return new Webhook(alias.getQualifiedName(), this);
     }
 
     /**
@@ -199,6 +216,14 @@ public class Webhook extends TableImpl<WebhookRecord> {
         return new Webhook(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Webhook rename(Table<?> name) {
+        return new Webhook(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row11 type methods
     // -------------------------------------------------------------------------
@@ -206,5 +231,20 @@ public class Webhook extends TableImpl<WebhookRecord> {
     @Override
     public Row11<java.util.UUID, String, String, Boolean, LoomEvent, String, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row11) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function11<? super java.util.UUID, ? super String, ? super String, ? super Boolean, ? super LoomEvent, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super java.util.UUID, ? super String, ? super String, ? super Boolean, ? super LoomEvent, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

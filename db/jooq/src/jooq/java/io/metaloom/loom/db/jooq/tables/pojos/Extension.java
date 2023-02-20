@@ -21,15 +21,15 @@ public class Extension implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID              uuid;
-    private String            url;
+    private UUID uuid;
+    private String url;
     private LoomExtensionType kind;
-    private String            status;
-    private JSONB             meta;
-    private LocalDateTime     created;
-    private UUID              creatorUuid;
-    private LocalDateTime     edited;
-    private UUID              editorUuid;
+    private String status;
+    private JSONB meta;
+    private LocalDateTime created;
+    private UUID creatorUuid;
+    private LocalDateTime edited;
+    private UUID editorUuid;
 
     public Extension() {}
 
@@ -46,15 +46,15 @@ public class Extension implements Serializable {
     }
 
     public Extension(
-        UUID              uuid,
-        String            url,
+        UUID uuid,
+        String url,
         LoomExtensionType kind,
-        String            status,
-        JSONB             meta,
-        LocalDateTime     created,
-        UUID              creatorUuid,
-        LocalDateTime     edited,
-        UUID              editorUuid
+        String status,
+        JSONB meta,
+        LocalDateTime created,
+        UUID creatorUuid,
+        LocalDateTime edited,
+        UUID editorUuid
     ) {
         this.uuid = uuid;
         this.url = url;
@@ -195,6 +195,88 @@ public class Extension implements Serializable {
      */
     public void setEditorUuid(UUID editorUuid) {
         this.editorUuid = editorUuid;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Extension other = (Extension) obj;
+        if (this.uuid == null) {
+            if (other.uuid != null)
+                return false;
+        }
+        else if (!this.uuid.equals(other.uuid))
+            return false;
+        if (this.url == null) {
+            if (other.url != null)
+                return false;
+        }
+        else if (!this.url.equals(other.url))
+            return false;
+        if (this.kind == null) {
+            if (other.kind != null)
+                return false;
+        }
+        else if (!this.kind.equals(other.kind))
+            return false;
+        if (this.status == null) {
+            if (other.status != null)
+                return false;
+        }
+        else if (!this.status.equals(other.status))
+            return false;
+        if (this.meta == null) {
+            if (other.meta != null)
+                return false;
+        }
+        else if (!this.meta.equals(other.meta))
+            return false;
+        if (this.created == null) {
+            if (other.created != null)
+                return false;
+        }
+        else if (!this.created.equals(other.created))
+            return false;
+        if (this.creatorUuid == null) {
+            if (other.creatorUuid != null)
+                return false;
+        }
+        else if (!this.creatorUuid.equals(other.creatorUuid))
+            return false;
+        if (this.edited == null) {
+            if (other.edited != null)
+                return false;
+        }
+        else if (!this.edited.equals(other.edited))
+            return false;
+        if (this.editorUuid == null) {
+            if (other.editorUuid != null)
+                return false;
+        }
+        else if (!this.editorUuid.equals(other.editorUuid))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
+        result = prime * result + ((this.url == null) ? 0 : this.url.hashCode());
+        result = prime * result + ((this.kind == null) ? 0 : this.kind.hashCode());
+        result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
+        result = prime * result + ((this.meta == null) ? 0 : this.meta.hashCode());
+        result = prime * result + ((this.created == null) ? 0 : this.created.hashCode());
+        result = prime * result + ((this.creatorUuid == null) ? 0 : this.creatorUuid.hashCode());
+        result = prime * result + ((this.edited == null) ? 0 : this.edited.hashCode());
+        result = prime * result + ((this.editorUuid == null) ? 0 : this.editorUuid.hashCode());
+        return result;
     }
 
     @Override

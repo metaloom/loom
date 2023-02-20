@@ -16,8 +16,8 @@ public class FieldReference implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID   sourceUuid;
-    private UUID   targetUuid;
+    private UUID sourceUuid;
+    private UUID targetUuid;
     private String fieldName;
 
     public FieldReference() {}
@@ -29,8 +29,8 @@ public class FieldReference implements Serializable {
     }
 
     public FieldReference(
-        UUID   sourceUuid,
-        UUID   targetUuid,
+        UUID sourceUuid,
+        UUID targetUuid,
         String fieldName
     ) {
         this.sourceUuid = sourceUuid;
@@ -80,6 +80,46 @@ public class FieldReference implements Serializable {
      */
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final FieldReference other = (FieldReference) obj;
+        if (this.sourceUuid == null) {
+            if (other.sourceUuid != null)
+                return false;
+        }
+        else if (!this.sourceUuid.equals(other.sourceUuid))
+            return false;
+        if (this.targetUuid == null) {
+            if (other.targetUuid != null)
+                return false;
+        }
+        else if (!this.targetUuid.equals(other.targetUuid))
+            return false;
+        if (this.fieldName == null) {
+            if (other.fieldName != null)
+                return false;
+        }
+        else if (!this.fieldName.equals(other.fieldName))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.sourceUuid == null) ? 0 : this.sourceUuid.hashCode());
+        result = prime * result + ((this.targetUuid == null) ? 0 : this.targetUuid.hashCode());
+        result = prime * result + ((this.fieldName == null) ? 0 : this.fieldName.hashCode());
+        return result;
     }
 
     @Override

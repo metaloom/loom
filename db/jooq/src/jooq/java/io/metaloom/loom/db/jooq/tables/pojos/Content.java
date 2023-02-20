@@ -19,15 +19,15 @@ public class Content implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID          uuid;
-    private UUID          namespaceUuid;
-    private UUID          parent;
+    private UUID uuid;
+    private UUID namespaceUuid;
+    private UUID parent;
     private LocalDateTime created;
-    private UUID          creatorUuid;
+    private UUID creatorUuid;
     private LocalDateTime edited;
-    private UUID          editorUuid;
-    private JSONB         meta;
-    private UUID          modelUuid;
+    private UUID editorUuid;
+    private JSONB meta;
+    private UUID modelUuid;
 
     public Content() {}
 
@@ -44,15 +44,15 @@ public class Content implements Serializable {
     }
 
     public Content(
-        UUID          uuid,
-        UUID          namespaceUuid,
-        UUID          parent,
+        UUID uuid,
+        UUID namespaceUuid,
+        UUID parent,
         LocalDateTime created,
-        UUID          creatorUuid,
+        UUID creatorUuid,
         LocalDateTime edited,
-        UUID          editorUuid,
-        JSONB         meta,
-        UUID          modelUuid
+        UUID editorUuid,
+        JSONB meta,
+        UUID modelUuid
     ) {
         this.uuid = uuid;
         this.namespaceUuid = namespaceUuid;
@@ -191,6 +191,88 @@ public class Content implements Serializable {
      */
     public void setModelUuid(UUID modelUuid) {
         this.modelUuid = modelUuid;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Content other = (Content) obj;
+        if (this.uuid == null) {
+            if (other.uuid != null)
+                return false;
+        }
+        else if (!this.uuid.equals(other.uuid))
+            return false;
+        if (this.namespaceUuid == null) {
+            if (other.namespaceUuid != null)
+                return false;
+        }
+        else if (!this.namespaceUuid.equals(other.namespaceUuid))
+            return false;
+        if (this.parent == null) {
+            if (other.parent != null)
+                return false;
+        }
+        else if (!this.parent.equals(other.parent))
+            return false;
+        if (this.created == null) {
+            if (other.created != null)
+                return false;
+        }
+        else if (!this.created.equals(other.created))
+            return false;
+        if (this.creatorUuid == null) {
+            if (other.creatorUuid != null)
+                return false;
+        }
+        else if (!this.creatorUuid.equals(other.creatorUuid))
+            return false;
+        if (this.edited == null) {
+            if (other.edited != null)
+                return false;
+        }
+        else if (!this.edited.equals(other.edited))
+            return false;
+        if (this.editorUuid == null) {
+            if (other.editorUuid != null)
+                return false;
+        }
+        else if (!this.editorUuid.equals(other.editorUuid))
+            return false;
+        if (this.meta == null) {
+            if (other.meta != null)
+                return false;
+        }
+        else if (!this.meta.equals(other.meta))
+            return false;
+        if (this.modelUuid == null) {
+            if (other.modelUuid != null)
+                return false;
+        }
+        else if (!this.modelUuid.equals(other.modelUuid))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
+        result = prime * result + ((this.namespaceUuid == null) ? 0 : this.namespaceUuid.hashCode());
+        result = prime * result + ((this.parent == null) ? 0 : this.parent.hashCode());
+        result = prime * result + ((this.created == null) ? 0 : this.created.hashCode());
+        result = prime * result + ((this.creatorUuid == null) ? 0 : this.creatorUuid.hashCode());
+        result = prime * result + ((this.edited == null) ? 0 : this.edited.hashCode());
+        result = prime * result + ((this.editorUuid == null) ? 0 : this.editorUuid.hashCode());
+        result = prime * result + ((this.meta == null) ? 0 : this.meta.hashCode());
+        result = prime * result + ((this.modelUuid == null) ? 0 : this.modelUuid.hashCode());
+        return result;
     }
 
     @Override

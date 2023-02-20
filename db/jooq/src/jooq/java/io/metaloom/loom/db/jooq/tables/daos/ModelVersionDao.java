@@ -8,6 +8,7 @@ import io.metaloom.loom.db.jooq.tables.ModelVersion;
 import io.metaloom.loom.db.jooq.tables.records.ModelVersionRecord;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -59,6 +60,13 @@ public class ModelVersionDao extends DAOImpl<ModelVersionRecord, io.metaloom.loo
      */
     public io.metaloom.loom.db.jooq.tables.pojos.ModelVersion fetchOneByUuid(UUID value) {
         return fetchOne(ModelVersion.MODEL_VERSION.UUID, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.ModelVersion> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(ModelVersion.MODEL_VERSION.UUID, value);
     }
 
     /**

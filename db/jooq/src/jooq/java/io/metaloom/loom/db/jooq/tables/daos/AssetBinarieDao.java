@@ -8,6 +8,7 @@ import io.metaloom.loom.db.jooq.tables.AssetBinarie;
 import io.metaloom.loom.db.jooq.tables.records.AssetBinarieRecord;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -59,6 +60,13 @@ public class AssetBinarieDao extends DAOImpl<AssetBinarieRecord, io.metaloom.loo
      */
     public io.metaloom.loom.db.jooq.tables.pojos.AssetBinarie fetchOneByUuid(UUID value) {
         return fetchOne(AssetBinarie.ASSET_BINARIE.UUID, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.AssetBinarie> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(AssetBinarie.ASSET_BINARIE.UUID, value);
     }
 
     /**

@@ -63,6 +63,39 @@ public class UserGroup implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final UserGroup other = (UserGroup) obj;
+        if (this.userUuid == null) {
+            if (other.userUuid != null)
+                return false;
+        }
+        else if (!this.userUuid.equals(other.userUuid))
+            return false;
+        if (this.groupUuid == null) {
+            if (other.groupUuid != null)
+                return false;
+        }
+        else if (!this.groupUuid.equals(other.groupUuid))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.userUuid == null) ? 0 : this.userUuid.hashCode());
+        result = prime * result + ((this.groupUuid == null) ? 0 : this.groupUuid.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("UserGroup (");
 

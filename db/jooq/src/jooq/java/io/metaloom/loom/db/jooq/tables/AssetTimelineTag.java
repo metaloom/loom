@@ -11,13 +11,17 @@ import io.metaloom.loom.db.jooq.tables.records.AssetTimelineTagRecord;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function2;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row2;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -103,6 +107,10 @@ public class AssetTimelineTag extends TableImpl<AssetTimelineTagRecord> {
     private transient AssetTimeline _assetTimeline;
     private transient Tag _tag;
 
+    /**
+     * Get the implicit join path to the <code>public.asset_timeline</code>
+     * table.
+     */
     public AssetTimeline assetTimeline() {
         if (_assetTimeline == null)
             _assetTimeline = new AssetTimeline(this, Keys.ASSET_TIMELINE_TAG__ASSET_TIMELINE_TAG_ASSETTIMELINE_UUID_FKEY);
@@ -110,6 +118,9 @@ public class AssetTimelineTag extends TableImpl<AssetTimelineTagRecord> {
         return _assetTimeline;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.tag</code> table.
+     */
     public Tag tag() {
         if (_tag == null)
             _tag = new Tag(this, Keys.ASSET_TIMELINE_TAG__ASSET_TIMELINE_TAG_TAG_UUID_FKEY);
@@ -125,6 +136,11 @@ public class AssetTimelineTag extends TableImpl<AssetTimelineTagRecord> {
     @Override
     public AssetTimelineTag as(Name alias) {
         return new AssetTimelineTag(alias, this);
+    }
+
+    @Override
+    public AssetTimelineTag as(Table<?> alias) {
+        return new AssetTimelineTag(alias.getQualifiedName(), this);
     }
 
     /**
@@ -143,6 +159,14 @@ public class AssetTimelineTag extends TableImpl<AssetTimelineTagRecord> {
         return new AssetTimelineTag(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public AssetTimelineTag rename(Table<?> name) {
+        return new AssetTimelineTag(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row2 type methods
     // -------------------------------------------------------------------------
@@ -150,5 +174,20 @@ public class AssetTimelineTag extends TableImpl<AssetTimelineTagRecord> {
     @Override
     public Row2<UUID, UUID> fieldsRow() {
         return (Row2) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function2<? super UUID, ? super UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function2<? super UUID, ? super UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -9,6 +9,7 @@ import io.metaloom.loom.db.jooq.tables.UserToken;
 import io.metaloom.loom.db.jooq.tables.records.UserTokenRecord;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -60,6 +61,13 @@ public class UserTokenDao extends DAOImpl<UserTokenRecord, io.metaloom.loom.db.j
      */
     public io.metaloom.loom.db.jooq.tables.pojos.UserToken fetchOneByUuid(UUID value) {
         return fetchOne(UserToken.USER_TOKEN.UUID, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.UserToken> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(UserToken.USER_TOKEN.UUID, value);
     }
 
     /**

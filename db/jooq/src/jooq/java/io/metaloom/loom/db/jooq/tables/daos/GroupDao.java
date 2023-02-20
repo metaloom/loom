@@ -9,6 +9,7 @@ import io.metaloom.loom.db.jooq.tables.records.GroupRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -64,6 +65,13 @@ public class GroupDao extends DAOImpl<GroupRecord, io.metaloom.loom.db.jooq.tabl
     }
 
     /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Group> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(Group.GROUP.UUID, value);
+    }
+
+    /**
      * Fetch records that have <code>name BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
@@ -83,6 +91,13 @@ public class GroupDao extends DAOImpl<GroupRecord, io.metaloom.loom.db.jooq.tabl
      */
     public io.metaloom.loom.db.jooq.tables.pojos.Group fetchOneByName(String value) {
         return fetchOne(Group.GROUP.NAME, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>name = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Group> fetchOptionalByName(String value) {
+        return fetchOptional(Group.GROUP.NAME, value);
     }
 
     /**

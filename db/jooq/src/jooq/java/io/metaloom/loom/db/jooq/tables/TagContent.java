@@ -11,13 +11,17 @@ import io.metaloom.loom.db.jooq.tables.records.TagContentRecord;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function2;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row2;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -109,6 +113,9 @@ public class TagContent extends TableImpl<TagContentRecord> {
     private transient Tag _tag;
     private transient Content _content;
 
+    /**
+     * Get the implicit join path to the <code>public.tag</code> table.
+     */
     public Tag tag() {
         if (_tag == null)
             _tag = new Tag(this, Keys.TAG_CONTENT__TAG_CONTENT_TAG_UUID_FKEY);
@@ -116,6 +123,9 @@ public class TagContent extends TableImpl<TagContentRecord> {
         return _tag;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.content</code> table.
+     */
     public Content content() {
         if (_content == null)
             _content = new Content(this, Keys.TAG_CONTENT__TAG_CONTENT_CONTENT_UUID_FKEY);
@@ -131,6 +141,11 @@ public class TagContent extends TableImpl<TagContentRecord> {
     @Override
     public TagContent as(Name alias) {
         return new TagContent(alias, this);
+    }
+
+    @Override
+    public TagContent as(Table<?> alias) {
+        return new TagContent(alias.getQualifiedName(), this);
     }
 
     /**
@@ -149,6 +164,14 @@ public class TagContent extends TableImpl<TagContentRecord> {
         return new TagContent(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public TagContent rename(Table<?> name) {
+        return new TagContent(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row2 type methods
     // -------------------------------------------------------------------------
@@ -156,5 +179,20 @@ public class TagContent extends TableImpl<TagContentRecord> {
     @Override
     public Row2<UUID, UUID> fieldsRow() {
         return (Row2) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function2<? super UUID, ? super UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function2<? super UUID, ? super UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

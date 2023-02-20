@@ -10,14 +10,18 @@ import io.metaloom.loom.db.jooq.tables.records.AssetTimelineRecord;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function8;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row8;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -138,6 +142,9 @@ public class AssetTimeline extends TableImpl<AssetTimelineRecord> {
 
     private transient Asset _asset;
 
+    /**
+     * Get the implicit join path to the <code>public.asset</code> table.
+     */
     public Asset asset() {
         if (_asset == null)
             _asset = new Asset(this, Keys.ASSET_TIMELINE__ASSET_TIMELINE_ASSET_UUID_FKEY);
@@ -153,6 +160,11 @@ public class AssetTimeline extends TableImpl<AssetTimelineRecord> {
     @Override
     public AssetTimeline as(Name alias) {
         return new AssetTimeline(alias, this);
+    }
+
+    @Override
+    public AssetTimeline as(Table<?> alias) {
+        return new AssetTimeline(alias.getQualifiedName(), this);
     }
 
     /**
@@ -171,6 +183,14 @@ public class AssetTimeline extends TableImpl<AssetTimelineRecord> {
         return new AssetTimeline(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public AssetTimeline rename(Table<?> name) {
+        return new AssetTimeline(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row8 type methods
     // -------------------------------------------------------------------------
@@ -178,5 +198,20 @@ public class AssetTimeline extends TableImpl<AssetTimelineRecord> {
     @Override
     public Row8<java.util.UUID, java.util.UUID, Integer, Integer, String, String, JSONB, String> fieldsRow() {
         return (Row8) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function8<? super java.util.UUID, ? super java.util.UUID, ? super Integer, ? super Integer, ? super String, ? super String, ? super JSONB, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super java.util.UUID, ? super java.util.UUID, ? super Integer, ? super Integer, ? super String, ? super String, ? super JSONB, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

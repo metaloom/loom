@@ -1,9 +1,9 @@
 package io.metaloom.loom.db.model.user;
 
 import io.metaloom.loom.db.CUDElement;
-import io.metaloom.loom.db.MetaElement;
+import io.metaloom.loom.db.LoomMetaElement;
 
-public interface LoomUser extends CUDElement, MetaElement {
+public interface LoomUser extends CUDElement, LoomMetaElement {
 
 	/**
 	 * Return the username.

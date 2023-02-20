@@ -12,14 +12,18 @@ import io.metaloom.loom.db.jooq.tables.records.ExtensionRecord;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function9;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row9;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -148,6 +152,10 @@ public class Extension extends TableImpl<ExtensionRecord> {
     private transient User _extensionCreatorUuidFkey;
     private transient User _extensionEditorUuidFkey;
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>extension_creator_uuid_fkey</code> key.
+     */
     public User extensionCreatorUuidFkey() {
         if (_extensionCreatorUuidFkey == null)
             _extensionCreatorUuidFkey = new User(this, Keys.EXTENSION__EXTENSION_CREATOR_UUID_FKEY);
@@ -155,6 +163,10 @@ public class Extension extends TableImpl<ExtensionRecord> {
         return _extensionCreatorUuidFkey;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>extension_editor_uuid_fkey</code> key.
+     */
     public User extensionEditorUuidFkey() {
         if (_extensionEditorUuidFkey == null)
             _extensionEditorUuidFkey = new User(this, Keys.EXTENSION__EXTENSION_EDITOR_UUID_FKEY);
@@ -170,6 +182,11 @@ public class Extension extends TableImpl<ExtensionRecord> {
     @Override
     public Extension as(Name alias) {
         return new Extension(alias, this);
+    }
+
+    @Override
+    public Extension as(Table<?> alias) {
+        return new Extension(alias.getQualifiedName(), this);
     }
 
     /**
@@ -188,6 +205,14 @@ public class Extension extends TableImpl<ExtensionRecord> {
         return new Extension(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Extension rename(Table<?> name) {
+        return new Extension(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row9 type methods
     // -------------------------------------------------------------------------
@@ -195,5 +220,20 @@ public class Extension extends TableImpl<ExtensionRecord> {
     @Override
     public Row9<java.util.UUID, String, LoomExtensionType, String, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row9) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function9<? super java.util.UUID, ? super String, ? super LoomExtensionType, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super java.util.UUID, ? super String, ? super LoomExtensionType, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

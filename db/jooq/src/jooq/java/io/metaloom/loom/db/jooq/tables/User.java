@@ -13,15 +13,19 @@ import io.metaloom.loom.db.jooq.tables.records.UserRecord;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function14;
 import org.jooq.Index;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row14;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -186,6 +190,10 @@ public class User extends TableImpl<UserRecord> {
     private transient User _userCreatorUuidFkey;
     private transient User _userEditorUuidFkey;
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>user_creator_uuid_fkey</code> key.
+     */
     public User userCreatorUuidFkey() {
         if (_userCreatorUuidFkey == null)
             _userCreatorUuidFkey = new User(this, Keys.USER__USER_CREATOR_UUID_FKEY);
@@ -193,6 +201,10 @@ public class User extends TableImpl<UserRecord> {
         return _userCreatorUuidFkey;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>user_editor_uuid_fkey</code> key.
+     */
     public User userEditorUuidFkey() {
         if (_userEditorUuidFkey == null)
             _userEditorUuidFkey = new User(this, Keys.USER__USER_EDITOR_UUID_FKEY);
@@ -208,6 +220,11 @@ public class User extends TableImpl<UserRecord> {
     @Override
     public User as(Name alias) {
         return new User(alias, this);
+    }
+
+    @Override
+    public User as(Table<?> alias) {
+        return new User(alias.getQualifiedName(), this);
     }
 
     /**
@@ -226,6 +243,14 @@ public class User extends TableImpl<UserRecord> {
         return new User(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public User rename(Table<?> name) {
+        return new User(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row14 type methods
     // -------------------------------------------------------------------------
@@ -233,5 +258,20 @@ public class User extends TableImpl<UserRecord> {
     @Override
     public Row14<java.util.UUID, String, String, String, String, String, Boolean, Boolean, JSONB, LoomPermissionFlag, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row14) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function14<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super JSONB, ? super LoomPermissionFlag, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function14<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super JSONB, ? super LoomPermissionFlag, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

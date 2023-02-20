@@ -8,6 +8,7 @@ import io.metaloom.loom.db.jooq.tables.Language;
 import io.metaloom.loom.db.jooq.tables.records.LanguageRecord;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -63,6 +64,13 @@ public class LanguageDao extends DAOImpl<LanguageRecord, io.metaloom.loom.db.joo
     }
 
     /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Language> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(Language.LANGUAGE.UUID, value);
+    }
+
+    /**
      * Fetch records that have <code>native_name BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
@@ -97,6 +105,13 @@ public class LanguageDao extends DAOImpl<LanguageRecord, io.metaloom.loom.db.joo
      */
     public io.metaloom.loom.db.jooq.tables.pojos.Language fetchOneByTag(String value) {
         return fetchOne(Language.LANGUAGE.TAG, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>tag = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Language> fetchOptionalByTag(String value) {
+        return fetchOptional(Language.LANGUAGE.TAG, value);
     }
 
     /**

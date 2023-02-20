@@ -63,6 +63,39 @@ public class TagAsset implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final TagAsset other = (TagAsset) obj;
+        if (this.tagUuid == null) {
+            if (other.tagUuid != null)
+                return false;
+        }
+        else if (!this.tagUuid.equals(other.tagUuid))
+            return false;
+        if (this.assetUuid == null) {
+            if (other.assetUuid != null)
+                return false;
+        }
+        else if (!this.assetUuid.equals(other.assetUuid))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.tagUuid == null) ? 0 : this.tagUuid.hashCode());
+        result = prime * result + ((this.assetUuid == null) ? 0 : this.assetUuid.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("TagAsset (");
 

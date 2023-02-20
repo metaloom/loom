@@ -20,23 +20,23 @@ public class Asset implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID          uuid;
-    private UUID          assetBinariesUuid;
-    private UUID          namespaceUuid;
-    private String        filename;
-    private String        localpath;
-    private JSONB         meta;
-    private Integer       rating;
-    private String        dominantcolor;
-    private String        mimetype;
-    private BigDecimal    gpsLon;
-    private BigDecimal    gpsLat;
-    private String        s3BucketName;
-    private String        s3ObjectPath;
+    private UUID uuid;
+    private UUID assetBinariesUuid;
+    private UUID namespaceUuid;
+    private String filename;
+    private String localpath;
+    private JSONB meta;
+    private Integer rating;
+    private String dominantcolor;
+    private String mimetype;
+    private BigDecimal gpsLon;
+    private BigDecimal gpsLat;
+    private String s3BucketName;
+    private String s3ObjectPath;
     private LocalDateTime created;
-    private UUID          creatorUuid;
+    private UUID creatorUuid;
     private LocalDateTime edited;
-    private UUID          editorUuid;
+    private UUID editorUuid;
 
     public Asset() {}
 
@@ -61,23 +61,23 @@ public class Asset implements Serializable {
     }
 
     public Asset(
-        UUID          uuid,
-        UUID          assetBinariesUuid,
-        UUID          namespaceUuid,
-        String        filename,
-        String        localpath,
-        JSONB         meta,
-        Integer       rating,
-        String        dominantcolor,
-        String        mimetype,
-        BigDecimal    gpsLon,
-        BigDecimal    gpsLat,
-        String        s3BucketName,
-        String        s3ObjectPath,
+        UUID uuid,
+        UUID assetBinariesUuid,
+        UUID namespaceUuid,
+        String filename,
+        String localpath,
+        JSONB meta,
+        Integer rating,
+        String dominantcolor,
+        String mimetype,
+        BigDecimal gpsLon,
+        BigDecimal gpsLat,
+        String s3BucketName,
+        String s3ObjectPath,
         LocalDateTime created,
-        UUID          creatorUuid,
+        UUID creatorUuid,
         LocalDateTime edited,
-        UUID          editorUuid
+        UUID editorUuid
     ) {
         this.uuid = uuid;
         this.assetBinariesUuid = assetBinariesUuid;
@@ -340,6 +340,144 @@ public class Asset implements Serializable {
      */
     public void setEditorUuid(UUID editorUuid) {
         this.editorUuid = editorUuid;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Asset other = (Asset) obj;
+        if (this.uuid == null) {
+            if (other.uuid != null)
+                return false;
+        }
+        else if (!this.uuid.equals(other.uuid))
+            return false;
+        if (this.assetBinariesUuid == null) {
+            if (other.assetBinariesUuid != null)
+                return false;
+        }
+        else if (!this.assetBinariesUuid.equals(other.assetBinariesUuid))
+            return false;
+        if (this.namespaceUuid == null) {
+            if (other.namespaceUuid != null)
+                return false;
+        }
+        else if (!this.namespaceUuid.equals(other.namespaceUuid))
+            return false;
+        if (this.filename == null) {
+            if (other.filename != null)
+                return false;
+        }
+        else if (!this.filename.equals(other.filename))
+            return false;
+        if (this.localpath == null) {
+            if (other.localpath != null)
+                return false;
+        }
+        else if (!this.localpath.equals(other.localpath))
+            return false;
+        if (this.meta == null) {
+            if (other.meta != null)
+                return false;
+        }
+        else if (!this.meta.equals(other.meta))
+            return false;
+        if (this.rating == null) {
+            if (other.rating != null)
+                return false;
+        }
+        else if (!this.rating.equals(other.rating))
+            return false;
+        if (this.dominantcolor == null) {
+            if (other.dominantcolor != null)
+                return false;
+        }
+        else if (!this.dominantcolor.equals(other.dominantcolor))
+            return false;
+        if (this.mimetype == null) {
+            if (other.mimetype != null)
+                return false;
+        }
+        else if (!this.mimetype.equals(other.mimetype))
+            return false;
+        if (this.gpsLon == null) {
+            if (other.gpsLon != null)
+                return false;
+        }
+        else if (!this.gpsLon.equals(other.gpsLon))
+            return false;
+        if (this.gpsLat == null) {
+            if (other.gpsLat != null)
+                return false;
+        }
+        else if (!this.gpsLat.equals(other.gpsLat))
+            return false;
+        if (this.s3BucketName == null) {
+            if (other.s3BucketName != null)
+                return false;
+        }
+        else if (!this.s3BucketName.equals(other.s3BucketName))
+            return false;
+        if (this.s3ObjectPath == null) {
+            if (other.s3ObjectPath != null)
+                return false;
+        }
+        else if (!this.s3ObjectPath.equals(other.s3ObjectPath))
+            return false;
+        if (this.created == null) {
+            if (other.created != null)
+                return false;
+        }
+        else if (!this.created.equals(other.created))
+            return false;
+        if (this.creatorUuid == null) {
+            if (other.creatorUuid != null)
+                return false;
+        }
+        else if (!this.creatorUuid.equals(other.creatorUuid))
+            return false;
+        if (this.edited == null) {
+            if (other.edited != null)
+                return false;
+        }
+        else if (!this.edited.equals(other.edited))
+            return false;
+        if (this.editorUuid == null) {
+            if (other.editorUuid != null)
+                return false;
+        }
+        else if (!this.editorUuid.equals(other.editorUuid))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
+        result = prime * result + ((this.assetBinariesUuid == null) ? 0 : this.assetBinariesUuid.hashCode());
+        result = prime * result + ((this.namespaceUuid == null) ? 0 : this.namespaceUuid.hashCode());
+        result = prime * result + ((this.filename == null) ? 0 : this.filename.hashCode());
+        result = prime * result + ((this.localpath == null) ? 0 : this.localpath.hashCode());
+        result = prime * result + ((this.meta == null) ? 0 : this.meta.hashCode());
+        result = prime * result + ((this.rating == null) ? 0 : this.rating.hashCode());
+        result = prime * result + ((this.dominantcolor == null) ? 0 : this.dominantcolor.hashCode());
+        result = prime * result + ((this.mimetype == null) ? 0 : this.mimetype.hashCode());
+        result = prime * result + ((this.gpsLon == null) ? 0 : this.gpsLon.hashCode());
+        result = prime * result + ((this.gpsLat == null) ? 0 : this.gpsLat.hashCode());
+        result = prime * result + ((this.s3BucketName == null) ? 0 : this.s3BucketName.hashCode());
+        result = prime * result + ((this.s3ObjectPath == null) ? 0 : this.s3ObjectPath.hashCode());
+        result = prime * result + ((this.created == null) ? 0 : this.created.hashCode());
+        result = prime * result + ((this.creatorUuid == null) ? 0 : this.creatorUuid.hashCode());
+        result = prime * result + ((this.edited == null) ? 0 : this.edited.hashCode());
+        result = prime * result + ((this.editorUuid == null) ? 0 : this.editorUuid.hashCode());
+        return result;
     }
 
     @Override

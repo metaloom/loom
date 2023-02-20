@@ -11,14 +11,18 @@ import io.metaloom.loom.db.jooq.tables.records.ContentRecord;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function9;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row9;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -148,6 +152,9 @@ public class Content extends TableImpl<ContentRecord> {
     private transient User _user;
     private transient Model _model;
 
+    /**
+     * Get the implicit join path to the <code>public.namespace</code> table.
+     */
     public Namespace namespace() {
         if (_namespace == null)
             _namespace = new Namespace(this, Keys.CONTENT__CONTENT_NAMESPACE_UUID_FKEY);
@@ -155,6 +162,9 @@ public class Content extends TableImpl<ContentRecord> {
         return _namespace;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.content</code> table.
+     */
     public Content content() {
         if (_content == null)
             _content = new Content(this, Keys.CONTENT__CONTENT_PARENT_FKEY);
@@ -162,6 +172,9 @@ public class Content extends TableImpl<ContentRecord> {
         return _content;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table.
+     */
     public User user() {
         if (_user == null)
             _user = new User(this, Keys.CONTENT__CONTENT_CREATOR_UUID_FKEY);
@@ -169,6 +182,9 @@ public class Content extends TableImpl<ContentRecord> {
         return _user;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.model</code> table.
+     */
     public Model model() {
         if (_model == null)
             _model = new Model(this, Keys.CONTENT__CONTENT_MODEL_UUID_FKEY);
@@ -184,6 +200,11 @@ public class Content extends TableImpl<ContentRecord> {
     @Override
     public Content as(Name alias) {
         return new Content(alias, this);
+    }
+
+    @Override
+    public Content as(Table<?> alias) {
+        return new Content(alias.getQualifiedName(), this);
     }
 
     /**
@@ -202,6 +223,14 @@ public class Content extends TableImpl<ContentRecord> {
         return new Content(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Content rename(Table<?> name) {
+        return new Content(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row9 type methods
     // -------------------------------------------------------------------------
@@ -209,5 +238,20 @@ public class Content extends TableImpl<ContentRecord> {
     @Override
     public Row9<java.util.UUID, java.util.UUID, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, JSONB, java.util.UUID> fieldsRow() {
         return (Row9) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function9<? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super JSONB, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super JSONB, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -10,6 +10,7 @@ import io.metaloom.loom.db.jooq.tables.records.ExtensionRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -62,6 +63,13 @@ public class ExtensionDao extends DAOImpl<ExtensionRecord, io.metaloom.loom.db.j
      */
     public io.metaloom.loom.db.jooq.tables.pojos.Extension fetchOneByUuid(UUID value) {
         return fetchOne(Extension.EXTENSION.UUID, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Extension> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(Extension.EXTENSION.UUID, value);
     }
 
     /**

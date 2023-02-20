@@ -11,13 +11,17 @@ import io.metaloom.loom.db.jooq.tables.records.RolePermissionRecord;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function8;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row8;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -138,6 +142,9 @@ public class RolePermission extends TableImpl<RolePermissionRecord> {
 
     private transient Role _role;
 
+    /**
+     * Get the implicit join path to the <code>public.role</code> table.
+     */
     public Role role() {
         if (_role == null)
             _role = new Role(this, Keys.ROLE_PERMISSION__ROLE_PERMISSION_ROLE_UUID_FKEY);
@@ -153,6 +160,11 @@ public class RolePermission extends TableImpl<RolePermissionRecord> {
     @Override
     public RolePermission as(Name alias) {
         return new RolePermission(alias, this);
+    }
+
+    @Override
+    public RolePermission as(Table<?> alias) {
+        return new RolePermission(alias.getQualifiedName(), this);
     }
 
     /**
@@ -171,6 +183,14 @@ public class RolePermission extends TableImpl<RolePermissionRecord> {
         return new RolePermission(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public RolePermission rename(Table<?> name) {
+        return new RolePermission(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row8 type methods
     // -------------------------------------------------------------------------
@@ -178,5 +198,20 @@ public class RolePermission extends TableImpl<RolePermissionRecord> {
     @Override
     public Row8<UUID, UUID, Boolean, Boolean, Boolean, Boolean, Boolean, Boolean> fieldsRow() {
         return (Row8) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function8<? super UUID, ? super UUID, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super UUID, ? super UUID, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

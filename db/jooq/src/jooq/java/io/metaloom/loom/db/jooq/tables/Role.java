@@ -13,15 +13,19 @@ import io.metaloom.loom.db.jooq.tables.records.RoleRecord;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function8;
 import org.jooq.Index;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row8;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -154,6 +158,10 @@ public class Role extends TableImpl<RoleRecord> {
     private transient User _roleCreatorUuidFkey;
     private transient User _roleEditorUuidFkey;
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>role_creator_uuid_fkey</code> key.
+     */
     public User roleCreatorUuidFkey() {
         if (_roleCreatorUuidFkey == null)
             _roleCreatorUuidFkey = new User(this, Keys.ROLE__ROLE_CREATOR_UUID_FKEY);
@@ -161,6 +169,10 @@ public class Role extends TableImpl<RoleRecord> {
         return _roleCreatorUuidFkey;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>role_editor_uuid_fkey</code> key.
+     */
     public User roleEditorUuidFkey() {
         if (_roleEditorUuidFkey == null)
             _roleEditorUuidFkey = new User(this, Keys.ROLE__ROLE_EDITOR_UUID_FKEY);
@@ -176,6 +188,11 @@ public class Role extends TableImpl<RoleRecord> {
     @Override
     public Role as(Name alias) {
         return new Role(alias, this);
+    }
+
+    @Override
+    public Role as(Table<?> alias) {
+        return new Role(alias.getQualifiedName(), this);
     }
 
     /**
@@ -194,6 +211,14 @@ public class Role extends TableImpl<RoleRecord> {
         return new Role(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Role rename(Table<?> name) {
+        return new Role(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row8 type methods
     // -------------------------------------------------------------------------
@@ -201,5 +226,20 @@ public class Role extends TableImpl<RoleRecord> {
     @Override
     public Row8<java.util.UUID, String, LoomPermissionFlag, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row8) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function8<? super java.util.UUID, ? super String, ? super LoomPermissionFlag, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super java.util.UUID, ? super String, ? super LoomPermissionFlag, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

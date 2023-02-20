@@ -18,14 +18,14 @@ public class AssetTimeline implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID    uuid;
-    private UUID    assetUuid;
+    private UUID uuid;
+    private UUID assetUuid;
     private Integer from;
     private Integer to;
-    private String  description;
-    private String  tags;
-    private JSONB   meta;
-    private String  thumbail;
+    private String description;
+    private String tags;
+    private JSONB meta;
+    private String thumbail;
 
     public AssetTimeline() {}
 
@@ -41,14 +41,14 @@ public class AssetTimeline implements Serializable {
     }
 
     public AssetTimeline(
-        UUID    uuid,
-        UUID    assetUuid,
+        UUID uuid,
+        UUID assetUuid,
         Integer from,
         Integer to,
-        String  description,
-        String  tags,
-        JSONB   meta,
-        String  thumbail
+        String description,
+        String tags,
+        JSONB meta,
+        String thumbail
     ) {
         this.uuid = uuid;
         this.assetUuid = assetUuid;
@@ -170,6 +170,81 @@ public class AssetTimeline implements Serializable {
      */
     public void setThumbail(String thumbail) {
         this.thumbail = thumbail;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final AssetTimeline other = (AssetTimeline) obj;
+        if (this.uuid == null) {
+            if (other.uuid != null)
+                return false;
+        }
+        else if (!this.uuid.equals(other.uuid))
+            return false;
+        if (this.assetUuid == null) {
+            if (other.assetUuid != null)
+                return false;
+        }
+        else if (!this.assetUuid.equals(other.assetUuid))
+            return false;
+        if (this.from == null) {
+            if (other.from != null)
+                return false;
+        }
+        else if (!this.from.equals(other.from))
+            return false;
+        if (this.to == null) {
+            if (other.to != null)
+                return false;
+        }
+        else if (!this.to.equals(other.to))
+            return false;
+        if (this.description == null) {
+            if (other.description != null)
+                return false;
+        }
+        else if (!this.description.equals(other.description))
+            return false;
+        if (this.tags == null) {
+            if (other.tags != null)
+                return false;
+        }
+        else if (!this.tags.equals(other.tags))
+            return false;
+        if (this.meta == null) {
+            if (other.meta != null)
+                return false;
+        }
+        else if (!this.meta.equals(other.meta))
+            return false;
+        if (this.thumbail == null) {
+            if (other.thumbail != null)
+                return false;
+        }
+        else if (!this.thumbail.equals(other.thumbail))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
+        result = prime * result + ((this.assetUuid == null) ? 0 : this.assetUuid.hashCode());
+        result = prime * result + ((this.from == null) ? 0 : this.from.hashCode());
+        result = prime * result + ((this.to == null) ? 0 : this.to.hashCode());
+        result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+        result = prime * result + ((this.tags == null) ? 0 : this.tags.hashCode());
+        result = prime * result + ((this.meta == null) ? 0 : this.meta.hashCode());
+        result = prime * result + ((this.thumbail == null) ? 0 : this.thumbail.hashCode());
+        return result;
     }
 
     @Override

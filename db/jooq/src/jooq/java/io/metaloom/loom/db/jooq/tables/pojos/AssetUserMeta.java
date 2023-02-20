@@ -18,10 +18,10 @@ public class AssetUserMeta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID    assetUuid;
-    private UUID    userUuid;
+    private UUID assetUuid;
+    private UUID userUuid;
     private Integer rating;
-    private JSONB   meta;
+    private JSONB meta;
 
     public AssetUserMeta() {}
 
@@ -33,10 +33,10 @@ public class AssetUserMeta implements Serializable {
     }
 
     public AssetUserMeta(
-        UUID    assetUuid,
-        UUID    userUuid,
+        UUID assetUuid,
+        UUID userUuid,
         Integer rating,
-        JSONB   meta
+        JSONB meta
     ) {
         this.assetUuid = assetUuid;
         this.userUuid = userUuid;
@@ -102,6 +102,53 @@ public class AssetUserMeta implements Serializable {
      */
     public void setMeta(JSONB meta) {
         this.meta = meta;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final AssetUserMeta other = (AssetUserMeta) obj;
+        if (this.assetUuid == null) {
+            if (other.assetUuid != null)
+                return false;
+        }
+        else if (!this.assetUuid.equals(other.assetUuid))
+            return false;
+        if (this.userUuid == null) {
+            if (other.userUuid != null)
+                return false;
+        }
+        else if (!this.userUuid.equals(other.userUuid))
+            return false;
+        if (this.rating == null) {
+            if (other.rating != null)
+                return false;
+        }
+        else if (!this.rating.equals(other.rating))
+            return false;
+        if (this.meta == null) {
+            if (other.meta != null)
+                return false;
+        }
+        else if (!this.meta.equals(other.meta))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.assetUuid == null) ? 0 : this.assetUuid.hashCode());
+        result = prime * result + ((this.userUuid == null) ? 0 : this.userUuid.hashCode());
+        result = prime * result + ((this.rating == null) ? 0 : this.rating.hashCode());
+        result = prime * result + ((this.meta == null) ? 0 : this.meta.hashCode());
+        return result;
     }
 
     @Override

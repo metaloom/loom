@@ -10,6 +10,7 @@ import io.metaloom.loom.db.jooq.tables.records.WebhookRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -62,6 +63,13 @@ public class WebhookDao extends DAOImpl<WebhookRecord, io.metaloom.loom.db.jooq.
      */
     public io.metaloom.loom.db.jooq.tables.pojos.Webhook fetchOneByUuid(UUID value) {
         return fetchOne(Webhook.WEBHOOK.UUID, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Webhook> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(Webhook.WEBHOOK.UUID, value);
     }
 
     /**

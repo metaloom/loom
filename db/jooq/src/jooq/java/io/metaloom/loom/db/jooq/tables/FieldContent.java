@@ -13,14 +13,18 @@ import io.metaloom.loom.db.jooq.tables.records.FieldContentRecord;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function4;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row4;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -129,6 +133,9 @@ public class FieldContent extends TableImpl<FieldContentRecord> {
     private transient io.metaloom.loom.db.jooq.tables.Field _field;
     private transient Content _content;
 
+    /**
+     * Get the implicit join path to the <code>public.field</code> table.
+     */
     public io.metaloom.loom.db.jooq.tables.Field field() {
         if (_field == null)
             _field = new io.metaloom.loom.db.jooq.tables.Field(this, Keys.FIELD_CONTENT__FIELD_CONTENT_FIELDS_UUID_FKEY);
@@ -136,6 +143,9 @@ public class FieldContent extends TableImpl<FieldContentRecord> {
         return _field;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.content</code> table.
+     */
     public Content content() {
         if (_content == null)
             _content = new Content(this, Keys.FIELD_CONTENT__FIELD_CONTENT_CONTENT_UUID_FKEY);
@@ -151,6 +161,11 @@ public class FieldContent extends TableImpl<FieldContentRecord> {
     @Override
     public FieldContent as(Name alias) {
         return new FieldContent(alias, this);
+    }
+
+    @Override
+    public FieldContent as(Table<?> alias) {
+        return new FieldContent(alias.getQualifiedName(), this);
     }
 
     /**
@@ -169,6 +184,14 @@ public class FieldContent extends TableImpl<FieldContentRecord> {
         return new FieldContent(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public FieldContent rename(Table<?> name) {
+        return new FieldContent(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row4 type methods
     // -------------------------------------------------------------------------
@@ -176,5 +199,20 @@ public class FieldContent extends TableImpl<FieldContentRecord> {
     @Override
     public Row4<UUID, UUID, String, LoomContentType> fieldsRow() {
         return (Row4) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function4<? super UUID, ? super UUID, ? super String, ? super LoomContentType, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super UUID, ? super UUID, ? super String, ? super LoomContentType, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

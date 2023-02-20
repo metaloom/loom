@@ -12,15 +12,19 @@ import io.metaloom.loom.db.jooq.tables.records.GroupRecord;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function7;
 import org.jooq.Index;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row7;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -148,6 +152,10 @@ public class Group extends TableImpl<GroupRecord> {
     private transient User _groupCreatorUuidFkey;
     private transient User _groupEditorUuidFkey;
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>group_creator_uuid_fkey</code> key.
+     */
     public User groupCreatorUuidFkey() {
         if (_groupCreatorUuidFkey == null)
             _groupCreatorUuidFkey = new User(this, Keys.GROUP__GROUP_CREATOR_UUID_FKEY);
@@ -155,6 +163,10 @@ public class Group extends TableImpl<GroupRecord> {
         return _groupCreatorUuidFkey;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>group_editor_uuid_fkey</code> key.
+     */
     public User groupEditorUuidFkey() {
         if (_groupEditorUuidFkey == null)
             _groupEditorUuidFkey = new User(this, Keys.GROUP__GROUP_EDITOR_UUID_FKEY);
@@ -170,6 +182,11 @@ public class Group extends TableImpl<GroupRecord> {
     @Override
     public Group as(Name alias) {
         return new Group(alias, this);
+    }
+
+    @Override
+    public Group as(Table<?> alias) {
+        return new Group(alias.getQualifiedName(), this);
     }
 
     /**
@@ -188,6 +205,14 @@ public class Group extends TableImpl<GroupRecord> {
         return new Group(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Group rename(Table<?> name) {
+        return new Group(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row7 type methods
     // -------------------------------------------------------------------------
@@ -195,5 +220,20 @@ public class Group extends TableImpl<GroupRecord> {
     @Override
     public Row7<java.util.UUID, String, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row7) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function7<? super java.util.UUID, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super java.util.UUID, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

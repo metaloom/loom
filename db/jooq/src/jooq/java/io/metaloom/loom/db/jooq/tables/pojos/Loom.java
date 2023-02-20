@@ -16,7 +16,7 @@ public class Loom implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String        dbRev;
+    private String dbRev;
     private LocalDateTime lastUsedTimestamp;
 
     public Loom() {}
@@ -27,7 +27,7 @@ public class Loom implements Serializable {
     }
 
     public Loom(
-        String        dbRev,
+        String dbRev,
         LocalDateTime lastUsedTimestamp
     ) {
         this.dbRev = dbRev;
@@ -60,6 +60,39 @@ public class Loom implements Serializable {
      */
     public void setLastUsedTimestamp(LocalDateTime lastUsedTimestamp) {
         this.lastUsedTimestamp = lastUsedTimestamp;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Loom other = (Loom) obj;
+        if (this.dbRev == null) {
+            if (other.dbRev != null)
+                return false;
+        }
+        else if (!this.dbRev.equals(other.dbRev))
+            return false;
+        if (this.lastUsedTimestamp == null) {
+            if (other.lastUsedTimestamp != null)
+                return false;
+        }
+        else if (!this.lastUsedTimestamp.equals(other.lastUsedTimestamp))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.dbRev == null) ? 0 : this.dbRev.hashCode());
+        result = prime * result + ((this.lastUsedTimestamp == null) ? 0 : this.lastUsedTimestamp.hashCode());
+        return result;
     }
 
     @Override

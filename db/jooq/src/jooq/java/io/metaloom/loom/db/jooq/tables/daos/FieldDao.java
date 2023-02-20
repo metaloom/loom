@@ -9,6 +9,7 @@ import io.metaloom.loom.db.jooq.tables.records.FieldRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -61,6 +62,13 @@ public class FieldDao extends DAOImpl<FieldRecord, io.metaloom.loom.db.jooq.tabl
      */
     public io.metaloom.loom.db.jooq.tables.pojos.Field fetchOneByUuid(UUID value) {
         return fetchOne(Field.FIELD.UUID, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Field> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(Field.FIELD.UUID, value);
     }
 
     /**

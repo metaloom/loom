@@ -6,7 +6,7 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 
 import io.metaloom.loom.db.jooq.test.dagger.JooqTestContext;
-import io.metaloom.loom.db.model.group.GroupDao;
+import io.metaloom.loom.db.model.group.LoomGroupDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 
 public abstract class AbstractJooqTest {
@@ -23,7 +23,7 @@ public abstract class AbstractJooqTest {
 		return context.userDao();
 	}
 
-	protected GroupDao groupDao() {
+	protected LoomGroupDao groupDao() {
 		return context.groupDao();
 	}
 

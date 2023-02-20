@@ -13,15 +13,19 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function17;
 import org.jooq.Index;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row17;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -198,6 +202,10 @@ public class Asset extends TableImpl<AssetRecord> {
     private transient User _assetCreatorUuidFkey;
     private transient User _assetEditorUuidFkey;
 
+    /**
+     * Get the implicit join path to the <code>public.asset_binarie</code>
+     * table.
+     */
     public AssetBinarie assetBinarie() {
         if (_assetBinarie == null)
             _assetBinarie = new AssetBinarie(this, Keys.ASSET__ASSET_ASSET_BINARIES_UUID_FKEY);
@@ -205,6 +213,9 @@ public class Asset extends TableImpl<AssetRecord> {
         return _assetBinarie;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.namespace</code> table.
+     */
     public Namespace namespace() {
         if (_namespace == null)
             _namespace = new Namespace(this, Keys.ASSET__ASSET_NAMESPACE_UUID_FKEY);
@@ -212,6 +223,10 @@ public class Asset extends TableImpl<AssetRecord> {
         return _namespace;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>asset_creator_uuid_fkey</code> key.
+     */
     public User assetCreatorUuidFkey() {
         if (_assetCreatorUuidFkey == null)
             _assetCreatorUuidFkey = new User(this, Keys.ASSET__ASSET_CREATOR_UUID_FKEY);
@@ -219,6 +234,10 @@ public class Asset extends TableImpl<AssetRecord> {
         return _assetCreatorUuidFkey;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>asset_editor_uuid_fkey</code> key.
+     */
     public User assetEditorUuidFkey() {
         if (_assetEditorUuidFkey == null)
             _assetEditorUuidFkey = new User(this, Keys.ASSET__ASSET_EDITOR_UUID_FKEY);
@@ -234,6 +253,11 @@ public class Asset extends TableImpl<AssetRecord> {
     @Override
     public Asset as(Name alias) {
         return new Asset(alias, this);
+    }
+
+    @Override
+    public Asset as(Table<?> alias) {
+        return new Asset(alias.getQualifiedName(), this);
     }
 
     /**
@@ -252,6 +276,14 @@ public class Asset extends TableImpl<AssetRecord> {
         return new Asset(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Asset rename(Table<?> name) {
+        return new Asset(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row17 type methods
     // -------------------------------------------------------------------------
@@ -259,5 +291,20 @@ public class Asset extends TableImpl<AssetRecord> {
     @Override
     public Row17<java.util.UUID, java.util.UUID, java.util.UUID, String, String, JSONB, Integer, String, String, BigDecimal, BigDecimal, String, String, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row17) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function17<? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super String, ? super String, ? super JSONB, ? super Integer, ? super String, ? super String, ? super BigDecimal, ? super BigDecimal, ? super String, ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function17<? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super String, ? super String, ? super JSONB, ? super Integer, ? super String, ? super String, ? super BigDecimal, ? super BigDecimal, ? super String, ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

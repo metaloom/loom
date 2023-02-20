@@ -12,14 +12,18 @@ import io.metaloom.loom.db.jooq.tables.records.UserTokenRecord;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function5;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row5;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -130,6 +134,9 @@ public class UserToken extends TableImpl<UserTokenRecord> {
 
     private transient User _user;
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table.
+     */
     public User user() {
         if (_user == null)
             _user = new User(this, Keys.USER_TOKEN__USER_TOKEN_USER_UUID_FKEY);
@@ -145,6 +152,11 @@ public class UserToken extends TableImpl<UserTokenRecord> {
     @Override
     public UserToken as(Name alias) {
         return new UserToken(alias, this);
+    }
+
+    @Override
+    public UserToken as(Table<?> alias) {
+        return new UserToken(alias.getQualifiedName(), this);
     }
 
     /**
@@ -163,6 +175,14 @@ public class UserToken extends TableImpl<UserTokenRecord> {
         return new UserToken(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public UserToken rename(Table<?> name) {
+        return new UserToken(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row5 type methods
     // -------------------------------------------------------------------------
@@ -170,5 +190,20 @@ public class UserToken extends TableImpl<UserTokenRecord> {
     @Override
     public Row5<java.util.UUID, java.util.UUID, String, String, LoomPermissionFlag> fieldsRow() {
         return (Row5) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function5<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super String, ? super LoomPermissionFlag, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super String, ? super LoomPermissionFlag, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

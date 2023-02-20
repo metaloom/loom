@@ -11,14 +11,18 @@ import io.metaloom.loom.db.jooq.tables.records.AssetUserMetaRecord;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function4;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row4;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -122,6 +126,9 @@ public class AssetUserMeta extends TableImpl<AssetUserMetaRecord> {
     private transient Asset _asset;
     private transient User _user;
 
+    /**
+     * Get the implicit join path to the <code>public.asset</code> table.
+     */
     public Asset asset() {
         if (_asset == null)
             _asset = new Asset(this, Keys.ASSET_USER_META__ASSET_USER_META_ASSET_UUID_FKEY);
@@ -129,6 +136,9 @@ public class AssetUserMeta extends TableImpl<AssetUserMetaRecord> {
         return _asset;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table.
+     */
     public User user() {
         if (_user == null)
             _user = new User(this, Keys.ASSET_USER_META__ASSET_USER_META_USER_UUID_FKEY);
@@ -144,6 +154,11 @@ public class AssetUserMeta extends TableImpl<AssetUserMetaRecord> {
     @Override
     public AssetUserMeta as(Name alias) {
         return new AssetUserMeta(alias, this);
+    }
+
+    @Override
+    public AssetUserMeta as(Table<?> alias) {
+        return new AssetUserMeta(alias.getQualifiedName(), this);
     }
 
     /**
@@ -162,6 +177,14 @@ public class AssetUserMeta extends TableImpl<AssetUserMetaRecord> {
         return new AssetUserMeta(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public AssetUserMeta rename(Table<?> name) {
+        return new AssetUserMeta(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row4 type methods
     // -------------------------------------------------------------------------
@@ -169,5 +192,20 @@ public class AssetUserMeta extends TableImpl<AssetUserMetaRecord> {
     @Override
     public Row4<UUID, UUID, Integer, JSONB> fieldsRow() {
         return (Row4) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function4<? super UUID, ? super UUID, ? super Integer, ? super JSONB, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super UUID, ? super UUID, ? super Integer, ? super JSONB, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -11,13 +11,17 @@ import io.metaloom.loom.db.jooq.tables.records.UserGroupRecord;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function2;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row2;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -109,6 +113,9 @@ public class UserGroup extends TableImpl<UserGroupRecord> {
     private transient User _user;
     private transient Group _group;
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table.
+     */
     public User user() {
         if (_user == null)
             _user = new User(this, Keys.USER_GROUP__USER_GROUP_USER_UUID_FKEY);
@@ -116,6 +123,9 @@ public class UserGroup extends TableImpl<UserGroupRecord> {
         return _user;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.group</code> table.
+     */
     public Group group() {
         if (_group == null)
             _group = new Group(this, Keys.USER_GROUP__USER_GROUP_GROUP_UUID_FKEY);
@@ -131,6 +141,11 @@ public class UserGroup extends TableImpl<UserGroupRecord> {
     @Override
     public UserGroup as(Name alias) {
         return new UserGroup(alias, this);
+    }
+
+    @Override
+    public UserGroup as(Table<?> alias) {
+        return new UserGroup(alias.getQualifiedName(), this);
     }
 
     /**
@@ -149,6 +164,14 @@ public class UserGroup extends TableImpl<UserGroupRecord> {
         return new UserGroup(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public UserGroup rename(Table<?> name) {
+        return new UserGroup(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row2 type methods
     // -------------------------------------------------------------------------
@@ -156,5 +179,20 @@ public class UserGroup extends TableImpl<UserGroupRecord> {
     @Override
     public Row2<UUID, UUID> fieldsRow() {
         return (Row2) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function2<? super UUID, ? super UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function2<? super UUID, ? super UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

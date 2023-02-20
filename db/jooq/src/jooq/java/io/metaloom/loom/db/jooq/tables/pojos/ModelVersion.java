@@ -16,11 +16,11 @@ public class ModelVersion implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID   uuid;
-    private UUID   modelUuid;
+    private UUID uuid;
+    private UUID modelUuid;
     private String json;
-    private UUID   nextVersionUuid;
-    private UUID   prevVersionUuid;
+    private UUID nextVersionUuid;
+    private UUID prevVersionUuid;
 
     public ModelVersion() {}
 
@@ -33,11 +33,11 @@ public class ModelVersion implements Serializable {
     }
 
     public ModelVersion(
-        UUID   uuid,
-        UUID   modelUuid,
+        UUID uuid,
+        UUID modelUuid,
         String json,
-        UUID   nextVersionUuid,
-        UUID   prevVersionUuid
+        UUID nextVersionUuid,
+        UUID prevVersionUuid
     ) {
         this.uuid = uuid;
         this.modelUuid = modelUuid;
@@ -114,6 +114,60 @@ public class ModelVersion implements Serializable {
      */
     public void setPrevVersionUuid(UUID prevVersionUuid) {
         this.prevVersionUuid = prevVersionUuid;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final ModelVersion other = (ModelVersion) obj;
+        if (this.uuid == null) {
+            if (other.uuid != null)
+                return false;
+        }
+        else if (!this.uuid.equals(other.uuid))
+            return false;
+        if (this.modelUuid == null) {
+            if (other.modelUuid != null)
+                return false;
+        }
+        else if (!this.modelUuid.equals(other.modelUuid))
+            return false;
+        if (this.json == null) {
+            if (other.json != null)
+                return false;
+        }
+        else if (!this.json.equals(other.json))
+            return false;
+        if (this.nextVersionUuid == null) {
+            if (other.nextVersionUuid != null)
+                return false;
+        }
+        else if (!this.nextVersionUuid.equals(other.nextVersionUuid))
+            return false;
+        if (this.prevVersionUuid == null) {
+            if (other.prevVersionUuid != null)
+                return false;
+        }
+        else if (!this.prevVersionUuid.equals(other.prevVersionUuid))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
+        result = prime * result + ((this.modelUuid == null) ? 0 : this.modelUuid.hashCode());
+        result = prime * result + ((this.json == null) ? 0 : this.json.hashCode());
+        result = prime * result + ((this.nextVersionUuid == null) ? 0 : this.nextVersionUuid.hashCode());
+        result = prime * result + ((this.prevVersionUuid == null) ? 0 : this.prevVersionUuid.hashCode());
+        return result;
     }
 
     @Override

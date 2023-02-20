@@ -11,13 +11,17 @@ import io.metaloom.loom.db.jooq.tables.records.TagNamespaceRecord;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function2;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row2;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -109,6 +113,9 @@ public class TagNamespace extends TableImpl<TagNamespaceRecord> {
     private transient Tag _tag;
     private transient Namespace _namespace;
 
+    /**
+     * Get the implicit join path to the <code>public.tag</code> table.
+     */
     public Tag tag() {
         if (_tag == null)
             _tag = new Tag(this, Keys.TAG_NAMESPACE__TAG_NAMESPACE_TAG_UUID_FKEY);
@@ -116,6 +123,9 @@ public class TagNamespace extends TableImpl<TagNamespaceRecord> {
         return _tag;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.namespace</code> table.
+     */
     public Namespace namespace() {
         if (_namespace == null)
             _namespace = new Namespace(this, Keys.TAG_NAMESPACE__TAG_NAMESPACE_NAMESPACE_UUID_FKEY);
@@ -131,6 +141,11 @@ public class TagNamespace extends TableImpl<TagNamespaceRecord> {
     @Override
     public TagNamespace as(Name alias) {
         return new TagNamespace(alias, this);
+    }
+
+    @Override
+    public TagNamespace as(Table<?> alias) {
+        return new TagNamespace(alias.getQualifiedName(), this);
     }
 
     /**
@@ -149,6 +164,14 @@ public class TagNamespace extends TableImpl<TagNamespaceRecord> {
         return new TagNamespace(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public TagNamespace rename(Table<?> name) {
+        return new TagNamespace(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row2 type methods
     // -------------------------------------------------------------------------
@@ -156,5 +179,20 @@ public class TagNamespace extends TableImpl<TagNamespaceRecord> {
     @Override
     public Row2<UUID, UUID> fieldsRow() {
         return (Row2) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function2<? super UUID, ? super UUID, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function2<? super UUID, ? super UUID, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

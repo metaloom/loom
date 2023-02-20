@@ -48,4 +48,11 @@ public enum LoomContentType implements EnumType {
     public String getLiteral() {
         return literal;
     }
+
+    /**
+     * Lookup a value of this EnumType by its literal
+     */
+    public static LoomContentType lookupLiteral(String literal) {
+        return EnumType.lookupLiteral(LoomContentType.class, literal);
+    }
 }

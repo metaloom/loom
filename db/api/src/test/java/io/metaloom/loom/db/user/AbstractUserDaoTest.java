@@ -2,6 +2,7 @@ package io.metaloom.loom.db.user;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public abstract class AbstractUserDaoTest {
 		LoomUserDao dao = getDao();
 
 		// Create user
-		LoomUser user = dao.createUser("joedoe").blockingGet();
+		LoomUser user = dao.createUser("joedoe");
 		assertNotNull(user.getUuid());
 		assertEquals("joedoe", user.getUsername());
 
@@ -40,11 +41,11 @@ public abstract class AbstractUserDaoTest {
 		LoomUserDao dao = getDao();
 
 		// Create user
-		LoomUser user = dao.createUser("joeddoe").blockingGet();
+		LoomUser user = dao.createUser("joeddoe");
 
 		// Now assert deletion
 		dao.deleteUser(user);
-		assertTrue("The returned maybe should be empty.", dao.loadUser(user.getUuid()).isEmpty().blockingGet());
+		assertNull("The returned maybe should be empty.", dao.loadUser(user.getUuid()));
 	}
 
 	@Test
@@ -52,15 +53,15 @@ public abstract class AbstractUserDaoTest {
 		LoomUserDao dao = getDao();
 
 		// Create and store
-		LoomUser user = dao.createUser("joedoe").blockingGet();
+		LoomUser user = dao.createUser("joedoe");
 
 		// Now update
 		user.setUsername("joedoe2");
 		dao.updateUser(user);
 
 		// Load and assert update was persisted
-		Maybe<? extends LoomUser> updatedUser = dao.loadUser(user.getUuid());
-		assertEquals("joedoe2", updatedUser.blockingGet().getUsername());
+		LoomUser updatedUser = dao.loadUser(user.getUuid());
+		assertEquals("joedoe2", updatedUser.getUsername());
 
 	}
 
@@ -69,7 +70,7 @@ public abstract class AbstractUserDaoTest {
 		LoomUserDao dao = getDao();
 
 		// Create and store user
-		LoomUser user = dao.createUser("joedoe").blockingGet();
+		LoomUser user = dao.createUser("joedoe");
 
 		// Now load again
 		assertNotNull(dao.loadUser(user.getUuid()));

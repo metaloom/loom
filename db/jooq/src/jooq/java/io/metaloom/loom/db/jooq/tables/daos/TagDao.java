@@ -9,6 +9,7 @@ import io.metaloom.loom.db.jooq.tables.records.TagRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -61,6 +62,13 @@ public class TagDao extends DAOImpl<TagRecord, io.metaloom.loom.db.jooq.tables.p
      */
     public io.metaloom.loom.db.jooq.tables.pojos.Tag fetchOneByUuid(UUID value) {
         return fetchOne(Tag.TAG.UUID, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Tag> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(Tag.TAG.UUID, value);
     }
 
     /**

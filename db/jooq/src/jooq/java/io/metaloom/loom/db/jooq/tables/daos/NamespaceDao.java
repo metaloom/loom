@@ -9,6 +9,7 @@ import io.metaloom.loom.db.jooq.tables.records.NamespaceRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -64,6 +65,13 @@ public class NamespaceDao extends DAOImpl<NamespaceRecord, io.metaloom.loom.db.j
     }
 
     /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Namespace> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(Namespace.NAMESPACE.UUID, value);
+    }
+
+    /**
      * Fetch records that have <code>name BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
@@ -83,6 +91,13 @@ public class NamespaceDao extends DAOImpl<NamespaceRecord, io.metaloom.loom.db.j
      */
     public io.metaloom.loom.db.jooq.tables.pojos.Namespace fetchOneByName(String value) {
         return fetchOne(Namespace.NAMESPACE.NAME, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>name = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Namespace> fetchOptionalByName(String value) {
+        return fetchOptional(Namespace.NAMESPACE.NAME, value);
     }
 
     /**

@@ -11,13 +11,17 @@ import io.metaloom.loom.db.jooq.tables.records.FieldReferenceRecord;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function3;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row3;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -115,6 +119,10 @@ public class FieldReference extends TableImpl<FieldReferenceRecord> {
     private transient io.metaloom.loom.db.jooq.tables.Field _fieldReferenceSourceUuidFkey;
     private transient io.metaloom.loom.db.jooq.tables.Field _fieldReferenceTargetUuidFkey;
 
+    /**
+     * Get the implicit join path to the <code>public.field</code> table, via
+     * the <code>field_reference_source_uuid_fkey</code> key.
+     */
     public io.metaloom.loom.db.jooq.tables.Field fieldReferenceSourceUuidFkey() {
         if (_fieldReferenceSourceUuidFkey == null)
             _fieldReferenceSourceUuidFkey = new io.metaloom.loom.db.jooq.tables.Field(this, Keys.FIELD_REFERENCE__FIELD_REFERENCE_SOURCE_UUID_FKEY);
@@ -122,6 +130,10 @@ public class FieldReference extends TableImpl<FieldReferenceRecord> {
         return _fieldReferenceSourceUuidFkey;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.field</code> table, via
+     * the <code>field_reference_target_uuid_fkey</code> key.
+     */
     public io.metaloom.loom.db.jooq.tables.Field fieldReferenceTargetUuidFkey() {
         if (_fieldReferenceTargetUuidFkey == null)
             _fieldReferenceTargetUuidFkey = new io.metaloom.loom.db.jooq.tables.Field(this, Keys.FIELD_REFERENCE__FIELD_REFERENCE_TARGET_UUID_FKEY);
@@ -137,6 +149,11 @@ public class FieldReference extends TableImpl<FieldReferenceRecord> {
     @Override
     public FieldReference as(Name alias) {
         return new FieldReference(alias, this);
+    }
+
+    @Override
+    public FieldReference as(Table<?> alias) {
+        return new FieldReference(alias.getQualifiedName(), this);
     }
 
     /**
@@ -155,6 +172,14 @@ public class FieldReference extends TableImpl<FieldReferenceRecord> {
         return new FieldReference(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public FieldReference rename(Table<?> name) {
+        return new FieldReference(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row3 type methods
     // -------------------------------------------------------------------------
@@ -162,5 +187,20 @@ public class FieldReference extends TableImpl<FieldReferenceRecord> {
     @Override
     public Row3<UUID, UUID, String> fieldsRow() {
         return (Row3) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function3<? super UUID, ? super UUID, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super UUID, ? super UUID, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -10,6 +10,7 @@ import io.metaloom.loom.db.jooq.tables.records.AssetRecord;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
@@ -62,6 +63,13 @@ public class AssetDao extends DAOImpl<AssetRecord, io.metaloom.loom.db.jooq.tabl
      */
     public io.metaloom.loom.db.jooq.tables.pojos.Asset fetchOneByUuid(UUID value) {
         return fetchOne(Asset.ASSET.UUID, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>uuid = value</code>
+     */
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.Asset> fetchOptionalByUuid(UUID value) {
+        return fetchOptional(Asset.ASSET.UUID, value);
     }
 
     /**

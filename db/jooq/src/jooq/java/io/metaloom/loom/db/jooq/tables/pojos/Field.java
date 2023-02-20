@@ -19,16 +19,16 @@ public class Field implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID          uuid;
-    private UUID          contentUuid;
-    private JSONB         fieldsJson;
-    private UUID          languageUuid;
+    private UUID uuid;
+    private UUID contentUuid;
+    private JSONB fieldsJson;
+    private UUID languageUuid;
     private LocalDateTime edited;
-    private UUID          editorUuid;
+    private UUID editorUuid;
     private LocalDateTime created;
-    private UUID          creatorUuid;
-    private UUID          modelversionUuid;
-    private Integer       version;
+    private UUID creatorUuid;
+    private UUID modelversionUuid;
+    private Integer version;
 
     public Field() {}
 
@@ -46,16 +46,16 @@ public class Field implements Serializable {
     }
 
     public Field(
-        UUID          uuid,
-        UUID          contentUuid,
-        JSONB         fieldsJson,
-        UUID          languageUuid,
+        UUID uuid,
+        UUID contentUuid,
+        JSONB fieldsJson,
+        UUID languageUuid,
         LocalDateTime edited,
-        UUID          editorUuid,
+        UUID editorUuid,
         LocalDateTime created,
-        UUID          creatorUuid,
-        UUID          modelversionUuid,
-        Integer       version
+        UUID creatorUuid,
+        UUID modelversionUuid,
+        Integer version
     ) {
         this.uuid = uuid;
         this.contentUuid = contentUuid;
@@ -211,6 +211,95 @@ public class Field implements Serializable {
      */
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Field other = (Field) obj;
+        if (this.uuid == null) {
+            if (other.uuid != null)
+                return false;
+        }
+        else if (!this.uuid.equals(other.uuid))
+            return false;
+        if (this.contentUuid == null) {
+            if (other.contentUuid != null)
+                return false;
+        }
+        else if (!this.contentUuid.equals(other.contentUuid))
+            return false;
+        if (this.fieldsJson == null) {
+            if (other.fieldsJson != null)
+                return false;
+        }
+        else if (!this.fieldsJson.equals(other.fieldsJson))
+            return false;
+        if (this.languageUuid == null) {
+            if (other.languageUuid != null)
+                return false;
+        }
+        else if (!this.languageUuid.equals(other.languageUuid))
+            return false;
+        if (this.edited == null) {
+            if (other.edited != null)
+                return false;
+        }
+        else if (!this.edited.equals(other.edited))
+            return false;
+        if (this.editorUuid == null) {
+            if (other.editorUuid != null)
+                return false;
+        }
+        else if (!this.editorUuid.equals(other.editorUuid))
+            return false;
+        if (this.created == null) {
+            if (other.created != null)
+                return false;
+        }
+        else if (!this.created.equals(other.created))
+            return false;
+        if (this.creatorUuid == null) {
+            if (other.creatorUuid != null)
+                return false;
+        }
+        else if (!this.creatorUuid.equals(other.creatorUuid))
+            return false;
+        if (this.modelversionUuid == null) {
+            if (other.modelversionUuid != null)
+                return false;
+        }
+        else if (!this.modelversionUuid.equals(other.modelversionUuid))
+            return false;
+        if (this.version == null) {
+            if (other.version != null)
+                return false;
+        }
+        else if (!this.version.equals(other.version))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
+        result = prime * result + ((this.contentUuid == null) ? 0 : this.contentUuid.hashCode());
+        result = prime * result + ((this.fieldsJson == null) ? 0 : this.fieldsJson.hashCode());
+        result = prime * result + ((this.languageUuid == null) ? 0 : this.languageUuid.hashCode());
+        result = prime * result + ((this.edited == null) ? 0 : this.edited.hashCode());
+        result = prime * result + ((this.editorUuid == null) ? 0 : this.editorUuid.hashCode());
+        result = prime * result + ((this.created == null) ? 0 : this.created.hashCode());
+        result = prime * result + ((this.creatorUuid == null) ? 0 : this.creatorUuid.hashCode());
+        result = prime * result + ((this.modelversionUuid == null) ? 0 : this.modelversionUuid.hashCode());
+        result = prime * result + ((this.version == null) ? 0 : this.version.hashCode());
+        return result;
     }
 
     @Override

@@ -8,13 +8,17 @@ import io.metaloom.loom.db.jooq.Public;
 import io.metaloom.loom.db.jooq.tables.records.LoomRecord;
 
 import java.time.LocalDateTime;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function2;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row2;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -102,6 +106,11 @@ public class Loom extends TableImpl<LoomRecord> {
         return new Loom(alias, this);
     }
 
+    @Override
+    public Loom as(Table<?> alias) {
+        return new Loom(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -118,6 +127,14 @@ public class Loom extends TableImpl<LoomRecord> {
         return new Loom(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Loom rename(Table<?> name) {
+        return new Loom(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row2 type methods
     // -------------------------------------------------------------------------
@@ -125,5 +142,20 @@ public class Loom extends TableImpl<LoomRecord> {
     @Override
     public Row2<String, LocalDateTime> fieldsRow() {
         return (Row2) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function2<? super String, ? super LocalDateTime, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function2<? super String, ? super LocalDateTime, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

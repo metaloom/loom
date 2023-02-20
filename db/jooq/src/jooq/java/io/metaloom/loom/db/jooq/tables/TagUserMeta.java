@@ -11,14 +11,18 @@ import io.metaloom.loom.db.jooq.tables.records.TagUserMetaRecord;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function4;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row4;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -115,6 +119,9 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
     private transient Tag _tag;
     private transient User _user;
 
+    /**
+     * Get the implicit join path to the <code>public.tag</code> table.
+     */
     public Tag tag() {
         if (_tag == null)
             _tag = new Tag(this, Keys.TAG_USER_META__TAG_USER_META_TAG_UUID_FKEY);
@@ -122,6 +129,9 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
         return _tag;
     }
 
+    /**
+     * Get the implicit join path to the <code>public.user</code> table.
+     */
     public User user() {
         if (_user == null)
             _user = new User(this, Keys.TAG_USER_META__TAG_USER_META_USER_UUID_FKEY);
@@ -137,6 +147,11 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
     @Override
     public TagUserMeta as(Name alias) {
         return new TagUserMeta(alias, this);
+    }
+
+    @Override
+    public TagUserMeta as(Table<?> alias) {
+        return new TagUserMeta(alias.getQualifiedName(), this);
     }
 
     /**
@@ -155,6 +170,14 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
         return new TagUserMeta(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public TagUserMeta rename(Table<?> name) {
+        return new TagUserMeta(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row4 type methods
     // -------------------------------------------------------------------------
@@ -162,5 +185,20 @@ public class TagUserMeta extends TableImpl<TagUserMetaRecord> {
     @Override
     public Row4<UUID, UUID, Integer, JSONB> fieldsRow() {
         return (Row4) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function4<? super UUID, ? super UUID, ? super Integer, ? super JSONB, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super UUID, ? super UUID, ? super Integer, ? super JSONB, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }
