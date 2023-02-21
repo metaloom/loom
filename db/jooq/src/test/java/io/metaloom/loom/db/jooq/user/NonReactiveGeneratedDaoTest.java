@@ -1,14 +1,10 @@
 package io.metaloom.loom.db.jooq.user;
 
-import static io.metaloom.loom.db.jooq.tables.User.USER;
-
 import java.util.List;
-import java.util.UUID;
 
 import javax.sql.DataSource;
 
 import org.jooq.DSLContext;
-import org.jooq.Record1;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import org.junit.Rule;
@@ -20,7 +16,6 @@ import io.metaloom.loom.db.jooq.LoomPostgreSQLContainer;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.tables.daos.UserDao;
 import io.metaloom.loom.db.jooq.tables.pojos.User;
-import reactor.core.publisher.Flux;
 
 public class NonReactiveGeneratedDaoTest extends AbstractJooqTest {
 
@@ -36,13 +31,13 @@ public class NonReactiveGeneratedDaoTest extends AbstractJooqTest {
 		DataSource datasource = new JooqModule().dataSource(container.getOptions());
 
 		DSLContext ctx = DSL.using(datasource, SQLDialect.POSTGRES);
-
-		Flux<Record1<UUID>> f = Flux.from(ctx.insertInto(USER,
-			USER.UUID, USER.USERNAME, USER.FIRSTNAME, USER.LASTNAME)
-			.values(UUID.randomUUID(), "joedoe", "Joe", "Doe")
-			.returningResult(USER.UUID));
-
-		f.blockFirst();
+//
+//		Flux<Record1<UUID>> f = Flux.from(ctx.insertInto(USER,
+//			USER.UUID, USER.USERNAME, USER.FIRSTNAME, USER.LASTNAME)
+//			.values(UUID.randomUUID(), "joedoe", "Joe", "Doe")
+//			.returningResult(USER.UUID));
+//
+//		f.blockFirst();
 
 		UserDao dao = new UserDao(ctx.configuration());
 

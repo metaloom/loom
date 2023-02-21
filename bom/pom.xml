@@ -370,26 +370,11 @@
 				<artifactId>loom-doc</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
-			<!-- Loom Public -->
+			
+			<!-- Worker -->
 			<dependency>
-				<groupId>io.metaloom.loom.client</groupId>
-				<artifactId>loom-client-rest</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.metaloom.loom.client</groupId>
-				<artifactId>loom-client-grpc</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.metaloom.loom.client</groupId>
-				<artifactId>loom-client-common</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.metaloom.loom</groupId>
-				<artifactId>loom-rest-model</artifactId>
+				<groupId>io.metaloom.loom.worker</groupId>
+				<artifactId>loom-worker-fs</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
@@ -424,6 +409,23 @@
 				<artifactId>loom-db-memory</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom.db</groupId>
+				<artifactId>loom-db-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom.db</groupId>
+				<artifactId>loom-db-flyway</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom.db</groupId>
+				<artifactId>loom-db-api</artifactId>
+				<version>${project.version}</version>
+				<type>test-jar</type>
+			</dependency>
+
 
 			<!-- Loom Services -->
 			<dependency>
@@ -447,25 +449,45 @@
 				<version>${project.version}</version>
 			</dependency>
 
-			<!-- Loom DB -->
+			<!-- Loom Client -->
 			<dependency>
-				<groupId>io.metaloom.loom.db</groupId>
-				<artifactId>loom-db-api</artifactId>
+				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-proto</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>io.metaloom.loom.db</groupId>
-				<artifactId>loom-db-flyway</artifactId>
+				<groupId>io.metaloom.loom.client</groupId>
+				<artifactId>loom-client-grpc</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>io.metaloom.loom.db</groupId>
-				<artifactId>loom-db-api</artifactId>
+				<groupId>io.metaloom.loom.client</groupId>
+				<artifactId>loom-client-rest</artifactId>
 				<version>${project.version}</version>
-				<type>test-jar</type>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom.client</groupId>
+				<artifactId>loom-client-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-rest-model</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 
+
 			<!-- Metaloom deps -->
+			<dependency>
+				<groupId>io.metaloom.utils</groupId>
+				<artifactId>utils</artifactId>
+				<version>0.3.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.utils</groupId>
+				<artifactId>hash-utils</artifactId>
+				<version>0.3.0-SNAPSHOT</version>
+			</dependency>
 			<dependency>
 				<groupId>io.metaloom.video</groupId>
 				<artifactId>video4j</artifactId>

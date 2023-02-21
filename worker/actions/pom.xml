@@ -15,6 +15,7 @@
 		<module>hash</module>
 		<module>dedup</module>
 		<module>thumbnail</module>
+		<module>consistency</module>
 		<module>fingerprint</module>
 		<module>facedetect</module>
 		<module>tika</module>

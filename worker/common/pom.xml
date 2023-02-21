@@ -29,5 +29,25 @@
 			<groupId>io.metaloom.loom.worker</groupId>
 			<artifactId>loom-worker-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom.worker</groupId>
+			<artifactId>loom-worker-fs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.metaloom.utils</groupId>
+			<artifactId>hash-utils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.metaloom.utils</groupId>
+			<artifactId>utils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom.client</groupId>
+			<artifactId>loom-client-grpc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
 	</dependencies>
 </project>

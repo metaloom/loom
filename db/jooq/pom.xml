@@ -54,13 +54,6 @@
 			<version>${jooq.version}</version>
 		</dependency>
 
-		<!-- R2DBC -->
-		<dependency>
-			<groupId>io.r2dbc</groupId>
-			<artifactId>r2dbc-postgresql</artifactId>
-			<version>0.8.10.RELEASE</version>
-		</dependency>
-
 		<!-- JDBC / Connection Pooling support -->
 		<dependency>
 			<groupId>com.mchange</groupId>

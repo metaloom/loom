@@ -30,8 +30,8 @@
 
 	<dependencies>
 		<dependency>
-			<artifactId>loom-worker-api</artifactId>
 			<groupId>io.metaloom.loom.worker</groupId>
+			<artifactId>loom-worker-common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -44,6 +44,33 @@
 		<dependency>
 			<groupId>info.picocli</groupId>
 			<artifactId>picocli-codegen</artifactId>
+		</dependency>
+
+		<!-- Actions -->
+		<dependency>
+			<groupId>io.metaloom.loom.worker</groupId>
+			<artifactId>loom-worker-hash-action</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom.worker</groupId>
+			<artifactId>loom-worker-thumbnail-action</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom.worker</groupId>
+			<artifactId>loom-worker-facedetect-action</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom.worker</groupId>
+			<artifactId>loom-worker-fingerprint-action</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom.worker</groupId>
+			<artifactId>loom-worker-consistency-action</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 
 		<!--Test-->

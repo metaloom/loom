@@ -1,11 +1,6 @@
 package io.metaloom.loom.db.jooq.user;
 
-import static io.metaloom.loom.db.jooq.tables.User.USER;
-
-import java.util.UUID;
-
 import org.jooq.DSLContext;
-import org.jooq.Record1;
 import org.jooq.impl.DSL;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,7 +10,6 @@ import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.jooq.LoomPostgreSQLContainer;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.r2dbc.spi.ConnectionFactory;
-import reactor.core.publisher.Flux;
 
 public class RxDaoTest extends AbstractJooqTest {
 
@@ -32,12 +26,12 @@ public class RxDaoTest extends AbstractJooqTest {
 
 		DSLContext ctx = DSL.using(connectionFactory);
 
-		Flux<Record1<UUID>> f = Flux.from(ctx.insertInto(USER,
-			USER.UUID, USER.USERNAME, USER.FIRSTNAME, USER.LASTNAME)
-			.values(UUID.randomUUID(), "joedoe", "Joe", "Doe")
-			.returningResult(USER.UUID));
+//		Flux<Record1<UUID>> f = Flux.from(ctx.insertInto(USER,
+//			USER.UUID, USER.USERNAME, USER.FIRSTNAME, USER.LASTNAME)
+//			.values(UUID.randomUUID(), "joedoe", "Joe", "Doe")
+//			.returningResult(USER.UUID));
 
-		f.blockFirst();
+//		f.blockFirst();
 
 //		UserRxDao dao = new UserRxDao(ctx.configuration());
 //
