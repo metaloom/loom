@@ -44,6 +44,11 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.metaloom.loom</groupId>
+			<artifactId>loom-test</artifactId>
+			<scope>test</scope> 
+		</dependency>
 
 	</dependencies>
 </project>

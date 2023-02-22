@@ -3,7 +3,7 @@ package io.metaloom.worker.action;
 import java.io.File;
 import java.nio.file.Path;
 
-public interface ProcessableMedia extends SHA256File {
+public interface ProcessableMedia {
 
 	boolean isVideo();
 
@@ -28,5 +28,9 @@ public interface ProcessableMedia extends SHA256File {
 	ProcessableMedia writeAttr(String attrKey, Long value);
 
 	String getHash512();
+
+	Boolean isComplete();
+
+	ProcessableMedia setComplete(Boolean complete);
 
 }

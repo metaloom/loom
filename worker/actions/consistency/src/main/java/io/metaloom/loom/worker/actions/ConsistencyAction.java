@@ -11,16 +11,17 @@ import io.metaloom.utils.hash.partial.PartialFile;
 import io.metaloom.worker.action.AbstractFilesystemAction;
 import io.metaloom.worker.action.ActionResult;
 import io.metaloom.worker.action.ProcessableMedia;
-import io.metaloom.worker.action.WorkerActionSettings;
+import io.metaloom.worker.action.settings.ProcessorSettings;
 
-public class ConsistencyAction extends AbstractFilesystemAction {
+public class ConsistencyAction extends AbstractFilesystemAction<ConsistencyActionSettings> {
 
 	public static final String ZERO_CHUNK_COUNT_ATTR_KEY = "zeroChunkCount";
 
 	private static final String NAME = "consistency";
 
-	public ConsistencyAction(LoomGRPCClient client, WorkerActionSettings settings) {
-		super(client, settings);
+
+	public ConsistencyAction(LoomGRPCClient client, ProcessorSettings processorSettings, ConsistencyActionSettings settings) {
+		super(client, processorSettings, settings);
 	}
 
 	@Override

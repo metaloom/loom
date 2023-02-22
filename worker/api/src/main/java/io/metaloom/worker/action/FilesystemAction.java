@@ -26,4 +26,5 @@ public interface FilesystemAction {
 	}
 
 	void set(long current, long total);
+
 }

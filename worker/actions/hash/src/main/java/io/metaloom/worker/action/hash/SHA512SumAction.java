@@ -1,16 +1,17 @@
 package io.metaloom.worker.action.hash;
 
+import static io.metaloom.worker.action.ActionResult.CONTINUE_NEXT;
+
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.worker.action.AbstractFilesystemAction;
-import static io.metaloom.worker.action.ActionResult.CONTINUE_NEXT;
 import io.metaloom.worker.action.ActionResult;
 import io.metaloom.worker.action.ProcessableMedia;
-import io.metaloom.worker.action.WorkerActionSettings;
+import io.metaloom.worker.action.settings.ProcessorSettings;
 
-public class SHA512SumAction extends AbstractFilesystemAction {
+public class SHA512SumAction extends AbstractFilesystemAction<HashActionSettings> {
 
-	public SHA512SumAction(LoomGRPCClient client, WorkerActionSettings settings) {
-		super(client, settings);
+	public SHA512SumAction(LoomGRPCClient client, ProcessorSettings processorSettings, HashActionSettings settings) {
+		super(client, processorSettings, settings);
 	}
 
 	private static final String NAME = "sha512-hash";

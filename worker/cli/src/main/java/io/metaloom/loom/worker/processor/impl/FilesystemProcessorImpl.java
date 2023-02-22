@@ -15,8 +15,8 @@ import io.metaloom.loom.worker.processor.FilesystemProcessor;
 import io.metaloom.utils.FilterHelper;
 import io.metaloom.worker.action.ActionResult;
 import io.metaloom.worker.action.FilesystemAction;
-import io.metaloom.worker.action.ProcessableMediaImpl;
 import io.metaloom.worker.action.ResultState;
+import io.metaloom.worker.action.media.ProcessableMediaImpl;
 
 public class FilesystemProcessorImpl implements FilesystemProcessor {
 

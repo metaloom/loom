@@ -370,7 +370,7 @@
 				<artifactId>loom-doc</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			
+
 			<!-- Worker -->
 			<dependency>
 				<groupId>io.metaloom.loom.worker</groupId>
@@ -426,7 +426,6 @@
 				<type>test-jar</type>
 			</dependency>
 
-
 			<!-- Loom Services -->
 			<dependency>
 				<groupId>io.metaloom.loom</groupId>
@@ -476,6 +475,12 @@
 				<version>${project.version}</version>
 			</dependency>
 
+			<!-- Test -->
+			<dependency>
+				<groupId>io.metaloom.loom</groupId>
+				<artifactId>loom-test</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
 			<!-- Metaloom deps -->
 			<dependency>

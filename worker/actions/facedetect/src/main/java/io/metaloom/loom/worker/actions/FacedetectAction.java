@@ -18,17 +18,17 @@ import io.metaloom.video.facedetect.dlib.impl.DLibFacedetector;
 import io.metaloom.worker.action.AbstractFilesystemAction;
 import io.metaloom.worker.action.ActionResult;
 import io.metaloom.worker.action.ProcessableMedia;
-import io.metaloom.worker.action.WorkerActionSettings;
+import io.metaloom.worker.action.settings.ProcessorSettings;
 
-public class FacedetectAction extends AbstractFilesystemAction {
+public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionSettings> {
 
 	public static final Logger log = LoggerFactory.getLogger(FacedetectAction.class);
 
 	private static final String NAME = "facedetect";
 	protected final DLibFacedetector detector;
 
-	public FacedetectAction(LoomGRPCClient client, WorkerActionSettings settings) throws FileNotFoundException {
-		super(client, settings);
+	public FacedetectAction(LoomGRPCClient client, ProcessorSettings processorSettings, FacedetectActionSettings settings) throws FileNotFoundException {
+		super(client, processorSettings, settings);
 		this.detector = DLibFacedetector.create();
 		this.detector.setMinFaceHeightFactor(0.05f);
 	}

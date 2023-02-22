@@ -6,16 +6,16 @@ import io.metaloom.utils.hash.HashUtils;
 import io.metaloom.worker.action.AbstractFilesystemAction;
 import io.metaloom.worker.action.ActionResult;
 import io.metaloom.worker.action.ProcessableMedia;
-import io.metaloom.worker.action.WorkerActionSettings;
+import io.metaloom.worker.action.settings.ProcessorSettings;
 
-public class SHA256SumAction extends AbstractFilesystemAction {
+public class SHA256SumAction extends AbstractFilesystemAction<HashActionSettings> {
 
 	public static final String SHA256_ATTR_KEY = "sha256sum";
 
 	private static final String NAME = "sha256-hash";
 
-	public SHA256SumAction(LoomGRPCClient client, WorkerActionSettings settings) {
-		super(client, settings);
+	public SHA256SumAction(LoomGRPCClient client, ProcessorSettings proocessorSettings, HashActionSettings settings) {
+		super(client, proocessorSettings, settings);
 	}
 
 	@Override

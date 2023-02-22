@@ -6,16 +6,16 @@ import io.metaloom.utils.hash.HashUtils;
 import io.metaloom.worker.action.AbstractFilesystemAction;
 import io.metaloom.worker.action.ActionResult;
 import io.metaloom.worker.action.ProcessableMedia;
-import io.metaloom.worker.action.WorkerActionSettings;
+import io.metaloom.worker.action.settings.ProcessorSettings;
 
-public class ChunkHashAction extends AbstractFilesystemAction {
+public class ChunkHashAction extends AbstractFilesystemAction<HashActionSettings> {
 
 	private static final String NAME = "chunk-hash";
 
 	public static final String CHUNK_HASH_ATTR_KEY = "chunkHash";
 
-	public ChunkHashAction(LoomGRPCClient client, WorkerActionSettings settings) {
-		super(client, settings);
+	public ChunkHashAction(LoomGRPCClient client, ProcessorSettings processorSettings, HashActionSettings settings) {
+		super(client, processorSettings, settings);
 	}
 
 	@Override

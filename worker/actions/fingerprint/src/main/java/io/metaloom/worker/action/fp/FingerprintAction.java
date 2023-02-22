@@ -1,22 +1,28 @@
 package io.metaloom.worker.action.fp;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
+import io.metaloom.loom.proto.AssetResponse;
+import io.metaloom.video4j.Video;
+import io.metaloom.video4j.Videos;
+import io.metaloom.video4j.fingerprint.Fingerprint;
 import io.metaloom.video4j.fingerprint.v2.MultiSectorVideoFingerprinter;
 import io.metaloom.video4j.fingerprint.v2.impl.MultiSectorVideoFingerprinterImpl;
 import io.metaloom.worker.action.AbstractFilesystemAction;
 import io.metaloom.worker.action.ActionResult;
 import io.metaloom.worker.action.ProcessableMedia;
-import io.metaloom.worker.action.WorkerActionSettings;
+import io.metaloom.worker.action.settings.ProcessorSettings;
 
-public class FingerprintAction extends AbstractFilesystemAction {
-
-	public FingerprintAction(LoomGRPCClient client, WorkerActionSettings settings) {
-		super(client, settings);
-	}
+public class FingerprintAction extends AbstractFilesystemAction<FingerprintActionSettings> {
 
 	public static final String NAME = "fingerprint";
 
+	public static final String FINGERPRINT_ATTR_KEY = "fingerprint_v5";
+
 	private MultiSectorVideoFingerprinter hasher = new MultiSectorVideoFingerprinterImpl();
+
+	public FingerprintAction(LoomGRPCClient client, ProcessorSettings processorSettings, FingerprintActionSettings settings) {
+		super(client, processorSettings, settings);
+	}
 
 	@Override
 	public String name() {
@@ -25,8 +31,72 @@ public class FingerprintAction extends AbstractFilesystemAction {
 
 	@Override
 	public ActionResult process(ProcessableMedia media) {
-		// TODO Auto-generated method stub
-		return null;
+		long start = System.currentTimeMillis();
+		if (!media.isVideo()) {
+			print(media, "SKIPPED", "(no video)", start);
+			return ActionResult.skipped(true, start);
+		}
+		if (!settings().isProcessIncomplete()) {
+			Boolean isComplete = media.isComplete();
+			if (isComplete != null && !isComplete) {
+				print(media, "SKIPPED", "(is incomplete)", start);
+				return ActionResult.skipped(true, start);
+			}
+		}
+		String sha512 = media.getHash512();
+		try {
+			processMedia(sha512, media);
+			return ActionResult.processed(true, start);
+		} catch (Exception e2) {
+			error(media, "Failure for " + media.path());
+			e2.printStackTrace();
+			if (getFingerprint(media) == null) {
+				writeFingerprint(media, "NULL");
+			}
+			return ActionResult.failed(true, start);
+		}
+
+	}
+
+	private void processMedia(String sha512, ProcessableMedia media) throws InterruptedException {
+		long start = System.currentTimeMillis();
+		String fp = getFingerprint(media);
+		boolean isNull = fp != null && fp.equals("NULL");
+		boolean isCorrect = fp != null && fp.length() == 66;
+		if (!settings().isRetryFailed() && (isNull || isCorrect)) {
+			print(media, "DONE", "", start);
+		} else {
+			AssetResponse entry = client().loadAsset(sha512).sync();
+			// Sync from db
+			if (entry != null) {
+				String dbFP = entry.getFingerprint();
+				if (dbFP != null) {
+					writeFingerprint(media, dbFP);
+					print(media, "DONE", "(from db)", start);
+					return;
+				}
+			}
+			String path = media.absolutePath();
+			try (Video video = Videos.open(path)) {
+				Fingerprint fingerprint = hasher.hash(video);
+				if (fingerprint == null) {
+					print(media, "NULL", "(no result)", start);
+					writeFingerprint(media, "NULL");
+				} else {
+					String hash = fingerprint.hex();
+					print(media, "DONE", "", start);
+					writeFingerprint(media, hash);
+				}
+			}
+		}
+	}
+
+	private String getFingerprint(ProcessableMedia media) {
+		return media.readAttrStr(FINGERPRINT_ATTR_KEY);
+	}
+
+	private void writeFingerprint(ProcessableMedia media, String fp) {
+		media.writeAttr(FINGERPRINT_ATTR_KEY, fp);
 	}
 
 }

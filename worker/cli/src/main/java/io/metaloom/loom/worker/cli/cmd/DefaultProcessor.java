@@ -7,11 +7,14 @@ import java.nio.file.Path;
 
 import io.metaloom.loom.action.thumbnail.ThumbnailAction;
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
+import io.metaloom.loom.client.grpc.impl.LoomGRPCClientImpl.Builder;
 import io.metaloom.loom.worker.actions.ConsistencyAction;
+import io.metaloom.loom.worker.actions.FacedetectAction;
 import io.metaloom.loom.worker.processor.FilesystemProcessor;
 import io.metaloom.loom.worker.processor.impl.FilesystemProcessorImpl;
+import io.metaloom.loom.worker.settings.FilesystemProcessorSetting;
 import io.metaloom.worker.action.FilesystemAction;
-import io.metaloom.worker.action.WorkerActionSettings;
+import io.metaloom.worker.action.fp.FingerprintAction;
 import io.metaloom.worker.action.hash.ChunkHashAction;
 import io.metaloom.worker.action.hash.SHA256SumAction;
 import io.metaloom.worker.action.hash.SHA512SumAction;
@@ -19,9 +22,9 @@ import io.metaloom.worker.action.hash.SHA512SumAction;
 public class DefaultProcessor {
 
 	private final FilesystemProcessor processor;
-	private final WorkerActionSettings settings;
+	private final FilesystemProcessorSetting settings;
 
-	public DefaultProcessor(WorkerActionSettings settings) {
+	public DefaultProcessor(FilesystemProcessorSetting settings) {
 		this.settings = settings;
 		this.processor = new FilesystemProcessorImpl();
 	}
@@ -33,12 +36,16 @@ public class DefaultProcessor {
 
 		String hostname = null;
 		int port = 0;
-		try (LoomGRPCClient client = LoomGRPCClient.builder().setHostname(hostname).setPort(port).build()) {
-			registerAction(new ConsistencyAction(client, settings));
-			registerAction(new ChunkHashAction(client, settings));
-			registerAction(new SHA256SumAction(client, settings));
-			registerAction(new SHA512SumAction(client, settings));
-			registerAction(new ThumbnailAction(client, settings));
+		Builder builder = LoomGRPCClient.builder().setHostname(hostname).setPort(port);
+		try (LoomGRPCClient client = builder.build()) {
+			registerAction(new SHA512SumAction(client, settings.getProcessorSettings(), settings.getHashSettings()));
+
+			registerAction(new ConsistencyAction(client, settings.getProcessorSettings(),settings.getConsistencySettings()));
+			registerAction(new ChunkHashAction(client, settings.getProcessorSettings(),settings.getHashSettings()));
+			registerAction(new SHA256SumAction(client, settings.getProcessorSettings(),settings.getHashSettings()));
+			registerAction(new ThumbnailAction(client, settings.getProcessorSettings(),settings.getThumbnailSettings()));
+			registerAction(new FacedetectAction(client, settings.getProcessorSettings(),settings.getFacedetectActionSettings()));
+			registerAction(new FingerprintAction(client, settings.getProcessorSettings(),settings.getFingerprintActionSettings()));
 			processor.analyze(folder);
 		}
 	}

@@ -5,6 +5,9 @@ import java.nio.file.Path;
 
 import io.metaloom.worker.action.FilesystemAction;
 
+/**
+ * Processor which can handle media from filesystem.
+ */
 public interface FilesystemProcessor {
 
 	void analyze(Path path) throws IOException;

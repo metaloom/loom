@@ -5,28 +5,35 @@ import static io.metaloom.worker.action.ActionResult.CONTINUE_NEXT;
 import static org.apache.commons.lang3.StringUtils.rightPad;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
-import io.metaloom.utils.hash.HashUtils;
+import io.metaloom.worker.action.setting.ActionSettings;
+import io.metaloom.worker.action.settings.ProcessorSettings;
 
-public abstract class AbstractFilesystemAction implements FilesystemAction {
+public abstract class AbstractFilesystemAction<T extends ActionSettings> implements FilesystemAction {
 
 	private long current;
 	private long total;
-	private LoomGRPCClient client;
-	private WorkerActionSettings settings;
 
-	public AbstractFilesystemAction(LoomGRPCClient client, WorkerActionSettings settings) {
+	private final LoomGRPCClient client;
+	private final T settings;
+	private final ProcessorSettings processorSettings;
+
+	public AbstractFilesystemAction(LoomGRPCClient client, ProcessorSettings processorSettings, T settings) {
 		this.client = client;
 		this.settings = settings;
+		this.processorSettings = processorSettings;
 	}
 
 	protected LoomGRPCClient client() {
 		return client;
 	}
 
-	protected WorkerActionSettings settings() {
+	public T settings() {
 		return settings;
 	}
 
+	public ProcessorSettings processorSettings() {
+		return processorSettings;
+	}
 
 	protected String shortHash(ProcessableMedia media) {
 		return media.getHash512().substring(0, 8);
@@ -78,7 +85,7 @@ public abstract class AbstractFilesystemAction implements FilesystemAction {
 			return progress + rightPad(shortHash(media) + " [" + name() + "]", 28);
 		}
 	}
-	
+
 	@Override
 	public void set(long current, long total) {
 		this.current = current;
