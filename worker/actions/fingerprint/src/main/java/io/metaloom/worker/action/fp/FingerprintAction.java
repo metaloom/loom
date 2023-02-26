@@ -1,5 +1,7 @@
 package io.metaloom.worker.action.fp;
 
+import static io.metaloom.worker.action.ProcessableMediaMeta.FINGERPRINT;
+
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.proto.AssetResponse;
 import io.metaloom.video4j.Video;
@@ -15,8 +17,6 @@ import io.metaloom.worker.action.settings.ProcessorSettings;
 public class FingerprintAction extends AbstractFilesystemAction<FingerprintActionSettings> {
 
 	public static final String NAME = "fingerprint";
-
-	public static final String FINGERPRINT_ATTR_KEY = "fingerprint_v5";
 
 	private MultiSectorVideoFingerprinter hasher = new MultiSectorVideoFingerprinterImpl();
 
@@ -92,11 +92,11 @@ public class FingerprintAction extends AbstractFilesystemAction<FingerprintActio
 	}
 
 	private String getFingerprint(ProcessableMedia media) {
-		return media.readAttrStr(FINGERPRINT_ATTR_KEY);
+		return media.get(FINGERPRINT);
 	}
 
 	private void writeFingerprint(ProcessableMedia media, String fp) {
-		media.writeAttr(FINGERPRINT_ATTR_KEY, fp);
+		media.put(FINGERPRINT, fp);
 	}
 
 }

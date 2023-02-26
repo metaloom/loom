@@ -1,5 +1,7 @@
 package io.metaloom.worker.action.hash;
 
+import static io.metaloom.worker.action.ProcessableMediaMeta.SHA_256;
+
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.proto.AssetResponse;
 import io.metaloom.utils.hash.HashUtils;
@@ -48,14 +50,14 @@ public class SHA256SumAction extends AbstractFilesystemAction<HashActionSettings
 	}
 
 	private void writeHash256(ProcessableMedia media, String hashSum) {
-		media.writeAttr(SHA256_ATTR_KEY, hashSum);
+		media.put(SHA_256, hashSum);
 	}
 
 	private String getHash256(ProcessableMedia media) {
-		String hashSum256 = media.readAttrStr(SHA256_ATTR_KEY);
+		String hashSum256 = media.get(SHA_256);
 		if (hashSum256 == null) {
 			hashSum256 = HashUtils.computeSHA256(media.file());
-			media.writeAttr(SHA256_ATTR_KEY, hashSum256);
+			media.put(SHA_256, hashSum256);
 		}
 		return hashSum256;
 	}

@@ -1,6 +1,7 @@
 package io.metaloom.loom.client.grpc.method;
 
-import static io.metaloom.loom.client.grpc.InternalGrpcUtil.*;
+import static io.metaloom.loom.client.grpc.InternalGrpcUtil.assetsStub;
+import static io.metaloom.loom.client.grpc.InternalGrpcUtil.assetsVertxStub;
 
 import java.util.Objects;
 

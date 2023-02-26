@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -53,14 +51,35 @@
 								io.vertx.grpc.protoc.plugin.VertxGrpcGenerator</mainClass>
 						</protocPlugin>
 					</protocPlugins>
+					<clearOutputDirectory>false</clearOutputDirectory>
 				</configuration>
 				<executions>
 					<execution>
 						<?m2e execute onConfiguration?>
+						<phase>generate-sources</phase>
 						<goals>
 							<goal>compile</goal>
 							<goal>compile-custom</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.basedir}/target/generated-sources/java/</source>
+								<source>${project.basedir}/target/generated-sources/grpc-java/</source>
+							</sources>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

@@ -1,5 +1,7 @@
 package io.metaloom.loom.action.thumbnail;
 
+import static io.metaloom.worker.action.ProcessableMediaMeta.THUMBNAIL_FLAGS;
+
 import java.io.File;
 
 import org.slf4j.Logger;
@@ -17,8 +19,6 @@ import io.metaloom.worker.action.settings.ProcessorSettings;
 public class ThumbnailAction extends AbstractFilesystemAction<ThumbnailActionSettings> {
 
 	public static final Logger log = LoggerFactory.getLogger(ThumbnailAction.class);
-
-	public static final String THUMBNAIL_FLAGS_ATTR_KEY = "thumbnailFlags";
 
 	private static final String NAME = "thumbnail";
 
@@ -109,11 +109,11 @@ public class ThumbnailAction extends AbstractFilesystemAction<ThumbnailActionSet
 	}
 
 	private void writeThumbnailFlags(ProcessableMedia media, String flags) {
-		media.writeAttr(THUMBNAIL_FLAGS_ATTR_KEY, flags);
+		media.put(THUMBNAIL_FLAGS, flags);
 	}
 
 	private String getThumbnailFlags(ProcessableMedia media) {
-		return media.readAttrStr(THUMBNAIL_FLAGS_ATTR_KEY);
+		return media.get(THUMBNAIL_FLAGS);
 	}
 
 	/**

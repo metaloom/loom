@@ -7,6 +7,6 @@
 		<artifactId>loom-worker-actions</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	
-			<name>Loom - Worker :: Actions - Deduplication</name>
+
+	<name>Loom - Worker :: Actions - Deduplication</name>
 </project>

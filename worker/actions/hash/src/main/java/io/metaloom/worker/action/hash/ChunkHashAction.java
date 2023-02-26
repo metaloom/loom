@@ -1,5 +1,7 @@
 package io.metaloom.worker.action.hash;
 
+import static io.metaloom.worker.action.ProcessableMediaMeta.CHUNK_HASH;
+
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.proto.AssetResponse;
 import io.metaloom.utils.hash.HashUtils;
@@ -12,7 +14,6 @@ public class ChunkHashAction extends AbstractFilesystemAction<HashActionSettings
 
 	private static final String NAME = "chunk-hash";
 
-	public static final String CHUNK_HASH_ATTR_KEY = "chunkHash";
 
 	public ChunkHashAction(LoomGRPCClient client, ProcessorSettings processorSettings, HashActionSettings settings) {
 		super(client, processorSettings, settings);
@@ -48,7 +49,7 @@ public class ChunkHashAction extends AbstractFilesystemAction<HashActionSettings
 	}
 
 	private String getChunkHash(ProcessableMedia media) {
-		String chunkHashSum = media.readAttrStr(CHUNK_HASH_ATTR_KEY);
+		String chunkHashSum = media.get(CHUNK_HASH);
 		if (chunkHashSum == null) {
 			chunkHashSum = HashUtils.computeChunkHash(media.file());
 			writeChunkHash(media, chunkHashSum);
@@ -57,7 +58,7 @@ public class ChunkHashAction extends AbstractFilesystemAction<HashActionSettings
 	}
 
 	private void writeChunkHash(ProcessableMedia media, String hashSum) {
-		media.writeAttr(CHUNK_HASH_ATTR_KEY, hashSum);
+		media.put(CHUNK_HASH, hashSum);
 	}
 
 }

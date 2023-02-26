@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>loom-bom</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>io.metaloom.loom</groupId>
-		<artifactId>loom</artifactId>
+		<artifactId>maven-loom-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>loom-bom</artifactId>
 	<name>Loom :: BOM</name>
+	<packaging>pom</packaging>
 
 	<properties>
+		<dagger.version>2.45</dagger.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<hazelcast.version>3.12.8</hazelcast.version>
 		<tika.version>1.26</tika.version>
@@ -49,6 +51,12 @@
 				<groupId>io.metaloom.loom.worker</groupId>
 				<artifactId>loom-worker-common</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom.worker</groupId>
+				<artifactId>loom-worker-common</artifactId>
+				<version>${project.version}</version>
+				<type>test-jar</type>
 			</dependency>
 
 			<!-- Hibernate -->
@@ -213,7 +221,7 @@
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
-				<version>2.18.3</version>
+				<version>5.1.1</version>
 			</dependency>
 			<dependency>
 				<groupId>com.jayway.jsonpath</groupId>

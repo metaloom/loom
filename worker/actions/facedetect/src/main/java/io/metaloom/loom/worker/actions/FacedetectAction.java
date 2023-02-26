@@ -18,6 +18,7 @@ import io.metaloom.video.facedetect.dlib.impl.DLibFacedetector;
 import io.metaloom.worker.action.AbstractFilesystemAction;
 import io.metaloom.worker.action.ActionResult;
 import io.metaloom.worker.action.ProcessableMedia;
+import io.metaloom.worker.action.ProcessableMediaMeta;
 import io.metaloom.worker.action.settings.ProcessorSettings;
 
 public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionSettings> {
@@ -27,7 +28,8 @@ public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionS
 	private static final String NAME = "facedetect";
 	protected final DLibFacedetector detector;
 
-	public FacedetectAction(LoomGRPCClient client, ProcessorSettings processorSettings, FacedetectActionSettings settings) throws FileNotFoundException {
+	public FacedetectAction(LoomGRPCClient client, ProcessorSettings processorSettings, FacedetectActionSettings settings)
+		throws FileNotFoundException {
 		super(client, processorSettings, settings);
 		this.detector = DLibFacedetector.create();
 		this.detector.setMinFaceHeightFactor(0.05f);
@@ -59,6 +61,10 @@ public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionS
 		// 1. Read image
 		BufferedImage image = ImageIO.read(media.file());
 		List<? extends Face> result = detector.detect(image);
+
+		if (result != null && !result.isEmpty()) {
+			media.put(ProcessableMediaMeta.FACES, result);
+		}
 		// TODO handle faces / get embeddings
 		return null;
 	}

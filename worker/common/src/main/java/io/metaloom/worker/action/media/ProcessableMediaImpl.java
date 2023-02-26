@@ -1,8 +1,11 @@
 package io.metaloom.worker.action.media;
 
+import static io.metaloom.worker.action.ProcessableMediaMeta.SHA_512;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.metaloom.utils.FilterHelper;
@@ -12,11 +15,9 @@ import io.metaloom.worker.fs.impl.XAttrHelper;
 
 public class ProcessableMediaImpl extends AbstractFilesystemMedia {
 
-	public static final String SHA512_ATTR_KEY = "sha512sum";
-
 	private Path path;
 
-	private Map<String, String> attrCache = new HashMap<>();
+	private Map<String, Object> attrCache = new HashMap<>();
 
 	private Boolean complete;
 
@@ -60,44 +61,26 @@ public class ProcessableMediaImpl extends AbstractFilesystemMedia {
 	}
 
 	@Override
-	public String readAttrStr(String attrKey) {
-		return attrCache.computeIfAbsent(attrKey, key -> {
-			return XAttrHelper.readAttrStr(path(), attrKey);
-		});
+	public List<String> listXAttr() {
+		return XAttrHelper.listAttr(path());
 	}
 
-	@Override
-	public Long readAttrLong(String attrKey) {
-		String strValue = attrCache.computeIfAbsent(attrKey, key -> {
-			return XAttrHelper.readAttrStr(path(), attrKey);
-		});
-		return Long.parseLong(strValue);
+	private <T> T readAttr(String attrKey, Class<T> classOfT) {
+		return XAttrHelper.readAttr(path(), attrKey, classOfT);
 	}
 
-	@Override
-	public ProcessableMedia writeAttr(String attrKey, String value) {
-		String cacheValue = attrCache.get(attrKey);
-		// No need to do anything if the cache is still valid
-		if (value == null && cacheValue == null || value.equals(cacheValue)) {
-			return this;
-		}
+	private ProcessableMedia writeAttr(String attrKey, Object value) {
 		XAttrHelper.writeAttr(path(), attrKey, value);
 		attrCache.put(attrKey, value);
 		return this;
 	}
 
 	@Override
-	public ProcessableMedia writeAttr(String attrKey, Long value) {
-		writeAttr(attrKey, String.valueOf(value));
-		return this;
-	}
-
-	@Override
 	public String getHash512() {
-		String hashSum512 = readAttrStr(SHA512_ATTR_KEY);
+		String hashSum512 = get(SHA_512);
 		if (hashSum512 == null) {
 			hashSum512 = HashUtils.computeSHA512(file());
-			writeAttr(SHA512_ATTR_KEY, hashSum512);
+			put(SHA_512, hashSum512);
 		}
 		return hashSum512;
 	}
@@ -106,11 +89,31 @@ public class ProcessableMediaImpl extends AbstractFilesystemMedia {
 	public Boolean isComplete() {
 		return complete;
 	}
-	
+
 	@Override
-	public ProcessableMedia setComplete(Boolean complete) {
-		this.complete = complete;
-		return this;
+	public <T> T get(String key, Class<T> classOfT) {
+		return classOfT.cast(attrCache.computeIfAbsent(key, attrKey -> {
+			Object cacheValue = attrCache.get(attrKey);
+			if (cacheValue == null) {
+				return readAttr(key, classOfT);
+			}
+			return null;
+		}));
 	}
 
+	@Override
+	public ProcessableMedia put(String key, Object value, boolean writeToXattr) {
+		Object cacheValue = attrCache.get(key);
+		// No need to do anything if the cache is still valid
+		if (value == null && cacheValue == null || value.equals(cacheValue)) {
+			return this;
+		}
+
+		if (writeToXattr) {
+			writeAttr(key, value);
+		} else {
+			attrCache.put(key, value);
+		}
+		return this;
+	}
 }

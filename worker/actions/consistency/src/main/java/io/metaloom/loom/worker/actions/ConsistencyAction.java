@@ -1,6 +1,7 @@
 package io.metaloom.loom.worker.actions;
 
 import static io.metaloom.worker.action.ActionResult.CONTINUE_NEXT;
+import static io.metaloom.worker.action.ProcessableMediaMeta.ZERO_CHUNK_COUNT;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -15,10 +16,7 @@ import io.metaloom.worker.action.settings.ProcessorSettings;
 
 public class ConsistencyAction extends AbstractFilesystemAction<ConsistencyActionSettings> {
 
-	public static final String ZERO_CHUNK_COUNT_ATTR_KEY = "zeroChunkCount";
-
 	private static final String NAME = "consistency";
-
 
 	public ConsistencyAction(LoomGRPCClient client, ProcessorSettings processorSettings, ConsistencyActionSettings settings) {
 		super(client, processorSettings, settings);
@@ -68,16 +66,16 @@ public class ConsistencyAction extends AbstractFilesystemAction<ConsistencyActio
 	}
 
 	private Long getZeroChunkCount(ProcessableMedia media) {
-		return media.readAttrLong(ZERO_CHUNK_COUNT_ATTR_KEY);
+		return media.get(ZERO_CHUNK_COUNT);
 	}
 
 	private void writeZeroChunkCount(ProcessableMedia media, Long count) {
-		media.writeAttr(ZERO_CHUNK_COUNT_ATTR_KEY, count);
+		media.put(ZERO_CHUNK_COUNT, count);
 	}
 
 	private void computeSum(ProcessableMedia media) throws NoSuchAlgorithmException, IOException {
 		PartialFile pf = new PartialFile(media.path());
 		long count = pf.computeZeroChunkCount();
-		media.writeAttr(ZERO_CHUNK_COUNT_ATTR_KEY, count);
+		media.put(ZERO_CHUNK_COUNT, count);
 	}
 }

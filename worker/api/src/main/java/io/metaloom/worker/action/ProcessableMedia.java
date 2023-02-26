@@ -1,7 +1,11 @@
 package io.metaloom.worker.action;
 
+import static io.metaloom.worker.action.ProcessableMediaMeta.SHA_512;
+import static io.metaloom.worker.action.ProcessableMediaMeta.ZERO_CHUNK_COUNT;
+
 import java.io.File;
 import java.nio.file.Path;
+import java.util.List;
 
 public interface ProcessableMedia {
 
@@ -11,26 +15,87 @@ public interface ProcessableMedia {
 
 	boolean isAudio();
 
+	/**
+	 * Return the underlying file for the media.
+	 * 
+	 * @return
+	 */
 	File file();
 
+	/**
+	 * Return the filesystem path to the media.
+	 * 
+	 * @return
+	 */
 	Path path();
 
+	/**
+	 * Return the absolute filesystem path for the media.
+	 * 
+	 * @return
+	 */
 	String absolutePath();
 
+	/**
+	 * Check if the media exists.
+	 * 
+	 * @return
+	 */
 	boolean exists();
 
-	String readAttrStr(String attrKey);
+	/**
+	 * List the extended file attributes for the media file.
+	 * 
+	 * @return
+	 */
+	List<String> listXAttr();
 
-	Long readAttrLong(String attrKey);
+	/**
+	 * Return the meta property for the given key.
+	 * 
+	 * @param <T>
+	 * @param key
+	 * @param classOfT
+	 * @return
+	 */
+	<T> T get(String key, Class<T> classOfT);
 
-	ProcessableMedia writeAttr(String attrKey, String value);
+	/**
+	 * Return the meta property for the given type.
+	 * 
+	 * @param <T>
+	 * @param meta
+	 * @return
+	 */
+	default <T> T get(ProcessableMediaMeta meta) {
+		return (T) get(meta.key(), meta.type());
+	}
 
-	ProcessableMedia writeAttr(String attrKey, Long value);
+	/**
+	 * Write the value to the local cache and also to the xattr of the file when required.
+	 * 
+	 * @param key
+	 * @param value
+	 * @param writeToXattr
+	 * @return
+	 */
+	ProcessableMedia put(String key, Object value, boolean writeToXattr);
 
-	String getHash512();
+	default ProcessableMedia put(ProcessableMediaMeta meta, Object value) {
+		return put(meta.key(), value, meta.isPersisted());
+	}
 
-	Boolean isComplete();
+	default String getHash512() {
+		return get(SHA_512);
+	}
 
-	ProcessableMedia setComplete(Boolean complete);
+	default Boolean isComplete() {
+		Long zeroChunks = get(ZERO_CHUNK_COUNT);
+		if (zeroChunks != null) {
+			return zeroChunks == 0;
+		} else {
+			return null;
+		}
+	}
 
 }
