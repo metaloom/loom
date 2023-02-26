@@ -1,8 +1,8 @@
 package io.metaloom.worker.action.media;
 
-import static io.metaloom.worker.action.ProcessableMediaMeta.FACES;
-import static io.metaloom.worker.action.ProcessableMediaMeta.SHA_512;
-import static io.metaloom.worker.action.ProcessableMediaMeta.ZERO_CHUNK_COUNT;
+import static io.metaloom.worker.action.api.ProcessableMediaMeta.FACES;
+import static io.metaloom.worker.action.api.ProcessableMediaMeta.SHA_512;
+import static io.metaloom.worker.action.api.ProcessableMediaMeta.ZERO_CHUNK_COUNT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import io.metaloom.worker.action.ProcessableMedia;
+import io.metaloom.worker.action.api.ProcessableMedia;
 
 public class ProcessableMediaTest extends AbstractWorkerTest {
 

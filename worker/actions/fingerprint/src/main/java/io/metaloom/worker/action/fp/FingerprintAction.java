@@ -1,6 +1,6 @@
 package io.metaloom.worker.action.fp;
 
-import static io.metaloom.worker.action.ProcessableMediaMeta.FINGERPRINT;
+import static io.metaloom.worker.action.api.ProcessableMediaMeta.FINGERPRINT;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.proto.AssetResponse;
@@ -9,9 +9,9 @@ import io.metaloom.video4j.Videos;
 import io.metaloom.video4j.fingerprint.Fingerprint;
 import io.metaloom.video4j.fingerprint.v2.MultiSectorVideoFingerprinter;
 import io.metaloom.video4j.fingerprint.v2.impl.MultiSectorVideoFingerprinterImpl;
-import io.metaloom.worker.action.AbstractFilesystemAction;
-import io.metaloom.worker.action.ActionResult;
-import io.metaloom.worker.action.ProcessableMedia;
+import io.metaloom.worker.action.api.ActionResult;
+import io.metaloom.worker.action.api.ProcessableMedia;
+import io.metaloom.worker.action.common.AbstractFilesystemAction;
 import io.metaloom.worker.action.settings.ProcessorSettings;
 
 public class FingerprintAction extends AbstractFilesystemAction<FingerprintActionSettings> {

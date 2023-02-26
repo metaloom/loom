@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import io.metaloom.loom.json.JsonUtil;
+import io.metaloom.loom.api.json.JsonUtil;
 import io.metaloom.loom.rest.model.model.field.impl.text.TextModelField;
 
 public class ModelFieldModelTest extends AbstractExamples {

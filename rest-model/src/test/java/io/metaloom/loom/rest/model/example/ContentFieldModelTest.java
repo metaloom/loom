@@ -18,7 +18,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import io.metaloom.loom.json.JsonUtil;
+import io.metaloom.loom.api.json.JsonUtil;
 import io.metaloom.loom.rest.model.content.ContentField;
 import io.metaloom.loom.rest.model.content.field.asset.AssetContentField;
 import io.metaloom.loom.rest.model.content.field.asset.AssetListContentField;

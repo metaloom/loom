@@ -1,6 +1,6 @@
 package io.metaloom.worker.action.settings;
 
-import io.metaloom.worker.action.setting.ActionSettings;
+import io.metaloom.worker.action.api.setting.ActionSettings;
 
 public abstract class AbstractActionSettings implements ActionSettings {
 

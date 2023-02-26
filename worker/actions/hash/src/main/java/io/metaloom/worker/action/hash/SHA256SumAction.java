@@ -1,13 +1,13 @@
 package io.metaloom.worker.action.hash;
 
-import static io.metaloom.worker.action.ProcessableMediaMeta.SHA_256;
+import static io.metaloom.worker.action.api.ProcessableMediaMeta.SHA_256;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.proto.AssetResponse;
 import io.metaloom.utils.hash.HashUtils;
-import io.metaloom.worker.action.AbstractFilesystemAction;
-import io.metaloom.worker.action.ActionResult;
-import io.metaloom.worker.action.ProcessableMedia;
+import io.metaloom.worker.action.api.ActionResult;
+import io.metaloom.worker.action.api.ProcessableMedia;
+import io.metaloom.worker.action.common.AbstractFilesystemAction;
 import io.metaloom.worker.action.settings.ProcessorSettings;
 
 public class SHA256SumAction extends AbstractFilesystemAction<HashActionSettings> {

@@ -1,8 +1,8 @@
 package io.metaloom.loom.worker.settings;
 
-import io.metaloom.loom.action.thumbnail.ThumbnailActionSettings;
-import io.metaloom.loom.worker.actions.ConsistencyActionSettings;
-import io.metaloom.loom.worker.actions.FacedetectActionSettings;
+import io.metaloom.loom.worker.action.consistency.ConsistencyActionSettings;
+import io.metaloom.loom.worker.action.facedetect.FacedetectActionSettings;
+import io.metaloom.loom.worker.action.thumbnail.ThumbnailActionSettings;
 import io.metaloom.worker.action.fp.FingerprintActionSettings;
 import io.metaloom.worker.action.hash.HashActionSettings;
 import io.metaloom.worker.action.settings.ProcessorSettings;

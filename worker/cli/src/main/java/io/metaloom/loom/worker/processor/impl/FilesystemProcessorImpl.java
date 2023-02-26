@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.worker.processor.FilesystemProcessor;
 import io.metaloom.utils.FilterHelper;
-import io.metaloom.worker.action.ActionResult;
-import io.metaloom.worker.action.FilesystemAction;
-import io.metaloom.worker.action.ResultState;
+import io.metaloom.worker.action.api.ActionResult;
+import io.metaloom.worker.action.api.FilesystemAction;
+import io.metaloom.worker.action.api.ResultState;
 import io.metaloom.worker.action.media.ProcessableMediaImpl;
 
 public class FilesystemProcessorImpl implements FilesystemProcessor {

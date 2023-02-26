@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest.model;
 
-import io.metaloom.loom.json.JsonUtil;
+import io.metaloom.loom.api.json.JsonUtil;
 
 /**
  * Marker interface for all REST models.

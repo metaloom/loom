@@ -2,7 +2,7 @@ package io.metaloom.loom.client.util;
 
 import java.util.concurrent.TimeUnit;
 
-import io.metaloom.loom.client.ClientSettings;
+import io.metaloom.loom.client.grpc.ClientSettings;
 import io.reactivex.rxjava3.core.Maybe;
 import io.vertx.core.Future;
 

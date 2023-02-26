@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import io.metaloom.loom.api.uuid.UUIDUtil;
 import io.metaloom.loom.rest.model.asset.AssetHash;
 import io.metaloom.loom.rest.model.asset.AssetLocation;
 import io.metaloom.loom.rest.model.asset.AssetTimelineEntry;
@@ -17,7 +18,6 @@ import io.metaloom.loom.rest.model.content.ContentReference;
 import io.metaloom.loom.rest.model.model.ModelReference;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.metaloom.loom.rest.model.user.UserReference;
-import io.metaloom.loom.uuid.UUIDUtil;
 
 public class AbstractExamples {
 

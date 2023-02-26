@@ -9,7 +9,7 @@ import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
 
-import io.metaloom.loom.json.JsonUtil;
+import io.metaloom.loom.api.json.JsonUtil;
 import io.metaloom.loom.rest.model.RestModel;
 
 public final class ModelTestHelper {

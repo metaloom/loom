@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import org.flywaydb.core.Flyway;
 import dagger.Module;
 import dagger.Provides;
-import io.metaloom.loom.options.DatabaseOptions;
+import io.metaloom.loom.api.options.DatabaseOptions;
 
 @Module
 public class FlywayModule {

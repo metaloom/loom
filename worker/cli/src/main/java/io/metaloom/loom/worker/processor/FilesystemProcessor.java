@@ -3,7 +3,7 @@ package io.metaloom.loom.worker.processor;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import io.metaloom.worker.action.FilesystemAction;
+import io.metaloom.worker.action.api.FilesystemAction;
 
 /**
  * Processor which can handle media from filesystem.

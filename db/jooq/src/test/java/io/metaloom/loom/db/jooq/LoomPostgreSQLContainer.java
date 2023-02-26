@@ -2,7 +2,7 @@ package io.metaloom.loom.db.jooq;
 
 import org.testcontainers.containers.PostgreSQLContainer;
 
-import io.metaloom.loom.options.DatabaseOptions;
+import io.metaloom.loom.api.options.DatabaseOptions;
 
 /**
  * Preconfigured {@link LoomPostgreSQLContainer}

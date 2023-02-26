@@ -1,6 +1,6 @@
 package io.metaloom.worker.action.media;
 
-import static io.metaloom.worker.action.ProcessableMediaMeta.SHA_512;
+import static io.metaloom.worker.action.api.ProcessableMediaMeta.SHA_512;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 import io.metaloom.utils.FilterHelper;
 import io.metaloom.utils.hash.HashUtils;
-import io.metaloom.worker.action.ProcessableMedia;
+import io.metaloom.worker.action.api.ProcessableMedia;
 import io.metaloom.worker.fs.impl.XAttrHelper;
 
 public class ProcessableMediaImpl extends AbstractFilesystemMedia {

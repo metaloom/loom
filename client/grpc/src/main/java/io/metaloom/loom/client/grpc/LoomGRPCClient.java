@@ -1,6 +1,5 @@
 package io.metaloom.loom.client.grpc;
 
-import io.metaloom.loom.client.ClientSettings;
 import io.metaloom.loom.client.grpc.impl.LoomGRPCClientImpl;
 import io.metaloom.loom.client.grpc.method.AssetMethods;
 

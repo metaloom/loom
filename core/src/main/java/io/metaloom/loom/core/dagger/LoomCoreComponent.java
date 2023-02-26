@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
+import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.common.dagger.LoomModule;
 import io.metaloom.loom.common.dagger.VertxModule;
 import io.metaloom.loom.db.LoomDaoCollection;
@@ -11,7 +12,6 @@ import io.metaloom.loom.db.dagger.DBBindModule;
 import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
-import io.metaloom.loom.options.LoomOptions;
 
 /**
  * Central dagger loom component.

@@ -15,7 +15,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import dagger.Module;
 import dagger.Provides;
-import io.metaloom.loom.options.DatabaseOptions;
+import io.metaloom.loom.api.options.DatabaseOptions;
 import io.r2dbc.spi.ConnectionFactories;
 import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.ConnectionFactoryOptions;

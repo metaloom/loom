@@ -6,9 +6,9 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import io.metaloom.loom.api.uuid.UUIDUtil;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.LoomUserDao;
-import io.metaloom.loom.uuid.UUIDUtil;
 
 public class MemUsersDaoImpl implements LoomUserDao {
 

@@ -5,7 +5,7 @@ import static io.metaloom.loom.client.grpc.InternalGrpcUtil.assetsVertxStub;
 
 import java.util.Objects;
 
-import io.metaloom.loom.client.ClientSettings;
+import io.metaloom.loom.client.grpc.ClientSettings;
 import io.metaloom.loom.proto.AssetRequest;
 import io.metaloom.loom.proto.AssetResponse;
 

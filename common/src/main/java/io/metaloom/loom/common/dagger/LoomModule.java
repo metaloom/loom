@@ -4,8 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import io.metaloom.loom.options.DatabaseOptions;
-import io.metaloom.loom.options.LoomOptions;
+import io.metaloom.loom.api.options.DatabaseOptions;
+import io.metaloom.loom.api.options.LoomOptions;
 
 @Module
 public class LoomModule {

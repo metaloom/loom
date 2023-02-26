@@ -2,7 +2,7 @@ package io.metaloom.loom.client.grpc.method;
 
 import java.util.function.Supplier;
 
-import io.metaloom.loom.client.ClientSettings;
+import io.metaloom.loom.client.grpc.ClientSettings;
 import io.metaloom.loom.client.util.LoomClientUtil;
 import io.reactivex.rxjava3.core.Maybe;
 import io.vertx.core.Future;

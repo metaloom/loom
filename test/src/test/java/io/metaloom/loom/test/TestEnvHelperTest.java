@@ -17,9 +17,9 @@ public class TestEnvHelperTest {
 		if (expectedPath.exists()) {
 			FileUtils.deleteDirectory(expectedPath);
 		}
-		File dest = TestEnvHelper.prepareTestdata("postfix");
-		assertTrue(dest.exists());
-		assertEquals(expectedPath.getAbsolutePath(), dest.getAbsolutePath());
+		Testdata data = TestEnvHelper.prepareTestdata("postfix");
+		assertTrue(data.root().exists());
+		assertEquals(expectedPath.getAbsolutePath(), data.root().getAbsolutePath());
 	}
 
 }

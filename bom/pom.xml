@@ -28,6 +28,7 @@
 		<hibernate.orm.version>5.6.1.Final</hibernate.orm.version>
 		<hibernate.reactive.version>1.1.0.Final</hibernate.reactive.version>
 		<okhttp.version>4.10.0</okhttp.version>
+		<postgres.driver.version>42.2.2</postgres.driver.version>
 
 		<!-- Sonar /  Maven -->
 		<jacoco.version>0.8.8</jacoco.version>
@@ -99,6 +100,11 @@
 				<groupId>com.mchange</groupId>
 				<artifactId>c3p0</artifactId>
 				<version>0.9.5.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgres.driver.version}</version>
 			</dependency>
 
 			<!-- REST API -->

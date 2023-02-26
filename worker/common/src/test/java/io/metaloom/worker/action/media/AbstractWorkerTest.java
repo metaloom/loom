@@ -5,9 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.IOException;
 
-import io.metaloom.worker.action.ActionResult;
-import io.metaloom.worker.action.ProcessableMedia;
-import io.metaloom.worker.action.ResultState;
+import io.metaloom.worker.action.api.ActionResult;
+import io.metaloom.worker.action.api.ProcessableMedia;
+import io.metaloom.worker.action.api.ResultState;
 
 public abstract class AbstractWorkerTest {
 

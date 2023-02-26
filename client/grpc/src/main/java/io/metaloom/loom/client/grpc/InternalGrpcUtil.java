@@ -1,6 +1,5 @@
 package io.metaloom.loom.client.grpc;
 
-import io.metaloom.loom.client.ClientSettings;
 import io.metaloom.loom.proto.AssetLoaderGrpc;
 import io.metaloom.loom.proto.VertxAssetLoaderGrpc;
 
