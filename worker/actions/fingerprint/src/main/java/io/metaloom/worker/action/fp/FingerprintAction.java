@@ -2,9 +2,13 @@ package io.metaloom.worker.action.fp;
 
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.FINGERPRINT;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.proto.AssetResponse;
 import io.metaloom.video4j.Video;
+import io.metaloom.video4j.Video4j;
 import io.metaloom.video4j.Videos;
 import io.metaloom.video4j.fingerprint.Fingerprint;
 import io.metaloom.video4j.fingerprint.v2.MultiSectorVideoFingerprinter;
@@ -16,9 +20,15 @@ import io.metaloom.worker.action.common.settings.ProcessorSettings;
 
 public class FingerprintAction extends AbstractFilesystemAction<FingerprintActionSettings> {
 
+	public static final Logger log = LoggerFactory.getLogger(FingerprintAction.class);
+
 	public static final String NAME = "fingerprint";
 
 	private MultiSectorVideoFingerprinter hasher = new MultiSectorVideoFingerprinterImpl();
+
+	static {
+		Video4j.init();
+	}
 
 	public FingerprintAction(LoomGRPCClient client, ProcessorSettings processorSettings, FingerprintActionSettings settings) {
 		super(client, processorSettings, settings);
@@ -47,9 +57,11 @@ public class FingerprintAction extends AbstractFilesystemAction<FingerprintActio
 		try {
 			processMedia(sha512, media);
 			return ActionResult.processed(true, start);
-		} catch (Exception e2) {
+		} catch (Exception e) {
 			error(media, "Failure for " + media.path());
-			e2.printStackTrace();
+			if (log.isErrorEnabled()) {
+				log.error("Error while processing media " + media.path(), e);
+			}
 			if (getFingerprint(media) == null) {
 				writeFingerprint(media, "NULL");
 			}
