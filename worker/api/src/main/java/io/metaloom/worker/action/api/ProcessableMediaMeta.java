@@ -20,6 +20,8 @@ public enum ProcessableMediaMeta {
 
 	THUMBNAIL_FLAGS("thumbnail_flags", true, String.class),
 
+	TIKA_FLAGS("tika_flags", true, String.class),
+
 	FINGERPRINT("fingerprint", true, String.class);
 
 	private String name;

@@ -4,6 +4,8 @@ import static io.metaloom.worker.action.api.ProcessableMediaMeta.SHA_512;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.ZERO_CHUNK_COUNT;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -42,6 +44,14 @@ public interface ProcessableMedia {
 	 * @return
 	 */
 	boolean exists();
+
+	/**
+	 * Open the media stream.
+	 * 
+	 * @return
+	 * @throws FileNotFoundException 
+	 */
+	InputStream open() throws FileNotFoundException;
 
 	/**
 	 * List the extended file attributes for the media file.

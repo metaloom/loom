@@ -2,7 +2,11 @@ package io.metaloom.worker.action.common.media;
 
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.SHA_512;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +62,11 @@ public class ProcessableMediaImpl extends AbstractFilesystemMedia {
 	@Override
 	public String absolutePath() {
 		return file().getAbsolutePath();
+	}
+
+	@Override
+	public InputStream open() throws FileNotFoundException {
+		return new BufferedInputStream(new FileInputStream(file()));
 	}
 
 	@Override
