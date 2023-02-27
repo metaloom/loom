@@ -39,11 +39,15 @@ public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionS
 	private static final String NAME = "facedetect";
 	protected final DLibFacedetector detector;
 
+	static {
+		Video4j.init();
+	}
+
 	public FacedetectAction(LoomGRPCClient client, ProcessorSettings processorSettings, FacedetectActionSettings settings)
 		throws FileNotFoundException {
 		super(client, processorSettings, settings);
 		try {
-			Video4j.init();
+
 			DLibModelProvisioner.extractModelData(Paths.get("dlib"));
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to extract dlib models", e);

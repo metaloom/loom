@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.video4j.Video;
+import io.metaloom.video4j.Video4j;
 import io.metaloom.video4j.Videos;
 import io.metaloom.video4j.preview.PreviewGenerator;
 import io.metaloom.worker.action.api.ActionResult;
@@ -28,6 +29,10 @@ public class ThumbnailAction extends AbstractFilesystemAction<ThumbnailActionSet
 
 	private final PreviewGenerator gen;
 
+	static {
+		Video4j.init();
+	}
+
 	public ThumbnailAction(LoomGRPCClient client, ProcessorSettings processorSettings, ThumbnailActionSettings settings) {
 		super(client, processorSettings, settings);
 		int tileSize = settings.getTileSize();
@@ -43,6 +48,9 @@ public class ThumbnailAction extends AbstractFilesystemAction<ThumbnailActionSet
 
 	@Override
 	public ActionResult process(ProcessableMedia media) {
+		if (settings().getThumbnailPath() == null) {
+			throw new RuntimeException("No thumbnail output directory has been configured");
+		}
 		long start = System.currentTimeMillis();
 		if (!media.isVideo()) {
 			print(media, "SKIPPED", "(no video)", start);
