@@ -5,7 +5,10 @@ import static io.metaloom.worker.action.api.ActionResult.CONTINUE_NEXT;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 
@@ -13,13 +16,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
+import io.metaloom.loom.worker.action.facedetect.cluster.ClusterResult;
+import io.metaloom.loom.worker.action.facedetect.cluster.FaceClusterer;
 import io.metaloom.video.facedetect.Face;
+import io.metaloom.video.facedetect.FaceVideoFrame;
 import io.metaloom.video.facedetect.dlib.impl.DLibFacedetector;
+import io.metaloom.video4j.Video;
+import io.metaloom.video4j.Video4j;
+import io.metaloom.video4j.Videos;
+import io.metaloom.video4j.opencv.CVUtils;
 import io.metaloom.worker.action.api.ActionResult;
 import io.metaloom.worker.action.api.ProcessableMedia;
 import io.metaloom.worker.action.api.ProcessableMediaMeta;
 import io.metaloom.worker.action.common.AbstractFilesystemAction;
-import io.metaloom.worker.action.settings.ProcessorSettings;
+import io.metaloom.worker.action.common.dlib.DLibModelProvisioner;
+import io.metaloom.worker.action.common.settings.ProcessorSettings;
 
 public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionSettings> {
 
@@ -31,8 +42,15 @@ public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionS
 	public FacedetectAction(LoomGRPCClient client, ProcessorSettings processorSettings, FacedetectActionSettings settings)
 		throws FileNotFoundException {
 		super(client, processorSettings, settings);
+		try {
+			Video4j.init();
+			DLibModelProvisioner.extractModelData(Paths.get("dlib"));
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to extract dlib models", e);
+		}
 		this.detector = DLibFacedetector.create();
-		this.detector.setMinFaceHeightFactor(0.05f);
+		this.detector.setMinFaceHeightFactor(settings.getMinFaceHeightFactor());
+
 	}
 
 	@Override
@@ -70,7 +88,43 @@ public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionS
 	}
 
 	private ActionResult processVideo(ProcessableMedia media) {
-		return null;
+		long start = System.currentTimeMillis();
+		String info = "";
+
+		List<Face> faces = new ArrayList<>();
+		try (Video video = Videos.open(media.absolutePath())) {
+			// FacedetectorMetrics metrics = FacedetectorMetrics.create();
+			Stream<FaceVideoFrame> frameStream = video.streamFrames()
+				.filter(frame -> {
+					return frame.number() % settings().getVideoChopRate() == 0;
+				})
+				.map(frame -> {
+					CVUtils.boxFrame2(frame, settings().getVideoScaleSize());
+					return frame;
+				})
+				.map(detector::detect)
+				.filter(FaceVideoFrame::hasFace);
+			// .map(metrics::track)
+			// .map(detector::markFaces)
+			// .map(detector::markLandmarks);
+			// VideoUtils.showVideoFrameStream(frameStream);
+
+			frameStream.forEach(frame -> {
+				for (Face face : frame.faces()) {
+					if (face.getEmbeddings() != null) {
+						faces.add(face);
+					}
+				}
+			});
+		}
+		clusterFaces(faces);
+		media.put(ProcessableMediaMeta.FACES, faces);
+		return done(media, start, info);
+	}
+
+	private void clusterFaces(List<Face> faces) {
+		ClusterResult result = FaceClusterer.clusterFaces(faces, settings().getFaceClusterEPS(), settings().getFaceClusterMinimum());
+		System.out.println("Generated clusters: " + result.size());
 	}
 
 }

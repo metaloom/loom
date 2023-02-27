@@ -1,5 +1,8 @@
 package io.metaloom.loom.worker.action.consistency;
 
+import static io.metaloom.loom.test.assertj.LoomWorkerAssertions.assertThat;
+import static io.metaloom.worker.action.api.ProcessableMediaMeta.SHA_512;
+
 import java.io.IOException;
 
 import org.junit.Test;
@@ -11,26 +14,33 @@ import io.metaloom.worker.action.api.ActionResult;
 import io.metaloom.worker.action.api.ProcessableMedia;
 import io.metaloom.worker.action.media.AbstractWorkerTest;
 import io.metaloom.worker.action.media.LoomClientMock;
-import io.metaloom.worker.action.media.ProcessableMediaImpl;
 
 public class ConsistencyActionTest extends AbstractWorkerTest {
 
 	@Test
 	public void testSkipAction() throws IOException {
-		ConsistencyAction action = new ConsistencyAction(null, null, null);
+		ConsistencyAction action = mockAction();
 		ProcessableMedia media = createTestMediaFile();
 		ActionResult result = action.process(media);
-		assertSkipped(result);
+		assertThat(result).isSkipped();
+		assertThat(media).hasXAttr(SHA_512);
 	}
 
 	@Test
 	public void testProcessVideo() throws IOException {
-		LoomGRPCClient client = LoomClientMock.mockGrpcClient();
-		ConsistencyAction action = new ConsistencyAction(client, null, null);
+		ConsistencyAction action = mockAction();
 		Testdata data = TestEnvHelper.prepareTestdata("action-test");
-		ProcessableMedia media = new ProcessableMediaImpl(data.sampleVideoPath());
+		ProcessableMedia media = sampleVideoMedia(data);
 		ActionResult result = action.process(media);
-		assertProcessed(result);
+		assertThat(result).isProcessed();
+		assertThat(media).hasXAttr(SHA_512, data.sampleVideoSHA512());
+		assertThat(media).isConsistent();
+		assertThat(media).hasXAttr(2);
 	}
 
+	private ConsistencyAction mockAction() {
+		LoomGRPCClient client = LoomClientMock.mockGrpcClient();
+		ConsistencyAction action = new ConsistencyAction(client, null, null);
+		return action;
+	}
 }

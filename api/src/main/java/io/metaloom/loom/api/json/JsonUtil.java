@@ -1,6 +1,6 @@
 package io.metaloom.loom.api.json;
 
-import static io.metaloom.LoomHttpStatusCodes.INTERNAL_SERVER_ERROR;
+import static io.metaloom.api.LoomHttpStatusCodes.INTERNAL_SERVER_ERROR;
 
 import java.io.IOException;
 

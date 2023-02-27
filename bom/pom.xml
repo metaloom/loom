@@ -148,6 +148,11 @@
 				<version>2.11.0</version>
 			</dependency>
 			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-math3</artifactId>
+				<version>3.6.1</version>
+			</dependency>
+			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>30.1.1-jre</version>
@@ -222,7 +227,7 @@
 			<dependency>
 				<groupId>org.assertj</groupId>
 				<artifactId>assertj-core</artifactId>
-				<version>3.21.0</version>
+				<version>3.24.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.mockito</groupId>
@@ -515,7 +520,7 @@
 			<dependency>
 				<groupId>io.metaloom.video</groupId>
 				<artifactId>video4j-facedetect</artifactId>
-				<version>0.1.0</version>
+				<version>0.2.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>io.metaloom.video</groupId>

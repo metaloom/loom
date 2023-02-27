@@ -1,27 +1,29 @@
 package io.metaloom.worker.action.media;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.File;
 import java.io.IOException;
 
-import io.metaloom.worker.action.api.ActionResult;
+import io.metaloom.loom.test.Testdata;
 import io.metaloom.worker.action.api.ProcessableMedia;
-import io.metaloom.worker.action.api.ResultState;
+import io.metaloom.worker.action.common.media.ProcessableMediaImpl;
 
 public abstract class AbstractWorkerTest {
 
-	public ProcessableMedia createTestMediaFile() throws IOException {
+	public static ProcessableMedia createTestMediaFile() throws IOException {
 		File file = File.createTempFile("processable-media-test", "file");
 		return new ProcessableMediaImpl(file.toPath());
 	}
 
-	public void assertProcessed(ActionResult result) {
-		assertEquals("The action was not in stat processed.", ResultState.PROCESSED, result.getState());
+	public static ProcessableMedia sampleVideoMedia(Testdata data) {
+		return new ProcessableMediaImpl(data.sampleVideoPath());
 	}
 	
-	public void assertSkipped(ActionResult result) {
-		assertEquals("The action was not in stat skipped.", ResultState.SKIPPED, result.getState());
+	public static ProcessableMedia sampleVideoMedia2(Testdata data) {
+		return new ProcessableMediaImpl(data.sampleVideo2Path());
+	}
+	
+	public static ProcessableMedia sampleVideoMedia3(Testdata data) {
+		return new ProcessableMediaImpl(data.sampleVideo3Path());
 	}
 
 }

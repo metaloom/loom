@@ -16,8 +16,8 @@ import io.metaloom.loom.worker.settings.FilesystemProcessorSetting;
 import io.metaloom.worker.action.api.FilesystemAction;
 import io.metaloom.worker.action.fp.FingerprintAction;
 import io.metaloom.worker.action.hash.ChunkHashAction;
-import io.metaloom.worker.action.hash.SHA256SumAction;
-import io.metaloom.worker.action.hash.SHA512SumAction;
+import io.metaloom.worker.action.hash.SHA256Action;
+import io.metaloom.worker.action.hash.SHA512Action;
 
 public class DefaultProcessor {
 
@@ -38,11 +38,11 @@ public class DefaultProcessor {
 		int port = 0;
 		Builder builder = LoomGRPCClient.builder().setHostname(hostname).setPort(port);
 		try (LoomGRPCClient client = builder.build()) {
-			registerAction(new SHA512SumAction(client, settings.getProcessorSettings(), settings.getHashSettings()));
+			registerAction(new SHA512Action(client, settings.getProcessorSettings(), settings.getHashSettings()));
 
 			registerAction(new ConsistencyAction(client, settings.getProcessorSettings(),settings.getConsistencySettings()));
 			registerAction(new ChunkHashAction(client, settings.getProcessorSettings(),settings.getHashSettings()));
-			registerAction(new SHA256SumAction(client, settings.getProcessorSettings(),settings.getHashSettings()));
+			registerAction(new SHA256Action(client, settings.getProcessorSettings(),settings.getHashSettings()));
 			registerAction(new ThumbnailAction(client, settings.getProcessorSettings(),settings.getThumbnailSettings()));
 			registerAction(new FacedetectAction(client, settings.getProcessorSettings(),settings.getFacedetectActionSettings()));
 			registerAction(new FingerprintAction(client, settings.getProcessorSettings(),settings.getFingerprintActionSettings()));

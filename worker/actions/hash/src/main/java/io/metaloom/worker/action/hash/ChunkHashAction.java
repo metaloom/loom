@@ -2,18 +2,22 @@ package io.metaloom.worker.action.hash;
 
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.CHUNK_HASH;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.proto.AssetResponse;
 import io.metaloom.utils.hash.HashUtils;
 import io.metaloom.worker.action.api.ActionResult;
 import io.metaloom.worker.action.api.ProcessableMedia;
 import io.metaloom.worker.action.common.AbstractFilesystemAction;
-import io.metaloom.worker.action.settings.ProcessorSettings;
+import io.metaloom.worker.action.common.settings.ProcessorSettings;
 
 public class ChunkHashAction extends AbstractFilesystemAction<HashActionSettings> {
 
-	private static final String NAME = "chunk-hash";
+	public static final Logger log = LoggerFactory.getLogger(ChunkHashAction.class);
 
+	private static final String NAME = "chunk-hash";
 
 	public ChunkHashAction(LoomGRPCClient client, ProcessorSettings processorSettings, HashActionSettings settings) {
 		super(client, processorSettings, settings);

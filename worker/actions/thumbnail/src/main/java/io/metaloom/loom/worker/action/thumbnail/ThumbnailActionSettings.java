@@ -1,6 +1,6 @@
 package io.metaloom.loom.worker.action.thumbnail;
 
-import io.metaloom.worker.action.settings.AbstractActionSettings;
+import io.metaloom.worker.action.common.settings.AbstractActionSettings;
 
 public class ThumbnailActionSettings extends AbstractActionSettings {
 

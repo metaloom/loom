@@ -2,6 +2,8 @@ package io.metaloom.worker.action.api;
 
 import java.util.List;
 
+import io.metaloom.api.Loom;
+
 public enum ProcessableMediaMeta {
 
 	SHA_512("sha512", true, String.class),
@@ -11,6 +13,8 @@ public enum ProcessableMediaMeta {
 	ZERO_CHUNK_COUNT("zero_chunk_count", true, Long.class),
 
 	FACES("faces", false, List.class),
+	
+	//FACE_CLUSTERS("face_clusters", false, Cluster.class),
 
 	CHUNK_HASH("chun_hash", true, String.class),
 
@@ -31,9 +35,7 @@ public enum ProcessableMediaMeta {
 	}
 
 	public String key() {
-		String PREFIX = "loom";
-		String VERSION = "1_0";
-		return PREFIX + "_" + VERSION + "_" + name;
+		return fullKey(name);
 	}
 
 	public boolean isPersisted() {
@@ -44,4 +46,12 @@ public enum ProcessableMediaMeta {
 		return type;
 	}
 
+	public static String fullKey(String key) {
+		return Loom.PREFIX + "_" + Loom.VERSION + "_" + key;
+	}
+
+	@Override
+	public String toString() {
+		return name + ":" + (persisted ? "persisted" : "not-persisted");
+	}
 }

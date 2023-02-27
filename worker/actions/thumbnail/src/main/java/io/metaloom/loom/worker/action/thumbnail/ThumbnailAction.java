@@ -14,7 +14,7 @@ import io.metaloom.video4j.preview.PreviewGenerator;
 import io.metaloom.worker.action.api.ActionResult;
 import io.metaloom.worker.action.api.ProcessableMedia;
 import io.metaloom.worker.action.common.AbstractFilesystemAction;
-import io.metaloom.worker.action.settings.ProcessorSettings;
+import io.metaloom.worker.action.common.settings.ProcessorSettings;
 
 public class ThumbnailAction extends AbstractFilesystemAction<ThumbnailActionSettings> {
 

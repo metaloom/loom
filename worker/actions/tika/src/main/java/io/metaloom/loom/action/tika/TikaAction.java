@@ -4,7 +4,7 @@ import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.worker.action.api.ActionResult;
 import io.metaloom.worker.action.api.ProcessableMedia;
 import io.metaloom.worker.action.common.AbstractFilesystemAction;
-import io.metaloom.worker.action.settings.ProcessorSettings;
+import io.metaloom.worker.action.common.settings.ProcessorSettings;
 
 public class TikaAction extends AbstractFilesystemAction<TikaActionSettings> {
 

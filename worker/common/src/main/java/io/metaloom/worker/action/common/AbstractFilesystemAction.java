@@ -9,7 +9,7 @@ import io.metaloom.worker.action.api.ActionResult;
 import io.metaloom.worker.action.api.FilesystemAction;
 import io.metaloom.worker.action.api.ProcessableMedia;
 import io.metaloom.worker.action.api.setting.ActionSettings;
-import io.metaloom.worker.action.settings.ProcessorSettings;
+import io.metaloom.worker.action.common.settings.ProcessorSettings;
 
 public abstract class AbstractFilesystemAction<T extends ActionSettings> implements FilesystemAction {
 

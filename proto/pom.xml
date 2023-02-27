@@ -56,7 +56,6 @@
 				<executions>
 					<execution>
 						<?m2e execute onConfiguration?>
-						<phase>generate-sources</phase>
 						<goals>
 							<goal>compile</goal>
 							<goal>compile-custom</goal>
