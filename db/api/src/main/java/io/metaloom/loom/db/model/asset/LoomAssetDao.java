@@ -5,6 +5,7 @@ import java.util.UUID;
 import io.metaloom.loom.db.LoomDao;
 import io.metaloom.loom.db.model.tag.LoomTag;
 import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.page.Page;
 
 public interface LoomAssetDao extends LoomDao {
 
@@ -23,5 +24,7 @@ public interface LoomAssetDao extends LoomDao {
 	void addTag(LoomAsset asset, LoomTag tag);
 
 	void removeTag(LoomAsset asset, LoomTag tag);
+
+	Page<LoomAsset> loadAssets(UUID uuid, int pageSize);
 
 }

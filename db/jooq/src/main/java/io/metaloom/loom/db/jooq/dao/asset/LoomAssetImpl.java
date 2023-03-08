@@ -175,4 +175,9 @@ public class LoomAssetImpl extends AbstractWrappedElement<JooqAsset> implements 
 		return this;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Asset [%s] - %s", getUuid(), getFilename());
+	}
+
 }

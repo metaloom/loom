@@ -1,22 +1,28 @@
 package io.metaloom.loom.db.jooq.dao.asset;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
+import org.jooq.Record3;
+import org.jooq.SelectSeekStep1;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.LoomJooqException;
+import io.metaloom.loom.db.jooq.tables.Asset;
 import io.metaloom.loom.db.jooq.tables.daos.JooqAssetDao;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqAsset;
 import io.metaloom.loom.db.model.asset.LoomAsset;
 import io.metaloom.loom.db.model.asset.LoomAssetDao;
 import io.metaloom.loom.db.model.tag.LoomTag;
 import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.page.Page;
 
 @Singleton
 public class LoomAssetDaoImpl extends AbstractJooqDao<JooqAssetDao> implements LoomAssetDao {
@@ -104,6 +110,23 @@ public class LoomAssetDaoImpl extends AbstractJooqDao<JooqAssetDao> implements L
 	public void updateAsset(LoomAsset asset) {
 		JooqAsset jooq = unwrap(asset);
 		dao().update(jooq);
+	}
+
+	@Override
+	public Page<LoomAsset> loadAssets(UUID fromUuid, int pageSize) {
+		SelectSeekStep1<Record3<UUID, String, UUID>, UUID> query = dao().ctx()
+			.select(Asset.ASSET.UUID, Asset.ASSET.FILENAME, Asset.ASSET.ASSET_BINARIES_UUID)
+			.from(Asset.ASSET)
+			.orderBy(Asset.ASSET.UUID);
+		if (fromUuid != null) {
+			query.seek(fromUuid);
+		}
+		List<LoomAsset> list = query
+			.limit(pageSize)
+			.fetchStreamInto(JooqAsset.class)
+			.map(LoomAssetImpl::new)
+			.collect(Collectors.toList());
+		return new Page<>(list);
 	}
 
 }

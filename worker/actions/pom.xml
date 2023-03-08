@@ -37,7 +37,6 @@
 		<dependency>
 			<groupId>io.metaloom.loom.worker</groupId>
 			<artifactId>loom-worker-common</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 
 		<!--Test -->

@@ -54,4 +54,5 @@ public interface LoomAsset extends CUDElement, LoomTaggable, LoomMetaElement {
 	String getS3ObjectPath();
 
 	LoomAsset setS3ObjectPath(String path);
+
 }
