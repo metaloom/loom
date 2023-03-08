@@ -18,6 +18,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<postgres.driver.version>42.2.2</postgres.driver.version>
+		<jooq.version>3.17.8</jooq.version>
 	</properties>
 
 	<dependencyManagement>
@@ -40,6 +42,7 @@
 		<module>fs</module>
 		<module>hibernate</module>
 		-->
+		<module>jooq-gen</module>
 		<module>jooq</module>
 	</modules>
 

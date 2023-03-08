@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.RoleGroup;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqRoleGroup;
 
 import java.util.UUID;
 
@@ -146,7 +147,7 @@ public class RoleGroupRecord extends UpdatableRecordImpl<RoleGroupRecord> implem
     /**
      * Create a detached, initialised RoleGroupRecord
      */
-    public RoleGroupRecord(io.metaloom.loom.db.jooq.tables.pojos.RoleGroup value) {
+    public RoleGroupRecord(JooqRoleGroup value) {
         super(RoleGroup.ROLE_GROUP);
 
         if (value != null) {

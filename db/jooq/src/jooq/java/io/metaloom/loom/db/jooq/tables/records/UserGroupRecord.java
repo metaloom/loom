@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.UserGroup;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqUserGroup;
 
 import java.util.UUID;
 
@@ -146,7 +147,7 @@ public class UserGroupRecord extends UpdatableRecordImpl<UserGroupRecord> implem
     /**
      * Create a detached, initialised UserGroupRecord
      */
-    public UserGroupRecord(io.metaloom.loom.db.jooq.tables.pojos.UserGroup value) {
+    public UserGroupRecord(JooqUserGroup value) {
         super(UserGroup.USER_GROUP);
 
         if (value != null) {

@@ -9,21 +9,16 @@ import org.jooq.DSLContext;
 
 import io.metaloom.loom.db.field.LoomField;
 import io.metaloom.loom.db.field.LoomFieldDao;
-import io.metaloom.loom.db.jooq.AbstractDao;
-import io.metaloom.loom.db.jooq.tables.daos.FieldDao;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.Single;
+import io.metaloom.loom.db.jooq.AbstractJooqDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqFieldDao;
 
 @Singleton
-public class LoomFieldDaoImpl extends AbstractDao implements LoomFieldDao {
+public class LoomFieldDaoImpl extends AbstractJooqDao<JooqFieldDao> implements LoomFieldDao {
 
-	private final FieldDao dao;
 
 	@Inject
-	public LoomFieldDaoImpl(FieldDao dao, DSLContext ctx) {
-		super(ctx);
-		this.dao = dao;
+	public LoomFieldDaoImpl(JooqFieldDao dao, DSLContext ctx) {
+		super(dao, ctx);
 	}
 
 	// protected JooqType getType() {

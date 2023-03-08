@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.FlywaySchemaHistory;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqFlywaySchemaHistory;
 
 import java.time.LocalDateTime;
 
@@ -443,7 +444,7 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
     /**
      * Create a detached, initialised FlywaySchemaHistoryRecord
      */
-    public FlywaySchemaHistoryRecord(io.metaloom.loom.db.jooq.tables.pojos.FlywaySchemaHistory value) {
+    public FlywaySchemaHistoryRecord(JooqFlywaySchemaHistory value) {
         super(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY);
 
         if (value != null) {

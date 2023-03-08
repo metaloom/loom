@@ -6,6 +6,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 import io.metaloom.loom.db.jooq.enums.LoomEvent;
 import io.metaloom.loom.db.jooq.tables.Webhook;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -489,7 +490,7 @@ public class WebhookRecord extends UpdatableRecordImpl<WebhookRecord> implements
     /**
      * Create a detached, initialised WebhookRecord
      */
-    public WebhookRecord(io.metaloom.loom.db.jooq.tables.pojos.Webhook value) {
+    public WebhookRecord(JooqWebhook value) {
         super(Webhook.WEBHOOK);
 
         if (value != null) {

@@ -14,8 +14,8 @@ import org.junit.Test;
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.LoomPostgreSQLContainer;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
-import io.metaloom.loom.db.jooq.tables.daos.UserDao;
-import io.metaloom.loom.db.jooq.tables.pojos.User;
+import io.metaloom.loom.db.jooq.tables.daos.JooqUserDao;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
 
 public class PoolingTest {
 
@@ -28,15 +28,15 @@ public class PoolingTest {
 		DataSource ds = new JooqModule().dataSource(container.getOptions());
 		DSLContext ctx = DSL.using(ds, SQLDialect.POSTGRES);
 
-		UserDao dao = new UserDao(ctx.configuration());
+		JooqUserDao dao = new JooqUserDao(ctx.configuration());
 
-		User u = new User();
+		JooqUser u = new JooqUser();
 		u.setUuid(UUID.randomUUID());
 		u.setUsername("dummy");
 		dao.insert(u);
 
-		List<User> us = dao.findAll();
-		for (User cu : us) {
+		List<JooqUser> us = dao.findAll();
+		for (JooqUser cu : us) {
 			System.out.println(cu.getUuid() + " " + cu.getUsername());
 		}
 

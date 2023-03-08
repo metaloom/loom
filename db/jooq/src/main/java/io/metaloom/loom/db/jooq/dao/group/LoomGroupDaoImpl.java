@@ -1,8 +1,5 @@
 package io.metaloom.loom.db.jooq.dao.group;
 
-import static io.metaloom.loom.db.jooq.JooqWrapperHelper.wrap;
-import static io.metaloom.loom.db.jooq.tables.Group.GROUP;
-
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -13,10 +10,10 @@ import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
 
-import io.metaloom.loom.db.jooq.AbstractDao;
-import io.metaloom.loom.db.jooq.tables.daos.GroupDao;
-import io.metaloom.loom.db.jooq.tables.daos.UserGroupDao;
-import io.metaloom.loom.db.jooq.tables.pojos.Group;
+import io.metaloom.loom.db.jooq.AbstractJooqDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqGroupDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqUserGroupDao;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqGroup;
 import io.metaloom.loom.db.model.group.LoomGroup;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
 import io.metaloom.loom.db.model.role.LoomRole;
@@ -25,25 +22,18 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Scheduler;
 
 @Singleton
-public class LoomGroupDaoImpl extends AbstractDao implements LoomGroupDao {
+public class LoomGroupDaoImpl extends AbstractJooqDao<JooqGroupDao> implements LoomGroupDao {
 
-	private GroupDao groupDao;
-	private UserGroupDao userGroupDao;
+	private JooqUserGroupDao userGroupDao;
 	private Scheduler scheduler;
 
 	@Inject
-	public LoomGroupDaoImpl(GroupDao groupDao,
-		UserGroupDao userGroupDao,
+	public LoomGroupDaoImpl(JooqGroupDao groupDao,
+		JooqUserGroupDao userGroupDao,
 		DSLContext context, @Named("jooq") Scheduler scheduler) {
-		super(context);
-		this.groupDao = groupDao;
+		super(groupDao, context);
 		this.userGroupDao = userGroupDao;
 		this.scheduler = scheduler;
-	}
-
-	@Override
-	public void clear() {
-		context().deleteFrom(GROUP).execute();
 	}
 
 //	@Override
@@ -65,7 +55,7 @@ public class LoomGroupDaoImpl extends AbstractDao implements LoomGroupDao {
 
 	@Override
 	public LoomGroup loadGroup(UUID uuid) {
-		return wrap(groupDao.findById(uuid), LoomGroupImpl.class);
+		return wrap(dao().findById(uuid));
 	}
 
 	
@@ -169,9 +159,8 @@ public class LoomGroupDaoImpl extends AbstractDao implements LoomGroupDao {
 
 	@Override
 	public LoomGroup createGroup(String name, Consumer<LoomGroup> modifier) {
-		Group group = new Group();
+		JooqGroup group = new JooqGroup();
 		group.setName(name);
-		groupDao.insert(group);
 		return new LoomGroupImpl(group);
 	}
 

@@ -44,4 +44,8 @@ public class Testdata {
 		return Paths.get(root.getAbsolutePath(), "folderA/folderC/pexels-fauxels-group-of-friends-smiling-3248275.mp4");
 	}
 
+	public Path sampleImage1Path() {
+		return Paths.get(root.getAbsolutePath(), "folderA/pexels-photo-2379005.jpeg");
+	}
+
 }

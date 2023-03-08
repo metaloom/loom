@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.Asset;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqAsset;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -711,7 +712,7 @@ public class AssetRecord extends UpdatableRecordImpl<AssetRecord> implements Rec
     /**
      * Create a detached, initialised AssetRecord
      */
-    public AssetRecord(io.metaloom.loom.db.jooq.tables.pojos.Asset value) {
+    public AssetRecord(JooqAsset value) {
         super(Asset.ASSET);
 
         if (value != null) {

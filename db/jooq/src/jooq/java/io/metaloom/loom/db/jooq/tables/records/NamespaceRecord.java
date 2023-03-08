@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.Namespace;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqNamespace;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -451,7 +452,7 @@ public class NamespaceRecord extends UpdatableRecordImpl<NamespaceRecord> implem
     /**
      * Create a detached, initialised NamespaceRecord
      */
-    public NamespaceRecord(io.metaloom.loom.db.jooq.tables.pojos.Namespace value) {
+    public NamespaceRecord(JooqNamespace value) {
         super(Namespace.NAMESPACE);
 
         if (value != null) {

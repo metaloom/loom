@@ -3,24 +3,21 @@ package io.metaloom.loom.db.jooq.dao.content;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import io.metaloom.loom.db.jooq.AbstractJooqCUDElement;
-import io.metaloom.loom.db.jooq.JooqWrapper;
-import io.metaloom.loom.db.jooq.tables.pojos.Content;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqContent;
+import io.metaloom.loom.db.jooq.wrapper.AbstractWrappedElement;
 import io.metaloom.loom.db.model.content.LoomContent;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.vertx.core.json.JsonObject;
 
-public class LoomContentImpl extends AbstractJooqCUDElement implements LoomContent, JooqWrapper<Content> {
+public class LoomContentImpl extends AbstractWrappedElement<JooqContent> implements LoomContent {
 
-	private final Content delegate;
-
-	public LoomContentImpl(Content delegate) {
-		this.delegate = delegate;
+	public LoomContentImpl(JooqContent delegate) {
+		super(delegate);
 	}
 
 	@Override
 	public LocalDateTime getCreated() {
-		return delegate.getCreated();
+		return delegate().getCreated();
 	}
 
 	@Override
@@ -31,12 +28,12 @@ public class LoomContentImpl extends AbstractJooqCUDElement implements LoomConte
 
 	@Override
 	public UUID getUuid() {
-		return delegate.getUuid();
+		return delegate().getUuid();
 	}
 
 	@Override
 	public LoomContent setUuid(UUID uuid) {
-		delegate.setUuid(uuid);
+		delegate().setUuid(uuid);
 		return this;
 	}
 
@@ -64,22 +61,16 @@ public class LoomContentImpl extends AbstractJooqCUDElement implements LoomConte
 		return this;
 	}
 
-	
 	@Override
 	public JsonObject getMeta() {
-//		return new JsonObject(delegate.getMeta());
+		// return new JsonObject(delegate.getMeta());
 		return null;
 	}
 
 	@Override
 	public LoomContent setMeta(JsonObject meta) {
-//		delegate.setMeta(meta.encode());
+		// delegate.setMeta(meta.encode());
 		return this;
-	}
-
-	@Override
-	public Content getDelegate() {
-		return delegate;
 	}
 
 }

@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.Loom;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqLoom;
 
 import java.time.LocalDateTime;
 
@@ -137,7 +138,7 @@ public class LoomRecord extends TableRecordImpl<LoomRecord> implements Record2<S
     /**
      * Create a detached, initialised LoomRecord
      */
-    public LoomRecord(io.metaloom.loom.db.jooq.tables.pojos.Loom value) {
+    public LoomRecord(JooqLoom value) {
         super(Loom.LOOM);
 
         if (value != null) {

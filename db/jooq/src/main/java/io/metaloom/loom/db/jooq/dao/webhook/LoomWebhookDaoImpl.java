@@ -1,10 +1,5 @@
 package io.metaloom.loom.db.jooq.dao.webhook;
 
-import static io.metaloom.loom.db.jooq.JooqWrapperHelper.unwrap;
-import static io.metaloom.loom.db.jooq.JooqWrapperHelper.wrap;
-
-import java.io.IOException;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -13,8 +8,8 @@ import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
 
-import io.metaloom.loom.db.jooq.AbstractDao;
-import io.metaloom.loom.db.jooq.tables.pojos.Webhook;
+import io.metaloom.loom.db.jooq.AbstractJooqDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqWebhookDao;
 import io.metaloom.loom.db.model.webhook.LoomWebhook;
 import io.metaloom.loom.db.model.webhook.LoomWebhookDao;
 import io.reactivex.rxjava3.core.Completable;
@@ -22,11 +17,11 @@ import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 
 @Singleton
-public class LoomWebhookDaoImpl extends AbstractDao implements LoomWebhookDao {
+public class LoomWebhookDaoImpl extends AbstractJooqDao<JooqWebhookDao> implements LoomWebhookDao {
 
 	@Inject
-	public LoomWebhookDaoImpl(DSLContext ctx) {
-		super(ctx);
+	public LoomWebhookDaoImpl(JooqWebhookDao dao, DSLContext ctx) {
+		super(dao, ctx);
 	}
 
 	// @Override
@@ -52,11 +47,6 @@ public class LoomWebhookDaoImpl extends AbstractDao implements LoomWebhookDao {
 	// Webhook jooqWebhook = unwrap(webhook);
 	// return update(jooqWebhook).ignoreElement();
 	// }
-
-	@Override
-	public void clear() {
-		// TODO run jooq SQL to delete contents of table
-	}
 
 	@Override
 	public Single<? extends LoomWebhook> createWebhook(String url, Consumer<LoomWebhook> modifier) {

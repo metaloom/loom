@@ -6,6 +6,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 import io.metaloom.loom.db.jooq.enums.LoomContentType;
 import io.metaloom.loom.db.jooq.tables.FieldContent;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqFieldContent;
 
 import java.util.UUID;
 
@@ -216,7 +217,7 @@ public class FieldContentRecord extends TableRecordImpl<FieldContentRecord> impl
     /**
      * Create a detached, initialised FieldContentRecord
      */
-    public FieldContentRecord(io.metaloom.loom.db.jooq.tables.pojos.FieldContent value) {
+    public FieldContentRecord(JooqFieldContent value) {
         super(FieldContent.FIELD_CONTENT);
 
         if (value != null) {

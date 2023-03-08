@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.RolePermission;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqRolePermission;
 
 import java.util.UUID;
 
@@ -369,7 +370,7 @@ public class RolePermissionRecord extends UpdatableRecordImpl<RolePermissionReco
     /**
      * Create a detached, initialised RolePermissionRecord
      */
-    public RolePermissionRecord(io.metaloom.loom.db.jooq.tables.pojos.RolePermission value) {
+    public RolePermissionRecord(JooqRolePermission value) {
         super(RolePermission.ROLE_PERMISSION);
 
         if (value != null) {

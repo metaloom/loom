@@ -1,3 +1,6 @@
+DROP SCHEMA IF EXISTS loom CASCADE;
+
+CREATE SCHEMA loom;
 
 /*
 Enable UUID V4 Support
@@ -228,8 +231,8 @@ CREATE TABLE "asset_binarie" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "sha512sum" varchar NOT NULL,
   "size" bigint NOT NULL,
-  "sha256sum" varchar NOT NULL,
-  "md5sum" varchar NOT NULL,
+  "sha256sum" varchar,
+  "md5sum" varchar,
   "media_width" int,
   "media_height" int,
   "fingerprint" varchar,

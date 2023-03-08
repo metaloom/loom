@@ -3,7 +3,6 @@ package io.metaloom.loom.db.user;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import io.metaloom.loom.api.uuid.UUIDUtil;
@@ -27,14 +26,16 @@ public class MemUsersDaoImpl implements LoomUserDao {
 	}
 
 	@Override
-	public LoomUser createUser(String username, Consumer<LoomUser> modifier) {
+	public LoomUser createUser(String username) {
 		LoomUser user = new MemUserImpl();
 		user.setUuid(UUIDUtil.randomUUID());
 		user.setUsername(username);
-		if (modifier != null) {
-			modifier.accept(user);
-		}
 		return user;
+	}
+
+	@Override
+	public void storeUser(LoomUser user) {
+		storage.put(user.getUuid(), user);
 	}
 
 	@Override
@@ -45,6 +46,11 @@ public class MemUsersDaoImpl implements LoomUserDao {
 	@Override
 	public void clear() {
 		storage.clear();
+	}
+
+	@Override
+	public long count() {
+		return storage.size();
 	}
 
 	@Override

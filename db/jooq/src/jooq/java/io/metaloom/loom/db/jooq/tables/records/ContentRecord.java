@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.Content;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqContent;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -410,7 +411,7 @@ public class ContentRecord extends UpdatableRecordImpl<ContentRecord> implements
     /**
      * Create a detached, initialised ContentRecord
      */
-    public ContentRecord(io.metaloom.loom.db.jooq.tables.pojos.Content value) {
+    public ContentRecord(JooqContent value) {
         super(Content.CONTENT);
 
         if (value != null) {

@@ -14,8 +14,8 @@ import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.jooq.LoomPostgreSQLContainer;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
-import io.metaloom.loom.db.jooq.tables.daos.UserDao;
-import io.metaloom.loom.db.jooq.tables.pojos.User;
+import io.metaloom.loom.db.jooq.tables.daos.JooqUserDao;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
 
 public class NonReactiveGeneratedDaoTest extends AbstractJooqTest {
 
@@ -39,10 +39,10 @@ public class NonReactiveGeneratedDaoTest extends AbstractJooqTest {
 //
 //		f.blockFirst();
 
-		UserDao dao = new UserDao(ctx.configuration());
+		JooqUserDao dao = new JooqUserDao(ctx.configuration());
 
-		List<User> users = dao.fetchByUsername("joedoe");
-		for (User u : users) {
+		List<JooqUser> users = dao.fetchByUsername("joedoe");
+		for (JooqUser u : users) {
 			System.out.println("Found: " + u.getUsername() + " " + u.getUuid());
 		}
 

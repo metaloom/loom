@@ -1,12 +1,5 @@
 package io.metaloom.loom.db.jooq.dao.group;
 
-import java.util.UUID;
-import java.util.function.Function;
-
-import io.metaloom.loom.db.jooq.tables.pojos.User;
-import io.metaloom.loom.db.jooq.tables.records.UserRecord;
-import io.reactivex.rxjava3.core.Single;
-
 public final class GroupOps {
 
 	private GroupOps() {

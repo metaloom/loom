@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.Tag;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqTag;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -449,7 +450,7 @@ public class TagRecord extends UpdatableRecordImpl<TagRecord> implements Record1
     /**
      * Create a detached, initialised TagRecord
      */
-    public TagRecord(io.metaloom.loom.db.jooq.tables.pojos.Tag value) {
+    public TagRecord(JooqTag value) {
         super(Tag.TAG);
 
         if (value != null) {

@@ -80,6 +80,7 @@ public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionS
 	}
 
 	private ActionResult processImage(ProcessableMedia media) throws IOException {
+		long start = System.currentTimeMillis();
 		// 1. Read image
 		BufferedImage image = ImageIO.read(media.file());
 		List<? extends Face> result = detector.detect(image);
@@ -88,13 +89,11 @@ public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionS
 			media.put(ProcessableMediaMeta.FACES, result);
 		}
 		// TODO handle faces / get embeddings
-		return null;
+		return done(media, start, "image processed");
 	}
 
 	private ActionResult processVideo(ProcessableMedia media) {
 		long start = System.currentTimeMillis();
-		String info = "";
-
 		List<Face> faces = new ArrayList<>();
 		try (Video video = Videos.open(media.absolutePath())) {
 			// FacedetectorMetrics metrics = FacedetectorMetrics.create();
@@ -121,14 +120,14 @@ public class FacedetectAction extends AbstractFilesystemAction<FacedetectActionS
 				}
 			});
 		}
-		clusterFaces(faces);
+		ClusterResult clusterResult = clusterFaces(faces);
+		media.put(ProcessableMediaMeta.FACE_CLUSTERS, clusterResult);
 		media.put(ProcessableMediaMeta.FACES, faces);
-		return done(media, start, info);
+		return done(media, start, "facedetection completed");
 	}
 
-	private void clusterFaces(List<Face> faces) {
-		ClusterResult result = FaceClusterer.clusterFaces(faces, settings().getFaceClusterEPS(), settings().getFaceClusterMinimum());
-		System.out.println("Generated clusters: " + result.size());
+	private ClusterResult clusterFaces(List<Face> faces) {
+		return FaceClusterer.clusterFaces(faces, settings().getFaceClusterEPS(), settings().getFaceClusterMinimum());
 	}
 
 }

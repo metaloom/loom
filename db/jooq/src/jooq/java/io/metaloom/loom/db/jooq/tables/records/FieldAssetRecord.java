@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.FieldAsset;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqFieldAsset;
 
 import java.util.UUID;
 
@@ -184,7 +185,7 @@ public class FieldAssetRecord extends UpdatableRecordImpl<FieldAssetRecord> impl
     /**
      * Create a detached, initialised FieldAssetRecord
      */
-    public FieldAssetRecord(io.metaloom.loom.db.jooq.tables.pojos.FieldAsset value) {
+    public FieldAssetRecord(JooqFieldAsset value) {
         super(FieldAsset.FIELD_ASSET);
 
         if (value != null) {

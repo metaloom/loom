@@ -8,21 +8,17 @@ import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
 
-import io.metaloom.loom.db.jooq.AbstractDao;
+import io.metaloom.loom.db.jooq.AbstractJooqDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqExtensionDao;
 import io.metaloom.loom.db.model.extension.LoomExtension;
 import io.metaloom.loom.db.model.extension.LoomExtensionDao;
 
 @Singleton
-public class ExtensionDaoImpl extends AbstractDao implements LoomExtensionDao {
+public class ExtensionDaoImpl extends AbstractJooqDao<JooqExtensionDao> implements LoomExtensionDao {
 
 	@Inject
-	public ExtensionDaoImpl(DSLContext ctx) {
-		super(ctx);
-	}
-
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
+	public ExtensionDaoImpl(JooqExtensionDao dao, DSLContext ctx) {
+		super(dao, ctx);
 	}
 
 	@Override

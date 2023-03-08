@@ -5,153 +5,153 @@ import java.util.UUID;
 
 import org.jooq.JSONB;
 
-import io.metaloom.loom.db.jooq.tables.pojos.User;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
+import io.metaloom.loom.db.jooq.wrapper.AbstractWrappedElement;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.vertx.core.json.JsonObject;
 
-public class LoomUserImpl implements LoomUser {
+public class LoomUserImpl extends AbstractWrappedElement<JooqUser> implements LoomUser {
 
-	private User pojo;
 
-	public LoomUserImpl(User pojo) {
-		this.pojo = pojo;
+	public LoomUserImpl(JooqUser delegate) {
+		super(delegate);
 	}
 
 	@Override
 	public LoomUser setEditor(LoomUser editor) {
-		pojo.setEditorUuid(editor.getUuid());
+		delegate().setEditorUuid(editor.getUuid());
 		return this;
 	}
 
 	@Override
 	public LoomUser setCreator(LoomUser creator) {
 		// TODO handle null
-		pojo.setCreatorUuid(creator.getUuid());
+		delegate().setCreatorUuid(creator.getUuid());
 		return this;
 	}
 
 	@Override
 	public LocalDateTime getEdited() {
-		return pojo.getEdited();
+		return delegate().getEdited();
 	}
 
 	@Override
 	public LoomUser setEdited(LocalDateTime edate) {
-		pojo.setEdited(edate);
+		delegate().setEdited(edate);
 		return this;
 	}
 
 	@Override
 	public LocalDateTime getCreated() {
-		return pojo.getCreated();
+		return delegate().getCreated();
 	}
 
 	@Override
 	public LoomUser setCreated(LocalDateTime cdate) {
-		pojo.setCreated(cdate);
+		delegate().setCreated(cdate);
 		return this;
 	}
 
 	@Override
 	public UUID getUuid() {
-		return pojo.getUuid();
+		return delegate().getUuid();
 	}
 
 	@Override
 	public LoomUser setUuid(UUID uuid) {
-		pojo.setUuid(uuid);
+		delegate().setUuid(uuid);
 		return this;
 	}
 
 	@Override
 	public JsonObject getMeta() {
 		// TODO use jsonb conversion
-		return new JsonObject(pojo.getMeta().data());
+		return new JsonObject(delegate().getMeta().data());
 	}
 
 	@Override
 	public LoomUser setMeta(JsonObject meta) {
 		// TODO use jsonb conversion instead
-		pojo.setMeta(JSONB.jsonb(meta.encode()));
+		delegate().setMeta(JSONB.jsonb(meta.encode()));
 		return this;
 	}
 
 	@Override
 	public String getUsername() {
-		return pojo.getUsername();
+		return delegate().getUsername();
 	}
 
 	@Override
 	public LoomUser setUsername(String username) {
-		pojo.setUsername(username);
+		delegate().setUsername(username);
 		return this;
 	}
 
 	@Override
 	public String getPasswordHash() {
-		return pojo.getPasswordhash();
+		return delegate().getPasswordhash();
 	}
 
 	@Override
 	public LoomUser setPasswordHash(String hash) {
-		pojo.setPasswordhash(hash);
+		delegate().setPasswordhash(hash);
 		return this;
 	}
 
 	@Override
 	public boolean isSSO() {
 		// TODO handle null
-		return pojo.getSso();
+		return delegate().getSso();
 	}
 
 	@Override
 	public LoomUser setSSO(boolean flag) {
-		pojo.setSso(flag);
+		delegate().setSso(flag);
 		return this;
 	}
 
 	@Override
 	public boolean isEnabled() {
 		// TODO handle null
-		return pojo.getEnabled();
+		return delegate().getEnabled();
 	}
 
 	@Override
 	public LoomUser setEnabled(boolean flag) {
-		pojo.setEnabled(flag);
+		delegate().setEnabled(flag);
 		return this;
 	}
 
 	@Override
 	public String getEmail() {
-		return pojo.getEmail();
+		return delegate().getEmail();
 	}
 
 	@Override
 	public LoomUser setEmail(String email) {
-		pojo.setEmail(email);
+		delegate().setEmail(email);
 		return this;
 	}
 
 	@Override
 	public String getFirstname() {
-		return pojo.getFirstname();
+		return delegate().getFirstname();
 	}
 
 	@Override
 	public LoomUser setFirstname(String firstname) {
-		pojo.setFirstname(firstname);
+		delegate().setFirstname(firstname);
 		return this;
 	}
 
 	@Override
 	public String getLastname() {
-		return pojo.getLastname();
+		return delegate().getLastname();
 	}
 
 	@Override
 	public LoomUser setLastname(String lastname) {
-		pojo.setLastname(lastname);
+		delegate().setLastname(lastname);
 		return this;
 	}
 

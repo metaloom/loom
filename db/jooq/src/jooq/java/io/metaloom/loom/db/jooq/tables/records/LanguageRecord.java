@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.Language;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage;
 
 import java.util.UUID;
 
@@ -224,7 +225,7 @@ public class LanguageRecord extends UpdatableRecordImpl<LanguageRecord> implemen
     /**
      * Create a detached, initialised LanguageRecord
      */
-    public LanguageRecord(io.metaloom.loom.db.jooq.tables.pojos.Language value) {
+    public LanguageRecord(JooqLanguage value) {
         super(Language.LANGUAGE);
 
         if (value != null) {

@@ -1,25 +1,19 @@
 package io.metaloom.loom.db.model.user;
 
 import java.util.UUID;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import io.metaloom.loom.db.LoomDao;
 
 public interface LoomUserDao extends LoomDao {
 
-	default LoomUser createUser(String username) {
-		return createUser(username, null);
-	}
-
 	/**
 	 * Create and store a new user with the given username.
 	 * 
 	 * @param username
-	 * @param modifier
 	 * @return
 	 */
-	LoomUser createUser(String username, Consumer<LoomUser> modifier);
+	LoomUser createUser(String username);
 
 	/**
 	 * Load the user with the given uuid.
@@ -36,6 +30,13 @@ public interface LoomUserDao extends LoomDao {
 	 * @return
 	 */
 	void updateUser(LoomUser user);
+
+	/**
+	 * Store the user information.
+	 * 
+	 * @param creator
+	 */
+	void storeUser(LoomUser creator);
 
 	/**
 	 * Delete the user.

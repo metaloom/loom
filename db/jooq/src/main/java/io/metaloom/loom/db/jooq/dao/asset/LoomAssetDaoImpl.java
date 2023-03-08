@@ -1,105 +1,109 @@
 package io.metaloom.loom.db.jooq.dao.asset;
 
-import static io.metaloom.loom.db.jooq.JooqWrapperHelper.unwrap;
-import static io.metaloom.loom.db.jooq.JooqWrapperHelper.wrap;
-import static io.metaloom.loom.db.jooq.JooqWrapperHelper.wrapMaybe;
-
-import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.metaloom.loom.db.jooq.tables.daos.AssetDao;
-import io.metaloom.loom.db.jooq.tables.pojos.Asset;
+import org.jooq.DSLContext;
+
+import io.metaloom.loom.db.jooq.AbstractJooqDao;
+import io.metaloom.loom.db.jooq.LoomJooqException;
+import io.metaloom.loom.db.jooq.tables.daos.JooqAssetDao;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqAsset;
 import io.metaloom.loom.db.model.asset.LoomAsset;
 import io.metaloom.loom.db.model.asset.LoomAssetDao;
 import io.metaloom.loom.db.model.tag.LoomTag;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
+import io.metaloom.loom.db.model.user.LoomUser;
 
 @Singleton
-public class LoomAssetDaoImpl extends AssetDao implements LoomAssetDao {
-
-	private AssetDao dao;
+public class LoomAssetDaoImpl extends AbstractJooqDao<JooqAssetDao> implements LoomAssetDao {
 
 	@Inject
-	public LoomAssetDaoImpl(AssetDao dao) {
-		this.dao = dao;
+	public LoomAssetDaoImpl(JooqAssetDao dao, DSLContext ctx) {
+		super(dao, ctx);
 	}
 
-	// protected JooqType getType() {
-	// return JooqType.ASSET;
+	@Override
+	public LoomAsset loadAsset(UUID uuid) {
+		JooqAsset element = dao().findById(uuid);
+		if (element == null) {
+			return null;
+		}
+		return wrap(element);
+	}
+
+	// @Override
+	// public Completable deleteAsset(LoomAsset asset) {
+	// Objects.requireNonNull(asset, "Asset must not be null");
+	// return deleteById(asset.getUuid()).ignoreElement();
+	// }
+	//
+	// @Override
+	// public Single<? extends LoomAsset> createAsset() {
+	// Asset asset = new Asset();
+	// insert(asset);
+	// return insertReturningPrimary(asset).map(pk -> new LoomAssetImpl(asset.setUuid(pk)));
+	// }
+	//
+	// @Override
+	// public Completable updateAsset(LoomAsset asset) {
+	// Objects.requireNonNull(asset, "Asset must not be null");
+	// Asset jooqAsset = unwrap(asset);
+	// return update(jooqAsset).ignoreElement();
 	// }
 
 	@Override
-	public Maybe<? extends LoomAsset> loadAsset(UUID uuid) {
-		return wrapMaybe(dao.findById(uuid), LoomAssetImpl.class);
-	}
-
-//	@Override
-//	public Completable deleteAsset(LoomAsset asset) {
-//		Objects.requireNonNull(asset, "Asset must not be null");
-//		return deleteById(asset.getUuid()).ignoreElement();
-//	}
-//
-//	@Override
-//	public Single<? extends LoomAsset> createAsset() {
-//		Asset asset = new Asset();
-//		insert(asset);
-//		return insertReturningPrimary(asset).map(pk -> new LoomAssetImpl(asset.setUuid(pk)));
-//	}
-//
-//	@Override
-//	public Completable updateAsset(LoomAsset asset) {
-//		Objects.requireNonNull(asset, "Asset must not be null");
-//		Asset jooqAsset = unwrap(asset);
-//		return update(jooqAsset).ignoreElement();
-//	}
-
-	@Override
-	public Observable<LoomTag> loadTags(LoomAsset asset) {
+	public LoomTag loadTags(LoomAsset asset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Completable addTag(LoomAsset asset, LoomTag tag) {
+	public void addTag(LoomAsset asset, LoomTag tag) {
 		// TODO Auto-generated method stub
-		return Completable.complete();
 	}
 
 	@Override
-	public Completable removeTag(LoomAsset asset, LoomTag tag) {
+	public void removeTag(LoomAsset asset, LoomTag tag) {
 		// TODO Auto-generated method stub
-		return Completable.complete();
 	}
 
 	@Override
-	public void clear() {
-		// TODO run jooq SQL to delete contents of table
+	public LoomAsset createAsset(String filename, UUID binaryUuid, LoomUser creator, UUID namespaceUuid) {
+		Objects.requireNonNull(creator, "Creator must not be null");
+		JooqAsset asset = new JooqAsset();
+		UUID newUuid = UUID.randomUUID();
+		asset.setUuid(newUuid);
+		asset.setFilename(filename);
+		asset.setCreated(LocalDateTime.now());
+		asset.setCreatorUuid(creator.getUuid());
+		asset.setAssetBinariesUuid(binaryUuid);
+		asset.setNamespaceUuid(namespaceUuid);
+		return wrap(asset);
 	}
 
 	@Override
-	public Single<? extends LoomAsset> createAsset(Consumer<LoomAsset> modifier) {
-		// TODO Auto-generated method stub
-		return null;
+	public void storeAsset(LoomAsset asset) {
+		JooqAsset jooq = unwrap(asset);
+		dao().insert(jooq);
 	}
 
 	@Override
-	public Completable deleteAsset(LoomAsset asset) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteAsset(LoomAsset asset) {
+		if (asset instanceof LoomAssetImpl li) {
+			dao().delete(li.delegate());
+		} else {
+			throw new LoomJooqException("Invalid type encountered.");
+		}
 	}
 
 	@Override
-	public Completable updateAsset(LoomAsset asset) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateAsset(LoomAsset asset) {
+		JooqAsset jooq = unwrap(asset);
+		dao().update(jooq);
 	}
 
 }

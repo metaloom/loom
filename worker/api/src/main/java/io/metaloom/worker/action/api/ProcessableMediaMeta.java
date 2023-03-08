@@ -13,8 +13,8 @@ public enum ProcessableMediaMeta {
 	ZERO_CHUNK_COUNT("zero_chunk_count", true, Long.class),
 
 	FACES("faces", false, List.class),
-	
-	//FACE_CLUSTERS("face_clusters", false, Cluster.class),
+
+	FACE_CLUSTERS("face_clusters", false, null),
 
 	CHUNK_HASH("chun_hash", true, String.class),
 

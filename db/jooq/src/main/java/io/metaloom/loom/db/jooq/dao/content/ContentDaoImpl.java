@@ -1,6 +1,5 @@
 package io.metaloom.loom.db.jooq.dao.content;
 
-import java.io.IOException;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -10,22 +9,18 @@ import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
 
-import io.metaloom.loom.db.jooq.AbstractDao;
+import io.metaloom.loom.db.jooq.AbstractJooqDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqContentDao;
 import io.metaloom.loom.db.model.content.LoomContent;
 import io.metaloom.loom.db.model.content.LoomContentDao;
 import io.metaloom.loom.db.model.tag.LoomTag;
-import io.reactivex.rxjava3.core.Completable;
 
 @Singleton
-public class ContentDaoImpl extends AbstractDao implements LoomContentDao {
+public class ContentDaoImpl extends AbstractJooqDao<JooqContentDao> implements LoomContentDao {
 
 	@Inject
-	public ContentDaoImpl(DSLContext ctx) {
-		super(ctx);
-	}
-
-	@Override
-	public void clear() {
+	public ContentDaoImpl(JooqContentDao dao,  DSLContext ctx) {
+		super(dao, ctx);
 	}
 
 	@Override

@@ -6,19 +6,19 @@ import java.util.UUID;
 
 import org.jooq.JSONB;
 
-import io.metaloom.loom.db.jooq.tables.pojos.Group;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqGroup;
 import io.metaloom.loom.db.model.group.LoomGroup;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.vertx.core.json.JsonObject;
 
 public class LoomGroupImpl implements LoomGroup {
 
-	private Group pojo;
+	private JooqGroup pojo;
 
 	public LoomGroupImpl() {
 	}
 
-	public LoomGroupImpl(Group pojo) {
+	public LoomGroupImpl(JooqGroup pojo) {
 		this.pojo = pojo;
 	}
 

@@ -1,7 +1,5 @@
 package io.metaloom.loom.db.jooq.extension;
 
-import static io.metaloom.loom.db.jooq.JooqWrapperHelper.wrap;
-
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -10,29 +8,22 @@ import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
 
-import io.metaloom.loom.db.jooq.AbstractDao;
-import io.metaloom.loom.db.jooq.tables.daos.ExtensionDao;
+import io.metaloom.loom.db.jooq.AbstractJooqDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqExtensionDao;
 import io.metaloom.loom.db.model.extension.LoomExtension;
 import io.metaloom.loom.db.model.extension.LoomExtensionDao;
 
 @Singleton
-public class LoomExtensionDaoImpl extends AbstractDao implements LoomExtensionDao {
-
-	private final ExtensionDao dao;
+public class LoomExtensionDaoImpl extends AbstractJooqDao<JooqExtensionDao> implements LoomExtensionDao {
 
 	@Inject
-	public LoomExtensionDaoImpl(ExtensionDao dao, DSLContext ctx) {
-		super(ctx);
-		this.dao = dao;
+	public LoomExtensionDaoImpl(JooqExtensionDao dao, DSLContext ctx) {
+		super(dao, ctx);
 	}
-
-	// protected JooqType getType() {
-	// return JooqType.EXTENSION;
-	// }
 
 	@Override
 	public LoomExtension loadExtension(UUID uuid) {
-		return wrap(dao.findById(uuid), LoomExtensionImpl.class);
+		return wrap(dao().findById(uuid));
 	}
 
 	// @Override
@@ -53,11 +44,6 @@ public class LoomExtensionDaoImpl extends AbstractDao implements LoomExtensionDa
 	// Extension jooqExtension = unwrap(extension);
 	// return update(jooqExtension).ignoreElement();
 	// }
-
-	@Override
-	public void clear() {
-		// TODO run jooq SQL to delete contents of table
-	}
 
 	@Override
 	public LoomExtension createExtension(String url, Consumer<LoomExtension> modifier) {

@@ -1,7 +1,5 @@
 package io.metaloom.loom.db.jooq.dao.model;
 
-import static io.metaloom.loom.db.jooq.JooqWrapperHelper.wrap;
-
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -10,27 +8,22 @@ import javax.inject.Inject;
 
 import org.jooq.DSLContext;
 
-import io.metaloom.loom.db.jooq.AbstractDao;
-import io.metaloom.loom.db.jooq.tables.daos.ModelDao;
+import io.metaloom.loom.db.jooq.AbstractJooqDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqModelDao;
 import io.metaloom.loom.db.model.model.LoomModel;
 import io.metaloom.loom.db.model.model.LoomModelDao;
 import io.metaloom.loom.db.model.tag.LoomTag;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Maybe;
 
-public class LoomModelDaoImpl extends AbstractDao implements LoomModelDao {
-
-	private final ModelDao dao;
+public class LoomModelDaoImpl extends AbstractJooqDao<JooqModelDao> implements LoomModelDao {
 
 	@Inject
-	public LoomModelDaoImpl(ModelDao dao, DSLContext ctx) {
-		super(ctx);
-		this.dao = dao;
+	public LoomModelDaoImpl(JooqModelDao dao, DSLContext ctx) {
+		super(dao, ctx);
 	}
 
 	@Override
 	public LoomModel loadModel(UUID uuid) {
-		return wrap(dao.findById(uuid), LoomModelImpl.class);
+		return wrap(dao().findById(uuid));
 	}
 
 	// @Override
@@ -66,10 +59,6 @@ public class LoomModelDaoImpl extends AbstractDao implements LoomModelDao {
 	@Override
 	public void removeTag(LoomModel model, LoomTag tag) {
 		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void clear() {
 	}
 
 	@Override

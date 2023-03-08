@@ -2,69 +2,62 @@ package io.metaloom.loom.db.jooq.dao.user;
 
 import static io.metaloom.loom.db.jooq.tables.User.USER;
 
+import java.util.Objects;
 import java.util.UUID;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
 
-import io.metaloom.loom.db.jooq.AbstractDao;
-import io.metaloom.loom.db.jooq.tables.daos.UserDao;
-import io.metaloom.loom.db.jooq.tables.pojos.User;
+import io.metaloom.loom.db.jooq.AbstractJooqDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqUserDao;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.LoomUserDao;
-import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Scheduler;
-import io.reactivex.rxjava3.core.Single;
 
 @Singleton
-public class LoomUserDaoImpl extends AbstractDao implements LoomUserDao {
-
-	private UserDao userDao;
-	private Scheduler scheduler;
+public class LoomUserDaoImpl extends AbstractJooqDao<JooqUserDao> implements LoomUserDao {
 
 	@Inject
-	public LoomUserDaoImpl(UserDao userDao, DSLContext ctx, @Named("jooq") Scheduler scheduler) {
-		super(ctx);
-		this.userDao = userDao;
-		this.scheduler = scheduler;
+	public LoomUserDaoImpl(JooqUserDao dao, DSLContext ctx) {
+		super(dao, ctx);
 	}
 
 	@Override
-	public void clear() {
-		context().deleteFrom(USER).execute();
-	}
-
-	@Override
-	public LoomUser createUser(String username, Consumer<LoomUser> modifier) {
-		User u = new User();
+	public LoomUser createUser(String username) {
+		JooqUser u = new JooqUser();
 		u.setUuid(UUID.randomUUID());
-		u.setUsername("dummy");
-		userDao.insert(u);
+		u.setUsername(username);
 		return new LoomUserImpl(u);
 	}
 
 	@Override
+	public void storeUser(LoomUser user) {
+		JooqUser jooq = unwrap(user);
+		dao().insert(jooq);
+	}
+
+	@Override
 	public LoomUser loadUser(UUID uuid) {
-		User user = userDao.findById(uuid);
+		JooqUser user = dao().findById(uuid);
 		return new LoomUserImpl(user);
 	}
 
 	@Override
 	public void updateUser(LoomUser user) {
+		Objects.requireNonNull(user, "User must not be null");
 	}
 
 	@Override
 	public void deleteUser(LoomUser user) {
+		Objects.requireNonNull(user, "User must not be null");
+
 	}
 
 	@Override
 	public Stream<LoomUser> findAll() {
-		return userDao.findAll().stream().map(LoomUserImpl::new);
+		return dao().findAll().stream().map(this::wrap);
 	}
 }

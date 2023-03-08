@@ -6,6 +6,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 import io.metaloom.loom.db.jooq.enums.LoomPermissionFlag;
 import io.metaloom.loom.db.jooq.tables.User;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -600,7 +601,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
     /**
      * Create a detached, initialised UserRecord
      */
-    public UserRecord(io.metaloom.loom.db.jooq.tables.pojos.User value) {
+    public UserRecord(JooqUser value) {
         super(User.USER);
 
         if (value != null) {

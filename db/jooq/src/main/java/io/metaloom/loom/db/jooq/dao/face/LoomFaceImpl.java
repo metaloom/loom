@@ -4,45 +4,44 @@ import java.util.UUID;
 
 import org.jooq.JSONB;
 
-import io.metaloom.loom.db.jooq.tables.pojos.Face;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqFace;
+import io.metaloom.loom.db.jooq.wrapper.AbstractWrappedElement;
 import io.metaloom.loom.db.model.face.LoomFace;
 import io.vertx.core.json.JsonObject;
 
-public class LoomFaceImpl implements LoomFace {
+public class LoomFaceImpl extends AbstractWrappedElement<JooqFace> implements LoomFace {
 
-	private Face delegate;
-
-	public LoomFaceImpl(Face face) {
-		this.delegate = face;
+	public LoomFaceImpl(JooqFace delegate) {
+		super(delegate);
 	}
 
 	@Override
 	public UUID getUuid() {
-		return delegate.getUuid();
+		return delegate().getUuid();
 	}
 
 	@Override
 	public LoomFace setUuid(UUID uuid) {
-		delegate.setUuid(uuid);
+		delegate().setUuid(uuid);
 		return this;
 	}
 
 	@Override
 	public JsonObject getMeta() {
-		String data = delegate.getMeta().data();
+		String data = delegate().getMeta().data();
 		return new JsonObject(data);
 	}
 
 	@Override
 	public LoomFace setMeta(JsonObject meta) {
 		String json = meta.encode();
-		delegate.setMeta(JSONB.jsonbOrNull(json));
+		delegate().setMeta(JSONB.jsonbOrNull(json));
 		return this;
 	}
 
 	@Override
 	public Integer getFaceNr() {
-		return delegate.getFaceNr();
+		return delegate().getFaceNr();
 	}
 
 }

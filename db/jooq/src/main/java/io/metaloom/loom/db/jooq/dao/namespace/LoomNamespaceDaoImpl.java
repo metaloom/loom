@@ -1,9 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.namespace;
 
-import static io.metaloom.loom.db.jooq.JooqWrapperHelper.wrap;
-
+import java.util.Objects;
 import java.util.UUID;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import javax.inject.Inject;
@@ -11,34 +9,27 @@ import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
 
-import io.metaloom.loom.db.jooq.AbstractDao;
-import io.metaloom.loom.db.jooq.tables.daos.NamespaceDao;
+import io.metaloom.loom.db.jooq.AbstractJooqDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqNamespaceDao;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqNamespace;
 import io.metaloom.loom.db.model.namespace.LoomNamespace;
 import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
 import io.metaloom.loom.db.model.tag.LoomTag;
 
 @Singleton
-public class LoomNamespaceDaoImpl extends AbstractDao implements LoomNamespaceDao {
-
-	private NamespaceDao dao;
+public class LoomNamespaceDaoImpl extends AbstractJooqDao<JooqNamespaceDao> implements LoomNamespaceDao {
 
 	@Inject
-	public LoomNamespaceDaoImpl(NamespaceDao dao, DSLContext ctx) {
-		super(ctx);
-		this.dao = dao;
+	public LoomNamespaceDaoImpl(JooqNamespaceDao dao, DSLContext ctx) {
+		super(dao, ctx);
 	}
 
 	@Override
 	public LoomNamespace loadNamespace(UUID uuid) {
-		return wrap(dao.findById(uuid), LoomNamespaceImpl.class);
+		return wrap(dao().findById(uuid));
 	}
 
-	// @Override
-	// public Completable deleteNamespace(UUID uuid) {
-	// Objects.requireNonNull(uuid, "Namespace uuid must not be null");
-	// return deleteById(uuid).ignoreElement();
-	// }
-	//
+	
 	// @Override
 	// public Single<? extends LoomNamespace> createNamespace(String name) {
 	// Namespace namespace = new Namespace();
@@ -70,22 +61,28 @@ public class LoomNamespaceDaoImpl extends AbstractDao implements LoomNamespaceDa
 	}
 
 	@Override
-	public void clear() {
-		// TODO run jooq SQL to delete contents of table
-	}
-
-	@Override
-	public LoomNamespace createNamespace(String name, Consumer<LoomNamespace> modifier) {
-		// TODO Auto-generated method stub
-		return null;
+	public LoomNamespace createNamespace(String name) {
+		JooqNamespace jooq = new JooqNamespace();
+		jooq.setUuid(UUID.randomUUID());
+		jooq.setName(name);
+		return wrap(jooq);
 	}
 
 	@Override
 	public void deleteNamespace(UUID uuid) {
-		// TODO Auto-generated method stub
+		Objects.requireNonNull(uuid, "Namespace uuid must not be null");
+		dao().deleteById(uuid);
+	}
+
+	@Override
+	public void storeNamespace(LoomNamespace namespace) {
+		JooqNamespace jooq = unwrap(namespace);
+		dao().insert(jooq);
 	}
 
 	@Override
 	public void updateNamespace(LoomNamespace namespace) {
+		JooqNamespace jooq = unwrap(namespace);
+		dao().update(jooq);
 	}
 }

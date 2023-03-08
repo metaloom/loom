@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.AssetTimeline;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline;
 
 import java.util.UUID;
 
@@ -370,7 +371,7 @@ public class AssetTimelineRecord extends UpdatableRecordImpl<AssetTimelineRecord
     /**
      * Create a detached, initialised AssetTimelineRecord
      */
-    public AssetTimelineRecord(io.metaloom.loom.db.jooq.tables.pojos.AssetTimeline value) {
+    public AssetTimelineRecord(JooqAssetTimeline value) {
         super(AssetTimeline.ASSET_TIMELINE);
 
         if (value != null) {

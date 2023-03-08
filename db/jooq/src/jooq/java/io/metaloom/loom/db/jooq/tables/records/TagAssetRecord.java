@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.TagAsset;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqTagAsset;
 
 import java.util.UUID;
 
@@ -146,7 +147,7 @@ public class TagAssetRecord extends UpdatableRecordImpl<TagAssetRecord> implemen
     /**
      * Create a detached, initialised TagAssetRecord
      */
-    public TagAssetRecord(io.metaloom.loom.db.jooq.tables.pojos.TagAsset value) {
+    public TagAssetRecord(JooqTagAsset value) {
         super(TagAsset.TAG_ASSET);
 
         if (value != null) {

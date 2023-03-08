@@ -6,6 +6,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 import io.metaloom.loom.db.jooq.enums.EmbeddingTypes;
 import io.metaloom.loom.db.jooq.tables.Face;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqFace;
 
 import java.util.UUID;
 
@@ -303,7 +304,7 @@ public class FaceRecord extends UpdatableRecordImpl<FaceRecord> implements Recor
     /**
      * Create a detached, initialised FaceRecord
      */
-    public FaceRecord(io.metaloom.loom.db.jooq.tables.pojos.Face value) {
+    public FaceRecord(JooqFace value) {
         super(Face.FACE);
 
         if (value != null) {

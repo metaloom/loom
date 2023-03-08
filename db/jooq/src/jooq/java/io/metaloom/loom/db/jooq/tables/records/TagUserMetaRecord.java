@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.TagUserMeta;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqTagUserMeta;
 
 import java.util.UUID;
 
@@ -214,7 +215,7 @@ public class TagUserMetaRecord extends TableRecordImpl<TagUserMetaRecord> implem
     /**
      * Create a detached, initialised TagUserMetaRecord
      */
-    public TagUserMetaRecord(io.metaloom.loom.db.jooq.tables.pojos.TagUserMeta value) {
+    public TagUserMetaRecord(JooqTagUserMeta value) {
         super(TagUserMeta.TAG_USER_META);
 
         if (value != null) {

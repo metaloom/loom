@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.Group;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqGroup;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -336,7 +337,7 @@ public class GroupRecord extends UpdatableRecordImpl<GroupRecord> implements Rec
     /**
      * Create a detached, initialised GroupRecord
      */
-    public GroupRecord(io.metaloom.loom.db.jooq.tables.pojos.Group value) {
+    public GroupRecord(JooqGroup value) {
         super(Group.GROUP);
 
         if (value != null) {

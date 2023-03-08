@@ -6,6 +6,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 import io.metaloom.loom.db.jooq.enums.LoomExtensionType;
 import io.metaloom.loom.db.jooq.tables.Extension;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqExtension;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -413,7 +414,7 @@ public class ExtensionRecord extends UpdatableRecordImpl<ExtensionRecord> implem
     /**
      * Create a detached, initialised ExtensionRecord
      */
-    public ExtensionRecord(io.metaloom.loom.db.jooq.tables.pojos.Extension value) {
+    public ExtensionRecord(JooqExtension value) {
         super(Extension.EXTENSION);
 
         if (value != null) {

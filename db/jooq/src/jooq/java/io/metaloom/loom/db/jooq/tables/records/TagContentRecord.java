@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.TagContent;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqTagContent;
 
 import java.util.UUID;
 
@@ -146,7 +147,7 @@ public class TagContentRecord extends UpdatableRecordImpl<TagContentRecord> impl
     /**
      * Create a detached, initialised TagContentRecord
      */
-    public TagContentRecord(io.metaloom.loom.db.jooq.tables.pojos.TagContent value) {
+    public TagContentRecord(JooqTagContent value) {
         super(TagContent.TAG_CONTENT);
 
         if (value != null) {

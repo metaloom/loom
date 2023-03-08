@@ -2,7 +2,10 @@ package io.metaloom.loom.worker.action.facedetect;
 
 import static io.metaloom.loom.test.assertj.LoomWorkerAssertions.assertThat;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.FACES;
+import static io.metaloom.worker.action.api.ProcessableMediaMeta.FACE_CLUSTERS;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.SHA_512;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,6 +16,7 @@ import org.junit.Test;
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.test.TestEnvHelper;
 import io.metaloom.loom.test.Testdata;
+import io.metaloom.loom.worker.action.facedetect.cluster.ClusterResult;
 import io.metaloom.video.facedetect.Face;
 import io.metaloom.worker.action.api.ActionResult;
 import io.metaloom.worker.action.api.ProcessableMedia;
@@ -23,10 +27,25 @@ import io.metaloom.worker.action.media.LoomClientMock;
 public class FacedetectActionTest extends AbstractWorkerTest {
 
 	@Test
-	public void testAction() throws IOException {
+	public void testVideo() throws IOException {
 		FacedetectAction action = mockAction();
 		Testdata data = TestEnvHelper.prepareTestdata("action-test");
-		ProcessableMedia media = sampleVideoMedia3(data);
+		ProcessableMedia media = media(data.sampleVideo3Path());
+		ActionResult result = action.process(media);
+		assertThat(result).isProcessed();
+		assertThat(media).hasXAttr(1).hasXAttr(SHA_512);
+		List<Face> faces = media.get(FACES);
+		ClusterResult cluster = media.get(FACE_CLUSTERS, ClusterResult.class);
+		assertNotNull(cluster);
+		assertEquals("There should be four clusters since the video contains four persons", 4, cluster.size());
+		System.out.println("Faces: " + faces.size());
+	}
+
+	@Test
+	public void testImage() throws IOException {
+		FacedetectAction action = mockAction();
+		Testdata data = TestEnvHelper.prepareTestdata("action-test");
+		ProcessableMedia media = media(data.sampleImage1Path());
 		ActionResult result = action.process(media);
 		assertThat(result).isProcessed();
 		assertThat(media).hasXAttr(1).hasXAttr(SHA_512);

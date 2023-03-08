@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
-import io.metaloom.video4j.Video;
 import io.metaloom.video4j.Video4j;
+import io.metaloom.video4j.VideoFile;
 import io.metaloom.video4j.Videos;
 import io.metaloom.video4j.preview.PreviewGenerator;
 import io.metaloom.worker.action.api.ActionResult;
@@ -101,7 +101,7 @@ public class ThumbnailAction extends AbstractFilesystemAction<ThumbnailActionSet
 
 		try {
 			String path = media.absolutePath();
-			try (Video video = Videos.open(path)) {
+			try (VideoFile video = Videos.open(path)) {
 				gen.save(video, outputFile);
 				print(media, "DONE", "", start);
 				writeThumbnailFlags(media, DONE_FLAG);

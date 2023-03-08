@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.ModelVersion;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqModelVersion;
 
 import java.util.UUID;
 
@@ -258,7 +259,7 @@ public class ModelVersionRecord extends UpdatableRecordImpl<ModelVersionRecord> 
     /**
      * Create a detached, initialised ModelVersionRecord
      */
-    public ModelVersionRecord(io.metaloom.loom.db.jooq.tables.pojos.ModelVersion value) {
+    public ModelVersionRecord(JooqModelVersion value) {
         super(ModelVersion.MODEL_VERSION);
 
         if (value != null) {

@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.AssetTimelineTag;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimelineTag;
 
 import java.util.UUID;
 
@@ -137,7 +138,7 @@ public class AssetTimelineTagRecord extends TableRecordImpl<AssetTimelineTagReco
     /**
      * Create a detached, initialised AssetTimelineTagRecord
      */
-    public AssetTimelineTagRecord(io.metaloom.loom.db.jooq.tables.pojos.AssetTimelineTag value) {
+    public AssetTimelineTagRecord(JooqAssetTimelineTag value) {
         super(AssetTimelineTag.ASSET_TIMELINE_TAG);
 
         if (value != null) {

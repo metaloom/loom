@@ -2,9 +2,10 @@ package io.metaloom.loom.db.asset;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,11 +13,14 @@ import org.junit.Test;
 
 import io.metaloom.loom.db.model.asset.LoomAsset;
 import io.metaloom.loom.db.model.asset.LoomAssetDao;
-import io.reactivex.rxjava3.core.Maybe;
+import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.user.LoomUserDao;
 
 public abstract class AbstractAssetDaoTest {
 
 	abstract public LoomAssetDao getDao();
+
+	abstract public LoomUserDao getUserDao();
 
 	@After
 	@Before
@@ -26,13 +30,19 @@ public abstract class AbstractAssetDaoTest {
 
 	@Test
 	public void testCreate() {
-		LoomAssetDao dao = getDao();
-
 		// Create asset
-		LoomAsset asset = dao.createAsset().blockingGet();
-		asset.setFilename("blume.jpg");
+		LoomAsset asset = createTestAsset();
 		assertNotNull(asset.getUuid());
 		assertEquals("blume.jpg", asset.getFilename());
+//		assertNotNull(asset.getNamespaceUuid());
+//		assertNotNull(asset.getBinaryUuid());
+	}
+
+	private LoomAsset createTestAsset() {
+		LoomUser creator = getUserDao().createUser("joedoe");
+		UUID binaryUuid = UUID.randomUUID();
+		UUID namespaceUuid = UUID.randomUUID();
+		return getDao().createAsset("blume.jpg", binaryUuid, creator, namespaceUuid);
 	}
 
 	@Test
@@ -40,12 +50,11 @@ public abstract class AbstractAssetDaoTest {
 		LoomAssetDao dao = getDao();
 
 		// Create asset
-		LoomAsset asset = dao.createAsset().blockingGet();
-		asset.setFilename("blume.jpg");
+		LoomAsset asset = createTestAsset();
 
 		// Now assert deletion
 		dao.deleteAsset(asset);
-		assertTrue("The asset should be deleted", dao.loadAsset(asset.getUuid()).isEmpty().blockingGet());
+		assertNull("The asset should be deleted", dao.loadAsset(asset.getUuid()));
 	}
 
 	@Test
@@ -53,25 +62,22 @@ public abstract class AbstractAssetDaoTest {
 		LoomAssetDao dao = getDao();
 
 		// Create and store
-		LoomAsset asset = dao.createAsset().blockingGet();
-		asset.setFilename("blume.jpg");
+		LoomAsset asset = createTestAsset();
 
 		// Now update
 		asset.setFilename("blume2.jpg");
 		dao.updateAsset(asset);
 
 		// Load and assert update was persisted
-		Maybe<? extends LoomAsset> updatedAsset = dao.loadAsset(asset.getUuid());
-		assertEquals("blume2.jpg", updatedAsset.blockingGet().getFilename());
+		LoomAsset updatedAsset = dao.loadAsset(asset.getUuid());
+		assertEquals("blume2.jpg", updatedAsset.getFilename());
 	}
 
 	@Test
 	public void testLoad() {
 		LoomAssetDao dao = getDao();
-
 		// Create and store asset
-		LoomAsset asset = dao.createAsset().blockingGet();
-		asset.setFilename("blume.jpg");
+		LoomAsset asset = createTestAsset();
 
 		// Now load again
 		assertNotNull(dao.loadAsset(asset.getUuid()));

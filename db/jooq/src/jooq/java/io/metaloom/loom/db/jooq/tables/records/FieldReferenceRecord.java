@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.FieldReference;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference;
 
 import java.util.UUID;
 
@@ -186,7 +187,7 @@ public class FieldReferenceRecord extends UpdatableRecordImpl<FieldReferenceReco
     /**
      * Create a detached, initialised FieldReferenceRecord
      */
-    public FieldReferenceRecord(io.metaloom.loom.db.jooq.tables.pojos.FieldReference value) {
+    public FieldReferenceRecord(JooqFieldReference value) {
         super(FieldReference.FIELD_REFERENCE);
 
         if (value != null) {

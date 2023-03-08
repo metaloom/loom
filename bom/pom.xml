@@ -420,6 +420,11 @@
 			</dependency>
 			<dependency>
 				<groupId>io.metaloom.loom.db</groupId>
+				<artifactId>loom-db-jooq-gen</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom.db</groupId>
 				<artifactId>loom-db-fs</artifactId>
 				<version>${project.version}</version>
 			</dependency>

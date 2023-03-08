@@ -1,32 +1,27 @@
 package io.metaloom.loom.db.model.asset;
 
 import java.util.UUID;
-import java.util.function.Consumer;
 
 import io.metaloom.loom.db.LoomDao;
 import io.metaloom.loom.db.model.tag.LoomTag;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
+import io.metaloom.loom.db.model.user.LoomUser;
 
 public interface LoomAssetDao extends LoomDao {
 
-	default Single<? extends LoomAsset> createAsset() {
-		return createAsset(null);
-	}
+	LoomAsset createAsset(String filename, UUID binaryUuid, LoomUser creator, UUID namespaceUuid);
 
-	Single<? extends LoomAsset> createAsset(Consumer<LoomAsset> modifier);
+	void storeAsset(LoomAsset asset);
 
-	Completable deleteAsset(LoomAsset asset);
+	void deleteAsset(LoomAsset asset);
 
-	Completable updateAsset(LoomAsset asset);
+	void updateAsset(LoomAsset asset);
 
-	Maybe<? extends LoomAsset> loadAsset(UUID uuid);
+	LoomAsset loadAsset(UUID uuid);
 
-	Observable<LoomTag> loadTags(LoomAsset asset);
+	LoomTag loadTags(LoomAsset asset);
 
-	Completable addTag(LoomAsset asset, LoomTag tag);
+	void addTag(LoomAsset asset, LoomTag tag);
 
-	Completable removeTag(LoomAsset asset, LoomTag tag);
+	void removeTag(LoomAsset asset, LoomTag tag);
+
 }

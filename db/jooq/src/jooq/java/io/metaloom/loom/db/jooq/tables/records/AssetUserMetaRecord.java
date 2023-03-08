@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.AssetUserMeta;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqAssetUserMeta;
 
 import java.util.UUID;
 
@@ -226,7 +227,7 @@ public class AssetUserMetaRecord extends UpdatableRecordImpl<AssetUserMetaRecord
     /**
      * Create a detached, initialised AssetUserMetaRecord
      */
-    public AssetUserMetaRecord(io.metaloom.loom.db.jooq.tables.pojos.AssetUserMeta value) {
+    public AssetUserMetaRecord(JooqAssetUserMeta value) {
         super(AssetUserMeta.ASSET_USER_META);
 
         if (value != null) {

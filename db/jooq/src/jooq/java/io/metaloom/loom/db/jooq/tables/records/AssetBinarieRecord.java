@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.AssetBinarie;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie;
 
 import java.util.UUID;
 
@@ -375,7 +376,7 @@ public class AssetBinarieRecord extends UpdatableRecordImpl<AssetBinarieRecord> 
     /**
      * Create a detached, initialised AssetBinarieRecord
      */
-    public AssetBinarieRecord(io.metaloom.loom.db.jooq.tables.pojos.AssetBinarie value) {
+    public AssetBinarieRecord(JooqAssetBinarie value) {
         super(AssetBinarie.ASSET_BINARIE);
 
         if (value != null) {

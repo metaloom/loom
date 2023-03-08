@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.Model;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqModel;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -335,7 +336,7 @@ public class ModelRecord extends UpdatableRecordImpl<ModelRecord> implements Rec
     /**
      * Create a detached, initialised ModelRecord
      */
-    public ModelRecord(io.metaloom.loom.db.jooq.tables.pojos.Model value) {
+    public ModelRecord(JooqModel value) {
         super(Model.MODEL);
 
         if (value != null) {

@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 
 public interface ProcessableMedia {
 
@@ -49,7 +50,7 @@ public interface ProcessableMedia {
 	 * Open the media stream.
 	 * 
 	 * @return
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException
 	 */
 	InputStream open() throws FileNotFoundException;
 
@@ -70,6 +71,10 @@ public interface ProcessableMedia {
 	 */
 	<T> T get(String key, Class<T> classOfT);
 
+	default <T> T get(ProcessableMediaMeta meta, Class<T> classOfT) {
+		return get(meta.key(), classOfT);
+	}
+
 	/**
 	 * Return the meta property for the given type.
 	 * 
@@ -78,6 +83,7 @@ public interface ProcessableMedia {
 	 * @return
 	 */
 	default <T> T get(ProcessableMediaMeta meta) {
+		Objects.requireNonNull(meta.type(), "The meta attribute has no specified type.");
 		return (T) get(meta.key(), meta.type());
 	}
 

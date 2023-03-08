@@ -6,6 +6,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 import io.metaloom.loom.db.jooq.enums.LoomPermissionFlag;
 import io.metaloom.loom.db.jooq.tables.Role;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqRole;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -374,7 +375,7 @@ public class RoleRecord extends UpdatableRecordImpl<RoleRecord> implements Recor
     /**
      * Create a detached, initialised RoleRecord
      */
-    public RoleRecord(io.metaloom.loom.db.jooq.tables.pojos.Role value) {
+    public RoleRecord(JooqRole value) {
         super(Role.ROLE);
 
         if (value != null) {

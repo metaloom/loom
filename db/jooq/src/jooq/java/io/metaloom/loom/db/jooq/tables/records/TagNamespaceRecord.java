@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqTagNamespace;
 
 import java.util.UUID;
 
@@ -146,7 +147,7 @@ public class TagNamespaceRecord extends UpdatableRecordImpl<TagNamespaceRecord> 
     /**
      * Create a detached, initialised TagNamespaceRecord
      */
-    public TagNamespaceRecord(io.metaloom.loom.db.jooq.tables.pojos.TagNamespace value) {
+    public TagNamespaceRecord(JooqTagNamespace value) {
         super(TagNamespace.TAG_NAMESPACE);
 
         if (value != null) {

@@ -6,6 +6,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 import io.metaloom.loom.db.jooq.enums.LoomPermissionFlag;
 import io.metaloom.loom.db.jooq.tables.UserToken;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqUserToken;
 
 import java.util.UUID;
 
@@ -259,7 +260,7 @@ public class UserTokenRecord extends UpdatableRecordImpl<UserTokenRecord> implem
     /**
      * Create a detached, initialised UserTokenRecord
      */
-    public UserTokenRecord(io.metaloom.loom.db.jooq.tables.pojos.UserToken value) {
+    public UserTokenRecord(JooqUserToken value) {
         super(UserToken.USER_TOKEN);
 
         if (value != null) {

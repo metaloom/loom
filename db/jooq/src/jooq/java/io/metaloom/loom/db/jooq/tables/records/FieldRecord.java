@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.Field;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqField;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -448,7 +449,7 @@ public class FieldRecord extends UpdatableRecordImpl<FieldRecord> implements Rec
     /**
      * Create a detached, initialised FieldRecord
      */
-    public FieldRecord(io.metaloom.loom.db.jooq.tables.pojos.Field value) {
+    public FieldRecord(JooqField value) {
         super(Field.FIELD);
 
         if (value != null) {

@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.ContentUserMeta;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqContentUserMeta;
 
 import java.util.UUID;
 
@@ -226,7 +227,7 @@ public class ContentUserMetaRecord extends UpdatableRecordImpl<ContentUserMetaRe
     /**
      * Create a detached, initialised ContentUserMetaRecord
      */
-    public ContentUserMetaRecord(io.metaloom.loom.db.jooq.tables.pojos.ContentUserMeta value) {
+    public ContentUserMetaRecord(JooqContentUserMeta value) {
         super(ContentUserMeta.CONTENT_USER_META);
 
         if (value != null) {
