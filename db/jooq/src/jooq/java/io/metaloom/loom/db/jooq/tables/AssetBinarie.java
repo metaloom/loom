@@ -12,11 +12,11 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function8;
+import org.jooq.Function10;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row8;
+import org.jooq.Row10;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -60,19 +60,24 @@ public class AssetBinarie extends TableImpl<AssetBinarieRecord> {
     public final TableField<AssetBinarieRecord, String> SHA512SUM = createField(DSL.name("sha512sum"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.asset_binarie.size</code>.
-     */
-    public final TableField<AssetBinarieRecord, Long> SIZE = createField(DSL.name("size"), SQLDataType.BIGINT.nullable(false), this, "");
-
-    /**
      * The column <code>public.asset_binarie.sha256sum</code>.
      */
-    public final TableField<AssetBinarieRecord, String> SHA256SUM = createField(DSL.name("sha256sum"), SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<AssetBinarieRecord, String> SHA256SUM = createField(DSL.name("sha256sum"), SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.asset_binarie.chunkHash</code>.
+     */
+    public final TableField<AssetBinarieRecord, String> CHUNKHASH = createField(DSL.name("chunkHash"), SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.asset_binarie.md5sum</code>.
      */
-    public final TableField<AssetBinarieRecord, String> MD5SUM = createField(DSL.name("md5sum"), SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<AssetBinarieRecord, String> MD5SUM = createField(DSL.name("md5sum"), SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.asset_binarie.size</code>.
+     */
+    public final TableField<AssetBinarieRecord, Long> SIZE = createField(DSL.name("size"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.asset_binarie.media_width</code>. Only set for
@@ -85,6 +90,11 @@ public class AssetBinarie extends TableImpl<AssetBinarieRecord> {
      * images
      */
     public final TableField<AssetBinarieRecord, Integer> MEDIA_HEIGHT = createField(DSL.name("media_height"), SQLDataType.INTEGER, this, "Only set for images");
+
+    /**
+     * The column <code>public.asset_binarie.zero_chunk_count</code>.
+     */
+    public final TableField<AssetBinarieRecord, Long> ZERO_CHUNK_COUNT = createField(DSL.name("zero_chunk_count"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.asset_binarie.fingerprint</code>. Media
@@ -175,18 +185,18 @@ public class AssetBinarie extends TableImpl<AssetBinarieRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row8 type methods
+    // Row10 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<java.util.UUID, String, Long, String, String, Integer, Integer, String> fieldsRow() {
-        return (Row8) super.fieldsRow();
+    public Row10<java.util.UUID, String, String, String, String, Long, Integer, Integer, Long, String> fieldsRow() {
+        return (Row10) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function8<? super java.util.UUID, ? super String, ? super Long, ? super String, ? super String, ? super Integer, ? super Integer, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function10<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super Long, ? super Integer, ? super Integer, ? super Long, ? super String, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -194,7 +204,7 @@ public class AssetBinarie extends TableImpl<AssetBinarieRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super java.util.UUID, ? super String, ? super Long, ? super String, ? super String, ? super Integer, ? super Integer, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function10<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super Long, ? super Integer, ? super Integer, ? super Long, ? super String, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -18,11 +18,13 @@ public class JooqAssetBinarie implements Serializable {
 
     private UUID uuid;
     private String sha512sum;
-    private Long size;
     private String sha256sum;
+    private String chunkhash;
     private String md5sum;
+    private Long size;
     private Integer mediaWidth;
     private Integer mediaHeight;
+    private Long zeroChunkCount;
     private String fingerprint;
 
     public JooqAssetBinarie() {}
@@ -30,31 +32,37 @@ public class JooqAssetBinarie implements Serializable {
     public JooqAssetBinarie(JooqAssetBinarie value) {
         this.uuid = value.uuid;
         this.sha512sum = value.sha512sum;
-        this.size = value.size;
         this.sha256sum = value.sha256sum;
+        this.chunkhash = value.chunkhash;
         this.md5sum = value.md5sum;
+        this.size = value.size;
         this.mediaWidth = value.mediaWidth;
         this.mediaHeight = value.mediaHeight;
+        this.zeroChunkCount = value.zeroChunkCount;
         this.fingerprint = value.fingerprint;
     }
 
     public JooqAssetBinarie(
         UUID uuid,
         String sha512sum,
-        Long size,
         String sha256sum,
+        String chunkhash,
         String md5sum,
+        Long size,
         Integer mediaWidth,
         Integer mediaHeight,
+        Long zeroChunkCount,
         String fingerprint
     ) {
         this.uuid = uuid;
         this.sha512sum = sha512sum;
-        this.size = size;
         this.sha256sum = sha256sum;
+        this.chunkhash = chunkhash;
         this.md5sum = md5sum;
+        this.size = size;
         this.mediaWidth = mediaWidth;
         this.mediaHeight = mediaHeight;
+        this.zeroChunkCount = zeroChunkCount;
         this.fingerprint = fingerprint;
     }
 
@@ -87,20 +95,6 @@ public class JooqAssetBinarie implements Serializable {
     }
 
     /**
-     * Getter for <code>public.asset_binarie.size</code>.
-     */
-    public Long getSize() {
-        return this.size;
-    }
-
-    /**
-     * Setter for <code>public.asset_binarie.size</code>.
-     */
-    public void setSize(Long size) {
-        this.size = size;
-    }
-
-    /**
      * Getter for <code>public.asset_binarie.sha256sum</code>.
      */
     public String getSha256sum() {
@@ -115,6 +109,20 @@ public class JooqAssetBinarie implements Serializable {
     }
 
     /**
+     * Getter for <code>public.asset_binarie.chunkHash</code>.
+     */
+    public String getChunkhash() {
+        return this.chunkhash;
+    }
+
+    /**
+     * Setter for <code>public.asset_binarie.chunkHash</code>.
+     */
+    public void setChunkhash(String chunkhash) {
+        this.chunkhash = chunkhash;
+    }
+
+    /**
      * Getter for <code>public.asset_binarie.md5sum</code>.
      */
     public String getMd5sum() {
@@ -126,6 +134,20 @@ public class JooqAssetBinarie implements Serializable {
      */
     public void setMd5sum(String md5sum) {
         this.md5sum = md5sum;
+    }
+
+    /**
+     * Getter for <code>public.asset_binarie.size</code>.
+     */
+    public Long getSize() {
+        return this.size;
+    }
+
+    /**
+     * Setter for <code>public.asset_binarie.size</code>.
+     */
+    public void setSize(Long size) {
+        this.size = size;
     }
 
     /**
@@ -158,6 +180,20 @@ public class JooqAssetBinarie implements Serializable {
      */
     public void setMediaHeight(Integer mediaHeight) {
         this.mediaHeight = mediaHeight;
+    }
+
+    /**
+     * Getter for <code>public.asset_binarie.zero_chunk_count</code>.
+     */
+    public Long getZeroChunkCount() {
+        return this.zeroChunkCount;
+    }
+
+    /**
+     * Setter for <code>public.asset_binarie.zero_chunk_count</code>.
+     */
+    public void setZeroChunkCount(Long zeroChunkCount) {
+        this.zeroChunkCount = zeroChunkCount;
     }
 
     /**
@@ -197,23 +233,29 @@ public class JooqAssetBinarie implements Serializable {
         }
         else if (!this.sha512sum.equals(other.sha512sum))
             return false;
-        if (this.size == null) {
-            if (other.size != null)
-                return false;
-        }
-        else if (!this.size.equals(other.size))
-            return false;
         if (this.sha256sum == null) {
             if (other.sha256sum != null)
                 return false;
         }
         else if (!this.sha256sum.equals(other.sha256sum))
             return false;
+        if (this.chunkhash == null) {
+            if (other.chunkhash != null)
+                return false;
+        }
+        else if (!this.chunkhash.equals(other.chunkhash))
+            return false;
         if (this.md5sum == null) {
             if (other.md5sum != null)
                 return false;
         }
         else if (!this.md5sum.equals(other.md5sum))
+            return false;
+        if (this.size == null) {
+            if (other.size != null)
+                return false;
+        }
+        else if (!this.size.equals(other.size))
             return false;
         if (this.mediaWidth == null) {
             if (other.mediaWidth != null)
@@ -226,6 +268,12 @@ public class JooqAssetBinarie implements Serializable {
                 return false;
         }
         else if (!this.mediaHeight.equals(other.mediaHeight))
+            return false;
+        if (this.zeroChunkCount == null) {
+            if (other.zeroChunkCount != null)
+                return false;
+        }
+        else if (!this.zeroChunkCount.equals(other.zeroChunkCount))
             return false;
         if (this.fingerprint == null) {
             if (other.fingerprint != null)
@@ -242,11 +290,13 @@ public class JooqAssetBinarie implements Serializable {
         int result = 1;
         result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
         result = prime * result + ((this.sha512sum == null) ? 0 : this.sha512sum.hashCode());
-        result = prime * result + ((this.size == null) ? 0 : this.size.hashCode());
         result = prime * result + ((this.sha256sum == null) ? 0 : this.sha256sum.hashCode());
+        result = prime * result + ((this.chunkhash == null) ? 0 : this.chunkhash.hashCode());
         result = prime * result + ((this.md5sum == null) ? 0 : this.md5sum.hashCode());
+        result = prime * result + ((this.size == null) ? 0 : this.size.hashCode());
         result = prime * result + ((this.mediaWidth == null) ? 0 : this.mediaWidth.hashCode());
         result = prime * result + ((this.mediaHeight == null) ? 0 : this.mediaHeight.hashCode());
+        result = prime * result + ((this.zeroChunkCount == null) ? 0 : this.zeroChunkCount.hashCode());
         result = prime * result + ((this.fingerprint == null) ? 0 : this.fingerprint.hashCode());
         return result;
     }
@@ -257,11 +307,13 @@ public class JooqAssetBinarie implements Serializable {
 
         sb.append(uuid);
         sb.append(", ").append(sha512sum);
-        sb.append(", ").append(size);
         sb.append(", ").append(sha256sum);
+        sb.append(", ").append(chunkhash);
         sb.append(", ").append(md5sum);
+        sb.append(", ").append(size);
         sb.append(", ").append(mediaWidth);
         sb.append(", ").append(mediaHeight);
+        sb.append(", ").append(zeroChunkCount);
         sb.append(", ").append(fingerprint);
 
         sb.append(")");

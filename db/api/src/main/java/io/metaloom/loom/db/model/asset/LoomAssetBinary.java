@@ -16,6 +16,14 @@ public interface LoomAssetBinary extends LoomElement {
 
 	LoomAssetBinary setMD5(String hashsum);
 
+	String getChunkHash();
+
+	LoomAssetBinary setChunkHash(String chunkHash);
+
+	long getZeroChunkCount();
+
+	LoomAssetBinary setZeroChunkCount(long zeroChunkCount);
+
 	/**
 	 * Return the media width.
 	 * 
@@ -23,6 +31,12 @@ public interface LoomAssetBinary extends LoomElement {
 	 */
 	Integer getMediaWidth();
 
+	/**
+	 * Set the media width in pixel.
+	 * 
+	 * @param width
+	 * @return
+	 */
 	LoomAssetBinary setMediaWidth(Integer width);
 
 	/**
@@ -32,6 +46,12 @@ public interface LoomAssetBinary extends LoomElement {
 	 */
 	Integer getMediaHeight();
 
+	/**
+	 * Set the media height in pixel.
+	 * 
+	 * @param height
+	 * @return
+	 */
 	LoomAssetBinary setMediaHeight(Integer height);
 
 	/**

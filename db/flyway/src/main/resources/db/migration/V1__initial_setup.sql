@@ -230,11 +230,13 @@ CREATE TABLE "tag_content" (
 CREATE TABLE "asset_binarie" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "sha512sum" varchar NOT NULL,
-  "size" bigint NOT NULL,
   "sha256sum" varchar,
+  "chunkHash" varchar,
   "md5sum" varchar,
+  "size" bigint NOT NULL,
   "media_width" int,
   "media_height" int,
+  "zero_chunk_count" bigint,
   "fingerprint" varchar,
   PRIMARY KEY ("uuid")
 );

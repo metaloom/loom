@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 import dagger.Lazy;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.field.LoomFieldDao;
+import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
 import io.metaloom.loom.db.model.asset.LoomAssetDao;
 import io.metaloom.loom.db.model.content.LoomContentDao;
 import io.metaloom.loom.db.model.extension.LoomExtensionDao;
@@ -38,6 +39,9 @@ public class LoomDaoCollectionImpl implements LoomDaoCollection {
 	public Lazy<LoomAssetDao> assetDao;
 
 	@Inject
+	public Lazy<LoomAssetBinaryDao> assetBinaryDao;
+
+	@Inject
 	public Lazy<LoomNamespaceDao> namespaceDao;
 
 	@Inject
@@ -54,52 +58,57 @@ public class LoomDaoCollectionImpl implements LoomDaoCollection {
 	}
 
 	@Override
-	public LoomContentDao getContentDao() {
+	public LoomContentDao contentDao() {
 		return contentDao.get();
 	}
 
 	@Override
-	public LoomAssetDao getAssetDao() {
+	public LoomAssetDao assetDao() {
 		return assetDao.get();
 	}
 
 	@Override
-	public LoomExtensionDao getExtensionDao() {
+	public LoomAssetBinaryDao assetBinaryDao() {
+		return assetBinaryDao.get();
+	}
+
+	@Override
+	public LoomExtensionDao extensionDao() {
 		return extensionDao.get();
 	}
 
 	@Override
-	public LoomWebhookDao getWebhookDao() {
+	public LoomWebhookDao webhookDao() {
 		return webhookDao.get();
 	}
 
 	@Override
-	public LoomFieldDao getFieldDao() {
+	public LoomFieldDao fieldDao() {
 		return fieldDao.get();
 	}
 
 	@Override
-	public LoomUserDao getUserDao() {
+	public LoomUserDao userDao() {
 		return userDao.get();
 	}
 
 	@Override
-	public LoomGroupDao getGroupDao() {
+	public LoomGroupDao groupDao() {
 		return groupDao.get();
 	}
 
 	@Override
-	public LoomRoleDao getRoleDao() {
+	public LoomRoleDao roleDao() {
 		return roleDao.get();
 	}
 
 	@Override
-	public LoomModelDao getModelDao() {
+	public LoomModelDao modelDao() {
 		return modelDao.get();
 	}
 
 	@Override
-	public LoomNamespaceDao getNamespaceDao() {
+	public LoomNamespaceDao namespaceDao() {
 		return namespaceDao.get();
 	}
 

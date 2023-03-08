@@ -6,7 +6,7 @@ import io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie;
 import io.metaloom.loom.db.jooq.wrapper.AbstractWrappedElement;
 import io.metaloom.loom.db.model.asset.LoomAssetBinary;
 
-public class LoomAssetBinaryImpl extends AbstractWrappedElement<JooqAssetBinarie> implements LoomAssetBinary  {
+public class LoomAssetBinaryImpl extends AbstractWrappedElement<JooqAssetBinarie> implements LoomAssetBinary {
 
 	public LoomAssetBinaryImpl(JooqAssetBinarie delegate) {
 		super(delegate);
@@ -23,88 +23,102 @@ public class LoomAssetBinaryImpl extends AbstractWrappedElement<JooqAssetBinarie
 		return this;
 	}
 
-
 	@Override
 	public String getSHA512() {
-		// TODO Auto-generated method stub
-		return null;
+		return delegate().getSha512sum();
 	}
 
 	@Override
 	public LoomAssetBinary setSHA512(String hashsum) {
-		// TODO Auto-generated method stub
-		return null;
+		delegate().setSha512sum(hashsum);
+		return this;
 	}
 
 	@Override
 	public String getSHA256() {
-		// TODO Auto-generated method stub
-		return null;
+		return delegate().getSha256sum();
 	}
 
 	@Override
 	public LoomAssetBinary setSHA256(String hashsum) {
-		// TODO Auto-generated method stub
-		return null;
+		delegate().setSha256sum(hashsum);
+		return this;
 	}
 
 	@Override
 	public String getMD5() {
-		// TODO Auto-generated method stub
-		return null;
+		return delegate().getMd5sum();
 	}
 
 	@Override
 	public LoomAssetBinary setMD5(String hashsum) {
-		// TODO Auto-generated method stub
-		return null;
+		delegate().setMd5sum(hashsum);
+		return this;
+	}
+
+	@Override
+	public String getChunkHash() {
+		return delegate().getChunkhash();
+	}
+
+	@Override
+	public LoomAssetBinary setChunkHash(String chunkHash) {
+		delegate().setChunkhash(chunkHash);
+		return this;
+	}
+
+	@Override
+	public long getZeroChunkCount() {
+		return delegate().getZeroChunkCount();
+	}
+
+	@Override
+	public LoomAssetBinary setZeroChunkCount(long zeroChunkCount) {
+		delegate().setZeroChunkCount(zeroChunkCount);
+		return this;
 	}
 
 	@Override
 	public Integer getMediaWidth() {
-		// TODO Auto-generated method stub
-		return null;
+		return delegate().getMediaWidth();
 	}
 
 	@Override
 	public LoomAssetBinary setMediaWidth(Integer width) {
-		// TODO Auto-generated method stub
-		return null;
+		delegate().setMediaWidth(width);
+		return this;
 	}
 
 	@Override
 	public Integer getMediaHeight() {
-		// TODO Auto-generated method stub
-		return null;
+		return delegate().getMediaHeight();
 	}
 
 	@Override
 	public LoomAssetBinary setMediaHeight(Integer height) {
-		// TODO Auto-generated method stub
-		return null;
+		delegate().setMediaHeight(height);
+		return this;
 	}
 
 	@Override
 	public String getFingerprint() {
-		// TODO Auto-generated method stub
-		return null;
+		return delegate().getFingerprint();
 	}
 
 	@Override
 	public LoomAssetBinary setFingerprint(String fingerprint) {
-		// TODO Auto-generated method stub
-		return null;
+		delegate().setFingerprint(fingerprint);
+		return this;
 	}
 
 	@Override
 	public long getSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return delegate().getSize();
 	}
 
 	@Override
 	public LoomAssetBinary setSize(long size) {
-		// TODO Auto-generated method stub
-		return null;
+		delegate().setSize(size);
+		return this;
 	}
 }

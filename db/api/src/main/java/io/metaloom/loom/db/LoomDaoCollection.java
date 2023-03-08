@@ -1,6 +1,7 @@
 package io.metaloom.loom.db;
 
 import io.metaloom.loom.db.field.LoomFieldDao;
+import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
 import io.metaloom.loom.db.model.asset.LoomAssetDao;
 import io.metaloom.loom.db.model.content.LoomContentDao;
 import io.metaloom.loom.db.model.extension.LoomExtensionDao;
@@ -16,24 +17,26 @@ import io.metaloom.loom.db.model.webhook.LoomWebhookDao;
  */
 public interface LoomDaoCollection {
 
-	LoomContentDao getContentDao();
+	LoomContentDao contentDao();
 
-	LoomFieldDao getFieldDao();
+	LoomFieldDao fieldDao();
 
-	LoomUserDao getUserDao();
+	LoomUserDao userDao();
 
-	LoomGroupDao getGroupDao();
+	LoomGroupDao groupDao();
 
-	LoomRoleDao getRoleDao();
+	LoomRoleDao roleDao();
 
-	LoomExtensionDao getExtensionDao();
+	LoomExtensionDao extensionDao();
 
-	LoomWebhookDao getWebhookDao();
+	LoomWebhookDao webhookDao();
 
-	LoomNamespaceDao getNamespaceDao();
+	LoomNamespaceDao namespaceDao();
 
-	LoomModelDao getModelDao();
+	LoomModelDao modelDao();
 
-	LoomAssetDao getAssetDao();
+	LoomAssetDao assetDao();
+
+	LoomAssetBinaryDao assetBinaryDao();
 
 }

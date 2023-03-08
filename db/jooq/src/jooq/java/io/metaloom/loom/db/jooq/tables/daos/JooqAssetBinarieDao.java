@@ -86,21 +86,6 @@ public class JooqAssetBinarieDao extends DAOImpl<AssetBinarieRecord, JooqAssetBi
     }
 
     /**
-     * Fetch records that have <code>size BETWEEN lowerInclusive AND
-     * upperInclusive</code>
-     */
-    public List<JooqAssetBinarie> fetchRangeOfSize(Long lowerInclusive, Long upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.SIZE, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>size IN (values)</code>
-     */
-    public List<JooqAssetBinarie> fetchBySize(Long... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.SIZE, values);
-    }
-
-    /**
      * Fetch records that have <code>sha256sum BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
@@ -116,6 +101,21 @@ public class JooqAssetBinarieDao extends DAOImpl<AssetBinarieRecord, JooqAssetBi
     }
 
     /**
+     * Fetch records that have <code>chunkHash BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<JooqAssetBinarie> fetchRangeOfChunkhash(String lowerInclusive, String upperInclusive) {
+        return fetchRange(AssetBinarie.ASSET_BINARIE.CHUNKHASH, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>chunkHash IN (values)</code>
+     */
+    public List<JooqAssetBinarie> fetchByChunkhash(String... values) {
+        return fetch(AssetBinarie.ASSET_BINARIE.CHUNKHASH, values);
+    }
+
+    /**
      * Fetch records that have <code>md5sum BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
@@ -128,6 +128,21 @@ public class JooqAssetBinarieDao extends DAOImpl<AssetBinarieRecord, JooqAssetBi
      */
     public List<JooqAssetBinarie> fetchByMd5sum(String... values) {
         return fetch(AssetBinarie.ASSET_BINARIE.MD5SUM, values);
+    }
+
+    /**
+     * Fetch records that have <code>size BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<JooqAssetBinarie> fetchRangeOfSize(Long lowerInclusive, Long upperInclusive) {
+        return fetchRange(AssetBinarie.ASSET_BINARIE.SIZE, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>size IN (values)</code>
+     */
+    public List<JooqAssetBinarie> fetchBySize(Long... values) {
+        return fetch(AssetBinarie.ASSET_BINARIE.SIZE, values);
     }
 
     /**
@@ -158,6 +173,21 @@ public class JooqAssetBinarieDao extends DAOImpl<AssetBinarieRecord, JooqAssetBi
      */
     public List<JooqAssetBinarie> fetchByMediaHeight(Integer... values) {
         return fetch(AssetBinarie.ASSET_BINARIE.MEDIA_HEIGHT, values);
+    }
+
+    /**
+     * Fetch records that have <code>zero_chunk_count BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<JooqAssetBinarie> fetchRangeOfZeroChunkCount(Long lowerInclusive, Long upperInclusive) {
+        return fetchRange(AssetBinarie.ASSET_BINARIE.ZERO_CHUNK_COUNT, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>zero_chunk_count IN (values)</code>
+     */
+    public List<JooqAssetBinarie> fetchByZeroChunkCount(Long... values) {
+        return fetch(AssetBinarie.ASSET_BINARIE.ZERO_CHUNK_COUNT, values);
     }
 
     /**
