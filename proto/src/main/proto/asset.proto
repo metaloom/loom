@@ -29,9 +29,13 @@ message AssetRequest {
 
 // The response for the asset
 message AssetResponse {
-  string sha512sum = 1;
-  string sha256sum = 2;
-  string fingerprint = 3;
-  string chunkHash = 4;
-  uint64 zeroChunkCount = 5;
+  string uuid = 1;
+  string path = 2;
+  uint64 size = 3;
+  string sha512sum = 4;
+  string sha256sum = 5;
+  string md5sum = 6;
+  string fingerprint = 7;
+  string chunkHash = 8;
+  uint64 zeroChunkCount = 9;
 }

@@ -24,7 +24,7 @@ public interface JooqTestHelper {
 
 	default LoomAsset createAsset(String filename, LoomUser user, LoomNamespace namespace) {
 		LoomAssetBinary binary = createBinary();
-		return assetDao().createAsset(filename, binary.getUuid(), user, namespace.getUuid());
+		return assetDao().createAsset(filename, binary.getUuid(), user.getUuid(), namespace.getUuid());
 	}
 
 	default LoomNamespace createNamespace(String name) {

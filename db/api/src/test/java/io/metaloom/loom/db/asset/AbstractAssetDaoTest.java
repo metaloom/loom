@@ -42,7 +42,8 @@ public abstract class AbstractAssetDaoTest {
 		LoomUser creator = getUserDao().createUser("joedoe");
 		UUID binaryUuid = UUID.randomUUID();
 		UUID namespaceUuid = UUID.randomUUID();
-		return getDao().createAsset("blume.jpg", binaryUuid, creator, namespaceUuid);
+		UUID creatorUuid = creator.getUuid();
+		return getDao().createAsset("blume.jpg", binaryUuid, creatorUuid, namespaceUuid);
 	}
 
 	@Test

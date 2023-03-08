@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.common.service.AbstractService;
+import io.metaloom.loom.server.grpc.impl.GrpcAssetLoader;
 import io.vertx.core.Vertx;
 import io.vertx.grpc.VertxServer;
 import io.vertx.grpc.VertxServerBuilder;

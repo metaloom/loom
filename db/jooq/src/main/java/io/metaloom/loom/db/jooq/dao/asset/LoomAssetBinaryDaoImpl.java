@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.jooq.dao.asset;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -50,6 +51,16 @@ public class LoomAssetBinaryDaoImpl extends AbstractJooqDao<JooqAssetBinarieDao>
 	@Override
 	public LoomAssetBinary loadBinary(UUID uuid) {
 		return wrap(dao().findById(uuid));
+	}
+
+	@Override
+	public LoomAssetBinary loadBinary(String sha512sum) {
+		List<JooqAssetBinarie> result = dao().fetchBySha512sum(sha512sum);
+		if (result.isEmpty()) {
+			return null;
+		} else {
+			return wrap(result.get(0));
+		}
 	}
 
 }

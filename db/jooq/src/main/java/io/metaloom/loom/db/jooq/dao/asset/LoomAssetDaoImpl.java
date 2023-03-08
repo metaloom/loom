@@ -78,14 +78,16 @@ public class LoomAssetDaoImpl extends AbstractJooqDao<JooqAssetDao> implements L
 	}
 
 	@Override
-	public LoomAsset createAsset(String filename, UUID binaryUuid, LoomUser creator, UUID namespaceUuid) {
-		Objects.requireNonNull(creator, "Creator must not be null");
+	public LoomAsset createAsset(String filename, UUID binaryUuid, UUID creatorUuid, UUID namespaceUuid) {
+		Objects.requireNonNull(creatorUuid, "Creator uuid must not be null");
+		Objects.requireNonNull(namespaceUuid, "Namespace uuid must not be null");
+		Objects.requireNonNull(binaryUuid, "Binary uuid must not be null");
 		JooqAsset asset = new JooqAsset();
 		UUID newUuid = UUID.randomUUID();
 		asset.setUuid(newUuid);
 		asset.setFilename(filename);
 		asset.setCreated(LocalDateTime.now());
-		asset.setCreatorUuid(creator.getUuid());
+		asset.setCreatorUuid(creatorUuid);
 		asset.setAssetBinariesUuid(binaryUuid);
 		asset.setNamespaceUuid(namespaceUuid);
 		return wrap(asset);

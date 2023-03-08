@@ -4,12 +4,11 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.LoomDao;
 import io.metaloom.loom.db.model.tag.LoomTag;
-import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.page.Page;
 
 public interface LoomAssetDao extends LoomDao {
 
-	LoomAsset createAsset(String filename, UUID binaryUuid, LoomUser creator, UUID namespaceUuid);
+	LoomAsset createAsset(String filename, UUID binaryUuid, UUID creatorUuid, UUID namespaceUuid);
 
 	void storeAsset(LoomAsset asset);
 

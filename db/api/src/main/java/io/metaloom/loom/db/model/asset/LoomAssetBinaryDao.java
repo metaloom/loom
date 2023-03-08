@@ -18,4 +18,6 @@ public interface LoomAssetBinaryDao extends LoomDao {
 
 	long count();
 
+	LoomAssetBinary loadBinary(String sha512sum);
+
 }

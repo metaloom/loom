@@ -1,4 +1,4 @@
-package io.metaloom.loom.server.grpc;
+package io.metaloom.loom.server.grpc.impl;
 
 import java.util.UUID;
 
@@ -33,22 +33,36 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		long size = request.getSize();
 		String path = request.getPath();
 
-		LoomNamespace namespace = daos.namespaceDao().createNamespace("test");
-		LoomAssetBinary binary = daos.assetBinaryDao().createBinary(sha512sum, size);
+		LoomAssetBinary binary = daos.assetBinaryDao().loadBinary(sha512sum);
+		if (binary == null) {
+			binary = daos.assetBinaryDao().createBinary(sha512sum, size);
+		}
+
 		binary.setSHA256(sha256sum);
 		binary.setFingerprint(fingerprint);
 		binary.setZeroChunkCount(zeroChunkCount);
 		binary.setChunkHash(chunkHash);
-		LoomUser creator = daos.userDao().createUser("test");
 		daos.assetBinaryDao().storeBinary(binary);
-		LoomAsset asset = daos.assetDao().createAsset(path, binary.getUuid(), creator, namespace.getUuid());
+
+		LoomUser creator = daos.userDao().createUser("test");
+		daos.userDao().storeUser(creator);
+		
+		LoomNamespace namespace = daos.namespaceDao().createNamespace("test");
+		LoomAsset asset = daos.assetDao().createAsset(path, binary.getUuid(), creator.getUuid(), namespace.getUuid());
 		daos.assetDao().storeAsset(asset);
 
 		UUID uuid = asset.getUuid();
 
 		return Future.succeededFuture(
 			AssetResponse.newBuilder()
-				.setChunkHash("Reply with " + request.getFingerprint())
+				.setUuid(uuid.toString())
+				.setSize(size)
+				.setPath(path)
+				.setChunkHash(chunkHash)
+				.setSha256Sum(sha256sum)
+				.setSha512Sum(sha512sum)
+				.setFingerprint(fingerprint)
+				.setZeroChunkCount(zeroChunkCount)
 				.build());
 	}
 
