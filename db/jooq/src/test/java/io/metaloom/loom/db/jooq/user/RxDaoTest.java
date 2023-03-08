@@ -7,8 +7,8 @@ import org.junit.Test;
 
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
-import io.metaloom.loom.db.jooq.LoomPostgreSQLContainer;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
+import io.metaloom.loom.test.container.LoomPostgreSQLContainer;
 import io.r2dbc.spi.ConnectionFactory;
 
 public class RxDaoTest extends AbstractJooqTest {

@@ -39,9 +39,9 @@ public class JooqModule {
 		cpds.setJdbcUrl(options.getJdbcUrl());
 		cpds.setUser(options.getUsername());
 		cpds.setPassword(options.getPassword());
-		cpds.setMinPoolSize(5);
-		cpds.setAcquireIncrement(5);
-		cpds.setMaxPoolSize(20);
+		cpds.setMinPoolSize(options.getMinPoolSize());
+		cpds.setAcquireIncrement(options.getAcquireIncrement());
+		cpds.setMaxPoolSize(options.getMaxPoolSize());
 		return cpds;
 	}
 

@@ -12,7 +12,11 @@ public class DatabaseOptions implements Option {
 
 	public static final String DEFAULT_DATABASE_NAME = "loom";
 
-	public static final int DEFAULT_POOL_SIZE = 16;
+	public static final int DEFAULT_MIN_POOL_SIZE = 5;
+
+	public static final int DEFAULT_ACQUIRE_INCREMENT = 5;
+
+	public static final int DEFAULT_MAX_POOL_SIZE = 20;
 
 	private String host = DEFAULT_HOST;
 
@@ -24,7 +28,11 @@ public class DatabaseOptions implements Option {
 
 	private String databaseName = DEFAULT_DATABASE_NAME;
 
-	private int poolSize = DEFAULT_POOL_SIZE;
+	private int minPoolSize = DEFAULT_MIN_POOL_SIZE;
+
+	private int acquireIncrement = DEFAULT_ACQUIRE_INCREMENT;
+
+	private int maxPoolSize = DEFAULT_MAX_POOL_SIZE;
 
 	public String getHost() {
 		return host;
@@ -71,17 +79,34 @@ public class DatabaseOptions implements Option {
 		return this;
 	}
 
-	public int getPoolSize() {
-		return poolSize;
-	}
-
-	public DatabaseOptions setPoolSize(int poolSize) {
-		this.poolSize = poolSize;
-		return this;
-	}
-
 	public String getJdbcUrl() {
 		return "jdbc:postgresql://" + getHost() + ":" + getPort() + "/" + getDatabaseName();
 	}
 
+	public int getMinPoolSize() {
+		return minPoolSize;
+	}
+
+	public DatabaseOptions setMinPoolSize(int minPoolSize) {
+		this.minPoolSize = minPoolSize;
+		return this;
+	}
+
+	public int getAcquireIncrement() {
+		return acquireIncrement;
+	}
+
+	public DatabaseOptions setAcquireIncrement(int acquireIncrement) {
+		this.acquireIncrement = acquireIncrement;
+		return this;
+	}
+
+	public int getMaxPoolSize() {
+		return maxPoolSize;
+	}
+
+	public DatabaseOptions setMaxPoolSize(int maxPoolSize) {
+		this.maxPoolSize = maxPoolSize;
+		return this;
+	}
 }

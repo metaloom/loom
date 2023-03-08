@@ -59,6 +59,26 @@
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>io.metaloom.loom.container</groupId>
+				<artifactId>loom-container</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom.container</groupId>
+				<artifactId>loom-container-server</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom.container</groupId>
+				<artifactId>loom-container-demo</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.metaloom.loom.worker</groupId>
+				<artifactId>loom-worker-cli</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>io.metaloom.loom.worker</groupId>
 				<artifactId>loom-worker-common</artifactId>
 				<version>${project.version}</version>

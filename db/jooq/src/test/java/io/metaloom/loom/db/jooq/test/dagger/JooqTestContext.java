@@ -8,12 +8,12 @@ import org.junit.runner.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.metaloom.loom.db.jooq.LoomPostgreSQLContainer;
 import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
 import io.metaloom.loom.db.model.asset.LoomAssetDao;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
 import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
+import io.metaloom.loom.test.container.LoomPostgreSQLContainer;
 
 public class JooqTestContext extends TestWatcher {
 

@@ -9,17 +9,17 @@ import io.metaloom.worker.action.hash.HashActionSettings;
 
 public class FilesystemProcessorSetting {
 
-	private ProcessorSettings processorSettings;
+	private ProcessorSettings processorSettings = new ProcessorSettings();
 
-	private ThumbnailActionSettings thumbnailSettings;
+	private ThumbnailActionSettings thumbnailSettings = new ThumbnailActionSettings();
 
-	private HashActionSettings hashSettings;
+	private HashActionSettings hashSettings = new HashActionSettings();
 
-	private ConsistencyActionSettings consistencySettings;
+	private ConsistencyActionSettings consistencySettings = new ConsistencyActionSettings();
 
-	private FingerprintActionSettings fingerprintActionSettings;
+	private FingerprintActionSettings fingerprintActionSettings = new FingerprintActionSettings();
 
-	private FacedetectActionSettings facedetectActionSettings;
+	private FacedetectActionSettings facedetectActionSettings = new FacedetectActionSettings();
 
 	public HashActionSettings getHashSettings() {
 		return hashSettings;

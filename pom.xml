@@ -66,15 +66,16 @@
 		<module>test</module>
 		<module>common</module>
 		<module>db</module>
-		<module>core</module>
-		<module>doc</module>
 		<module>proto</module>
+		<module>services</module>
 		<module>rest-model</module>
+		<module>core</module>
 		<module>client</module>
 		<module>cli</module>
 		<module>worker</module>
-		<module>services</module>
 		<module>containers</module>
+		<module>integration-test</module>
+		<module>doc</module>
 	</modules>
 
 	<dependencies>

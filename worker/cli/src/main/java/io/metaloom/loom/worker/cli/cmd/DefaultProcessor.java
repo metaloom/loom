@@ -30,22 +30,24 @@ public class DefaultProcessor {
 	}
 
 	public void process(Path folder) throws IOException {
-		if (Files.exists(folder)) {
+		if (!Files.exists(folder)) {
 			throw new FileNotFoundException("Startfolder not found " + folder.toString());
 		}
 
-		String hostname = null;
-		int port = 0;
+		String hostname = settings.getProcessorSettings().getHostname();
+		int port = settings.getProcessorSettings().getPort();
+		//TODO configure path
+		settings.getThumbnailSettings().setThumbnailPath("target/thumbnails");
 		Builder builder = LoomGRPCClient.builder().setHostname(hostname).setPort(port);
 		try (LoomGRPCClient client = builder.build()) {
 			registerAction(new SHA512Action(client, settings.getProcessorSettings(), settings.getHashSettings()));
 
-			registerAction(new ConsistencyAction(client, settings.getProcessorSettings(),settings.getConsistencySettings()));
-			registerAction(new ChunkHashAction(client, settings.getProcessorSettings(),settings.getHashSettings()));
-			registerAction(new SHA256Action(client, settings.getProcessorSettings(),settings.getHashSettings()));
-			registerAction(new ThumbnailAction(client, settings.getProcessorSettings(),settings.getThumbnailSettings()));
-			registerAction(new FacedetectAction(client, settings.getProcessorSettings(),settings.getFacedetectActionSettings()));
-			registerAction(new FingerprintAction(client, settings.getProcessorSettings(),settings.getFingerprintActionSettings()));
+			registerAction(new ConsistencyAction(client, settings.getProcessorSettings(), settings.getConsistencySettings()));
+			registerAction(new ChunkHashAction(client, settings.getProcessorSettings(), settings.getHashSettings()));
+			registerAction(new SHA256Action(client, settings.getProcessorSettings(), settings.getHashSettings()));
+			registerAction(new ThumbnailAction(client, settings.getProcessorSettings(), settings.getThumbnailSettings()));
+			registerAction(new FacedetectAction(client, settings.getProcessorSettings(), settings.getFacedetectActionSettings()));
+			registerAction(new FingerprintAction(client, settings.getProcessorSettings(), settings.getFingerprintActionSettings()));
 			processor.analyze(folder);
 		}
 	}

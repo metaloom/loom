@@ -2,7 +2,7 @@ package io.metaloom.loom.worker.cli.cmd;
 
 import static io.metaloom.loom.worker.cli.ExitCode.OK;
 
-import io.metaloom.loom.worker.cli.WorkerCLI;
+import io.metaloom.loom.worker.cli.LoomWorkerCLI;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.ParentCommand;
@@ -15,7 +15,7 @@ public class AbstractLoomWorkerCommand implements LoomWorkerCommand {
 	CommandSpec spec;
 
 	@ParentCommand
-	private WorkerCLI parent;
+	private LoomWorkerCLI parent;
 
 	@Override
 	public Integer call() {

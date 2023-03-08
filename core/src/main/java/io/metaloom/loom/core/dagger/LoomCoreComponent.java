@@ -10,6 +10,7 @@ import io.metaloom.loom.common.dagger.VertxModule;
 import io.metaloom.loom.core.boot.BootstrapInitializer;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.dagger.DBBindModule;
+import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
@@ -18,7 +19,7 @@ import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
  * Central dagger loom component.
  */
 @Singleton
-@Component(modules = { VertxModule.class, LoomModule.class, DBBindModule.class, JooqLoomDaoBindModule.class, JooqModule.class,
+@Component(modules = { VertxModule.class, LoomModule.class, FlywayModule.class, DBBindModule.class, JooqLoomDaoBindModule.class, JooqModule.class,
 	JooqNativeDaoModule.class })
 public interface LoomCoreComponent {
 
@@ -37,14 +38,6 @@ public interface LoomCoreComponent {
 		 */
 		@BindsInstance
 		Builder configuration(LoomOptions options);
-
-		/**
-		 * Inject loom instance.
-		 * 
-		 * @param loom
-		 * @return
-		 */
-		// Builder loom(Loom loom);
 
 		/**
 		 * Build the component.

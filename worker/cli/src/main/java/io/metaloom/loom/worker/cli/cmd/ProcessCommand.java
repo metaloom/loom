@@ -22,6 +22,8 @@ public class ProcessCommand extends AbstractLoomWorkerCommand {
 		try {
 			Path folder = Paths.get(path);
 			FilesystemProcessorSetting settings = new FilesystemProcessorSetting();
+			settings.getProcessorSettings().setPort(getPort());
+			settings.getProcessorSettings().setHostname(getHostname());
 			new DefaultProcessor(settings).process(folder);
 			return OK.code();
 		} catch (Exception e) {

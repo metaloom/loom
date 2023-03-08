@@ -35,6 +35,15 @@ public class GrpcService extends AbstractService {
 						.setChunkHash("Reply with " + request.getFingerprint())
 						.build());
 			}
+
+			@Override
+			public Future<AssetResponse> load(AssetRequest request) {
+				return Future.succeededFuture(
+					AssetResponse.newBuilder()
+						.setChunkHash("Reply with " + request.getFingerprint())
+						.build());
+			}
+
 		};
 
 		int port = options().getServer().getGrpcPort();

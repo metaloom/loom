@@ -12,10 +12,10 @@ import org.junit.Test;
 
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
-import io.metaloom.loom.db.jooq.LoomPostgreSQLContainer;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserDao;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
+import io.metaloom.loom.test.container.LoomPostgreSQLContainer;
 
 public class NonReactiveGeneratedDaoTest extends AbstractJooqTest {
 

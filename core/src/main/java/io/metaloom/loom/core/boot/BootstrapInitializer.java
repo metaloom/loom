@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,15 +18,29 @@ public class BootstrapInitializer {
 
 	private final GrpcService grpcService;
 
+	private final Flyway flyway;
+
 	@Inject
-	public BootstrapInitializer(GrpcService grpcService) {
+	public BootstrapInitializer(GrpcService grpcService, Flyway flyway) {
 		this.grpcService = grpcService;
+		this.flyway = flyway;
 	}
 
 	public void init() throws IOException {
-		log.info("Starting gRPC service");
-		grpcService.start();
-		
+		try {
+			log.info("Starting gRPC service");
+			grpcService.start();
+		} catch (Exception e) {
+			throw new RuntimeException("Error while starting grpc service", e);
+		}
+
+		try {
+			log.info("Invoking database migration check");
+			flyway.migrate();
+		} catch (Exception e) {
+			throw new RuntimeException("Error while invoking database migration", e);
+		}
+
 		// TODO REST
 	}
 
