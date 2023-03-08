@@ -18,7 +18,7 @@ public interface LoomFsTestComponent {
 	LoomUserDao usersDao();
 
 	/**
-	 * Builder for the main dagger component. It allows injection of options and the mesh instance which will be created by the {@link MeshFactory} outside of
+	 * Builder for the main dagger component. It allows injection of options and the loom instance which will be created by the {@link LoomFactory} outside of
 	 * dagger.
 	 */
 	interface Builder {

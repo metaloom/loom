@@ -20,9 +20,7 @@ Loom is an asset management API and persistence server for your web applications
 * OpenAPI spec
 * Clustering to allow for horizontal scaling
 
-## History / Goals
-
-Loom is highly influenced by Gentics Mesh and can be seen as a total rewrite / conversion of Mesh.
+## Goals
 
 ### Model
 
