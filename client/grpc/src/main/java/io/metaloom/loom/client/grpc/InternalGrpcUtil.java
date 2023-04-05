@@ -9,11 +9,13 @@ public final class InternalGrpcUtil {
 	}
 
 	public static AssetLoaderGrpc.AssetLoaderBlockingStub assetsStub(ClientSettings client) {
-		return AssetLoaderGrpc.newBlockingStub(client.channel());
+		return AssetLoaderGrpc.newBlockingStub(client.channel())
+				.withCallCredentials(null);
 	}
 
 	public static VertxAssetLoaderGrpc.AssetLoaderVertxStub assetsVertxStub(ClientSettings client) {
-		return VertxAssetLoaderGrpc.newVertxStub(client.channel());
+		return VertxAssetLoaderGrpc.newVertxStub(client.channel())
+			.withCallCredentials(null);
 	}
 
 }

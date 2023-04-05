@@ -19,7 +19,7 @@ import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
  * Central dagger loom component.
  */
 @Singleton
-@Component(modules = { VertxModule.class, LoomModule.class, FlywayModule.class, DBBindModule.class, JooqLoomDaoBindModule.class, JooqModule.class,
+@Component(modules = { VertxModule.class, LoomModule.class, AuthBindModule.class, FlywayModule.class, DBBindModule.class, JooqLoomDaoBindModule.class, JooqModule.class,
 	JooqNativeDaoModule.class })
 public interface LoomCoreComponent {
 

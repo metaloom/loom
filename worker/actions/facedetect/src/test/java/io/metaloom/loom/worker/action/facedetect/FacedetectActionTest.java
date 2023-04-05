@@ -4,14 +4,14 @@ import static io.metaloom.loom.test.assertj.LoomWorkerAssertions.assertThat;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.FACES;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.FACE_CLUSTERS;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.SHA_512;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.test.TestEnvHelper;
@@ -37,7 +37,7 @@ public class FacedetectActionTest extends AbstractWorkerTest {
 		List<Face> faces = media.get(FACES);
 		ClusterResult cluster = media.get(FACE_CLUSTERS, ClusterResult.class);
 		assertNotNull(cluster);
-		assertEquals("There should be four clusters since the video contains four persons", 4, cluster.size());
+		assertEquals(4, cluster.size(), "There should be four clusters since the video contains four persons");
 		System.out.println("Faces: " + faces.size());
 	}
 

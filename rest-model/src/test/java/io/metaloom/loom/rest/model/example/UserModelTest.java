@@ -7,7 +7,7 @@ import static io.metaloom.loom.rest.model.example.UserExamples.userReference;
 import static io.metaloom.loom.rest.model.example.UserExamples.userResponse;
 import static io.metaloom.loom.rest.model.example.UserExamples.userUpdateRequest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UserModelTest implements ModelTestcases{
 

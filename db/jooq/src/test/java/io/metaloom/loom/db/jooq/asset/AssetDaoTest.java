@@ -1,12 +1,12 @@
 package io.metaloom.loom.db.jooq.asset;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.model.asset.LoomAsset;

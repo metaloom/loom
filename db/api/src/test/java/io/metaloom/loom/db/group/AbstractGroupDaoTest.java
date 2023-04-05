@@ -1,14 +1,14 @@
 package io.metaloom.loom.db.group;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.model.group.LoomGroup;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
@@ -17,8 +17,8 @@ public abstract class AbstractGroupDaoTest {
 
 	abstract public LoomGroupDao getDao();
 
-	@After
-	@Before
+	@AfterEach
+	@BeforeEach
 	public void clearPersistence() throws IOException {
 		getDao().clear();
 	}
@@ -42,7 +42,7 @@ public abstract class AbstractGroupDaoTest {
 
 		// Now assert deletion
 		dao.deleteGroup(group.getUuid());
-		assertNull("The group should be deleted.", dao.loadGroup(group.getUuid()));
+		assertNull(dao.loadGroup(group.getUuid()), "The group should be deleted.");
 	}
 
 	@Test

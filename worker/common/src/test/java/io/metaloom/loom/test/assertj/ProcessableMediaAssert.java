@@ -1,9 +1,9 @@
 package io.metaloom.loom.test.assertj;
 
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.ZERO_CHUNK_COUNT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.assertj.core.api.AbstractAssert;
 
@@ -18,15 +18,15 @@ public class ProcessableMediaAssert extends AbstractAssert<ProcessableMediaAsser
 
 	public ProcessableMediaAssert hasXAttr(String key) {
 		String fullKey = ProcessableMediaMeta.fullKey(key);
-		assertTrue("The attr " + fullKey + " was not found in the media file.", actual.listXAttr().contains(fullKey));
+		assertTrue(actual.listXAttr().contains(fullKey),"The attr " + fullKey + " was not found in the media file.");
 		return this;
 	}
 
 	public ProcessableMediaAssert hasXAttr(ProcessableMediaMeta... metas) {
 		for (ProcessableMediaMeta meta : metas) {
-			assertTrue("The key is not enabled for persistance via xattr. It should thus not be present and must not be checked", meta.isPersisted());
+			assertTrue( meta.isPersisted(),"The key is not enabled for persistance via xattr. It should thus not be present and must not be checked");
 			String fullKey = meta.key();
-			assertTrue("The attr " + fullKey + " was not found in the media file.", actual.listXAttr().contains(fullKey));
+			assertTrue( actual.listXAttr().contains(fullKey),"The attr " + fullKey + " was not found in the media file.");
 		}
 		return this;
 	}
@@ -37,21 +37,21 @@ public class ProcessableMediaAssert extends AbstractAssert<ProcessableMediaAsser
 	}
 
 	public ProcessableMediaAssert hasXAttr(int count) {
-		assertEquals("The count of xattr did not match the expected count.", count, actual.listXAttr().size());
+		assertEquals(count, actual.listXAttr().size(), "The count of xattr did not match the expected count.");
 		return this;
 	}
 
 	public ProcessableMediaAssert hasXAttr(ProcessableMediaMeta meta, String value) {
 		String actualValue = actual.get(meta);
-		assertNotNull("Did not find attribute value for " + meta, actualValue);
-		assertEquals("The value for " + meta + " did not match up.", value, actualValue);
+		assertNotNull(actualValue, "Did not find attribute value for " + meta);
+		assertEquals(value, actualValue, "The value for " + meta + " did not match up.");
 		return this;
 	}
 
 	public ProcessableMediaAssert hasXAttr(ProcessableMediaMeta meta, long value) {
 		Long actualValue = actual.get(meta);
-		assertNotNull("Did not find attribute value for " + meta, actualValue);
-		assertEquals("The value for " + meta + " did not match up.", value, actualValue.longValue());
+		assertNotNull(actualValue, "Did not find attribute value for " + meta);
+		assertEquals(value, actualValue.longValue(), "The value for " + meta + " did not match up.");
 		return this;
 	}
 

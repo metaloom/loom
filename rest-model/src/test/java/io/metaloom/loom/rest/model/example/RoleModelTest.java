@@ -7,7 +7,7 @@ import static io.metaloom.loom.rest.model.example.RoleExamples.roleReference;
 import static io.metaloom.loom.rest.model.example.RoleExamples.roleResponse;
 import static io.metaloom.loom.rest.model.example.RoleExamples.roleUpdateRequest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class RoleModelTest implements ModelTestcases {
 

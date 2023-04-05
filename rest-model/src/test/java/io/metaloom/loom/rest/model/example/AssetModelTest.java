@@ -7,7 +7,7 @@ import static io.metaloom.loom.rest.model.example.AssetExamples.assetResponse;
 import static io.metaloom.loom.rest.model.example.AssetExamples.assetUpdateRequest;
 import static io.metaloom.loom.rest.model.example.ModelTestHelper.assertModel;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AssetModelTest implements ModelTestcases {
 

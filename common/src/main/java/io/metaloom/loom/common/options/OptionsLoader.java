@@ -1,7 +1,7 @@
 package io.metaloom.loom.common.options;
 
-import static io.metaloom.api.LoomEnv.CONFIG_FOLDERNAME;
-import static io.metaloom.api.LoomEnv.LOOM_CONF_FILENAME;
+import static io.metaloom.loom.api.LoomEnv.CONFIG_FOLDERNAME;
+import static io.metaloom.loom.api.LoomEnv.LOOM_CONF_FILENAME;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import io.metaloom.api.Loom;
+import io.metaloom.loom.api.Loom;
 import io.metaloom.loom.api.options.LoomOptions;
 
 public final class OptionsLoader {

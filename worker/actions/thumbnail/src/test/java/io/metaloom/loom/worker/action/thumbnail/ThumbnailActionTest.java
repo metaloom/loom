@@ -4,14 +4,14 @@ import static io.metaloom.loom.test.assertj.LoomWorkerAssertions.assertThat;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.SHA_512;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.THUMBNAIL_FLAGS;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.test.TestEnvHelper;
@@ -26,13 +26,13 @@ public class ThumbnailActionTest extends AbstractWorkerTest {
 
 	private File thumbnailDir;
 
-	@Before
+	@BeforeEach
 	public void setup() throws IOException {
 		thumbnailDir = new File("target/test-output");
 		if (thumbnailDir.exists()) {
 			FileUtils.deleteDirectory(thumbnailDir);
 		}
-		assertTrue("Unable to create thumbnail directory.", thumbnailDir.mkdirs());
+		assertTrue(thumbnailDir.mkdirs(), "Unable to create thumbnail directory.");
 	}
 
 	@Test

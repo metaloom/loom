@@ -6,7 +6,7 @@ import static io.metaloom.worker.action.api.ProcessableMediaMeta.TIKA_FLAGS;
 
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.test.TestEnvHelper;

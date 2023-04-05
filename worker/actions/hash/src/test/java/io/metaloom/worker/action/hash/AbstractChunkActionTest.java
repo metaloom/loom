@@ -2,7 +2,7 @@ package io.metaloom.worker.action.hash;
 
 import java.io.IOException;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 import io.metaloom.loom.test.TestEnvHelper;
@@ -18,7 +18,7 @@ public abstract class AbstractChunkActionTest<T extends FilesystemAction> extend
 
 	private T action;
 
-	@Before
+	@BeforeEach
 	public void setup() throws IOException {
 		action = mockAction();
 		data = TestEnvHelper.prepareTestdata("action-test");

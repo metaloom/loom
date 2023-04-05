@@ -1,15 +1,15 @@
 package io.metaloom.loom.db.asset;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 import java.util.UUID;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.model.asset.LoomAsset;
 import io.metaloom.loom.db.model.asset.LoomAssetDao;
@@ -22,8 +22,8 @@ public abstract class AbstractAssetDaoTest {
 
 	abstract public LoomUserDao getUserDao();
 
-	@After
-	@Before
+	@AfterEach
+	@BeforeEach
 	public void clearPersistence() throws IOException {
 		getDao().clear();
 	}
@@ -34,8 +34,8 @@ public abstract class AbstractAssetDaoTest {
 		LoomAsset asset = createTestAsset();
 		assertNotNull(asset.getUuid());
 		assertEquals("blume.jpg", asset.getFilename());
-//		assertNotNull(asset.getNamespaceUuid());
-//		assertNotNull(asset.getBinaryUuid());
+		// assertNotNull(asset.getNamespaceUuid());
+		// assertNotNull(asset.getBinaryUuid());
 	}
 
 	private LoomAsset createTestAsset() {
@@ -55,7 +55,7 @@ public abstract class AbstractAssetDaoTest {
 
 		// Now assert deletion
 		dao.deleteAsset(asset);
-		assertNull("The asset should be deleted", dao.loadAsset(asset.getUuid()));
+		assertNull(dao.loadAsset(asset.getUuid()), "The asset should be deleted");
 	}
 
 	@Test

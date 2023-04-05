@@ -1,26 +1,24 @@
 package io.metaloom.loom.db.role;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.model.role.LoomRole;
 import io.metaloom.loom.db.model.role.LoomRoleDao;
-import io.reactivex.rxjava3.core.Maybe;
 
 public abstract class AbstractRoleDaoTest {
 
 	abstract public LoomRoleDao getDao();
 
-	@After
-	@Before
+	@AfterEach
+	@BeforeEach
 	public void clearPersistence() throws IOException {
 		getDao().clear();
 	}
@@ -44,7 +42,7 @@ public abstract class AbstractRoleDaoTest {
 
 		// Now assert deletion
 		dao.deleteRole(role.getUuid());
-		assertNull("No role should be found after deletion.", dao.loadRole(role.getUuid()));
+		assertNull( dao.loadRole(role.getUuid()), "No role should be found after deletion.");
 	}
 
 	@Test

@@ -7,7 +7,7 @@ import static io.metaloom.loom.rest.model.example.GroupExamples.groupResponse;
 import static io.metaloom.loom.rest.model.example.GroupExamples.groupUpdateRequest;
 import static io.metaloom.loom.rest.model.example.ModelTestHelper.assertModel;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class GroupModelTest implements ModelTestcases {
 

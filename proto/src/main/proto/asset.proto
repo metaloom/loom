@@ -19,12 +19,13 @@ service AssetLoader {
 // The request for the asset
 message AssetRequest {
   string sha512sum = 1;
-  string path = 2;
-  uint64 size = 3;
-  string sha256sum = 4;
-  string fingerprint = 5;
-  string chunkHash = 6;
-  uint64 zeroChunkCount = 7;
+  string sha256sum = 2;
+  string md5sum = 3;
+  string chunkHash = 4;
+  string path = 5;
+  uint64 size = 6;
+  string fingerprint = 7;
+  uint64 zeroChunkCount = 8;
 }
 
 // The response for the asset

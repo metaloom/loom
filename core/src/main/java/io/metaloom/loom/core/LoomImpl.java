@@ -5,7 +5,7 @@ import java.util.concurrent.CountDownLatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.metaloom.api.Loom;
+import io.metaloom.loom.api.Loom;
 import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.core.dagger.DaggerLoomCoreComponent;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;

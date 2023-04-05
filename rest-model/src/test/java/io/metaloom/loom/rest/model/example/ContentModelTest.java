@@ -7,7 +7,7 @@ import static io.metaloom.loom.rest.model.example.ContentExamples.contentRespons
 import static io.metaloom.loom.rest.model.example.ContentExamples.contentUpdateRequest;
 import static io.metaloom.loom.rest.model.example.ModelTestHelper.assertModel;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ContentModelTest implements ModelTestcases {
 

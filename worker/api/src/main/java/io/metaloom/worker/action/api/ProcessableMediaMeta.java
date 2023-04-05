@@ -2,7 +2,7 @@ package io.metaloom.worker.action.api;
 
 import java.util.List;
 
-import io.metaloom.api.Loom;
+import io.metaloom.loom.api.Loom;
 
 public enum ProcessableMediaMeta {
 

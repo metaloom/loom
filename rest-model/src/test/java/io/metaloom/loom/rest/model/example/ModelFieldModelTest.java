@@ -4,7 +4,7 @@ import static io.metaloom.loom.rest.model.model.field.impl.text.TextMarkup.PLAIN
 
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.api.json.JsonUtil;
 import io.metaloom.loom.rest.model.model.field.impl.text.TextModelField;

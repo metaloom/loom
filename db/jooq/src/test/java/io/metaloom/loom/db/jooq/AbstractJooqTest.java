@@ -2,8 +2,7 @@ package io.metaloom.loom.db.jooq;
 
 import javax.sql.DataSource;
 
-import org.junit.ClassRule;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.metaloom.loom.db.jooq.test.dagger.JooqTestContext;
 import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
@@ -14,8 +13,7 @@ import io.metaloom.loom.db.model.user.LoomUserDao;
 
 public abstract class AbstractJooqTest implements JooqTestHelper {
 
-	@Rule
-	@ClassRule
+	@RegisterExtension
 	public static JooqTestContext context = new JooqTestContext();
 
 	@Override

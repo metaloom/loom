@@ -6,7 +6,7 @@ import static io.metaloom.loom.rest.model.example.WebhookExamples.webhookListRes
 import static io.metaloom.loom.rest.model.example.WebhookExamples.webhookResponse;
 import static io.metaloom.loom.rest.model.example.WebhookExamples.webhookUpdateRequest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class WebhookModelTest implements ModelTestcases {
 

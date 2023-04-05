@@ -6,7 +6,7 @@ import static io.metaloom.loom.rest.model.example.ExtensionExamples.extensionRes
 import static io.metaloom.loom.rest.model.example.ExtensionExamples.extensionUpdateRequest;
 import static io.metaloom.loom.rest.model.example.ModelTestHelper.assertModel;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ExtensionModelTest implements ModelTestcases {
 

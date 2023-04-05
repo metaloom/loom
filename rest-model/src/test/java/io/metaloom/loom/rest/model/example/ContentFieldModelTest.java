@@ -16,7 +16,7 @@ import static io.metaloom.loom.rest.model.example.ContentFieldExamples.reference
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.api.json.JsonUtil;
 import io.metaloom.loom.rest.model.content.ContentField;

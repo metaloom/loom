@@ -1,10 +1,10 @@
 package io.metaloom.loom.db.jooq.user;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.stream.Stream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.model.group.LoomGroup;

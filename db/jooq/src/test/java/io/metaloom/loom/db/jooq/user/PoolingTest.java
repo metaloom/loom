@@ -8,24 +8,22 @@ import javax.sql.DataSource;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
-import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserDao;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
-import io.metaloom.loom.test.container.LoomPostgreSQLContainer;
+import io.metaloom.loom.test.LoomProviderExtension;
 
 public class PoolingTest {
 
-	@Rule
-	public LoomPostgreSQLContainer container = new LoomPostgreSQLContainer();
+	@RegisterExtension
+	public static LoomProviderExtension provider = LoomProviderExtension.create();
 
 	@Test
 	public void testPooling() {
-		new FlywayModule().flyway(container.getOptions()).migrate();
-		DataSource ds = new JooqModule().dataSource(container.getOptions());
+		DataSource ds = new JooqModule().dataSource(provider.options());
 		DSLContext ctx = DSL.using(ds, SQLDialect.POSTGRES);
 
 		JooqUserDao dao = new JooqUserDao(ctx.configuration());

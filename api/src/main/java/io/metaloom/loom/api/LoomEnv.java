@@ -1,4 +1,4 @@
-package io.metaloom.api;
+package io.metaloom.loom.api;
 
 public class LoomEnv {
 

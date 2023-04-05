@@ -3,15 +3,15 @@ package io.metaloom.worker.action.media;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.FACES;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.SHA_512;
 import static io.metaloom.worker.action.api.ProcessableMediaMeta.ZERO_CHUNK_COUNT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.worker.action.api.ProcessableMedia;
 

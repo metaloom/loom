@@ -6,13 +6,14 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.grpc.Grpc;
+import io.grpc.InsecureChannelCredentials;
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.metaloom.loom.client.grpc.AbstractLoomGRPCClient;
 import io.metaloom.loom.client.grpc.LoomGRPCClient;
 
 /**
- * Implementation of the {@link LoomGRPCClient}. 
+ * Implementation of the {@link LoomGRPCClient}.
  */
 public class LoomGRPCClientImpl extends AbstractLoomGRPCClient {
 
@@ -38,10 +39,20 @@ public class LoomGRPCClientImpl extends AbstractLoomGRPCClient {
 	}
 
 	public LoomGRPCClientImpl init() {
-		channel = ManagedChannelBuilder.forAddress(hostname, port)
+		channel = Grpc.newChannelBuilderForAddress(hostname, port, InsecureChannelCredentials.create())
+			.userAgent(userAgent())
 			.usePlaintext()
 			.build();
+		// ManagedChannelBuilder.forAddress(hostname, port)
+		// .userAgent(LoomGRPCClient.USER_AGENT)
+		// .usePlaintext()
+		// .build();
 		return this;
+	}
+
+	private String userAgent() {
+		// TODO add version via Loom or properties
+		return USER_AGENT;
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package io.metaloom.api;
+package io.metaloom.loom.api;
 
 import io.metaloom.loom.api.options.LoomOptions;
 import io.vertx.core.ServiceHelper;

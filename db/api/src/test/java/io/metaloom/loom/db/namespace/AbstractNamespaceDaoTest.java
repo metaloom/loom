@@ -1,14 +1,14 @@
 package io.metaloom.loom.db.namespace;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.model.namespace.LoomNamespace;
 import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
@@ -17,8 +17,8 @@ public abstract class AbstractNamespaceDaoTest {
 
 	abstract public LoomNamespaceDao getDao();
 
-	@After
-	@Before
+	@AfterEach
+	@BeforeEach
 	public void clearPersistence() throws IOException {
 		getDao().clear();
 	}
@@ -43,7 +43,7 @@ public abstract class AbstractNamespaceDaoTest {
 
 		// Now assert deletion
 		dao.deleteNamespace(namespace.getUuid());
-		assertNull("The namespace should be deleted.", dao.loadNamespace(namespace.getUuid()));
+		assertNull(dao.loadNamespace(namespace.getUuid()), "The namespace should be deleted.");
 	}
 
 	@Test

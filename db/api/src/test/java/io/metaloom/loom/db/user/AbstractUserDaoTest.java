@@ -1,26 +1,24 @@
 package io.metaloom.loom.db.user;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.LoomUserDao;
-import io.reactivex.rxjava3.core.Maybe;
 
 public abstract class AbstractUserDaoTest {
 
 	abstract public LoomUserDao getDao();
 
-	@After
-	@Before
+	@AfterEach
+	@BeforeEach
 	public void clearPersistence() throws IOException {
 		getDao().clear();
 	}
@@ -45,7 +43,7 @@ public abstract class AbstractUserDaoTest {
 
 		// Now assert deletion
 		dao.deleteUser(user);
-		assertNull("The returned maybe should be empty.", dao.loadUser(user.getUuid()));
+		assertNull(dao.loadUser(user.getUuid()), "The returned maybe should be empty.");
 	}
 
 	@Test

@@ -49,6 +49,7 @@
 			<groupId>com.google.dagger</groupId>
 			<artifactId>dagger</artifactId>
 		</dependency>
+
 		<!-- Test -->
 		<dependency>
 			<groupId>io.metaloom.loom</groupId>

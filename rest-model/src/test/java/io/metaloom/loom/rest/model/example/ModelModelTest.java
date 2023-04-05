@@ -7,7 +7,7 @@ import static io.metaloom.loom.rest.model.example.ModelExamples.modelResponse;
 import static io.metaloom.loom.rest.model.example.ModelExamples.modelUpdateRequest;
 import static io.metaloom.loom.rest.model.example.ModelTestHelper.assertModel;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ModelModelTest implements ModelTestcases {
 

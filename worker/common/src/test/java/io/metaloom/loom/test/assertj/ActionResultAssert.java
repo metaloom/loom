@@ -1,6 +1,6 @@
 package io.metaloom.loom.test.assertj;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.assertj.core.api.AbstractAssert;
 
@@ -14,12 +14,12 @@ public class ActionResultAssert extends AbstractAssert<ActionResultAssert, Actio
 	}
 
 	public ActionResultAssert isProcessed() {
-		assertEquals("The action was not in stat processed.", ResultState.PROCESSED, actual.getState());
+		assertEquals( ResultState.PROCESSED, actual.getState(), "The action was not in stat processed.");
 		return this;
 	}
 
 	public ActionResultAssert isSkipped() {
-		assertEquals("The action was not in stat skipped.", ResultState.SKIPPED, actual.getState());
+		assertEquals( ResultState.SKIPPED, actual.getState(), "The action was not in stat skipped.");
 		return this;
 	}
 }

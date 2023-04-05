@@ -2,26 +2,26 @@ package io.metaloom.loom.db.jooq.user;
 
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
-import io.metaloom.loom.test.container.LoomPostgreSQLContainer;
+import io.metaloom.loom.test.LoomProviderExtension;
 import io.r2dbc.spi.ConnectionFactory;
 
 public class UserDaoTest extends AbstractJooqTest {
 
-	@Rule
-	public LoomPostgreSQLContainer container = new LoomPostgreSQLContainer();
+	@RegisterExtension
+	public static LoomProviderExtension provider = LoomProviderExtension.create();
 
 	@Test
 	public void testBasics() {
 
-		new FlywayModule().flyway(container.getOptions()).migrate();
-		System.out.println(container.getOptions().getJdbcUrl());
-		ConnectionFactory connectionFactory =  new JooqModule().r2dbcConnectionFactory(container.getOptions());
+		new FlywayModule().flyway(provider.options()).migrate();
+		System.out.println(provider.options().getJdbcUrl());
+		ConnectionFactory connectionFactory =  new JooqModule().r2dbcConnectionFactory(provider.options());
 
 		DSLContext ctx = DSL.using(connectionFactory);
 //

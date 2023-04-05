@@ -6,7 +6,7 @@ import static io.metaloom.loom.rest.model.example.NamespaceExamples.namespaceLis
 import static io.metaloom.loom.rest.model.example.NamespaceExamples.namespaceResponse;
 import static io.metaloom.loom.rest.model.example.NamespaceExamples.namespaceUpdateRequest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class NamespaceModelTest implements ModelTestcases {
 
