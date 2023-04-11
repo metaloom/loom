@@ -1,4 +1,0 @@
-module loom.worker.fs {
-	exports io.metaloom.worker.fs.impl;
-	exports io.metaloom.worker.fs.scanner.impl;
-}

@@ -1,4 +1,0 @@
-module loom.worker.api {
-	exports io.metaloom.worker.action.api.setting;
-	exports io.metaloom.worker.action.api;
-}
