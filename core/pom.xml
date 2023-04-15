@@ -63,8 +63,8 @@
 
     <!-- Test -->
     <dependency>
-      <groupId>io.metaloom.loom</groupId>
-      <artifactId>loom-test</artifactId>
+      <groupId>io.metaloom.loom.test</groupId>
+      <artifactId>loom-test-env</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
