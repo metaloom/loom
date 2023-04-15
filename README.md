@@ -1,9 +1,8 @@
 # MetaLoom - Loom
 
-Loom is an asset management API and persistence server for your web applications.
+Loom is an advanced media asset management system designed to ease the management processes for digital media assets. With a decoupled processing mechanism, Loom separates processing of media assets, providing users with greater flexibility and scalability. Loom supports a wide range of industry-standard protocols, including REST, gRPC, and GraphQL, making it easy to integrate with other systems and workflows. In addition, Loom offers powerful features such as fingerprinting and face detection, enabling users to easily search, categorize, and manage their media assets.
 
 ### **Loom is still under development and not yet in a usable state.**
-
 
 ## Planned Features
 
@@ -47,10 +46,6 @@ Loom is an asset management API and persistence server for your web applications
 - Support for asset fingerprinting
 - Support for asset thumbnail generation
 
-### GraphQL
-
-- The GraphQL endpoint is globally accessible and no longer scoped for namespaces (for now)
-
 ### Search 
 
 - The search support has been limited to contents and assets (for now)
@@ -63,17 +58,6 @@ Loom is an asset management API and persistence server for your web applications
 - Namespace import / exported.
 - Users, Groups, Roles, Namespaces can now have arbitrary properties.
 - Manual tagging of elements will create tags on-the fly. No need to create tags upfront.
-
-### Deprecations
-
-- Support for branches has been dropped. The concept of branches made the internal and external API very complicated.
-- Plugins are gone and are replaced by external extensions which can be implemented as microservices
-- Microschemas are gone since content models can be nested
-
-### Under the hood
-
-* Upgrade to Vert.x 4
-* Restructured REST models (No more custom serializes)
 
 ## Development Status
 
@@ -96,7 +80,7 @@ Loom is an asset management API and persistence server for your web applications
   * Models
 * Database DAOs: 0%
 * Auth0, Keycloak: 0%
-* Asset Processing: 0%
+* Asset Processing: 80%
 * Content Model migrations: 0%
 * Content Model extension handling: 0%
 * Extensions: 0%
