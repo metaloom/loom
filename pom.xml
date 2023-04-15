@@ -32,6 +32,9 @@
     MNG-5588 issue  -->
     <dagger.version>2.45</dagger.version>
 
+    <!-- Loom -->
+    <loom.cortex.version>1.0.0-SNAPSHOT</loom.cortex.version>
+
     <loom.build.timestamp>${maven.build.timestamp}</loom.build.timestamp>
   </properties>
 
@@ -63,7 +66,6 @@
   <inceptionYear>2021</inceptionYear>
 
   <modules>
-    <module>bom</module>
     <module>api</module>
     <module>test</module>
     <module>common</module>
@@ -73,19 +75,249 @@
     <module>rest-model</module>
     <module>core</module>
     <module>cli</module>
+    <module>nexus</module>
     <module>containers</module>
-    <module>integration-test</module>
     <module>doc</module>
   </modules>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>5.9.2</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+  <!-- List only internal project deps here. External deps will be managed via
+  bom pom -->
+  <dependencyManagement>
+
+    <dependencies>
+
+      <!-- Loom Core -->
+      <dependency>
+        <groupId>io.metaloom.loom</groupId>
+        <artifactId>loom-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom</groupId>
+        <artifactId>loom-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom</groupId>
+        <artifactId>loom-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom</groupId>
+        <artifactId>loom-doc</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.container</groupId>
+        <artifactId>loom-container-server</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.cortex</groupId>
+        <artifactId>loom-cortex-cli</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+     <dependency>
+        <groupId>io.metaloom.loom.container</groupId>
+        <artifactId>loom-container-demo</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- Cortex -->
+      <dependency>
+        <groupId>io.metaloom.loom.cortex</groupId>
+        <artifactId>loom-cortex-fs</artifactId>
+        <version>${loom.cortext.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.cortex</groupId>
+        <artifactId>loom-cortex-cli</artifactId>
+        <version>${loom.cortext.version}</version>
+      </dependency>
+      
+        <!-- Project deps -->
+      <dependency>
+        <groupId>io.metaloom.loom.worker</groupId>
+        <artifactId>loom-worker-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.worker</groupId>
+        <artifactId>loom-worker-actions</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.worker</groupId>
+        <artifactId>loom-worker-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.container</groupId>
+        <artifactId>loom-container</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.container</groupId>
+        <artifactId>loom-container-server</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+ 
+      <dependency>
+        <groupId>io.metaloom.loom.worker</groupId>
+        <artifactId>loom-worker-cli</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.worker</groupId>
+        <artifactId>loom-worker-scanner</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.worker</groupId>
+        <artifactId>loom-worker-common</artifactId>
+        <version>${project.version}</version>
+        <type>test-jar</type>
+      </dependency>
+      
+
+      <!-- Loom DB -->
+      <dependency>
+        <groupId>io.metaloom.loom</groupId>
+        <artifactId>loom-db</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom</groupId>
+        <artifactId>loom-db-model</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.db</groupId>
+        <artifactId>loom-db-hibernate</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.db</groupId>
+        <artifactId>loom-db-jooq</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.db</groupId>
+        <artifactId>loom-db-jooq-gen</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.db</groupId>
+        <artifactId>loom-db-fs</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.db</groupId>
+        <artifactId>loom-db-memory</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.db</groupId>
+        <artifactId>loom-db-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.db</groupId>
+        <artifactId>loom-db-flyway</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.db</groupId>
+        <artifactId>loom-db-api</artifactId>
+        <version>${project.version}</version>
+        <type>test-jar</type>
+      </dependency>
+
+      <!-- Loom Services -->
+      <dependency>
+        <groupId>io.metaloom.loom.service</groupId>
+        <artifactId>loom-service-s3</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.service</groupId>
+        <artifactId>loom-service-grpc</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.service</groupId>
+        <artifactId>loom-service-auth-jwt</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.service</groupId>
+        <artifactId>loom-service-auth-keycloak</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.service</groupId>
+        <artifactId>loom-service-auth-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.metaloom.loom.service</groupId>
+        <artifactId>loom-service-graphql</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.service</groupId>
+        <artifactId>loom-service-image</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.service</groupId>
+        <artifactId>loom-service-video</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- Loom Client -->
+      <dependency>
+        <groupId>io.metaloom.loom</groupId>
+        <artifactId>loom-proto</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.client</groupId>
+        <artifactId>loom-client-grpc</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.client</groupId>
+        <artifactId>loom-client-rest</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.client</groupId>
+        <artifactId>loom-client-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom</groupId>
+        <artifactId>loom-rest-model</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- Nexus -->
+      <dependency>
+        <groupId>io.metaloom.loom.nexus</groupId>
+        <artifactId>loom-nexus</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- Test -->
+      <dependency>
+        <groupId>io.metaloom.loom</groupId>
+        <artifactId>loom-test</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <pluginManagement>
@@ -128,70 +360,29 @@
     </pluginManagement>
 
     <plugins>
+      <!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
-        <artifactId>versions-maven-plugin</artifactId>
+      <artifactId>versions-maven-plugin</artifactId>
         <version>2.8.1</version>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-      </plugin>
-      <plugin>
         <artifactId>maven-scm-plugin</artifactId>
-        <version>1.11.2</version>
+      <version>1.11.2</version>
         <configuration>
-          <tag>${project.artifactId}-${project.version}</tag>
+      <tag>${project.artifactId}-${project.version}</tag>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
+      <artifactId>maven-site-plugin</artifactId>
         <configuration>
-          <skip>true</skip>
+      <skip>true</skip>
           <skipDeploy>true</skipDeploy>
-          <generateReports>false</generateReports>
+      <generateReports>false</generateReports>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <failOnError>false</failOnError>
-              <failOnWarnings>false</failOnWarnings>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <verbose>false</verbose>
-          <release>20</release>
-          <compilerArgs>
-            --enable-preview
-          </compilerArgs>
-        </configuration>
-      </plugin>
+      -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -205,9 +396,6 @@
               <propertyName>jacoco.env</propertyName>
               <destFile>
                 ${project.build.directory}/jacoco-partial.exec</destFile>
-              <excludes>
-                <exclude>*OrientSqlTokenManager*</exclude>
-              </excludes>
             </configuration>
           </execution>
         </executions>
