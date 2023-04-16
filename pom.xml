@@ -84,6 +84,13 @@
   <dependencyManagement>
 
     <dependencies>
+      <dependency>
+        <groupId>io.metaloom.loom</groupId>
+        <artifactId>loom-bom</artifactId>
+        <type>pom</type>
+        <scope>import</scope>
+        <version>${project.version}</version>
+      </dependency>
 
       <!-- Loom Core -->
       <dependency>
@@ -116,68 +123,19 @@
         <artifactId>loom-cortex-cli</artifactId>
         <version>${project.version}</version>
       </dependency>
-     <dependency>
+      <dependency>
         <groupId>io.metaloom.loom.container</groupId>
         <artifactId>loom-container-demo</artifactId>
         <version>${project.version}</version>
       </dependency>
 
-      <!-- Cortex -->
-      <dependency>
-        <groupId>io.metaloom.loom.cortex</groupId>
-        <artifactId>loom-cortex-fs</artifactId>
-        <version>${loom.cortext.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.metaloom.loom.cortex</groupId>
-        <artifactId>loom-cortex-cli</artifactId>
-        <version>${loom.cortext.version}</version>
-      </dependency>
-      
-        <!-- Project deps -->
-      <dependency>
-        <groupId>io.metaloom.loom.worker</groupId>
-        <artifactId>loom-worker-api</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.metaloom.loom.worker</groupId>
-        <artifactId>loom-worker-actions</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.metaloom.loom.worker</groupId>
-        <artifactId>loom-worker-common</artifactId>
-        <version>${project.version}</version>
-      </dependency>
+
+      <!-- Project deps -->
       <dependency>
         <groupId>io.metaloom.loom.container</groupId>
         <artifactId>loom-container</artifactId>
         <version>${project.version}</version>
       </dependency>
-      <dependency>
-        <groupId>io.metaloom.loom.container</groupId>
-        <artifactId>loom-container-server</artifactId>
-        <version>${project.version}</version>
-      </dependency>
- 
-      <dependency>
-        <groupId>io.metaloom.loom.worker</groupId>
-        <artifactId>loom-worker-cli</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.metaloom.loom.worker</groupId>
-        <artifactId>loom-worker-scanner</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.metaloom.loom.worker</groupId>
-        <artifactId>loom-worker-common</artifactId>
-        <version>${project.version}</version>
-        <type>test-jar</type>
-      </dependency>
-      
 
       <!-- Loom DB -->
       <dependency>
@@ -308,15 +266,17 @@
         <artifactId>loom-nexus</artifactId>
         <version>${project.version}</version>
       </dependency>
-
-      <!-- Test -->
-      <dependency>
-        <groupId>io.metaloom.loom</groupId>
-        <artifactId>loom-test</artifactId>
-        <version>${project.version}</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.metaloom.loom.test</groupId>
+      <artifactId>loom-test-env</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
 
   <build>
     <pluginManagement>

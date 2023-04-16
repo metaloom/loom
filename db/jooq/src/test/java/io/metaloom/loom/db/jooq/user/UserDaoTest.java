@@ -1,10 +1,13 @@
 package io.metaloom.loom.db.jooq.user;
 
+import static io.metaloom.loom.db.jooq.user.LoomExtensionHelper.toOptions;
+
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
@@ -19,29 +22,30 @@ public class UserDaoTest extends AbstractJooqTest {
 	@Test
 	public void testBasics() {
 
-		new FlywayModule().flyway(provider.options()).migrate();
-		System.out.println(provider.options().getJdbcUrl());
-		ConnectionFactory connectionFactory =  new JooqModule().r2dbcConnectionFactory(provider.options());
+		DatabaseOptions options = toOptions(provider.db());
+		new FlywayModule().flyway(options).migrate();
+		System.out.println(options.getJdbcUrl());
+		ConnectionFactory connectionFactory = new JooqModule().r2dbcConnectionFactory(options);
 
 		DSLContext ctx = DSL.using(connectionFactory);
-//
-//		Flux<Record1<UUID>> f = Flux.from(ctx.insertInto(USER,
-//			USER.UUID, USER.USERNAME, USER.FIRSTNAME, USER.LASTNAME)
-//			.values(UUID.randomUUID(), "joedoe", "Joe", "Doe")
-//			.returningResult(USER.UUID));
-//
-//		f.blockFirst();
+		//
+		// Flux<Record1<UUID>> f = Flux.from(ctx.insertInto(USER,
+		// USER.UUID, USER.USERNAME, USER.FIRSTNAME, USER.LASTNAME)
+		// .values(UUID.randomUUID(), "joedoe", "Joe", "Doe")
+		// .returningResult(USER.UUID));
+		//
+		// f.blockFirst();
 
 		// Completable.fromCompletionStage(stage).blockingAwait();
-//
-//		List<String> users = Flux.from(ctx.select(USER.FIRSTNAME, USER.LASTNAME)
-//			.from(USER))
-//			.map(r -> r.get(USER.FIRSTNAME) + " " + r.get(USER.LASTNAME))
-//			.collectList()
-//			.block();
-//
-//		for (String u : users) {
-//			System.out.println(u);
-//		}
+		//
+		// List<String> users = Flux.from(ctx.select(USER.FIRSTNAME, USER.LASTNAME)
+		// .from(USER))
+		// .map(r -> r.get(USER.FIRSTNAME) + " " + r.get(USER.LASTNAME))
+		// .collectList()
+		// .block();
+		//
+		// for (String u : users) {
+		// System.out.println(u);
+		// }
 	}
 }

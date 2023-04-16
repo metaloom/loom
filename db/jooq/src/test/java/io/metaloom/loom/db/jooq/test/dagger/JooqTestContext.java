@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.test.dagger;
 
+import static io.metaloom.loom.db.jooq.user.LoomExtensionHelper.toOptions;
+
 import javax.sql.DataSource;
 
 import org.jooq.DSLContext;
@@ -31,7 +33,7 @@ public class JooqTestContext implements BeforeEachCallback, AfterEachCallback {
 
 		log.info("Preparing env");
 		dbProvider = LoomProviderExtension.create();
-		DatabaseOptions options = dbProvider.options();
+		DatabaseOptions options = toOptions(dbProvider.db());
 
 		component = DaggerTestComponent.builder().configuration(options).build();
 

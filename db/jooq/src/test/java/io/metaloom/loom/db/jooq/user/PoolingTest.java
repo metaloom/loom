@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.user;
 
+import static io.metaloom.loom.db.jooq.user.LoomExtensionHelper.toOptions;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -11,6 +13,7 @@ import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserDao;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
@@ -23,7 +26,8 @@ public class PoolingTest {
 
 	@Test
 	public void testPooling() {
-		DataSource ds = new JooqModule().dataSource(provider.options());
+		DatabaseOptions options = toOptions(provider.db());
+		DataSource ds = new JooqModule().dataSource(options);
 		DSLContext ctx = DSL.using(ds, SQLDialect.POSTGRES);
 
 		JooqUserDao dao = new JooqUserDao(ctx.configuration());
