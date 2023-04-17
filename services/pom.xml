@@ -30,7 +30,6 @@
 	</dependencyManagement>
 
 	<modules>
-		<module>distributed</module>
 		<module>auth</module>
 		<module>elasticsearch</module>
 		<module>graphql</module>
@@ -45,7 +44,6 @@
 		<module>tika</module>
 		<module>lucene</module>
 		<module>qdrant</module>
-		<module>s3</module>
 		<module>eventbus</module>
 		<module>webhook</module>
 	</modules>
