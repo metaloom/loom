@@ -32,11 +32,12 @@ message AssetRequest {
 message AssetResponse {
   string uuid = 1;
   string path = 2;
-  uint64 size = 3;
-  string sha512sum = 4;
-  string sha256sum = 5;
-  string md5sum = 6;
-  string fingerprint = 7;
-  string chunkHash = 8;
-  uint64 zeroChunkCount = 9;
+  string initialPath = 3;
+  uint64 size = 4;
+  string sha512sum = 5;
+  string sha256sum = 6;
+  string md5sum = 7;
+  string fingerprint = 8;
+  string chunkHash = 9;
+  uint64 zeroChunkCount = 10;
 }
