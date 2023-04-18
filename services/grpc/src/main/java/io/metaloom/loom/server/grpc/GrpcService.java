@@ -3,6 +3,7 @@ package io.metaloom.loom.server.grpc;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +21,12 @@ import io.vertx.grpc.ContextServerInterceptor;
 import io.vertx.grpc.VertxServer;
 import io.vertx.grpc.VertxServerBuilder;
 
+@Singleton
 public class GrpcService extends AbstractService {
 
 	public static final Logger log = LoggerFactory.getLogger(GrpcService.class);
+
+	private VertxServer server;
 
 	private final GrpcAssetLoader assetLoader;
 
@@ -49,13 +53,25 @@ public class GrpcService extends AbstractService {
 			}
 		};
 
-		VertxServer rpcServer = VertxServerBuilder
+		server = VertxServerBuilder
 			.forAddress(vertx(), host, port)
 			.addService(ServerInterceptors.intercept(assetLoader, wrappedAuthInterceptor))
 			.addService(ServerInterceptors.intercept(assetLoader, contextInterceptor))
 			.build();
 
 		log.info("Starting gRPC server on {}:{}", host, port);
-		rpcServer.start();
+		server.start();
 	}
+
+	public void stop() {
+		if (server != null) {
+			log.info("Shuting down gRPC server");
+			server.shutdown();
+		}
+	}
+
+	public VertxServer getServer() {
+		return server;
+	}
+	
 }

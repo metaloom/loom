@@ -81,4 +81,8 @@ public class LoomImpl implements Loom {
 		Runtime.getRuntime().exit(code);
 	}
 
+	public LoomCoreComponent getInternal() {
+		return loomInternal;
+	}
+
 }
