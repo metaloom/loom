@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.json;
 
+import java.io.InputStream;
+
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,6 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.RestResponseModel;
+import io.netty.buffer.ByteBufInputStream;
+import io.vertx.core.buffer.Buffer;
 
 /**
  * Helper which manages JSON handling.
@@ -57,6 +62,22 @@ public final class Json {
 		try {
 			return mapper.readValue(json, modelClass);
 		} catch (JacksonException e) {
+			throw new RuntimeException(PARSE_ERROR, e);
+		}
+	}
+
+	public static <T extends RestModel> T parse(Buffer buffer, Class<T> modelClass) {
+		try (InputStream ins = new ByteBufInputStream(buffer.getByteBuf())) {
+			return mapper.readValue(ins, modelClass);
+		} catch (Exception e) {
+			throw new RuntimeException(PARSE_ERROR, e);
+		}
+	}
+
+	public static Buffer encodeToBuffer(RestResponseModel model) {
+		try {
+			return Buffer.buffer(mapper.writeValueAsBytes(model));
+		} catch (JsonProcessingException e) {
 			throw new RuntimeException(PARSE_ERROR, e);
 		}
 	}

@@ -53,7 +53,7 @@ public class LoomCoreTestExtension implements BeforeEachCallback, AfterEachCallb
 		serverOptions.setRestPort(0);
 		serverOptions.setGrpcPort(0);
 		loomInternal = DaggerLoomCoreComponent.builder().configuration(options).build();
-		loomInternal.boot().init();
+		loomInternal.boot().init(false);
 
 	}
 

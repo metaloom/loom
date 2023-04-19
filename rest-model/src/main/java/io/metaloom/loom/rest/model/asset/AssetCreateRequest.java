@@ -6,9 +6,10 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
-public class AssetCreateRequest implements RestModel {
+public class AssetCreateRequest implements RestRequestModel {
 
 	@JsonPropertyDescription("The specific identified kind of asset.")
 	private AssetKind kind;

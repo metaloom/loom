@@ -6,14 +6,14 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.RestResponseModel;
 
 /**
  * Abstract model for list REST responses.
  *
  * @param <T>
  */
-public class ListResponse<T> implements RestModel {
+public class ListResponse<T> implements RestResponseModel {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("Array which contains the found elements.")

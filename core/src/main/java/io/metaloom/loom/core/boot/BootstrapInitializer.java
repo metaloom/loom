@@ -30,12 +30,14 @@ public class BootstrapInitializer {
 		this.flyway = flyway;
 	}
 
-	public void init() throws IOException {
-		try {
-			log.info("Invoking database migration check");
-			flyway.migrate();
-		} catch (Exception e) {
-			throw new RuntimeException("Error while invoking database migration", e);
+	public void init(boolean migrate) throws IOException {
+		if (migrate) {
+			try {
+				log.info("Invoking database migration check");
+				flyway.migrate();
+			} catch (Exception e) {
+				throw new RuntimeException("Error while invoking database migration", e);
+			}
 		}
 
 		try {

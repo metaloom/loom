@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.endpoint;
+package io.metaloom.loom.rest.endpoint.impl;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,8 +15,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 		register();
 	}
 
-	@Override
-	public void register() {
+	private void register() {
 		System.out.println("USER ENDPOINT");
 		router.route("/users").handler(rc -> {
 			System.out.println("Users");

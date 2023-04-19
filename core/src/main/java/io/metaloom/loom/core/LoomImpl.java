@@ -38,7 +38,7 @@ public class LoomImpl implements Loom {
 			log.info("Starting loom...");
 			shutdown = false;
 			loomInternal = DaggerLoomCoreComponent.builder().configuration(options).build();
-			loomInternal.boot().init();
+			loomInternal.boot().init(true);
 		} catch (Exception e) {
 			log.error("Error while starting loom", e);
 		}
