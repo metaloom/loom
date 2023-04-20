@@ -9,6 +9,7 @@ import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.metaloom.loom.api.auth.AuthenticationService;
 import io.metaloom.loom.rest.RESTService;
 import io.metaloom.loom.server.grpc.GrpcService;
 
@@ -21,12 +22,15 @@ public class BootstrapInitializer {
 
 	private final RESTService restService;
 
+	private final AuthenticationService authService;
+
 	private final Flyway flyway;
 
 	@Inject
-	public BootstrapInitializer(GrpcService grpcService, RESTService restService, Flyway flyway) {
+	public BootstrapInitializer(GrpcService grpcService, RESTService restService, AuthenticationService authService, Flyway flyway) {
 		this.grpcService = grpcService;
 		this.restService = restService;
+		this.authService = authService;
 		this.flyway = flyway;
 	}
 
@@ -38,6 +42,12 @@ public class BootstrapInitializer {
 			} catch (Exception e) {
 				throw new RuntimeException("Error while invoking database migration", e);
 			}
+		}
+
+		try {
+			authService.init();
+		} catch (Exception e) {
+			throw new RuntimeException("Error while initializing the authentication service", e);
 		}
 
 		try {

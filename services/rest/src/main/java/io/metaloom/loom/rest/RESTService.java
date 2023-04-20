@@ -13,6 +13,7 @@ import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.client.http.model.ErrorResponse;
 import io.metaloom.loom.common.service.AbstractService;
 import io.metaloom.loom.rest.endpoint.impl.AssetEndpoint;
+import io.metaloom.loom.rest.endpoint.impl.LoginEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.UserEndpoint;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
@@ -34,6 +35,9 @@ public class RESTService extends AbstractService {
 
 	@Inject
 	public AssetEndpoint assetEndpoint;
+
+	@Inject
+	public LoginEndpoint loginEndpoint;
 
 	@Inject
 	public RESTService(Vertx vertx, LoomOptions options, @Named("restRouter") Router router) {
@@ -60,16 +64,20 @@ public class RESTService extends AbstractService {
 
 	private void setupRouter() {
 		router.route().handler(BodyHandler.create());
+		userEndpoint.register();
+		assetEndpoint.register();
+		loginEndpoint.register();
 		router.errorHandler(404, rc -> {
-			log.error("Request failed {}", rc.normalizedPath());
+			log.error("Request failed {}", rc.normalizedPath(), rc.failure());
 			ErrorResponse error = new ErrorResponse();
-			error.setStatus("error1234" + rc.statusCode());
+			error.setStatus("Not Found " + rc.statusCode() + " " + rc.normalizedPath());
 			rc.response().setStatusCode(500).end(Json.encodeToBuffer(error));
 		});
 		router.route().failureHandler(rc -> {
-			log.error("Request failed {}", rc.normalizedPath());
+			log.error("Request failed {}", rc.normalizedPath(), rc.failure());
 			ErrorResponse error = new ErrorResponse();
-			error.setStatus("111111" + rc.statusCode());
+			// TODO Don't expose error details
+			error.setStatus("Internal Server Error " + rc.failure().getMessage());
 			rc.response().setStatusCode(400).end(Json.encodeToBuffer(error));
 		});
 

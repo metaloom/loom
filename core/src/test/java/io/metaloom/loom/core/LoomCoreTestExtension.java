@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import io.metaloom.loom.api.options.AuthenticationOptions;
 import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.api.options.ServerOptions;
@@ -40,6 +41,8 @@ public class LoomCoreTestExtension implements BeforeEachCallback, AfterEachCallb
 	public void beforeEach(ExtensionContext context) throws Exception {
 		ext.beforeEach(context);
 		LoomOptions options = new LoomOptions();
+
+		// Database
 		DatabaseOptions dbOptions = new DatabaseOptions();
 		DatabaseAllocationResponse db = ext.db();
 		dbOptions.setHost(db.getHost());
@@ -48,10 +51,19 @@ public class LoomCoreTestExtension implements BeforeEachCallback, AfterEachCallb
 		dbOptions.setPassword(db.getPassword());
 		dbOptions.setDatabaseName(db.getDatabaseName());
 		options.setDatabase(dbOptions);
+
+		// Server
 		ServerOptions serverOptions = options.getServer();
 		serverOptions.setBindAddress("localhost");
 		serverOptions.setRestPort(0);
 		serverOptions.setGrpcPort(0);
+
+		// Auth
+		AuthenticationOptions authOptions = options.getAuth();
+		authOptions.setKeystorePassword("ABCD");
+		// TODO use tempfile to avoid collisions
+		authOptions.setKeystorePath("target/keystore.jceks");
+
 		loomInternal = DaggerLoomCoreComponent.builder().configuration(options).build();
 		loomInternal.boot().init(false);
 

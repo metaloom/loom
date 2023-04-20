@@ -1,4 +1,4 @@
-package io.metaloom.loom.core.dagger;
+package io.metaloom.loom.rest.dagger;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

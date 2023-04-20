@@ -27,6 +27,10 @@
       <artifactId>loom-common</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.metaloom.loom.service</groupId>
+      <artifactId>loom-service-auth-common</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.metaloom.loom.db</groupId>
       <artifactId>loom-db-api</artifactId>
     </dependency>
@@ -34,14 +38,6 @@
       <groupId>io.metaloom.loom</groupId>
       <artifactId>loom-rest-model</artifactId>
     </dependency>
-
-    <!--
-    <dependency>
-      <groupId>io.vertx</groupId>
-    <artifactId>vertx-web-openapi-router</artifactId>
-      <version>4.4.1</version>
-    </dependency>
-    -->
     <dependency>
       <groupId>io.metaloom.loom.client</groupId>
       <artifactId>loom-client-rest</artifactId>
@@ -49,4 +45,24 @@
     </dependency>
 
   </dependencies>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.google.dagger</groupId>
+              <artifactId>dagger-compiler</artifactId>
+              <version>${dagger.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
