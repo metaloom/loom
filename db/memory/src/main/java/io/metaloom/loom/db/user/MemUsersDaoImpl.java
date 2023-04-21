@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import io.metaloom.loom.api.uuid.UUIDUtil;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.LoomUserDao;
+import io.metaloom.loom.db.page.Page;
 
 public class MemUsersDaoImpl implements LoomUserDao {
 
@@ -16,6 +17,11 @@ public class MemUsersDaoImpl implements LoomUserDao {
 	@Override
 	public LoomUser loadUser(UUID uuid) {
 		return storage.get(uuid);
+	}
+
+	@Override
+	public LoomUser loadUserByUsername(String username) {
+		return storage.values().stream().filter(u -> u.getUsername().equals(username)).findFirst().get();
 	}
 
 	@Override
@@ -55,6 +61,12 @@ public class MemUsersDaoImpl implements LoomUserDao {
 
 	@Override
 	public Stream<LoomUser> findAll() {
+		return null;
+	}
+
+	@Override
+	public Page<LoomUser> loadUsers(UUID fromUuid, int pageSize) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

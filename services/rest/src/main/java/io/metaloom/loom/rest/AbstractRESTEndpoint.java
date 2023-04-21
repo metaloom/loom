@@ -1,22 +1,24 @@
 package io.metaloom.loom.rest;
 
+import io.metaloom.loom.auth.LoomAuthHandler;
+import io.metaloom.loom.rest.endpoint.LoomRoutingContext;
 import io.metaloom.loom.rest.endpoint.RESTEndpoint;
-import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestRequestModel;
-import io.metaloom.loom.rest.model.RestResponseModel;
+import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpHeaders;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.RoutingContext;
 
 public abstract class AbstractRESTEndpoint implements RESTEndpoint {
 
-	private final Router router;
 	private final Vertx vertx;
+	private final Router router;
+	private final LoomAuthHandler authHandler;
 
-	public AbstractRESTEndpoint(Vertx vertx, Router router) {
+	public AbstractRESTEndpoint(Vertx vertx, Router router, LoomAuthHandler authHandler) {
 		this.vertx = vertx;
 		this.router = router;
+		this.authHandler = authHandler;
 	}
 
 	public Router router() {
@@ -27,14 +29,14 @@ public abstract class AbstractRESTEndpoint implements RESTEndpoint {
 		return vertx;
 	}
 
-
-	protected void sendResponse(RoutingContext rc, RestResponseModel model) {
-		rc.response().headers().set(HttpHeaders.CONTENT_TYPE, "application/json");
-		rc.response().end(Json.encodeToBuffer(model));
+	public <REQ extends RestRequestModel> void addRoute(String path, HttpMethod method, Handler<LoomRoutingContext> handler) {
+		router().route(path).method(method).handler(rc -> {
+			handler.handle(LoomRoutingContext.wrap(rc));
+		});
 	}
 
-	protected <T extends RestRequestModel> T requestBody(RoutingContext rc, Class<T> clazz) {
-		return Json.parse(rc.body().buffer(), clazz);
+	public void secure(String path) {
+		router().route(path).handler(authHandler);
 	}
 
 }

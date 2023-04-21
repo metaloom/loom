@@ -1,5 +1,6 @@
 package io.metaloom.loom.core.endpoint;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,8 @@ public class LoginEndpointTest {
 			AuthLoginResponse response = client.login("joedoe", "password").sync();
 			System.out.println("Got Token: " + response.getToken());
 			client.setToken(response.getToken());
-			UserResponse response2 = client.getUserResponse().sync();
+			UserResponse response2 = client.loadUser("admin").sync();
+			assertEquals("admin", response2.getUsername());
 			assertNotNull(response2);
 		}
 	}

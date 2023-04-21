@@ -74,9 +74,17 @@ public final class Json {
 		}
 	}
 
-	public static Buffer encodeToBuffer(RestResponseModel model) {
+	public static Buffer encodeCompactToBuffer(RestResponseModel model) {
 		try {
 			return Buffer.buffer(mapper.writeValueAsBytes(model));
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(PARSE_ERROR, e);
+		}
+	}
+
+	public static Buffer encodeToBuffer(RestResponseModel model) {
+		try {
+			return Buffer.buffer(mapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(model));
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(PARSE_ERROR, e);
 		}

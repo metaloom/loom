@@ -5,9 +5,9 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.RestRequestModel;
 
-public class UserCreateRequest implements RestModel {
+public class UserCreateRequest implements RestRequestModel {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("The username of the new user.")

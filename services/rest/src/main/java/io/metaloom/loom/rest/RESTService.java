@@ -30,19 +30,20 @@ public class RESTService extends AbstractService {
 	private Router router;
 	private HttpServer server;
 
-	@Inject
-	public UserEndpoint userEndpoint;
+	private UserEndpoint userEndpoint;
+
+	private AssetEndpoint assetEndpoint;
+
+	private LoginEndpoint loginEndpoint;
 
 	@Inject
-	public AssetEndpoint assetEndpoint;
-
-	@Inject
-	public LoginEndpoint loginEndpoint;
-
-	@Inject
-	public RESTService(Vertx vertx, LoomOptions options, @Named("restRouter") Router router) {
+	public RESTService(Vertx vertx, LoomOptions options, @Named("restRouter") Router router, LoginEndpoint loginEndpoint, AssetEndpoint assetEndpoint,
+		UserEndpoint userEndpoint) {
 		super(vertx, options);
 		this.router = router;
+		this.loginEndpoint = loginEndpoint;
+		this.assetEndpoint = assetEndpoint;
+		this.userEndpoint = userEndpoint;
 	}
 
 	public HttpServer start() throws InterruptedException, ExecutionException {

@@ -4,6 +4,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import io.metaloom.loom.db.LoomDao;
+import io.metaloom.loom.db.page.Page;
 
 public interface LoomUserDao extends LoomDao {
 
@@ -24,6 +25,23 @@ public interface LoomUserDao extends LoomDao {
 	LoomUser loadUser(UUID uuid);
 
 	/**
+	 * Load the user by username.
+	 * 
+	 * @param username
+	 * @return
+	 */
+	LoomUser loadUserByUsername(String username);
+
+	/**
+	 * Load a page of users.
+	 * 
+	 * @param fromUuid
+	 * @param pageSize
+	 * @return
+	 */
+	Page<LoomUser> loadUsers(UUID fromUuid, int pageSize);
+
+	/**
 	 * Update the user using the provided element information.
 	 * 
 	 * @param user
@@ -34,9 +52,9 @@ public interface LoomUserDao extends LoomDao {
 	/**
 	 * Store the user information.
 	 * 
-	 * @param creator
+	 * @param user
 	 */
-	void storeUser(LoomUser creator);
+	void storeUser(LoomUser user);
 
 	/**
 	 * Delete the user.

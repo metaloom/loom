@@ -1,5 +1,6 @@
 package io.metaloom.loom.core.endpoint;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.UUID;
@@ -9,9 +10,9 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.core.LoomCoreTestExtension;
-import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
-import io.metaloom.loom.rest.model.asset.AssetListResponse;
-import io.metaloom.loom.rest.model.asset.AssetResponse;
+import io.metaloom.loom.rest.model.auth.AuthLoginResponse;
+import io.metaloom.loom.rest.model.user.UserCreateRequest;
+import io.metaloom.loom.rest.model.user.UserListResponse;
 import io.metaloom.loom.rest.model.user.UserResponse;
 
 public class UserEndpointTest {
@@ -21,23 +22,28 @@ public class UserEndpointTest {
 
 	@Test
 	public void testBasics() throws Exception {
-		System.out.println("TEST");
 		try (LoomHttpClient client = loom.httpClient()) {
-			UserResponse response = client.getUserResponse().sync();
+
+			AuthLoginResponse authResponse = client.login("joedoe", "password").sync();
+			System.out.println("Got Token: " + authResponse.getToken());
+			client.setToken(authResponse.getToken());
+
+			UserResponse response = client.loadUser("admin").sync();
 			assertNotNull(response);
 
-			AssetCreateRequest request = new AssetCreateRequest();
-			request.setFilename("test.png");
-			request.setLocalPath("/tmp/test.png");
-			client.storeAsset(request).sync();
+			for (int i = 0; i < 100; i++) {
+				UserCreateRequest userRequest = new UserCreateRequest();
+				userRequest.setUsername("user_" + i);
+				client.createUser(userRequest).sync();
+			}
 
-			client.deleteAsset(UUID.randomUUID()).sync();
+			UserListResponse listResponse = client.listUsers().sync();
+			assertEquals(25, listResponse.getData().size(), "There should have been 25 users loaded");
 
-			AssetResponse assetResponse = client.loadAsset(UUID.randomUUID()).sync();
-			assertNotNull(assetResponse);
+			UUID uuid = listResponse.getData().get(0).getUuid();
+			client.deleteUser(uuid).sync();
 
-			AssetListResponse assets = client.listAssets().sync();
-			assertNotNull(assets);
 		}
 	}
+
 }
