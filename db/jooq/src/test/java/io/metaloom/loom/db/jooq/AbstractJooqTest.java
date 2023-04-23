@@ -5,11 +5,11 @@ import javax.sql.DataSource;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.metaloom.loom.db.jooq.test.dagger.JooqTestContext;
-import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
-import io.metaloom.loom.db.model.asset.LoomAssetDao;
+import io.metaloom.loom.db.model.asset.AssetBinaryDao;
+import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
 import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
-import io.metaloom.loom.db.model.perm.LoomPermissionDao;
+import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 
 public abstract class AbstractJooqTest implements JooqTestHelper {
@@ -28,12 +28,12 @@ public abstract class AbstractJooqTest implements JooqTestHelper {
 	}
 
 	@Override
-	public LoomAssetBinaryDao binaryDao() {
+	public AssetBinaryDao binaryDao() {
 		return context.binaryDao();
 	}
 
 	@Override
-	public LoomAssetDao assetDao() {
+	public AssetDao assetDao() {
 		return context.assetDao();
 	}
 
@@ -48,7 +48,7 @@ public abstract class AbstractJooqTest implements JooqTestHelper {
 	}
 
 	@Override
-	public LoomPermissionDao permissionDao() {
+	public PermissionDao permissionDao() {
 		return context.permissionDao();
 	}
 

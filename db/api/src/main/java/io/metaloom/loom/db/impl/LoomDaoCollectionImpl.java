@@ -6,8 +6,8 @@ import javax.inject.Singleton;
 import dagger.Lazy;
 import io.metaloom.loom.db.LoomDaoCollection;
 import io.metaloom.loom.db.field.LoomFieldDao;
-import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
-import io.metaloom.loom.db.model.asset.LoomAssetDao;
+import io.metaloom.loom.db.model.asset.AssetBinaryDao;
+import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.content.LoomContentDao;
 import io.metaloom.loom.db.model.extension.LoomExtensionDao;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
@@ -36,10 +36,10 @@ public class LoomDaoCollectionImpl implements LoomDaoCollection {
 	public Lazy<LoomGroupDao> groupDao;
 
 	@Inject
-	public Lazy<LoomAssetDao> assetDao;
+	public Lazy<AssetDao> assetDao;
 
 	@Inject
-	public Lazy<LoomAssetBinaryDao> assetBinaryDao;
+	public Lazy<AssetBinaryDao> assetBinaryDao;
 
 	@Inject
 	public Lazy<LoomNamespaceDao> namespaceDao;
@@ -63,12 +63,12 @@ public class LoomDaoCollectionImpl implements LoomDaoCollection {
 	}
 
 	@Override
-	public LoomAssetDao assetDao() {
+	public AssetDao assetDao() {
 		return assetDao.get();
 	}
 
 	@Override
-	public LoomAssetBinaryDao assetBinaryDao() {
+	public AssetBinaryDao assetBinaryDao() {
 		return assetBinaryDao.get();
 	}
 

@@ -1,8 +1,8 @@
 package io.metaloom.loom.db;
 
 import io.metaloom.loom.db.field.LoomFieldDao;
-import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
-import io.metaloom.loom.db.model.asset.LoomAssetDao;
+import io.metaloom.loom.db.model.asset.AssetBinaryDao;
+import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.content.LoomContentDao;
 import io.metaloom.loom.db.model.extension.LoomExtensionDao;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
@@ -35,8 +35,8 @@ public interface LoomDaoCollection {
 
 	LoomModelDao modelDao();
 
-	LoomAssetDao assetDao();
+	AssetDao assetDao();
 
-	LoomAssetBinaryDao assetBinaryDao();
+	AssetBinaryDao assetBinaryDao();
 
 }

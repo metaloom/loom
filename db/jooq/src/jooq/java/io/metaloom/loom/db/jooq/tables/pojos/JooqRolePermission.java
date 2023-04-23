@@ -4,7 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.pojos;
 
 
-import io.metaloom.loom.db.jooq.enums.LoomPermission;
+import io.metaloom.loom.db.jooq.enums.JooqLoomPermission;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -20,7 +20,7 @@ public class JooqRolePermission implements Serializable {
 
     private UUID roleUuid;
     private String resource;
-    private LoomPermission permission;
+    private JooqLoomPermission permission;
 
     public JooqRolePermission() {}
 
@@ -33,7 +33,7 @@ public class JooqRolePermission implements Serializable {
     public JooqRolePermission(
         UUID roleUuid,
         String resource,
-        LoomPermission permission
+        JooqLoomPermission permission
     ) {
         this.roleUuid = roleUuid;
         this.resource = resource;
@@ -71,14 +71,14 @@ public class JooqRolePermission implements Serializable {
     /**
      * Getter for <code>public.role_permission.permission</code>.
      */
-    public LoomPermission getPermission() {
+    public JooqLoomPermission getPermission() {
         return this.permission;
     }
 
     /**
      * Setter for <code>public.role_permission.permission</code>.
      */
-    public void setPermission(LoomPermission permission) {
+    public void setPermission(JooqLoomPermission permission) {
         this.permission = permission;
     }
 

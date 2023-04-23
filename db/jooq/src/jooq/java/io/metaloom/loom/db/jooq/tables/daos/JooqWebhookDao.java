@@ -4,10 +4,9 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.enums.LoomEvent;
-import io.metaloom.loom.db.jooq.tables.Webhook;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook;
-import io.metaloom.loom.db.jooq.tables.records.WebhookRecord;
+import io.metaloom.loom.db.jooq.enums.JooqLoomEvent;
+import io.metaloom.loom.db.jooq.tables.JooqWebhook;
+import io.metaloom.loom.db.jooq.tables.records.JooqWebhookRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,24 +22,24 @@ import org.jooq.impl.DAOImpl;
  * Table which stores the registered webhooks
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqWebhookDao extends DAOImpl<WebhookRecord, JooqWebhook, UUID> {
+public class JooqWebhookDao extends DAOImpl<JooqWebhookRecord, io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook, UUID> {
 
     /**
      * Create a new JooqWebhookDao without any configuration
      */
     public JooqWebhookDao() {
-        super(Webhook.WEBHOOK, JooqWebhook.class);
+        super(JooqWebhook.WEBHOOK, io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook.class);
     }
 
     /**
      * Create a new JooqWebhookDao with an attached configuration
      */
     public JooqWebhookDao(Configuration configuration) {
-        super(Webhook.WEBHOOK, JooqWebhook.class, configuration);
+        super(JooqWebhook.WEBHOOK, io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook.class, configuration);
     }
 
     @Override
-    public UUID getId(JooqWebhook object) {
+    public UUID getId(io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook object) {
         return object.getUuid();
     }
 
@@ -48,178 +47,178 @@ public class JooqWebhookDao extends DAOImpl<WebhookRecord, JooqWebhook, UUID> {
      * Fetch records that have <code>uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>uuid IN (values)</code>
      */
-    public List<JooqWebhook> fetchByUuid(UUID... values) {
-        return fetch(Webhook.WEBHOOK.UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqUuid(UUID... values) {
+        return fetch(JooqWebhook.WEBHOOK.UUID, values);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public JooqWebhook fetchOneByUuid(UUID value) {
-        return fetchOne(Webhook.WEBHOOK.UUID, value);
+    public io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook fetchOneByJooqUuid(UUID value) {
+        return fetchOne(JooqWebhook.WEBHOOK.UUID, value);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public Optional<JooqWebhook> fetchOptionalByUuid(UUID value) {
-        return fetchOptional(Webhook.WEBHOOK.UUID, value);
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchOptionalByJooqUuid(UUID value) {
+        return fetchOptional(JooqWebhook.WEBHOOK.UUID, value);
     }
 
     /**
      * Fetch records that have <code>url BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfUrl(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.URL, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqUrl(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.URL, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>url IN (values)</code>
      */
-    public List<JooqWebhook> fetchByUrl(String... values) {
-        return fetch(Webhook.WEBHOOK.URL, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqUrl(String... values) {
+        return fetch(JooqWebhook.WEBHOOK.URL, values);
     }
 
     /**
      * Fetch records that have <code>status BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfStatus(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.STATUS, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqStatus(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.STATUS, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>status IN (values)</code>
      */
-    public List<JooqWebhook> fetchByStatus(String... values) {
-        return fetch(Webhook.WEBHOOK.STATUS, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqStatus(String... values) {
+        return fetch(JooqWebhook.WEBHOOK.STATUS, values);
     }
 
     /**
      * Fetch records that have <code>active BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfActive(Boolean lowerInclusive, Boolean upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.ACTIVE, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqActive(Boolean lowerInclusive, Boolean upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.ACTIVE, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>active IN (values)</code>
      */
-    public List<JooqWebhook> fetchByActive(Boolean... values) {
-        return fetch(Webhook.WEBHOOK.ACTIVE, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqActive(Boolean... values) {
+        return fetch(JooqWebhook.WEBHOOK.ACTIVE, values);
     }
 
     /**
      * Fetch records that have <code>trigger BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfTrigger(LoomEvent lowerInclusive, LoomEvent upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.TRIGGER, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqTrigger(JooqLoomEvent lowerInclusive, JooqLoomEvent upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.TRIGGER, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>trigger IN (values)</code>
      */
-    public List<JooqWebhook> fetchByTrigger(LoomEvent... values) {
-        return fetch(Webhook.WEBHOOK.TRIGGER, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqTrigger(JooqLoomEvent... values) {
+        return fetch(JooqWebhook.WEBHOOK.TRIGGER, values);
     }
 
     /**
      * Fetch records that have <code>secretToken BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfSecrettoken(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.SECRETTOKEN, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqSecrettoken(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.SECRETTOKEN, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>secretToken IN (values)</code>
      */
-    public List<JooqWebhook> fetchBySecrettoken(String... values) {
-        return fetch(Webhook.WEBHOOK.SECRETTOKEN, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqSecrettoken(String... values) {
+        return fetch(JooqWebhook.WEBHOOK.SECRETTOKEN, values);
     }
 
     /**
      * Fetch records that have <code>meta BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfMeta(JSONB lowerInclusive, JSONB upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.META, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqMeta(JSONB lowerInclusive, JSONB upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.META, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>meta IN (values)</code>
      */
-    public List<JooqWebhook> fetchByMeta(JSONB... values) {
-        return fetch(Webhook.WEBHOOK.META, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqMeta(JSONB... values) {
+        return fetch(JooqWebhook.WEBHOOK.META, values);
     }
 
     /**
      * Fetch records that have <code>created BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfCreated(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.CREATED, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqCreated(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.CREATED, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>created IN (values)</code>
      */
-    public List<JooqWebhook> fetchByCreated(LocalDateTime... values) {
-        return fetch(Webhook.WEBHOOK.CREATED, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqCreated(LocalDateTime... values) {
+        return fetch(JooqWebhook.WEBHOOK.CREATED, values);
     }
 
     /**
      * Fetch records that have <code>creator_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfCreatorUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.CREATOR_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqCreatorUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.CREATOR_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>creator_uuid IN (values)</code>
      */
-    public List<JooqWebhook> fetchByCreatorUuid(UUID... values) {
-        return fetch(Webhook.WEBHOOK.CREATOR_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqCreatorUuid(UUID... values) {
+        return fetch(JooqWebhook.WEBHOOK.CREATOR_UUID, values);
     }
 
     /**
      * Fetch records that have <code>edited BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfEdited(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.EDITED, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqEdited(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.EDITED, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>edited IN (values)</code>
      */
-    public List<JooqWebhook> fetchByEdited(LocalDateTime... values) {
-        return fetch(Webhook.WEBHOOK.EDITED, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqEdited(LocalDateTime... values) {
+        return fetch(JooqWebhook.WEBHOOK.EDITED, values);
     }
 
     /**
      * Fetch records that have <code>editor_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqWebhook> fetchRangeOfEditorUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Webhook.WEBHOOK.EDITOR_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqEditorUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.EDITOR_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>editor_uuid IN (values)</code>
      */
-    public List<JooqWebhook> fetchByEditorUuid(UUID... values) {
-        return fetch(Webhook.WEBHOOK.EDITOR_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqEditorUuid(UUID... values) {
+        return fetch(JooqWebhook.WEBHOOK.EDITOR_UUID, values);
     }
 }

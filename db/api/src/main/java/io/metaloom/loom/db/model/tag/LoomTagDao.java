@@ -4,7 +4,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 import io.metaloom.loom.db.LoomDao;
-import io.metaloom.loom.db.model.asset.LoomAsset;
+import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.content.LoomContent;
 import io.metaloom.loom.db.model.namespace.LoomNamespace;
 
@@ -69,9 +69,9 @@ public interface LoomTagDao extends LoomDao {
 
 	void untagNamespace(LoomTag tag, LoomNamespace namespace);
 
-	void tagAsset(LoomTag tag, LoomAsset asset);
+	void tagAsset(LoomTag tag, Asset asset);
 
-	void untagAsset(LoomTag tag, LoomAsset asset);
+	void untagAsset(LoomTag tag, Asset asset);
 
 	void tagContent(LoomTag tag, LoomContent content);
 

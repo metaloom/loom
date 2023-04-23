@@ -11,14 +11,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.metaloom.loom.db.model.asset.LoomAsset;
-import io.metaloom.loom.db.model.asset.LoomAssetDao;
+import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 
 public abstract class AbstractAssetDaoTest {
 
-	abstract public LoomAssetDao getDao();
+	abstract public AssetDao getDao();
 
 	abstract public LoomUserDao getUserDao();
 
@@ -31,14 +31,14 @@ public abstract class AbstractAssetDaoTest {
 	@Test
 	public void testCreate() {
 		// Create asset
-		LoomAsset asset = createTestAsset();
+		Asset asset = createTestAsset();
 		assertNotNull(asset.getUuid());
 		assertEquals("blume.jpg", asset.getFilename());
 		// assertNotNull(asset.getNamespaceUuid());
 		// assertNotNull(asset.getBinaryUuid());
 	}
 
-	private LoomAsset createTestAsset() {
+	private Asset createTestAsset() {
 		LoomUser creator = getUserDao().createUser("joedoe");
 		UUID binaryUuid = UUID.randomUUID();
 		UUID namespaceUuid = UUID.randomUUID();
@@ -48,10 +48,10 @@ public abstract class AbstractAssetDaoTest {
 
 	@Test
 	public void testDelete() {
-		LoomAssetDao dao = getDao();
+		AssetDao dao = getDao();
 
 		// Create asset
-		LoomAsset asset = createTestAsset();
+		Asset asset = createTestAsset();
 
 		// Now assert deletion
 		dao.deleteAsset(asset);
@@ -60,25 +60,25 @@ public abstract class AbstractAssetDaoTest {
 
 	@Test
 	public void testUpdate() {
-		LoomAssetDao dao = getDao();
+		AssetDao dao = getDao();
 
 		// Create and store
-		LoomAsset asset = createTestAsset();
+		Asset asset = createTestAsset();
 
 		// Now update
 		asset.setFilename("blume2.jpg");
 		dao.updateAsset(asset);
 
 		// Load and assert update was persisted
-		LoomAsset updatedAsset = dao.loadAsset(asset.getUuid());
+		Asset updatedAsset = dao.loadAsset(asset.getUuid());
 		assertEquals("blume2.jpg", updatedAsset.getFilename());
 	}
 
 	@Test
 	public void testLoad() {
-		LoomAssetDao dao = getDao();
+		AssetDao dao = getDao();
 		// Create and store asset
-		LoomAsset asset = createTestAsset();
+		Asset asset = createTestAsset();
 
 		// Now load again
 		assertNotNull(dao.loadAsset(asset.getUuid()));

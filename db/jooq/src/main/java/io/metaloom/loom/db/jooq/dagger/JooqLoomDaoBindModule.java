@@ -3,28 +3,28 @@ package io.metaloom.loom.db.jooq.dagger;
 import dagger.Binds;
 import dagger.Module;
 import io.metaloom.loom.db.field.LoomFieldDao;
-import io.metaloom.loom.db.jooq.dao.asset.LoomAssetBinaryDaoImpl;
-import io.metaloom.loom.db.jooq.dao.asset.LoomAssetDaoImpl;
+import io.metaloom.loom.db.jooq.dao.asset.AssetBinaryDaoImpl;
+import io.metaloom.loom.db.jooq.dao.asset.AssetDaoImpl;
 import io.metaloom.loom.db.jooq.dao.content.ContentDaoImpl;
 import io.metaloom.loom.db.jooq.dao.field.LoomFieldDaoImpl;
 import io.metaloom.loom.db.jooq.dao.group.LoomGroupDaoImpl;
 import io.metaloom.loom.db.jooq.dao.model.LoomModelDaoImpl;
 import io.metaloom.loom.db.jooq.dao.namespace.LoomNamespaceDaoImpl;
-import io.metaloom.loom.db.jooq.dao.perm.LoomPermissionDaoImpl;
+import io.metaloom.loom.db.jooq.dao.perm.PermissionDaoImpl;
 import io.metaloom.loom.db.jooq.dao.role.LoomRoleDaoImpl;
 import io.metaloom.loom.db.jooq.dao.tag.LoomTagDaoImpl;
 import io.metaloom.loom.db.jooq.dao.token.UserTokenDaoImpl;
 import io.metaloom.loom.db.jooq.dao.user.LoomUserDaoImpl;
 import io.metaloom.loom.db.jooq.dao.webhook.LoomWebhookDaoImpl;
 import io.metaloom.loom.db.jooq.extension.ExtensionDaoImpl;
-import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
-import io.metaloom.loom.db.model.asset.LoomAssetDao;
+import io.metaloom.loom.db.model.asset.AssetBinaryDao;
+import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.content.LoomContentDao;
 import io.metaloom.loom.db.model.extension.LoomExtensionDao;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
 import io.metaloom.loom.db.model.model.LoomModelDao;
 import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
-import io.metaloom.loom.db.model.perm.LoomPermissionDao;
+import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.role.LoomRoleDao;
 import io.metaloom.loom.db.model.tag.LoomTagDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
@@ -68,11 +68,11 @@ public abstract class JooqLoomDaoBindModule {
 	abstract LoomExtensionDao extensionDao(ExtensionDaoImpl dao);
 
 	@Binds
-	abstract LoomAssetDao assetDao(LoomAssetDaoImpl dao);
+	abstract AssetDao assetDao(AssetDaoImpl dao);
 
 	@Binds
-	abstract LoomAssetBinaryDao assetBinaryDao(LoomAssetBinaryDaoImpl dao);
+	abstract AssetBinaryDao assetBinaryDao(AssetBinaryDaoImpl dao);
 	
 	@Binds
-	abstract LoomPermissionDao permissionDao(LoomPermissionDaoImpl dao);
+	abstract PermissionDao permissionDao(PermissionDaoImpl dao);
 }

@@ -4,40 +4,40 @@
 package io.metaloom.loom.db.jooq;
 
 
-import io.metaloom.loom.db.jooq.tables.Asset;
-import io.metaloom.loom.db.jooq.tables.AssetBinarie;
-import io.metaloom.loom.db.jooq.tables.AssetTimeline;
-import io.metaloom.loom.db.jooq.tables.AssetTimelineTag;
-import io.metaloom.loom.db.jooq.tables.AssetUserMeta;
-import io.metaloom.loom.db.jooq.tables.Content;
-import io.metaloom.loom.db.jooq.tables.ContentUserMeta;
-import io.metaloom.loom.db.jooq.tables.Extension;
-import io.metaloom.loom.db.jooq.tables.Face;
-import io.metaloom.loom.db.jooq.tables.Field;
-import io.metaloom.loom.db.jooq.tables.FieldAsset;
-import io.metaloom.loom.db.jooq.tables.FieldContent;
-import io.metaloom.loom.db.jooq.tables.FieldReference;
-import io.metaloom.loom.db.jooq.tables.FlywaySchemaHistory;
-import io.metaloom.loom.db.jooq.tables.Group;
-import io.metaloom.loom.db.jooq.tables.Language;
-import io.metaloom.loom.db.jooq.tables.Loom;
-import io.metaloom.loom.db.jooq.tables.Model;
-import io.metaloom.loom.db.jooq.tables.ModelVersion;
-import io.metaloom.loom.db.jooq.tables.Namespace;
-import io.metaloom.loom.db.jooq.tables.Role;
-import io.metaloom.loom.db.jooq.tables.RoleGroup;
-import io.metaloom.loom.db.jooq.tables.RolePermission;
-import io.metaloom.loom.db.jooq.tables.Tag;
-import io.metaloom.loom.db.jooq.tables.TagAsset;
-import io.metaloom.loom.db.jooq.tables.TagContent;
-import io.metaloom.loom.db.jooq.tables.TagNamespace;
-import io.metaloom.loom.db.jooq.tables.TagUserMeta;
-import io.metaloom.loom.db.jooq.tables.TokenPermission;
-import io.metaloom.loom.db.jooq.tables.User;
-import io.metaloom.loom.db.jooq.tables.UserGroup;
-import io.metaloom.loom.db.jooq.tables.UserPermission;
-import io.metaloom.loom.db.jooq.tables.UserToken;
-import io.metaloom.loom.db.jooq.tables.Webhook;
+import io.metaloom.loom.db.jooq.tables.JooqAsset;
+import io.metaloom.loom.db.jooq.tables.JooqAssetBinarie;
+import io.metaloom.loom.db.jooq.tables.JooqAssetTimeline;
+import io.metaloom.loom.db.jooq.tables.JooqAssetTimelineTag;
+import io.metaloom.loom.db.jooq.tables.JooqAssetUserMeta;
+import io.metaloom.loom.db.jooq.tables.JooqContent;
+import io.metaloom.loom.db.jooq.tables.JooqContentUserMeta;
+import io.metaloom.loom.db.jooq.tables.JooqExtension;
+import io.metaloom.loom.db.jooq.tables.JooqFace;
+import io.metaloom.loom.db.jooq.tables.JooqField;
+import io.metaloom.loom.db.jooq.tables.JooqFieldAsset;
+import io.metaloom.loom.db.jooq.tables.JooqFieldContent;
+import io.metaloom.loom.db.jooq.tables.JooqFieldReference;
+import io.metaloom.loom.db.jooq.tables.JooqFlywaySchemaHistory;
+import io.metaloom.loom.db.jooq.tables.JooqGroup;
+import io.metaloom.loom.db.jooq.tables.JooqLanguage;
+import io.metaloom.loom.db.jooq.tables.JooqLoom;
+import io.metaloom.loom.db.jooq.tables.JooqModel;
+import io.metaloom.loom.db.jooq.tables.JooqModelVersion;
+import io.metaloom.loom.db.jooq.tables.JooqNamespace;
+import io.metaloom.loom.db.jooq.tables.JooqRole;
+import io.metaloom.loom.db.jooq.tables.JooqRoleGroup;
+import io.metaloom.loom.db.jooq.tables.JooqRolePermission;
+import io.metaloom.loom.db.jooq.tables.JooqTag;
+import io.metaloom.loom.db.jooq.tables.JooqTagAsset;
+import io.metaloom.loom.db.jooq.tables.JooqTagContent;
+import io.metaloom.loom.db.jooq.tables.JooqTagNamespace;
+import io.metaloom.loom.db.jooq.tables.JooqTagUserMeta;
+import io.metaloom.loom.db.jooq.tables.JooqTokenPermission;
+import io.metaloom.loom.db.jooq.tables.JooqUser;
+import io.metaloom.loom.db.jooq.tables.JooqUserGroup;
+import io.metaloom.loom.db.jooq.tables.JooqUserPermission;
+import io.metaloom.loom.db.jooq.tables.JooqUserToken;
+import io.metaloom.loom.db.jooq.tables.JooqWebhook;
 
 
 /**
@@ -49,170 +49,170 @@ public class Tables {
     /**
      * The table <code>public.asset</code>.
      */
-    public static final Asset ASSET = Asset.ASSET;
+    public static final JooqAsset ASSET = JooqAsset.ASSET;
 
     /**
      * This table stores the immutable asset information
      */
-    public static final AssetBinarie ASSET_BINARIE = AssetBinarie.ASSET_BINARIE;
+    public static final JooqAssetBinarie ASSET_BINARIE = JooqAssetBinarie.ASSET_BINARIE;
 
     /**
      * This table contains asset timeline entries
      */
-    public static final AssetTimeline ASSET_TIMELINE = AssetTimeline.ASSET_TIMELINE;
+    public static final JooqAssetTimeline ASSET_TIMELINE = JooqAssetTimeline.ASSET_TIMELINE;
 
     /**
      * The table <code>public.asset_timeline_tag</code>.
      */
-    public static final AssetTimelineTag ASSET_TIMELINE_TAG = AssetTimelineTag.ASSET_TIMELINE_TAG;
+    public static final JooqAssetTimelineTag ASSET_TIMELINE_TAG = JooqAssetTimelineTag.ASSET_TIMELINE_TAG;
 
     /**
      * The table <code>public.asset_user_meta</code>.
      */
-    public static final AssetUserMeta ASSET_USER_META = AssetUserMeta.ASSET_USER_META;
+    public static final JooqAssetUserMeta ASSET_USER_META = JooqAssetUserMeta.ASSET_USER_META;
 
     /**
      * The table <code>public.content</code>.
      */
-    public static final Content CONTENT = Content.CONTENT;
+    public static final JooqContent CONTENT = JooqContent.CONTENT;
 
     /**
      * The table <code>public.content_user_meta</code>.
      */
-    public static final ContentUserMeta CONTENT_USER_META = ContentUserMeta.CONTENT_USER_META;
+    public static final JooqContentUserMeta CONTENT_USER_META = JooqContentUserMeta.CONTENT_USER_META;
 
     /**
      * Table which lists the registered extensions
      */
-    public static final Extension EXTENSION = Extension.EXTENSION;
+    public static final JooqExtension EXTENSION = JooqExtension.EXTENSION;
 
     /**
      * Stores embeddings
      */
-    public static final Face FACE = Face.FACE;
+    public static final JooqFace FACE = JooqFace.FACE;
 
     /**
      * Table which stores the actual fields content as JSON
      */
-    public static final Field FIELD = Field.FIELD;
+    public static final JooqField FIELD = JooqField.FIELD;
 
     /**
      * Crosstable which tracks the used assets in a fields record
      */
-    public static final FieldAsset FIELD_ASSET = FieldAsset.FIELD_ASSET;
+    public static final JooqFieldAsset FIELD_ASSET = JooqFieldAsset.FIELD_ASSET;
 
     /**
      * Crosstable that tracks all fields for a content
      */
-    public static final FieldContent FIELD_CONTENT = FieldContent.FIELD_CONTENT;
+    public static final JooqFieldContent FIELD_CONTENT = JooqFieldContent.FIELD_CONTENT;
 
     /**
      * This table is mainly used to lookup foreign references to contents
      */
-    public static final FieldReference FIELD_REFERENCE = FieldReference.FIELD_REFERENCE;
+    public static final JooqFieldReference FIELD_REFERENCE = JooqFieldReference.FIELD_REFERENCE;
 
     /**
      * The table <code>public.flyway_schema_history</code>.
      */
-    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
+    public static final JooqFlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = JooqFlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>public.group</code>.
      */
-    public static final Group GROUP = Group.GROUP;
+    public static final JooqGroup GROUP = JooqGroup.GROUP;
 
     /**
      * Table which stores the languages for loom
      */
-    public static final Language LANGUAGE = Language.LANGUAGE;
+    public static final JooqLanguage LANGUAGE = JooqLanguage.LANGUAGE;
 
     /**
      * The table <code>public.loom</code>.
      */
-    public static final Loom LOOM = Loom.LOOM;
+    public static final JooqLoom LOOM = JooqLoom.LOOM;
 
     /**
      * The table <code>public.model</code>.
      */
-    public static final Model MODEL = Model.MODEL;
+    public static final JooqModel MODEL = JooqModel.MODEL;
 
     /**
      * The table <code>public.model_version</code>.
      */
-    public static final ModelVersion MODEL_VERSION = ModelVersion.MODEL_VERSION;
+    public static final JooqModelVersion MODEL_VERSION = JooqModelVersion.MODEL_VERSION;
 
     /**
      * The table <code>public.namespace</code>.
      */
-    public static final Namespace NAMESPACE = Namespace.NAMESPACE;
+    public static final JooqNamespace NAMESPACE = JooqNamespace.NAMESPACE;
 
     /**
      * The table <code>public.role</code>.
      */
-    public static final Role ROLE = Role.ROLE;
+    public static final JooqRole ROLE = JooqRole.ROLE;
 
     /**
      * The table <code>public.role_group</code>.
      */
-    public static final RoleGroup ROLE_GROUP = RoleGroup.ROLE_GROUP;
+    public static final JooqRoleGroup ROLE_GROUP = JooqRoleGroup.ROLE_GROUP;
 
     /**
      * The table <code>public.role_permission</code>.
      */
-    public static final RolePermission ROLE_PERMISSION = RolePermission.ROLE_PERMISSION;
+    public static final JooqRolePermission ROLE_PERMISSION = JooqRolePermission.ROLE_PERMISSION;
 
     /**
      * The table <code>public.tag</code>.
      */
-    public static final Tag TAG = Tag.TAG;
+    public static final JooqTag TAG = JooqTag.TAG;
 
     /**
      * The table <code>public.tag_asset</code>.
      */
-    public static final TagAsset TAG_ASSET = TagAsset.TAG_ASSET;
+    public static final JooqTagAsset TAG_ASSET = JooqTagAsset.TAG_ASSET;
 
     /**
      * The table <code>public.tag_content</code>.
      */
-    public static final TagContent TAG_CONTENT = TagContent.TAG_CONTENT;
+    public static final JooqTagContent TAG_CONTENT = JooqTagContent.TAG_CONTENT;
 
     /**
      * Table used to taggings on namespaces
      */
-    public static final TagNamespace TAG_NAMESPACE = TagNamespace.TAG_NAMESPACE;
+    public static final JooqTagNamespace TAG_NAMESPACE = JooqTagNamespace.TAG_NAMESPACE;
 
     /**
      * The table <code>public.tag_user_meta</code>.
      */
-    public static final TagUserMeta TAG_USER_META = TagUserMeta.TAG_USER_META;
+    public static final JooqTagUserMeta TAG_USER_META = JooqTagUserMeta.TAG_USER_META;
 
     /**
      * The table <code>public.token_permission</code>.
      */
-    public static final TokenPermission TOKEN_PERMISSION = TokenPermission.TOKEN_PERMISSION;
+    public static final JooqTokenPermission TOKEN_PERMISSION = JooqTokenPermission.TOKEN_PERMISSION;
 
     /**
      * The table <code>public.user</code>.
      */
-    public static final User USER = User.USER;
+    public static final JooqUser USER = JooqUser.USER;
 
     /**
      * The table <code>public.user_group</code>.
      */
-    public static final UserGroup USER_GROUP = UserGroup.USER_GROUP;
+    public static final JooqUserGroup USER_GROUP = JooqUserGroup.USER_GROUP;
 
     /**
      * The table <code>public.user_permission</code>.
      */
-    public static final UserPermission USER_PERMISSION = UserPermission.USER_PERMISSION;
+    public static final JooqUserPermission USER_PERMISSION = JooqUserPermission.USER_PERMISSION;
 
     /**
      * The table <code>public.user_token</code>.
      */
-    public static final UserToken USER_TOKEN = UserToken.USER_TOKEN;
+    public static final JooqUserToken USER_TOKEN = JooqUserToken.USER_TOKEN;
 
     /**
      * Table which stores the registered webhooks
      */
-    public static final Webhook WEBHOOK = Webhook.WEBHOOK;
+    public static final JooqWebhook WEBHOOK = JooqWebhook.WEBHOOK;
 }

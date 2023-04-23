@@ -4,9 +4,8 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.tables.Language;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage;
-import io.metaloom.loom.db.jooq.tables.records.LanguageRecord;
+import io.metaloom.loom.db.jooq.tables.JooqLanguage;
+import io.metaloom.loom.db.jooq.tables.records.JooqLanguageRecord;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,24 +20,24 @@ import org.jooq.impl.DAOImpl;
  * Table which stores the languages for loom
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqLanguageDao extends DAOImpl<LanguageRecord, JooqLanguage, UUID> {
+public class JooqLanguageDao extends DAOImpl<JooqLanguageRecord, io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage, UUID> {
 
     /**
      * Create a new JooqLanguageDao without any configuration
      */
     public JooqLanguageDao() {
-        super(Language.LANGUAGE, JooqLanguage.class);
+        super(JooqLanguage.LANGUAGE, io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage.class);
     }
 
     /**
      * Create a new JooqLanguageDao with an attached configuration
      */
     public JooqLanguageDao(Configuration configuration) {
-        super(Language.LANGUAGE, JooqLanguage.class, configuration);
+        super(JooqLanguage.LANGUAGE, io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage.class, configuration);
     }
 
     @Override
-    public UUID getId(JooqLanguage object) {
+    public UUID getId(io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage object) {
         return object.getUuid();
     }
 
@@ -46,87 +45,87 @@ public class JooqLanguageDao extends DAOImpl<LanguageRecord, JooqLanguage, UUID>
      * Fetch records that have <code>uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqLanguage> fetchRangeOfUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Language.LANGUAGE.UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage> fetchRangeOfJooqUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqLanguage.LANGUAGE.UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>uuid IN (values)</code>
      */
-    public List<JooqLanguage> fetchByUuid(UUID... values) {
-        return fetch(Language.LANGUAGE.UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage> fetchByJooqUuid(UUID... values) {
+        return fetch(JooqLanguage.LANGUAGE.UUID, values);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public JooqLanguage fetchOneByUuid(UUID value) {
-        return fetchOne(Language.LANGUAGE.UUID, value);
+    public io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage fetchOneByJooqUuid(UUID value) {
+        return fetchOne(JooqLanguage.LANGUAGE.UUID, value);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public Optional<JooqLanguage> fetchOptionalByUuid(UUID value) {
-        return fetchOptional(Language.LANGUAGE.UUID, value);
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage> fetchOptionalByJooqUuid(UUID value) {
+        return fetchOptional(JooqLanguage.LANGUAGE.UUID, value);
     }
 
     /**
      * Fetch records that have <code>native_name BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqLanguage> fetchRangeOfNativeName(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Language.LANGUAGE.NATIVE_NAME, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage> fetchRangeOfJooqNativeName(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqLanguage.LANGUAGE.NATIVE_NAME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>native_name IN (values)</code>
      */
-    public List<JooqLanguage> fetchByNativeName(String... values) {
-        return fetch(Language.LANGUAGE.NATIVE_NAME, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage> fetchByJooqNativeName(String... values) {
+        return fetch(JooqLanguage.LANGUAGE.NATIVE_NAME, values);
     }
 
     /**
      * Fetch records that have <code>tag BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqLanguage> fetchRangeOfTag(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Language.LANGUAGE.TAG, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage> fetchRangeOfJooqTag(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqLanguage.LANGUAGE.TAG, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>tag IN (values)</code>
      */
-    public List<JooqLanguage> fetchByTag(String... values) {
-        return fetch(Language.LANGUAGE.TAG, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage> fetchByJooqTag(String... values) {
+        return fetch(JooqLanguage.LANGUAGE.TAG, values);
     }
 
     /**
      * Fetch a unique record that has <code>tag = value</code>
      */
-    public JooqLanguage fetchOneByTag(String value) {
-        return fetchOne(Language.LANGUAGE.TAG, value);
+    public io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage fetchOneByJooqTag(String value) {
+        return fetchOne(JooqLanguage.LANGUAGE.TAG, value);
     }
 
     /**
      * Fetch a unique record that has <code>tag = value</code>
      */
-    public Optional<JooqLanguage> fetchOptionalByTag(String value) {
-        return fetchOptional(Language.LANGUAGE.TAG, value);
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage> fetchOptionalByJooqTag(String value) {
+        return fetchOptional(JooqLanguage.LANGUAGE.TAG, value);
     }
 
     /**
      * Fetch records that have <code>meta BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqLanguage> fetchRangeOfMeta(JSONB lowerInclusive, JSONB upperInclusive) {
-        return fetchRange(Language.LANGUAGE.META, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage> fetchRangeOfJooqMeta(JSONB lowerInclusive, JSONB upperInclusive) {
+        return fetchRange(JooqLanguage.LANGUAGE.META, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>meta IN (values)</code>
      */
-    public List<JooqLanguage> fetchByMeta(JSONB... values) {
-        return fetch(Language.LANGUAGE.META, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqLanguage> fetchByJooqMeta(JSONB... values) {
+        return fetch(JooqLanguage.LANGUAGE.META, values);
     }
 }

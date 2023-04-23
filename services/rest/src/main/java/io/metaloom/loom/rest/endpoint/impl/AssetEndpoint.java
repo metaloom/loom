@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.auth.LoomAuthenticationHandler;
-import io.metaloom.loom.db.model.asset.LoomAssetDao;
+import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.rest.AbstractRESTEndpoint;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
 import io.metaloom.loom.rest.model.asset.AssetListResponse;
@@ -25,10 +25,10 @@ public class AssetEndpoint extends AbstractRESTEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpoint.class);
 
-	private LoomAssetDao assetDao;
+	private AssetDao assetDao;
 
 	@Inject
-	public AssetEndpoint(Vertx vertx, @Named("restRouter") Router router, LoomAssetDao assetDao, LoomAuthenticationHandler authHandler) {
+	public AssetEndpoint(Vertx vertx, @Named("restRouter") Router router, AssetDao assetDao, LoomAuthenticationHandler authHandler) {
 		super(vertx, router, authHandler);
 		this.assetDao = assetDao;
 	}

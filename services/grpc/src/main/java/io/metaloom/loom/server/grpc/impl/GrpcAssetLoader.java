@@ -5,8 +5,8 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.metaloom.loom.db.LoomDaoCollection;
-import io.metaloom.loom.db.model.asset.LoomAsset;
-import io.metaloom.loom.db.model.asset.LoomAssetBinary;
+import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.loom.db.model.asset.AssetBinary;
 import io.metaloom.loom.db.model.namespace.LoomNamespace;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.proto.AssetRequest;
@@ -33,7 +33,7 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		long size = request.getSize();
 		String path = request.getPath();
 
-		LoomAssetBinary binary = daos.assetBinaryDao().loadBinary(sha512sum);
+		AssetBinary binary = daos.assetBinaryDao().loadBinary(sha512sum);
 		if (binary == null) {
 			binary = daos.assetBinaryDao().createBinary(sha512sum, size);
 		}
@@ -48,7 +48,7 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		daos.userDao().storeUser(creator);
 		
 		LoomNamespace namespace = daos.namespaceDao().createNamespace("test");
-		LoomAsset asset = daos.assetDao().createAsset(path, binary.getUuid(), creator.getUuid(), namespace.getUuid());
+		Asset asset = daos.assetDao().createAsset(path, binary.getUuid(), creator.getUuid(), namespace.getUuid());
 		daos.assetDao().storeAsset(asset);
 
 		UUID uuid = asset.getUuid();

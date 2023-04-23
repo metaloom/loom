@@ -4,9 +4,8 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.tables.Field;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqField;
-import io.metaloom.loom.db.jooq.tables.records.FieldRecord;
+import io.metaloom.loom.db.jooq.tables.JooqField;
+import io.metaloom.loom.db.jooq.tables.records.JooqFieldRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,24 +21,24 @@ import org.jooq.impl.DAOImpl;
  * Table which stores the actual fields content as JSON
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqFieldDao extends DAOImpl<FieldRecord, JooqField, UUID> {
+public class JooqFieldDao extends DAOImpl<JooqFieldRecord, io.metaloom.loom.db.jooq.tables.pojos.JooqField, UUID> {
 
     /**
      * Create a new JooqFieldDao without any configuration
      */
     public JooqFieldDao() {
-        super(Field.FIELD, JooqField.class);
+        super(JooqField.FIELD, io.metaloom.loom.db.jooq.tables.pojos.JooqField.class);
     }
 
     /**
      * Create a new JooqFieldDao with an attached configuration
      */
     public JooqFieldDao(Configuration configuration) {
-        super(Field.FIELD, JooqField.class, configuration);
+        super(JooqField.FIELD, io.metaloom.loom.db.jooq.tables.pojos.JooqField.class, configuration);
     }
 
     @Override
-    public UUID getId(JooqField object) {
+    public UUID getId(io.metaloom.loom.db.jooq.tables.pojos.JooqField object) {
         return object.getUuid();
     }
 
@@ -47,163 +46,163 @@ public class JooqFieldDao extends DAOImpl<FieldRecord, JooqField, UUID> {
      * Fetch records that have <code>uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqField> fetchRangeOfUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Field.FIELD.UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchRangeOfJooqUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqField.FIELD.UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>uuid IN (values)</code>
      */
-    public List<JooqField> fetchByUuid(UUID... values) {
-        return fetch(Field.FIELD.UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchByJooqUuid(UUID... values) {
+        return fetch(JooqField.FIELD.UUID, values);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public JooqField fetchOneByUuid(UUID value) {
-        return fetchOne(Field.FIELD.UUID, value);
+    public io.metaloom.loom.db.jooq.tables.pojos.JooqField fetchOneByJooqUuid(UUID value) {
+        return fetchOne(JooqField.FIELD.UUID, value);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public Optional<JooqField> fetchOptionalByUuid(UUID value) {
-        return fetchOptional(Field.FIELD.UUID, value);
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchOptionalByJooqUuid(UUID value) {
+        return fetchOptional(JooqField.FIELD.UUID, value);
     }
 
     /**
      * Fetch records that have <code>content_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqField> fetchRangeOfContentUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Field.FIELD.CONTENT_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchRangeOfJooqContentUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqField.FIELD.CONTENT_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>content_uuid IN (values)</code>
      */
-    public List<JooqField> fetchByContentUuid(UUID... values) {
-        return fetch(Field.FIELD.CONTENT_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchByJooqContentUuid(UUID... values) {
+        return fetch(JooqField.FIELD.CONTENT_UUID, values);
     }
 
     /**
      * Fetch records that have <code>fields_json BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqField> fetchRangeOfFieldsJson(JSONB lowerInclusive, JSONB upperInclusive) {
-        return fetchRange(Field.FIELD.FIELDS_JSON, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchRangeOfJooqFieldsJson(JSONB lowerInclusive, JSONB upperInclusive) {
+        return fetchRange(JooqField.FIELD.FIELDS_JSON, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>fields_json IN (values)</code>
      */
-    public List<JooqField> fetchByFieldsJson(JSONB... values) {
-        return fetch(Field.FIELD.FIELDS_JSON, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchByJooqFieldsJson(JSONB... values) {
+        return fetch(JooqField.FIELD.FIELDS_JSON, values);
     }
 
     /**
      * Fetch records that have <code>language_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqField> fetchRangeOfLanguageUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Field.FIELD.LANGUAGE_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchRangeOfJooqLanguageUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqField.FIELD.LANGUAGE_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>language_uuid IN (values)</code>
      */
-    public List<JooqField> fetchByLanguageUuid(UUID... values) {
-        return fetch(Field.FIELD.LANGUAGE_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchByJooqLanguageUuid(UUID... values) {
+        return fetch(JooqField.FIELD.LANGUAGE_UUID, values);
     }
 
     /**
      * Fetch records that have <code>edited BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqField> fetchRangeOfEdited(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
-        return fetchRange(Field.FIELD.EDITED, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchRangeOfJooqEdited(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
+        return fetchRange(JooqField.FIELD.EDITED, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>edited IN (values)</code>
      */
-    public List<JooqField> fetchByEdited(LocalDateTime... values) {
-        return fetch(Field.FIELD.EDITED, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchByJooqEdited(LocalDateTime... values) {
+        return fetch(JooqField.FIELD.EDITED, values);
     }
 
     /**
      * Fetch records that have <code>editor_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqField> fetchRangeOfEditorUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Field.FIELD.EDITOR_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchRangeOfJooqEditorUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqField.FIELD.EDITOR_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>editor_uuid IN (values)</code>
      */
-    public List<JooqField> fetchByEditorUuid(UUID... values) {
-        return fetch(Field.FIELD.EDITOR_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchByJooqEditorUuid(UUID... values) {
+        return fetch(JooqField.FIELD.EDITOR_UUID, values);
     }
 
     /**
      * Fetch records that have <code>created BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqField> fetchRangeOfCreated(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
-        return fetchRange(Field.FIELD.CREATED, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchRangeOfJooqCreated(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
+        return fetchRange(JooqField.FIELD.CREATED, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>created IN (values)</code>
      */
-    public List<JooqField> fetchByCreated(LocalDateTime... values) {
-        return fetch(Field.FIELD.CREATED, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchByJooqCreated(LocalDateTime... values) {
+        return fetch(JooqField.FIELD.CREATED, values);
     }
 
     /**
      * Fetch records that have <code>creator_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqField> fetchRangeOfCreatorUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Field.FIELD.CREATOR_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchRangeOfJooqCreatorUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqField.FIELD.CREATOR_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>creator_uuid IN (values)</code>
      */
-    public List<JooqField> fetchByCreatorUuid(UUID... values) {
-        return fetch(Field.FIELD.CREATOR_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchByJooqCreatorUuid(UUID... values) {
+        return fetch(JooqField.FIELD.CREATOR_UUID, values);
     }
 
     /**
      * Fetch records that have <code>modelversion_uuid BETWEEN lowerInclusive
      * AND upperInclusive</code>
      */
-    public List<JooqField> fetchRangeOfModelversionUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Field.FIELD.MODELVERSION_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchRangeOfJooqModelversionUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqField.FIELD.MODELVERSION_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>modelversion_uuid IN (values)</code>
      */
-    public List<JooqField> fetchByModelversionUuid(UUID... values) {
-        return fetch(Field.FIELD.MODELVERSION_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchByJooqModelversionUuid(UUID... values) {
+        return fetch(JooqField.FIELD.MODELVERSION_UUID, values);
     }
 
     /**
      * Fetch records that have <code>version BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqField> fetchRangeOfVersion(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(Field.FIELD.VERSION, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchRangeOfJooqVersion(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(JooqField.FIELD.VERSION, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>version IN (values)</code>
      */
-    public List<JooqField> fetchByVersion(Integer... values) {
-        return fetch(Field.FIELD.VERSION, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqField> fetchByJooqVersion(Integer... values) {
+        return fetch(JooqField.FIELD.VERSION, values);
     }
 }

@@ -4,7 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.pojos;
 
 
-import io.metaloom.loom.db.jooq.enums.LoomEvent;
+import io.metaloom.loom.db.jooq.enums.JooqLoomEvent;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ public class JooqWebhook implements Serializable {
     private String url;
     private String status;
     private Boolean active;
-    private LoomEvent trigger;
+    private JooqLoomEvent trigger;
     private String secrettoken;
     private JSONB meta;
     private LocalDateTime created;
@@ -54,7 +54,7 @@ public class JooqWebhook implements Serializable {
         String url,
         String status,
         Boolean active,
-        LoomEvent trigger,
+        JooqLoomEvent trigger,
         String secrettoken,
         JSONB meta,
         LocalDateTime created,
@@ -135,7 +135,7 @@ public class JooqWebhook implements Serializable {
      * Getter for <code>public.webhook.trigger</code>. List of triggers which
      * can invoke the webhook
      */
-    public LoomEvent getTrigger() {
+    public JooqLoomEvent getTrigger() {
         return this.trigger;
     }
 
@@ -143,7 +143,7 @@ public class JooqWebhook implements Serializable {
      * Setter for <code>public.webhook.trigger</code>. List of triggers which
      * can invoke the webhook
      */
-    public void setTrigger(LoomEvent trigger) {
+    public void setTrigger(JooqLoomEvent trigger) {
         this.trigger = trigger;
     }
 

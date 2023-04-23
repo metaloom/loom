@@ -4,10 +4,9 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.enums.LoomExtensionType;
-import io.metaloom.loom.db.jooq.tables.Extension;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqExtension;
-import io.metaloom.loom.db.jooq.tables.records.ExtensionRecord;
+import io.metaloom.loom.db.jooq.enums.JooqLoomExtensionType;
+import io.metaloom.loom.db.jooq.tables.JooqExtension;
+import io.metaloom.loom.db.jooq.tables.records.JooqExtensionRecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,24 +22,24 @@ import org.jooq.impl.DAOImpl;
  * Table which lists the registered extensions
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqExtensionDao extends DAOImpl<ExtensionRecord, JooqExtension, UUID> {
+public class JooqExtensionDao extends DAOImpl<JooqExtensionRecord, io.metaloom.loom.db.jooq.tables.pojos.JooqExtension, UUID> {
 
     /**
      * Create a new JooqExtensionDao without any configuration
      */
     public JooqExtensionDao() {
-        super(Extension.EXTENSION, JooqExtension.class);
+        super(JooqExtension.EXTENSION, io.metaloom.loom.db.jooq.tables.pojos.JooqExtension.class);
     }
 
     /**
      * Create a new JooqExtensionDao with an attached configuration
      */
     public JooqExtensionDao(Configuration configuration) {
-        super(Extension.EXTENSION, JooqExtension.class, configuration);
+        super(JooqExtension.EXTENSION, io.metaloom.loom.db.jooq.tables.pojos.JooqExtension.class, configuration);
     }
 
     @Override
-    public UUID getId(JooqExtension object) {
+    public UUID getId(io.metaloom.loom.db.jooq.tables.pojos.JooqExtension object) {
         return object.getUuid();
     }
 
@@ -48,148 +47,148 @@ public class JooqExtensionDao extends DAOImpl<ExtensionRecord, JooqExtension, UU
      * Fetch records that have <code>uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqExtension> fetchRangeOfUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Extension.EXTENSION.UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchRangeOfJooqUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqExtension.EXTENSION.UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>uuid IN (values)</code>
      */
-    public List<JooqExtension> fetchByUuid(UUID... values) {
-        return fetch(Extension.EXTENSION.UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchByJooqUuid(UUID... values) {
+        return fetch(JooqExtension.EXTENSION.UUID, values);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public JooqExtension fetchOneByUuid(UUID value) {
-        return fetchOne(Extension.EXTENSION.UUID, value);
+    public io.metaloom.loom.db.jooq.tables.pojos.JooqExtension fetchOneByJooqUuid(UUID value) {
+        return fetchOne(JooqExtension.EXTENSION.UUID, value);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public Optional<JooqExtension> fetchOptionalByUuid(UUID value) {
-        return fetchOptional(Extension.EXTENSION.UUID, value);
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchOptionalByJooqUuid(UUID value) {
+        return fetchOptional(JooqExtension.EXTENSION.UUID, value);
     }
 
     /**
      * Fetch records that have <code>url BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqExtension> fetchRangeOfUrl(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Extension.EXTENSION.URL, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchRangeOfJooqUrl(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqExtension.EXTENSION.URL, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>url IN (values)</code>
      */
-    public List<JooqExtension> fetchByUrl(String... values) {
-        return fetch(Extension.EXTENSION.URL, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchByJooqUrl(String... values) {
+        return fetch(JooqExtension.EXTENSION.URL, values);
     }
 
     /**
      * Fetch records that have <code>kind BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqExtension> fetchRangeOfKind(LoomExtensionType lowerInclusive, LoomExtensionType upperInclusive) {
-        return fetchRange(Extension.EXTENSION.KIND, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchRangeOfJooqKind(JooqLoomExtensionType lowerInclusive, JooqLoomExtensionType upperInclusive) {
+        return fetchRange(JooqExtension.EXTENSION.KIND, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>kind IN (values)</code>
      */
-    public List<JooqExtension> fetchByKind(LoomExtensionType... values) {
-        return fetch(Extension.EXTENSION.KIND, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchByJooqKind(JooqLoomExtensionType... values) {
+        return fetch(JooqExtension.EXTENSION.KIND, values);
     }
 
     /**
      * Fetch records that have <code>status BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqExtension> fetchRangeOfStatus(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Extension.EXTENSION.STATUS, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchRangeOfJooqStatus(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqExtension.EXTENSION.STATUS, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>status IN (values)</code>
      */
-    public List<JooqExtension> fetchByStatus(String... values) {
-        return fetch(Extension.EXTENSION.STATUS, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchByJooqStatus(String... values) {
+        return fetch(JooqExtension.EXTENSION.STATUS, values);
     }
 
     /**
      * Fetch records that have <code>meta BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqExtension> fetchRangeOfMeta(JSONB lowerInclusive, JSONB upperInclusive) {
-        return fetchRange(Extension.EXTENSION.META, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchRangeOfJooqMeta(JSONB lowerInclusive, JSONB upperInclusive) {
+        return fetchRange(JooqExtension.EXTENSION.META, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>meta IN (values)</code>
      */
-    public List<JooqExtension> fetchByMeta(JSONB... values) {
-        return fetch(Extension.EXTENSION.META, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchByJooqMeta(JSONB... values) {
+        return fetch(JooqExtension.EXTENSION.META, values);
     }
 
     /**
      * Fetch records that have <code>created BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqExtension> fetchRangeOfCreated(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
-        return fetchRange(Extension.EXTENSION.CREATED, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchRangeOfJooqCreated(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
+        return fetchRange(JooqExtension.EXTENSION.CREATED, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>created IN (values)</code>
      */
-    public List<JooqExtension> fetchByCreated(LocalDateTime... values) {
-        return fetch(Extension.EXTENSION.CREATED, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchByJooqCreated(LocalDateTime... values) {
+        return fetch(JooqExtension.EXTENSION.CREATED, values);
     }
 
     /**
      * Fetch records that have <code>creator_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqExtension> fetchRangeOfCreatorUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Extension.EXTENSION.CREATOR_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchRangeOfJooqCreatorUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqExtension.EXTENSION.CREATOR_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>creator_uuid IN (values)</code>
      */
-    public List<JooqExtension> fetchByCreatorUuid(UUID... values) {
-        return fetch(Extension.EXTENSION.CREATOR_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchByJooqCreatorUuid(UUID... values) {
+        return fetch(JooqExtension.EXTENSION.CREATOR_UUID, values);
     }
 
     /**
      * Fetch records that have <code>edited BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqExtension> fetchRangeOfEdited(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
-        return fetchRange(Extension.EXTENSION.EDITED, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchRangeOfJooqEdited(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
+        return fetchRange(JooqExtension.EXTENSION.EDITED, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>edited IN (values)</code>
      */
-    public List<JooqExtension> fetchByEdited(LocalDateTime... values) {
-        return fetch(Extension.EXTENSION.EDITED, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchByJooqEdited(LocalDateTime... values) {
+        return fetch(JooqExtension.EXTENSION.EDITED, values);
     }
 
     /**
      * Fetch records that have <code>editor_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqExtension> fetchRangeOfEditorUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Extension.EXTENSION.EDITOR_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchRangeOfJooqEditorUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqExtension.EXTENSION.EDITOR_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>editor_uuid IN (values)</code>
      */
-    public List<JooqExtension> fetchByEditorUuid(UUID... values) {
-        return fetch(Extension.EXTENSION.EDITOR_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqExtension> fetchByJooqEditorUuid(UUID... values) {
+        return fetch(JooqExtension.EXTENSION.EDITOR_UUID, values);
     }
 }

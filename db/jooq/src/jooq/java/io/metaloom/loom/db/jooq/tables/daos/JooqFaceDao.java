@@ -4,10 +4,9 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.enums.EmbeddingTypes;
-import io.metaloom.loom.db.jooq.tables.Face;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqFace;
-import io.metaloom.loom.db.jooq.tables.records.FaceRecord;
+import io.metaloom.loom.db.jooq.enums.JooqEmbeddingTypes;
+import io.metaloom.loom.db.jooq.tables.JooqFace;
+import io.metaloom.loom.db.jooq.tables.records.JooqFaceRecord;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,24 +21,24 @@ import org.jooq.impl.DAOImpl;
  * Stores embeddings
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqFaceDao extends DAOImpl<FaceRecord, JooqFace, UUID> {
+public class JooqFaceDao extends DAOImpl<JooqFaceRecord, io.metaloom.loom.db.jooq.tables.pojos.JooqFace, UUID> {
 
     /**
      * Create a new JooqFaceDao without any configuration
      */
     public JooqFaceDao() {
-        super(Face.FACE, JooqFace.class);
+        super(JooqFace.FACE, io.metaloom.loom.db.jooq.tables.pojos.JooqFace.class);
     }
 
     /**
      * Create a new JooqFaceDao with an attached configuration
      */
     public JooqFaceDao(Configuration configuration) {
-        super(Face.FACE, JooqFace.class, configuration);
+        super(JooqFace.FACE, io.metaloom.loom.db.jooq.tables.pojos.JooqFace.class, configuration);
     }
 
     @Override
-    public UUID getId(JooqFace object) {
+    public UUID getId(io.metaloom.loom.db.jooq.tables.pojos.JooqFace object) {
         return object.getUuid();
     }
 
@@ -47,117 +46,117 @@ public class JooqFaceDao extends DAOImpl<FaceRecord, JooqFace, UUID> {
      * Fetch records that have <code>uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqFace> fetchRangeOfUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(Face.FACE.UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchRangeOfJooqUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqFace.FACE.UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>uuid IN (values)</code>
      */
-    public List<JooqFace> fetchByUuid(UUID... values) {
-        return fetch(Face.FACE.UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchByJooqUuid(UUID... values) {
+        return fetch(JooqFace.FACE.UUID, values);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public JooqFace fetchOneByUuid(UUID value) {
-        return fetchOne(Face.FACE.UUID, value);
+    public io.metaloom.loom.db.jooq.tables.pojos.JooqFace fetchOneByJooqUuid(UUID value) {
+        return fetchOne(JooqFace.FACE.UUID, value);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public Optional<JooqFace> fetchOptionalByUuid(UUID value) {
-        return fetchOptional(Face.FACE.UUID, value);
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchOptionalByJooqUuid(UUID value) {
+        return fetchOptional(JooqFace.FACE.UUID, value);
     }
 
     /**
      * Fetch records that have <code>source BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqFace> fetchRangeOfSource(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Face.FACE.SOURCE, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchRangeOfJooqSource(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqFace.FACE.SOURCE, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>source IN (values)</code>
      */
-    public List<JooqFace> fetchBySource(String... values) {
-        return fetch(Face.FACE.SOURCE, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchByJooqSource(String... values) {
+        return fetch(JooqFace.FACE.SOURCE, values);
     }
 
     /**
      * Fetch a unique record that has <code>source = value</code>
      */
-    public JooqFace fetchOneBySource(String value) {
-        return fetchOne(Face.FACE.SOURCE, value);
+    public io.metaloom.loom.db.jooq.tables.pojos.JooqFace fetchOneByJooqSource(String value) {
+        return fetchOne(JooqFace.FACE.SOURCE, value);
     }
 
     /**
      * Fetch a unique record that has <code>source = value</code>
      */
-    public Optional<JooqFace> fetchOptionalBySource(String value) {
-        return fetchOptional(Face.FACE.SOURCE, value);
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchOptionalByJooqSource(String value) {
+        return fetchOptional(JooqFace.FACE.SOURCE, value);
     }
 
     /**
      * Fetch records that have <code>face_nr BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqFace> fetchRangeOfFaceNr(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(Face.FACE.FACE_NR, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchRangeOfJooqFaceNr(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(JooqFace.FACE.FACE_NR, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>face_nr IN (values)</code>
      */
-    public List<JooqFace> fetchByFaceNr(Integer... values) {
-        return fetch(Face.FACE.FACE_NR, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchByJooqFaceNr(Integer... values) {
+        return fetch(JooqFace.FACE.FACE_NR, values);
     }
 
     /**
      * Fetch records that have <code>blob BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqFace> fetchRangeOfBlob(byte[] lowerInclusive, byte[] upperInclusive) {
-        return fetchRange(Face.FACE.BLOB, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchRangeOfJooqBlob(byte[] lowerInclusive, byte[] upperInclusive) {
+        return fetchRange(JooqFace.FACE.BLOB, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>blob IN (values)</code>
      */
-    public List<JooqFace> fetchByBlob(byte[]... values) {
-        return fetch(Face.FACE.BLOB, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchByJooqBlob(byte[]... values) {
+        return fetch(JooqFace.FACE.BLOB, values);
     }
 
     /**
      * Fetch records that have <code>meta BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqFace> fetchRangeOfMeta(JSONB lowerInclusive, JSONB upperInclusive) {
-        return fetchRange(Face.FACE.META, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchRangeOfJooqMeta(JSONB lowerInclusive, JSONB upperInclusive) {
+        return fetchRange(JooqFace.FACE.META, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>meta IN (values)</code>
      */
-    public List<JooqFace> fetchByMeta(JSONB... values) {
-        return fetch(Face.FACE.META, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchByJooqMeta(JSONB... values) {
+        return fetch(JooqFace.FACE.META, values);
     }
 
     /**
      * Fetch records that have <code>type BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqFace> fetchRangeOfType(EmbeddingTypes lowerInclusive, EmbeddingTypes upperInclusive) {
-        return fetchRange(Face.FACE.TYPE, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchRangeOfJooqType(JooqEmbeddingTypes lowerInclusive, JooqEmbeddingTypes upperInclusive) {
+        return fetchRange(JooqFace.FACE.TYPE, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>type IN (values)</code>
      */
-    public List<JooqFace> fetchByType(EmbeddingTypes... values) {
-        return fetch(Face.FACE.TYPE, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFace> fetchByJooqType(JooqEmbeddingTypes... values) {
+        return fetch(JooqFace.FACE.TYPE, values);
     }
 }

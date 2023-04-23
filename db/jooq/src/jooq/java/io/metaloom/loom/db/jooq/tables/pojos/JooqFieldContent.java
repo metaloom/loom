@@ -4,7 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.pojos;
 
 
-import io.metaloom.loom.db.jooq.enums.LoomContentType;
+import io.metaloom.loom.db.jooq.enums.JooqLoomContentType;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -21,7 +21,7 @@ public class JooqFieldContent implements Serializable {
     private UUID fieldsUuid;
     private UUID contentUuid;
     private String webrootPathInfo;
-    private LoomContentType contentType;
+    private JooqLoomContentType contentType;
 
     public JooqFieldContent() {}
 
@@ -36,7 +36,7 @@ public class JooqFieldContent implements Serializable {
         UUID fieldsUuid,
         UUID contentUuid,
         String webrootPathInfo,
-        LoomContentType contentType
+        JooqLoomContentType contentType
     ) {
         this.fieldsUuid = fieldsUuid;
         this.contentUuid = contentUuid;
@@ -92,7 +92,7 @@ public class JooqFieldContent implements Serializable {
      * Getter for <code>public.field_content.content_type</code>. D or P for
      * draft and published
      */
-    public LoomContentType getContentType() {
+    public JooqLoomContentType getContentType() {
         return this.contentType;
     }
 
@@ -100,7 +100,7 @@ public class JooqFieldContent implements Serializable {
      * Setter for <code>public.field_content.content_type</code>. D or P for
      * draft and published
      */
-    public void setContentType(LoomContentType contentType) {
+    public void setContentType(JooqLoomContentType contentType) {
         this.contentType = contentType;
     }
 

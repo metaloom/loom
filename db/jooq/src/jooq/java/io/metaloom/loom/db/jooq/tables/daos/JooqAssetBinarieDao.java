@@ -4,9 +4,8 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.tables.AssetBinarie;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie;
-import io.metaloom.loom.db.jooq.tables.records.AssetBinarieRecord;
+import io.metaloom.loom.db.jooq.tables.JooqAssetBinarie;
+import io.metaloom.loom.db.jooq.tables.records.JooqAssetBinarieRecord;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,24 +19,24 @@ import org.jooq.impl.DAOImpl;
  * This table stores the immutable asset information
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqAssetBinarieDao extends DAOImpl<AssetBinarieRecord, JooqAssetBinarie, UUID> {
+public class JooqAssetBinarieDao extends DAOImpl<JooqAssetBinarieRecord, io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie, UUID> {
 
     /**
      * Create a new JooqAssetBinarieDao without any configuration
      */
     public JooqAssetBinarieDao() {
-        super(AssetBinarie.ASSET_BINARIE, JooqAssetBinarie.class);
+        super(JooqAssetBinarie.ASSET_BINARIE, io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie.class);
     }
 
     /**
      * Create a new JooqAssetBinarieDao with an attached configuration
      */
     public JooqAssetBinarieDao(Configuration configuration) {
-        super(AssetBinarie.ASSET_BINARIE, JooqAssetBinarie.class, configuration);
+        super(JooqAssetBinarie.ASSET_BINARIE, io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie.class, configuration);
     }
 
     @Override
-    public UUID getId(JooqAssetBinarie object) {
+    public UUID getId(io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie object) {
         return object.getUuid();
     }
 
@@ -45,163 +44,163 @@ public class JooqAssetBinarieDao extends DAOImpl<AssetBinarieRecord, JooqAssetBi
      * Fetch records that have <code>uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetBinarie> fetchRangeOfUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchRangeOfJooqUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqAssetBinarie.ASSET_BINARIE.UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>uuid IN (values)</code>
      */
-    public List<JooqAssetBinarie> fetchByUuid(UUID... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchByJooqUuid(UUID... values) {
+        return fetch(JooqAssetBinarie.ASSET_BINARIE.UUID, values);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public JooqAssetBinarie fetchOneByUuid(UUID value) {
-        return fetchOne(AssetBinarie.ASSET_BINARIE.UUID, value);
+    public io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie fetchOneByJooqUuid(UUID value) {
+        return fetchOne(JooqAssetBinarie.ASSET_BINARIE.UUID, value);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public Optional<JooqAssetBinarie> fetchOptionalByUuid(UUID value) {
-        return fetchOptional(AssetBinarie.ASSET_BINARIE.UUID, value);
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchOptionalByJooqUuid(UUID value) {
+        return fetchOptional(JooqAssetBinarie.ASSET_BINARIE.UUID, value);
     }
 
     /**
      * Fetch records that have <code>sha512sum BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetBinarie> fetchRangeOfSha512sum(String lowerInclusive, String upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.SHA512SUM, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchRangeOfJooqSha512sum(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqAssetBinarie.ASSET_BINARIE.SHA512SUM, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>sha512sum IN (values)</code>
      */
-    public List<JooqAssetBinarie> fetchBySha512sum(String... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.SHA512SUM, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchByJooqSha512sum(String... values) {
+        return fetch(JooqAssetBinarie.ASSET_BINARIE.SHA512SUM, values);
     }
 
     /**
      * Fetch records that have <code>sha256sum BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetBinarie> fetchRangeOfSha256sum(String lowerInclusive, String upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.SHA256SUM, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchRangeOfJooqSha256sum(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqAssetBinarie.ASSET_BINARIE.SHA256SUM, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>sha256sum IN (values)</code>
      */
-    public List<JooqAssetBinarie> fetchBySha256sum(String... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.SHA256SUM, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchByJooqSha256sum(String... values) {
+        return fetch(JooqAssetBinarie.ASSET_BINARIE.SHA256SUM, values);
     }
 
     /**
      * Fetch records that have <code>chunkHash BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetBinarie> fetchRangeOfChunkhash(String lowerInclusive, String upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.CHUNKHASH, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchRangeOfJooqChunkhash(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqAssetBinarie.ASSET_BINARIE.CHUNKHASH, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>chunkHash IN (values)</code>
      */
-    public List<JooqAssetBinarie> fetchByChunkhash(String... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.CHUNKHASH, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchByJooqChunkhash(String... values) {
+        return fetch(JooqAssetBinarie.ASSET_BINARIE.CHUNKHASH, values);
     }
 
     /**
      * Fetch records that have <code>md5sum BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetBinarie> fetchRangeOfMd5sum(String lowerInclusive, String upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.MD5SUM, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchRangeOfJooqMd5sum(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqAssetBinarie.ASSET_BINARIE.MD5SUM, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>md5sum IN (values)</code>
      */
-    public List<JooqAssetBinarie> fetchByMd5sum(String... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.MD5SUM, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchByJooqMd5sum(String... values) {
+        return fetch(JooqAssetBinarie.ASSET_BINARIE.MD5SUM, values);
     }
 
     /**
      * Fetch records that have <code>size BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetBinarie> fetchRangeOfSize(Long lowerInclusive, Long upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.SIZE, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchRangeOfJooqSize(Long lowerInclusive, Long upperInclusive) {
+        return fetchRange(JooqAssetBinarie.ASSET_BINARIE.SIZE, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>size IN (values)</code>
      */
-    public List<JooqAssetBinarie> fetchBySize(Long... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.SIZE, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchByJooqSize(Long... values) {
+        return fetch(JooqAssetBinarie.ASSET_BINARIE.SIZE, values);
     }
 
     /**
      * Fetch records that have <code>media_width BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetBinarie> fetchRangeOfMediaWidth(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.MEDIA_WIDTH, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchRangeOfJooqMediaWidth(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(JooqAssetBinarie.ASSET_BINARIE.MEDIA_WIDTH, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>media_width IN (values)</code>
      */
-    public List<JooqAssetBinarie> fetchByMediaWidth(Integer... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.MEDIA_WIDTH, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchByJooqMediaWidth(Integer... values) {
+        return fetch(JooqAssetBinarie.ASSET_BINARIE.MEDIA_WIDTH, values);
     }
 
     /**
      * Fetch records that have <code>media_height BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetBinarie> fetchRangeOfMediaHeight(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.MEDIA_HEIGHT, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchRangeOfJooqMediaHeight(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(JooqAssetBinarie.ASSET_BINARIE.MEDIA_HEIGHT, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>media_height IN (values)</code>
      */
-    public List<JooqAssetBinarie> fetchByMediaHeight(Integer... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.MEDIA_HEIGHT, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchByJooqMediaHeight(Integer... values) {
+        return fetch(JooqAssetBinarie.ASSET_BINARIE.MEDIA_HEIGHT, values);
     }
 
     /**
      * Fetch records that have <code>zero_chunk_count BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetBinarie> fetchRangeOfZeroChunkCount(Long lowerInclusive, Long upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.ZERO_CHUNK_COUNT, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchRangeOfJooqZeroChunkCount(Long lowerInclusive, Long upperInclusive) {
+        return fetchRange(JooqAssetBinarie.ASSET_BINARIE.ZERO_CHUNK_COUNT, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>zero_chunk_count IN (values)</code>
      */
-    public List<JooqAssetBinarie> fetchByZeroChunkCount(Long... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.ZERO_CHUNK_COUNT, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchByJooqZeroChunkCount(Long... values) {
+        return fetch(JooqAssetBinarie.ASSET_BINARIE.ZERO_CHUNK_COUNT, values);
     }
 
     /**
      * Fetch records that have <code>fingerprint BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetBinarie> fetchRangeOfFingerprint(String lowerInclusive, String upperInclusive) {
-        return fetchRange(AssetBinarie.ASSET_BINARIE.FINGERPRINT, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchRangeOfJooqFingerprint(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqAssetBinarie.ASSET_BINARIE.FINGERPRINT, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>fingerprint IN (values)</code>
      */
-    public List<JooqAssetBinarie> fetchByFingerprint(String... values) {
-        return fetch(AssetBinarie.ASSET_BINARIE.FINGERPRINT, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie> fetchByJooqFingerprint(String... values) {
+        return fetch(JooqAssetBinarie.ASSET_BINARIE.FINGERPRINT, values);
     }
 }

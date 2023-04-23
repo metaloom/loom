@@ -45,7 +45,7 @@ public class NonReactiveGeneratedDaoTest extends AbstractJooqTest {
 
 		JooqUserDao dao = new JooqUserDao(ctx.configuration());
 
-		List<JooqUser> users = dao.fetchByUsername("joedoe");
+		List<JooqUser> users = dao.fetchByJooqUsername("joedoe");
 		for (JooqUser u : users) {
 			System.out.println("Found: " + u.getUsername() + " " + u.getUuid());
 		}

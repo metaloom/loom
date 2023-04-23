@@ -4,9 +4,8 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.tables.AssetTimeline;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline;
-import io.metaloom.loom.db.jooq.tables.records.AssetTimelineRecord;
+import io.metaloom.loom.db.jooq.tables.JooqAssetTimeline;
+import io.metaloom.loom.db.jooq.tables.records.JooqAssetTimelineRecord;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,24 +20,24 @@ import org.jooq.impl.DAOImpl;
  * This table contains asset timeline entries
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqAssetTimelineDao extends DAOImpl<AssetTimelineRecord, JooqAssetTimeline, UUID> {
+public class JooqAssetTimelineDao extends DAOImpl<JooqAssetTimelineRecord, io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline, UUID> {
 
     /**
      * Create a new JooqAssetTimelineDao without any configuration
      */
     public JooqAssetTimelineDao() {
-        super(AssetTimeline.ASSET_TIMELINE, JooqAssetTimeline.class);
+        super(JooqAssetTimeline.ASSET_TIMELINE, io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline.class);
     }
 
     /**
      * Create a new JooqAssetTimelineDao with an attached configuration
      */
     public JooqAssetTimelineDao(Configuration configuration) {
-        super(AssetTimeline.ASSET_TIMELINE, JooqAssetTimeline.class, configuration);
+        super(JooqAssetTimeline.ASSET_TIMELINE, io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline.class, configuration);
     }
 
     @Override
-    public UUID getId(JooqAssetTimeline object) {
+    public UUID getId(io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline object) {
         return object.getUuid();
     }
 
@@ -46,133 +45,133 @@ public class JooqAssetTimelineDao extends DAOImpl<AssetTimelineRecord, JooqAsset
      * Fetch records that have <code>uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetTimeline> fetchRangeOfUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(AssetTimeline.ASSET_TIMELINE.UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchRangeOfJooqUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqAssetTimeline.ASSET_TIMELINE.UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>uuid IN (values)</code>
      */
-    public List<JooqAssetTimeline> fetchByUuid(UUID... values) {
-        return fetch(AssetTimeline.ASSET_TIMELINE.UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchByJooqUuid(UUID... values) {
+        return fetch(JooqAssetTimeline.ASSET_TIMELINE.UUID, values);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public JooqAssetTimeline fetchOneByUuid(UUID value) {
-        return fetchOne(AssetTimeline.ASSET_TIMELINE.UUID, value);
+    public io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline fetchOneByJooqUuid(UUID value) {
+        return fetchOne(JooqAssetTimeline.ASSET_TIMELINE.UUID, value);
     }
 
     /**
      * Fetch a unique record that has <code>uuid = value</code>
      */
-    public Optional<JooqAssetTimeline> fetchOptionalByUuid(UUID value) {
-        return fetchOptional(AssetTimeline.ASSET_TIMELINE.UUID, value);
+    public Optional<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchOptionalByJooqUuid(UUID value) {
+        return fetchOptional(JooqAssetTimeline.ASSET_TIMELINE.UUID, value);
     }
 
     /**
      * Fetch records that have <code>asset_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetTimeline> fetchRangeOfAssetUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(AssetTimeline.ASSET_TIMELINE.ASSET_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchRangeOfJooqAssetUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqAssetTimeline.ASSET_TIMELINE.ASSET_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>asset_uuid IN (values)</code>
      */
-    public List<JooqAssetTimeline> fetchByAssetUuid(UUID... values) {
-        return fetch(AssetTimeline.ASSET_TIMELINE.ASSET_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchByJooqAssetUuid(UUID... values) {
+        return fetch(JooqAssetTimeline.ASSET_TIMELINE.ASSET_UUID, values);
     }
 
     /**
      * Fetch records that have <code>from BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetTimeline> fetchRangeOfFrom(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(AssetTimeline.ASSET_TIMELINE.FROM, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchRangeOfJooqFrom(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(JooqAssetTimeline.ASSET_TIMELINE.FROM, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>from IN (values)</code>
      */
-    public List<JooqAssetTimeline> fetchByFrom(Integer... values) {
-        return fetch(AssetTimeline.ASSET_TIMELINE.FROM, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchByJooqFrom(Integer... values) {
+        return fetch(JooqAssetTimeline.ASSET_TIMELINE.FROM, values);
     }
 
     /**
      * Fetch records that have <code>to BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetTimeline> fetchRangeOfTo(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(AssetTimeline.ASSET_TIMELINE.TO, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchRangeOfJooqTo(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(JooqAssetTimeline.ASSET_TIMELINE.TO, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>to IN (values)</code>
      */
-    public List<JooqAssetTimeline> fetchByTo(Integer... values) {
-        return fetch(AssetTimeline.ASSET_TIMELINE.TO, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchByJooqTo(Integer... values) {
+        return fetch(JooqAssetTimeline.ASSET_TIMELINE.TO, values);
     }
 
     /**
      * Fetch records that have <code>description BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetTimeline> fetchRangeOfDescription(String lowerInclusive, String upperInclusive) {
-        return fetchRange(AssetTimeline.ASSET_TIMELINE.DESCRIPTION, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchRangeOfJooqDescription(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqAssetTimeline.ASSET_TIMELINE.DESCRIPTION, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>description IN (values)</code>
      */
-    public List<JooqAssetTimeline> fetchByDescription(String... values) {
-        return fetch(AssetTimeline.ASSET_TIMELINE.DESCRIPTION, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchByJooqDescription(String... values) {
+        return fetch(JooqAssetTimeline.ASSET_TIMELINE.DESCRIPTION, values);
     }
 
     /**
      * Fetch records that have <code>tags BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetTimeline> fetchRangeOfTags(String lowerInclusive, String upperInclusive) {
-        return fetchRange(AssetTimeline.ASSET_TIMELINE.TAGS, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchRangeOfJooqTags(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqAssetTimeline.ASSET_TIMELINE.TAGS, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>tags IN (values)</code>
      */
-    public List<JooqAssetTimeline> fetchByTags(String... values) {
-        return fetch(AssetTimeline.ASSET_TIMELINE.TAGS, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchByJooqTags(String... values) {
+        return fetch(JooqAssetTimeline.ASSET_TIMELINE.TAGS, values);
     }
 
     /**
      * Fetch records that have <code>meta BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetTimeline> fetchRangeOfMeta(JSONB lowerInclusive, JSONB upperInclusive) {
-        return fetchRange(AssetTimeline.ASSET_TIMELINE.META, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchRangeOfJooqMeta(JSONB lowerInclusive, JSONB upperInclusive) {
+        return fetchRange(JooqAssetTimeline.ASSET_TIMELINE.META, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>meta IN (values)</code>
      */
-    public List<JooqAssetTimeline> fetchByMeta(JSONB... values) {
-        return fetch(AssetTimeline.ASSET_TIMELINE.META, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchByJooqMeta(JSONB... values) {
+        return fetch(JooqAssetTimeline.ASSET_TIMELINE.META, values);
     }
 
     /**
      * Fetch records that have <code>thumbail BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqAssetTimeline> fetchRangeOfThumbail(String lowerInclusive, String upperInclusive) {
-        return fetchRange(AssetTimeline.ASSET_TIMELINE.THUMBAIL, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchRangeOfJooqThumbail(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqAssetTimeline.ASSET_TIMELINE.THUMBAIL, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>thumbail IN (values)</code>
      */
-    public List<JooqAssetTimeline> fetchByThumbail(String... values) {
-        return fetch(AssetTimeline.ASSET_TIMELINE.THUMBAIL, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqAssetTimeline> fetchByJooqThumbail(String... values) {
+        return fetch(JooqAssetTimeline.ASSET_TIMELINE.THUMBAIL, values);
     }
 }

@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import io.metaloom.loom.db.model.perm.LoomPermissionDao;
+import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -23,7 +23,7 @@ public class LoomAuthorizationProviderTest {
 	public void testBasics() {
 
 		LoomUserDao userDao = mock(LoomUserDao.class);
-		LoomPermissionDao permDao = mock(LoomPermissionDao.class);
+		PermissionDao permDao = mock(PermissionDao.class);
 		LoomAuthorizationProvider authProvider = new LoomAuthorizationProvider(userDao, permDao);
 
 		User user = new UserImpl(new JsonObject(), new JsonObject());

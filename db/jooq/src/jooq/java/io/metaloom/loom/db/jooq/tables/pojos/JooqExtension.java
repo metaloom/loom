@@ -4,7 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.pojos;
 
 
-import io.metaloom.loom.db.jooq.enums.LoomExtensionType;
+import io.metaloom.loom.db.jooq.enums.JooqLoomExtensionType;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -23,7 +23,7 @@ public class JooqExtension implements Serializable {
 
     private UUID uuid;
     private String url;
-    private LoomExtensionType kind;
+    private JooqLoomExtensionType kind;
     private String status;
     private JSONB meta;
     private LocalDateTime created;
@@ -48,7 +48,7 @@ public class JooqExtension implements Serializable {
     public JooqExtension(
         UUID uuid,
         String url,
-        LoomExtensionType kind,
+        JooqLoomExtensionType kind,
         String status,
         JSONB meta,
         LocalDateTime created,
@@ -99,7 +99,7 @@ public class JooqExtension implements Serializable {
      * Getter for <code>public.extension.kind</code>. Defines the type of the
      * extension service
      */
-    public LoomExtensionType getKind() {
+    public JooqLoomExtensionType getKind() {
         return this.kind;
     }
 
@@ -107,7 +107,7 @@ public class JooqExtension implements Serializable {
      * Setter for <code>public.extension.kind</code>. Defines the type of the
      * extension service
      */
-    public void setKind(LoomExtensionType kind) {
+    public void setKind(JooqLoomExtensionType kind) {
         this.kind = kind;
     }
 

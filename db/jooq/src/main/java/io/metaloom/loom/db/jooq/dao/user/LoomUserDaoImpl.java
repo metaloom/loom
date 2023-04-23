@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.user;
 
+import static io.metaloom.loom.db.jooq.tables.JooqUser.USER;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -14,7 +16,6 @@ import org.jooq.Record3;
 import org.jooq.SelectSeekStep1;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.User;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserDao;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
 import io.metaloom.loom.db.model.user.LoomUser;
@@ -54,7 +55,7 @@ public class LoomUserDaoImpl extends AbstractJooqDao<JooqUserDao> implements Loo
 
 	@Override
 	public LoomUser loadUserByUsername(String username) {
-		JooqUser user = dao().fetchOneByUsername(username);
+		JooqUser user = dao().fetchOneByJooqUsername(username);
 		if (user == null) {
 			return null;
 		}
@@ -80,9 +81,9 @@ public class LoomUserDaoImpl extends AbstractJooqDao<JooqUserDao> implements Loo
 	@Override
 	public Page<LoomUser> loadUsers(UUID fromUuid, int pageSize) {
 		SelectSeekStep1<Record3<UUID, String, String>, UUID> query = dao().ctx()
-			.select(User.USER.UUID, User.USER.USERNAME, User.USER.EMAIL)
-			.from(User.USER)
-			.orderBy(User.USER.UUID);
+			.select(USER.UUID, USER.USERNAME, USER.EMAIL)
+			.from(USER)
+			.orderBy(USER.UUID);
 		if (fromUuid != null) {
 			query.seek(fromUuid);
 		}

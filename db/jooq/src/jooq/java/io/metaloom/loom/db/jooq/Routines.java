@@ -4,16 +4,16 @@
 package io.metaloom.loom.db.jooq;
 
 
-import io.metaloom.loom.db.jooq.routines.UuidGenerateV1;
-import io.metaloom.loom.db.jooq.routines.UuidGenerateV1mc;
-import io.metaloom.loom.db.jooq.routines.UuidGenerateV3;
-import io.metaloom.loom.db.jooq.routines.UuidGenerateV4;
-import io.metaloom.loom.db.jooq.routines.UuidGenerateV5;
-import io.metaloom.loom.db.jooq.routines.UuidNil;
-import io.metaloom.loom.db.jooq.routines.UuidNsDns;
-import io.metaloom.loom.db.jooq.routines.UuidNsOid;
-import io.metaloom.loom.db.jooq.routines.UuidNsUrl;
-import io.metaloom.loom.db.jooq.routines.UuidNsX500;
+import io.metaloom.loom.db.jooq.routines.JooqUuidGenerateV1;
+import io.metaloom.loom.db.jooq.routines.JooqUuidGenerateV1mc;
+import io.metaloom.loom.db.jooq.routines.JooqUuidGenerateV3;
+import io.metaloom.loom.db.jooq.routines.JooqUuidGenerateV4;
+import io.metaloom.loom.db.jooq.routines.JooqUuidGenerateV5;
+import io.metaloom.loom.db.jooq.routines.JooqUuidNil;
+import io.metaloom.loom.db.jooq.routines.JooqUuidNsDns;
+import io.metaloom.loom.db.jooq.routines.JooqUuidNsOid;
+import io.metaloom.loom.db.jooq.routines.JooqUuidNsUrl;
+import io.metaloom.loom.db.jooq.routines.JooqUuidNsX500;
 
 import java.util.UUID;
 
@@ -33,7 +33,7 @@ public class Routines {
     public static UUID uuidGenerateV1(
           Configuration configuration
     ) {
-        UuidGenerateV1 f = new UuidGenerateV1();
+        JooqUuidGenerateV1 f = new JooqUuidGenerateV1();
 
         f.execute(configuration);
         return f.getReturnValue();
@@ -43,7 +43,7 @@ public class Routines {
      * Get <code>public.uuid_generate_v1</code> as a field.
      */
     public static Field<UUID> uuidGenerateV1() {
-        UuidGenerateV1 f = new UuidGenerateV1();
+        JooqUuidGenerateV1 f = new JooqUuidGenerateV1();
 
         return f.asField();
     }
@@ -54,7 +54,7 @@ public class Routines {
     public static UUID uuidGenerateV1mc(
           Configuration configuration
     ) {
-        UuidGenerateV1mc f = new UuidGenerateV1mc();
+        JooqUuidGenerateV1mc f = new JooqUuidGenerateV1mc();
 
         f.execute(configuration);
         return f.getReturnValue();
@@ -64,7 +64,7 @@ public class Routines {
      * Get <code>public.uuid_generate_v1mc</code> as a field.
      */
     public static Field<UUID> uuidGenerateV1mc() {
-        UuidGenerateV1mc f = new UuidGenerateV1mc();
+        JooqUuidGenerateV1mc f = new JooqUuidGenerateV1mc();
 
         return f.asField();
     }
@@ -77,7 +77,7 @@ public class Routines {
         , UUID namespace
         , String name
     ) {
-        UuidGenerateV3 f = new UuidGenerateV3();
+        JooqUuidGenerateV3 f = new JooqUuidGenerateV3();
         f.setNamespace(namespace);
         f.setName_(name);
 
@@ -92,7 +92,7 @@ public class Routines {
           UUID namespace
         , String name
     ) {
-        UuidGenerateV3 f = new UuidGenerateV3();
+        JooqUuidGenerateV3 f = new JooqUuidGenerateV3();
         f.setNamespace(namespace);
         f.setName_(name);
 
@@ -106,7 +106,7 @@ public class Routines {
           Field<UUID> namespace
         , Field<String> name
     ) {
-        UuidGenerateV3 f = new UuidGenerateV3();
+        JooqUuidGenerateV3 f = new JooqUuidGenerateV3();
         f.setNamespace(namespace);
         f.setName_(name);
 
@@ -119,7 +119,7 @@ public class Routines {
     public static UUID uuidGenerateV4(
           Configuration configuration
     ) {
-        UuidGenerateV4 f = new UuidGenerateV4();
+        JooqUuidGenerateV4 f = new JooqUuidGenerateV4();
 
         f.execute(configuration);
         return f.getReturnValue();
@@ -129,7 +129,7 @@ public class Routines {
      * Get <code>public.uuid_generate_v4</code> as a field.
      */
     public static Field<UUID> uuidGenerateV4() {
-        UuidGenerateV4 f = new UuidGenerateV4();
+        JooqUuidGenerateV4 f = new JooqUuidGenerateV4();
 
         return f.asField();
     }
@@ -142,7 +142,7 @@ public class Routines {
         , UUID namespace
         , String name
     ) {
-        UuidGenerateV5 f = new UuidGenerateV5();
+        JooqUuidGenerateV5 f = new JooqUuidGenerateV5();
         f.setNamespace(namespace);
         f.setName_(name);
 
@@ -157,7 +157,7 @@ public class Routines {
           UUID namespace
         , String name
     ) {
-        UuidGenerateV5 f = new UuidGenerateV5();
+        JooqUuidGenerateV5 f = new JooqUuidGenerateV5();
         f.setNamespace(namespace);
         f.setName_(name);
 
@@ -171,7 +171,7 @@ public class Routines {
           Field<UUID> namespace
         , Field<String> name
     ) {
-        UuidGenerateV5 f = new UuidGenerateV5();
+        JooqUuidGenerateV5 f = new JooqUuidGenerateV5();
         f.setNamespace(namespace);
         f.setName_(name);
 
@@ -184,7 +184,7 @@ public class Routines {
     public static UUID uuidNil(
           Configuration configuration
     ) {
-        UuidNil f = new UuidNil();
+        JooqUuidNil f = new JooqUuidNil();
 
         f.execute(configuration);
         return f.getReturnValue();
@@ -194,7 +194,7 @@ public class Routines {
      * Get <code>public.uuid_nil</code> as a field.
      */
     public static Field<UUID> uuidNil() {
-        UuidNil f = new UuidNil();
+        JooqUuidNil f = new JooqUuidNil();
 
         return f.asField();
     }
@@ -205,7 +205,7 @@ public class Routines {
     public static UUID uuidNsDns(
           Configuration configuration
     ) {
-        UuidNsDns f = new UuidNsDns();
+        JooqUuidNsDns f = new JooqUuidNsDns();
 
         f.execute(configuration);
         return f.getReturnValue();
@@ -215,7 +215,7 @@ public class Routines {
      * Get <code>public.uuid_ns_dns</code> as a field.
      */
     public static Field<UUID> uuidNsDns() {
-        UuidNsDns f = new UuidNsDns();
+        JooqUuidNsDns f = new JooqUuidNsDns();
 
         return f.asField();
     }
@@ -226,7 +226,7 @@ public class Routines {
     public static UUID uuidNsOid(
           Configuration configuration
     ) {
-        UuidNsOid f = new UuidNsOid();
+        JooqUuidNsOid f = new JooqUuidNsOid();
 
         f.execute(configuration);
         return f.getReturnValue();
@@ -236,7 +236,7 @@ public class Routines {
      * Get <code>public.uuid_ns_oid</code> as a field.
      */
     public static Field<UUID> uuidNsOid() {
-        UuidNsOid f = new UuidNsOid();
+        JooqUuidNsOid f = new JooqUuidNsOid();
 
         return f.asField();
     }
@@ -247,7 +247,7 @@ public class Routines {
     public static UUID uuidNsUrl(
           Configuration configuration
     ) {
-        UuidNsUrl f = new UuidNsUrl();
+        JooqUuidNsUrl f = new JooqUuidNsUrl();
 
         f.execute(configuration);
         return f.getReturnValue();
@@ -257,7 +257,7 @@ public class Routines {
      * Get <code>public.uuid_ns_url</code> as a field.
      */
     public static Field<UUID> uuidNsUrl() {
-        UuidNsUrl f = new UuidNsUrl();
+        JooqUuidNsUrl f = new JooqUuidNsUrl();
 
         return f.asField();
     }
@@ -268,7 +268,7 @@ public class Routines {
     public static UUID uuidNsX500(
           Configuration configuration
     ) {
-        UuidNsX500 f = new UuidNsX500();
+        JooqUuidNsX500 f = new JooqUuidNsX500();
 
         f.execute(configuration);
         return f.getReturnValue();
@@ -278,7 +278,7 @@ public class Routines {
      * Get <code>public.uuid_ns_x500</code> as a field.
      */
     public static Field<UUID> uuidNsX500() {
-        UuidNsX500 f = new UuidNsX500();
+        JooqUuidNsX500 f = new JooqUuidNsX500();
 
         return f.asField();
     }

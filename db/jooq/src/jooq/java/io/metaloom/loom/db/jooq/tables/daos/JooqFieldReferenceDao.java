@@ -4,9 +4,8 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.tables.FieldReference;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference;
-import io.metaloom.loom.db.jooq.tables.records.FieldReferenceRecord;
+import io.metaloom.loom.db.jooq.tables.JooqFieldReference;
+import io.metaloom.loom.db.jooq.tables.records.JooqFieldReferenceRecord;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,24 +19,24 @@ import org.jooq.impl.DAOImpl;
  * This table is mainly used to lookup foreign references to contents
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqFieldReferenceDao extends DAOImpl<FieldReferenceRecord, JooqFieldReference, Record2<UUID, UUID>> {
+public class JooqFieldReferenceDao extends DAOImpl<JooqFieldReferenceRecord, io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference, Record2<UUID, UUID>> {
 
     /**
      * Create a new JooqFieldReferenceDao without any configuration
      */
     public JooqFieldReferenceDao() {
-        super(FieldReference.FIELD_REFERENCE, JooqFieldReference.class);
+        super(JooqFieldReference.FIELD_REFERENCE, io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference.class);
     }
 
     /**
      * Create a new JooqFieldReferenceDao with an attached configuration
      */
     public JooqFieldReferenceDao(Configuration configuration) {
-        super(FieldReference.FIELD_REFERENCE, JooqFieldReference.class, configuration);
+        super(JooqFieldReference.FIELD_REFERENCE, io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference.class, configuration);
     }
 
     @Override
-    public Record2<UUID, UUID> getId(JooqFieldReference object) {
+    public Record2<UUID, UUID> getId(io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference object) {
         return compositeKeyRecord(object.getSourceUuid(), object.getTargetUuid());
     }
 
@@ -45,44 +44,44 @@ public class JooqFieldReferenceDao extends DAOImpl<FieldReferenceRecord, JooqFie
      * Fetch records that have <code>source_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqFieldReference> fetchRangeOfSourceUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(FieldReference.FIELD_REFERENCE.SOURCE_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference> fetchRangeOfJooqSourceUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqFieldReference.FIELD_REFERENCE.SOURCE_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>source_uuid IN (values)</code>
      */
-    public List<JooqFieldReference> fetchBySourceUuid(UUID... values) {
-        return fetch(FieldReference.FIELD_REFERENCE.SOURCE_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference> fetchByJooqSourceUuid(UUID... values) {
+        return fetch(JooqFieldReference.FIELD_REFERENCE.SOURCE_UUID, values);
     }
 
     /**
      * Fetch records that have <code>target_uuid BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqFieldReference> fetchRangeOfTargetUuid(UUID lowerInclusive, UUID upperInclusive) {
-        return fetchRange(FieldReference.FIELD_REFERENCE.TARGET_UUID, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference> fetchRangeOfJooqTargetUuid(UUID lowerInclusive, UUID upperInclusive) {
+        return fetchRange(JooqFieldReference.FIELD_REFERENCE.TARGET_UUID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>target_uuid IN (values)</code>
      */
-    public List<JooqFieldReference> fetchByTargetUuid(UUID... values) {
-        return fetch(FieldReference.FIELD_REFERENCE.TARGET_UUID, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference> fetchByJooqTargetUuid(UUID... values) {
+        return fetch(JooqFieldReference.FIELD_REFERENCE.TARGET_UUID, values);
     }
 
     /**
      * Fetch records that have <code>field_name BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqFieldReference> fetchRangeOfFieldName(String lowerInclusive, String upperInclusive) {
-        return fetchRange(FieldReference.FIELD_REFERENCE.FIELD_NAME, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference> fetchRangeOfJooqFieldName(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqFieldReference.FIELD_REFERENCE.FIELD_NAME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>field_name IN (values)</code>
      */
-    public List<JooqFieldReference> fetchByFieldName(String... values) {
-        return fetch(FieldReference.FIELD_REFERENCE.FIELD_NAME, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqFieldReference> fetchByJooqFieldName(String... values) {
+        return fetch(JooqFieldReference.FIELD_REFERENCE.FIELD_NAME, values);
     }
 }

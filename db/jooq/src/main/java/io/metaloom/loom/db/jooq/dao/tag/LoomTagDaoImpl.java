@@ -14,7 +14,7 @@ import io.metaloom.loom.db.jooq.tables.daos.JooqTagAssetDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqTagContentDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqTagDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqTagNamespaceDao;
-import io.metaloom.loom.db.model.asset.LoomAsset;
+import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.content.LoomContent;
 import io.metaloom.loom.db.model.namespace.LoomNamespace;
 import io.metaloom.loom.db.model.tag.LoomTag;
@@ -120,12 +120,12 @@ public class LoomTagDaoImpl extends AbstractJooqDao<JooqTagDao> implements LoomT
 	}
 
 	@Override
-	public void tagAsset(LoomTag tag, LoomAsset asset) {
+	public void tagAsset(LoomTag tag, Asset asset) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void untagAsset(LoomTag tag, LoomAsset asset) {
+	public void untagAsset(LoomTag tag, Asset asset) {
 		// TODO Auto-generated method stub
 	}
 

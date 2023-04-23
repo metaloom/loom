@@ -2,14 +2,14 @@ package io.metaloom.loom.db.jooq;
 
 import javax.sql.DataSource;
 
-import io.metaloom.loom.db.model.asset.LoomAsset;
-import io.metaloom.loom.db.model.asset.LoomAssetBinary;
-import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
-import io.metaloom.loom.db.model.asset.LoomAssetDao;
+import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.loom.db.model.asset.AssetBinary;
+import io.metaloom.loom.db.model.asset.AssetBinaryDao;
+import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
 import io.metaloom.loom.db.model.namespace.LoomNamespace;
 import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
-import io.metaloom.loom.db.model.perm.LoomPermissionDao;
+import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 
@@ -23,8 +23,8 @@ public interface JooqTestHelper {
 		return user;
 	}
 
-	default LoomAsset createAsset(String filename, LoomUser user, LoomNamespace namespace) {
-		LoomAssetBinary binary = createBinary();
+	default Asset createAsset(String filename, LoomUser user, LoomNamespace namespace) {
+		AssetBinary binary = createBinary();
 		return assetDao().createAsset(filename, binary.getUuid(), user.getUuid(), namespace.getUuid());
 	}
 
@@ -34,8 +34,8 @@ public interface JooqTestHelper {
 		return namespace;
 	}
 
-	default LoomAssetBinary createBinary() {
-		LoomAssetBinary binary = binaryDao().createBinary(DUMMY_SHA512SUM, 42L);
+	default AssetBinary createBinary() {
+		AssetBinary binary = binaryDao().createBinary(DUMMY_SHA512SUM, 42L);
 		binaryDao().storeBinary(binary);
 		return binary;
 	}
@@ -46,11 +46,11 @@ public interface JooqTestHelper {
 
 	LoomGroupDao groupDao();
 
-	LoomAssetDao assetDao();
+	AssetDao assetDao();
 
-	LoomAssetBinaryDao binaryDao();
+	AssetBinaryDao binaryDao();
 
 	LoomUserDao userDao();
 
-	LoomPermissionDao permissionDao();
+	PermissionDao permissionDao();
 }

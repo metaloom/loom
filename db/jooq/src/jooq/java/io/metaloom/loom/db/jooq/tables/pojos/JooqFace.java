@@ -4,7 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.pojos;
 
 
-import io.metaloom.loom.db.jooq.enums.EmbeddingTypes;
+import io.metaloom.loom.db.jooq.enums.JooqEmbeddingTypes;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ public class JooqFace implements Serializable {
     private Integer faceNr;
     private byte[] blob;
     private JSONB meta;
-    private EmbeddingTypes type;
+    private JooqEmbeddingTypes type;
 
     public JooqFace() {}
 
@@ -45,7 +45,7 @@ public class JooqFace implements Serializable {
         Integer faceNr,
         byte[] blob,
         JSONB meta,
-        EmbeddingTypes type
+        JooqEmbeddingTypes type
     ) {
         this.uuid = uuid;
         this.source = source;
@@ -134,14 +134,14 @@ public class JooqFace implements Serializable {
     /**
      * Getter for <code>public.face.type</code>.
      */
-    public EmbeddingTypes getType() {
+    public JooqEmbeddingTypes getType() {
         return this.type;
     }
 
     /**
      * Setter for <code>public.face.type</code>.
      */
-    public void setType(EmbeddingTypes type) {
+    public void setType(JooqEmbeddingTypes type) {
         this.type = type;
     }
 

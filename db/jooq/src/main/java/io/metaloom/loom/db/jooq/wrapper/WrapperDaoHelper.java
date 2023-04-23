@@ -2,8 +2,8 @@ package io.metaloom.loom.db.jooq.wrapper;
 
 import io.metaloom.loom.db.LoomElement;
 import io.metaloom.loom.db.jooq.LoomJooqException;
-import io.metaloom.loom.db.jooq.dao.asset.LoomAssetBinaryImpl;
-import io.metaloom.loom.db.jooq.dao.asset.LoomAssetImpl;
+import io.metaloom.loom.db.jooq.dao.asset.AssetBinaryImpl;
+import io.metaloom.loom.db.jooq.dao.asset.AssetImpl;
 import io.metaloom.loom.db.jooq.dao.content.LoomContentImpl;
 import io.metaloom.loom.db.jooq.dao.group.LoomGroupImpl;
 import io.metaloom.loom.db.jooq.dao.namespace.LoomNamespaceImpl;
@@ -49,9 +49,9 @@ public interface WrapperDaoHelper {
 		case JooqUser u -> new LoomUserImpl(u);
 		case JooqGroup g -> new LoomGroupImpl(g);
 		case JooqRole r -> new LoomRoleImpl(r);
-		case JooqAsset a -> new LoomAssetImpl(a);
+		case JooqAsset a -> new AssetImpl(a);
 		case JooqNamespace n -> new LoomNamespaceImpl(n);
-		case JooqAssetBinarie b -> new LoomAssetBinaryImpl(b);
+		case JooqAssetBinarie b -> new AssetBinaryImpl(b);
 		case JooqContent c -> new LoomContentImpl(c);
 		case JooqExtension e -> new LoomExtensionImpl(e);
 		case JooqTag t -> new LoomTagImpl(t);
