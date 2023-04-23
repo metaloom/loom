@@ -4,7 +4,6 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.enums.LoomPermissionFlag;
 import io.metaloom.loom.db.jooq.tables.User;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
 import io.metaloom.loom.db.jooq.tables.records.UserRecord;
@@ -205,21 +204,6 @@ public class JooqUserDao extends DAOImpl<UserRecord, JooqUser, UUID> {
      */
     public List<JooqUser> fetchByMeta(JSONB... values) {
         return fetch(User.USER.META, values);
-    }
-
-    /**
-     * Fetch records that have <code>permissions BETWEEN lowerInclusive AND
-     * upperInclusive</code>
-     */
-    public List<JooqUser> fetchRangeOfPermissions(LoomPermissionFlag lowerInclusive, LoomPermissionFlag upperInclusive) {
-        return fetchRange(User.USER.PERMISSIONS, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>permissions IN (values)</code>
-     */
-    public List<JooqUser> fetchByPermissions(LoomPermissionFlag... values) {
-        return fetch(User.USER.PERMISSIONS, values);
     }
 
     /**

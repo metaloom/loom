@@ -9,6 +9,7 @@ import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
 import io.metaloom.loom.db.model.asset.LoomAssetDao;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
 import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
+import io.metaloom.loom.db.model.perm.LoomPermissionDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 
 public abstract class AbstractJooqTest implements JooqTestHelper {
@@ -44,6 +45,11 @@ public abstract class AbstractJooqTest implements JooqTestHelper {
 	@Override
 	public LoomNamespaceDao namespaceDao() {
 		return context.namespaceDao();
+	}
+
+	@Override
+	public LoomPermissionDao permissionDao() {
+		return context.permissionDao();
 	}
 
 }

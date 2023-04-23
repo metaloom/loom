@@ -9,6 +9,7 @@ import io.metaloom.loom.db.model.asset.LoomAssetDao;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
 import io.metaloom.loom.db.model.namespace.LoomNamespace;
 import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
+import io.metaloom.loom.db.model.perm.LoomPermissionDao;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 
@@ -50,4 +51,6 @@ public interface JooqTestHelper {
 	LoomAssetBinaryDao binaryDao();
 
 	LoomUserDao userDao();
+
+	LoomPermissionDao permissionDao();
 }

@@ -7,85 +7,81 @@ import java.util.UUID;
 import org.jooq.JSONB;
 
 import io.metaloom.loom.db.jooq.tables.pojos.JooqGroup;
+import io.metaloom.loom.db.jooq.wrapper.AbstractWrappedElement;
 import io.metaloom.loom.db.model.group.LoomGroup;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.vertx.core.json.JsonObject;
 
-public class LoomGroupImpl implements LoomGroup {
+public class LoomGroupImpl extends AbstractWrappedElement<JooqGroup> implements LoomGroup {
 
-	private JooqGroup pojo;
-
-	public LoomGroupImpl() {
-	}
-
-	public LoomGroupImpl(JooqGroup pojo) {
-		this.pojo = pojo;
+	public LoomGroupImpl(JooqGroup delegate) {
+		super(delegate);
 	}
 
 	@Override
 	public LoomGroup setEditor(LoomUser editor) {
-		pojo.setEditorUuid(editor.getUuid());
+		delegate().setEditorUuid(editor.getUuid());
 		return this;
 	}
 
 	@Override
 	public LoomGroup setCreator(LoomUser creator) {
-		pojo.setCreatorUuid(creator.getUuid());
+		delegate().setCreatorUuid(creator.getUuid());
 		return this;
 	}
 
 	@Override
 	public LocalDateTime getEdited() {
-		return pojo.getEdited();
+		return delegate().getEdited();
 	}
 
 	@Override
 	public LoomGroup setEdited(LocalDateTime edate) {
-		pojo.setEdited(edate);
+		delegate().setEdited(edate);
 		return this;
 	}
 
 	@Override
 	public LocalDateTime getCreated() {
-		return pojo.getCreated();
+		return delegate().getCreated();
 	}
 
 	@Override
 	public LoomGroup setCreated(LocalDateTime cdate) {
-		pojo.setCreated(cdate);
+		delegate().setCreated(cdate);
 		return this;
 	}
 
 	@Override
 	public UUID getUuid() {
-		return pojo.getUuid();
+		return delegate().getUuid();
 	}
 
 	@Override
 	public LoomGroup setUuid(UUID uuid) {
-		pojo.setUuid(uuid);
+		delegate().setUuid(uuid);
 		return this;
 	}
 
 	@Override
 	public JsonObject getMeta() {
-		return new JsonObject(pojo.getMeta().data());
+		return new JsonObject(delegate().getMeta().data());
 	}
 
 	@Override
 	public LoomGroup setMeta(JsonObject meta) {
-		pojo.setMeta(JSONB.jsonb(meta.encode()));
+		delegate().setMeta(JSONB.jsonb(meta.encode()));
 		return this;
 	}
 
 	@Override
 	public String getName() {
-		return pojo.getName();
+		return delegate().getName();
 	}
 
 	@Override
 	public LoomGroup setName(String name) {
-		pojo.setName(name);
+		delegate().setName(name);
 		return this;
 	}
 

@@ -1,7 +1,6 @@
 package io.metaloom.loom.db.model.role;
 
 import java.util.UUID;
-import java.util.function.Consumer;
 
 import io.metaloom.loom.db.LoomDao;
 
@@ -15,10 +14,10 @@ public interface LoomRoleDao extends LoomDao {
 	 * Create and persist a new role.
 	 * 
 	 * @param name
-	 * @param modifier
+	 * @param creator
 	 * @return
 	 */
-	LoomRole createRole(String name, Consumer<LoomRole> modifier);
+	LoomRole createRole(String name, UUID creator);
 
 	/**
 	 * Load the role with the given uuid.
@@ -43,5 +42,7 @@ public interface LoomRoleDao extends LoomDao {
 	 * @return
 	 */
 	void updateRole(LoomRole role);
+
+	void storeRole(LoomRole role);
 
 }

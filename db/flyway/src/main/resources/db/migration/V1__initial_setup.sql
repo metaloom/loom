@@ -58,7 +58,7 @@ CREATE TYPE "loom_content_type" AS ENUM (
   'I'
 );
 
-CREATE TYPE "loom_permission_flag" AS ENUM (
+CREATE TYPE "loom_permission" AS ENUM (
   'CREATE_CONTENT',
   'READ_CONTENT',
   'UPDATE_CONTENT',
@@ -124,7 +124,6 @@ CREATE TABLE "user" (
   "enabled" boolean NOT NULL DEFAULT true,
   "sso" boolean NOT NULL DEFAULT false,
   "meta" jsonb,
-  "permissions" loom_permission_flag,
   "created" timestamp DEFAULT (now()),
   "creator_uuid" uuid,
   "edited" timestamp DEFAULT (now()),
@@ -135,34 +134,43 @@ CREATE TABLE "user" (
 CREATE TABLE "user_token" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "user_uuid" uuid,
-  "note" varchar,
+  "description" varchar,
   "token" varchar NOT NULL,
-  "permissions" loom_permission_flag,
+  "created" timestamp DEFAULT (now()),
+  "meta" jsonb,
   PRIMARY KEY ("uuid")
+);
+
+CREATE TABLE "role_permission" (
+  "role_uuid" uuid,
+  "resource" varchar NOT NULL,
+  "permission" loom_permission,
+  PRIMARY KEY ("role_uuid", "resource")
+);
+
+CREATE TABLE "user_permission" (
+  "user_uuid" uuid,
+  "resource" varchar NOT NULL,
+  "permission" loom_permission,
+  PRIMARY KEY ("user_uuid", "resource")
+);
+
+CREATE TABLE "token_permission" (
+  "token_uuid" uuid,
+  "resource" varchar NOT NULL,
+  "permission" loom_permission,
+  PRIMARY KEY ("token_uuid", "resource")
 );
 
 CREATE TABLE "role" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar UNIQUE NOT NULL,
-  "permissions" loom_permission_flag,
   "meta" jsonb,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
   "editor_uuid" uuid,
   PRIMARY KEY ("uuid")
-);
-
-CREATE TABLE "role_permission" (
-  "role_uuid" uuid,
-  "element_uuid" uuid NOT NULL,
-  "create_perm" boolean NOT NULL DEFAULT false,
-  "read_perm" boolean NOT NULL DEFAULT false,
-  "delete_perm" boolean NOT NULL DEFAULT false,
-  "update_perm" boolean NOT NULL DEFAULT false,
-  "read_publish_perm" boolean NOT NULL DEFAULT false,
-  "publish_perm" boolean NOT NULL DEFAULT false,
-  PRIMARY KEY ("role_uuid", "element_uuid")
 );
 
 CREATE TABLE "group" (

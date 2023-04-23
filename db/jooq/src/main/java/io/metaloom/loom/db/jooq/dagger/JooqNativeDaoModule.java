@@ -15,8 +15,12 @@ import io.metaloom.loom.db.jooq.tables.daos.JooqGroupDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqModelDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqNamespaceDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqRoleDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqRoleGroupDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqRolePermissionDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqTokenPermissionDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserGroupDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqUserPermissionDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserTokenDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqWebhookDao;
 
@@ -100,4 +104,29 @@ public class JooqNativeDaoModule {
 	public JooqAssetBinarieDao assetBinaryDao(Configuration configuration) {
 		return new JooqAssetBinarieDao(configuration);
 	}
+
+	@Provides
+	@Singleton
+	public JooqRolePermissionDao rolePermissionDao(Configuration configuration) {
+		return new JooqRolePermissionDao(configuration);
+	}
+
+	@Provides
+	@Singleton
+	public JooqUserPermissionDao userPermissionDao(Configuration configuration) {
+		return new JooqUserPermissionDao(configuration);
+	}
+
+	@Provides
+	@Singleton
+	public JooqTokenPermissionDao tokenPermissionDao(Configuration configuration) {
+		return new JooqTokenPermissionDao(configuration);
+	}
+
+	@Provides
+	@Singleton
+	public JooqRoleGroupDao roleGroupDao(Configuration configuration) {
+		return new JooqRoleGroupDao(configuration);
+	}
+
 }

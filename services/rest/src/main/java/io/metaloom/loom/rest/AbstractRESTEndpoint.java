@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest;
 
-import io.metaloom.loom.auth.LoomAuthHandler;
+import io.metaloom.loom.auth.LoomAuthenticationHandler;
 import io.metaloom.loom.rest.endpoint.LoomRoutingContext;
 import io.metaloom.loom.rest.endpoint.RESTEndpoint;
 import io.metaloom.loom.rest.model.RestRequestModel;
@@ -13,9 +13,9 @@ public abstract class AbstractRESTEndpoint implements RESTEndpoint {
 
 	private final Vertx vertx;
 	private final Router router;
-	private final LoomAuthHandler authHandler;
+	private final LoomAuthenticationHandler authHandler;
 
-	public AbstractRESTEndpoint(Vertx vertx, Router router, LoomAuthHandler authHandler) {
+	public AbstractRESTEndpoint(Vertx vertx, Router router, LoomAuthenticationHandler authHandler) {
 		this.vertx = vertx;
 		this.router = router;
 		this.authHandler = authHandler;

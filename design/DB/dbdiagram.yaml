@@ -9,7 +9,7 @@ Project LOOM {
 
 // Creating tables
 
-Table loom as LOOM [headercolor: #16a085] {
+Table loom as LOOM [headercolor: #4B82B0] {
   db_rev varchar
   last_used_timestamp timestamp [default: `now()`, not null]
 }
@@ -80,7 +80,6 @@ Table user as U [headercolor: #16a085] {
   enabled boolean [default: true, not null, note: "Flag to enable or disable the user."]
   sso boolean [default: false, not null, note: "Flag that indicates that the user was created via SSO mappings"]
   meta varchar [note: "Custom meta properties to the element"]
-  permissions loom_permission_flag
   
   created timestamp [default: `now()`]
   creator_uuid uuid  [ref: > U.uuid]
@@ -93,15 +92,17 @@ Table user as U [headercolor: #16a085] {
   }
 }
 
-Table user_token as AK {
+Table token as AK {
   uuid uuid_generate_v4 [increment]
   user_uuid uuid_generate_v4 [ref: > U.uuid]
-  note varchar
+  description varchar
   token varchar [not null]
-  permissions loom_permission_flag
+  created timestamp [default: `now()`]
+  meta varchar [note: "Custom meta properties to the element"]
   
   Indexes {
     (uuid) [pk]
+    (token) [unique]
     (user_uuid)
   }
 
@@ -110,7 +111,6 @@ Table user_token as AK {
 Table role as R [headercolor: #16a085] {
   uuid uuid_generate_v4 [increment]
   name varchar [unique, not null]
-  permissions loom_permission_flag
   meta varchar [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
@@ -124,21 +124,33 @@ Table role as R [headercolor: #16a085] {
   }
 }
 
-// Do we require custom object level permissions?
 Table role_permission as PERM {
   role_uuid uuid_generate_v4 [ref: > R.uuid]
-  // TODO use foreign reference columns for each element type?
-  element_uuid uuid_generate_v4 [not null]
-  
-  create_perm boolean [default: false, not null]
-  read_perm boolean [default: false, not null]
-  delete_perm boolean [default: false, not null]
-  update_perm boolean [default: false, not null]
-  read_publish_perm boolean [default: false, not null]
-  publish_perm boolean [default: false, not null]
+  resource varchar [not null]
+  permission loom_permission [note: "Permission granted / granted to the resource"]
   
   Indexes {
-    (role_uuid, element_uuid) [pk]
+    (role_uuid, resource) [pk]
+  }
+}
+
+Table user_permission as UPERM {
+  user_uuid uuid_generate_v4 [ref: > U.uuid]
+  resource varchar [not null]
+  permission loom_permission [note: "Permission granted / granted to the resource"]
+  
+  Indexes {
+    (user_uuid, resource) [pk]
+  }
+}
+
+Table token_permission as TPERM {
+  token_uuid uuid_generate_v4 [ref: > AK.uuid]
+  resource varchar [not null]
+  permission loom_permission [note: "Permission granted / granted to the resource"]
+  
+  Indexes {
+    (token_uuid, resource) [pk]
   }
 }
 
@@ -305,6 +317,13 @@ Table face as FACE {
   embeddings bytea [not null, note: "Actual embedding data"]
 }
 
+Table face_cluster as FACE_CLUSTER {
+  uuid uuid_generate_v4 [increment]
+  name varchar [note: "Name of the cluster"]
+  description varchar [note: "Description of the cluster"]
+  meta varchar [note: "Custom meta properties to the cluster."]
+}
+
 Table asset_collection {
   asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
   collection_uuid uuid_generate_v4 [ref: > COLLECTION.uuid, not null]
@@ -379,7 +398,7 @@ Table asset_user_meta as AUM {
   }
 }
 
-Table asset_timeline as ASSET_TIMELINE [headercolor: #316896]{
+Table asset_timeline as ASSET_TIMELINE [headercolor: #16A085]{
   uuid uuid_generate_v4 [increment]
   asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
   from int [not null]
@@ -417,7 +436,7 @@ Table content as C [headercolor: #16a085] {
   }
 }
 
-Table content_tree as CT {
+Table content_tree as CT [headercolor: #16A085] {
   content_uuid uuid_generate_v4 [ref: > C.uuid, not null]
   language varchar
   content_type loom_content_type [not null, note: "D or P for draft and published"]
@@ -668,8 +687,10 @@ tablegroup ACL {
   group
   user_group
   role_group
-  user_token
+  token
   role_permission
+  user_permission
+  token_permission
 }
 
 tablegroup Tagging {
@@ -679,6 +700,21 @@ tablegroup Tagging {
   asset_timeline_tag
   tag_content
   tag_user_meta
+}
+
+tablegroup Face {
+  face
+  asset_face
+  face_cluster
+}
+
+tablegroup Task {
+  task
+  task_comment
+  annotation
+  annotation_task
+  comment
+  reaction
 }
 
 // Enums
@@ -754,7 +790,8 @@ Enum state_status {
   REVIEW
 }
 
-Enum loom_permission_flag {
+
+Enum loom_permission {
   // C
   CREATE_CONTENT
   READ_CONTENT
@@ -837,3 +874,7 @@ Enum loom_permission_flag {
 Ref: "asset"."edited" < "asset"."created"
 
 Ref: "stage_assignment"."meta" < "stage_assignment"."status"
+
+Ref: "collection"."description" < "collection"."uuid"
+
+Ref: "asset_timeline"."description" < "model"."creator_uuid"

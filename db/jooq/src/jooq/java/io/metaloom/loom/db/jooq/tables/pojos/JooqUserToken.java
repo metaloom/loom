@@ -4,10 +4,11 @@
 package io.metaloom.loom.db.jooq.tables.pojos;
 
 
-import io.metaloom.loom.db.jooq.enums.LoomPermissionFlag;
-
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.UUID;
+
+import org.jooq.JSONB;
 
 
 /**
@@ -20,32 +21,36 @@ public class JooqUserToken implements Serializable {
 
     private UUID uuid;
     private UUID userUuid;
-    private String note;
+    private String description;
     private String token;
-    private LoomPermissionFlag permissions;
+    private LocalDateTime created;
+    private JSONB meta;
 
     public JooqUserToken() {}
 
     public JooqUserToken(JooqUserToken value) {
         this.uuid = value.uuid;
         this.userUuid = value.userUuid;
-        this.note = value.note;
+        this.description = value.description;
         this.token = value.token;
-        this.permissions = value.permissions;
+        this.created = value.created;
+        this.meta = value.meta;
     }
 
     public JooqUserToken(
         UUID uuid,
         UUID userUuid,
-        String note,
+        String description,
         String token,
-        LoomPermissionFlag permissions
+        LocalDateTime created,
+        JSONB meta
     ) {
         this.uuid = uuid;
         this.userUuid = userUuid;
-        this.note = note;
+        this.description = description;
         this.token = token;
-        this.permissions = permissions;
+        this.created = created;
+        this.meta = meta;
     }
 
     /**
@@ -77,17 +82,17 @@ public class JooqUserToken implements Serializable {
     }
 
     /**
-     * Getter for <code>public.user_token.note</code>.
+     * Getter for <code>public.user_token.description</code>.
      */
-    public String getNote() {
-        return this.note;
+    public String getDescription() {
+        return this.description;
     }
 
     /**
-     * Setter for <code>public.user_token.note</code>.
+     * Setter for <code>public.user_token.description</code>.
      */
-    public void setNote(String note) {
-        this.note = note;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -105,17 +110,31 @@ public class JooqUserToken implements Serializable {
     }
 
     /**
-     * Getter for <code>public.user_token.permissions</code>.
+     * Getter for <code>public.user_token.created</code>.
      */
-    public LoomPermissionFlag getPermissions() {
-        return this.permissions;
+    public LocalDateTime getCreated() {
+        return this.created;
     }
 
     /**
-     * Setter for <code>public.user_token.permissions</code>.
+     * Setter for <code>public.user_token.created</code>.
      */
-    public void setPermissions(LoomPermissionFlag permissions) {
-        this.permissions = permissions;
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    /**
+     * Getter for <code>public.user_token.meta</code>.
+     */
+    public JSONB getMeta() {
+        return this.meta;
+    }
+
+    /**
+     * Setter for <code>public.user_token.meta</code>.
+     */
+    public void setMeta(JSONB meta) {
+        this.meta = meta;
     }
 
     @Override
@@ -139,11 +158,11 @@ public class JooqUserToken implements Serializable {
         }
         else if (!this.userUuid.equals(other.userUuid))
             return false;
-        if (this.note == null) {
-            if (other.note != null)
+        if (this.description == null) {
+            if (other.description != null)
                 return false;
         }
-        else if (!this.note.equals(other.note))
+        else if (!this.description.equals(other.description))
             return false;
         if (this.token == null) {
             if (other.token != null)
@@ -151,11 +170,17 @@ public class JooqUserToken implements Serializable {
         }
         else if (!this.token.equals(other.token))
             return false;
-        if (this.permissions == null) {
-            if (other.permissions != null)
+        if (this.created == null) {
+            if (other.created != null)
                 return false;
         }
-        else if (!this.permissions.equals(other.permissions))
+        else if (!this.created.equals(other.created))
+            return false;
+        if (this.meta == null) {
+            if (other.meta != null)
+                return false;
+        }
+        else if (!this.meta.equals(other.meta))
             return false;
         return true;
     }
@@ -166,9 +191,10 @@ public class JooqUserToken implements Serializable {
         int result = 1;
         result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
         result = prime * result + ((this.userUuid == null) ? 0 : this.userUuid.hashCode());
-        result = prime * result + ((this.note == null) ? 0 : this.note.hashCode());
+        result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
         result = prime * result + ((this.token == null) ? 0 : this.token.hashCode());
-        result = prime * result + ((this.permissions == null) ? 0 : this.permissions.hashCode());
+        result = prime * result + ((this.created == null) ? 0 : this.created.hashCode());
+        result = prime * result + ((this.meta == null) ? 0 : this.meta.hashCode());
         return result;
     }
 
@@ -178,9 +204,10 @@ public class JooqUserToken implements Serializable {
 
         sb.append(uuid);
         sb.append(", ").append(userUuid);
-        sb.append(", ").append(note);
+        sb.append(", ").append(description);
         sb.append(", ").append(token);
-        sb.append(", ").append(permissions);
+        sb.append(", ").append(created);
+        sb.append(", ").append(meta);
 
         sb.append(")");
         return sb.toString();

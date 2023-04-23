@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.model.user;
 
-public interface LoomUserTokenDao {
+import io.metaloom.loom.db.LoomDao;
+
+public interface LoomUserTokenDao extends LoomDao {
 
 }

@@ -12,7 +12,7 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.metaloom.loom.auth.LoomAuthHandler;
+import io.metaloom.loom.auth.LoomAuthenticationHandler;
 import io.metaloom.loom.db.model.user.LoomUser;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.metaloom.loom.db.page.Page;
@@ -30,7 +30,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 	private final LoomUserDao userDao;
 
 	@Inject
-	public UserEndpoint(Vertx vertx, @Named("restRouter") Router router, LoomAuthHandler authHandler, LoomUserDao userDao) {
+	public UserEndpoint(Vertx vertx, @Named("restRouter") Router router, LoomAuthenticationHandler authHandler, LoomUserDao userDao) {
 		super(vertx, router, authHandler);
 		this.userDao = userDao;
 	}

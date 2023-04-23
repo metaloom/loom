@@ -4,7 +4,6 @@
 Tag -> Asset
 Tag -> Task
 Tag -> Face
-Tag -> Remix
 
 TagCollection -> Tag
 ```

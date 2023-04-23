@@ -18,6 +18,8 @@ import io.metaloom.loom.db.model.asset.LoomAssetBinaryDao;
 import io.metaloom.loom.db.model.asset.LoomAssetDao;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
 import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
+import io.metaloom.loom.db.model.perm.LoomPermissionDao;
+import io.metaloom.loom.db.model.role.LoomRoleDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
 import io.r2dbc.spi.ConnectionFactory;
 
@@ -39,8 +41,12 @@ public interface TestComponent {
 
 	LoomGroupDao groupDao();
 
+	LoomRoleDao roleDao();
+
+	LoomPermissionDao permissionDao();
+
 	LoomNamespaceDao namespaceDao();
-	
+
 	LoomAssetBinaryDao binaryDao();
 
 	@Component.Builder

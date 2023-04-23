@@ -10,6 +10,7 @@ import io.metaloom.loom.db.jooq.dao.field.LoomFieldDaoImpl;
 import io.metaloom.loom.db.jooq.dao.group.LoomGroupDaoImpl;
 import io.metaloom.loom.db.jooq.dao.model.LoomModelDaoImpl;
 import io.metaloom.loom.db.jooq.dao.namespace.LoomNamespaceDaoImpl;
+import io.metaloom.loom.db.jooq.dao.perm.LoomPermissionDaoImpl;
 import io.metaloom.loom.db.jooq.dao.role.LoomRoleDaoImpl;
 import io.metaloom.loom.db.jooq.dao.tag.LoomTagDaoImpl;
 import io.metaloom.loom.db.jooq.dao.token.UserTokenDaoImpl;
@@ -23,6 +24,7 @@ import io.metaloom.loom.db.model.extension.LoomExtensionDao;
 import io.metaloom.loom.db.model.group.LoomGroupDao;
 import io.metaloom.loom.db.model.model.LoomModelDao;
 import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
+import io.metaloom.loom.db.model.perm.LoomPermissionDao;
 import io.metaloom.loom.db.model.role.LoomRoleDao;
 import io.metaloom.loom.db.model.tag.LoomTagDao;
 import io.metaloom.loom.db.model.user.LoomUserDao;
@@ -69,5 +71,8 @@ public abstract class JooqLoomDaoBindModule {
 	abstract LoomAssetDao assetDao(LoomAssetDaoImpl dao);
 
 	@Binds
-	abstract LoomAssetBinaryDao assetBinaryDao(LoomAssetBinaryDaoImpl dao);;
+	abstract LoomAssetBinaryDao assetBinaryDao(LoomAssetBinaryDaoImpl dao);
+	
+	@Binds
+	abstract LoomPermissionDao permissionDao(LoomPermissionDaoImpl dao);
 }

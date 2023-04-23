@@ -4,16 +4,17 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.enums.LoomPermissionFlag;
 import io.metaloom.loom.db.jooq.tables.UserToken;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqUserToken;
 import io.metaloom.loom.db.jooq.tables.records.UserTokenRecord;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.jooq.Configuration;
+import org.jooq.JSONB;
 import org.jooq.impl.DAOImpl;
 
 
@@ -87,18 +88,18 @@ public class JooqUserTokenDao extends DAOImpl<UserTokenRecord, JooqUserToken, UU
     }
 
     /**
-     * Fetch records that have <code>note BETWEEN lowerInclusive AND
+     * Fetch records that have <code>description BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqUserToken> fetchRangeOfNote(String lowerInclusive, String upperInclusive) {
-        return fetchRange(UserToken.USER_TOKEN.NOTE, lowerInclusive, upperInclusive);
+    public List<JooqUserToken> fetchRangeOfDescription(String lowerInclusive, String upperInclusive) {
+        return fetchRange(UserToken.USER_TOKEN.DESCRIPTION, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>note IN (values)</code>
+     * Fetch records that have <code>description IN (values)</code>
      */
-    public List<JooqUserToken> fetchByNote(String... values) {
-        return fetch(UserToken.USER_TOKEN.NOTE, values);
+    public List<JooqUserToken> fetchByDescription(String... values) {
+        return fetch(UserToken.USER_TOKEN.DESCRIPTION, values);
     }
 
     /**
@@ -117,17 +118,32 @@ public class JooqUserTokenDao extends DAOImpl<UserTokenRecord, JooqUserToken, UU
     }
 
     /**
-     * Fetch records that have <code>permissions BETWEEN lowerInclusive AND
+     * Fetch records that have <code>created BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<JooqUserToken> fetchRangeOfPermissions(LoomPermissionFlag lowerInclusive, LoomPermissionFlag upperInclusive) {
-        return fetchRange(UserToken.USER_TOKEN.PERMISSIONS, lowerInclusive, upperInclusive);
+    public List<JooqUserToken> fetchRangeOfCreated(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
+        return fetchRange(UserToken.USER_TOKEN.CREATED, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>permissions IN (values)</code>
+     * Fetch records that have <code>created IN (values)</code>
      */
-    public List<JooqUserToken> fetchByPermissions(LoomPermissionFlag... values) {
-        return fetch(UserToken.USER_TOKEN.PERMISSIONS, values);
+    public List<JooqUserToken> fetchByCreated(LocalDateTime... values) {
+        return fetch(UserToken.USER_TOKEN.CREATED, values);
+    }
+
+    /**
+     * Fetch records that have <code>meta BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<JooqUserToken> fetchRangeOfMeta(JSONB lowerInclusive, JSONB upperInclusive) {
+        return fetchRange(UserToken.USER_TOKEN.META, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>meta IN (values)</code>
+     */
+    public List<JooqUserToken> fetchByMeta(JSONB... values) {
+        return fetch(UserToken.USER_TOKEN.META, values);
     }
 }

@@ -16,6 +16,7 @@ dependency-reduced-pom.xml
 .idea
 .factorypath
 *.iml
+keystore.jceks
 
 #dlib models
 worker/actions/facedetect/dlib/

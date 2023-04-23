@@ -41,4 +41,11 @@ public interface LoomGroupDao extends LoomDao {
 
 	Stream<? extends LoomGroup> findAll();
 
+	/**
+	 * Store the group information.
+	 * 
+	 * @param group
+	 */
+	void storeGroup(LoomGroup group);
+
 }

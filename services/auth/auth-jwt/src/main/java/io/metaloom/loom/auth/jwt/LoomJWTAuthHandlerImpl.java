@@ -2,12 +2,12 @@ package io.metaloom.loom.auth.jwt;
 
 import javax.inject.Inject;
 
-import io.metaloom.loom.auth.LoomAuthHandler;
+import io.metaloom.loom.auth.LoomAuthenticationHandler;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.JWTAuthHandler;
 
-public class LoomJWTAuthHandlerImpl implements LoomAuthHandler {
+public class LoomJWTAuthHandlerImpl implements LoomAuthenticationHandler {
 
 	private JWTAuthHandler jwtHandler;
 

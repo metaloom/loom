@@ -17,7 +17,7 @@ import io.vertx.ext.auth.jwt.JWTAuthOptions;
 public class JWTAuthModule {
 
 	@Provides
-	public JWTAuth authProvider(Vertx vertx, LoomOptions options) {
+	public JWTAuth jwtAuthProvider(Vertx vertx, LoomOptions options) {
 		AuthenticationOptions loomAuthOptions = options.getAuth();
 		String path = loomAuthOptions.getKeystorePath();
 		if (!Files.exists(Paths.get(path))) {

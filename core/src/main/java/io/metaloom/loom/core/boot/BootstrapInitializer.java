@@ -44,11 +44,11 @@ public class BootstrapInitializer {
 			}
 		}
 
-		try {
-			authService.init();
-		} catch (Exception e) {
-			throw new RuntimeException("Error while initializing the authentication service", e);
-		}
+//		try {
+//			authService.init();
+//		} catch (Exception e) {
+//			throw new RuntimeException("Error while initializing the authentication service", e);
+//		}
 
 		try {
 			log.info("Starting gRPC service");

@@ -32,8 +32,10 @@ import io.metaloom.loom.db.jooq.tables.TagAsset;
 import io.metaloom.loom.db.jooq.tables.TagContent;
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
 import io.metaloom.loom.db.jooq.tables.TagUserMeta;
+import io.metaloom.loom.db.jooq.tables.TokenPermission;
 import io.metaloom.loom.db.jooq.tables.User;
 import io.metaloom.loom.db.jooq.tables.UserGroup;
+import io.metaloom.loom.db.jooq.tables.UserPermission;
 import io.metaloom.loom.db.jooq.tables.UserToken;
 import io.metaloom.loom.db.jooq.tables.Webhook;
 
@@ -185,6 +187,11 @@ public class Tables {
     public static final TagUserMeta TAG_USER_META = TagUserMeta.TAG_USER_META;
 
     /**
+     * The table <code>public.token_permission</code>.
+     */
+    public static final TokenPermission TOKEN_PERMISSION = TokenPermission.TOKEN_PERMISSION;
+
+    /**
      * The table <code>public.user</code>.
      */
     public static final User USER = User.USER;
@@ -193,6 +200,11 @@ public class Tables {
      * The table <code>public.user_group</code>.
      */
     public static final UserGroup USER_GROUP = UserGroup.USER_GROUP;
+
+    /**
+     * The table <code>public.user_permission</code>.
+     */
+    public static final UserPermission USER_PERMISSION = UserPermission.USER_PERMISSION;
 
     /**
      * The table <code>public.user_token</code>.

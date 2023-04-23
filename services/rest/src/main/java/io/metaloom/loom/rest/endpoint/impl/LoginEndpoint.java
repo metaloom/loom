@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.auth.AuthenticationService;
-import io.metaloom.loom.auth.LoomAuthHandler;
+import io.metaloom.loom.auth.LoomAuthenticationHandler;
 import io.metaloom.loom.rest.AbstractRESTEndpoint;
 import io.metaloom.loom.rest.model.auth.AuthLoginRequest;
 import io.metaloom.loom.rest.model.auth.AuthLoginResponse;
@@ -24,7 +24,7 @@ public class LoginEndpoint extends AbstractRESTEndpoint {
 	private final AuthenticationService authService;
 
 	@Inject
-	public LoginEndpoint(Vertx vertx, @Named("restRouter") Router router, AuthenticationService authService, LoomAuthHandler authHandler) {
+	public LoginEndpoint(Vertx vertx, @Named("restRouter") Router router, AuthenticationService authService, LoomAuthenticationHandler authHandler) {
 		super(vertx, router, authHandler);
 		this.authService = authService;
 	}

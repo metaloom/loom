@@ -4,8 +4,6 @@
 package io.metaloom.loom.db.jooq.tables.pojos;
 
 
-import io.metaloom.loom.db.jooq.enums.LoomPermissionFlag;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -30,7 +28,6 @@ public class JooqUser implements Serializable {
     private Boolean enabled;
     private Boolean sso;
     private JSONB meta;
-    private LoomPermissionFlag permissions;
     private LocalDateTime created;
     private UUID creatorUuid;
     private LocalDateTime edited;
@@ -48,7 +45,6 @@ public class JooqUser implements Serializable {
         this.enabled = value.enabled;
         this.sso = value.sso;
         this.meta = value.meta;
-        this.permissions = value.permissions;
         this.created = value.created;
         this.creatorUuid = value.creatorUuid;
         this.edited = value.edited;
@@ -65,7 +61,6 @@ public class JooqUser implements Serializable {
         Boolean enabled,
         Boolean sso,
         JSONB meta,
-        LoomPermissionFlag permissions,
         LocalDateTime created,
         UUID creatorUuid,
         LocalDateTime edited,
@@ -80,7 +75,6 @@ public class JooqUser implements Serializable {
         this.enabled = enabled;
         this.sso = sso;
         this.meta = meta;
-        this.permissions = permissions;
         this.created = created;
         this.creatorUuid = creatorUuid;
         this.edited = edited;
@@ -220,20 +214,6 @@ public class JooqUser implements Serializable {
     }
 
     /**
-     * Getter for <code>public.user.permissions</code>.
-     */
-    public LoomPermissionFlag getPermissions() {
-        return this.permissions;
-    }
-
-    /**
-     * Setter for <code>public.user.permissions</code>.
-     */
-    public void setPermissions(LoomPermissionFlag permissions) {
-        this.permissions = permissions;
-    }
-
-    /**
      * Getter for <code>public.user.created</code>.
      */
     public LocalDateTime getCreated() {
@@ -352,12 +332,6 @@ public class JooqUser implements Serializable {
         }
         else if (!this.meta.equals(other.meta))
             return false;
-        if (this.permissions == null) {
-            if (other.permissions != null)
-                return false;
-        }
-        else if (!this.permissions.equals(other.permissions))
-            return false;
         if (this.created == null) {
             if (other.created != null)
                 return false;
@@ -398,7 +372,6 @@ public class JooqUser implements Serializable {
         result = prime * result + ((this.enabled == null) ? 0 : this.enabled.hashCode());
         result = prime * result + ((this.sso == null) ? 0 : this.sso.hashCode());
         result = prime * result + ((this.meta == null) ? 0 : this.meta.hashCode());
-        result = prime * result + ((this.permissions == null) ? 0 : this.permissions.hashCode());
         result = prime * result + ((this.created == null) ? 0 : this.created.hashCode());
         result = prime * result + ((this.creatorUuid == null) ? 0 : this.creatorUuid.hashCode());
         result = prime * result + ((this.edited == null) ? 0 : this.edited.hashCode());
@@ -419,7 +392,6 @@ public class JooqUser implements Serializable {
         sb.append(", ").append(enabled);
         sb.append(", ").append(sso);
         sb.append(", ").append(meta);
-        sb.append(", ").append(permissions);
         sb.append(", ").append(created);
         sb.append(", ").append(creatorUuid);
         sb.append(", ").append(edited);

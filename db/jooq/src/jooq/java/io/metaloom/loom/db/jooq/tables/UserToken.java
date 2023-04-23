@@ -7,21 +7,22 @@ package io.metaloom.loom.db.jooq.tables;
 import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.Public;
-import io.metaloom.loom.db.jooq.enums.LoomPermissionFlag;
 import io.metaloom.loom.db.jooq.tables.records.UserTokenRecord;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function5;
+import org.jooq.Function6;
 import org.jooq.Index;
+import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row5;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -65,9 +66,9 @@ public class UserToken extends TableImpl<UserTokenRecord> {
     public final TableField<UserTokenRecord, java.util.UUID> USER_UUID = createField(DSL.name("user_uuid"), SQLDataType.UUID, this, "");
 
     /**
-     * The column <code>public.user_token.note</code>.
+     * The column <code>public.user_token.description</code>.
      */
-    public final TableField<UserTokenRecord, String> NOTE = createField(DSL.name("note"), SQLDataType.VARCHAR, this, "");
+    public final TableField<UserTokenRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.user_token.token</code>.
@@ -75,9 +76,14 @@ public class UserToken extends TableImpl<UserTokenRecord> {
     public final TableField<UserTokenRecord, String> TOKEN = createField(DSL.name("token"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.user_token.permissions</code>.
+     * The column <code>public.user_token.created</code>.
      */
-    public final TableField<UserTokenRecord, LoomPermissionFlag> PERMISSIONS = createField(DSL.name("permissions"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.LoomPermissionFlag.class), this, "");
+    public final TableField<UserTokenRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
+     * The column <code>public.user_token.meta</code>.
+     */
+    public final TableField<UserTokenRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "");
 
     private UserToken(Name alias, Table<UserTokenRecord> aliased) {
         this(alias, aliased, null);
@@ -184,18 +190,18 @@ public class UserToken extends TableImpl<UserTokenRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row5 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<java.util.UUID, java.util.UUID, String, String, LoomPermissionFlag> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Row6<java.util.UUID, java.util.UUID, String, String, LocalDateTime, JSONB> fieldsRow() {
+        return (Row6) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function5<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super String, ? super LoomPermissionFlag, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function6<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super String, ? super LocalDateTime, ? super JSONB, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -203,7 +209,7 @@ public class UserToken extends TableImpl<UserTokenRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super String, ? super LoomPermissionFlag, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function6<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super String, ? super LocalDateTime, ? super JSONB, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

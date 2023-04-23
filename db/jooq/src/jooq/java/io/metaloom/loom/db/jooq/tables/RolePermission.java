@@ -6,6 +6,7 @@ package io.metaloom.loom.db.jooq.tables;
 
 import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.Public;
+import io.metaloom.loom.db.jooq.enums.LoomPermission;
 import io.metaloom.loom.db.jooq.tables.records.RolePermissionRecord;
 
 import java.util.Arrays;
@@ -15,11 +16,11 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function8;
+import org.jooq.Function3;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row8;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -58,39 +59,14 @@ public class RolePermission extends TableImpl<RolePermissionRecord> {
     public final TableField<RolePermissionRecord, UUID> ROLE_UUID = createField(DSL.name("role_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.role_permission.element_uuid</code>.
+     * The column <code>public.role_permission.resource</code>.
      */
-    public final TableField<RolePermissionRecord, UUID> ELEMENT_UUID = createField(DSL.name("element_uuid"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<RolePermissionRecord, String> RESOURCE = createField(DSL.name("resource"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.role_permission.create_perm</code>.
+     * The column <code>public.role_permission.permission</code>.
      */
-    public final TableField<RolePermissionRecord, Boolean> CREATE_PERM = createField(DSL.name("create_perm"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
-
-    /**
-     * The column <code>public.role_permission.read_perm</code>.
-     */
-    public final TableField<RolePermissionRecord, Boolean> READ_PERM = createField(DSL.name("read_perm"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
-
-    /**
-     * The column <code>public.role_permission.delete_perm</code>.
-     */
-    public final TableField<RolePermissionRecord, Boolean> DELETE_PERM = createField(DSL.name("delete_perm"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
-
-    /**
-     * The column <code>public.role_permission.update_perm</code>.
-     */
-    public final TableField<RolePermissionRecord, Boolean> UPDATE_PERM = createField(DSL.name("update_perm"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
-
-    /**
-     * The column <code>public.role_permission.read_publish_perm</code>.
-     */
-    public final TableField<RolePermissionRecord, Boolean> READ_PUBLISH_PERM = createField(DSL.name("read_publish_perm"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
-
-    /**
-     * The column <code>public.role_permission.publish_perm</code>.
-     */
-    public final TableField<RolePermissionRecord, Boolean> PUBLISH_PERM = createField(DSL.name("publish_perm"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<RolePermissionRecord, LoomPermission> PERMISSION = createField(DSL.name("permission"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.LoomPermission.class), this, "");
 
     private RolePermission(Name alias, Table<RolePermissionRecord> aliased) {
         this(alias, aliased, null);
@@ -192,18 +168,18 @@ public class RolePermission extends TableImpl<RolePermissionRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row8 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<UUID, UUID, Boolean, Boolean, Boolean, Boolean, Boolean, Boolean> fieldsRow() {
-        return (Row8) super.fieldsRow();
+    public Row3<UUID, String, LoomPermission> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function8<? super UUID, ? super UUID, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function3<? super UUID, ? super String, ? super LoomPermission, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -211,7 +187,7 @@ public class RolePermission extends TableImpl<RolePermissionRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super UUID, ? super UUID, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? super Boolean, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super UUID, ? super String, ? super LoomPermission, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

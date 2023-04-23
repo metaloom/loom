@@ -29,10 +29,4 @@ public class JWTAuthenticationServiceImpl implements AuthenticationService {
 		return authProvider.generateToken(claims, new JWTOptions().setIgnoreExpiration(true));
 	}
 
-	@Override
-	public void init() throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
 }

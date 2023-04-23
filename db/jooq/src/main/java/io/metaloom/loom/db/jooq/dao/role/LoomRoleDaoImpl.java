@@ -10,6 +10,7 @@ import org.jooq.DSLContext;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqRoleDao;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqRole;
 import io.metaloom.loom.db.model.role.LoomRole;
 import io.metaloom.loom.db.model.role.LoomRoleDao;
 
@@ -50,9 +51,18 @@ public class LoomRoleDaoImpl extends AbstractJooqDao<JooqRoleDao> implements Loo
 	// }
 
 	@Override
-	public LoomRole createRole(String name, Consumer<LoomRole> modifier) {
-		// TODO Auto-generated method stub
-		return null;
+	public LoomRole createRole(String name, UUID creatorUUID) {
+		JooqRole r = new JooqRole();
+		r.setCreatorUuid(creatorUUID);
+		r.setUuid(UUID.randomUUID());
+		r.setName(name);
+		return new LoomRoleImpl(r);
+	}
+
+	@Override
+	public void storeRole(LoomRole role) {
+		JooqRole jooq = unwrap(role);
+		dao().insert(jooq);
 	}
 
 	@Override

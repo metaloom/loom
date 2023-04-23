@@ -8,6 +8,4 @@ public interface AuthenticationService {
 
 	String generate(JsonObject json);
 
-	void init() throws Exception;
-
 }

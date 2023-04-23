@@ -32,8 +32,10 @@ import io.metaloom.loom.db.jooq.tables.TagAsset;
 import io.metaloom.loom.db.jooq.tables.TagContent;
 import io.metaloom.loom.db.jooq.tables.TagNamespace;
 import io.metaloom.loom.db.jooq.tables.TagUserMeta;
+import io.metaloom.loom.db.jooq.tables.TokenPermission;
 import io.metaloom.loom.db.jooq.tables.User;
 import io.metaloom.loom.db.jooq.tables.UserGroup;
+import io.metaloom.loom.db.jooq.tables.UserPermission;
 import io.metaloom.loom.db.jooq.tables.UserToken;
 import io.metaloom.loom.db.jooq.tables.Webhook;
 
@@ -199,6 +201,11 @@ public class Public extends SchemaImpl {
     public final TagUserMeta TAG_USER_META = TagUserMeta.TAG_USER_META;
 
     /**
+     * The table <code>public.token_permission</code>.
+     */
+    public final TokenPermission TOKEN_PERMISSION = TokenPermission.TOKEN_PERMISSION;
+
+    /**
      * The table <code>public.user</code>.
      */
     public final User USER = User.USER;
@@ -207,6 +214,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.user_group</code>.
      */
     public final UserGroup USER_GROUP = UserGroup.USER_GROUP;
+
+    /**
+     * The table <code>public.user_permission</code>.
+     */
+    public final UserPermission USER_PERMISSION = UserPermission.USER_PERMISSION;
 
     /**
      * The table <code>public.user_token</code>.
@@ -262,8 +274,10 @@ public class Public extends SchemaImpl {
             TagContent.TAG_CONTENT,
             TagNamespace.TAG_NAMESPACE,
             TagUserMeta.TAG_USER_META,
+            TokenPermission.TOKEN_PERMISSION,
             User.USER,
             UserGroup.USER_GROUP,
+            UserPermission.USER_PERMISSION,
             UserToken.USER_TOKEN,
             Webhook.WEBHOOK
         );

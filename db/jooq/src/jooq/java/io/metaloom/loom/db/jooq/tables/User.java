@@ -7,7 +7,6 @@ package io.metaloom.loom.db.jooq.tables;
 import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.Public;
-import io.metaloom.loom.db.jooq.enums.LoomPermissionFlag;
 import io.metaloom.loom.db.jooq.tables.records.UserRecord;
 
 import java.time.LocalDateTime;
@@ -17,13 +16,13 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function14;
+import org.jooq.Function13;
 import org.jooq.Index;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row14;
+import org.jooq.Row13;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -103,11 +102,6 @@ public class User extends TableImpl<UserRecord> {
      * element
      */
     public final TableField<UserRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the element");
-
-    /**
-     * The column <code>public.user.permissions</code>.
-     */
-    public final TableField<UserRecord, LoomPermissionFlag> PERMISSIONS = createField(DSL.name("permissions"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.LoomPermissionFlag.class), this, "");
 
     /**
      * The column <code>public.user.created</code>.
@@ -252,18 +246,18 @@ public class User extends TableImpl<UserRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row14 type methods
+    // Row13 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row14<java.util.UUID, String, String, String, String, String, Boolean, Boolean, JSONB, LoomPermissionFlag, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
-        return (Row14) super.fieldsRow();
+    public Row13<java.util.UUID, String, String, String, String, String, Boolean, Boolean, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
+        return (Row13) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function14<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super JSONB, ? super LoomPermissionFlag, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function13<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -271,7 +265,7 @@ public class User extends TableImpl<UserRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function14<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super JSONB, ? super LoomPermissionFlag, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function13<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }
