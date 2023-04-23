@@ -8,7 +8,7 @@ import java.util.UUID;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqAsset;
 import io.metaloom.loom.db.jooq.wrapper.AbstractWrappedElement;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.user.User;
 import io.vertx.core.json.JsonObject;
 
 public class AssetImpl extends AbstractWrappedElement<JooqAsset> implements Asset {
@@ -40,14 +40,14 @@ public class AssetImpl extends AbstractWrappedElement<JooqAsset> implements Asse
 	}
 
 	@Override
-	public Asset setCreator(LoomUser creator) {
+	public Asset setCreator(User creator) {
 		Objects.requireNonNull(creator, "Invalid creator provided");
 		delegate().setCreatorUuid(creator.getUuid());
 		return this;
 	}
 
 	@Override
-	public Asset setEditor(LoomUser editor) {
+	public Asset setEditor(User editor) {
 		Objects.requireNonNull(editor, "Invalid editor provided");
 		delegate().setEditorUuid(editor.getUuid());
 		return this;

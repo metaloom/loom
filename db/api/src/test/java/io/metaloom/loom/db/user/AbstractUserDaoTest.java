@@ -10,12 +10,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.metaloom.loom.db.model.user.LoomUser;
-import io.metaloom.loom.db.model.user.LoomUserDao;
+import io.metaloom.loom.db.model.user.User;
+import io.metaloom.loom.db.model.user.UserDao;
 
 public abstract class AbstractUserDaoTest {
 
-	abstract public LoomUserDao getDao();
+	abstract public UserDao getDao();
 
 	@AfterEach
 	@BeforeEach
@@ -25,10 +25,10 @@ public abstract class AbstractUserDaoTest {
 
 	@Test
 	public void testCreate() {
-		LoomUserDao dao = getDao();
+		UserDao dao = getDao();
 
 		// Create user
-		LoomUser user = dao.createUser("joedoe");
+		User user = dao.createUser("joedoe");
 		assertNotNull(user.getUuid());
 		assertEquals("joedoe", user.getUsername());
 
@@ -36,10 +36,10 @@ public abstract class AbstractUserDaoTest {
 
 	@Test
 	public void testDelete() {
-		LoomUserDao dao = getDao();
+		UserDao dao = getDao();
 
 		// Create user
-		LoomUser user = dao.createUser("joeddoe");
+		User user = dao.createUser("joeddoe");
 
 		// Now assert deletion
 		dao.deleteUser(user);
@@ -48,27 +48,27 @@ public abstract class AbstractUserDaoTest {
 
 	@Test
 	public void testUpdate() {
-		LoomUserDao dao = getDao();
+		UserDao dao = getDao();
 
 		// Create and store
-		LoomUser user = dao.createUser("joedoe");
+		User user = dao.createUser("joedoe");
 
 		// Now update
 		user.setUsername("joedoe2");
 		dao.updateUser(user);
 
 		// Load and assert update was persisted
-		LoomUser updatedUser = dao.loadUser(user.getUuid());
+		User updatedUser = dao.loadUser(user.getUuid());
 		assertEquals("joedoe2", updatedUser.getUsername());
 
 	}
 
 	@Test
 	public void testLoad() {
-		LoomUserDao dao = getDao();
+		UserDao dao = getDao();
 
 		// Create and store user
-		LoomUser user = dao.createUser("joedoe");
+		User user = dao.createUser("joedoe");
 
 		// Now load again
 		assertNotNull(dao.loadUser(user.getUuid()));

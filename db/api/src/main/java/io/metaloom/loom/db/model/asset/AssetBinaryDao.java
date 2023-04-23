@@ -2,9 +2,9 @@ package io.metaloom.loom.db.model.asset;
 
 import java.util.UUID;
 
-import io.metaloom.loom.db.LoomDao;
+import io.metaloom.loom.db.Dao;
 
-public interface AssetBinaryDao extends LoomDao {
+public interface AssetBinaryDao extends Dao {
 
 	AssetBinary createBinary(String sha512sum, long size);
 

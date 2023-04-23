@@ -2,6 +2,7 @@ package io.metaloom.loom.db.jooq.dao.perm;
 
 import static io.metaloom.loom.db.jooq.tables.JooqRoleGroup.ROLE_GROUP;
 import static io.metaloom.loom.db.jooq.tables.JooqRolePermission.ROLE_PERMISSION;
+import static io.metaloom.loom.db.jooq.tables.JooqUserPermission.*;
 import static io.metaloom.loom.db.jooq.tables.JooqUserGroup.USER_GROUP;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import io.metaloom.loom.db.jooq.tables.daos.JooqTokenPermissionDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserPermissionDao;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqRolePermission;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqTokenPermission;
-import io.metaloom.loom.db.model.perm.LoomResourcePermission;
+import io.metaloom.loom.db.model.perm.ResourcePermission;
 import io.metaloom.loom.db.model.perm.PermissionDao;
 
 @Singleton
@@ -38,29 +39,26 @@ public class PermissionDaoImpl implements PermissionDao {
 	}
 
 	@Override
-	public List<LoomResourcePermission> loadPermissionsForUser(UUID userUuid) {
-
-		List<LoomResourcePermission> result = ctx.select()
+	public List<ResourcePermission> loadPermissionsForUser(UUID userUuid) {
+		// Fetch permissions for effective roles which belong to the user
+		List<ResourcePermission> rolePerms = ctx.select()
 			.from(ROLE_PERMISSION)
 			.leftJoin(ROLE_GROUP)
 			.on(ROLE_PERMISSION.ROLE_UUID.eq(ROLE_GROUP.ROLE_UUID))
 			.leftJoin(USER_GROUP)
 			.on(USER_GROUP.GROUP_UUID.eq(ROLE_GROUP.GROUP_UUID))
 			.where(USER_GROUP.USER_UUID.eq(userUuid))
-			.fetchInto(LoomResourcePermission.class);
+			.fetchInto(ResourcePermission.class);
 
-//		Set<LoomResourcePermission> permissions = new HashSet<>();
-//		for (RolePermissionRecord perm : result) {
-//			System.out.println(perm.getResource());
-//			System.out.println(perm.getPermission());
-//			LoomResourcePermission p = perm.into(LoomResourcePermission.class);
-//			System.out.println("Loom Resource: " + p.getResource());
-//		}
-//
-//		// System.out.println(result.);
-//		List<JooqUserPermission> userPerms = userPermDao.fetchByUserUuid(userUuid);
-//		
-		return result;
+		// Fetch dedicated user permissions
+		List<ResourcePermission> userPerms = ctx.select()
+			.from(USER_PERMISSION)
+			.where(USER_PERMISSION.USER_UUID.eq(userUuid))
+			.fetchInto(ResourcePermission.class);
+
+		// Return the combined perms
+		rolePerms.addAll(userPerms);
+		return rolePerms;
 
 	}
 

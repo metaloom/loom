@@ -3,10 +3,10 @@ package io.metaloom.loom.db.jooq.dao.user;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.user.User;
 import io.vertx.core.json.JsonObject;
 
-public class LoomUserPojoImpl implements LoomUser {
+public class LoomUserPojoImpl implements User {
 
 	private UUID creatorUuid;
 	private UUID editorUuid;
@@ -31,13 +31,13 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setEditor(LoomUser editor) {
+	public User setEditor(User editor) {
 		this.editorUuid = editor.getUuid();
 		return this;
 	}
 
 	@Override
-	public LoomUser setCreator(LoomUser creator) {
+	public User setCreator(User creator) {
 		this.creatorUuid = creator.getUuid();
 		return this;
 	}
@@ -48,7 +48,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setEdited(LocalDateTime edate) {
+	public User setEdited(LocalDateTime edate) {
 		this.edate = edate;
 		return this;
 	}
@@ -59,7 +59,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setCreated(LocalDateTime cdate) {
+	public User setCreated(LocalDateTime cdate) {
 		this.cdate = cdate;
 		return this;
 	}
@@ -70,7 +70,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setUuid(UUID uuid) {
+	public User setUuid(UUID uuid) {
 		this.uuid = uuid;
 		return this;
 	}
@@ -81,7 +81,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setMeta(JsonObject meta) {
+	public User setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}
@@ -92,7 +92,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setUsername(String username) {
+	public User setUsername(String username) {
 		this.username = username;
 		return this;
 	}
@@ -103,7 +103,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setFirstname(String firstname) {
+	public User setFirstname(String firstname) {
 		this.firstname = firstname;
 		return this;
 	}
@@ -114,7 +114,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setLastname(String lastname) {
+	public User setLastname(String lastname) {
 		this.lastname = lastname;
 		return this;
 	}
@@ -125,7 +125,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setEmail(String email) {
+	public User setEmail(String email) {
 		this.email = email;
 		return this;
 	}
@@ -136,7 +136,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setPasswordHash(String hash) {
+	public User setPasswordHash(String hash) {
 		this.passwordHash = hash;
 		return this;
 	}
@@ -147,7 +147,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setSSO(boolean flag) {
+	public User setSSO(boolean flag) {
 		this.sso = flag;
 		return this;
 	}
@@ -158,7 +158,7 @@ public class LoomUserPojoImpl implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setEnabled(boolean flag) {
+	public User setEnabled(boolean flag) {
 		this.enabled = flag;
 		return this;
 	}

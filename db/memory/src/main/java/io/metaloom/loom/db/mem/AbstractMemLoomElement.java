@@ -2,9 +2,9 @@ package io.metaloom.loom.db.mem;
 
 import java.util.UUID;
 
-import io.metaloom.loom.db.LoomElement;
+import io.metaloom.loom.db.Element;
 
-public abstract class AbstractMemLoomElement implements LoomElement {
+public abstract class AbstractMemLoomElement implements Element {
 
 	private UUID uuid;
 
@@ -14,7 +14,7 @@ public abstract class AbstractMemLoomElement implements LoomElement {
 	}
 
 	@Override
-	public LoomElement setUuid(UUID uuid) {
+	public Element setUuid(UUID uuid) {
 		this.uuid = uuid;
 		return this;
 	}

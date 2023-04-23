@@ -3,19 +3,19 @@ package io.metaloom.loom.db.mem;
 import java.time.LocalDateTime;
 
 import io.metaloom.loom.db.CUDElement;
-import io.metaloom.loom.db.LoomElement;
-import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.Element;
+import io.metaloom.loom.db.model.user.User;
 
 public abstract class AbstractMemCUDElement extends AbstractMemLoomElement implements CUDElement {
 
-	private LoomUser creator;
+	private User creator;
 	private LocalDateTime cdate;
 
-	private LoomUser editor;
+	private User editor;
 	private LocalDateTime edate;
 
 	@Override
-	public LoomElement setEditor(LoomUser editor) {
+	public Element setEditor(User editor) {
 		this.editor = editor;
 		return this;
 	}
@@ -26,13 +26,13 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	}
 
 	@Override
-	public LoomElement setEdited(LocalDateTime edate) {
+	public Element setEdited(LocalDateTime edate) {
 		this.edate = edate;
 		return this;
 	}
 
 	@Override
-	public LoomElement setCreator(LoomUser creator) {
+	public Element setCreator(User creator) {
 		this.creator = creator;
 		return this;
 	}
@@ -43,7 +43,7 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	}
 
 	@Override
-	public LoomElement setCreated(LocalDateTime cdate) {
+	public Element setCreated(LocalDateTime cdate) {
 		this.cdate = cdate;
 		return this;
 

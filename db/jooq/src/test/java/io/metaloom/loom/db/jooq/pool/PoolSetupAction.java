@@ -6,9 +6,9 @@ import org.flywaydb.core.api.output.MigrateResult;
 import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.db.jooq.test.dagger.DaggerTestComponent;
 import io.metaloom.loom.db.jooq.test.dagger.TestComponent;
-import io.metaloom.loom.db.model.group.LoomGroup;
-import io.metaloom.loom.db.model.role.LoomRole;
-import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.group.Group;
+import io.metaloom.loom.db.model.role.Role;
+import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.test.TestEnvHelper;
 import io.metaloom.test.container.provider.client.TestDatabaseProvider;
 import io.metaloom.test.container.provider.common.config.ProviderConfig;
@@ -50,22 +50,22 @@ public class PoolSetupAction {
 		TestComponent component = DaggerTestComponent.builder().configuration(options).build();
 
 		// User
-		LoomUser adminUser = component.userDao().createUser("admin");
+		User adminUser = component.userDao().createUser("admin");
 		component.userDao().storeUser(adminUser);
 
 		// Group + Assign User to Group
-		LoomGroup group = component.groupDao().createGroup("test-group");
+		Group group = component.groupDao().createGroup("test-group");
 		component.groupDao().storeGroup(group);
 		component.groupDao().addUserToGroup(group, adminUser);
 
 		// Role + Assign Role to Group + Role Permission
-		LoomRole role = component.roleDao().createRole("test-role", adminUser.getUuid());
+		Role role = component.roleDao().createRole("test-role", adminUser.getUuid());
 		component.roleDao().storeRole(role);
 		component.groupDao().addRoleToGroup(group, role);
 		component.permissionDao().grantRolePermission(role.getUuid());
 		
 		// Second user
-		LoomUser joeDoeUser = component.userDao().createUser("joedoe");
+		User joeDoeUser = component.userDao().createUser("joedoe");
 		component.userDao().storeUser(joeDoeUser);
 
 		// 4. Now recreate the dummy pool. The pool will provide the new databases for our tests.

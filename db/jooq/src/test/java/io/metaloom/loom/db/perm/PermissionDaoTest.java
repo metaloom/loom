@@ -8,18 +8,18 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
-import io.metaloom.loom.db.model.perm.LoomResourcePermission;
-import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.perm.ResourcePermission;
+import io.metaloom.loom.db.model.user.User;
 
 public class PermissionDaoTest extends AbstractJooqTest {
 
 	@Test
 	public void testLoadUserPerms() {
-		LoomUser user = userDao().loadUserByUsername("admin");
+		User user = userDao().loadUserByUsername("admin");
 		UUID userUuid = user.getUuid();
-		List<LoomResourcePermission> perms = permissionDao().loadPermissionsForUser(userUuid);
+		List<ResourcePermission> perms = permissionDao().loadPermissionsForUser(userUuid);
 		assertNotNull(perms);
-		for (LoomResourcePermission perm : perms) {
+		for (ResourcePermission perm : perms) {
 			System.out.println(perm);
 		}
 	}

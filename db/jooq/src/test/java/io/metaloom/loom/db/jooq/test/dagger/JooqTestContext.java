@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.db.model.asset.AssetBinaryDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.group.LoomGroupDao;
-import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
+import io.metaloom.loom.db.model.group.GroupDao;
+import io.metaloom.loom.db.model.namespace.NamespaceDao;
 import io.metaloom.loom.db.model.perm.PermissionDao;
-import io.metaloom.loom.db.model.user.LoomUserDao;
+import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.test.LoomProviderExtension;
 
 public class JooqTestContext implements BeforeEachCallback, AfterEachCallback {
@@ -54,7 +54,7 @@ public class JooqTestContext implements BeforeEachCallback, AfterEachCallback {
 		return component.dataSource();
 	}
 
-	public LoomUserDao userDao() {
+	public UserDao userDao() {
 		return component.userDao();
 	}
 
@@ -62,11 +62,11 @@ public class JooqTestContext implements BeforeEachCallback, AfterEachCallback {
 		return component.assetDao();
 	}
 
-	public LoomGroupDao groupDao() {
+	public GroupDao groupDao() {
 		return component.groupDao();
 	}
 
-	public LoomNamespaceDao namespaceDao() {
+	public NamespaceDao namespaceDao() {
 		return component.namespaceDao();
 	}
 

@@ -9,7 +9,7 @@ import io.metaloom.loom.auth.jwt.JWTAuthModule;
 import io.metaloom.loom.common.dagger.LoomModule;
 import io.metaloom.loom.common.dagger.VertxModule;
 import io.metaloom.loom.core.boot.BootstrapInitializer;
-import io.metaloom.loom.db.LoomDaoCollection;
+import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.dagger.DBBindModule;
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
@@ -33,7 +33,7 @@ import io.metaloom.loom.rest.dagger.RESTModule;
 	RESTModule.class })
 public interface LoomCoreComponent {
 
-	LoomDaoCollection daos();
+	DaoCollection daos();
 
 	BootstrapInitializer boot();
 

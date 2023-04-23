@@ -1,8 +1,8 @@
 package io.metaloom.loom.db.model.asset;
 
-import io.metaloom.loom.db.LoomElement;
+import io.metaloom.loom.db.Element;
 
-public interface AssetBinary extends LoomElement {
+public interface AssetBinary extends Element {
 
 	String getSHA512();
 

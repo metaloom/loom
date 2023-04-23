@@ -10,11 +10,11 @@ import org.jooq.DSLContext;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqExtensionDao;
-import io.metaloom.loom.db.model.extension.LoomExtension;
-import io.metaloom.loom.db.model.extension.LoomExtensionDao;
+import io.metaloom.loom.db.model.extension.Extension;
+import io.metaloom.loom.db.model.extension.ExtensionDao;
 
 @Singleton
-public class ExtensionDaoImpl extends AbstractJooqDao<JooqExtensionDao> implements LoomExtensionDao {
+public class ExtensionDaoImpl extends AbstractJooqDao<JooqExtensionDao> implements ExtensionDao {
 
 	@Inject
 	public ExtensionDaoImpl(JooqExtensionDao dao, DSLContext ctx) {
@@ -22,24 +22,24 @@ public class ExtensionDaoImpl extends AbstractJooqDao<JooqExtensionDao> implemen
 	}
 
 	@Override
-	public LoomExtension createExtension(String url, Consumer<LoomExtension> modifier) {
+	public Extension createExtension(String url, Consumer<Extension> modifier) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public LoomExtension loadExtension(UUID uuid) {
+	public Extension loadExtension(UUID uuid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void updateExtension(LoomExtension extension) {
+	public void updateExtension(Extension extension) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void deleteExtension(LoomExtension extension) {
+	public void deleteExtension(Extension extension) {
 		// TODO Auto-generated method stub
 	}
 

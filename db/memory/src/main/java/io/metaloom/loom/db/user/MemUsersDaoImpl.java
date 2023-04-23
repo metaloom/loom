@@ -6,46 +6,46 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import io.metaloom.loom.api.uuid.UUIDUtil;
-import io.metaloom.loom.db.model.user.LoomUser;
-import io.metaloom.loom.db.model.user.LoomUserDao;
+import io.metaloom.loom.db.model.user.User;
+import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.page.Page;
 
-public class MemUsersDaoImpl implements LoomUserDao {
+public class MemUsersDaoImpl implements UserDao {
 
-	private Map<UUID, LoomUser> storage = new HashMap<>();
+	private Map<UUID, User> storage = new HashMap<>();
 
 	@Override
-	public LoomUser loadUser(UUID uuid) {
+	public User loadUser(UUID uuid) {
 		return storage.get(uuid);
 	}
 
 	@Override
-	public LoomUser loadUserByUsername(String username) {
+	public User loadUserByUsername(String username) {
 		return storage.values().stream().filter(u -> u.getUsername().equals(username)).findFirst().get();
 	}
 
 	@Override
-	public void deleteUser(LoomUser user) {
+	public void deleteUser(User user) {
 		if (user != null) {
 			storage.remove(user.getUuid());
 		}
 	}
 
 	@Override
-	public LoomUser createUser(String username) {
-		LoomUser user = new MemUserImpl();
+	public User createUser(String username) {
+		User user = new MemUserImpl();
 		user.setUuid(UUIDUtil.randomUUID());
 		user.setUsername(username);
 		return user;
 	}
 
 	@Override
-	public void storeUser(LoomUser user) {
+	public void storeUser(User user) {
 		storage.put(user.getUuid(), user);
 	}
 
 	@Override
-	public void updateUser(LoomUser user) {
+	public void updateUser(User user) {
 		storage.put(user.getUuid(), user);
 	}
 
@@ -60,12 +60,12 @@ public class MemUsersDaoImpl implements LoomUserDao {
 	}
 
 	@Override
-	public Stream<LoomUser> findAll() {
+	public Stream<User> findAll() {
 		return null;
 	}
 
 	@Override
-	public Page<LoomUser> loadUsers(UUID fromUuid, int pageSize) {
+	public Page<User> loadUsers(UUID fromUuid, int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -20,7 +20,7 @@ import static io.metaloom.loom.db.jooq.tables.JooqAsset.*;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqAsset;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.tag.LoomTag;
+import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.page.Page;
 
 @Singleton
@@ -61,18 +61,18 @@ public class AssetDaoImpl extends AbstractJooqDao<JooqAssetDao> implements Asset
 	// }
 
 	@Override
-	public LoomTag loadTags(Asset asset) {
+	public Tag loadTags(Asset asset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void addTag(Asset asset, LoomTag tag) {
+	public void addTag(Asset asset, Tag tag) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void removeTag(Asset asset, LoomTag tag) {
+	public void removeTag(Asset asset, Tag tag) {
 		// TODO Auto-generated method stub
 	}
 

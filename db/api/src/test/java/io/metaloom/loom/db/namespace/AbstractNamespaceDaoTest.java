@@ -10,12 +10,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.metaloom.loom.db.model.namespace.LoomNamespace;
-import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
+import io.metaloom.loom.db.model.namespace.Namespace;
+import io.metaloom.loom.db.model.namespace.NamespaceDao;
 
 public abstract class AbstractNamespaceDaoTest {
 
-	abstract public LoomNamespaceDao getDao();
+	abstract public NamespaceDao getDao();
 
 	@AfterEach
 	@BeforeEach
@@ -25,20 +25,20 @@ public abstract class AbstractNamespaceDaoTest {
 
 	@Test
 	public void testCreate() {
-		LoomNamespaceDao dao = getDao();
+		NamespaceDao dao = getDao();
 
 		// Create namespace
-		LoomNamespace namespace = dao.createNamespace("Dummy");
+		Namespace namespace = dao.createNamespace("Dummy");
 		assertNotNull(namespace.getUuid());
 		assertEquals("Dummy", namespace.getName());
 	}
 
 	@Test
 	public void testDelete() {
-		LoomNamespaceDao dao = getDao();
+		NamespaceDao dao = getDao();
 
 		// Create namespace
-		LoomNamespace namespace = dao.createNamespace("Dummy");
+		Namespace namespace = dao.createNamespace("Dummy");
 		assertNotNull(namespace);
 
 		// Now assert deletion
@@ -48,27 +48,27 @@ public abstract class AbstractNamespaceDaoTest {
 
 	@Test
 	public void testUpdate() {
-		LoomNamespaceDao dao = getDao();
+		NamespaceDao dao = getDao();
 
 		// Create and store
-		LoomNamespace namespace = dao.createNamespace("Dummy");
+		Namespace namespace = dao.createNamespace("Dummy");
 
 		// Now update
 		namespace.setName("Dummy2");
 		dao.updateNamespace(namespace);
 
 		// Load and assert update was persisted
-		LoomNamespace updatedNamespace = dao.loadNamespace(namespace.getUuid());
+		Namespace updatedNamespace = dao.loadNamespace(namespace.getUuid());
 		assertEquals("Dummy2", updatedNamespace.getName());
 
 	}
 
 	@Test
 	public void testLoad() {
-		LoomNamespaceDao dao = getDao();
+		NamespaceDao dao = getDao();
 
 		// Create and store namespace
-		LoomNamespace namespace = dao.createNamespace("Dummy");
+		Namespace namespace = dao.createNamespace("Dummy");
 
 		// Now load again
 		assertNotNull(dao.loadNamespace(namespace.getUuid()));

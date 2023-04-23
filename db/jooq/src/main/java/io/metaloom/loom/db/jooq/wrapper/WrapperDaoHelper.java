@@ -1,16 +1,16 @@
 package io.metaloom.loom.db.jooq.wrapper;
 
-import io.metaloom.loom.db.LoomElement;
+import io.metaloom.loom.db.Element;
 import io.metaloom.loom.db.jooq.LoomJooqException;
 import io.metaloom.loom.db.jooq.dao.asset.AssetBinaryImpl;
 import io.metaloom.loom.db.jooq.dao.asset.AssetImpl;
-import io.metaloom.loom.db.jooq.dao.content.LoomContentImpl;
-import io.metaloom.loom.db.jooq.dao.group.LoomGroupImpl;
-import io.metaloom.loom.db.jooq.dao.namespace.LoomNamespaceImpl;
-import io.metaloom.loom.db.jooq.dao.role.LoomRoleImpl;
-import io.metaloom.loom.db.jooq.dao.tag.LoomTagImpl;
-import io.metaloom.loom.db.jooq.dao.user.LoomUserImpl;
-import io.metaloom.loom.db.jooq.extension.LoomExtensionImpl;
+import io.metaloom.loom.db.jooq.dao.content.ContentImpl;
+import io.metaloom.loom.db.jooq.dao.group.GroupImpl;
+import io.metaloom.loom.db.jooq.dao.namespace.NamespaceImpl;
+import io.metaloom.loom.db.jooq.dao.role.RoleImpl;
+import io.metaloom.loom.db.jooq.dao.tag.TagImpl;
+import io.metaloom.loom.db.jooq.dao.user.UserImpl;
+import io.metaloom.loom.db.jooq.extension.ExtensionImpl;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqAsset;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqAssetBinarie;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqContent;
@@ -30,7 +30,7 @@ public interface WrapperDaoHelper {
 		return wrapper.delegate();
 	}
 
-	default <T> T unwrap(LoomElement element) {
+	default <T> T unwrap(Element element) {
 		if (element == null) {
 			return null;
 		}
@@ -41,20 +41,20 @@ public interface WrapperDaoHelper {
 	}
 
 	@SuppressWarnings("unchecked")
-	default <T extends LoomElement> T wrap(Object jooq) {
+	default <T extends Element> T wrap(Object jooq) {
 		if (jooq == null) {
 			return null;
 		}
 		return (T) switch (jooq) {
-		case JooqUser u -> new LoomUserImpl(u);
-		case JooqGroup g -> new LoomGroupImpl(g);
-		case JooqRole r -> new LoomRoleImpl(r);
+		case JooqUser u -> new UserImpl(u);
+		case JooqGroup g -> new GroupImpl(g);
+		case JooqRole r -> new RoleImpl(r);
 		case JooqAsset a -> new AssetImpl(a);
-		case JooqNamespace n -> new LoomNamespaceImpl(n);
+		case JooqNamespace n -> new NamespaceImpl(n);
 		case JooqAssetBinarie b -> new AssetBinaryImpl(b);
-		case JooqContent c -> new LoomContentImpl(c);
-		case JooqExtension e -> new LoomExtensionImpl(e);
-		case JooqTag t -> new LoomTagImpl(t);
+		case JooqContent c -> new ContentImpl(c);
+		case JooqExtension e -> new ExtensionImpl(e);
+		case JooqTag t -> new TagImpl(t);
 		default -> throw new LoomJooqException("Unknown type encountered is not supported " + jooq.getClass().getName());
 		};
 	}

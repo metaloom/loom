@@ -3,10 +3,10 @@ package io.metaloom.loom.db.model.asset;
 import java.math.BigDecimal;
 
 import io.metaloom.loom.db.CUDElement;
-import io.metaloom.loom.db.LoomMetaElement;
-import io.metaloom.loom.db.LoomTaggable;
+import io.metaloom.loom.db.MetaElement;
+import io.metaloom.loom.db.Taggable;
 
-public interface Asset extends CUDElement, LoomTaggable, LoomMetaElement {
+public interface Asset extends CUDElement, Taggable, MetaElement {
 
 	/**
 	 * Return the filename of the asset.

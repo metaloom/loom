@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.namespace.LoomNamespace;
-import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.namespace.Namespace;
+import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.page.Page;
 
 public class AssetDaoTest extends AbstractJooqTest {
@@ -22,8 +22,8 @@ public class AssetDaoTest extends AbstractJooqTest {
 		AssetDao assetDao = assetDao();
 
 		AtomicReference<UUID> ref = new AtomicReference<>();
-		LoomUser creator = createUser("joedoe");
-		LoomNamespace namespace = createNamespace("Test");
+		User creator = createUser("joedoe");
+		Namespace namespace = createNamespace("Test");
 		context.context().transaction(t -> {
 			Asset asset = createAsset("blume.jpg", creator, namespace);
 			assertNotNull(asset);
@@ -38,8 +38,8 @@ public class AssetDaoTest extends AbstractJooqTest {
 
 	@Test
 	public void testLoadPage() {
-		LoomUser creator = createUser("joedoe");
-		LoomNamespace namespace = createNamespace("Test");
+		User creator = createUser("joedoe");
+		Namespace namespace = createNamespace("Test");
 		for (int i = 0; i < 1024; i++) {
 			Asset asset = createAsset("blume_" + i + ".jpg", creator, namespace);
 			assetDao().storeAsset(asset);

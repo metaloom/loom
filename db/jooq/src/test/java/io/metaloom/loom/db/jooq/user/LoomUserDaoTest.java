@@ -7,33 +7,33 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
-import io.metaloom.loom.db.model.group.LoomGroup;
-import io.metaloom.loom.db.model.group.LoomGroupDao;
-import io.metaloom.loom.db.model.user.LoomUser;
-import io.metaloom.loom.db.model.user.LoomUserDao;
+import io.metaloom.loom.db.model.group.Group;
+import io.metaloom.loom.db.model.group.GroupDao;
+import io.metaloom.loom.db.model.user.User;
+import io.metaloom.loom.db.model.user.UserDao;
 
 public class LoomUserDaoTest extends AbstractJooqTest {
 
 	@Test
 	public void testBasics() {
-		LoomUserDao userDao = userDao();
-		LoomUser createdUser = userDao.createUser("dummy");
+		UserDao userDao = userDao();
+		User createdUser = userDao.createUser("dummy");
 
-		Stream<LoomUser> obs = userDao.findAll();
+		Stream<User> obs = userDao.findAll();
 
-		LoomUser loadedUser = userDao.loadUser(createdUser.getUuid());
+		User loadedUser = userDao.loadUser(createdUser.getUuid());
 		assertNotNull(loadedUser);
 		obs.forEach(u -> {
 			System.out.println("User: " + u.getUsername() + " " + u.getUuid());
 		});
 
-		LoomGroupDao groupDao = groupDao();
-		LoomGroup group = groupDao.createGroup("test");
+		GroupDao groupDao = groupDao();
+		Group group = groupDao.createGroup("test");
 		assertNotNull(group);
 
 		groupDao.addUserToGroup(group, loadedUser);
 
-		LoomGroup loadedGroup = groupDao.loadGroup(group.getUuid());
+		Group loadedGroup = groupDao.loadGroup(group.getUuid());
 
 	}
 

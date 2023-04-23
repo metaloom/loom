@@ -1,10 +1,10 @@
 package io.metaloom.loom.db.user;
 
 import io.metaloom.loom.db.mem.AbstractMemCUDElement;
-import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.user.User;
 import io.vertx.core.json.JsonObject;
 
-public class MemUserImpl extends AbstractMemCUDElement implements LoomUser {
+public class MemUserImpl extends AbstractMemCUDElement implements User {
 
 	private String lastname;
 	private String firstname;
@@ -21,7 +21,7 @@ public class MemUserImpl extends AbstractMemCUDElement implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setUsername(String username) {
+	public User setUsername(String username) {
 		this.username = username;
 		return this;
 	}
@@ -32,7 +32,7 @@ public class MemUserImpl extends AbstractMemCUDElement implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setEmail(String email) {
+	public User setEmail(String email) {
 		this.email = email;
 		return this;
 	}
@@ -43,7 +43,7 @@ public class MemUserImpl extends AbstractMemCUDElement implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setFirstname(String firstname) {
+	public User setFirstname(String firstname) {
 		this.firstname = firstname;
 		return this;
 	}
@@ -54,7 +54,7 @@ public class MemUserImpl extends AbstractMemCUDElement implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setLastname(String lastname) {
+	public User setLastname(String lastname) {
 		this.lastname = lastname;
 		return this;
 	}
@@ -65,7 +65,7 @@ public class MemUserImpl extends AbstractMemCUDElement implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setPasswordHash(String hash) {
+	public User setPasswordHash(String hash) {
 		this.passwordHash = hash;
 		return this;
 	}
@@ -76,7 +76,7 @@ public class MemUserImpl extends AbstractMemCUDElement implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setMeta(JsonObject meta) {
+	public User setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}
@@ -87,7 +87,7 @@ public class MemUserImpl extends AbstractMemCUDElement implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setSSO(boolean flag) {
+	public User setSSO(boolean flag) {
 		this.sso = flag;
 		return this;
 	}
@@ -98,7 +98,7 @@ public class MemUserImpl extends AbstractMemCUDElement implements LoomUser {
 	}
 
 	@Override
-	public LoomUser setEnabled(boolean flag) {
+	public User setEnabled(boolean flag) {
 		this.enabled = flag;
 		return this;
 	}

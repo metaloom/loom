@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.metaloom.loom.db.model.perm.PermissionDao;
-import io.metaloom.loom.db.model.user.LoomUserDao;
+import io.metaloom.loom.db.model.user.UserDao;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.ext.auth.User;
@@ -15,11 +15,11 @@ import io.vertx.ext.auth.authorization.AuthorizationProvider;
 @Singleton
 public class LoomAuthorizationProvider implements AuthorizationProvider {
 
-	private LoomUserDao userDao;
+	private UserDao userDao;
 	private PermissionDao permissionDao;
 
 	@Inject
-	public LoomAuthorizationProvider(LoomUserDao userDao, PermissionDao permissionDao) {
+	public LoomAuthorizationProvider(UserDao userDao, PermissionDao permissionDao) {
 		this.userDao = userDao;
 		this.permissionDao = permissionDao;
 	}

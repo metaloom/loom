@@ -3,7 +3,7 @@ package io.metaloom.loom.db.jooq.wrapper;
 import java.lang.reflect.Constructor;
 import java.util.Optional;
 
-import io.metaloom.loom.db.LoomElement;
+import io.metaloom.loom.db.Element;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 
@@ -50,7 +50,7 @@ public final class JooqWrapperHelper {
 		}
 	}
 
-	public static <T> T unwrap(LoomElement element) {
+	public static <T> T unwrap(Element element) {
 		if (JooqWrapper.class.isInstance(element)) {
 			@SuppressWarnings("unchecked")
 			JooqWrapper<T> wrapper = JooqWrapper.class.cast(element);

@@ -4,11 +4,11 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.metaloom.loom.db.LoomDaoCollection;
+import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetBinary;
-import io.metaloom.loom.db.model.namespace.LoomNamespace;
-import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.namespace.Namespace;
+import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.proto.AssetRequest;
 import io.metaloom.loom.proto.AssetResponse;
 import io.metaloom.loom.proto.VertxAssetLoaderGrpc.AssetLoaderVertxImplBase;
@@ -16,10 +16,10 @@ import io.vertx.core.Future;
 
 public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 
-	private final LoomDaoCollection daos;
+	private final DaoCollection daos;
 
 	@Inject
-	public GrpcAssetLoader(LoomDaoCollection daos) {
+	public GrpcAssetLoader(DaoCollection daos) {
 		this.daos = daos;
 	}
 
@@ -44,10 +44,10 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		binary.setChunkHash(chunkHash);
 		daos.assetBinaryDao().storeBinary(binary);
 
-		LoomUser creator = daos.userDao().createUser("test");
+		User creator = daos.userDao().createUser("test");
 		daos.userDao().storeUser(creator);
 		
-		LoomNamespace namespace = daos.namespaceDao().createNamespace("test");
+		Namespace namespace = daos.namespaceDao().createNamespace("test");
 		Asset asset = daos.assetDao().createAsset(path, binary.getUuid(), creator.getUuid(), namespace.getUuid());
 		daos.assetDao().storeAsset(asset);
 

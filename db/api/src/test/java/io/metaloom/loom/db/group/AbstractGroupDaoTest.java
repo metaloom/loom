@@ -10,12 +10,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.metaloom.loom.db.model.group.LoomGroup;
-import io.metaloom.loom.db.model.group.LoomGroupDao;
+import io.metaloom.loom.db.model.group.Group;
+import io.metaloom.loom.db.model.group.GroupDao;
 
 public abstract class AbstractGroupDaoTest {
 
-	abstract public LoomGroupDao getDao();
+	abstract public GroupDao getDao();
 
 	@AfterEach
 	@BeforeEach
@@ -25,20 +25,20 @@ public abstract class AbstractGroupDaoTest {
 
 	@Test
 	public void testCreate() {
-		LoomGroupDao dao = getDao();
+		GroupDao dao = getDao();
 
 		// Create group
-		LoomGroup group = dao.createGroup("Guests");
+		Group group = dao.createGroup("Guests");
 		assertNotNull(group.getUuid());
 		assertEquals("Guests", group.getName());
 	}
 
 	@Test
 	public void testDelete() {
-		LoomGroupDao dao = getDao();
+		GroupDao dao = getDao();
 
 		// Create group
-		LoomGroup group = dao.createGroup("Guests");
+		Group group = dao.createGroup("Guests");
 
 		// Now assert deletion
 		dao.deleteGroup(group.getUuid());
@@ -47,27 +47,27 @@ public abstract class AbstractGroupDaoTest {
 
 	@Test
 	public void testUpdate() {
-		LoomGroupDao dao = getDao();
+		GroupDao dao = getDao();
 
 		// Create and store
-		LoomGroup group = dao.createGroup("Guests");
+		Group group = dao.createGroup("Guests");
 
 		// Now update
 		group.setName("Guests2");
 		dao.updateGroup(group);
 
 		// Load and assert update was persisted
-		LoomGroup updatedGroup = dao.loadGroup(group.getUuid());
+		Group updatedGroup = dao.loadGroup(group.getUuid());
 		assertEquals("Guests2", updatedGroup.getName());
 
 	}
 
 	@Test
 	public void testLoad() {
-		LoomGroupDao dao = getDao();
+		GroupDao dao = getDao();
 
 		// Create and store group
-		LoomGroup group = dao.createGroup("Guests");
+		Group group = dao.createGroup("Guests");
 
 		// Now load again
 		assertNotNull(dao.loadGroup(group.getUuid()));

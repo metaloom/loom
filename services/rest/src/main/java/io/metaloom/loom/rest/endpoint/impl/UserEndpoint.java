@@ -13,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.auth.LoomAuthenticationHandler;
-import io.metaloom.loom.db.model.user.LoomUser;
-import io.metaloom.loom.db.model.user.LoomUserDao;
+import io.metaloom.loom.db.model.user.User;
+import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.AbstractRESTEndpoint;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
@@ -27,10 +27,10 @@ import io.vertx.ext.web.Router;
 public class UserEndpoint extends AbstractRESTEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(UserEndpoint.class);
-	private final LoomUserDao userDao;
+	private final UserDao userDao;
 
 	@Inject
-	public UserEndpoint(Vertx vertx, @Named("restRouter") Router router, LoomAuthenticationHandler authHandler, LoomUserDao userDao) {
+	public UserEndpoint(Vertx vertx, @Named("restRouter") Router router, LoomAuthenticationHandler authHandler, UserDao userDao) {
 		super(vertx, router, authHandler);
 		this.userDao = userDao;
 	}
@@ -51,7 +51,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 		addRoute("/users/:uuid", DELETE, lrc -> {
 			String uuid = lrc.pathParam("uuid");
 			System.out.println("Deleting " + uuid);
-			LoomUser user = userDao.loadUser(UUID.fromString(uuid));
+			User user = userDao.loadUser(UUID.fromString(uuid));
 			if (user == null) {
 				lrc.send(new GenericMessageResponse(), 404);
 				return;
@@ -65,7 +65,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 
 	private void registerListUsers() {
 		addRoute("/users", GET, lrc -> {
-			Page<LoomUser> page = userDao.loadUsers(null, 25);
+			Page<User> page = userDao.loadUsers(null, 25);
 			UserListResponse response = new UserListResponse();
 			page.forEach(user -> {
 				response.add(toResponse(user));
@@ -83,7 +83,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 			// TODO validate request
 			// TODO handle conflicts
 
-			LoomUser user = userDao.createUser(userName);
+			User user = userDao.createUser(userName);
 			userDao.storeUser(user);
 			lrc.send(toResponse(user), 201);
 		});
@@ -91,7 +91,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 
 	private void registerLoadUser() {
 		addRoute("/users/:name", GET, lrc -> {
-			LoomUser user = userDao.loadUserByUsername(lrc.pathParam("name"));
+			User user = userDao.loadUserByUsername(lrc.pathParam("name"));
 			if (user == null) {
 				lrc.send(new GenericMessageResponse(), 404);
 				return;
@@ -102,7 +102,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 		});
 	}
 
-	private UserResponse toResponse(LoomUser user) {
+	private UserResponse toResponse(User user) {
 		UserResponse response = new UserResponse();
 		response.setUsername(user.getUsername());
 		response.setUuid(user.getUuid());

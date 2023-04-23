@@ -16,11 +16,11 @@ import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
 import io.metaloom.loom.db.model.asset.AssetBinaryDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.group.LoomGroupDao;
-import io.metaloom.loom.db.model.namespace.LoomNamespaceDao;
+import io.metaloom.loom.db.model.group.GroupDao;
+import io.metaloom.loom.db.model.namespace.NamespaceDao;
 import io.metaloom.loom.db.model.perm.PermissionDao;
-import io.metaloom.loom.db.model.role.LoomRoleDao;
-import io.metaloom.loom.db.model.user.LoomUserDao;
+import io.metaloom.loom.db.model.role.RoleDao;
+import io.metaloom.loom.db.model.user.UserDao;
 import io.r2dbc.spi.ConnectionFactory;
 
 @Singleton
@@ -35,17 +35,17 @@ public interface TestComponent {
 
 	ConnectionFactory r2dbcConnectionFactory();
 
-	LoomUserDao userDao();
+	UserDao userDao();
 
 	AssetDao assetDao();
 
-	LoomGroupDao groupDao();
+	GroupDao groupDao();
 
-	LoomRoleDao roleDao();
+	RoleDao roleDao();
 
 	PermissionDao permissionDao();
 
-	LoomNamespaceDao namespaceDao();
+	NamespaceDao namespaceDao();
 
 	AssetBinaryDao binaryDao();
 

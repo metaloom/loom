@@ -4,9 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-import io.metaloom.loom.db.LoomElement;
+import io.metaloom.loom.db.Element;
 
-public class Page<T extends LoomElement> implements Iterable<T> {
+public class Page<T extends Element> implements Iterable<T> {
 
 	private List<T> list;
 

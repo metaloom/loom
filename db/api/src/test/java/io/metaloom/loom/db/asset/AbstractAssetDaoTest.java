@@ -13,14 +13,14 @@ import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.user.LoomUser;
-import io.metaloom.loom.db.model.user.LoomUserDao;
+import io.metaloom.loom.db.model.user.User;
+import io.metaloom.loom.db.model.user.UserDao;
 
 public abstract class AbstractAssetDaoTest {
 
 	abstract public AssetDao getDao();
 
-	abstract public LoomUserDao getUserDao();
+	abstract public UserDao getUserDao();
 
 	@AfterEach
 	@BeforeEach
@@ -39,7 +39,7 @@ public abstract class AbstractAssetDaoTest {
 	}
 
 	private Asset createTestAsset() {
-		LoomUser creator = getUserDao().createUser("joedoe");
+		User creator = getUserDao().createUser("joedoe");
 		UUID binaryUuid = UUID.randomUUID();
 		UUID namespaceUuid = UUID.randomUUID();
 		UUID creatorUuid = creator.getUuid();

@@ -2,11 +2,11 @@ package io.metaloom.loom.db.model.asset;
 
 import java.util.UUID;
 
-import io.metaloom.loom.db.LoomDao;
-import io.metaloom.loom.db.model.tag.LoomTag;
+import io.metaloom.loom.db.Dao;
+import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.page.Page;
 
-public interface AssetDao extends LoomDao {
+public interface AssetDao extends Dao {
 
 	Asset createAsset(String filename, UUID binaryUuid, UUID creatorUuid, UUID namespaceUuid);
 
@@ -18,11 +18,11 @@ public interface AssetDao extends LoomDao {
 
 	Asset loadAsset(UUID uuid);
 
-	LoomTag loadTags(Asset asset);
+	Tag loadTags(Asset asset);
 
-	void addTag(Asset asset, LoomTag tag);
+	void addTag(Asset asset, Tag tag);
 
-	void removeTag(Asset asset, LoomTag tag);
+	void removeTag(Asset asset, Tag tag);
 
 	Page<Asset> loadAssets(UUID uuid, int pageSize);
 

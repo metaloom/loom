@@ -2,23 +2,23 @@ package io.metaloom.loom.db;
 
 import java.time.LocalDateTime;
 
-import io.metaloom.loom.db.model.user.LoomUser;
+import io.metaloom.loom.db.model.user.User;
 
-public interface CUDElement extends LoomElement {
+public interface CUDElement extends Element {
 
 //	User getEditor();
 
-	LoomElement setEditor(LoomUser editor);
+	Element setEditor(User editor);
 
 //	User getCreator();
 
-	LoomElement setCreator(LoomUser creator);
+	Element setCreator(User creator);
 
 	LocalDateTime getEdited();
 
-	LoomElement setEdited(LocalDateTime edate);
+	Element setEdited(LocalDateTime edate);
 
 	LocalDateTime getCreated();
 
-	LoomElement setCreated(LocalDateTime cdate);
+	Element setCreated(LocalDateTime cdate);
 }

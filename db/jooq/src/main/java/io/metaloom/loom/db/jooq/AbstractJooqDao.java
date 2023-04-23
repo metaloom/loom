@@ -3,10 +3,10 @@ package io.metaloom.loom.db.jooq;
 import org.jooq.DAO;
 import org.jooq.DSLContext;
 
-import io.metaloom.loom.db.LoomDao;
+import io.metaloom.loom.db.Dao;
 import io.metaloom.loom.db.jooq.wrapper.WrapperDaoHelper;
 
-public abstract class AbstractJooqDao<D extends DAO<?, ?, ?>> implements LoomDao, WrapperDaoHelper {
+public abstract class AbstractJooqDao<D extends DAO<?, ?, ?>> implements Dao, WrapperDaoHelper {
 
 	private final D dao;
 
