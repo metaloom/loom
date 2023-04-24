@@ -19,7 +19,7 @@ public class LoginEndpointTest {
 	@Test
 	public void testBasics() throws Exception {
 		try (LoomHttpClient client = loom.httpClient()) {
-			AuthLoginResponse response = client.login("joedoe", "password").sync();
+			AuthLoginResponse response = client.login("admin", "finger").sync();
 			System.out.println("Got Token: " + response.getToken());
 			client.setToken(response.getToken());
 			UserResponse response2 = client.loadUser("admin").sync();

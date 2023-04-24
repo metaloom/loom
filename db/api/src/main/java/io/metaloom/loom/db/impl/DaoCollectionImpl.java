@@ -13,6 +13,7 @@ import io.metaloom.loom.db.model.extension.ExtensionDao;
 import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.model.ModelDao;
 import io.metaloom.loom.db.model.namespace.NamespaceDao;
+import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.role.RoleDao;
 import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.model.webhook.WebhookDao;
@@ -20,41 +21,35 @@ import io.metaloom.loom.db.model.webhook.WebhookDao;
 @Singleton
 public class DaoCollectionImpl implements DaoCollection {
 
-	@Inject
-	public Lazy<ContentDao> contentDao;
+	private Lazy<ContentDao> contentDao;
+	private Lazy<FieldDao> fieldDao;
+	private Lazy<UserDao> userDao;
+	private Lazy<GroupDao> groupDao;
+	private Lazy<RoleDao> roleDao;
+	private Lazy<AssetDao> assetDao;
+	private Lazy<PermissionDao> permissionDao;
+	private Lazy<AssetBinaryDao> assetBinaryDao;
+	private Lazy<WebhookDao> webhookDao;
+	private Lazy<ExtensionDao> extensionDao;
+	private Lazy<ModelDao> modelDao;
+	private Lazy<NamespaceDao> namespaceDao;
 
 	@Inject
-	public Lazy<FieldDao> fieldDao;
-
-	@Inject
-	public Lazy<UserDao> userDao;
-
-	@Inject
-	public Lazy<RoleDao> roleDao;
-
-	@Inject
-	public Lazy<GroupDao> groupDao;
-
-	@Inject
-	public Lazy<AssetDao> assetDao;
-
-	@Inject
-	public Lazy<AssetBinaryDao> assetBinaryDao;
-
-	@Inject
-	public Lazy<NamespaceDao> namespaceDao;
-
-	@Inject
-	public Lazy<ModelDao> modelDao;
-
-	@Inject
-	public Lazy<ExtensionDao> extensionDao;
-
-	@Inject
-	public Lazy<WebhookDao> webhookDao;
-
-	@Inject
-	public DaoCollectionImpl() {
+	public DaoCollectionImpl(Lazy<ContentDao> contentDao, Lazy<FieldDao> fieldDao, Lazy<UserDao> userDao, Lazy<PermissionDao> permissionDao,
+		Lazy<RoleDao> roleDao, Lazy<GroupDao> groupDao, Lazy<AssetDao> assetDao, Lazy<AssetBinaryDao> assetBinaryDao, Lazy<NamespaceDao> namespaceDao,
+		Lazy<ModelDao> modelDao, Lazy<ExtensionDao> extensionDao, Lazy<WebhookDao> webhookDao) {
+		this.contentDao = contentDao;
+		this.fieldDao = fieldDao;
+		this.userDao = userDao;
+		this.groupDao = groupDao;
+		this.roleDao = roleDao;
+		this.assetDao = assetDao;
+		this.permissionDao = permissionDao;
+		this.assetBinaryDao = assetBinaryDao;
+		this.webhookDao = webhookDao;
+		this.extensionDao = extensionDao;
+		this.modelDao = modelDao;
+		this.namespaceDao = namespaceDao;
 	}
 
 	@Override
@@ -110,6 +105,11 @@ public class DaoCollectionImpl implements DaoCollection {
 	@Override
 	public NamespaceDao namespaceDao() {
 		return namespaceDao.get();
+	}
+
+	@Override
+	public PermissionDao permissionDao() {
+		return permissionDao.get();
 	}
 
 }

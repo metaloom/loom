@@ -9,7 +9,7 @@ import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.metaloom.loom.api.auth.AuthenticationService;
+import io.metaloom.loom.auth.AuthenticationService;
 import io.metaloom.loom.rest.RESTService;
 import io.metaloom.loom.server.grpc.GrpcService;
 

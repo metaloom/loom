@@ -14,7 +14,7 @@ import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.auth.jwt.JWTAuthOptions;
 
 @Module
-public class JWTAuthModule {
+public class AuthModule {
 
 	@Provides
 	public JWTAuth jwtAuthProvider(Vertx vertx, LoomOptions options) {

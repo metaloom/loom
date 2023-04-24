@@ -5,7 +5,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.api.options.LoomOptions;
-import io.metaloom.loom.auth.Permissions;
+import io.metaloom.loom.db.model.perm.Permission;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -29,12 +29,12 @@ public class VertxPermTest {
 		// Authenticate
 		LoomOptions options = new LoomOptions();
 		options.getAuth().setKeystorePassword("ABCD");
-		JWTAuth jwtAuth = new JWTAuthModule().jwtAuthProvider(vertx, options);
+		JWTAuth jwtAuth = new AuthModule().jwtAuthProvider(vertx, options);
 
 		AuthorizationProvider authProvider = JWTAuthorization.create("claim");
 
 		JsonArray claims = new JsonArray();
-		claims.add(Permissions.CREATE_ASSET.name());
+		claims.add(Permission.CREATE_ASSET.name());
 		JsonObject userAttr = new JsonObject().put("claim", claims);
 		String token = jwtAuth.generateToken(userAttr);
 		System.out.println("Token: " + token);
@@ -50,7 +50,7 @@ public class VertxPermTest {
 		authProvider.getAuthorizations(user)
 			.onSuccess(done -> {
 				// cache is populated, perform query
-				if (PermissionBasedAuthorization.create(Permissions.CREATE_ASSET.name()).match(user)) {
+				if (PermissionBasedAuthorization.create(Permission.CREATE_ASSET.name()).match(user)) {
 					System.out.println("User has the authority");
 				} else {
 					System.out.println("User does not have the authority");

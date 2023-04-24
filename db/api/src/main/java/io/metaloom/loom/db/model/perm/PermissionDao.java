@@ -1,12 +1,13 @@
 package io.metaloom.loom.db.model.perm;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface PermissionDao {
 
-	void grantRolePermission(UUID roleUuid);
+	void grantRolePermission(UUID roleUuid, Permission perm);
+	
+	void grantRolePermission(UUID roleUuid, Permission perm, String resource);
 
-	List<ResourcePermission> loadPermissionsForUser(UUID userUuid);
+	ResourcePermissionSet loadPermissionsForUser(UUID userUuid);
 
 }

@@ -7,7 +7,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.model.perm.PermissionDao;
-import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.db.model.perm.Permission;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.User;
@@ -22,9 +22,9 @@ public class LoomAuthorizationProviderTest {
 	@Test
 	public void testBasics() {
 
-		UserDao userDao = mock(UserDao.class);
 		PermissionDao permDao = mock(PermissionDao.class);
-		LoomAuthorizationProvider authProvider = new LoomAuthorizationProvider(userDao, permDao);
+		PermissionCache cache = new PermissionCache();
+		LoomAuthorizationProvider authProvider = new LoomAuthorizationProvider(permDao, cache);
 
 		User user = new UserImpl(new JsonObject(), new JsonObject());
 
@@ -38,7 +38,7 @@ public class LoomAuthorizationProviderTest {
 		authProvider.getAuthorizations(user)
 			.onSuccess(done -> {
 				// cache is populated, perform query
-				if (PermissionBasedAuthorization.create(Permissions.CREATE_ASSET.name()).match(user)) {
+				if (PermissionBasedAuthorization.create(Permission.CREATE_ASSET.name()).match(user)) {
 					System.out.println("User has the authority");
 				} else {
 					System.out.println("User does not have the authority");

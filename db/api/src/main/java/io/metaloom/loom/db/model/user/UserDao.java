@@ -72,4 +72,5 @@ public interface UserDao extends Dao {
 	 */
 	Stream<User> findAll();
 
+
 }

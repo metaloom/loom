@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Provider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import io.metaloom.loom.auth.LoomAuthenticationHandler;
 import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.rest.AbstractRESTEndpoint;
+import io.metaloom.loom.rest.dagger.RestComponent;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
 import io.metaloom.loom.rest.model.asset.AssetListResponse;
 import io.metaloom.loom.rest.model.asset.AssetResponse;
@@ -28,8 +30,9 @@ public class AssetEndpoint extends AbstractRESTEndpoint {
 	private AssetDao assetDao;
 
 	@Inject
-	public AssetEndpoint(Vertx vertx, @Named("restRouter") Router router, AssetDao assetDao, LoomAuthenticationHandler authHandler) {
-		super(vertx, router, authHandler);
+	public AssetEndpoint(Vertx vertx, @Named("restRouter") Router router, AssetDao assetDao, Provider<RestComponent.Builder> restComponentProvider,
+		LoomAuthenticationHandler authHandler) {
+		super(vertx, router, restComponentProvider, authHandler);
 		this.assetDao = assetDao;
 	}
 

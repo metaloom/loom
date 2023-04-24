@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.endpoint.impl;
 
+import static io.metaloom.loom.db.model.perm.Permission.DELETE_USER;
+import static io.metaloom.loom.db.model.perm.Permission.READ_USER;
 import static io.vertx.core.http.HttpMethod.DELETE;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
@@ -8,6 +10,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Provider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,7 @@ import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.AbstractRESTEndpoint;
+import io.metaloom.loom.rest.dagger.RestComponent;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.model.user.UserListResponse;
@@ -30,8 +34,9 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 	private final UserDao userDao;
 
 	@Inject
-	public UserEndpoint(Vertx vertx, @Named("restRouter") Router router, LoomAuthenticationHandler authHandler, UserDao userDao) {
-		super(vertx, router, authHandler);
+	public UserEndpoint(Vertx vertx, @Named("restRouter") Router router, LoomAuthenticationHandler authHandler, UserDao userDao,
+		Provider<RestComponent.Builder> restComponentProvider) {
+		super(vertx, router, restComponentProvider, authHandler);
 		this.userDao = userDao;
 	}
 
@@ -39,12 +44,11 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 	public void register() {
 		log.info("Registering users endpoint");
 
-		secure("/users");
+		secure("/users*");
 		registerLoadUser();
 		registerCreateUser();
 		registerListUsers();
 		registerDeleteUser();
-
 	}
 
 	private void registerDeleteUser() {
@@ -91,14 +95,19 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 
 	private void registerLoadUser() {
 		addRoute("/users/:name", GET, lrc -> {
-			User user = userDao.loadUserByUsername(lrc.pathParam("name"));
-			if (user == null) {
-				lrc.send(new GenericMessageResponse(), 404);
-				return;
-			}
-			System.out.println("Get Users: " + lrc.user());
-			UserResponse response = toResponse(user);
-			lrc.send(response);
+			lrc.requirePerm(READ_USER).onSuccess(l -> {
+				User user = userDao.loadUserByUsername(lrc.pathParam("name"));
+				if (user == null) {
+					lrc.send(new GenericMessageResponse(), 404);
+					return;
+				}
+				UserResponse response = toResponse(user);
+				lrc.send(response);
+			}).onFailure(e -> {
+				// TODO this should be 500 error
+				log.error("Failed to check perms", e);
+				lrc.send(new GenericMessageResponse().setMessage("Invalid permissions"), 403);
+			});
 		});
 	}
 

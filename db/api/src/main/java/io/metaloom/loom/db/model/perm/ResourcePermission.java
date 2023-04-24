@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.model.perm;
 
+
 public class ResourcePermission {
 
 	private String permission;

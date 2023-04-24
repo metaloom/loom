@@ -8,6 +8,7 @@ import io.metaloom.loom.db.model.extension.ExtensionDao;
 import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.model.ModelDao;
 import io.metaloom.loom.db.model.namespace.NamespaceDao;
+import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.role.RoleDao;
 import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.model.webhook.WebhookDao;
@@ -38,5 +39,7 @@ public interface DaoCollection {
 	AssetDao assetDao();
 
 	AssetBinaryDao assetBinaryDao();
+
+	PermissionDao permissionDao();
 
 }

@@ -17,4 +17,5 @@ public class RESTModule {
 	public Router restRouter(Vertx vertx) {
 		return Router.router(vertx);
 	}
+
 }

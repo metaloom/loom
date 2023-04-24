@@ -12,7 +12,7 @@ import io.grpc.ServerCall.Listener;
 import io.grpc.ServerCallHandler;
 import io.grpc.ServerInterceptor;
 import io.grpc.Status;
-import io.metaloom.loom.api.auth.AuthenticationService;
+import io.metaloom.loom.auth.AuthenticationService;
 
 public class AuthInterceptor implements ServerInterceptor {
 

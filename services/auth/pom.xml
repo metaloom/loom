@@ -22,4 +22,10 @@
 		<module>auth-keycloak</module>
 	</modules>
 
+  <dependencies>
+  <dependency>
+      <groupId>io.metaloom.loom.service</groupId>
+      <artifactId>loom-service-api</artifactId>
+    </dependency>
+  </dependencies>
 </project>
