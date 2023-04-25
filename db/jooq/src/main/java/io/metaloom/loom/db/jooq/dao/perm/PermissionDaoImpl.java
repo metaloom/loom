@@ -7,6 +7,7 @@ import static io.metaloom.loom.db.jooq.tables.JooqUserPermission.USER_PERMISSION
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -65,8 +66,13 @@ public class PermissionDaoImpl implements PermissionDao {
 		return permSet;
 	}
 
-	public void loadPermissionsForToken(UUID tokenUUID) {
-		List<JooqTokenPermission> tokenPerms = tokenPermDao.fetchByJooqTokenUuid(tokenUUID);
+	public ResourcePermissionSet loadPermissionsForToken(UUID tokenUUID) {
+		List<ResourcePermission> tokenPerms = tokenPermDao.fetchByJooqTokenUuid(tokenUUID).stream().map(perm -> {
+			return new ResourcePermission().setPermission(perm.getPermission().name()).setResource(perm.getResource());
+		}).collect(Collectors.toList());
+		ResourcePermissionSet permSet = new ResourcePermissionSet();
+		permSet.addAll(tokenPerms);
+		return permSet;
 	}
 
 	@Override
@@ -78,7 +84,6 @@ public class PermissionDaoImpl implements PermissionDao {
 	public void grantRolePermission(UUID roleUuid, Permission perm, String resource) {
 		JooqRolePermission jooqPerm = new JooqRolePermission(roleUuid, resource, JooqLoomPermission.valueOf(perm.name()));
 		rolePermDao.insert(jooqPerm);
-
 	}
 
 }

@@ -11,16 +11,18 @@ public class ResourcePermission {
 		return resource;
 	}
 
-	public void setResource(String resource) {
+	public ResourcePermission setResource(String resource) {
 		this.resource = resource;
+		return this;
 	}
 
 	public String getPermission() {
 		return permission;
 	}
 
-	public void setPermission(String permission) {
+	public ResourcePermission setPermission(String permission) {
 		this.permission = permission;
+		return this;
 	}
 
 	@Override

@@ -7,44 +7,79 @@ title: |md
 | { near: top-center }
 
 
-face1: Face 1 { shape: circle }
-face2: Face 2 { shape: circle }
-person1: Person
-project: Project
+
+prc: Project Collection { shape: cylinder
+
+}
 
 ac: {
-  a1: Asset 1 { shape: package }
+  a1: Asset 1  {shape: class 
+    path: "string"
+    meta: "json"
+  }
   a2: Asset 2 { shape: package }
 }
+
+abc: Asset Binary Collection {
+ ab: Asset Binary {shape: class 
+    initialPath: "string"
+    sha512: "string"
+    sha256: "string"
+    md5: "string"
+    fingerprint: "string"
+    size: "long"
+ }
+ ab2: Asset Binary 2 
+}
+
+abc.ab -> ac.a1
+abc.ab -> ac.a2
 
 # Collections
 ac: Asset Collection
 gac: Global Asset Collection { shape: cylinder }
 gc: Geo Collection { shape: cylinder }
-fc: Face Collection { shape: cylinder }
-pc: Person Collection { shape: cylinder }
+gc.location: Location {
+  shape: class
+  lon: "double"
+  lat: "double"
+}
+
+ebc: Embedding Collection {
+  embedding1: Embedding 1 {shape: class 
+    embedding: "string"
+    type: "string"
+  }
+  embedding2: Embedding 2 { shape: circle }
+}
+pc: Person Collection {
+ person1: Person (mutable) {shape: class 
+    name: "string"
+    meta: "json"
+    description: "string"
+  }
+}
 
 gac -> ac
-project -> ac
-face1 -> ac.a1
-face2 -> ac.a2
+ebc.embedding1 -> ac.a1
+ebc.embedding2 -> ac.a2
+prc -> ac: has project
 gc -> ac.a1: has location
-person1 -> face1: automatically tagged
-person1 -> face2: manually tagged
+pc.person1 -> ebc.embedding1: automatically tagged
+pc.person1 -> ebc.embedding2: manually tagged
 
 tc: Tag Collection
 
 tc: {
-  tag1: Tag
+  tag1: Tag { shape: class
+    name: "string"
+    meta: "json"
+  }
   tag2: Tag
 }
 
 tc.tag1 -> ac.a1
 tc.tag2 -> ac.a1
-
-pc <- person1
-fc <- face1
-fc <- face2
 
 timeline: Timeline
 an: Annotation
@@ -61,21 +96,138 @@ user -> an: comments on
 user -> ac.a2: comments on
 user: User
 
-# Client usecases
-client: Client { shape: cloud }
+ap: AssetPOJO {
+  shape: class 
+}
+ap -> pc.person1
+ap -> pc.person2
+ap -> tc.tag1
+ap -> ebc.embedding1
 
-client -> gc: Query asset by area
-client -> pc: Query asset by person
-client -> fc: Query asset by face embedding
-client -> tc.tag1: Query asset by tag
-client -> user: Query asset by creator
-client -> ac.a1: Crop to focalpoint of Person 
-client -> ac: Find asset with given bpm
-client -> ac.a1: |md
-Query by:
-dominant color, path, filetype
-|
+
 
 
 ```
 
+## Usecases
+
+* Query asset by area
+* Query asset by person
+* Query asset by face embedding
+* Query asset by tag
+* Query asset by creator
+* Crop to focalpoint of Person 
+* Find asset with given bpm
+
+## AssetPOJO
+
+`/assets/:uuid`
+```json
+{
+ "uuid": "UUID",
+ "kind": "TYPE",
+ "status": {
+   "creator": {
+     "uuid": ""
+   },
+   "created": "",
+   "edited": "",
+   "editor": {
+     "uuid": ""
+   }
+ },
+ "location": {
+   "lastSeen": "date",
+   "filekey": {
+    "inode": 42,
+    "st_dev": 24
+   },
+   "filename": ""
+ },
+ "binary": {
+   "uuid": "",
+   "initialOrigin": "/somewhere/test.jpg",
+   "firstSeen": "date",
+   "hashes":  {
+    "sha256":"",
+    "sha512": "",
+    "md5": ""
+   },
+   "geo": {
+
+   },
+   "licenses": {
+
+   },
+   "author": {
+
+   },
+   "social": {
+    "rating": {
+
+    },
+    "reactions": {
+
+    }
+   },
+   "image": {
+     "dimension": {
+       "width": 42,
+       "height": 42
+     },
+     "dominantColor": "",
+     "embeddings": {
+        "dlib_face": 20
+     }
+   },
+   "video": {
+     "dimension": {
+       "width": 42,
+       "height": 42
+     },
+     "audioTracks": 2,
+     "duration": 0,
+     "fingerprint": "",
+     "embeddings": {
+        "dlib_face": 20
+     }
+   },
+   "audio": {
+      "duration": 0,
+      "bpm": 80,
+      "samplingRate": 42000,
+      "channels": 2,
+      "encoding": "mp3",
+      "fingerprint": ""
+   },
+   "size": 0,
+   "mimeType": "",
+   "meta": {
+
+   }
+ },
+ "meta": {
+
+ },
+ "timeline": {
+
+ },
+ "tasks": {
+
+ },
+ "comments":
+ {
+
+ },
+ "reactions": {
+
+ },
+ "project": {
+
+ }
+}
+```
+
+`/assets/:uuid/persons`
+
+`/assets/:uuid/tags`

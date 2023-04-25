@@ -1,7 +1,8 @@
 package io.metaloom.loom.db.jooq.dao.role;
 
+import static io.metaloom.loom.db.jooq.tables.JooqRole.ROLE;
+
 import java.util.UUID;
-import java.util.function.Consumer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -28,7 +29,9 @@ public class RoleDaoImpl extends AbstractJooqDao<JooqRoleDao> implements RoleDao
 
 	@Override
 	public Role loadRole(UUID uuid) {
-		return wrap(dao().findById(uuid));
+		return ctx().selectFrom(ROLE)
+			.where(ROLE.UUID.eq(uuid))
+			.fetchOneInto(Role.class);
 	}
 
 	// @Override
