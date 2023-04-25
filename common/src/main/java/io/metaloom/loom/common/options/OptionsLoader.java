@@ -21,6 +21,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import io.metaloom.loom.api.Loom;
 import io.metaloom.loom.api.options.LoomOptions;
+import io.metaloom.utils.StringUtils;
 
 public final class OptionsLoader {
 
@@ -135,7 +136,7 @@ public final class OptionsLoader {
 	 */
 	public static LoomOptions generateDefaultConfig() {
 		LoomOptions options = new LoomOptions();
-
+		options.getAuth().setKeystorePassword(StringUtils.randomHumanString(12));
 		// options.setNodeName(LoomNameProvider.getInstance().getRandomName());
 		return options;
 	}

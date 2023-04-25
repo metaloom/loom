@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import io.metaloom.loom.api.uuid.UUIDUtil;
 import io.metaloom.loom.rest.model.asset.AssetHash;
 import io.metaloom.loom.rest.model.asset.AssetLocation;
 import io.metaloom.loom.rest.model.asset.AssetTimelineEntry;
@@ -18,6 +17,7 @@ import io.metaloom.loom.rest.model.content.ContentReference;
 import io.metaloom.loom.rest.model.model.ModelReference;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.metaloom.loom.rest.model.user.UserReference;
+import io.metaloom.utils.UUIDUtils;
 
 public class AbstractExamples {
 
@@ -26,15 +26,15 @@ public class AbstractExamples {
 	public static final String DATE_NEW = "2018-11-20T20:12:01.084Z";
 
 	public static UUID uuidA() {
-		return UUIDUtil.fromString("f04e89d0-076d-4d90-b192-715a25a2cd59");
+		return UUIDUtils.fromString("f04e89d0-076d-4d90-b192-715a25a2cd59");
 	}
 
 	public static UUID uuidB() {
-		return UUIDUtil.fromString("86abc160-4da2-4951-a91f-da0c33fbc634");
+		return UUIDUtils.fromString("86abc160-4da2-4951-a91f-da0c33fbc634");
 	}
 
 	public static UUID uuidC() {
-		return UUIDUtil.fromString("0f3332a6-e404-4777-88a9-1fa984a311bc");
+		return UUIDUtils.fromString("0f3332a6-e404-4777-88a9-1fa984a311bc");
 	}
 
 	public static UserReference userReferenceA() {

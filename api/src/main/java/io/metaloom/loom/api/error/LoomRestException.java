@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class LoomRestException extends RuntimeException {
 
+	private static final long serialVersionUID = -4086888737127388941L;
 	private int code;
 	private String message;
 

@@ -1,6 +1,5 @@
 package io.metaloom.loom.rest.endpoint.impl;
 
-import static io.metaloom.loom.db.model.perm.Permission.DELETE_USER;
 import static io.metaloom.loom.db.model.perm.Permission.READ_USER;
 import static io.vertx.core.http.HttpMethod.DELETE;
 import static io.vertx.core.http.HttpMethod.GET;

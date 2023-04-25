@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import io.metaloom.loom.api.uuid.UUIDUtil;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.page.Page;
+import io.metaloom.utils.UUIDUtils;
 
 public class MemUsersDaoImpl implements UserDao {
 
@@ -34,7 +34,7 @@ public class MemUsersDaoImpl implements UserDao {
 	@Override
 	public User createUser(String username) {
 		User user = new MemUserImpl();
-		user.setUuid(UUIDUtil.randomUUID());
+		user.setUuid(UUIDUtils.randomUUID());
 		user.setUsername(username);
 		return user;
 	}
