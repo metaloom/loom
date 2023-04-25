@@ -5,9 +5,6 @@ import io.vertx.core.ServiceHelper;
 
 public interface Loom {
 
-	public static final String PREFIX = "loom";
-	public static final String VERSION = "1_0";
-
 	static LoomFactory factory = ServiceHelper.loadFactory(LoomFactory.class);
 
 	/**
@@ -47,5 +44,9 @@ public interface Loom {
 	void shutdown();
 
 	void dontExit() throws InterruptedException;
+
+	static String getPlainVersion() {
+		return LoomVersion.getPlainVersion();
+	}
 
 }

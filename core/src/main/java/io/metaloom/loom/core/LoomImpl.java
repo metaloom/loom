@@ -2,6 +2,7 @@ package io.metaloom.loom.core;
 
 import java.util.concurrent.CountDownLatch;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +36,7 @@ public class LoomImpl implements Loom {
 	@Override
 	public Loom run(boolean block) throws Exception {
 		try {
+			printProductInformation();
 			log.info("Starting loom...");
 			shutdown = false;
 			loomInternal = DaggerLoomCoreComponent.builder().configuration(options).build();
@@ -83,6 +85,23 @@ public class LoomImpl implements Loom {
 
 	public LoomCoreComponent getInternal() {
 		return loomInternal;
+	}
+
+	private void printProductInformation() {
+		log.info("###############################################################");
+		logLines(SplashTextProvider.getSplashText());
+		//log.info("#-------------------------------------------------------------#");
+		// if (getOptions().getClusterOptions() != null && getOptions().getClusterOptions().isEnabled()) {
+		// log.info(infoLine("Cluster Name: " + getOptions().getClusterOptions().getClusterName()));
+		// }
+		// log.info(infoLine("Loom Node Name: " + getOptions().getNodeName()));
+		log.info("###############################################################");
+	}
+
+	private static void logLines(String text) {
+		 text.lines().forEachOrdered(line -> {
+			 log.info("# " + StringUtils.rightPad(line, 59) + " #");
+		});
 	}
 
 }
