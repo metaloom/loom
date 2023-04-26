@@ -8,21 +8,21 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import deprecated.content.field.asset.AssetContentField;
+import deprecated.content.field.asset.AssetListContentField;
+import deprecated.content.field.date.DateContentField;
+import deprecated.content.field.date.DateListContentField;
+import deprecated.content.field.json.JsonContentField;
+import deprecated.content.field.json.JsonListContentField;
+import deprecated.content.field.nested.NestedContentField;
+import deprecated.content.field.nested.NestedListContentField;
+import deprecated.content.field.number.NumberContentField;
+import deprecated.content.field.number.NumberListContentField;
+import deprecated.content.field.reference.ReferenceContentField;
+import deprecated.content.field.reference.ReferenceListContentField;
+import deprecated.content.field.text.TextContentField;
+import deprecated.content.field.text.TextListContentField;
 import io.metaloom.loom.rest.model.asset.AssetS3Meta;
-import io.metaloom.loom.rest.model.content.field.asset.AssetContentField;
-import io.metaloom.loom.rest.model.content.field.asset.AssetListContentField;
-import io.metaloom.loom.rest.model.content.field.date.DateContentField;
-import io.metaloom.loom.rest.model.content.field.date.DateListContentField;
-import io.metaloom.loom.rest.model.content.field.json.JsonContentField;
-import io.metaloom.loom.rest.model.content.field.json.JsonListContentField;
-import io.metaloom.loom.rest.model.content.field.nested.NestedContentField;
-import io.metaloom.loom.rest.model.content.field.nested.NestedListContentField;
-import io.metaloom.loom.rest.model.content.field.number.NumberContentField;
-import io.metaloom.loom.rest.model.content.field.number.NumberListContentField;
-import io.metaloom.loom.rest.model.content.field.reference.ReferenceContentField;
-import io.metaloom.loom.rest.model.content.field.reference.ReferenceListContentField;
-import io.metaloom.loom.rest.model.content.field.text.TextContentField;
-import io.metaloom.loom.rest.model.content.field.text.TextListContentField;
 
 public class ContentFieldExamples extends AbstractExamples {
 
@@ -43,9 +43,9 @@ public class ContentFieldExamples extends AbstractExamples {
 			.setS3(new AssetS3Meta().setBucket("big_bucket").setKey("themovie"))
 			.setMeta(meta())
 			.setMimeType("video/mp4")
-			.setLocation(assetLocation())
+			.setLocation(assetGeoLocation())
 			.setTags(tagReferenceList())
-			.setTimeline(assetTimeline());
+			.setTimeline(assetAnnotations());
 		return asset;
 	}
 

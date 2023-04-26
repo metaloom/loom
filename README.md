@@ -10,6 +10,21 @@ Loom is an advanced media asset management system designed to ease the managemen
 
 ### **Loom is still under development and not yet in a usable state.**
 
+## Features at a Glance
+
+* Metadata extraction
+* Thumbnail generation
+* Video fingerprinting
+* Facedetection
+* Similarity search
+* Tagging
+* Permission System
+* REST API
+* gRPC API (planned)
+* GraphQL API (planned)
+* Consistency Checks
+* Asset Hashing
+
 ## License
 
-Apache License, Version 2.0.
+Apache License, Version 2.0

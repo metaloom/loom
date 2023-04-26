@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import deprecated.content.ContentReference;
+import deprecated.model.model.ModelReference;
+import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.AssetHash;
-import io.metaloom.loom.rest.model.asset.AssetLocation;
-import io.metaloom.loom.rest.model.asset.AssetTimelineEntry;
+import io.metaloom.loom.rest.model.asset.workflow.Annotation;
+import io.metaloom.loom.rest.model.asset.workflow.Area;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.common.PagingInfo;
-import io.metaloom.loom.rest.model.content.ContentReference;
-import io.metaloom.loom.rest.model.model.ModelReference;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.metaloom.loom.rest.model.user.UserReference;
 import io.metaloom.utils.UUIDUtils;
@@ -54,10 +55,10 @@ public class AbstractExamples {
 	}
 
 	public static void setCreatorEditor(AbstractCreatorEditorRestResponse model) {
-		model.setCreator(userReferenceA());
-		model.setCreated(DATE_OLD);
-		model.setEditor(userReferenceA());
-		model.setEdited(DATE_NEW);
+		model.getStatus().setCreator(userReferenceA());
+		model.getStatus().setCreated(DATE_OLD);
+		model.getStatus().setEditor(userReferenceA());
+		model.getStatus().setEdited(DATE_NEW);
 	}
 
 	public static ModelReference modelReference(String name) {
@@ -92,6 +93,10 @@ public class AbstractExamples {
 		return Collections.singletonMap("custom", "value");
 	}
 
+	public static Map<String, String> meta2() {
+		return Collections.singletonMap("custom2", "value2");
+	}
+
 	public static AssetHash assetHashes() {
 		AssetHash hashes = new AssetHash();
 		hashes.setSha512(
@@ -101,28 +106,30 @@ public class AbstractExamples {
 		return hashes;
 	}
 
-	public static AssetLocation assetLocation() {
-		AssetLocation location = new AssetLocation();
+	public static AssetGeoLocation assetGeoLocation() {
+		AssetGeoLocation location = new AssetGeoLocation();
 		location.setLat(52.156);
 		location.setLon(32.56);
 		return location;
 	}
 
-	public static List<AssetTimelineEntry> assetTimeline() {
-		List<AssetTimelineEntry> list = new ArrayList<>();
+	public static List<Annotation> assetAnnotations() {
+		List<Annotation> list = new ArrayList<>();
 
-		AssetTimelineEntry first = new AssetTimelineEntry();
-		first.setArea(0, 200);
+		Annotation first = new Annotation();
+		first.setTitle("Intro Feedback");
+		first.setArea(new Area().setFrom(0).setTo(10));
 		first.setDescription("The very nice intro");
-		first.setThumbail("???");
+		first.setThumbnail("???");
 		first.setTags(tagReferenceList());
 		first.setMeta(meta());
 		list.add(first);
 
-		AssetTimelineEntry second = new AssetTimelineEntry();
-		second.setArea(200, 900);
+		Annotation second = new Annotation();
+		second.setTitle("Main Feedback");
+		second.setArea(new Area().setFrom(11).setTo(200));
 		second.setDescription("The main part of the movie");
-		second.setThumbail("???");
+		second.setThumbnail("???");
 		second.setTags(tagReferenceList());
 		second.setMeta(meta());
 		list.add(second);

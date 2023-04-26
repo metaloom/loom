@@ -1,13 +1,14 @@
 package io.metaloom.loom.rest.model.example;
 
-import static io.metaloom.loom.rest.model.model.field.impl.text.TextMarkup.PLAIN;
+import static deprecated.model.model.field.impl.text.TextMarkup.PLAIN;
 
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import deprecated.model.model.field.impl.text.TextModelField;
 import io.metaloom.loom.api.json.JsonUtil;
-import io.metaloom.loom.rest.model.model.field.impl.text.TextModelField;
+import io.metaloom.loom.rest.model.example.AbstractExamples;
 
 public class ModelFieldModelTest extends AbstractExamples {
 

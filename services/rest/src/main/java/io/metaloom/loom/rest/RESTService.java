@@ -10,11 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.options.LoomOptions;
-import io.metaloom.loom.client.http.model.ErrorResponse;
 import io.metaloom.loom.common.service.AbstractService;
 import io.metaloom.loom.rest.endpoint.impl.AssetEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.LoginEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.UserEndpoint;
+import io.metaloom.loom.rest.model.error.ErrorResponse;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;

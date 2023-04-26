@@ -1,73 +1,64 @@
 package io.metaloom.loom.rest.model.asset;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.asset.binary.BinaryResponse;
+import io.metaloom.loom.rest.model.asset.collection.AssetCollection;
+import io.metaloom.loom.rest.model.asset.license.LicenseInfo;
+import io.metaloom.loom.rest.model.asset.social.SocialInfo;
+import io.metaloom.loom.rest.model.asset.workflow.Annotation;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
 public class AssetResponse extends AbstractCreatorEditorRestResponse {
 
 	@JsonPropertyDescription("The current processing status of the asset.")
-	private AssetStatus status;
+	private AssetProcessStatus processStatus;
 
 	@JsonPropertyDescription("The specific identified kind of asset.")
 	private AssetKind kind;
 
-	@JsonPropertyDescription("A set of different computed hashes for the asset.")
-	private AssetHash hashes;
+	@JsonPropertyDescription("Information about the actual binary media that is represented by the asset.")
+	private BinaryResponse binary = new BinaryResponse();
 
 	@JsonPropertyDescription("The filename for the asset.")
 	private String filename;
 
-	@JsonPropertyDescription("The image width in pixel of the asset.")
-	private int width;
-
-	@JsonPropertyDescription("The image height in pixel of the asset.")
-	private int height;
-
-	@JsonPropertyDescription("The size of the asset in bytes.")
-	private long size;
-
 	@JsonPropertyDescription("The mime type of the asset. (e.g. video/mp4)")
 	private String mimeType;
 
-	@JsonPropertyDescription("The dominant color for the asset.")
-	private String dominantColor;
+	@JsonPropertyDescription("Times the asset has been viewed.")
+	private long views;
+
+	@JsonPropertyDescription("Information about the location of the asset in the filesystem.")
+	private AssetFilesystemLocation location;
+
+	@JsonPropertyDescription("The GPS location of the asset.")
+	private AssetGeoLocation geo;
 
 	@JsonPropertyDescription("Custom meta properties for the asset.")
 	private Map<String, String> meta;
 
-	@JsonPropertyDescription("The GPS location of the asset.")
-	private AssetLocation location;
+	@JsonPropertyDescription("Licenses related to the asset.")
+	private List<LicenseInfo> licenses = new ArrayList<>();
+
+	@JsonPropertyDescription("Information about reactions and ratings of the asset")
+	private SocialInfo social;
 
 	@JsonPropertyDescription("A list of tags on the asset.")
-	private List<TagReference> tags;
+	private List<TagReference> tags = new ArrayList<>();
 
-	@JsonPropertyDescription("The duration of the asset media in milliseconds.")
-	private long duration;
+	@JsonPropertyDescription("Annotations on areas of the asset.")
+	private List<Annotation> annotations = new ArrayList<>();
 
-	@JsonPropertyDescription("Timeline information on the asset.")
-	private List<AssetTimelineEntry> timeline;
-
-	@JsonPropertyDescription("S3 meta information on the asset. (only set when S3 is being utilized).")
-	private AssetS3Meta s3;
-
-	@JsonPropertyDescription("The local path of the asset. This will only be returned when the asset was created using a local path.")
-	private String localPath;
+	@JsonPropertyDescription("List of collections to which the asset has been added")
+	private List<AssetCollection> collections = new ArrayList<>();
 
 	public AssetResponse() {
-	}
-
-	public AssetStatus getStatus() {
-		return status;
-	}
-
-	public AssetResponse setStatus(AssetStatus status) {
-		this.status = status;
-		return this;
 	}
 
 	public AssetKind getKind() {
@@ -79,57 +70,21 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse {
 		return this;
 	}
 
-	public long getSize() {
-		return size;
+	public AssetProcessStatus getProcessStatus() {
+		return processStatus;
 	}
 
-	public AssetResponse setSize(long size) {
-		this.size = size;
+	public AssetResponse setProcessStatus(AssetProcessStatus processStatus) {
+		this.processStatus = processStatus;
 		return this;
 	}
 
-	public int getHeight() {
-		return height;
+	public List<Annotation> getAnnotations() {
+		return annotations;
 	}
 
-	public AssetResponse setHeight(int height) {
-		this.height = height;
-		return this;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public AssetResponse setWidth(int width) {
-		this.width = width;
-		return this;
-	}
-
-	public AssetHash getHashes() {
-		return hashes;
-	}
-
-	public AssetResponse setHashes(AssetHash hashes) {
-		this.hashes = hashes;
-		return this;
-	}
-
-	public AssetS3Meta getS3() {
-		return s3;
-	}
-
-	public AssetResponse setS3(AssetS3Meta s3) {
-		this.s3 = s3;
-		return this;
-	}
-
-	public List<AssetTimelineEntry> getTimeline() {
-		return timeline;
-	}
-
-	public AssetResponse setTimeline(List<AssetTimelineEntry> timeline) {
-		this.timeline = timeline;
+	public AssetResponse setAnnotations(List<Annotation> annotations) {
+		this.annotations = annotations;
 		return this;
 	}
 
@@ -160,39 +115,12 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse {
 		return this;
 	}
 
-	public String getDominantColor() {
-		return dominantColor;
+	public AssetGeoLocation getGeo() {
+		return geo;
 	}
 
-	public AssetResponse setDominantColor(String dominantColor) {
-		this.dominantColor = dominantColor;
-		return this;
-	}
-
-	public long getDuration() {
-		return duration;
-	}
-
-	public AssetResponse setDuration(long duration) {
-		this.duration = duration;
-		return this;
-	}
-
-	public AssetLocation getLocation() {
-		return location;
-	}
-
-	public AssetResponse setLocation(AssetLocation location) {
-		this.location = location;
-		return this;
-	}
-
-	public String getLocalPath() {
-		return localPath;
-	}
-
-	public AssetResponse setLocalPath(String localPath) {
-		this.localPath = localPath;
+	public AssetResponse setGeo(AssetGeoLocation geo) {
+		this.geo = geo;
 		return this;
 	}
 
@@ -203,6 +131,32 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse {
 	public AssetResponse setTags(List<TagReference> tags) {
 		this.tags = tags;
 		return this;
+	}
+
+	public BinaryResponse getBinary() {
+		return binary;
+	}
+
+	public AssetResponse setBinary(BinaryResponse binary) {
+		this.binary = binary;
+		return this;
+	}
+
+	public AssetFilesystemLocation getLocation() {
+		return location;
+	}
+
+	public AssetResponse setLocation(AssetFilesystemLocation location) {
+		this.location = location;
+		return this;
+	}
+
+	public List<LicenseInfo> getLicenses() {
+		return licenses;
+	}
+
+	public void setLicenses(List<LicenseInfo> licenses) {
+		this.licenses = licenses;
 	}
 
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
+import io.metaloom.loom.rest.model.asset.workflow.Annotation;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
 public class AssetCreateRequest implements RestRequestModel {
@@ -27,10 +28,10 @@ public class AssetCreateRequest implements RestRequestModel {
 	private Map<String, String> meta;
 
 	@JsonPropertyDescription("The GPS location of the asset.")
-	private AssetLocation location;
+	private AssetGeoLocation location;
 
 	@JsonPropertyDescription("Timeline information on the asset.")
-	private List<AssetTimelineEntry> timeline;
+	private List<Annotation> timeline;
 
 	@JsonPropertyDescription("A list of tags on the asset.")
 	private List<TagReference> tags;
@@ -80,11 +81,11 @@ public class AssetCreateRequest implements RestRequestModel {
 		return this;
 	}
 
-	public AssetLocation getLocation() {
+	public AssetGeoLocation getLocation() {
 		return location;
 	}
 
-	public AssetCreateRequest setLocation(AssetLocation location) {
+	public AssetCreateRequest setLocation(AssetGeoLocation location) {
 		this.location = location;
 		return this;
 	}
@@ -107,11 +108,11 @@ public class AssetCreateRequest implements RestRequestModel {
 		return this;
 	}
 
-	public List<AssetTimelineEntry> getTimeline() {
+	public List<Annotation> getTimeline() {
 		return timeline;
 	}
 
-	public AssetCreateRequest setTimeline(List<AssetTimelineEntry> timeline) {
+	public AssetCreateRequest setTimeline(List<Annotation> timeline) {
 		this.timeline = timeline;
 		return this;
 	}

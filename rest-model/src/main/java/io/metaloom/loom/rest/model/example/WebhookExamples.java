@@ -2,11 +2,11 @@ package io.metaloom.loom.rest.model.example;
 
 import java.util.Arrays;
 
-import io.metaloom.loom.rest.model.webhook.WebhookCreateRequest;
-import io.metaloom.loom.rest.model.webhook.WebhookListResponse;
-import io.metaloom.loom.rest.model.webhook.WebhookResponse;
-import io.metaloom.loom.rest.model.webhook.WebhookTrigger;
-import io.metaloom.loom.rest.model.webhook.WebhookUpdateRequest;
+import deprecated.model.webhook.WebhookCreateRequest;
+import deprecated.model.webhook.WebhookListResponse;
+import deprecated.model.webhook.WebhookResponse;
+import deprecated.model.webhook.WebhookTrigger;
+import deprecated.model.webhook.WebhookUpdateRequest;
 
 public class WebhookExamples extends AbstractExamples {
 

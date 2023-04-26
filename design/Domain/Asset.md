@@ -121,29 +121,41 @@ ap -> ebc.embedding1
 
 ## AssetPOJO
 
+`/binaries/:hash`
+
 `/assets/:uuid`
+
 ```json
 {
  "uuid": "UUID",
  "kind": "TYPE",
  "status": {
-   "creator": {
-     "uuid": ""
-   },
    "created": "",
+   "creator": {
+     "uuid": "<uuid>",
+     "name": "joedoe"
+   },
    "edited": "",
    "editor": {
-     "uuid": ""
+     "uuid": "<uuid>",
+     "name": "joedoe"
    }
  },
+ "views": 0,
  "location": {
    "lastSeen": "date",
    "filekey": {
+    // TODO use hash instead?
     "inode": 42,
     "st_dev": 24
    },
-   "filename": ""
+   "path": "/now/somewhere/else/blume.jpg"
  },
+ "collections": [
+    {
+      "name": 
+    }
+ ],
  "binary": {
    "uuid": "",
    "initialOrigin": "/somewhere/test.jpg",
@@ -163,12 +175,12 @@ ap -> ebc.embedding1
 
    },
    "social": {
-    "rating": {
+     "rating": {
 
-    },
-    "reactions": {
+     },
+     "reactions": {
 
-    }
+     }
    },
    "image": {
      "dimension": {
@@ -201,33 +213,66 @@ ap -> ebc.embedding1
       "fingerprint": ""
    },
    "size": 0,
-   "mimeType": "",
-   "meta": {
-
-   }
+   "mimeType": "image/jpg",
+   "meta": {}
  },
  "meta": {
 
  },
- "timeline": {
+ // Annotations used to track comments/tasks on specific (spatial or temporal aspects of the asset)
+ "annotations": [ {
+   "meta": {
 
- },
- "tasks": {
+    },
+   "from": 42,
+   "to": 45,
+   "area": {
+      "width": 120,
+      "height": 120,
+      "startX": 0,
+      "startY": 0
+   },
+   "tasks": [],
+   "comments": []
+ }],
 
- },
+ // Generic comments to the asset
  "comments":
- {
-
- },
- "reactions": {
-
+ [
+  { 
+    "uuid": "<uuid>",
+    "user": {
+      "uuid": "<uuid>",
+      "name": "joedoe"
+    },
+    "title": "Cool image!",
+    "text": "-",
+    "reactions": []
+    // Add thread support
+    // Add like/dislike/rating
+  }
+ ],
+ "reactions": [
+  {
+    "type": "<emoji-code>",
+    "count": 41
+  }
+ ]
  },
  "project": {
-
- }
+    "uuid": "<uuid>",
+    "name": "zoo-summer-2023"
+ },
+ "tags": [
+  {
+    "name": "red",
+    "collection": "colors",
+    "meta": {}
+  }
+ ]
 }
 ```
 
 `/assets/:uuid/persons`
 
-`/assets/:uuid/tags`
+`/assets/:uuid/tags/colors/red`

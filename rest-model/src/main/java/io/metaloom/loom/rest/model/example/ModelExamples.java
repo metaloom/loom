@@ -2,14 +2,14 @@ package io.metaloom.loom.rest.model.example;
 
 import java.util.Arrays;
 
-import io.metaloom.loom.rest.model.model.ModelCreateRequest;
-import io.metaloom.loom.rest.model.model.ModelListResponse;
-import io.metaloom.loom.rest.model.model.ModelReference;
-import io.metaloom.loom.rest.model.model.ModelResponse;
-import io.metaloom.loom.rest.model.model.ModelUpdateRequest;
-import io.metaloom.loom.rest.model.model.field.impl.asset.AssetModelField;
-import io.metaloom.loom.rest.model.model.field.impl.text.TextMarkup;
-import io.metaloom.loom.rest.model.model.field.impl.text.TextModelField;
+import deprecated.model.model.ModelCreateRequest;
+import deprecated.model.model.ModelListResponse;
+import deprecated.model.model.ModelReference;
+import deprecated.model.model.ModelResponse;
+import deprecated.model.model.ModelUpdateRequest;
+import deprecated.model.model.field.impl.asset.AssetModelField;
+import deprecated.model.model.field.impl.text.TextMarkup;
+import deprecated.model.model.field.impl.text.TextModelField;
 
 public class ModelExamples extends AbstractExamples {
 

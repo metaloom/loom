@@ -1,9 +1,9 @@
 package io.metaloom.loom.rest.model.example;
 
-import io.metaloom.loom.rest.model.namespace.NamespaceCreateRequest;
-import io.metaloom.loom.rest.model.namespace.NamespaceListResponse;
-import io.metaloom.loom.rest.model.namespace.NamespaceResponse;
-import io.metaloom.loom.rest.model.namespace.NamespaceUpdateRequest;
+import deprecated.model.namespace.NamespaceCreateRequest;
+import deprecated.model.namespace.NamespaceListResponse;
+import deprecated.model.namespace.NamespaceResponse;
+import deprecated.model.namespace.NamespaceUpdateRequest;
 
 public class NamespaceExamples extends AbstractExamples {
 

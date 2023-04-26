@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.metaloom.loom.rest.model.content.ContentCreateRequest;
-import io.metaloom.loom.rest.model.content.ContentField;
-import io.metaloom.loom.rest.model.content.ContentListResponse;
-import io.metaloom.loom.rest.model.content.ContentReference;
-import io.metaloom.loom.rest.model.content.ContentResponse;
-import io.metaloom.loom.rest.model.content.ContentUpdateRequest;
+import deprecated.content.ContentCreateRequest;
+import deprecated.content.ContentField;
+import deprecated.content.ContentListResponse;
+import deprecated.content.ContentReference;
+import deprecated.content.ContentResponse;
+import deprecated.content.ContentUpdateRequest;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
 public class ContentExamples extends AbstractExamples {
