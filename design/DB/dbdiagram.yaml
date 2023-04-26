@@ -165,8 +165,29 @@ Table tag_asset {
     (tag_uuid, asset_uuid) [pk]
   }
   
-  note: "Table used to taggings on assets"
+  note: "Store tag <-> asset reference"
 }
+
+
+Table tag_collection {
+  tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
+  collection_uuid uuid_generate_v4 [ref: > COLLECTION.uuid, not null]
+  
+  Indexes {
+    (tag_uuid, collection_uuid) [pk]
+  }
+  
+  note: "Store tag <-> collection reference"
+}
+
+
+tablegroup Tagging {
+  tag
+  tag_asset
+  tag_collection
+  tag_user_meta
+}
+
 
 
 
@@ -231,7 +252,7 @@ Table asset_face {
   face_uuid uuid_generate_v4 [ref: > FACE.uuid, not null]
 }
 
-Table face as FACE {
+Table face as FACE [headercolor: #16A085] {
   uuid uuid_generate_v4 [increment]
   meta varchar [note: "Custom meta properties to the face."]
   source varchar [note: "Source information (e.g.: frame of the media from which the face was extracted)."]
@@ -246,22 +267,96 @@ Table face_cluster as FACE_CLUSTER {
   meta varchar [note: "Custom meta properties to the cluster."]
 }
 
+// Asset Collection
+
+// TODO per namespace?
+Table collection as COLLECTION [headercolor: #16A085] {
+  uuid uuid_generate_v4 [increment]
+  name varchar [unique, not null]
+  meta varchar [note: "Custom meta properties"]
+  description varchar
+  //thumbail varchar
+  Indexes {
+    (uuid) [pk]
+  }
+  
+  note: "Collections are used to group assets together"
+}
+
+
 Table asset_collection {
   asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
   collection_uuid uuid_generate_v4 [ref: > COLLECTION.uuid, not null]
 }
 
-Table reaction {
-  type varchar [note: "Type of the reaction"]
+tablegroup AssetCollection {
+  collection
+  asset_collection
 }
 
-Table comment as COMMENT {
+// Comment
+
+Table comment as COMMENT [headercolor: #16A085] {
   uuid uuid_generate_v4 [increment]
+  title varchar [note: "Comment title"]
   content varchar [note: "Comment text"]
   user_uuid uuid_generate_v4 [ref: > U.uuid]
   created varchar  [note: "Creation timestamp"]
+  edited varchar  [note: "Edit timestamp"]
   parent_uuid uuid_generate_v4 [ref: > COMMENT.uuid]
 }
+
+// TODO maybe better to use a  root_comment_uuid field in task
+Table task_comment {
+  task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
+  comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid, not null]
+}
+
+Table annotaion_comment {
+  annotation_uuid uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
+  comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid, not null]
+}
+
+
+tablegroup Comment {
+  comment
+  task_comment
+  annotaion_comment
+}
+
+// Reaction
+
+Table reaction as REACTION [headercolor: #16A085] {
+  uuid uuid_generate_v4 [increment]
+  type varchar [note: "Type of the reaction"]
+  user_uuid  uuid_generate_v4 [ref: > U.uuid]
+}
+
+Table reaction_asset {
+  reaction_uuid uuid_generate_v4 [ref: > REACTION.uuid]
+  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid]
+}
+
+Table reaction_comment {
+  reaction_uuid uuid_generate_v4 [ref: > REACTION.uuid]
+  comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid]
+}
+
+Table reaction_annotation {
+  reaction_uuid uuid_generate_v4 [ref: > REACTION.uuid]
+  annotation_uuid uuid_generate_v4 [ref: > ANNOTATION.uuid]
+}
+
+
+
+tablegroup Reaction {
+  reaction
+  reaction_asset
+  reaction_comment
+  reaction_annotation
+}
+
+// Annotation
 
 Table annotation as ANNOTATION [headercolor: #16A085] {
   uuid uuid_generate_v4 [increment]
@@ -271,7 +366,10 @@ Table annotation as ANNOTATION [headercolor: #16A085] {
   description varchar
   from int
   to int
-  area varchar
+  areaStartX int
+  areaStartY int
+  areaWidth  int
+  areaHeight int
   meta jsonb [note: "Custom meta properties"]
   kind varchar [note: "Type of the annotation"]
     
@@ -285,40 +383,44 @@ Table annotation as ANNOTATION [headercolor: #16A085] {
   note: "This table contains asset annotation entries"
 }
 
+Table annotation_tag as ANNOTATION_TAGS {
+  annotation_uuid   uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
+  tag_uuid          uuid_generate_v4 [ref: > T.uuid, not null]
+}
 
+tablegroup Annotation {
+  annotation
+  annotation_tag
+}
 
-Table task as TASK {
+// TASKS
+
+Table task as TASK [headercolor: #16A085] {
   uuid uuid_generate_v4 [increment]
+  title varchar [not null, note: "Title of the task"]
   content varchar [note: "Description of the task"]
   created timestamp [default: `now()`]
   due_date timestamp [default: `now()`]
 }
 
-// TODO maybe better to use a  root_comment_uuid field in task
-Table task_comment {
-  task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
-  comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid, not null]
-}
 
-Table annotation_task {
+Table asset_task {
   asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
   task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
 }
 
-// TODO per namespace?
-Table collection as COLLECTION {
-  uuid uuid_generate_v4 [increment]
-  name varchar [unique, not null]
-  meta varchar [note: "Custom meta properties"]
-  description varchar
-  tags varchar
-  //thumbail varchar
-  Indexes {
-    (uuid) [pk]
-  }
-  
-  note: "Collections are used to group assets together"
+Table annotation_task {
+  annotation_uuid uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
+  task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
 }
+
+tablegroup Task {
+  task  
+  annotation_task
+  asset_task  
+}
+
+
 
 Table asset_user_meta as AUM {
   asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
@@ -331,10 +433,6 @@ Table asset_user_meta as AUM {
   }
 }
 
-Table annotation_tag as ANNOTATION_TAGS {
-  annotation_uuid   uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
-  tag_uuid          uuid_generate_v4 [ref: > T.uuid, not null]
-}
 
 Table webhook as W [headercolor: #16a085] {
   uuid uuid_generate_v4 [increment]
@@ -372,8 +470,6 @@ tablegroup Assets {
   asset
   asset_binary
   asset_user_meta
-  collection
-  asset_collection
 }
 
 tablegroup ACL {
@@ -388,12 +484,6 @@ tablegroup ACL {
   token_permission
 }
 
-tablegroup Tagging {
-  tag
-  tag_asset
-  annotation_tag
-  tag_user_meta
-}
 
 tablegroup Face {
   face
@@ -401,14 +491,7 @@ tablegroup Face {
   face_cluster
 }
 
-tablegroup Task {
-  task
-  task_comment
-  annotation
-  annotation_task
-  comment
-  reaction
-}
+
 
 // Enums
 
