@@ -12,8 +12,12 @@ import deprecated.content.ContentReference;
 import deprecated.model.model.ModelReference;
 import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.AssetHash;
+import io.metaloom.loom.rest.model.asset.social.Reaction;
+import io.metaloom.loom.rest.model.asset.social.SocialInfo;
 import io.metaloom.loom.rest.model.asset.workflow.Annotation;
 import io.metaloom.loom.rest.model.asset.workflow.Area;
+import io.metaloom.loom.rest.model.asset.workflow.Comment;
+import io.metaloom.loom.rest.model.asset.workflow.Task;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.common.PagingInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
@@ -113,6 +117,31 @@ public class AbstractExamples {
 		return location;
 	}
 
+	private static Task task() {
+		Task task = new Task();
+		task.setUuid(uuidC());
+		task.setTitle("Fix text offset here");
+		task.setDescription("The text is not aligned with the title");
+		task.getComments().add(comment());
+		return task;
+	}
+
+	private static SocialInfo social() {
+		SocialInfo social = new SocialInfo();
+		social.getRating().setDownVotes(0).setUpVotes(42).setStars(10);
+		social.getReactions().put(Reaction.SATISFIED, 10L);
+		return social;
+	}
+
+	private static Comment comment() {
+		Comment comment = new Comment();
+		comment.setUuid(uuidB());
+		comment.setTitle("Great work!");
+		comment.setSocial(social());
+		comment.setText("What a great choice of colors!");
+		return comment;
+	}
+
 	public static List<Annotation> assetAnnotations() {
 		List<Annotation> list = new ArrayList<>();
 
@@ -123,16 +152,20 @@ public class AbstractExamples {
 		first.setThumbnail("???");
 		first.setTags(tagReferenceList());
 		first.setMeta(meta());
+		first.getTasks().add(task());
+		first.getComments().add(comment());
 		list.add(first);
 
-		Annotation second = new Annotation();
-		second.setTitle("Main Feedback");
-		second.setArea(new Area().setFrom(11).setTo(200));
-		second.setDescription("The main part of the movie");
-		second.setThumbnail("???");
-		second.setTags(tagReferenceList());
-		second.setMeta(meta());
-		list.add(second);
+//		Annotation second = new Annotation();
+//		second.setTitle("Main Feedback");
+//		second.setArea(new Area().setFrom(11).setTo(200));
+//		second.setDescription("The main part of the movie");
+//		second.setThumbnail("???");
+//		second.setTags(tagReferenceList());
+//		second.getTasks().add(task());
+//		second.getComments().add(comment());
+//		second.setMeta(meta());
+//		list.add(second);
 		return list;
 	}
 

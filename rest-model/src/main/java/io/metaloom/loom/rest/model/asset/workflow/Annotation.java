@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.model.asset.workflow;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,20 +22,20 @@ public class Annotation implements RestModel {
 	private String description;
 
 	@JsonPropertyDescription("Tasks assigned to the annotation")
-	private List<Task> tasks;
+	private List<Task> tasks = new ArrayList<>();
 
 	@JsonPropertyDescription("Comments for the annotation")
-	private List<Comment> comments;
+	private List<Comment> comments = new ArrayList<>();
 
 	// TODO spec this
 	@JsonPropertyDescription("Thumbnail reference information")
 	private String thumbnail;
 
 	@JsonPropertyDescription("Additional custom meta properties.")
-	private Map<String, String> meta;
+	private Map<String, String> meta = new HashMap();
 
 	@JsonPropertyDescription("List of tags for the entry")
-	private List<TagReference> tags;
+	private List<TagReference> tags = new ArrayList<>();
 
 	public Map<String, String> getMeta() {
 		return meta;

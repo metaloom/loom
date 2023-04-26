@@ -1,10 +1,13 @@
 package io.metaloom.loom.rest.model.asset.social;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SocialInfo {
 
-	private Rating rating;
+	private Rating rating = new Rating();
 
-	private Reactions reactions;
+	private Map<Reaction, Long> reactions = new HashMap<>();
 
 	public Rating getRating() {
 		return rating;
@@ -15,12 +18,11 @@ public class SocialInfo {
 		return this;
 	}
 
-	public Reactions getReactions() {
+	public Map<Reaction, Long> getReactions() {
 		return reactions;
 	}
 
-	public SocialInfo setReactions(Reactions reactions) {
+	public void setReactions(Map<Reaction, Long> reactions) {
 		this.reactions = reactions;
-		return this;
 	}
 }
