@@ -35,7 +35,7 @@ Table user as U [headercolor: #16a085] {
   }
 }
 
-Table token as AK {
+Table token as AK [headercolor: #16A085] {
   uuid uuid_generate_v4 [increment]
   user_uuid uuid_generate_v4 [ref: > U.uuid]
   description varchar
@@ -48,7 +48,6 @@ Table token as AK {
     (token) [unique]
     (user_uuid)
   }
-
 }
 
 Table role as R [headercolor: #16a085] {
@@ -67,7 +66,7 @@ Table role as R [headercolor: #16a085] {
   }
 }
 
-Table role_permission as PERM {
+Table role_permission as PERM [headercolor: #24BAB1] {
   role_uuid uuid_generate_v4 [ref: > R.uuid]
   resource varchar [not null]
   permission loom_permission [note: "Permission granted / granted to the resource"]
@@ -77,7 +76,7 @@ Table role_permission as PERM {
   }
 }
 
-Table user_permission as UPERM {
+Table user_permission as UPERM [headercolor: #24BAB1] {
   user_uuid uuid_generate_v4 [ref: > U.uuid]
   resource varchar [not null]
   permission loom_permission [note: "Permission granted / granted to the resource"]
@@ -87,7 +86,7 @@ Table user_permission as UPERM {
   }
 }
 
-Table token_permission as TPERM {
+Table token_permission as TPERM [headercolor: #24BAB1] {
   token_uuid uuid_generate_v4 [ref: > AK.uuid]
   resource varchar [not null]
   permission loom_permission [note: "Permission granted / granted to the resource"]
@@ -131,6 +130,9 @@ Table user_group as UG {
   }
 }
 
+
+// Tag
+
 Table tag as T [headercolor: #16a085] {
   uuid uuid_generate_v4 [increment]
   name varchar [not null]
@@ -147,6 +149,8 @@ Table tag as T [headercolor: #16a085] {
     (uuid) [pk]
     (name, collection) [unique]
   }
+
+  note: "Tag on various elements. Tags are not user specifc"
 }
 
 Table tag_user_meta as TUM {
@@ -154,6 +158,10 @@ Table tag_user_meta as TUM {
   user_uuid uuid_generate_v4 [ref: > U.uuid, not null]
   rating int [not null, note: "Rating of the tag by the user"]
   meta varchar [note: "Custom meta properties"]
+
+  Indexes {
+    (tag_uuid, user_uuid) [pk]
+  }
 }
 
 
@@ -181,17 +189,29 @@ Table tag_collection {
 }
 
 
+Table tag_person {
+  tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
+  person_uuid uuid_generate_v4 [ref: > PERSON.uuid, not null]
+  
+  Indexes {
+    (tag_uuid, person_uuid) [pk]
+  }
+  
+  note: "Store tag <-> person reference"
+}
+
 tablegroup Tagging {
   tag
   tag_asset
   tag_collection
   tag_user_meta
+  tag_person
 }
 
 
+// Asset
 
-
-Table asset_binary as AB {
+Table binary as BIN [headercolor: #16a085] {
   uuid uuid_generate_v4 [increment]
   sha512sum varchar [not null]
 
@@ -200,20 +220,32 @@ Table asset_binary as AB {
   md5sum varchar [not null]
   media_width  int [note: "Only set for images"]
   media_height int [note: "Only set for images"]
+  duration int [note: "Duration of the media"]
   fingerprint varchar [note: "Media fingerprint information"]
 
   // TODO extracted meta attribute -> Asset?
 
   Indexes {
     (sha512sum) [pk]
+    (uuid) [unique]
   }
   
-  note: "This table stores the immutable asset information"
+  note: "This table stores information on the binary component of the asset"
+}
+
+Table binary_remix {
+  binary_a_uuid uuid_generate_v4 [ref: > BIN.uuid, not null]
+  binary_b_uuid uuid_generate_v4 [ref: > BIN.uuid, not null]
+  meta varchar [note: "Custom meta properties to the element"]
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
+
+  note: "Store information on remixes of binaries."
 }
 
 Table asset as ASSET [headercolor: #16a085] {
   uuid uuid_generate_v4 [increment]
-  asset_binary_uuid uuid_generate_v4 [ref: > AB.uuid, not null]
+  binary_uuid uuid_generate_v4 [ref: > BIN.uuid, not null]
 
   filename varchar [not null]
   localPath varchar [note: "Local path to the asset (when using the local path feature)"]
@@ -244,20 +276,31 @@ Table asset as ASSET [headercolor: #16a085] {
   
   Indexes {
     (uuid) [pk]
+    (localPath)
   }
 }
 
-Table asset_face {
-  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
-  face_uuid uuid_generate_v4 [ref: > FACE.uuid, not null]
+
+tablegroup Assets {
+  asset
+  binary
+  binary_remix
+  asset_user_meta
 }
 
+// Face
+
+// Instead store this in face<->bin rel?
 Table face as FACE [headercolor: #16A085] {
   uuid uuid_generate_v4 [increment]
   meta varchar [note: "Custom meta properties to the face."]
   source varchar [note: "Source information (e.g.: frame of the media from which the face was extracted)."]
   face_nr int [not null, note: "When the source contains more than one face the id can be used to identify them."]
   embeddings bytea [not null, note: "Actual embedding data"]
+
+  Indexes {
+    (uuid) [pk]
+  }
 }
 
 Table face_cluster as FACE_CLUSTER {
@@ -265,11 +308,54 @@ Table face_cluster as FACE_CLUSTER {
   name varchar [note: "Name of the cluster"]
   description varchar [note: "Description of the cluster"]
   meta varchar [note: "Custom meta properties to the cluster."]
+  
+  Indexes {
+    (uuid) [pk]
+    (name) [unique]
+  }
 }
+
+Table face_asset {
+  face_uuid uuid_generate_v4 [ref: > FACE.uuid, not null]
+  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
+
+  Indexes {
+    (face_uuid, asset_uuid) [pk]
+  }
+}
+
+Table person as PERSON [headercolor: #16A085]  {
+  uuid uuid_generate_v4 [not null]
+  name varchar [note: "Name of the person"]
+  meta varchar [note: "Custom meta properties to the cluster."]
+
+  Indexes {
+    (uuid) [pk]
+  }
+}
+
+Table face_person {
+  face_uuid uuid_generate_v4 [ref: > FACE.uuid, not null]
+  person_uuid uuid_generate_v4 [ref: > PERSON.uuid, not null]
+
+  Indexes {
+    (face_uuid, person_uuid) [pk]
+  }
+}
+
+
+tablegroup Face {
+  person
+  face
+  face_asset
+  face_cluster
+  face_person
+}
+
+
 
 // Asset Collection
 
-// TODO per namespace?
 Table collection as COLLECTION [headercolor: #16A085] {
   uuid uuid_generate_v4 [increment]
   name varchar [unique, not null]
@@ -284,14 +370,18 @@ Table collection as COLLECTION [headercolor: #16A085] {
 }
 
 
-Table asset_collection {
-  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
+Table collection_asset {
   collection_uuid uuid_generate_v4 [ref: > COLLECTION.uuid, not null]
+  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
+
+  Indexes {
+    (collection_uuid, asset_uuid) [pk]
+  }
 }
 
 tablegroup AssetCollection {
   collection
-  asset_collection
+  collection_asset
 }
 
 // Comment
@@ -304,62 +394,93 @@ Table comment as COMMENT [headercolor: #16A085] {
   created varchar  [note: "Creation timestamp"]
   edited varchar  [note: "Edit timestamp"]
   parent_uuid uuid_generate_v4 [ref: > COMMENT.uuid]
+
+  Indexes {
+    (uuid) [pk]
+  }
+
+  note: "Stores comments on tasks, annotations.."
 }
 
 // TODO maybe better to use a  root_comment_uuid field in task
-Table task_comment {
+Table comment_task {
+  comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid, not null]
   task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
-  comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid, not null]
+
+  Indexes {
+    (comment_uuid, task_uuid) [pk]
+  }
 }
 
-Table annotaion_comment {
+Table comment_annotaion {
+  comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid, not null]
   annotation_uuid uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
-  comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid, not null]
-}
 
+  Indexes {
+    (comment_uuid, annotation_uuid) [pk]
+  }
+}
 
 tablegroup Comment {
   comment
-  task_comment
-  annotaion_comment
+  comment_task
+  comment_annotaion
+}
+
+// Blacklist
+
+Table blacklist as BLACKLIST [headercolor: #16A085] {
+  uuid uuid_generate_v4 [increment]
+  binary_uuid uuid_generate_v4 [ref: > BIN.uuid, note: "Blacklisted binary"] 
+  created varchar  [note: "Creation timestamp"]
+  creator_uuid  uuid_generate_v4 [ref: > U.uuid, note: "Creator of the blacklist entry"]
+  type varchar [note: "Type of the blacklist entry (e.g. copyright claim)"]
+
+Indexes {
+    (uuid) [pk]
+    (binary_uuid, creator_uuid) [unique, note: "Allow only one blacklist entry per user for a binary"]
+  }
+
+  note: "Stores information on blocked binaries"
+}
+
+tablegroup Blacklist {
+  blacklist
 }
 
 // Reaction
 
 Table reaction as REACTION [headercolor: #16A085] {
   uuid uuid_generate_v4 [increment]
-  type varchar [note: "Type of the reaction"]
-  user_uuid  uuid_generate_v4 [ref: > U.uuid]
-}
+  type varchar [note: "Type of the reaction (e.g. thumbsup)"]
+  rating int [note: "Rating by the user"]
+  
+  created varchar  [note: "Creation timestamp"]
+  creator_uuid  uuid_generate_v4 [ref: > U.uuid, note: "Creator of the reaction"]
 
-Table reaction_asset {
-  reaction_uuid uuid_generate_v4 [ref: > REACTION.uuid]
   asset_uuid uuid_generate_v4 [ref: > ASSET.uuid]
-}
-
-Table reaction_comment {
-  reaction_uuid uuid_generate_v4 [ref: > REACTION.uuid]
   comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid]
-}
-
-Table reaction_annotation {
-  reaction_uuid uuid_generate_v4 [ref: > REACTION.uuid]
   annotation_uuid uuid_generate_v4 [ref: > ANNOTATION.uuid]
+
+  Indexes {
+    (uuid) [pk]
+    (creator_uuid, type, asset_uuid) [unique, note: "Prevent duplicate same type reactions on a specific asset"]
+    (creator_uuid, type, comment_uuid) [unique, note: "Prevent duplicate same type reactions on a specific comment"]
+    (creator_uuid, type, annotation_uuid) [unique, note: "Prevent duplicate same type reactions on a specific annotation"]
+  }
+  
+  note: "Stores social reactions"
 }
-
-
 
 tablegroup Reaction {
   reaction
-  reaction_asset
-  reaction_comment
-  reaction_annotation
 }
 
 // Annotation
 
 Table annotation as ANNOTATION [headercolor: #16A085] {
   uuid uuid_generate_v4 [increment]
+  type annotation_type [not null]
   asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
   creator_uuid  uuid_generate_v4 [ref: > U.uuid]
   created timestamp [default: `now()`]
@@ -373,19 +494,28 @@ Table annotation as ANNOTATION [headercolor: #16A085] {
   meta jsonb [note: "Custom meta properties"]
   kind varchar [note: "Type of the annotation"]
     
-  tags varchar
   thumbail varchar
 
   Indexes {
     (uuid) [pk]
   }
   
-  note: "This table contains asset annotation entries"
+  note: "This table contains asset annotation entries which can be used to create chapters or sections to assign tasks to."
 }
 
 Table annotation_tag as ANNOTATION_TAGS {
   annotation_uuid   uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
   tag_uuid          uuid_generate_v4 [ref: > T.uuid, not null]
+
+  Indexes {
+    (annotation_uuid, tag_uuid) [pk]
+  }
+}
+
+Enum annotation_type {
+  FEEDBACK
+  TAG
+  CHAPTER
 }
 
 tablegroup Annotation {
@@ -393,44 +523,61 @@ tablegroup Annotation {
   annotation_tag
 }
 
-// TASKS
+
+// Tasks
 
 Table task as TASK [headercolor: #16A085] {
   uuid uuid_generate_v4 [increment]
   title varchar [not null, note: "Title of the task"]
   content varchar [note: "Description of the task"]
-  created timestamp [default: `now()`]
   due_date timestamp [default: `now()`]
+
+  created timestamp [default: `now()`, not null]
+  creator_uuid uuid_generate_v4 [ref: > U.uuid, not null]
+  edited timestamp [default: `now()`]
+  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+
+  Indexes {
+    (uuid) [pk]
+  }
 }
 
 
-Table asset_task {
+Table task_asset {
+  task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
   asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
-  task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
+  
+  Indexes {
+    (task_uuid, asset_uuid) [pk]
+  }
 }
 
-Table annotation_task {
-  annotation_uuid uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
+Table task_annotation {
   task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
+  annotation_uuid uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
+
+  Indexes {
+    (task_uuid, annotation_uuid) [pk]
+  }
 }
 
 tablegroup Task {
   task  
-  annotation_task
-  asset_task  
+  task_annotation
+  task_asset
 }
-
 
 
 Table asset_user_meta as AUM {
   asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
   user_uuid uuid_generate_v4 [ref: > U.uuid, not null]
-  rating int [note: "Asset rating by the user"]
   meta varchar [note: "Custom meta properties"]
   
   Indexes {
     (asset_uuid, user_uuid) [pk]
   }
+
+  note: "Stores user specific metadata that can be added to assets"
 }
 
 
@@ -466,11 +613,6 @@ tablegroup Connectivity {
   webhook
 }
 
-tablegroup Assets {
-  asset
-  asset_binary
-  asset_user_meta
-}
 
 tablegroup ACL {
   user
@@ -485,20 +627,7 @@ tablegroup ACL {
 }
 
 
-tablegroup Face {
-  face
-  asset_face
-  face_cluster
-}
-
-
-
 // Enums
-
-Enum loom_extension_type {
-  ASSET_PROCESSOR
-  USER_MAPPER
-}
 
 Enum loom_events {
 
@@ -534,11 +663,6 @@ Enum loom_events {
 }
 
 
-Enum loom_content_type {
-  D
-  P
-  I [note: 'Maybe implicitly used']
-}
 
 Enum state_status {
   ACCEPTED
@@ -549,22 +673,6 @@ Enum state_status {
 
 
 Enum loom_permission {
-  // C
-  CREATE_CONTENT
-  READ_CONTENT
-  UPDATE_CONTENT
-  DELETE_CONTENT
-  PUBLISH_CONTENT
-  UNPUBLISH_CONTENT
-  LOCK_CONTENT
-  UNLOCK_CONTENT
-
-  // N
-  CREATE_NAMESPACE
-  READ_NAMESPACE
-  UPDATE_NAMESPACE
-  DELETE_NAMESPACE
-  
   // U
   CREATE_USER
   READ_USER
@@ -589,12 +697,6 @@ Enum loom_permission {
   UPDATE_TAG
   DELETE_TAG
   
-  // M
-  CREATE_MODEL
-  READ_MODEL
-  UPDATE_MODEL
-  DELETE_MODEL
-  
   // A
   CREATE_ASSET
   READ_ASSET
@@ -609,23 +711,7 @@ Enum loom_permission {
   CREATE_WEBHOOK
   READ_WEBHOOK
   UPDATE_WEBHOOK
-  DELETE_WEBHOOK
-
-  // E
-  CREATE_EXTENSION
-  READ_EXTENSION
-  UPDATE_EXTENSION
-  DELETE_EXTENSION
-
-  // L
-  CREATE_LANGUAGE
-  READ_LANGUAGE
-  UPDATE_LANGUAGE
-  DELETE_LANGUAGE
-
-  // ADMIN
-  // TBD
-  
+  DELETE_WEBHOOK  
 }
 
 Ref: "asset"."edited" < "asset"."created"
