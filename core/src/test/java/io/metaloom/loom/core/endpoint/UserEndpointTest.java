@@ -24,11 +24,11 @@ public class UserEndpointTest {
 	public void testBasics() throws Exception {
 		try (LoomHttpClient client = loom.httpClient()) {
 
-			AuthLoginResponse authResponse = client.login("joedoe", "password").sync();
+			AuthLoginResponse authResponse = client.login("joedoe", "finger").sync();
 			System.out.println("Got Token: " + authResponse.getToken());
 			client.setToken(authResponse.getToken());
 
-			UserResponse response = client.loadUser("admin").sync();
+			UserResponse response = client.loadUser("joedoe").sync();
 			assertNotNull(response);
 
 			for (int i = 0; i < 100; i++) {

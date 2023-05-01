@@ -55,6 +55,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			return null;
 		}
 		String accountPasswordHash = user.getPasswordHash();
+		System.out.println(user.getClass().getName());
+		System.out.println("PasswordHash: " + accountPasswordHash + " for " + user.getUsername());
 		boolean hashMatches = passwordEncoder.matches(password, accountPasswordHash);
 		if (hashMatches) {
 			return user;

@@ -19,7 +19,7 @@ import io.metaloom.loom.db.jooq.tables.daos.JooqRolePermissionDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqTokenPermissionDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserPermissionDao;
 import io.metaloom.loom.db.jooq.tables.pojos.JooqRolePermission;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqTokenPermission;
+import io.metaloom.loom.db.jooq.tables.pojos.JooqUserPermission;
 import io.metaloom.loom.db.model.perm.Permission;
 import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.perm.ResourcePermission;
@@ -86,4 +86,15 @@ public class PermissionDaoImpl implements PermissionDao {
 		rolePermDao.insert(jooqPerm);
 	}
 
+	@Override
+	public void grantUserPermission(UUID userUuid, Permission perm) {
+		grantUserPermission(userUuid, perm, null);
+
+	}
+
+	@Override
+	public void grantUserPermission(UUID userUuid, Permission perm, String resource) {
+		JooqUserPermission jooqPerm = new JooqUserPermission(userUuid, resource, JooqLoomPermission.valueOf(perm.name()));
+		userPermDao.insert(jooqPerm);
+	}
 }

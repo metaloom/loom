@@ -176,18 +176,18 @@ public class JooqUserDao extends DAOImpl<JooqUserRecord, io.metaloom.loom.db.joo
     }
 
     /**
-     * Fetch records that have <code>passwordHash BETWEEN lowerInclusive AND
+     * Fetch records that have <code>password_hash BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqUser> fetchRangeOfJooqPasswordhash(String lowerInclusive, String upperInclusive) {
-        return fetchRange(JooqUser.USER.PASSWORDHASH, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqUser> fetchRangeOfJooqPasswordHash(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqUser.USER.PASSWORD_HASH, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>passwordHash IN (values)</code>
+     * Fetch records that have <code>password_hash IN (values)</code>
      */
-    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqUser> fetchByJooqPasswordhash(String... values) {
-        return fetch(JooqUser.USER.PASSWORDHASH, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqUser> fetchByJooqPasswordHash(String... values) {
+        return fetch(JooqUser.USER.PASSWORD_HASH, values);
     }
 
     /**

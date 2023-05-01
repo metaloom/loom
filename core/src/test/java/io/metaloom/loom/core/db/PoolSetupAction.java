@@ -93,7 +93,10 @@ public class PoolSetupAction {
 
 		// Second user
 		User joeDoeUser = userDao.createUser("joedoe");
+		joeDoeUser.setPasswordHash(authService.encodePassword("finger"));
 		userDao.storeUser(joeDoeUser);
+		permissionDao.grantUserPermission(joeDoeUser.getUuid(), Permission.READ_USER, "test");
+		
 
 	}
 }

@@ -128,16 +128,16 @@ public class JooqUserRecord extends UpdatableRecordImpl<JooqUserRecord> implemen
     }
 
     /**
-     * Setter for <code>public.user.passwordHash</code>.
+     * Setter for <code>public.user.password_hash</code>.
      */
-    public void setPasswordhash(String value) {
+    public void setPasswordHash(String value) {
         set(7, value);
     }
 
     /**
-     * Getter for <code>public.user.passwordHash</code>.
+     * Getter for <code>public.user.password_hash</code>.
      */
-    public String getPasswordhash() {
+    public String getPasswordHash() {
         return (String) get(7);
     }
 
@@ -273,7 +273,7 @@ public class JooqUserRecord extends UpdatableRecordImpl<JooqUserRecord> implemen
 
     @Override
     public Field<String> field8() {
-        return JooqUser.USER.PASSWORDHASH;
+        return JooqUser.USER.PASSWORD_HASH;
     }
 
     @Override
@@ -338,7 +338,7 @@ public class JooqUserRecord extends UpdatableRecordImpl<JooqUserRecord> implemen
 
     @Override
     public String component8() {
-        return getPasswordhash();
+        return getPasswordHash();
     }
 
     @Override
@@ -403,7 +403,7 @@ public class JooqUserRecord extends UpdatableRecordImpl<JooqUserRecord> implemen
 
     @Override
     public String value8() {
-        return getPasswordhash();
+        return getPasswordHash();
     }
 
     @Override
@@ -475,7 +475,7 @@ public class JooqUserRecord extends UpdatableRecordImpl<JooqUserRecord> implemen
 
     @Override
     public JooqUserRecord value8(String value) {
-        setPasswordhash(value);
+        setPasswordHash(value);
         return this;
     }
 
@@ -541,7 +541,7 @@ public class JooqUserRecord extends UpdatableRecordImpl<JooqUserRecord> implemen
     /**
      * Create a detached, initialised JooqUserRecord
      */
-    public JooqUserRecord(UUID uuid, String username, String firstname, String lastname, String email, Boolean enabled, Boolean sso, String passwordhash, JSONB meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
+    public JooqUserRecord(UUID uuid, String username, String firstname, String lastname, String email, Boolean enabled, Boolean sso, String passwordHash, JSONB meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
         super(JooqUser.USER);
 
         setUuid(uuid);
@@ -551,7 +551,7 @@ public class JooqUserRecord extends UpdatableRecordImpl<JooqUserRecord> implemen
         setEmail(email);
         setEnabled(enabled);
         setSso(sso);
-        setPasswordhash(passwordhash);
+        setPasswordHash(passwordHash);
         setMeta(meta);
         setCreated(created);
         setCreatorUuid(creatorUuid);
@@ -573,7 +573,7 @@ public class JooqUserRecord extends UpdatableRecordImpl<JooqUserRecord> implemen
             setEmail(value.getEmail());
             setEnabled(value.getEnabled());
             setSso(value.getSso());
-            setPasswordhash(value.getPasswordhash());
+            setPasswordHash(value.getPasswordHash());
             setMeta(value.getMeta());
             setCreated(value.getCreated());
             setCreatorUuid(value.getCreatorUuid());

@@ -63,7 +63,7 @@ public class MemUserImpl extends AbstractMemCUDElement implements User {
 	public String getPasswordHash() {
 		return passwordHash;
 	}
-
+	
 	@Override
 	public User setPasswordHash(String hash) {
 		this.passwordHash = hash;

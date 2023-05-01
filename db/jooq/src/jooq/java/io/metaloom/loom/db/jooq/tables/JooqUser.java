@@ -93,9 +93,9 @@ public class JooqUser extends TableImpl<JooqUserRecord> {
     public final TableField<JooqUserRecord, Boolean> SSO = createField(DSL.name("sso"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "Flag that indicates that the user was created via SSO mappings");
 
     /**
-     * The column <code>public.user.passwordHash</code>.
+     * The column <code>public.user.password_hash</code>.
      */
-    public final TableField<JooqUserRecord, String> PASSWORDHASH = createField(DSL.name("passwordHash"), SQLDataType.VARCHAR, this, "");
+    public final TableField<JooqUserRecord, String> PASSWORD_HASH = createField(DSL.name("password_hash"), SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.user.meta</code>. Custom meta properties to the

@@ -46,20 +46,22 @@ public class UserDaoImpl extends AbstractJooqDao<JooqUserDao> implements UserDao
 
 	@Override
 	public User loadUser(UUID uuid) {
-		JooqUser user = dao().findById(uuid);
-		if (user == null) {
-			return null;
-		}
-		return new UserImpl(user);
+		return ctx().selectFrom(USER)
+			.where(USER.UUID.equal(uuid))
+			.fetchOneInto(User.class);
+
+		// JooqUser user = dao().findById(uuid);
+		// if (user == null) {
+		// return null;
+		// }
+		// return new UserImpl(user);
 	}
 
 	@Override
 	public User loadUserByUsername(String username) {
-		JooqUser user = dao().fetchOneByJooqUsername(username);
-		if (user == null) {
-			return null;
-		}
-		return new UserImpl(user);
+			return ctx().selectFrom(USER)
+			.where(USER.USERNAME.equal(username))
+			.fetchOneInto(User.class);
 	}
 
 	@Override

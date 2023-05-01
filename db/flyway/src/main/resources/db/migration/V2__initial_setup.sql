@@ -90,7 +90,7 @@ CREATE TABLE "user" (
   "email" varchar,
   "enabled" boolean NOT NULL DEFAULT true,
   "sso" boolean NOT NULL DEFAULT false,
-  "passwordHash" varchar,
+  "password_hash" varchar,
   "meta" jsonb,
   "created" timestamp DEFAULT (now()),
   "creator_uuid" uuid,

@@ -25,7 +25,10 @@ public interface User extends CUDElement, MetaElement {
 	 * 
 	 * @return
 	 */
+	//@Column(name = "password_hash")
 	String getPasswordHash();
+	
+	
 
 	/**
 	 * Set the password hash.

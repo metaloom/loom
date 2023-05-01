@@ -96,12 +96,12 @@ public class UserImpl extends AbstractWrappedElement<JooqUser> implements User {
 
 	@Override
 	public String getPasswordHash() {
-		return delegate().getPasswordhash();
+		return delegate().getPasswordHash();
 	}
 
 	@Override
 	public User setPasswordHash(String hash) {
-		delegate().setPasswordhash(hash);
+		delegate().setPasswordHash(hash);
 		return this;
 	}
 
