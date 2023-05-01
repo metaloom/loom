@@ -12,10 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.options.DatabaseOptions;
-import io.metaloom.loom.db.model.asset.AssetBinaryDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
+import io.metaloom.loom.db.model.asset.BinaryDao;
+import io.metaloom.loom.db.model.collection.CollectionDao;
 import io.metaloom.loom.db.model.group.GroupDao;
-import io.metaloom.loom.db.model.namespace.NamespaceDao;
+import io.metaloom.loom.db.model.library.LibraryDao;
 import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.test.LoomProviderExtension;
@@ -66,20 +67,24 @@ public class JooqTestContext implements BeforeEachCallback, AfterEachCallback {
 		return component.groupDao();
 	}
 
-	public NamespaceDao namespaceDao() {
-		return component.namespaceDao();
-	}
-
 	public DSLContext context() {
 		return component.context();
 	}
 
-	public AssetBinaryDao binaryDao() {
+	public BinaryDao binaryDao() {
 		return component.binaryDao();
 	}
 
 	public PermissionDao permissionDao() {
 		return component.permissionDao();
+	}
+
+	public CollectionDao collectionDao() {
+		return component.collectionDao();
+	}
+	
+	public LibraryDao libraryDao() {
+		return component.libraryDao();
 	}
 
 }

@@ -8,7 +8,7 @@ import io.metaloom.loom.db.page.Page;
 
 public interface AssetDao extends Dao {
 
-	Asset createAsset(String filename, UUID binaryUuid, UUID creatorUuid, UUID namespaceUuid);
+	Asset createAsset(String filename, UUID binaryUuid, UUID creatorUuid, UUID libraryUuid);
 
 	void storeAsset(Asset asset);
 

@@ -15,7 +15,7 @@ Table loom as LOOM [headercolor: #4B82B0] {
 }
 
 Table user as U [headercolor: #16a085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   username varchar [unique, not null]
   firstname varchar
   lastname varchar
@@ -27,7 +27,7 @@ Table user as U [headercolor: #16a085] {
   created timestamp [default: `now()`]
   creator_uuid uuid  [ref: > U.uuid]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -36,8 +36,8 @@ Table user as U [headercolor: #16a085] {
 }
 
 Table token as AK [headercolor: #16A085] {
-  uuid uuid_generate_v4 [increment]
-  user_uuid uuid_generate_v4 [ref: > U.uuid]
+  uuid uuid [increment]
+  user_uuid uuid [ref: > U.uuid]
   description varchar
   token varchar [not null]
   created timestamp [default: `now()`]
@@ -51,14 +51,14 @@ Table token as AK [headercolor: #16A085] {
 }
 
 Table role as R [headercolor: #16a085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   name varchar [unique, not null]
   meta jsonb [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4  [ref: > U.uuid]
+  creator_uuid uuid  [ref: > U.uuid]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -67,7 +67,7 @@ Table role as R [headercolor: #16a085] {
 }
 
 Table role_permission as PERM [headercolor: #24BAB1] {
-  role_uuid uuid_generate_v4 [ref: > R.uuid]
+  role_uuid uuid [ref: > R.uuid]
   resource varchar [not null]
   permission loom_permission [note: "Permission granted / granted to the resource", not null]
   
@@ -78,7 +78,7 @@ Table role_permission as PERM [headercolor: #24BAB1] {
 }
 
 Table user_permission as UPERM [headercolor: #24BAB1] {
-  user_uuid uuid_generate_v4 [ref: > U.uuid]
+  user_uuid uuid [ref: > U.uuid]
   resource varchar [not null]
   permission loom_permission [note: "Permission granted / granted to the resource", not null]
   
@@ -89,7 +89,7 @@ Table user_permission as UPERM [headercolor: #24BAB1] {
 }
 
 Table token_permission as TPERM [headercolor: #24BAB1] {
-  token_uuid uuid_generate_v4 [ref: > AK.uuid]
+  token_uuid uuid [ref: > AK.uuid]
   resource varchar [not null]
   permission loom_permission [note: "Permission granted / granted to the resource", not null]
   
@@ -100,14 +100,14 @@ Table token_permission as TPERM [headercolor: #24BAB1] {
 }
 
 Table group as G [headercolor: #16a085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   name varchar [unique, not null]
   meta jsonb [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4  [ref: > U.uuid]
+  creator_uuid uuid  [ref: > U.uuid]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -116,8 +116,8 @@ Table group as G [headercolor: #16a085] {
 }
  
 Table role_group as RG {
-   group_uuid uuid_generate_v4 [ref: > G.uuid, not null]
-   role_uuid uuid_generate_v4 [ref: > R.uuid, not null]
+   group_uuid uuid [ref: > G.uuid, not null]
+   role_uuid uuid [ref: > R.uuid, not null]
    
   Indexes {
     (group_uuid, role_uuid) [pk]
@@ -125,8 +125,8 @@ Table role_group as RG {
 }
 
 Table user_group as UG {
-   user_uuid uuid_generate_v4 [ref: > U.uuid, not null]
-   group_uuid uuid_generate_v4 [ref: > G.uuid, not null]
+   user_uuid uuid [ref: > U.uuid, not null]
+   group_uuid uuid [ref: > G.uuid, not null]
    
   Indexes {
     (user_uuid, group_uuid) [pk]
@@ -137,16 +137,16 @@ Table user_group as UG {
 // Tag
 
 Table tag as T [headercolor: #16a085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   name varchar [not null]
   collection varchar [not null]
   meta jsonb [note: "Custom meta properties to the element"]
   rating int [note: "Absolute or buffered/precomputed rating information"]
 
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
 
   Indexes {
     (uuid) [pk]
@@ -157,8 +157,8 @@ Table tag as T [headercolor: #16a085] {
 }
 
 Table tag_user_meta as TUM {
-  tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
-  user_uuid uuid_generate_v4 [ref: > U.uuid, not null]
+  tag_uuid uuid [ref: > T.uuid, not null]
+  user_uuid uuid [ref: > U.uuid, not null]
   rating int [not null, note: "Rating of the tag by the user"]
   meta jsonb [note: "Custom meta properties"]
 
@@ -169,8 +169,8 @@ Table tag_user_meta as TUM {
 
 
 Table tag_asset {
-  tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
-  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
+  tag_uuid uuid [ref: > T.uuid, not null]
+  asset_uuid uuid [ref: > ASSET.uuid, not null]
   
   Indexes {
     (tag_uuid, asset_uuid) [pk]
@@ -181,8 +181,8 @@ Table tag_asset {
 
 
 Table tag_collection {
-  tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
-  collection_uuid uuid_generate_v4 [ref: > COLLECTION.uuid, not null]
+  tag_uuid uuid [ref: > T.uuid, not null]
+  collection_uuid uuid [ref: > COLLECTION.uuid, not null]
   
   Indexes {
     (tag_uuid, collection_uuid) [pk]
@@ -193,8 +193,8 @@ Table tag_collection {
 
 
 Table tag_cluster {
-  tag_uuid uuid_generate_v4 [ref: > T.uuid, not null]
-  cluster_uuid uuid_generate_v4 [ref: > CLUSTER.uuid, not null]
+  tag_uuid uuid [ref: > T.uuid, not null]
+  cluster_uuid uuid [ref: > CLUSTER.uuid, not null]
   
   Indexes {
     (tag_uuid, cluster_uuid) [pk]
@@ -215,7 +215,7 @@ tablegroup Tagging {
 // Asset
 
 Table binary as BIN [headercolor: #16a085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
 
   // Common properties
   sha512sum varchar [not null]
@@ -230,9 +230,9 @@ Table binary as BIN [headercolor: #16a085] {
   initial_origin varchar [note: "Document the initial origin of the binary (e.g. first filepath encountered, first s3 path, url, hash)",not null]
   
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4  [ref: > U.uuid]
+  creator_uuid uuid  [ref: > U.uuid]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
 
   // S3
   // Whenever the props change the asset_binary information has to be checked
@@ -275,11 +275,11 @@ Table binary as BIN [headercolor: #16a085] {
 }
 
 Table binary_remix {
-  binary_a_uuid uuid_generate_v4 [ref: > BIN.uuid, not null]
-  binary_b_uuid uuid_generate_v4 [ref: > BIN.uuid, not null]
+  binary_a_uuid uuid [ref: > BIN.uuid, not null]
+  binary_b_uuid uuid [ref: > BIN.uuid, not null]
   meta jsonb [note: "Custom meta properties to the element"]
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
 
   Indexes {
     (binary_a_uuid)
@@ -290,8 +290,8 @@ Table binary_remix {
 }
 
 Table asset as ASSET [headercolor: #16a085] {
-  uuid uuid_generate_v4 [increment]
-  binary_uuid uuid_generate_v4 [ref: > BIN.uuid, not null, note: "Reference to the media binary that contains the actual data for the asset."]
+  uuid uuid [increment]
+  binary_uuid uuid [ref: > BIN.uuid, not null, note: "Reference to the media binary that contains the actual data for the asset."]
 
   path varchar [not null, note: "Currently known path to the asset in the filesystem"]
   
@@ -308,13 +308,13 @@ Table asset as ASSET [headercolor: #16a085] {
   license varchar
 
   state varchar
-  locked_by_uuid uuid_generate_v4 [ref: > U.uuid]
+  locked_by_uuid uuid [ref: > U.uuid]
   // Locking reason can be stored in meta? or state? Do we need a dedicated field?
 
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]
@@ -335,7 +335,7 @@ tablegroup Assets {
 // Embedding
 
 Table embedding as EMBEDDING [headercolor: #16A085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   meta jsonb [note: "Custom meta properties to the embedding."]
   source varchar [note: "Additional source information (e.g. face number by dlib)"]
 
@@ -351,11 +351,11 @@ Table embedding as EMBEDDING [headercolor: #16A085] {
   embedding_type embedding_type [note: "Type of the embedding (e.g. dlib_facemark)"]
 
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
 
-  binary_uuid uuid_generate_v4 [ref: > BIN.uuid, not null]
+  binary_uuid uuid [ref: > BIN.uuid, not null]
 
   Indexes {
     (uuid) [pk]
@@ -371,15 +371,15 @@ Enum embedding_type {
 }
 
 Table cluster as CLUSTER [headercolor: #16A085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   name varchar [note: "Name of the cluster. (e.g. name of a person)", not null]
   meta jsonb [note: "Custom meta properties to the embedding."]
   type cluster_type [note: "Type of the cluster (e.g. person)", not null]
 
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
 
   Indexes {
     (uuid) [pk]
@@ -399,8 +399,8 @@ Enum cluster_type {
 }
 
 Table embedding_cluster {
-  embedding_uuid uuid_generate_v4 [ref: > EMBEDDING.uuid, not null]
-  cluster_uuid uuid_generate_v4 [ref: > CLUSTER.uuid, not null]
+  embedding_uuid uuid [ref: > EMBEDDING.uuid, not null]
+  cluster_uuid uuid [ref: > CLUSTER.uuid, not null]
 
   Indexes {
     (embedding_uuid, cluster_uuid) [pk]
@@ -420,16 +420,16 @@ tablegroup  Embeddings {
 // What is the difference between tags and collections? Don't those serve the same purpose?
 
 Table collection as COLLECTION [headercolor: #16A085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   name varchar [unique, not null]
   meta jsonb [note: "Custom meta properties"]
   description varchar
   
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4  [ref: > U.uuid, not null]
+  creator_uuid uuid  [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
-  parent_collection_uuid uuid_generate_v4 [ref: > COLLECTION.uuid]
+  editor_uuid uuid [ref: > U.uuid]
+  parent_collection_uuid uuid [ref: > COLLECTION.uuid]
   
   //thumbail varchar
   Indexes {
@@ -443,11 +443,9 @@ Table collection as COLLECTION [headercolor: #16A085] {
   '''
 }
 
-// TODO do we need collection_binary as well?
-
 Table collection_asset {
-  collection_uuid uuid_generate_v4 [ref: > COLLECTION.uuid, not null]
-  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
+  collection_uuid uuid [ref: > COLLECTION.uuid, not null]
+  asset_uuid uuid [ref: > ASSET.uuid, not null]
 
   Indexes {
     (collection_uuid, asset_uuid) [pk]
@@ -458,15 +456,33 @@ Table collection_asset {
   note: "Track assets that belong to a collection."
 }
 
+Table collection_binary {
+  collection_uuid uuid [ref: > COLLECTION.uuid, not null]
+  binary_uuid uuid [ref: > BIN.uuid, not null]
+
+  Indexes {
+    (collection_uuid, binary_uuid) [pk]
+    (collection_uuid)
+    (binary_uuid)
+  }
+
+  note: '''
+    Track binaries that belong to a collection.
+    User facing this will result in all transitive assets being added to the collection.
+  '''
+}
+
+
 tablegroup AssetCollection {
   collection
   collection_asset
+  collection_binary
 }
 
 // Vector Index Configuration
 
 Table vector_config {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   name varchar [unique, not null]
   weights jsonb [note: "Index definition which lists the weights for each component that should be included in the index"]
 
@@ -482,14 +498,14 @@ Table vector_config {
 // Comment
 
 Table comment as COMMENT [headercolor: #16A085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   title varchar [note: "Comment title"]
   content varchar [note: "Comment text", not null]
-  user_uuid uuid_generate_v4 [ref: > U.uuid, not null]
+  user_uuid uuid [ref: > U.uuid, not null]
   created varchar  [note: "Creation timestamp", not null]
   edited varchar  [note: "Edit timestamp"]
   // editor is also user, admin edits are hidden?
-  parent_uuid uuid_generate_v4 [ref: > COMMENT.uuid]
+  parent_uuid uuid [ref: > COMMENT.uuid]
 
   Indexes {
     (uuid) [pk]
@@ -500,8 +516,8 @@ Table comment as COMMENT [headercolor: #16A085] {
 
 // TODO maybe better to use a  root_comment_uuid field in task
 Table comment_task {
-  comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid, not null]
-  task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
+  comment_uuid uuid [ref: > COMMENT.uuid, not null]
+  task_uuid uuid [ref: > TASK.uuid, not null]
 
   Indexes {
     (comment_uuid, task_uuid) [pk]
@@ -509,8 +525,8 @@ Table comment_task {
 }
 
 Table comment_annotaion {
-  comment_uuid uuid_generate_v4 [ref: > COMMENT.uuid, not null]
-  annotation_uuid uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
+  comment_uuid uuid [ref: > COMMENT.uuid, not null]
+  annotation_uuid uuid [ref: > ANNOTATION.uuid, not null]
 
   Indexes {
     (comment_uuid, annotation_uuid) [pk]
@@ -526,13 +542,13 @@ tablegroup Comment {
 // Blacklist
 
 Table blacklist as BLACKLIST [headercolor: #16A085] {
-  uuid uuid_generate_v4 [increment]
-  binary_uuid uuid_generate_v4 [ref: > BIN.uuid, note: "Blacklisted binary", not null] 
+  uuid uuid [increment]
+  binary_uuid uuid [ref: > BIN.uuid, note: "Blacklisted binary", not null] 
   
   created varchar  [note: "Creation timestamp", not null]
-  creator_uuid  uuid_generate_v4 [ref: > U.uuid, note: "Creator of the blacklist entry", not null]
+  creator_uuid  uuid [ref: > U.uuid, note: "Creator of the blacklist entry", not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
 
   type varchar [note: "Type of the blacklist entry (e.g. copyright claim)"]
   review_count int [note: "Amount of times this blacklist entry has been reviewed.", default: 1]
@@ -556,19 +572,19 @@ tablegroup Blacklist {
 // Reaction
 
 Table reaction as REACTION [headercolor: #16A085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   type varchar [note: "Type of the reaction (e.g. thumbsup)"]
   rating int [note: "Rating by the user"]
   meta jsonb [note: "Custom meta properties to the reaction."]
   
   created timestamp [note: "Creation timestamp",default: `now()`, not null]
-  creator_uuid uuid_generate_v4 [note: "Creator of the reaction", ref: > U.uuid, not null]
+  creator_uuid uuid [note: "Creator of the reaction", ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
 
-  asset_uuid uuid_generate_v4 [ref: <> ASSET.uuid]
-  comment_uuid uuid_generate_v4 [ref: <> COMMENT.uuid]
-  annotation_uuid uuid_generate_v4 [ref: <> ANNOTATION.uuid]
+  asset_uuid uuid [ref: <> ASSET.uuid]
+  comment_uuid uuid [ref: <> COMMENT.uuid]
+  annotation_uuid uuid [ref: <> ANNOTATION.uuid]
 
   Indexes {
     (uuid) [pk]
@@ -587,11 +603,11 @@ tablegroup Reaction {
 // Annotation
 
 Table annotation as ANNOTATION [headercolor: #16A085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   type annotation_type [not null]
   
-  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
-  creator_uuid  uuid_generate_v4 [ref: > U.uuid, not null]
+  asset_uuid uuid [ref: > ASSET.uuid, not null]
+  creator_uuid  uuid [ref: > U.uuid, not null]
   created timestamp [note: "Creation timestamp", default: `now()`, not null]
   title varchar
   description varchar
@@ -615,8 +631,8 @@ Table annotation as ANNOTATION [headercolor: #16A085] {
 }
 
 Table annotation_tag as ANNOTATION_TAGS {
-  annotation_uuid   uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
-  tag_uuid          uuid_generate_v4 [ref: > T.uuid, not null]
+  annotation_uuid   uuid [ref: > ANNOTATION.uuid, not null]
+  tag_uuid          uuid [ref: > T.uuid, not null]
 
   Indexes {
     (annotation_uuid, tag_uuid) [pk]
@@ -638,7 +654,7 @@ tablegroup Annotation {
 // Tasks
 
 Table task as TASK [headercolor: #16A085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   title varchar [not null, note: "Title of the task"]
   content varchar [note: "Description of the task"]
   due_date timestamp
@@ -646,9 +662,9 @@ Table task as TASK [headercolor: #16A085] {
   priority int
 
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4 [ref: > U.uuid, not null]
+  creator_uuid uuid [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
 
   Indexes {
     (uuid) [pk]
@@ -656,8 +672,8 @@ Table task as TASK [headercolor: #16A085] {
 }
 
 Table task_asset {
-  task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
-  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
+  task_uuid uuid [ref: > TASK.uuid, not null]
+  asset_uuid uuid [ref: > ASSET.uuid, not null]
   
   Indexes {
     (task_uuid, asset_uuid) [pk]
@@ -665,8 +681,8 @@ Table task_asset {
 }
 
 Table task_annotation {
-  task_uuid uuid_generate_v4 [ref: > TASK.uuid, not null]
-  annotation_uuid uuid_generate_v4 [ref: > ANNOTATION.uuid, not null]
+  task_uuid uuid [ref: > TASK.uuid, not null]
+  annotation_uuid uuid [ref: > ANNOTATION.uuid, not null]
 
   Indexes {
     (task_uuid, annotation_uuid) [pk]
@@ -688,8 +704,8 @@ tablegroup Task {
 
 
 Table asset_user_meta as AUM [headercolor: #16A085] {
-  asset_uuid uuid_generate_v4 [ref: > ASSET.uuid, not null]
-  user_uuid uuid_generate_v4 [ref: > U.uuid, not null]
+  asset_uuid uuid [ref: > ASSET.uuid, not null]
+  user_uuid uuid [ref: > U.uuid, not null]
   meta varchar [note: "Custom meta properties"]
   
   // Timestamps and editors will be updated in ASSET
@@ -703,7 +719,7 @@ Table asset_user_meta as AUM [headercolor: #16A085] {
 
 
 Table webhook as W [headercolor: #16a085] {
-  uuid uuid_generate_v4 [increment]
+  uuid uuid [increment]
   url varchar [not null]
   status varchar
   active boolean [default: true, not null]
@@ -712,9 +728,9 @@ Table webhook as W [headercolor: #16a085] {
   meta jsonb [note: "Custom meta properties to the element"]
   
   created timestamp [default: `now()`, not null]
-  creator_uuid uuid_generate_v4 [ref: > U.uuid, not null]
+  creator_uuid uuid [ref: > U.uuid, not null]
   edited timestamp [default: `now()`]
-  editor_uuid uuid_generate_v4 [ref: > U.uuid]
+  editor_uuid uuid [ref: > U.uuid]
   
   Indexes {
     (uuid) [pk]

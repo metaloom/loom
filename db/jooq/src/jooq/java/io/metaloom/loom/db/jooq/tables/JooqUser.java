@@ -76,11 +76,6 @@ public class JooqUser extends TableImpl<JooqUserRecord> {
     public final TableField<JooqUserRecord, String> LASTNAME = createField(DSL.name("lastname"), SQLDataType.VARCHAR, this, "");
 
     /**
-     * The column <code>public.user.passwordhash</code>.
-     */
-    public final TableField<JooqUserRecord, String> PASSWORDHASH = createField(DSL.name("passwordhash"), SQLDataType.VARCHAR, this, "");
-
-    /**
      * The column <code>public.user.email</code>.
      */
     public final TableField<JooqUserRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR, this, "");
@@ -96,6 +91,11 @@ public class JooqUser extends TableImpl<JooqUserRecord> {
      * user was created via SSO mappings
      */
     public final TableField<JooqUserRecord, Boolean> SSO = createField(DSL.name("sso"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "Flag that indicates that the user was created via SSO mappings");
+
+    /**
+     * The column <code>public.user.passwordHash</code>.
+     */
+    public final TableField<JooqUserRecord, String> PASSWORDHASH = createField(DSL.name("passwordHash"), SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.user.meta</code>. Custom meta properties to the
@@ -250,14 +250,14 @@ public class JooqUser extends TableImpl<JooqUserRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row13<java.util.UUID, String, String, String, String, String, Boolean, Boolean, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
+    public Row13<java.util.UUID, String, String, String, String, Boolean, Boolean, String, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row13) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function13<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function13<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -265,7 +265,7 @@ public class JooqUser extends TableImpl<JooqUserRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function13<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function13<? super java.util.UUID, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

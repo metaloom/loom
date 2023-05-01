@@ -77,18 +77,17 @@ public class AssetDaoImpl extends AbstractJooqDao<JooqAssetDao> implements Asset
 	}
 
 	@Override
-	public Asset createAsset(String filename, UUID binaryUuid, UUID creatorUuid, UUID namespaceUuid) {
+	public Asset createAsset(String filename, UUID binaryUuid, UUID creatorUuid, UUID libraryUuid) {
 		Objects.requireNonNull(creatorUuid, "Creator uuid must not be null");
-		Objects.requireNonNull(namespaceUuid, "Namespace uuid must not be null");
+		Objects.requireNonNull(libraryUuid, "Library uuid must not be null");
 		Objects.requireNonNull(binaryUuid, "Binary uuid must not be null");
 		JooqAsset asset = new JooqAsset();
 		UUID newUuid = UUID.randomUUID();
 		asset.setUuid(newUuid);
-		asset.setFilename(filename);
+		asset.setPath(filename);
 		asset.setCreated(LocalDateTime.now());
 		asset.setCreatorUuid(creatorUuid);
-		asset.setAssetBinariesUuid(binaryUuid);
-		asset.setNamespaceUuid(namespaceUuid);
+		asset.setBinaryUuid(binaryUuid);
 		return wrap(asset);
 	}
 
@@ -116,7 +115,7 @@ public class AssetDaoImpl extends AbstractJooqDao<JooqAssetDao> implements Asset
 	@Override
 	public Page<Asset> loadAssets(UUID fromUuid, int pageSize) {
 		SelectSeekStep1<Record3<UUID, String, UUID>, UUID> query = dao().ctx()
-			.select(ASSET.UUID, ASSET.FILENAME, ASSET.ASSET_BINARIES_UUID)
+			.select(ASSET.UUID, ASSET.PATH, ASSET.BINARY_UUID)
 			.from(ASSET)
 			.orderBy(ASSET.UUID);
 		if (fromUuid != null) {

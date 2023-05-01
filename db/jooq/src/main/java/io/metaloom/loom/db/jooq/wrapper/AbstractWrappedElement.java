@@ -1,6 +1,8 @@
 package io.metaloom.loom.db.jooq.wrapper;
 
-public abstract class AbstractWrappedElement<T> implements JooqWrapper<T> {
+import java.io.Serializable;
+
+public abstract class AbstractWrappedElement<T extends Serializable> implements JooqWrapper<T> {
 
 	private final T delegate;
 

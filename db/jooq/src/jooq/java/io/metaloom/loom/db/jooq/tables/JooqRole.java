@@ -79,7 +79,7 @@ public class JooqRole extends TableImpl<JooqRoleRecord> {
     /**
      * The column <code>public.role.creator_uuid</code>.
      */
-    public final TableField<JooqRoleRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<JooqRoleRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID, this, "");
 
     /**
      * The column <code>public.role.edited</code>.

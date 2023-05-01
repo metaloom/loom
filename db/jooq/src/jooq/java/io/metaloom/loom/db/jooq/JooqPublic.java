@@ -4,39 +4,49 @@
 package io.metaloom.loom.db.jooq;
 
 
+import io.metaloom.loom.db.jooq.tables.JooqAnnotation;
+import io.metaloom.loom.db.jooq.tables.JooqAnnotationReaction;
+import io.metaloom.loom.db.jooq.tables.JooqAnnotationTag;
 import io.metaloom.loom.db.jooq.tables.JooqAsset;
-import io.metaloom.loom.db.jooq.tables.JooqAssetBinarie;
-import io.metaloom.loom.db.jooq.tables.JooqAssetTimeline;
-import io.metaloom.loom.db.jooq.tables.JooqAssetTimelineTag;
+import io.metaloom.loom.db.jooq.tables.JooqAssetReaction;
 import io.metaloom.loom.db.jooq.tables.JooqAssetUserMeta;
-import io.metaloom.loom.db.jooq.tables.JooqContent;
-import io.metaloom.loom.db.jooq.tables.JooqContentUserMeta;
-import io.metaloom.loom.db.jooq.tables.JooqExtension;
-import io.metaloom.loom.db.jooq.tables.JooqFace;
-import io.metaloom.loom.db.jooq.tables.JooqField;
-import io.metaloom.loom.db.jooq.tables.JooqFieldAsset;
-import io.metaloom.loom.db.jooq.tables.JooqFieldContent;
-import io.metaloom.loom.db.jooq.tables.JooqFieldReference;
+import io.metaloom.loom.db.jooq.tables.JooqBinary;
+import io.metaloom.loom.db.jooq.tables.JooqBinaryRemix;
+import io.metaloom.loom.db.jooq.tables.JooqBlacklist;
+import io.metaloom.loom.db.jooq.tables.JooqCluster;
+import io.metaloom.loom.db.jooq.tables.JooqCollection;
+import io.metaloom.loom.db.jooq.tables.JooqCollectionAsset;
+import io.metaloom.loom.db.jooq.tables.JooqCollectionBinary;
+import io.metaloom.loom.db.jooq.tables.JooqComment;
+import io.metaloom.loom.db.jooq.tables.JooqCommentAnnotaion;
+import io.metaloom.loom.db.jooq.tables.JooqCommentReaction;
+import io.metaloom.loom.db.jooq.tables.JooqCommentTask;
+import io.metaloom.loom.db.jooq.tables.JooqEmbedding;
+import io.metaloom.loom.db.jooq.tables.JooqEmbeddingCluster;
 import io.metaloom.loom.db.jooq.tables.JooqFlywaySchemaHistory;
 import io.metaloom.loom.db.jooq.tables.JooqGroup;
-import io.metaloom.loom.db.jooq.tables.JooqLanguage;
+import io.metaloom.loom.db.jooq.tables.JooqLibrary;
+import io.metaloom.loom.db.jooq.tables.JooqLibraryAsset;
+import io.metaloom.loom.db.jooq.tables.JooqLibraryCollection;
 import io.metaloom.loom.db.jooq.tables.JooqLoom;
-import io.metaloom.loom.db.jooq.tables.JooqModel;
-import io.metaloom.loom.db.jooq.tables.JooqModelVersion;
-import io.metaloom.loom.db.jooq.tables.JooqNamespace;
+import io.metaloom.loom.db.jooq.tables.JooqReaction;
 import io.metaloom.loom.db.jooq.tables.JooqRole;
 import io.metaloom.loom.db.jooq.tables.JooqRoleGroup;
 import io.metaloom.loom.db.jooq.tables.JooqRolePermission;
 import io.metaloom.loom.db.jooq.tables.JooqTag;
 import io.metaloom.loom.db.jooq.tables.JooqTagAsset;
-import io.metaloom.loom.db.jooq.tables.JooqTagContent;
-import io.metaloom.loom.db.jooq.tables.JooqTagNamespace;
+import io.metaloom.loom.db.jooq.tables.JooqTagCluster;
+import io.metaloom.loom.db.jooq.tables.JooqTagCollection;
 import io.metaloom.loom.db.jooq.tables.JooqTagUserMeta;
+import io.metaloom.loom.db.jooq.tables.JooqTask;
+import io.metaloom.loom.db.jooq.tables.JooqTaskAnnotation;
+import io.metaloom.loom.db.jooq.tables.JooqTaskAsset;
+import io.metaloom.loom.db.jooq.tables.JooqToken;
 import io.metaloom.loom.db.jooq.tables.JooqTokenPermission;
 import io.metaloom.loom.db.jooq.tables.JooqUser;
 import io.metaloom.loom.db.jooq.tables.JooqUserGroup;
 import io.metaloom.loom.db.jooq.tables.JooqUserPermission;
-import io.metaloom.loom.db.jooq.tables.JooqUserToken;
+import io.metaloom.loom.db.jooq.tables.JooqVectorConfig;
 import io.metaloom.loom.db.jooq.tables.JooqWebhook;
 
 import java.util.Arrays;
@@ -61,69 +71,112 @@ public class JooqPublic extends SchemaImpl {
     public static final JooqPublic PUBLIC = new JooqPublic();
 
     /**
-     * The table <code>public.asset</code>.
+     * This table contains asset annotation entries which can be used to create
+     * chapters or sections to assign tasks to.
+     */
+    public final JooqAnnotation ANNOTATION = JooqAnnotation.ANNOTATION;
+
+    /**
+     * The table <code>public.annotation_reaction</code>.
+     */
+    public final JooqAnnotationReaction ANNOTATION_REACTION = JooqAnnotationReaction.ANNOTATION_REACTION;
+
+    /**
+     * The table <code>public.annotation_tag</code>.
+     */
+    public final JooqAnnotationTag ANNOTATION_TAG = JooqAnnotationTag.ANNOTATION_TAG;
+
+    /**
+     * Assets keep track of media that has been found by the scanner. Multiple
+     * assets may share the same binary thus the properties will be decoupled
+     * from binary.
      */
     public final JooqAsset ASSET = JooqAsset.ASSET;
 
     /**
-     * This table stores the immutable asset information
+     * The table <code>public.asset_reaction</code>.
      */
-    public final JooqAssetBinarie ASSET_BINARIE = JooqAssetBinarie.ASSET_BINARIE;
+    public final JooqAssetReaction ASSET_REACTION = JooqAssetReaction.ASSET_REACTION;
 
     /**
-     * This table contains asset timeline entries
-     */
-    public final JooqAssetTimeline ASSET_TIMELINE = JooqAssetTimeline.ASSET_TIMELINE;
-
-    /**
-     * The table <code>public.asset_timeline_tag</code>.
-     */
-    public final JooqAssetTimelineTag ASSET_TIMELINE_TAG = JooqAssetTimelineTag.ASSET_TIMELINE_TAG;
-
-    /**
-     * The table <code>public.asset_user_meta</code>.
+     * Stores user specific metadata that can be added to assets
      */
     public final JooqAssetUserMeta ASSET_USER_META = JooqAssetUserMeta.ASSET_USER_META;
 
     /**
-     * The table <code>public.content</code>.
+     * This table stores information on the binary component of the asset
      */
-    public final JooqContent CONTENT = JooqContent.CONTENT;
+    public final JooqBinary BINARY = JooqBinary.BINARY;
 
     /**
-     * The table <code>public.content_user_meta</code>.
+     * Store information on remixes of binaries.
      */
-    public final JooqContentUserMeta CONTENT_USER_META = JooqContentUserMeta.CONTENT_USER_META;
+    public final JooqBinaryRemix BINARY_REMIX = JooqBinaryRemix.BINARY_REMIX;
 
     /**
-     * Table which lists the registered extensions
+     * Stores information on blocked binaries.
+     * A binary can be blocked due to copyright claim issues or because the
+     * virus scanner marked it.
      */
-    public final JooqExtension EXTENSION = JooqExtension.EXTENSION;
+    public final JooqBlacklist BLACKLIST = JooqBlacklist.BLACKLIST;
 
     /**
-     * Stores embeddings
+     * Generic cluster that aggregates multiple embeddings. 
+     * A cluster could for example represent a person which can have multiple
+     * face embeddings.
+     * Alternatively media fingerprint embeddings can be used to group media
+     * together by visual similarity.
      */
-    public final JooqFace FACE = JooqFace.FACE;
+    public final JooqCluster CLUSTER = JooqCluster.CLUSTER;
 
     /**
-     * Table which stores the actual fields content as JSON
+     * Collections are used to group assets together.
+     * 
+     * A collection may be a folder which groups together assets for a project.
      */
-    public final JooqField FIELD = JooqField.FIELD;
+    public final JooqCollection COLLECTION = JooqCollection.COLLECTION;
 
     /**
-     * Crosstable which tracks the used assets in a fields record
+     * Track assets that belong to a collection.
      */
-    public final JooqFieldAsset FIELD_ASSET = JooqFieldAsset.FIELD_ASSET;
+    public final JooqCollectionAsset COLLECTION_ASSET = JooqCollectionAsset.COLLECTION_ASSET;
 
     /**
-     * Crosstable that tracks all fields for a content
+     * Track binaries that belong to a collection.
+     * User facing this will result in all transitive assets being added to the
+     * collection.
      */
-    public final JooqFieldContent FIELD_CONTENT = JooqFieldContent.FIELD_CONTENT;
+    public final JooqCollectionBinary COLLECTION_BINARY = JooqCollectionBinary.COLLECTION_BINARY;
 
     /**
-     * This table is mainly used to lookup foreign references to contents
+     * Stores comments on tasks, annotations..
      */
-    public final JooqFieldReference FIELD_REFERENCE = JooqFieldReference.FIELD_REFERENCE;
+    public final JooqComment COMMENT = JooqComment.COMMENT;
+
+    /**
+     * The table <code>public.comment_annotaion</code>.
+     */
+    public final JooqCommentAnnotaion COMMENT_ANNOTAION = JooqCommentAnnotaion.COMMENT_ANNOTAION;
+
+    /**
+     * The table <code>public.comment_reaction</code>.
+     */
+    public final JooqCommentReaction COMMENT_REACTION = JooqCommentReaction.COMMENT_REACTION;
+
+    /**
+     * The table <code>public.comment_task</code>.
+     */
+    public final JooqCommentTask COMMENT_TASK = JooqCommentTask.COMMENT_TASK;
+
+    /**
+     * Embedding information which was extracted from a binary.
+     */
+    public final JooqEmbedding EMBEDDING = JooqEmbedding.EMBEDDING;
+
+    /**
+     * List embeddings for clusters
+     */
+    public final JooqEmbeddingCluster EMBEDDING_CLUSTER = JooqEmbeddingCluster.EMBEDDING_CLUSTER;
 
     /**
      * The table <code>public.flyway_schema_history</code>.
@@ -136,9 +189,19 @@ public class JooqPublic extends SchemaImpl {
     public final JooqGroup GROUP = JooqGroup.GROUP;
 
     /**
-     * Table which stores the languages for loom
+     * The table <code>public.library</code>.
      */
-    public final JooqLanguage LANGUAGE = JooqLanguage.LANGUAGE;
+    public final JooqLibrary LIBRARY = JooqLibrary.LIBRARY;
+
+    /**
+     * The table <code>public.library_asset</code>.
+     */
+    public final JooqLibraryAsset LIBRARY_ASSET = JooqLibraryAsset.LIBRARY_ASSET;
+
+    /**
+     * The table <code>public.library_collection</code>.
+     */
+    public final JooqLibraryCollection LIBRARY_COLLECTION = JooqLibraryCollection.LIBRARY_COLLECTION;
 
     /**
      * The table <code>public.loom</code>.
@@ -146,19 +209,9 @@ public class JooqPublic extends SchemaImpl {
     public final JooqLoom LOOM = JooqLoom.LOOM;
 
     /**
-     * The table <code>public.model</code>.
+     * Stores social reactions on multiple elements
      */
-    public final JooqModel MODEL = JooqModel.MODEL;
-
-    /**
-     * The table <code>public.model_version</code>.
-     */
-    public final JooqModelVersion MODEL_VERSION = JooqModelVersion.MODEL_VERSION;
-
-    /**
-     * The table <code>public.namespace</code>.
-     */
-    public final JooqNamespace NAMESPACE = JooqNamespace.NAMESPACE;
+    public final JooqReaction REACTION = JooqReaction.REACTION;
 
     /**
      * The table <code>public.role</code>.
@@ -176,29 +229,49 @@ public class JooqPublic extends SchemaImpl {
     public final JooqRolePermission ROLE_PERMISSION = JooqRolePermission.ROLE_PERMISSION;
 
     /**
-     * The table <code>public.tag</code>.
+     * Tag on various elements. Tags are not user specifc
      */
     public final JooqTag TAG = JooqTag.TAG;
 
     /**
-     * The table <code>public.tag_asset</code>.
+     * Store tag &lt;-&gt; asset reference
      */
     public final JooqTagAsset TAG_ASSET = JooqTagAsset.TAG_ASSET;
 
     /**
-     * The table <code>public.tag_content</code>.
+     * Store tag &lt;-&gt; cluster reference
      */
-    public final JooqTagContent TAG_CONTENT = JooqTagContent.TAG_CONTENT;
+    public final JooqTagCluster TAG_CLUSTER = JooqTagCluster.TAG_CLUSTER;
 
     /**
-     * Table used to taggings on namespaces
+     * Store tag &lt;-&gt; collection reference
      */
-    public final JooqTagNamespace TAG_NAMESPACE = JooqTagNamespace.TAG_NAMESPACE;
+    public final JooqTagCollection TAG_COLLECTION = JooqTagCollection.TAG_COLLECTION;
 
     /**
      * The table <code>public.tag_user_meta</code>.
      */
     public final JooqTagUserMeta TAG_USER_META = JooqTagUserMeta.TAG_USER_META;
+
+    /**
+     * The table <code>public.task</code>.
+     */
+    public final JooqTask TASK = JooqTask.TASK;
+
+    /**
+     * The table <code>public.task_annotation</code>.
+     */
+    public final JooqTaskAnnotation TASK_ANNOTATION = JooqTaskAnnotation.TASK_ANNOTATION;
+
+    /**
+     * The table <code>public.task_asset</code>.
+     */
+    public final JooqTaskAsset TASK_ASSET = JooqTaskAsset.TASK_ASSET;
+
+    /**
+     * The table <code>public.token</code>.
+     */
+    public final JooqToken TOKEN = JooqToken.TOKEN;
 
     /**
      * The table <code>public.token_permission</code>.
@@ -221,9 +294,16 @@ public class JooqPublic extends SchemaImpl {
     public final JooqUserPermission USER_PERMISSION = JooqUserPermission.USER_PERMISSION;
 
     /**
-     * The table <code>public.user_token</code>.
+     * This table stores the custom index definition that will be used when
+     * creating custom indices in a vector database that list specific aspects
+     * of loom data.
+     * 
+     * A custom configuration may define that a specific meta property should be
+     * added to the index when generating the vector.
+     * This feature can be used to generate a custom recommendation feature by
+     * including and ranking and encoding specific properties as vectors.
      */
-    public final JooqUserToken USER_TOKEN = JooqUserToken.USER_TOKEN;
+    public final JooqVectorConfig VECTOR_CONFIG = JooqVectorConfig.VECTOR_CONFIG;
 
     /**
      * Table which stores the registered webhooks
@@ -246,39 +326,49 @@ public class JooqPublic extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            JooqAnnotation.ANNOTATION,
+            JooqAnnotationReaction.ANNOTATION_REACTION,
+            JooqAnnotationTag.ANNOTATION_TAG,
             JooqAsset.ASSET,
-            JooqAssetBinarie.ASSET_BINARIE,
-            JooqAssetTimeline.ASSET_TIMELINE,
-            JooqAssetTimelineTag.ASSET_TIMELINE_TAG,
+            JooqAssetReaction.ASSET_REACTION,
             JooqAssetUserMeta.ASSET_USER_META,
-            JooqContent.CONTENT,
-            JooqContentUserMeta.CONTENT_USER_META,
-            JooqExtension.EXTENSION,
-            JooqFace.FACE,
-            JooqField.FIELD,
-            JooqFieldAsset.FIELD_ASSET,
-            JooqFieldContent.FIELD_CONTENT,
-            JooqFieldReference.FIELD_REFERENCE,
+            JooqBinary.BINARY,
+            JooqBinaryRemix.BINARY_REMIX,
+            JooqBlacklist.BLACKLIST,
+            JooqCluster.CLUSTER,
+            JooqCollection.COLLECTION,
+            JooqCollectionAsset.COLLECTION_ASSET,
+            JooqCollectionBinary.COLLECTION_BINARY,
+            JooqComment.COMMENT,
+            JooqCommentAnnotaion.COMMENT_ANNOTAION,
+            JooqCommentReaction.COMMENT_REACTION,
+            JooqCommentTask.COMMENT_TASK,
+            JooqEmbedding.EMBEDDING,
+            JooqEmbeddingCluster.EMBEDDING_CLUSTER,
             JooqFlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             JooqGroup.GROUP,
-            JooqLanguage.LANGUAGE,
+            JooqLibrary.LIBRARY,
+            JooqLibraryAsset.LIBRARY_ASSET,
+            JooqLibraryCollection.LIBRARY_COLLECTION,
             JooqLoom.LOOM,
-            JooqModel.MODEL,
-            JooqModelVersion.MODEL_VERSION,
-            JooqNamespace.NAMESPACE,
+            JooqReaction.REACTION,
             JooqRole.ROLE,
             JooqRoleGroup.ROLE_GROUP,
             JooqRolePermission.ROLE_PERMISSION,
             JooqTag.TAG,
             JooqTagAsset.TAG_ASSET,
-            JooqTagContent.TAG_CONTENT,
-            JooqTagNamespace.TAG_NAMESPACE,
+            JooqTagCluster.TAG_CLUSTER,
+            JooqTagCollection.TAG_COLLECTION,
             JooqTagUserMeta.TAG_USER_META,
+            JooqTask.TASK,
+            JooqTaskAnnotation.TASK_ANNOTATION,
+            JooqTaskAsset.TASK_ASSET,
+            JooqToken.TOKEN,
             JooqTokenPermission.TOKEN_PERMISSION,
             JooqUser.USER,
             JooqUserGroup.USER_GROUP,
             JooqUserPermission.USER_PERMISSION,
-            JooqUserToken.USER_TOKEN,
+            JooqVectorConfig.VECTOR_CONFIG,
             JooqWebhook.WEBHOOK
         );
     }

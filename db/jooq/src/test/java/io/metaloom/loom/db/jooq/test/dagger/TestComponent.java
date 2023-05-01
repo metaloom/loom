@@ -14,10 +14,11 @@ import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
 import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
-import io.metaloom.loom.db.model.asset.AssetBinaryDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
+import io.metaloom.loom.db.model.asset.BinaryDao;
+import io.metaloom.loom.db.model.collection.CollectionDao;
 import io.metaloom.loom.db.model.group.GroupDao;
-import io.metaloom.loom.db.model.namespace.NamespaceDao;
+import io.metaloom.loom.db.model.library.LibraryDao;
 import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.role.RoleDao;
 import io.metaloom.loom.db.model.user.UserDao;
@@ -45,9 +46,13 @@ public interface TestComponent {
 
 	PermissionDao permissionDao();
 
-	NamespaceDao namespaceDao();
+	CollectionDao collectionDao();
 
-	AssetBinaryDao binaryDao();
+	LibraryDao libraryDao();
+
+	LibraryDao namespaceDao();
+
+	BinaryDao binaryDao();
 
 	@Component.Builder
 	interface Builder {

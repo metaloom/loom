@@ -69,14 +69,16 @@ public class JooqTokenPermission implements Serializable {
     }
 
     /**
-     * Getter for <code>public.token_permission.permission</code>.
+     * Getter for <code>public.token_permission.permission</code>. Permission
+     * granted / granted to the resource
      */
     public JooqLoomPermission getPermission() {
         return this.permission;
     }
 
     /**
-     * Setter for <code>public.token_permission.permission</code>.
+     * Setter for <code>public.token_permission.permission</code>. Permission
+     * granted / granted to the resource
      */
     public void setPermission(JooqLoomPermission permission) {
         this.permission = permission;

@@ -4,7 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.daos;
 
 
-import io.metaloom.loom.db.jooq.enums.JooqLoomEvent;
+import io.metaloom.loom.db.jooq.enums.JooqLoomEvents;
 import io.metaloom.loom.db.jooq.tables.JooqWebhook;
 import io.metaloom.loom.db.jooq.tables.records.JooqWebhookRecord;
 
@@ -118,18 +118,18 @@ public class JooqWebhookDao extends DAOImpl<JooqWebhookRecord, io.metaloom.loom.
     }
 
     /**
-     * Fetch records that have <code>trigger BETWEEN lowerInclusive AND
+     * Fetch records that have <code>triggers BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqTrigger(JooqLoomEvent lowerInclusive, JooqLoomEvent upperInclusive) {
-        return fetchRange(JooqWebhook.WEBHOOK.TRIGGER, lowerInclusive, upperInclusive);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchRangeOfJooqTriggers(JooqLoomEvents lowerInclusive, JooqLoomEvents upperInclusive) {
+        return fetchRange(JooqWebhook.WEBHOOK.TRIGGERS, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>trigger IN (values)</code>
+     * Fetch records that have <code>triggers IN (values)</code>
      */
-    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqTrigger(JooqLoomEvent... values) {
-        return fetch(JooqWebhook.WEBHOOK.TRIGGER, values);
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook> fetchByJooqTriggers(JooqLoomEvents... values) {
+        return fetch(JooqWebhook.WEBHOOK.TRIGGERS, values);
     }
 
     /**

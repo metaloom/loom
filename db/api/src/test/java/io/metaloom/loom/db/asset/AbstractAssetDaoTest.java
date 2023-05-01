@@ -33,7 +33,7 @@ public abstract class AbstractAssetDaoTest {
 		// Create asset
 		Asset asset = createTestAsset();
 		assertNotNull(asset.getUuid());
-		assertEquals("blume.jpg", asset.getFilename());
+		assertEquals("blume.jpg", asset.getPath());
 		// assertNotNull(asset.getNamespaceUuid());
 		// assertNotNull(asset.getBinaryUuid());
 	}
@@ -66,12 +66,12 @@ public abstract class AbstractAssetDaoTest {
 		Asset asset = createTestAsset();
 
 		// Now update
-		asset.setFilename("blume2.jpg");
+		asset.setPath("blume2.jpg");
 		dao.updateAsset(asset);
 
 		// Load and assert update was persisted
 		Asset updatedAsset = dao.loadAsset(asset.getUuid());
-		assertEquals("blume2.jpg", updatedAsset.getFilename());
+		assertEquals("blume2.jpg", updatedAsset.getPath());
 	}
 
 	@Test

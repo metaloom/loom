@@ -4,17 +4,21 @@
 package io.metaloom.loom.db.jooq.tables;
 
 
+import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.enums.JooqLoomPermission;
 import io.metaloom.loom.db.jooq.tables.records.JooqUserPermissionRecord;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Function3;
+import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
@@ -62,9 +66,10 @@ public class JooqUserPermission extends TableImpl<JooqUserPermissionRecord> {
     public final TableField<JooqUserPermissionRecord, String> RESOURCE = createField(DSL.name("resource"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.user_permission.permission</code>.
+     * The column <code>public.user_permission.permission</code>. Permission
+     * granted / granted to the resource
      */
-    public final TableField<JooqUserPermissionRecord, JooqLoomPermission> PERMISSION = createField(DSL.name("permission"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqLoomPermission.class), this, "");
+    public final TableField<JooqUserPermissionRecord, JooqLoomPermission> PERMISSION = createField(DSL.name("permission"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqLoomPermission.class), this, "Permission granted / granted to the resource");
 
     private JooqUserPermission(Name alias, Table<JooqUserPermissionRecord> aliased) {
         this(alias, aliased, null);
@@ -105,8 +110,30 @@ public class JooqUserPermission extends TableImpl<JooqUserPermissionRecord> {
     }
 
     @Override
+    public List<Index> getIndexes() {
+        return Arrays.asList(Indexes.USER_PERMISSION_USER_UUID_RESOURCE_PERMISSION_IDX);
+    }
+
+    @Override
     public UniqueKey<JooqUserPermissionRecord> getPrimaryKey() {
         return Keys.USER_PERMISSION_PKEY;
+    }
+
+    @Override
+    public List<ForeignKey<JooqUserPermissionRecord, ?>> getReferences() {
+        return Arrays.asList(Keys.USER_PERMISSION__USER_PERMISSION_USER_UUID_FKEY);
+    }
+
+    private transient JooqUser _user;
+
+    /**
+     * Get the implicit join path to the <code>public.user</code> table.
+     */
+    public JooqUser user() {
+        if (_user == null)
+            _user = new JooqUser(this, Keys.USER_PERMISSION__USER_PERMISSION_USER_UUID_FKEY);
+
+        return _user;
     }
 
     @Override

@@ -4,7 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.pojos;
 
 
-import io.metaloom.loom.db.jooq.enums.JooqLoomEvent;
+import io.metaloom.loom.db.jooq.enums.JooqLoomEvents;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ public class JooqWebhook implements Serializable {
     private String url;
     private String status;
     private Boolean active;
-    private JooqLoomEvent trigger;
+    private JooqLoomEvents triggers;
     private String secrettoken;
     private JSONB meta;
     private LocalDateTime created;
@@ -40,7 +40,7 @@ public class JooqWebhook implements Serializable {
         this.url = value.url;
         this.status = value.status;
         this.active = value.active;
-        this.trigger = value.trigger;
+        this.triggers = value.triggers;
         this.secrettoken = value.secrettoken;
         this.meta = value.meta;
         this.created = value.created;
@@ -54,7 +54,7 @@ public class JooqWebhook implements Serializable {
         String url,
         String status,
         Boolean active,
-        JooqLoomEvent trigger,
+        JooqLoomEvents triggers,
         String secrettoken,
         JSONB meta,
         LocalDateTime created,
@@ -66,7 +66,7 @@ public class JooqWebhook implements Serializable {
         this.url = url;
         this.status = status;
         this.active = active;
-        this.trigger = trigger;
+        this.triggers = triggers;
         this.secrettoken = secrettoken;
         this.meta = meta;
         this.created = created;
@@ -132,19 +132,19 @@ public class JooqWebhook implements Serializable {
     }
 
     /**
-     * Getter for <code>public.webhook.trigger</code>. List of triggers which
+     * Getter for <code>public.webhook.triggers</code>. List of triggers which
      * can invoke the webhook
      */
-    public JooqLoomEvent getTrigger() {
-        return this.trigger;
+    public JooqLoomEvents getTriggers() {
+        return this.triggers;
     }
 
     /**
-     * Setter for <code>public.webhook.trigger</code>. List of triggers which
+     * Setter for <code>public.webhook.triggers</code>. List of triggers which
      * can invoke the webhook
      */
-    public void setTrigger(JooqLoomEvent trigger) {
-        this.trigger = trigger;
+    public void setTriggers(JooqLoomEvents triggers) {
+        this.triggers = triggers;
     }
 
     /**
@@ -268,11 +268,11 @@ public class JooqWebhook implements Serializable {
         }
         else if (!this.active.equals(other.active))
             return false;
-        if (this.trigger == null) {
-            if (other.trigger != null)
+        if (this.triggers == null) {
+            if (other.triggers != null)
                 return false;
         }
-        else if (!this.trigger.equals(other.trigger))
+        else if (!this.triggers.equals(other.triggers))
             return false;
         if (this.secrettoken == null) {
             if (other.secrettoken != null)
@@ -321,7 +321,7 @@ public class JooqWebhook implements Serializable {
         result = prime * result + ((this.url == null) ? 0 : this.url.hashCode());
         result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
         result = prime * result + ((this.active == null) ? 0 : this.active.hashCode());
-        result = prime * result + ((this.trigger == null) ? 0 : this.trigger.hashCode());
+        result = prime * result + ((this.triggers == null) ? 0 : this.triggers.hashCode());
         result = prime * result + ((this.secrettoken == null) ? 0 : this.secrettoken.hashCode());
         result = prime * result + ((this.meta == null) ? 0 : this.meta.hashCode());
         result = prime * result + ((this.created == null) ? 0 : this.created.hashCode());
@@ -339,7 +339,7 @@ public class JooqWebhook implements Serializable {
         sb.append(", ").append(url);
         sb.append(", ").append(status);
         sb.append(", ").append(active);
-        sb.append(", ").append(trigger);
+        sb.append(", ").append(triggers);
         sb.append(", ").append(secrettoken);
         sb.append(", ").append(meta);
         sb.append(", ").append(created);

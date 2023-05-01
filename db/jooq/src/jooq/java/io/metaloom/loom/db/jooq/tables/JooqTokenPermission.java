@@ -4,17 +4,21 @@
 package io.metaloom.loom.db.jooq.tables;
 
 
+import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.enums.JooqLoomPermission;
 import io.metaloom.loom.db.jooq.tables.records.JooqTokenPermissionRecord;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Function3;
+import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
@@ -62,9 +66,10 @@ public class JooqTokenPermission extends TableImpl<JooqTokenPermissionRecord> {
     public final TableField<JooqTokenPermissionRecord, String> RESOURCE = createField(DSL.name("resource"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.token_permission.permission</code>.
+     * The column <code>public.token_permission.permission</code>. Permission
+     * granted / granted to the resource
      */
-    public final TableField<JooqTokenPermissionRecord, JooqLoomPermission> PERMISSION = createField(DSL.name("permission"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqLoomPermission.class), this, "");
+    public final TableField<JooqTokenPermissionRecord, JooqLoomPermission> PERMISSION = createField(DSL.name("permission"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqLoomPermission.class), this, "Permission granted / granted to the resource");
 
     private JooqTokenPermission(Name alias, Table<JooqTokenPermissionRecord> aliased) {
         this(alias, aliased, null);
@@ -105,8 +110,30 @@ public class JooqTokenPermission extends TableImpl<JooqTokenPermissionRecord> {
     }
 
     @Override
+    public List<Index> getIndexes() {
+        return Arrays.asList(Indexes.TOKEN_PERMISSION_TOKEN_UUID_RESOURCE_PERMISSION_IDX);
+    }
+
+    @Override
     public UniqueKey<JooqTokenPermissionRecord> getPrimaryKey() {
         return Keys.TOKEN_PERMISSION_PKEY;
+    }
+
+    @Override
+    public List<ForeignKey<JooqTokenPermissionRecord, ?>> getReferences() {
+        return Arrays.asList(Keys.TOKEN_PERMISSION__TOKEN_PERMISSION_TOKEN_UUID_FKEY);
+    }
+
+    private transient JooqToken _token;
+
+    /**
+     * Get the implicit join path to the <code>public.token</code> table.
+     */
+    public JooqToken token() {
+        if (_token == null)
+            _token = new JooqToken(this, Keys.TOKEN_PERMISSION__TOKEN_PERMISSION_TOKEN_UUID_FKEY);
+
+        return _token;
     }
 
     @Override

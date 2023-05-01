@@ -9,13 +9,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.metaloom.loom.db.model.face.FaceOrigin;
-import io.metaloom.loom.db.model.face.Face;
-import io.metaloom.loom.db.model.face.FaceDao;
+import io.metaloom.loom.db.model.embedding.Embedding;
+import io.metaloom.loom.db.model.embedding.EmbeddingDao;
+import io.metaloom.loom.db.model.embedding.FaceOrigin;
 
 public abstract class AbstractFaceDaoTest {
 
-	abstract public FaceDao getDao();
+	abstract public EmbeddingDao getDao();
 
 	@AfterEach
 	@BeforeEach
@@ -25,12 +25,12 @@ public abstract class AbstractFaceDaoTest {
 	
 	@Test
 	public void testCreate() {
-		FaceDao dao = getDao();
+		EmbeddingDao dao = getDao();
 
-		float[] embedding = new float[] {0,0,0};
+		float[] embeddingData = new float[] {0,0,0};
 		FaceOrigin origin = null;
-		Face face = dao.createFace("source", embedding, origin );
-		assertNotNull(face.getUuid());
-		assertEquals(42L, face.getFaceNr().longValue());
+		Embedding embedding = dao.createEmbedding("source", embeddingData, origin );
+		assertNotNull(embedding.getUuid());
+		assertEquals(42L, embedding.getEmbeddingId().longValue());
 	}
 }

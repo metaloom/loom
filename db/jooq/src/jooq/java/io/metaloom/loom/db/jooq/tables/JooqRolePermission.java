@@ -4,6 +4,7 @@
 package io.metaloom.loom.db.jooq.tables;
 
 
+import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.enums.JooqLoomPermission;
@@ -17,6 +18,7 @@ import java.util.function.Function;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Function3;
+import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
@@ -64,9 +66,10 @@ public class JooqRolePermission extends TableImpl<JooqRolePermissionRecord> {
     public final TableField<JooqRolePermissionRecord, String> RESOURCE = createField(DSL.name("resource"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.role_permission.permission</code>.
+     * The column <code>public.role_permission.permission</code>. Permission
+     * granted / granted to the resource
      */
-    public final TableField<JooqRolePermissionRecord, JooqLoomPermission> PERMISSION = createField(DSL.name("permission"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqLoomPermission.class), this, "");
+    public final TableField<JooqRolePermissionRecord, JooqLoomPermission> PERMISSION = createField(DSL.name("permission"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqLoomPermission.class), this, "Permission granted / granted to the resource");
 
     private JooqRolePermission(Name alias, Table<JooqRolePermissionRecord> aliased) {
         this(alias, aliased, null);
@@ -104,6 +107,11 @@ public class JooqRolePermission extends TableImpl<JooqRolePermissionRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : JooqPublic.PUBLIC;
+    }
+
+    @Override
+    public List<Index> getIndexes() {
+        return Arrays.asList(Indexes.ROLE_PERMISSION_ROLE_UUID_RESOURCE_PERMISSION_IDX);
     }
 
     @Override

@@ -11,29 +11,22 @@ import org.jooq.DSLContext;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqTagAssetDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqTagContentDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqTagDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqTagNamespaceDao;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.content.Content;
-import io.metaloom.loom.db.model.namespace.Namespace;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.model.tag.TagDao;
 
 @Singleton
 public class TagDaoImpl extends AbstractJooqDao<JooqTagDao> implements TagDao {
 
-	private final JooqTagNamespaceDao tagNamespaceDao;
 	private final JooqTagAssetDao tagAssetDao;
-	private final JooqTagContentDao tagContentDao;
+
 
 	@Inject
-	public TagDaoImpl(JooqTagNamespaceDao tagNamespaceDao, JooqTagAssetDao tagAssetDao,
-		JooqTagContentDao tagContentDao, JooqTagDao tagDao, DSLContext ctx) {
+	public TagDaoImpl( JooqTagAssetDao tagAssetDao,
+		JooqTagDao tagDao, DSLContext ctx) {
 		super(tagDao, ctx);
-		this.tagNamespaceDao = tagNamespaceDao;
 		this.tagAssetDao = tagAssetDao;
-		this.tagContentDao = tagContentDao;
 	}
 
 	@Override
@@ -110,16 +103,6 @@ public class TagDaoImpl extends AbstractJooqDao<JooqTagDao> implements TagDao {
 	}
 
 	@Override
-	public void tagNamespace(Tag tag, Namespace namespace) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void untagNamespace(Tag tag, Namespace namespace) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void tagAsset(Tag tag, Asset asset) {
 		// TODO Auto-generated method stub
 	}
@@ -129,13 +112,4 @@ public class TagDaoImpl extends AbstractJooqDao<JooqTagDao> implements TagDao {
 		// TODO Auto-generated method stub
 	}
 
-	@Override
-	public void tagContent(Tag tag, Content content) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void untagContent(Tag tag, Content content) {
-		// TODO Auto-generated method stub
-	}
 }

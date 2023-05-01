@@ -6,7 +6,7 @@ package io.metaloom.loom.db.jooq.tables;
 
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
-import io.metaloom.loom.db.jooq.enums.JooqLoomEvent;
+import io.metaloom.loom.db.jooq.enums.JooqLoomEvents;
 import io.metaloom.loom.db.jooq.tables.records.JooqWebhookRecord;
 
 import java.time.LocalDateTime;
@@ -75,10 +75,10 @@ public class JooqWebhook extends TableImpl<JooqWebhookRecord> {
     public final TableField<JooqWebhookRecord, Boolean> ACTIVE = createField(DSL.name("active"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("true", SQLDataType.BOOLEAN)), this, "");
 
     /**
-     * The column <code>public.webhook.trigger</code>. List of triggers which
+     * The column <code>public.webhook.triggers</code>. List of triggers which
      * can invoke the webhook
      */
-    public final TableField<JooqWebhookRecord, JooqLoomEvent> TRIGGER = createField(DSL.name("trigger"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqLoomEvent.class), this, "List of triggers which can invoke the webhook");
+    public final TableField<JooqWebhookRecord, JooqLoomEvents> TRIGGERS = createField(DSL.name("triggers"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqLoomEvents.class), this, "List of triggers which can invoke the webhook");
 
     /**
      * The column <code>public.webhook.secretToken</code>. Secret token which
@@ -229,14 +229,14 @@ public class JooqWebhook extends TableImpl<JooqWebhookRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<java.util.UUID, String, String, Boolean, JooqLoomEvent, String, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
+    public Row11<java.util.UUID, String, String, Boolean, JooqLoomEvents, String, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row11) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function11<? super java.util.UUID, ? super String, ? super String, ? super Boolean, ? super JooqLoomEvent, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function11<? super java.util.UUID, ? super String, ? super String, ? super Boolean, ? super JooqLoomEvents, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -244,7 +244,7 @@ public class JooqWebhook extends TableImpl<JooqWebhookRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super java.util.UUID, ? super String, ? super String, ? super Boolean, ? super JooqLoomEvent, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super java.util.UUID, ? super String, ? super String, ? super Boolean, ? super JooqLoomEvents, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

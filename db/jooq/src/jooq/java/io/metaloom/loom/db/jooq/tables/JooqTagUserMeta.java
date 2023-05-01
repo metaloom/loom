@@ -26,6 +26,7 @@ import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
+import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
@@ -109,6 +110,11 @@ public class JooqTagUserMeta extends TableImpl<JooqTagUserMetaRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : JooqPublic.PUBLIC;
+    }
+
+    @Override
+    public UniqueKey<JooqTagUserMetaRecord> getPrimaryKey() {
+        return Keys.TAG_USER_META_PKEY;
     }
 
     @Override

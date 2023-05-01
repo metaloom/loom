@@ -6,22 +6,19 @@ import org.jooq.Configuration;
 
 import dagger.Module;
 import dagger.Provides;
-import io.metaloom.loom.db.jooq.tables.daos.JooqAssetBinarieDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqAssetDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqContentDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqExtensionDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqFieldDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqBinaryDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqCollectionDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqGroupDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqModelDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqNamespaceDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqLibraryDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqRoleDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqRoleGroupDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqRolePermissionDao;
+import io.metaloom.loom.db.jooq.tables.daos.JooqTokenDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqTokenPermissionDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserGroupDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqUserPermissionDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqUserTokenDao;
 import io.metaloom.loom.db.jooq.tables.daos.JooqWebhookDao;
 
 @Module
@@ -35,8 +32,8 @@ public class JooqNativeDaoModule {
 
 	@Provides
 	@Singleton
-	public JooqUserTokenDao userTokenDao(Configuration configuration) {
-		return new JooqUserTokenDao(configuration);
+	public JooqTokenDao userTokenDao(Configuration configuration) {
+		return new JooqTokenDao(configuration);
 	}
 
 	@Provides
@@ -53,38 +50,8 @@ public class JooqNativeDaoModule {
 
 	@Provides
 	@Singleton
-	public JooqModelDao modelDao(Configuration configuration) {
-		return new JooqModelDao(configuration);
-	}
-
-	@Provides
-	@Singleton
-	public JooqContentDao contentDao(Configuration configuration) {
-		return new JooqContentDao(configuration);
-	}
-
-	@Provides
-	@Singleton
-	public JooqExtensionDao extensionDao(Configuration configuration) {
-		return new JooqExtensionDao(configuration);
-	}
-
-	@Provides
-	@Singleton
 	public JooqWebhookDao webhookDao(Configuration configuration) {
 		return new JooqWebhookDao(configuration);
-	}
-
-	@Provides
-	@Singleton
-	public JooqFieldDao fieldDao(Configuration configuration) {
-		return new JooqFieldDao(configuration);
-	}
-
-	@Provides
-	@Singleton
-	public JooqNamespaceDao namespaceDao(Configuration configuration) {
-		return new JooqNamespaceDao(configuration);
 	}
 
 	@Provides
@@ -101,8 +68,8 @@ public class JooqNativeDaoModule {
 
 	@Provides
 	@Singleton
-	public JooqAssetBinarieDao assetBinaryDao(Configuration configuration) {
-		return new JooqAssetBinarieDao(configuration);
+	public JooqBinaryDao assetBinaryDao(Configuration configuration) {
+		return new JooqBinaryDao(configuration);
 	}
 
 	@Provides
@@ -127,6 +94,18 @@ public class JooqNativeDaoModule {
 	@Singleton
 	public JooqRoleGroupDao roleGroupDao(Configuration configuration) {
 		return new JooqRoleGroupDao(configuration);
+	}
+
+	@Provides
+	@Singleton
+	public JooqCollectionDao collectionDao(Configuration configuration) {
+		return new JooqCollectionDao(configuration);
+	}
+
+	@Provides
+	@Singleton
+	public JooqLibraryDao libraryDao(Configuration configuration) {
+		return new JooqLibraryDao(configuration);
 	}
 
 }

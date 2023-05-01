@@ -18,13 +18,13 @@ public class AssetImpl extends AbstractWrappedElement<JooqAsset> implements Asse
 	}
 
 	@Override
-	public String getFilename() {
-		return delegate().getFilename();
+	public String getPath() {
+		return delegate().getPath();
 	}
 
 	@Override
-	public Asset setFilename(String filename) {
-		delegate().setFilename(filename);
+	public Asset setPath(String filename) {
+		delegate().setPath(filename);
 		return this;
 	}
 
@@ -76,72 +76,6 @@ public class AssetImpl extends AbstractWrappedElement<JooqAsset> implements Asse
 	}
 
 	@Override
-	public String getS3BucketName() {
-		return delegate().getS3BucketName();
-	}
-
-	@Override
-	public Asset setS3BucketName(String bucketName) {
-		delegate().setS3BucketName(bucketName);
-		return this;
-	}
-
-	@Override
-	public String getS3ObjectPath() {
-		return delegate().getS3ObjectPath();
-	}
-
-	@Override
-	public Asset setS3ObjectPath(String path) {
-		delegate().setS3ObjectPath(path);
-		return this;
-	}
-
-	@Override
-	public String getDominantColor() {
-		return delegate().getDominantcolor();
-	}
-
-	@Override
-	public Asset setDominantColor(String color) {
-		delegate().setDominantcolor(color);
-		return this;
-	}
-
-	@Override
-	public BigDecimal getGPSLat() {
-		return delegate().getGpsLat();
-	}
-
-	@Override
-	public Asset setGPSLat(BigDecimal lat) {
-		delegate().setGpsLat(lat);
-		return this;
-	}
-
-	@Override
-	public BigDecimal getGPSLon() {
-		return delegate().getGpsLon();
-	}
-
-	@Override
-	public Asset setGPSLon(BigDecimal lon) {
-		delegate().setGpsLon(lon);
-		return this;
-	}
-
-	@Override
-	public String getLocalPath() {
-		return delegate().getLocalpath();
-	}
-
-	@Override
-	public Asset setLocalPath(String path) {
-		delegate().setLocalpath(path);
-		return this;
-	}
-
-	@Override
 	public JsonObject getMeta() {
 		// return new JsonObject(delegate().getMeta());
 		return null;
@@ -154,30 +88,8 @@ public class AssetImpl extends AbstractWrappedElement<JooqAsset> implements Asse
 	}
 
 	@Override
-	public String getMimeType() {
-		return delegate().getMimetype();
-	}
-
-	@Override
-	public Asset setMimeType(String mimeType) {
-		delegate().setMimetype(mimeType);
-		return this;
-	}
-
-	@Override
-	public Integer getRating() {
-		return delegate().getRating();
-	}
-
-	@Override
-	public Asset setRating(Integer rating) {
-		delegate().setRating(rating);
-		return this;
-	}
-
-	@Override
 	public String toString() {
-		return String.format("Asset [%s] - %s", getUuid(), getFilename());
+		return String.format("Asset [%s] - %s", getUuid(), getPath());
 	}
 
 }

@@ -1,6 +1,24 @@
-CREATE TYPE "loom_extension_type" AS ENUM (
-  'ASSET_PROCESSOR',
-  'USER_MAPPER'
+CREATE TYPE "embedding_type" AS ENUM (
+  'DLIB_FACE_RESNET_v1',
+  'VIDEO4J_FINGERPRINT_V1'
+);
+
+CREATE TYPE "cluster_type" AS ENUM (
+  'PERSON',
+  'REMIX'
+);
+
+CREATE TYPE "annotation_type" AS ENUM (
+  'FEEDBACK',
+  'TAG',
+  'CHAPTER'
+);
+
+CREATE TYPE "task_status" AS ENUM (
+  'PENDING',
+  'REJECTED',
+  'ACCEPTED',
+  'REVIEW'
 );
 
 CREATE TYPE "loom_events" AS ENUM (
@@ -15,12 +33,6 @@ CREATE TYPE "loom_events" AS ENUM (
   'ROLE_CREATED',
   'ROLE_UPDATED',
   'ROLE_DELETED',
-  'CONTENT_CREATED',
-  'CONTENT_UPDATED',
-  'CONTENT_DELETED',
-  'CONTENT_TAGGED',
-  'CONTENT_PUBLISHED',
-  'CONTENT_UNPUBLISHED',
   'ASSET_UPLOADED',
   'ASSET_CREATED',
   'ASSET_UPDATED',
@@ -29,46 +41,12 @@ CREATE TYPE "loom_events" AS ENUM (
   'TAG_CREATED',
   'TAG_DELETED',
   'TAG_UPDATED',
-  'NAMESPACE_CREATED',
-  'NAMESPACE_UPDATED',
-  'NAMESPACE_DELETED',
-  'MODEL_CREATED',
-  'MODEL_UPDATED',
-  'MODEL_DELETED',
-  'EXTENSION_CREATED',
-  'EXTENSION_DELETED',
-  'EXTENSION_UPDATED',
   'WEBHOOK_CREATED',
   'WEBHOOK_DELETED',
   'WEBHOOK_UPDATED'
 );
 
-CREATE TYPE "loom_content_type" AS ENUM (
-  'D',
-  'P',
-  'I'
-);
-
-CREATE TYPE "state_status" AS ENUM (
-  'ACCEPTED',
-  'REJECTED',
-  'PENDING',
-  'REVIEW'
-);
-
 CREATE TYPE "loom_permission" AS ENUM (
-  'CREATE_CONTENT',
-  'READ_CONTENT',
-  'UPDATE_CONTENT',
-  'DELETE_CONTENT',
-  'PUBLISH_CONTENT',
-  'UNPUBLISH_CONTENT',
-  'LOCK_CONTENT',
-  'UNLOCK_CONTENT',
-  'CREATE_NAMESPACE',
-  'READ_NAMESPACE',
-  'UPDATE_NAMESPACE',
-  'DELETE_NAMESPACE',
   'CREATE_USER',
   'READ_USER',
   'UPDATE_USER',
@@ -85,10 +63,6 @@ CREATE TYPE "loom_permission" AS ENUM (
   'READ_TAG',
   'UPDATE_TAG',
   'DELETE_TAG',
-  'CREATE_MODEL',
-  'READ_MODEL',
-  'UPDATE_MODEL',
-  'DELETE_MODEL',
   'CREATE_ASSET',
   'READ_ASSET',
   'UPDATE_ASSET',
@@ -100,55 +74,12 @@ CREATE TYPE "loom_permission" AS ENUM (
   'CREATE_WEBHOOK',
   'READ_WEBHOOK',
   'UPDATE_WEBHOOK',
-  'DELETE_WEBHOOK',
-  'CREATE_EXTENSION',
-  'READ_EXTENSION',
-  'UPDATE_EXTENSION',
-  'DELETE_EXTENSION',
-  'CREATE_LANGUAGE',
-  'READ_LANGUAGE',
-  'UPDATE_LANGUAGE',
-  'DELETE_LANGUAGE'
+  'DELETE_WEBHOOK'
 );
 
 CREATE TABLE "loom" (
   "db_rev" varchar,
   "last_used_timestamp" timestamp NOT NULL DEFAULT (now())
-);
-
-CREATE TABLE "stage" (
-  "uuid" SERIAL,
-  "name" varchar UNIQUE NOT NULL,
-  "enabled" boolean DEFAULT false,
-  "meta" varchar,
-  "next_stage_uuid" uuid_generate_v4,
-  "prev_stage_uuid" uuid_generate_v4,
-  "created" timestamp DEFAULT (now()),
-  "creator_uuid" uuid,
-  "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
-  PRIMARY KEY ("uuid")
-);
-
-CREATE TABLE "stage_assignment" (
-  "stage_uuid" uuid_generate_v4 NOT NULL,
-  "content_uuid" uuid_generate_v4 NOT NULL,
-  "asset_uuid" uuid_generate_v4 NOT NULL,
-  "note" varchar,
-  "status" stage_status,
-  "meta" varchar,
-  "created" timestamp DEFAULT (now()),
-  "creator_uuid" uuid,
-  "reviewed" timestamp DEFAULT (now()),
-  "reviewer_uuid" uuid_generate_v4,
-  PRIMARY KEY ("stage_uuid")
-);
-
-CREATE TABLE "stage_ugr" (
-  "stage_uuid" uuid_generate_v4 NOT NULL,
-  "user_uuid" uuid_generate_v4,
-  "group_uuid" uuid_generate_v4,
-  "role_uuid" uuid_generate_v4
 );
 
 CREATE TABLE "user" (
@@ -159,77 +90,76 @@ CREATE TABLE "user" (
   "email" varchar,
   "enabled" boolean NOT NULL DEFAULT true,
   "sso" boolean NOT NULL DEFAULT false,
-  "meta" varchar,
+  "meta" jsonb,
   "created" timestamp DEFAULT (now()),
   "creator_uuid" uuid,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
+  "editor_uuid" uuid,
   PRIMARY KEY ("uuid")
 );
 
 CREATE TABLE "token" (
   "uuid" SERIAL,
-  "user_uuid" uuid_generate_v4,
+  "user_uuid" uuid,
   "description" varchar,
   "token" varchar NOT NULL,
   "created" timestamp DEFAULT (now()),
-  "meta" varchar,
+  "meta" jsonb,
   PRIMARY KEY ("uuid")
 );
 
 CREATE TABLE "role" (
   "uuid" SERIAL,
   "name" varchar UNIQUE NOT NULL,
-  "permissions" loom_permission_flag,
-  "meta" varchar,
+  "meta" jsonb,
   "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid_generate_v4,
+  "creator_uuid" uuid,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
+  "editor_uuid" uuid,
   PRIMARY KEY ("uuid")
 );
 
 CREATE TABLE "role_permission" (
-  "role_uuid" uuid_generate_v4,
+  "role_uuid" uuid,
   "resource" varchar NOT NULL,
-  "permission" loom_permission,
-  PRIMARY KEY ("role_uuid", "resource")
+  "permission" loom_permission NOT NULL,
+  PRIMARY KEY ("role_uuid")
 );
 
 CREATE TABLE "user_permission" (
-  "user_uuid" uuid_generate_v4,
+  "user_uuid" uuid,
   "resource" varchar NOT NULL,
-  "permission" loom_permission,
-  PRIMARY KEY ("user_uuid", "resource")
+  "permission" loom_permission NOT NULL,
+  PRIMARY KEY ("user_uuid")
 );
 
 CREATE TABLE "token_permission" (
-  "token_uuid" uuid_generate_v4,
+  "token_uuid" uuid,
   "resource" varchar NOT NULL,
-  "permission" loom_permission,
-  PRIMARY KEY ("token_uuid", "resource")
+  "permission" loom_permission NOT NULL,
+  PRIMARY KEY ("token_uuid")
 );
 
 CREATE TABLE "group" (
   "uuid" SERIAL,
   "name" varchar UNIQUE NOT NULL,
-  "meta" varchar,
+  "meta" jsonb,
   "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid_generate_v4,
+  "creator_uuid" uuid,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
+  "editor_uuid" uuid,
   PRIMARY KEY ("uuid")
 );
 
 CREATE TABLE "role_group" (
-  "group_uuid" uuid_generate_v4 NOT NULL,
-  "role_uuid" uuid_generate_v4 NOT NULL,
+  "group_uuid" uuid NOT NULL,
+  "role_uuid" uuid NOT NULL,
   PRIMARY KEY ("group_uuid", "role_uuid")
 );
 
 CREATE TABLE "user_group" (
-  "user_uuid" uuid_generate_v4 NOT NULL,
-  "group_uuid" uuid_generate_v4 NOT NULL,
+  "user_uuid" uuid NOT NULL,
+  "group_uuid" uuid NOT NULL,
   PRIMARY KEY ("user_uuid", "group_uuid")
 );
 
@@ -237,292 +167,278 @@ CREATE TABLE "tag" (
   "uuid" SERIAL,
   "name" varchar NOT NULL,
   "collection" varchar NOT NULL,
-  "namespace_uuid" uuid_generate_v4 NOT NULL,
-  "meta" varchar,
+  "meta" jsonb,
   "rating" int,
   "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid_generate_v4 NOT NULL,
+  "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
+  "editor_uuid" uuid,
   PRIMARY KEY ("uuid")
 );
 
 CREATE TABLE "tag_user_meta" (
-  "tag_uuid" uuid_generate_v4 NOT NULL,
-  "user_uuid" uuid_generate_v4 NOT NULL,
+  "tag_uuid" uuid NOT NULL,
+  "user_uuid" uuid NOT NULL,
   "rating" int NOT NULL,
-  "meta" varchar
-);
-
-CREATE TABLE "tag_namespace" (
-  "tag_uuid" uuid_generate_v4 NOT NULL,
-  "namespace_uuid" uuid_generate_v4 NOT NULL,
-  PRIMARY KEY ("tag_uuid", "namespace_uuid")
+  "meta" jsonb,
+  PRIMARY KEY ("tag_uuid", "user_uuid")
 );
 
 CREATE TABLE "tag_asset" (
-  "tag_uuid" uuid_generate_v4 NOT NULL,
-  "asset_uuid" uuid_generate_v4 NOT NULL,
+  "tag_uuid" uuid NOT NULL,
+  "asset_uuid" uuid NOT NULL,
   PRIMARY KEY ("tag_uuid", "asset_uuid")
 );
 
-CREATE TABLE "tag_content" (
-  "tag_uuid" uuid_generate_v4 NOT NULL,
-  "content_uuid" uuid_generate_v4 NOT NULL,
-  PRIMARY KEY ("tag_uuid", "content_uuid")
+CREATE TABLE "tag_collection" (
+  "tag_uuid" uuid NOT NULL,
+  "collection_uuid" uuid NOT NULL,
+  PRIMARY KEY ("tag_uuid", "collection_uuid")
 );
 
-CREATE TABLE "asset_binary" (
+CREATE TABLE "tag_cluster" (
+  "tag_uuid" uuid NOT NULL,
+  "cluster_uuid" uuid NOT NULL,
+  PRIMARY KEY ("tag_uuid", "cluster_uuid")
+);
+
+CREATE TABLE "binary" (
   "uuid" SERIAL,
   "sha512sum" varchar NOT NULL,
   "size" int NOT NULL,
   "sha256sum" varchar NOT NULL,
   "md5sum" varchar NOT NULL,
+  "mime_type" varchar NOT NULL,
+  "meta" jsonb,
+  "author" varchar,
+  "geo_lon" decimal(9,6),
+  "geo_lat" decimal(8,6),
+  "initial_origin" varchar NOT NULL,
+  "created" timestamp NOT NULL DEFAULT (now()),
+  "creator_uuid" uuid,
+  "edited" timestamp DEFAULT (now()),
+  "editor_uuid" uuid,
+  "s3_bucket_name" varchar,
+  "s3_object_path" varchar,
   "media_width" int,
   "media_height" int,
-  "fingerprint" varchar,
+  "duration" int,
+  "video_fingerprint" varchar,
+  "image_fingerprint" varchar,
+  "image_dominant_color" varchar,
+  "audio_bpm" int,
+  "audio_sampling_rate" int,
+  "audio_channels" int,
+  "audio_encoding" varchar,
+  "audio_fingerprint" varchar,
+  "doc_plain_text" varchar,
+  "doc_word_count" int,
   PRIMARY KEY ("sha512sum")
+);
+
+CREATE TABLE "binary_remix" (
+  "binary_a_uuid" uuid NOT NULL,
+  "binary_b_uuid" uuid NOT NULL,
+  "meta" jsonb,
+  "created" timestamp NOT NULL DEFAULT (now()),
+  "creator_uuid" uuid NOT NULL
 );
 
 CREATE TABLE "asset" (
   "uuid" SERIAL,
-  "asset_binary_uuid" uuid_generate_v4 NOT NULL,
-  "namespace_uuid" uuid_generate_v4 NOT NULL,
-  "filename" varchar NOT NULL,
-  "localPath" varchar,
+  "binary_uuid" uuid NOT NULL,
+  "path" varchar NOT NULL,
+  "filekey_inode" int,
+  "filekey_stdev" int,
+  "filekey_edate_nano" int,
+  "filekey_edate" int,
   "meta" varchar,
-  "rating" int,
-  "dominantColor" varchar,
-  "mimeType" varchar,
-  "gps_lon" decimal(9,6),
-  "gps_lat" decimal(8,6),
+  "mime_type" varchar,
+  "license" varchar,
   "state" varchar,
-  "locked_by_uuid" uuid_generate_v4,
-  "s3_bucket_name" varchar,
-  "s3_object_path" varchar,
+  "locked_by_uuid" uuid,
   "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid_generate_v4 NOT NULL,
+  "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
+  "editor_uuid" uuid,
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "asset_face" (
-  "asset_uuid" uuid_generate_v4 NOT NULL,
-  "face_uuid" uuid_generate_v4 NOT NULL
-);
-
-CREATE TABLE "face" (
+CREATE TABLE "embedding" (
   "uuid" SERIAL,
-  "meta" varchar,
-  "source" varchar,
-  "face_nr" int NOT NULL,
-  "embeddings" bytea NOT NULL
-);
-
-CREATE TABLE "face_cluster" (
-  "uuid" SERIAL,
-  "name" varchar,
-  "description" varchar,
-  "meta" varchar
-);
-
-CREATE TABLE "asset_collection" (
-  "asset_uuid" uuid_generate_v4 NOT NULL,
-  "collection_uuid" uuid_generate_v4 NOT NULL
-);
-
-CREATE TABLE "reaction" (
-  "type" varchar
-);
-
-CREATE TABLE "comment" (
-  "uuid" SERIAL,
-  "content" varchar,
-  "user_uuid" uuid_generate_v4,
-  "created" varchar,
-  "parent_uuid" uuid_generate_v4
-);
-
-CREATE TABLE "annotation" (
-  "uuid" SERIAL,
-  "creator_uuid" uuid_generate_v4,
-  "created" timestamp DEFAULT (now()),
-  "description" varchar,
-  "from" int,
-  "to" int,
-  "area" varchar,
   "meta" jsonb,
-  "kind" varchar
+  "source" varchar,
+  "frame" int NOT NULL,
+  "areaHeight" int NOT NULL,
+  "areaWidth" int NOT NULL,
+  "areaStartX" int NOT NULL,
+  "areaStartY" int NOT NULL,
+  "embeddings" bytea NOT NULL,
+  "embedding_type" embedding_type,
+  "created" timestamp NOT NULL DEFAULT (now()),
+  "creator_uuid" uuid NOT NULL,
+  "edited" timestamp DEFAULT (now()),
+  "editor_uuid" uuid,
+  "binary_uuid" uuid NOT NULL,
+  PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "task" (
+CREATE TABLE "cluster" (
   "uuid" SERIAL,
-  "content" varchar,
-  "created" timestamp DEFAULT (now()),
-  "due_date" timestamp DEFAULT (now())
+  "name" varchar NOT NULL,
+  "meta" jsonb,
+  "type" cluster_type NOT NULL,
+  "created" timestamp NOT NULL DEFAULT (now()),
+  "creator_uuid" uuid NOT NULL,
+  "edited" timestamp DEFAULT (now()),
+  "editor_uuid" uuid,
+  PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "task_comment" (
-  "task_uuid" uuid_generate_v4 NOT NULL,
-  "comment_uuid" uuid_generate_v4 NOT NULL
-);
-
-CREATE TABLE "annotation_task" (
-  "asset_uuid" uuid_generate_v4 NOT NULL,
-  "task_uuid" uuid_generate_v4 NOT NULL
+CREATE TABLE "embedding_cluster" (
+  "embedding_uuid" uuid NOT NULL,
+  "cluster_uuid" uuid NOT NULL,
+  PRIMARY KEY ("embedding_uuid", "cluster_uuid")
 );
 
 CREATE TABLE "collection" (
   "uuid" SERIAL,
   "name" varchar UNIQUE NOT NULL,
-  "meta" varchar,
+  "meta" jsonb,
   "description" varchar,
-  "tags" varchar,
+  "created" timestamp NOT NULL DEFAULT (now()),
+  "creator_uuid" uuid NOT NULL,
+  "edited" timestamp DEFAULT (now()),
+  "editor_uuid" uuid,
+  "parent_collection_uuid" uuid,
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "asset_user_meta" (
-  "asset_uuid" uuid_generate_v4 NOT NULL,
-  "user_uuid" uuid_generate_v4 NOT NULL,
-  "rating" int,
-  "meta" varchar,
-  PRIMARY KEY ("asset_uuid", "user_uuid")
+CREATE TABLE "collection_asset" (
+  "collection_uuid" uuid NOT NULL,
+  "asset_uuid" uuid NOT NULL,
+  PRIMARY KEY ("collection_uuid", "asset_uuid")
 );
 
-CREATE TABLE "asset_timeline" (
+CREATE TABLE "collection_binary" (
+  "collection_uuid" uuid NOT NULL,
+  "binary_uuid" uuid NOT NULL,
+  PRIMARY KEY ("collection_uuid", "binary_uuid")
+);
+
+CREATE TABLE "vector_config" (
   "uuid" SERIAL,
-  "asset_uuid" uuid_generate_v4 NOT NULL,
-  "from" int NOT NULL,
-  "to" int NOT NULL,
+  "name" varchar UNIQUE NOT NULL,
+  "weights" jsonb
+);
+
+CREATE TABLE "comment" (
+  "uuid" SERIAL,
+  "title" varchar,
+  "content" varchar NOT NULL,
+  "user_uuid" uuid NOT NULL,
+  "created" varchar NOT NULL,
+  "edited" varchar,
+  "parent_uuid" uuid,
+  PRIMARY KEY ("uuid")
+);
+
+CREATE TABLE "comment_task" (
+  "comment_uuid" uuid NOT NULL,
+  "task_uuid" uuid NOT NULL,
+  PRIMARY KEY ("comment_uuid", "task_uuid")
+);
+
+CREATE TABLE "comment_annotaion" (
+  "comment_uuid" uuid NOT NULL,
+  "annotation_uuid" uuid NOT NULL,
+  PRIMARY KEY ("comment_uuid", "annotation_uuid")
+);
+
+CREATE TABLE "blacklist" (
+  "uuid" SERIAL,
+  "binary_uuid" uuid NOT NULL,
+  "created" varchar NOT NULL,
+  "creator_uuid" uuid NOT NULL,
+  "edited" timestamp DEFAULT (now()),
+  "editor_uuid" uuid,
+  "type" varchar,
+  "review_count" int DEFAULT 1,
+  "meta" jsonb,
+  PRIMARY KEY ("uuid")
+);
+
+CREATE TABLE "reaction" (
+  "uuid" SERIAL,
+  "type" varchar,
+  "rating" int,
+  "meta" jsonb,
+  "created" timestamp NOT NULL DEFAULT (now()),
+  "creator_uuid" uuid NOT NULL,
+  "edited" timestamp DEFAULT (now()),
+  "editor_uuid" uuid,
+  "asset_uuid" uuid,
+  "comment_uuid" uuid,
+  "annotation_uuid" uuid,
+  PRIMARY KEY ("uuid")
+);
+
+CREATE TABLE "annotation" (
+  "uuid" SERIAL,
+  "type" annotation_type NOT NULL,
+  "asset_uuid" uuid NOT NULL,
+  "creator_uuid" uuid NOT NULL,
+  "created" timestamp NOT NULL DEFAULT (now()),
+  "title" varchar,
   "description" varchar,
-  "tags" varchar,
-  "meta" varchar,
+  "time_from" int,
+  "time_to" int,
+  "areaStartX" int,
+  "areaStartY" int,
+  "areaWidth" int,
+  "areaHeight" int,
+  "meta" jsonb,
   "thumbail" varchar,
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "asset_timeline_tag" (
-  "assettimeline_uuid" uuid_generate_v4 NOT NULL,
-  "tag_uuid" uuid_generate_v4 NOT NULL
+CREATE TABLE "annotation_tag" (
+  "annotation_uuid" uuid NOT NULL,
+  "tag_uuid" uuid NOT NULL,
+  PRIMARY KEY ("annotation_uuid", "tag_uuid")
 );
 
-CREATE TABLE "content" (
+CREATE TABLE "task" (
   "uuid" SERIAL,
-  "namespace_uuid" uuid_generate_v4 NOT NULL,
-  "parent" uuid_generate_v4,
-  "meta" varchar,
-  "state" varchar,
-  "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid_generate_v4 NOT NULL,
-  "model_uuid" uuid_generate_v4 NOT NULL,
-  PRIMARY KEY ("uuid")
-);
-
-CREATE TABLE "content_tree" (
-  "content_uuid" uuid_generate_v4 NOT NULL,
-  "language" varchar,
-  "content_type" loom_content_type NOT NULL,
-  "field_uuid" uuid_generate_v4 NOT NULL,
-  "meta" varchar,
-  "webroot_path_info" varchar UNIQUE,
-  PRIMARY KEY ("content_uuid", "field_uuid")
-);
-
-CREATE TABLE "content_user_meta" (
-  "content_uuid" uuid_generate_v4 NOT NULL,
-  "user_uuid" uuid_generate_v4 NOT NULL,
-  "rating" int NOT NULL,
-  "meta" varchar,
-  PRIMARY KEY ("content_uuid", "user_uuid")
-);
-
-CREATE TABLE "field_reference" (
-  "source_uuid" uuid_generate_v4 NOT NULL,
-  "target_uuid" uuid_generate_v4 NOT NULL,
-  "field_name" varchar NOT NULL,
-  PRIMARY KEY ("source_uuid", "target_uuid")
-);
-
-CREATE TABLE "field_content" (
-  "fields_uuid" uuid_generate_v4 NOT NULL,
-  "content_uuid" uuid_generate_v4,
-  "state" varchar,
-  "webroot_path_info" varchar UNIQUE
-);
-
-CREATE TABLE "field" (
-  "uuid" SERIAL,
-  "content_uuid" uuid_generate_v4,
-  "fields_json" varchar,
-  "language_uuid" uuid_generate_v4,
-  "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
-  "modelversion_uuid" uuid_generate_v4,
-  "version" int,
-  PRIMARY KEY ("uuid")
-);
-
-CREATE TABLE "field_asset" (
-  "field_uuid" uuid_generate_v4,
-  "asset_uuid" uuid_generate_v4,
-  "field_name" varchar,
-  PRIMARY KEY ("field_uuid", "asset_uuid")
-);
-
-CREATE TABLE "namespace" (
-  "uuid" SERIAL,
-  "name" varchar UNIQUE NOT NULL,
-  "root_content_uuid" uuid_generate_v4,
-  "meta" varchar,
-  "path_prefix" varchar,
-  "model_filters" varchar,
+  "title" varchar NOT NULL,
+  "content" varchar,
+  "due_date" timestamp,
+  "status" task_status DEFAULT 'PENDING',
+  "priority" int,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
+  "editor_uuid" uuid,
   PRIMARY KEY ("uuid")
 );
 
-CREATE TABLE "model" (
-  "uuid" SERIAL,
-  "name" varchar UNIQUE NOT NULL,
-  "latest_version_uuid" uuid_generate_v4,
-  "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid NOT NULL,
-  "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
-  PRIMARY KEY ("uuid")
+CREATE TABLE "task_asset" (
+  "task_uuid" uuid NOT NULL,
+  "asset_uuid" uuid NOT NULL,
+  PRIMARY KEY ("task_uuid", "asset_uuid")
 );
 
-CREATE TABLE "model_version" (
-  "uuid" SERIAL,
-  "model_uuid" uuid_generate_v4,
-  "json" varchar NOT NULL,
-  "next_version_uuid" uuid_generate_v4,
-  "prev_version_uuid" uuid_generate_v4,
-  PRIMARY KEY ("uuid")
+CREATE TABLE "task_annotation" (
+  "task_uuid" uuid NOT NULL,
+  "annotation_uuid" uuid NOT NULL,
+  PRIMARY KEY ("task_uuid", "annotation_uuid")
 );
 
-CREATE TABLE "language" (
-  "uuid" SERIAL,
-  "native_name" varchar NOT NULL,
-  "tag" varchar UNIQUE NOT NULL,
+CREATE TABLE "asset_user_meta" (
+  "asset_uuid" uuid NOT NULL,
+  "user_uuid" uuid NOT NULL,
   "meta" varchar,
-  PRIMARY KEY ("uuid")
-);
-
-CREATE TABLE "extension" (
-  "uuid" SERIAL,
-  "url" varchar NOT NULL,
-  "kind" loom_extension_type,
-  "status" varchar,
-  "meta" varchar,
-  "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid_generate_v4 NOT NULL,
-  "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
-  PRIMARY KEY ("uuid")
+  PRIMARY KEY ("asset_uuid", "user_uuid")
 );
 
 CREATE TABLE "webhook" (
@@ -532,19 +448,13 @@ CREATE TABLE "webhook" (
   "active" boolean NOT NULL DEFAULT true,
   "triggers" loom_events,
   "secretToken" varchar,
-  "meta" varchar,
+  "meta" jsonb,
   "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid_generate_v4 NOT NULL,
+  "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid_generate_v4,
+  "editor_uuid" uuid,
   PRIMARY KEY ("uuid")
 );
-
-CREATE UNIQUE INDEX ON "stage" ("name");
-
-CREATE INDEX ON "stage_assignment" ("stage_uuid", "content_uuid");
-
-CREATE INDEX ON "stage_assignment" ("stage_uuid", "asset_uuid");
 
 CREATE UNIQUE INDEX ON "user" ("username");
 
@@ -554,33 +464,45 @@ CREATE INDEX ON "token" ("user_uuid");
 
 CREATE UNIQUE INDEX ON "role" ("name");
 
+CREATE UNIQUE INDEX ON "role_permission" ("role_uuid", "resource", "permission");
+
+CREATE UNIQUE INDEX ON "user_permission" ("user_uuid", "resource", "permission");
+
+CREATE UNIQUE INDEX ON "token_permission" ("token_uuid", "resource", "permission");
+
 CREATE UNIQUE INDEX ON "group" ("name");
 
-CREATE UNIQUE INDEX ON "tag" ("name", "collection", "namespace_uuid");
+CREATE UNIQUE INDEX ON "tag" ("name", "collection");
 
-CREATE UNIQUE INDEX ON "asset" ("uuid", "namespace_uuid");
+CREATE UNIQUE INDEX ON "binary" ("uuid");
 
-CREATE INDEX ON "content_tree" ("content_uuid", "content_type");
+CREATE INDEX ON "binary" ("geo_lon", "geo_lat");
 
-CREATE INDEX ON "content_tree" ("content_type", "webroot_path_info");
+CREATE INDEX ON "binary_remix" ("binary_a_uuid");
 
-CREATE UNIQUE INDEX ON "namespace" ("name");
+CREATE INDEX ON "binary_remix" ("binary_b_uuid");
 
-CREATE UNIQUE INDEX ON "model" ("name");
+CREATE INDEX ON "asset" ("path");
 
-CREATE INDEX ON "language" ("tag");
+CREATE INDEX ON "embedding" ("binary_uuid");
 
-COMMENT ON TABLE "stage" IS 'Stages can be used to create workflow processes for contents.';
+CREATE UNIQUE INDEX ON "cluster" ("name");
 
-COMMENT ON COLUMN "stage"."meta" IS 'Custom meta properties';
+CREATE INDEX ON "collection_asset" ("collection_uuid");
 
-COMMENT ON TABLE "stage_assignment" IS 'This crosstable tracks the stage elements';
+CREATE INDEX ON "collection_asset" ("asset_uuid");
 
-COMMENT ON COLUMN "stage_assignment"."note" IS 'Added description by the reviewer';
+CREATE INDEX ON "collection_binary" ("collection_uuid");
 
-COMMENT ON COLUMN "stage_assignment"."meta" IS 'Additional meta properties for the stage assignment';
+CREATE INDEX ON "collection_binary" ("binary_uuid");
 
-COMMENT ON TABLE "stage_ugr" IS 'This table keeps track of the user/group/role stage assignment';
+CREATE UNIQUE INDEX ON "blacklist" ("binary_uuid", "creator_uuid");
+
+CREATE UNIQUE INDEX ON "reaction" ("creator_uuid", "type", "asset_uuid");
+
+CREATE UNIQUE INDEX ON "reaction" ("creator_uuid", "type", "comment_uuid");
+
+CREATE UNIQUE INDEX ON "reaction" ("creator_uuid", "type", "annotation_uuid");
 
 COMMENT ON COLUMN "user"."enabled" IS 'Flag to enable or disable the user.';
 
@@ -600,6 +522,8 @@ COMMENT ON COLUMN "token_permission"."permission" IS 'Permission granted / grant
 
 COMMENT ON COLUMN "group"."meta" IS 'Custom meta properties to the element';
 
+COMMENT ON TABLE "tag" IS 'Tag on various elements. Tags are not user specifc';
+
 COMMENT ON COLUMN "tag"."meta" IS 'Custom meta properties to the element';
 
 COMMENT ON COLUMN "tag"."rating" IS 'Absolute or buffered/precomputed rating information';
@@ -608,107 +532,150 @@ COMMENT ON COLUMN "tag_user_meta"."rating" IS 'Rating of the tag by the user';
 
 COMMENT ON COLUMN "tag_user_meta"."meta" IS 'Custom meta properties';
 
-COMMENT ON TABLE "tag_namespace" IS 'Table used to taggings on namespaces';
+COMMENT ON TABLE "tag_asset" IS 'Store tag <-> asset reference';
 
-COMMENT ON TABLE "tag_asset" IS 'Table used to taggings on assets';
+COMMENT ON TABLE "tag_collection" IS 'Store tag <-> collection reference';
 
-COMMENT ON TABLE "asset_binary" IS 'This table stores the immutable asset information';
+COMMENT ON TABLE "tag_cluster" IS 'Store tag <-> cluster reference';
 
-COMMENT ON COLUMN "asset_binary"."media_width" IS 'Only set for images';
+COMMENT ON TABLE "binary" IS 'This table stores information on the binary component of the asset';
 
-COMMENT ON COLUMN "asset_binary"."media_height" IS 'Only set for images';
+COMMENT ON COLUMN "binary"."meta" IS 'Custom meta properties to the asset';
 
-COMMENT ON COLUMN "asset_binary"."fingerprint" IS 'Media fingerprint information';
+COMMENT ON COLUMN "binary"."initial_origin" IS 'Document the initial origin of the binary (e.g. first filepath encountered, first s3 path, url, hash)';
 
-COMMENT ON COLUMN "asset"."localPath" IS 'Local path to the asset (when using the local path feature)';
+COMMENT ON COLUMN "binary"."media_width" IS 'Only set for images, video';
 
-COMMENT ON COLUMN "asset"."meta" IS 'Custom meta properties to the element';
+COMMENT ON COLUMN "binary"."media_height" IS 'Only set for images, video';
 
-COMMENT ON COLUMN "asset"."rating" IS 'Absolute or computed asset rating';
+COMMENT ON COLUMN "binary"."duration" IS 'Duration of the video, audio';
 
-COMMENT ON COLUMN "face"."meta" IS 'Custom meta properties to the face.';
+COMMENT ON COLUMN "binary"."video_fingerprint" IS 'Video fingerprint information';
 
-COMMENT ON COLUMN "face"."source" IS 'Source information (e.g.: frame of the media from which the face was extracted).';
+COMMENT ON COLUMN "binary"."image_fingerprint" IS 'Image fingerprint information';
 
-COMMENT ON COLUMN "face"."face_nr" IS 'When the source contains more than one face the id can be used to identify them.';
+COMMENT ON COLUMN "binary"."audio_encoding" IS 'Store the audio encoding used for the binary (e.g. mp3, flac)';
 
-COMMENT ON COLUMN "face"."embeddings" IS 'Actual embedding data';
+COMMENT ON COLUMN "binary"."audio_fingerprint" IS 'Audio fingerprint information';
 
-COMMENT ON COLUMN "face_cluster"."name" IS 'Name of the cluster';
+COMMENT ON COLUMN "binary"."doc_plain_text" IS 'Extracted text of the document';
 
-COMMENT ON COLUMN "face_cluster"."description" IS 'Description of the cluster';
+COMMENT ON TABLE "binary_remix" IS 'Store information on remixes of binaries.';
 
-COMMENT ON COLUMN "face_cluster"."meta" IS 'Custom meta properties to the cluster.';
+COMMENT ON COLUMN "binary_remix"."meta" IS 'Custom meta properties to the element';
 
-COMMENT ON COLUMN "reaction"."type" IS 'Type of the reaction';
+COMMENT ON TABLE "asset" IS 'Assets keep track of media that has been found by the scanner. Multiple assets may share the same binary thus the properties will be decoupled from binary.';
+
+COMMENT ON COLUMN "asset"."binary_uuid" IS 'Reference to the media binary that contains the actual data for the asset.';
+
+COMMENT ON COLUMN "asset"."path" IS 'Currently known path to the asset in the filesystem';
+
+COMMENT ON COLUMN "asset"."meta" IS 'Custom meta properties to the asset';
+
+COMMENT ON TABLE "embedding" IS 'Embedding information which was extracted from a binary.';
+
+COMMENT ON COLUMN "embedding"."meta" IS 'Custom meta properties to the embedding.';
+
+COMMENT ON COLUMN "embedding"."source" IS 'Additional source information (e.g. face number by dlib)';
+
+COMMENT ON COLUMN "embedding"."frame" IS 'Source frame where the face has been detected.';
+
+COMMENT ON COLUMN "embedding"."areaHeight" IS 'Area info where the face has been detected.';
+
+COMMENT ON COLUMN "embedding"."areaWidth" IS 'Area info where the face has been detected.';
+
+COMMENT ON COLUMN "embedding"."areaStartX" IS 'Area info where the face has been detected.';
+
+COMMENT ON COLUMN "embedding"."areaStartY" IS 'Area info where the face has been detected.';
+
+COMMENT ON COLUMN "embedding"."embeddings" IS 'Actual embedding data';
+
+COMMENT ON COLUMN "embedding"."embedding_type" IS 'Type of the embedding (e.g. dlib_facemark)';
+
+COMMENT ON TABLE "cluster" IS 'Generic cluster that aggregates multiple embeddings. 
+A cluster could for example represent a person which can have multiple face embeddings.
+Alternatively media fingerprint embeddings can be used to group media together by visual similarity.';
+
+COMMENT ON COLUMN "cluster"."name" IS 'Name of the cluster. (e.g. name of a person)';
+
+COMMENT ON COLUMN "cluster"."meta" IS 'Custom meta properties to the embedding.';
+
+COMMENT ON COLUMN "cluster"."type" IS 'Type of the cluster (e.g. person)';
+
+COMMENT ON TABLE "embedding_cluster" IS 'List embeddings for clusters';
+
+COMMENT ON TABLE "collection" IS 'Collections are used to group assets together.
+
+A collection may be a folder which groups together assets for a project.';
+
+COMMENT ON COLUMN "collection"."meta" IS 'Custom meta properties';
+
+COMMENT ON TABLE "collection_asset" IS 'Track assets that belong to a collection.';
+
+COMMENT ON TABLE "collection_binary" IS 'Track binaries that belong to a collection.
+User facing this will result in all transitive assets being added to the collection.';
+
+COMMENT ON TABLE "vector_config" IS 'This table stores the custom index definition that will be used when creating custom indices in a vector database that list specific aspects of loom data.
+
+A custom configuration may define that a specific meta property should be added to the index when generating the vector.
+This feature can be used to generate a custom recommendation feature by including and ranking and encoding specific properties as vectors.';
+
+COMMENT ON COLUMN "vector_config"."weights" IS 'Index definition which lists the weights for each component that should be included in the index';
+
+COMMENT ON TABLE "comment" IS 'Stores comments on tasks, annotations..';
+
+COMMENT ON COLUMN "comment"."title" IS 'Comment title';
 
 COMMENT ON COLUMN "comment"."content" IS 'Comment text';
 
 COMMENT ON COLUMN "comment"."created" IS 'Creation timestamp';
 
+COMMENT ON COLUMN "comment"."edited" IS 'Edit timestamp';
+
+COMMENT ON TABLE "blacklist" IS 'Stores information on blocked binaries.
+A binary can be blocked due to copyright claim issues or because the virus scanner marked it.';
+
+COMMENT ON COLUMN "blacklist"."binary_uuid" IS 'Blacklisted binary';
+
+COMMENT ON COLUMN "blacklist"."created" IS 'Creation timestamp';
+
+COMMENT ON COLUMN "blacklist"."creator_uuid" IS 'Creator of the blacklist entry';
+
+COMMENT ON COLUMN "blacklist"."type" IS 'Type of the blacklist entry (e.g. copyright claim)';
+
+COMMENT ON COLUMN "blacklist"."review_count" IS 'Amount of times this blacklist entry has been reviewed.';
+
+COMMENT ON COLUMN "blacklist"."meta" IS 'Custom meta properties of the block entry. May contain additional information on the reason.';
+
+COMMENT ON TABLE "reaction" IS 'Stores social reactions on multiple elements';
+
+COMMENT ON COLUMN "reaction"."type" IS 'Type of the reaction (e.g. thumbsup)';
+
+COMMENT ON COLUMN "reaction"."rating" IS 'Rating by the user';
+
+COMMENT ON COLUMN "reaction"."meta" IS 'Custom meta properties to the reaction.';
+
+COMMENT ON COLUMN "reaction"."created" IS 'Creation timestamp';
+
+COMMENT ON COLUMN "reaction"."creator_uuid" IS 'Creator of the reaction';
+
+COMMENT ON TABLE "annotation" IS 'This table contains asset annotation entries which can be used to create chapters or sections to assign tasks to.';
+
+COMMENT ON COLUMN "annotation"."created" IS 'Creation timestamp';
+
 COMMENT ON COLUMN "annotation"."meta" IS 'Custom meta properties';
 
-COMMENT ON COLUMN "annotation"."kind" IS 'Type of the annotation';
+COMMENT ON COLUMN "annotation"."thumbail" IS 'Reference to the thumbnail that depics the annotated element/area';
+
+COMMENT ON COLUMN "task"."title" IS 'Title of the task';
 
 COMMENT ON COLUMN "task"."content" IS 'Description of the task';
 
-COMMENT ON TABLE "collection" IS 'Collections are used to group assets together';
+COMMENT ON COLUMN "task"."status" IS 'Current status of the task (e.g. PENDING, REJECTED)';
 
-COMMENT ON COLUMN "collection"."meta" IS 'Custom meta properties';
-
-COMMENT ON COLUMN "asset_user_meta"."rating" IS 'Asset rating by the user';
+COMMENT ON TABLE "asset_user_meta" IS 'Stores user specific metadata that can be added to assets';
 
 COMMENT ON COLUMN "asset_user_meta"."meta" IS 'Custom meta properties';
-
-COMMENT ON TABLE "asset_timeline" IS 'This table contains asset timeline entries';
-
-COMMENT ON COLUMN "content"."parent" IS 'Reference to the parent content.';
-
-COMMENT ON COLUMN "content"."meta" IS 'Custom meta properties';
-
-COMMENT ON TABLE "content_tree" IS 'This table keeps track of the content publish status';
-
-COMMENT ON COLUMN "content_tree"."content_type" IS 'D or P for draft and published';
-
-COMMENT ON COLUMN "content_tree"."meta" IS 'Custom meta properties';
-
-COMMENT ON COLUMN "content_user_meta"."rating" IS 'Rating of the content by the user';
-
-COMMENT ON COLUMN "content_user_meta"."meta" IS 'Custom meta properties';
-
-COMMENT ON TABLE "field_reference" IS 'This table is mainly used to lookup foreign references to contents';
-
-COMMENT ON COLUMN "field_reference"."field_name" IS 'Name of the field in which the content reference was listed.';
-
-COMMENT ON TABLE "field_content" IS 'Crosstable that tracks all fields for a content';
-
-COMMENT ON COLUMN "field_content"."webroot_path_info" IS 'The path info contains a unique path to the content. It may thus also be parentUuid+language+namespace+path specific.';
-
-COMMENT ON TABLE "field" IS 'Table which stores the actual fields content as JSON';
-
-COMMENT ON COLUMN "field"."content_uuid" IS 'Reference to the content that uses this fields record';
-
-COMMENT ON COLUMN "field"."fields_json" IS 'JSON which contains the actual fields content';
-
-COMMENT ON TABLE "field_asset" IS 'Crosstable which tracks the used assets in a fields record';
-
-COMMENT ON COLUMN "namespace"."meta" IS 'Custom meta properties to the element';
-
-COMMENT ON COLUMN "namespace"."path_prefix" IS 'Prefix for webroot paths';
-
-COMMENT ON COLUMN "namespace"."model_filters" IS 'filter for models that can be used in the namespace';
-
-COMMENT ON COLUMN "model"."name" IS 'Human readable name of the content model';
-
-COMMENT ON TABLE "language" IS 'Table which stores the languages for loom';
-
-COMMENT ON COLUMN "language"."meta" IS 'Custom meta properties to the element';
-
-COMMENT ON TABLE "extension" IS 'Table which lists the registered extensions';
-
-COMMENT ON COLUMN "extension"."kind" IS 'Defines the type of the extension service';
-
-COMMENT ON COLUMN "extension"."meta" IS 'Custom meta properties to the element';
 
 COMMENT ON TABLE "webhook" IS 'Table which stores the registered webhooks';
 
@@ -717,26 +684,6 @@ COMMENT ON COLUMN "webhook"."triggers" IS 'List of triggers which can invoke the
 COMMENT ON COLUMN "webhook"."secretToken" IS 'Secret token which webhook services can use to authenticate the request.';
 
 COMMENT ON COLUMN "webhook"."meta" IS 'Custom meta properties to the element';
-
-ALTER TABLE "stage" ADD FOREIGN KEY ("next_stage_uuid") REFERENCES "stage" ("uuid");
-
-ALTER TABLE "stage" ADD FOREIGN KEY ("prev_stage_uuid") REFERENCES "stage" ("uuid");
-
-ALTER TABLE "stage" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "stage" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "stage_assignment" ADD FOREIGN KEY ("stage_uuid") REFERENCES "stage" ("uuid");
-
-ALTER TABLE "stage_assignment" ADD FOREIGN KEY ("content_uuid") REFERENCES "content" ("uuid");
-
-ALTER TABLE "stage_assignment" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
-
-ALTER TABLE "stage_assignment" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "stage_assignment" ADD FOREIGN KEY ("reviewer_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "stage_ugr" ADD FOREIGN KEY ("stage_uuid") REFERENCES "stage" ("uuid");
 
 ALTER TABLE "user" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
@@ -766,8 +713,6 @@ ALTER TABLE "user_group" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid"
 
 ALTER TABLE "user_group" ADD FOREIGN KEY ("group_uuid") REFERENCES "group" ("uuid");
 
-ALTER TABLE "tag" ADD FOREIGN KEY ("namespace_uuid") REFERENCES "namespace" ("uuid");
-
 ALTER TABLE "tag" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
 ALTER TABLE "tag" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
@@ -776,21 +721,29 @@ ALTER TABLE "tag_user_meta" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid
 
 ALTER TABLE "tag_user_meta" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "tag_namespace" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
-
-ALTER TABLE "tag_namespace" ADD FOREIGN KEY ("namespace_uuid") REFERENCES "namespace" ("uuid");
-
 ALTER TABLE "tag_asset" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
 
 ALTER TABLE "tag_asset" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
 
-ALTER TABLE "tag_content" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
+ALTER TABLE "tag_collection" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
 
-ALTER TABLE "tag_content" ADD FOREIGN KEY ("content_uuid") REFERENCES "content" ("uuid");
+ALTER TABLE "tag_collection" ADD FOREIGN KEY ("collection_uuid") REFERENCES "collection" ("uuid");
 
-ALTER TABLE "asset" ADD FOREIGN KEY ("asset_binary_uuid") REFERENCES "asset_binary" ("uuid");
+ALTER TABLE "tag_cluster" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
 
-ALTER TABLE "asset" ADD FOREIGN KEY ("namespace_uuid") REFERENCES "namespace" ("uuid");
+ALTER TABLE "tag_cluster" ADD FOREIGN KEY ("cluster_uuid") REFERENCES "cluster" ("uuid");
+
+ALTER TABLE "binary" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "binary" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "binary_remix" ADD FOREIGN KEY ("binary_a_uuid") REFERENCES "binary" ("uuid");
+
+ALTER TABLE "binary_remix" ADD FOREIGN KEY ("binary_b_uuid") REFERENCES "binary" ("uuid");
+
+ALTER TABLE "binary_remix" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "asset" ADD FOREIGN KEY ("binary_uuid") REFERENCES "binary" ("uuid");
 
 ALTER TABLE "asset" ADD FOREIGN KEY ("locked_by_uuid") REFERENCES "user" ("uuid");
 
@@ -798,95 +751,112 @@ ALTER TABLE "asset" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
 ALTER TABLE "asset" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "asset_face" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
+ALTER TABLE "embedding" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "asset_face" ADD FOREIGN KEY ("face_uuid") REFERENCES "face" ("uuid");
+ALTER TABLE "embedding" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "asset_collection" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
+ALTER TABLE "embedding" ADD FOREIGN KEY ("binary_uuid") REFERENCES "binary" ("uuid");
 
-ALTER TABLE "asset_collection" ADD FOREIGN KEY ("collection_uuid") REFERENCES "collection" ("uuid");
+ALTER TABLE "cluster" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "cluster" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "embedding_cluster" ADD FOREIGN KEY ("embedding_uuid") REFERENCES "embedding" ("uuid");
+
+ALTER TABLE "embedding_cluster" ADD FOREIGN KEY ("cluster_uuid") REFERENCES "cluster" ("uuid");
+
+ALTER TABLE "collection" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "collection" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "collection" ADD FOREIGN KEY ("parent_collection_uuid") REFERENCES "collection" ("uuid");
+
+ALTER TABLE "collection_asset" ADD FOREIGN KEY ("collection_uuid") REFERENCES "collection" ("uuid");
+
+ALTER TABLE "collection_asset" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
+
+ALTER TABLE "collection_binary" ADD FOREIGN KEY ("collection_uuid") REFERENCES "collection" ("uuid");
+
+ALTER TABLE "collection_binary" ADD FOREIGN KEY ("binary_uuid") REFERENCES "binary" ("uuid");
 
 ALTER TABLE "comment" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid");
 
 ALTER TABLE "comment" ADD FOREIGN KEY ("parent_uuid") REFERENCES "comment" ("uuid");
 
+ALTER TABLE "comment_task" ADD FOREIGN KEY ("comment_uuid") REFERENCES "comment" ("uuid");
+
+ALTER TABLE "comment_task" ADD FOREIGN KEY ("task_uuid") REFERENCES "task" ("uuid");
+
+ALTER TABLE "comment_annotaion" ADD FOREIGN KEY ("comment_uuid") REFERENCES "comment" ("uuid");
+
+ALTER TABLE "comment_annotaion" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid");
+
+ALTER TABLE "blacklist" ADD FOREIGN KEY ("binary_uuid") REFERENCES "binary" ("uuid");
+
+ALTER TABLE "blacklist" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "blacklist" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "reaction" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "reaction" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
+
+CREATE TABLE "asset_reaction" (
+  "asset_uuid" uuid,
+  "reaction_asset_uuid" uuid,
+  PRIMARY KEY ("asset_uuid", "reaction_asset_uuid")
+);
+
+ALTER TABLE "asset_reaction" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
+
+ALTER TABLE "asset_reaction" ADD FOREIGN KEY ("reaction_asset_uuid") REFERENCES "reaction" ("asset_uuid");
+
+
+CREATE TABLE "comment_reaction" (
+  "comment_uuid" uuid,
+  "reaction_comment_uuid" uuid,
+  PRIMARY KEY ("comment_uuid", "reaction_comment_uuid")
+);
+
+ALTER TABLE "comment_reaction" ADD FOREIGN KEY ("comment_uuid") REFERENCES "comment" ("uuid");
+
+ALTER TABLE "comment_reaction" ADD FOREIGN KEY ("reaction_comment_uuid") REFERENCES "reaction" ("comment_uuid");
+
+
+CREATE TABLE "annotation_reaction" (
+  "annotation_uuid" uuid,
+  "reaction_annotation_uuid" uuid,
+  PRIMARY KEY ("annotation_uuid", "reaction_annotation_uuid")
+);
+
+ALTER TABLE "annotation_reaction" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid");
+
+ALTER TABLE "annotation_reaction" ADD FOREIGN KEY ("reaction_annotation_uuid") REFERENCES "reaction" ("annotation_uuid");
+
+
+ALTER TABLE "annotation" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
+
 ALTER TABLE "annotation" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "task_comment" ADD FOREIGN KEY ("task_uuid") REFERENCES "task" ("uuid");
+ALTER TABLE "annotation_tag" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid");
 
-ALTER TABLE "task_comment" ADD FOREIGN KEY ("comment_uuid") REFERENCES "comment" ("uuid");
+ALTER TABLE "annotation_tag" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
 
-ALTER TABLE "annotation_task" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
+ALTER TABLE "task" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "annotation_task" ADD FOREIGN KEY ("task_uuid") REFERENCES "task" ("uuid");
+ALTER TABLE "task" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
+
+ALTER TABLE "task_asset" ADD FOREIGN KEY ("task_uuid") REFERENCES "task" ("uuid");
+
+ALTER TABLE "task_asset" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
+
+ALTER TABLE "task_annotation" ADD FOREIGN KEY ("task_uuid") REFERENCES "task" ("uuid");
+
+ALTER TABLE "task_annotation" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid");
 
 ALTER TABLE "asset_user_meta" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
 
 ALTER TABLE "asset_user_meta" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "asset_timeline" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
-
-ALTER TABLE "asset_timeline_tag" ADD FOREIGN KEY ("assettimeline_uuid") REFERENCES "asset_timeline" ("uuid");
-
-ALTER TABLE "asset_timeline_tag" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
-
-ALTER TABLE "content" ADD FOREIGN KEY ("namespace_uuid") REFERENCES "namespace" ("uuid");
-
-ALTER TABLE "content" ADD FOREIGN KEY ("parent") REFERENCES "content" ("uuid");
-
-ALTER TABLE "content" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "content" ADD FOREIGN KEY ("model_uuid") REFERENCES "model" ("uuid");
-
-ALTER TABLE "content_tree" ADD FOREIGN KEY ("content_uuid") REFERENCES "content" ("uuid");
-
-ALTER TABLE "content_tree" ADD FOREIGN KEY ("field_uuid") REFERENCES "field" ("uuid");
-
-ALTER TABLE "content_user_meta" ADD FOREIGN KEY ("content_uuid") REFERENCES "content" ("uuid");
-
-ALTER TABLE "content_user_meta" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "field_reference" ADD FOREIGN KEY ("source_uuid") REFERENCES "field" ("uuid");
-
-ALTER TABLE "field_reference" ADD FOREIGN KEY ("target_uuid") REFERENCES "field" ("uuid");
-
-ALTER TABLE "field_content" ADD FOREIGN KEY ("fields_uuid") REFERENCES "field" ("uuid");
-
-ALTER TABLE "field_content" ADD FOREIGN KEY ("content_uuid") REFERENCES "content" ("uuid");
-
-ALTER TABLE "field" ADD FOREIGN KEY ("content_uuid") REFERENCES "namespace" ("uuid");
-
-ALTER TABLE "field" ADD FOREIGN KEY ("language_uuid") REFERENCES "language" ("uuid");
-
-ALTER TABLE "field" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "field" ADD FOREIGN KEY ("modelversion_uuid") REFERENCES "model_version" ("uuid");
-
-ALTER TABLE "field_asset" ADD FOREIGN KEY ("field_uuid") REFERENCES "field" ("uuid");
-
-ALTER TABLE "field_asset" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
-
-ALTER TABLE "namespace" ADD FOREIGN KEY ("root_content_uuid") REFERENCES "content" ("uuid");
-
-ALTER TABLE "namespace" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "namespace" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "model" ADD FOREIGN KEY ("latest_version_uuid") REFERENCES "model_version" ("uuid");
-
-ALTER TABLE "model" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "model" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "model_version" ADD FOREIGN KEY ("model_uuid") REFERENCES "model" ("uuid");
-
-ALTER TABLE "model_version" ADD FOREIGN KEY ("next_version_uuid") REFERENCES "model_version" ("uuid");
-
-ALTER TABLE "model_version" ADD FOREIGN KEY ("prev_version_uuid") REFERENCES "model_version" ("uuid");
-
-ALTER TABLE "extension" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
-
-ALTER TABLE "extension" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
 ALTER TABLE "webhook" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
@@ -894,8 +864,4 @@ ALTER TABLE "webhook" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid")
 
 ALTER TABLE "asset" ADD FOREIGN KEY ("created") REFERENCES "asset" ("edited");
 
-ALTER TABLE "stage_assignment" ADD FOREIGN KEY ("status") REFERENCES "stage_assignment" ("meta");
-
 ALTER TABLE "collection" ADD FOREIGN KEY ("uuid") REFERENCES "collection" ("description");
-
-ALTER TABLE "model" ADD FOREIGN KEY ("creator_uuid") REFERENCES "asset_timeline" ("description");

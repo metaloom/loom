@@ -74,7 +74,7 @@ public class JooqGroup extends TableImpl<JooqGroupRecord> {
     /**
      * The column <code>public.group.created</code>.
      */
-    public final TableField<JooqGroupRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqGroupRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.group.creator_uuid</code>.

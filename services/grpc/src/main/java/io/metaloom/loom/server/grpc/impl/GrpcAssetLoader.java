@@ -6,8 +6,8 @@ import javax.inject.Inject;
 
 import io.metaloom.loom.db.DaoCollection;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.asset.AssetBinary;
-import io.metaloom.loom.db.model.namespace.Namespace;
+import io.metaloom.loom.db.model.asset.Binary;
+import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.proto.AssetRequest;
 import io.metaloom.loom.proto.AssetResponse;
@@ -33,13 +33,13 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		long size = request.getSize();
 		String path = request.getPath();
 
-		AssetBinary binary = daos.assetBinaryDao().loadBinary(sha512sum);
+		Binary binary = daos.assetBinaryDao().loadBinaryBySHA512Sum(sha512sum);
 		if (binary == null) {
 			binary = daos.assetBinaryDao().createBinary(sha512sum, size);
 		}
 
 		binary.setSHA256(sha256sum);
-		binary.setFingerprint(fingerprint);
+		binary.setVideoFingerprint(fingerprint);
 		binary.setZeroChunkCount(zeroChunkCount);
 		binary.setChunkHash(chunkHash);
 		daos.assetBinaryDao().storeBinary(binary);
@@ -47,8 +47,8 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		User creator = daos.userDao().createUser("test");
 		daos.userDao().storeUser(creator);
 		
-		Namespace namespace = daos.namespaceDao().createNamespace("test");
-		Asset asset = daos.assetDao().createAsset(path, binary.getUuid(), creator.getUuid(), namespace.getUuid());
+		Library library = daos.libraryDao().createLibrary("test");
+		Asset asset = daos.assetDao().createAsset(path, binary.getUuid(), creator.getUuid(), library.getUuid());
 		daos.assetDao().storeAsset(asset);
 
 		UUID uuid = asset.getUuid();

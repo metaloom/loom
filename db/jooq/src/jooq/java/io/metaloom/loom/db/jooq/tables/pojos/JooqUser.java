@@ -23,10 +23,10 @@ public class JooqUser implements Serializable {
     private String username;
     private String firstname;
     private String lastname;
-    private String passwordhash;
     private String email;
     private Boolean enabled;
     private Boolean sso;
+    private String passwordhash;
     private JSONB meta;
     private LocalDateTime created;
     private UUID creatorUuid;
@@ -40,10 +40,10 @@ public class JooqUser implements Serializable {
         this.username = value.username;
         this.firstname = value.firstname;
         this.lastname = value.lastname;
-        this.passwordhash = value.passwordhash;
         this.email = value.email;
         this.enabled = value.enabled;
         this.sso = value.sso;
+        this.passwordhash = value.passwordhash;
         this.meta = value.meta;
         this.created = value.created;
         this.creatorUuid = value.creatorUuid;
@@ -56,10 +56,10 @@ public class JooqUser implements Serializable {
         String username,
         String firstname,
         String lastname,
-        String passwordhash,
         String email,
         Boolean enabled,
         Boolean sso,
+        String passwordhash,
         JSONB meta,
         LocalDateTime created,
         UUID creatorUuid,
@@ -70,10 +70,10 @@ public class JooqUser implements Serializable {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.passwordhash = passwordhash;
         this.email = email;
         this.enabled = enabled;
         this.sso = sso;
+        this.passwordhash = passwordhash;
         this.meta = meta;
         this.created = created;
         this.creatorUuid = creatorUuid;
@@ -138,20 +138,6 @@ public class JooqUser implements Serializable {
     }
 
     /**
-     * Getter for <code>public.user.passwordhash</code>.
-     */
-    public String getPasswordhash() {
-        return this.passwordhash;
-    }
-
-    /**
-     * Setter for <code>public.user.passwordhash</code>.
-     */
-    public void setPasswordhash(String passwordhash) {
-        this.passwordhash = passwordhash;
-    }
-
-    /**
      * Getter for <code>public.user.email</code>.
      */
     public String getEmail() {
@@ -195,6 +181,20 @@ public class JooqUser implements Serializable {
      */
     public void setSso(Boolean sso) {
         this.sso = sso;
+    }
+
+    /**
+     * Getter for <code>public.user.passwordHash</code>.
+     */
+    public String getPasswordhash() {
+        return this.passwordhash;
+    }
+
+    /**
+     * Setter for <code>public.user.passwordHash</code>.
+     */
+    public void setPasswordhash(String passwordhash) {
+        this.passwordhash = passwordhash;
     }
 
     /**
@@ -302,12 +302,6 @@ public class JooqUser implements Serializable {
         }
         else if (!this.lastname.equals(other.lastname))
             return false;
-        if (this.passwordhash == null) {
-            if (other.passwordhash != null)
-                return false;
-        }
-        else if (!this.passwordhash.equals(other.passwordhash))
-            return false;
         if (this.email == null) {
             if (other.email != null)
                 return false;
@@ -325,6 +319,12 @@ public class JooqUser implements Serializable {
                 return false;
         }
         else if (!this.sso.equals(other.sso))
+            return false;
+        if (this.passwordhash == null) {
+            if (other.passwordhash != null)
+                return false;
+        }
+        else if (!this.passwordhash.equals(other.passwordhash))
             return false;
         if (this.meta == null) {
             if (other.meta != null)
@@ -367,10 +367,10 @@ public class JooqUser implements Serializable {
         result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
         result = prime * result + ((this.firstname == null) ? 0 : this.firstname.hashCode());
         result = prime * result + ((this.lastname == null) ? 0 : this.lastname.hashCode());
-        result = prime * result + ((this.passwordhash == null) ? 0 : this.passwordhash.hashCode());
         result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
         result = prime * result + ((this.enabled == null) ? 0 : this.enabled.hashCode());
         result = prime * result + ((this.sso == null) ? 0 : this.sso.hashCode());
+        result = prime * result + ((this.passwordhash == null) ? 0 : this.passwordhash.hashCode());
         result = prime * result + ((this.meta == null) ? 0 : this.meta.hashCode());
         result = prime * result + ((this.created == null) ? 0 : this.created.hashCode());
         result = prime * result + ((this.creatorUuid == null) ? 0 : this.creatorUuid.hashCode());
@@ -387,10 +387,10 @@ public class JooqUser implements Serializable {
         sb.append(", ").append(username);
         sb.append(", ").append(firstname);
         sb.append(", ").append(lastname);
-        sb.append(", ").append(passwordhash);
         sb.append(", ").append(email);
         sb.append(", ").append(enabled);
         sb.append(", ").append(sso);
+        sb.append(", ").append(passwordhash);
         sb.append(", ").append(meta);
         sb.append(", ").append(created);
         sb.append(", ").append(creatorUuid);

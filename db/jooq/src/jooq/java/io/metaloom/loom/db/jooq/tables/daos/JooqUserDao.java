@@ -131,21 +131,6 @@ public class JooqUserDao extends DAOImpl<JooqUserRecord, io.metaloom.loom.db.joo
     }
 
     /**
-     * Fetch records that have <code>passwordhash BETWEEN lowerInclusive AND
-     * upperInclusive</code>
-     */
-    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqUser> fetchRangeOfJooqPasswordhash(String lowerInclusive, String upperInclusive) {
-        return fetchRange(JooqUser.USER.PASSWORDHASH, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>passwordhash IN (values)</code>
-     */
-    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqUser> fetchByJooqPasswordhash(String... values) {
-        return fetch(JooqUser.USER.PASSWORDHASH, values);
-    }
-
-    /**
      * Fetch records that have <code>email BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
@@ -188,6 +173,21 @@ public class JooqUserDao extends DAOImpl<JooqUserRecord, io.metaloom.loom.db.joo
      */
     public List<io.metaloom.loom.db.jooq.tables.pojos.JooqUser> fetchByJooqSso(Boolean... values) {
         return fetch(JooqUser.USER.SSO, values);
+    }
+
+    /**
+     * Fetch records that have <code>passwordHash BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqUser> fetchRangeOfJooqPasswordhash(String lowerInclusive, String upperInclusive) {
+        return fetchRange(JooqUser.USER.PASSWORDHASH, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>passwordHash IN (values)</code>
+     */
+    public List<io.metaloom.loom.db.jooq.tables.pojos.JooqUser> fetchByJooqPasswordhash(String... values) {
+        return fetch(JooqUser.USER.PASSWORDHASH, values);
     }
 
     /**

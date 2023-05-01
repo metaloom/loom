@@ -4,7 +4,7 @@
 package io.metaloom.loom.db.jooq.tables.records;
 
 
-import io.metaloom.loom.db.jooq.enums.JooqLoomEvent;
+import io.metaloom.loom.db.jooq.enums.JooqLoomEvents;
 import io.metaloom.loom.db.jooq.tables.JooqWebhook;
 
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Table which stores the registered webhooks
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> implements Record11<UUID, String, String, Boolean, JooqLoomEvent, String, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> {
+public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> implements Record11<UUID, String, String, Boolean, JooqLoomEvents, String, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -83,19 +83,19 @@ public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> im
     }
 
     /**
-     * Setter for <code>public.webhook.trigger</code>. List of triggers which
+     * Setter for <code>public.webhook.triggers</code>. List of triggers which
      * can invoke the webhook
      */
-    public void setTrigger(JooqLoomEvent value) {
+    public void setTriggers(JooqLoomEvents value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>public.webhook.trigger</code>. List of triggers which
+     * Getter for <code>public.webhook.triggers</code>. List of triggers which
      * can invoke the webhook
      */
-    public JooqLoomEvent getTrigger() {
-        return (JooqLoomEvent) get(4);
+    public JooqLoomEvents getTriggers() {
+        return (JooqLoomEvents) get(4);
     }
 
     /**
@@ -200,12 +200,12 @@ public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> im
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<UUID, String, String, Boolean, JooqLoomEvent, String, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+    public Row11<UUID, String, String, Boolean, JooqLoomEvents, String, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
         return (Row11) super.fieldsRow();
     }
 
     @Override
-    public Row11<UUID, String, String, Boolean, JooqLoomEvent, String, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
+    public Row11<UUID, String, String, Boolean, JooqLoomEvents, String, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
         return (Row11) super.valuesRow();
     }
 
@@ -230,8 +230,8 @@ public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> im
     }
 
     @Override
-    public Field<JooqLoomEvent> field5() {
-        return JooqWebhook.WEBHOOK.TRIGGER;
+    public Field<JooqLoomEvents> field5() {
+        return JooqWebhook.WEBHOOK.TRIGGERS;
     }
 
     @Override
@@ -285,8 +285,8 @@ public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> im
     }
 
     @Override
-    public JooqLoomEvent component5() {
-        return getTrigger();
+    public JooqLoomEvents component5() {
+        return getTriggers();
     }
 
     @Override
@@ -340,8 +340,8 @@ public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> im
     }
 
     @Override
-    public JooqLoomEvent value5() {
-        return getTrigger();
+    public JooqLoomEvents value5() {
+        return getTriggers();
     }
 
     @Override
@@ -399,8 +399,8 @@ public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> im
     }
 
     @Override
-    public JooqWebhookRecord value5(JooqLoomEvent value) {
-        setTrigger(value);
+    public JooqWebhookRecord value5(JooqLoomEvents value) {
+        setTriggers(value);
         return this;
     }
 
@@ -441,7 +441,7 @@ public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> im
     }
 
     @Override
-    public JooqWebhookRecord values(UUID value1, String value2, String value3, Boolean value4, JooqLoomEvent value5, String value6, JSONB value7, LocalDateTime value8, UUID value9, LocalDateTime value10, UUID value11) {
+    public JooqWebhookRecord values(UUID value1, String value2, String value3, Boolean value4, JooqLoomEvents value5, String value6, JSONB value7, LocalDateTime value8, UUID value9, LocalDateTime value10, UUID value11) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -470,14 +470,14 @@ public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> im
     /**
      * Create a detached, initialised JooqWebhookRecord
      */
-    public JooqWebhookRecord(UUID uuid, String url, String status, Boolean active, JooqLoomEvent trigger, String secrettoken, JSONB meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
+    public JooqWebhookRecord(UUID uuid, String url, String status, Boolean active, JooqLoomEvents triggers, String secrettoken, JSONB meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
         super(JooqWebhook.WEBHOOK);
 
         setUuid(uuid);
         setUrl(url);
         setStatus(status);
         setActive(active);
-        setTrigger(trigger);
+        setTriggers(triggers);
         setSecrettoken(secrettoken);
         setMeta(meta);
         setCreated(created);
@@ -497,7 +497,7 @@ public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> im
             setUrl(value.getUrl());
             setStatus(value.getStatus());
             setActive(value.getActive());
-            setTrigger(value.getTrigger());
+            setTriggers(value.getTriggers());
             setSecrettoken(value.getSecrettoken());
             setMeta(value.getMeta());
             setCreated(value.getCreated());
