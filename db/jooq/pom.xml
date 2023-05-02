@@ -214,7 +214,7 @@
 									<name>io.metaloom.loom.db.jooq.codegen.LoomJooqStrategy</name>
 								</strategy>
 								<generate>
-									<daos>true</daos>
+									<daos>false</daos>
 								</generate>
 								<database>
 									<name>

@@ -142,16 +142,4 @@ public class JooqCommentAnnotaionRecord extends UpdatableRecordImpl<JooqCommentA
         setCommentUuid(commentUuid);
         setAnnotationUuid(annotationUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqCommentAnnotaionRecord
-     */
-    public JooqCommentAnnotaionRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqCommentAnnotaion value) {
-        super(JooqCommentAnnotaion.COMMENT_ANNOTAION);
-
-        if (value != null) {
-            setCommentUuid(value.getCommentUuid());
-            setAnnotationUuid(value.getAnnotationUuid());
-        }
-    }
 }

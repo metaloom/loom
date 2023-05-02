@@ -142,16 +142,4 @@ public class JooqCommentReactionRecord extends UpdatableRecordImpl<JooqCommentRe
         setCommentUuid(commentUuid);
         setReactionCommentUuid(reactionCommentUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqCommentReactionRecord
-     */
-    public JooqCommentReactionRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqCommentReaction value) {
-        super(JooqCommentReaction.COMMENT_REACTION);
-
-        if (value != null) {
-            setCommentUuid(value.getCommentUuid());
-            setReactionCommentUuid(value.getReactionCommentUuid());
-        }
-    }
 }

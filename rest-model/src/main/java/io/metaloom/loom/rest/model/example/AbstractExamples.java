@@ -1,15 +1,11 @@
 package io.metaloom.loom.rest.model.example;
 
-import static io.metaloom.loom.rest.model.example.ContentExamples.tagReferenceList;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import deprecated.content.ContentReference;
-import deprecated.model.model.ModelReference;
 import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.AssetHash;
 import io.metaloom.loom.rest.model.asset.social.Reaction;
@@ -63,20 +59,6 @@ public class AbstractExamples {
 		model.getStatus().setCreated(DATE_OLD);
 		model.getStatus().setEditor(userReferenceA());
 		model.getStatus().setEdited(DATE_NEW);
-	}
-
-	public static ModelReference modelReference(String name) {
-		ModelReference reference = new ModelReference();
-		reference.setUuid(uuidB());
-		reference.setName(name);
-		return reference;
-	}
-
-	public static ContentReference parentContentReference() {
-		ContentReference reference = new ContentReference();
-		reference.setName("posts");
-		reference.setUuid(uuidC());
-		return reference;
 	}
 
 	public static TagReference tagReferenceA() {
@@ -150,22 +132,21 @@ public class AbstractExamples {
 		first.setArea(new Area().setFrom(0).setTo(10));
 		first.setDescription("The very nice intro");
 		first.setThumbnail("???");
-		first.setTags(tagReferenceList());
 		first.setMeta(meta());
 		first.getTasks().add(task());
 		first.getComments().add(comment());
 		list.add(first);
 
-//		Annotation second = new Annotation();
-//		second.setTitle("Main Feedback");
-//		second.setArea(new Area().setFrom(11).setTo(200));
-//		second.setDescription("The main part of the movie");
-//		second.setThumbnail("???");
-//		second.setTags(tagReferenceList());
-//		second.getTasks().add(task());
-//		second.getComments().add(comment());
-//		second.setMeta(meta());
-//		list.add(second);
+		// Annotation second = new Annotation();
+		// second.setTitle("Main Feedback");
+		// second.setArea(new Area().setFrom(11).setTo(200));
+		// second.setDescription("The main part of the movie");
+		// second.setThumbnail("???");
+		// second.setTags(tagReferenceList());
+		// second.getTasks().add(task());
+		// second.getComments().add(comment());
+		// second.setMeta(meta());
+		// list.add(second);
 		return list;
 	}
 

@@ -295,20 +295,4 @@ public class JooqTokenRecord extends UpdatableRecordImpl<JooqTokenRecord> implem
         setCreated(created);
         setMeta(meta);
     }
-
-    /**
-     * Create a detached, initialised JooqTokenRecord
-     */
-    public JooqTokenRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqToken value) {
-        super(JooqToken.TOKEN);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setUserUuid(value.getUserUuid());
-            setDescription(value.getDescription());
-            setToken(value.getToken());
-            setCreated(value.getCreated());
-            setMeta(value.getMeta());
-        }
-    }
 }

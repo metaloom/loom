@@ -3,10 +3,9 @@ package io.metaloom.loom.db.model.group;
 import java.util.List;
 
 import io.metaloom.loom.db.CUDElement;
-import io.metaloom.loom.db.MetaElement;
 import io.metaloom.loom.db.model.user.User;
 
-public interface Group extends CUDElement, MetaElement {
+public interface Group extends CUDElement<Group> {
 
 	/**
 	 * Return the name of the group.

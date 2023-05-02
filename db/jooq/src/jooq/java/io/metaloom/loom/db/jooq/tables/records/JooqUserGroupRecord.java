@@ -142,16 +142,4 @@ public class JooqUserGroupRecord extends UpdatableRecordImpl<JooqUserGroupRecord
         setUserUuid(userUuid);
         setGroupUuid(groupUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqUserGroupRecord
-     */
-    public JooqUserGroupRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqUserGroup value) {
-        super(JooqUserGroup.USER_GROUP);
-
-        if (value != null) {
-            setUserUuid(value.getUserUuid());
-            setGroupUuid(value.getGroupUuid());
-        }
-    }
 }

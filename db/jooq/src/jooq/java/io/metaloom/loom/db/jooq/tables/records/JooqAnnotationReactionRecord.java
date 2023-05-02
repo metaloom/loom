@@ -144,16 +144,4 @@ public class JooqAnnotationReactionRecord extends UpdatableRecordImpl<JooqAnnota
         setAnnotationUuid(annotationUuid);
         setReactionAnnotationUuid(reactionAnnotationUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqAnnotationReactionRecord
-     */
-    public JooqAnnotationReactionRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqAnnotationReaction value) {
-        super(JooqAnnotationReaction.ANNOTATION_REACTION);
-
-        if (value != null) {
-            setAnnotationUuid(value.getAnnotationUuid());
-            setReactionAnnotationUuid(value.getReactionAnnotationUuid());
-        }
-    }
 }

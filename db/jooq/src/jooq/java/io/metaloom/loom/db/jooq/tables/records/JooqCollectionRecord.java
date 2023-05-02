@@ -406,23 +406,4 @@ public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionReco
         setEditorUuid(editorUuid);
         setParentCollectionUuid(parentCollectionUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqCollectionRecord
-     */
-    public JooqCollectionRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqCollection value) {
-        super(JooqCollection.COLLECTION);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setName(value.getName());
-            setMeta(value.getMeta());
-            setDescription(value.getDescription());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-            setParentCollectionUuid(value.getParentCollectionUuid());
-        }
-    }
 }

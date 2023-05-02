@@ -142,16 +142,4 @@ public class JooqTaskAnnotationRecord extends UpdatableRecordImpl<JooqTaskAnnota
         setTaskUuid(taskUuid);
         setAnnotationUuid(annotationUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqTaskAnnotationRecord
-     */
-    public JooqTaskAnnotationRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqTaskAnnotation value) {
-        super(JooqTaskAnnotation.TASK_ANNOTATION);
-
-        if (value != null) {
-            setTaskUuid(value.getTaskUuid());
-            setAnnotationUuid(value.getAnnotationUuid());
-        }
-    }
 }

@@ -670,30 +670,4 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> implem
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqAssetRecord
-     */
-    public JooqAssetRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqAsset value) {
-        super(JooqAsset.ASSET);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setBinaryUuid(value.getBinaryUuid());
-            setPath(value.getPath());
-            setFilekeyInode(value.getFilekeyInode());
-            setFilekeyStdev(value.getFilekeyStdev());
-            setFilekeyEdateNano(value.getFilekeyEdateNano());
-            setFilekeyEdate(value.getFilekeyEdate());
-            setMeta(value.getMeta());
-            setMimeType(value.getMimeType());
-            setLicense(value.getLicense());
-            setState(value.getState());
-            setLockedByUuid(value.getLockedByUuid());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-        }
-    }
 }

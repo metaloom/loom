@@ -54,12 +54,12 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 		addRoute("/users/:uuid", DELETE, lrc -> {
 			String uuid = lrc.pathParam("uuid");
 			System.out.println("Deleting " + uuid);
-			User user = userDao.loadUser(UUID.fromString(uuid));
+			User user = userDao.load(UUID.fromString(uuid));
 			if (user == null) {
 				lrc.send(new GenericMessageResponse(), 404);
 				return;
 			} else {
-				userDao.deleteUser(user);
+				userDao.delete(user);
 				lrc.send();
 			}
 		});
@@ -68,7 +68,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 
 	private void registerListUsers() {
 		addRoute("/users", GET, lrc -> {
-			Page<User> page = userDao.loadUsers(null, 25);
+			Page<User> page = userDao.loadPage(null, 25);
 			UserListResponse response = new UserListResponse();
 			page.forEach(user -> {
 				response.add(toResponse(user));
@@ -87,7 +87,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 			// TODO handle conflicts
 
 			User user = userDao.createUser(userName);
-			userDao.storeUser(user);
+			userDao.store(user);
 			lrc.send(toResponse(user), 201);
 		});
 	}

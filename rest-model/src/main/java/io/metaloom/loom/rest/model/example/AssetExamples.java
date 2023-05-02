@@ -1,7 +1,5 @@
 package io.metaloom.loom.rest.model.example;
 
-import static io.metaloom.loom.rest.model.example.ContentExamples.tagReferenceList;
-
 import java.util.UUID;
 
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
@@ -29,7 +27,6 @@ public class AssetExamples extends AbstractExamples {
 		model.setLocation(new AssetFilesystemLocation().setFilekey(new FileKey().setInode(42).setStDev(12)).setLastSeen(DATE_NEW)
 			.setPath("/the-current-path/bigbuckbunny-4k.mp4"));
 		model.setGeo(assetGeoLocation())
-			.setTags(tagReferenceList())
 			.setAnnotations(assetAnnotations())
 			.setFilename("bigbuckbunny-4k.mp4");
 
@@ -66,7 +63,6 @@ public class AssetExamples extends AbstractExamples {
 			.setMeta(meta())
 			.setMimeType("video/mp4")
 			.setLocation(assetGeoLocation())
-			.setTags(tagReferenceList())
 			.setTimeline(assetAnnotations());
 		return model;
 	}
@@ -80,7 +76,6 @@ public class AssetExamples extends AbstractExamples {
 			.setMeta(meta())
 			.setMimeType("video/mp4")
 			.setLocation(assetGeoLocation())
-			.setTags(tagReferenceList())
 			.setTimeline(assetAnnotations());
 		return model;
 	}

@@ -248,19 +248,4 @@ public class JooqBinaryRemixRecord extends TableRecordImpl<JooqBinaryRemixRecord
         setCreated(created);
         setCreatorUuid(creatorUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqBinaryRemixRecord
-     */
-    public JooqBinaryRemixRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqBinaryRemix value) {
-        super(JooqBinaryRemix.BINARY_REMIX);
-
-        if (value != null) {
-            setBinaryAUuid(value.getBinaryAUuid());
-            setBinaryBUuid(value.getBinaryBUuid());
-            setMeta(value.getMeta());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-        }
-    }
 }

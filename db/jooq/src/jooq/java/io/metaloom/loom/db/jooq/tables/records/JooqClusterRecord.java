@@ -378,22 +378,4 @@ public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> im
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqClusterRecord
-     */
-    public JooqClusterRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqCluster value) {
-        super(JooqCluster.CLUSTER);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setName(value.getName());
-            setMeta(value.getMeta());
-            setType(value.getType());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-        }
-    }
 }

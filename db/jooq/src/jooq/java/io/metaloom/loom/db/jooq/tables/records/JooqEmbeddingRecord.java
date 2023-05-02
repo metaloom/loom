@@ -682,30 +682,4 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
         setEditorUuid(editorUuid);
         setBinaryUuid(binaryUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqEmbeddingRecord
-     */
-    public JooqEmbeddingRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqEmbedding value) {
-        super(JooqEmbedding.EMBEDDING);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setMeta(value.getMeta());
-            setSource(value.getSource());
-            setFrame(value.getFrame());
-            setAreaheight(value.getAreaheight());
-            setAreawidth(value.getAreawidth());
-            setAreastartx(value.getAreastartx());
-            setAreastarty(value.getAreastarty());
-            setEmbeddings(value.getEmbeddings());
-            setEmbeddingId(value.getEmbeddingId());
-            setEmbeddingType(value.getEmbeddingType());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-            setBinaryUuid(value.getBinaryUuid());
-        }
-    }
 }

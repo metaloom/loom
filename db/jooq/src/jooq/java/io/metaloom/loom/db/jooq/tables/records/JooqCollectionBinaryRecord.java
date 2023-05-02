@@ -144,16 +144,4 @@ public class JooqCollectionBinaryRecord extends UpdatableRecordImpl<JooqCollecti
         setCollectionUuid(collectionUuid);
         setBinaryUuid(binaryUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqCollectionBinaryRecord
-     */
-    public JooqCollectionBinaryRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqCollectionBinary value) {
-        super(JooqCollectionBinary.COLLECTION_BINARY);
-
-        if (value != null) {
-            setCollectionUuid(value.getCollectionUuid());
-            setBinaryUuid(value.getBinaryUuid());
-        }
-    }
 }

@@ -1,203 +1,207 @@
 package io.metaloom.loom.db.jooq.dao.asset.bin;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
-import io.metaloom.loom.db.jooq.tables.pojos.JooqBinary;
-import io.metaloom.loom.db.jooq.wrapper.AbstractWrappedElement;
+import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.asset.Binary;
 
-public class BinaryImpl extends AbstractWrappedElement<JooqBinary> implements Binary {
+public class BinaryImpl extends AbstractEditableElement<Binary> implements Binary {
 
-	public BinaryImpl(JooqBinary delegate) {
-		super(delegate);
+	private String sha512sum;
+	private String sha256sum;
+	private String md5sum;
+	private String chunkHash;
+	private long zeroChunkCount;
+	private String videoFingerprint;
+	private String audioFingerprint;
+	private Integer mediaHeight;
+	private Integer mediaWidth;
+	private String s3BucketName;
+	private long size;
+	private String s3ObjectPath;
+	private String imageDominantColor;
+	private BigDecimal geoLat;
+	private BigDecimal geoLon;
+	private String mimeType;
+
+	public BinaryImpl() {
 	}
 
-	@Override
-	public UUID getUuid() {
-		return delegate().getUuid();
-	}
-
-	@Override
-	public Binary setUuid(UUID uuid) {
-		delegate().setUuid(uuid);
-		return this;
-	}
-
+	
 	@Override
 	public String getSHA512() {
-		return delegate().getSha512sum();
+		return sha512sum;
 	}
 
 	@Override
-	public Binary setSHA512(String hashsum) {
-		delegate().setSha512sum(hashsum);
+	public Binary setSHA512(String sha512sum) {
+		this.sha512sum = sha512sum;
 		return this;
 	}
 
 	@Override
 	public String getSHA256() {
-		return delegate().getSha256sum();
+		return sha256sum;
 	}
 
 	@Override
-	public Binary setSHA256(String hashsum) {
-		delegate().setSha256sum(hashsum);
+	public Binary setSHA256(String sha256sum) {
+		this.sha256sum = sha256sum;
 		return this;
 	}
 
 	@Override
 	public String getMD5() {
-		return delegate().getMd5sum();
+		return md5sum;
 	}
 
 	@Override
-	public Binary setMD5(String hashsum) {
-		delegate().setMd5sum(hashsum);
+	public Binary setMD5(String md5sum) {
+		this.md5sum = md5sum;
 		return this;
 	}
 
 	@Override
 	public String getChunkHash() {
-		return delegate().getChunkHash();
+		return chunkHash;
 	}
 
 	@Override
 	public Binary setChunkHash(String chunkHash) {
-		delegate().setChunkHash(chunkHash);
+		this.chunkHash = chunkHash;
 		return this;
 	}
 
 	@Override
 	public long getZeroChunkCount() {
-		return delegate().getZeroChunkCount();
+		return zeroChunkCount;
 	}
 
 	@Override
 	public Binary setZeroChunkCount(long zeroChunkCount) {
-		delegate().setZeroChunkCount(zeroChunkCount);
+		this.zeroChunkCount = zeroChunkCount;
 		return this;
 	}
 
 	@Override
 	public Integer getMediaWidth() {
-		return delegate().getMediaWidth();
+		return mediaWidth;
 	}
 
 	@Override
 	public Binary setMediaWidth(Integer width) {
-		delegate().setMediaWidth(width);
+		this.mediaWidth = width;
 		return this;
 	}
 
 	@Override
 	public Integer getMediaHeight() {
-		return delegate().getMediaHeight();
+		return mediaHeight;
 	}
 
 	@Override
 	public Binary setMediaHeight(Integer height) {
-		delegate().setMediaHeight(height);
+		this.mediaHeight = height;
 		return this;
 	}
 
 	@Override
 	public String getVideoFingerprint() {
-		return delegate().getVideoFingerprint();
+		return videoFingerprint;
 	}
 
 	@Override
-	public Binary setVideoFingerprint(String fingerprint) {
-		delegate().setVideoFingerprint(fingerprint);
+	public Binary setVideoFingerprint(String videoFingerprint) {
+		this.videoFingerprint = videoFingerprint;
 		return this;
 	}
 
 	@Override
 	public String getAudioFingerprint() {
-		return delegate().getAudioFingerprint();
+		return audioFingerprint;
 	}
 
 	@Override
-	public Binary setAudioFingerprint(String fingerprint) {
-		delegate().setAudioFingerprint(fingerprint);
+	public Binary setAudioFingerprint(String audioFingerprint) {
+		this.audioFingerprint = audioFingerprint;
 		return this;
 	}
 
 	@Override
 	public long getSize() {
-		return delegate().getSize();
+		return size;
 	}
 
 	@Override
 	public Binary setSize(long size) {
-		delegate().setSize(size);
+		this.size = size;
 		return this;
 	}
 
 	@Override
 	public String getS3BucketName() {
-		return delegate().getS3BucketName();
+		return this.s3BucketName;
 	}
 
 	@Override
 	public Binary setS3BucketName(String bucketName) {
-		delegate().setS3BucketName(bucketName);
+		this.s3BucketName = bucketName;
 		return this;
 	}
 
 	@Override
 	public String getS3ObjectPath() {
-		return delegate().getS3ObjectPath();
+		return s3ObjectPath;
 	}
 
 	@Override
 	public Binary setS3ObjectPath(String path) {
-		delegate().setS3ObjectPath(path);
+		this.s3ObjectPath = path;
 		return this;
 	}
 
 	@Override
 	public String getDominantColor() {
-		return delegate().getImageDominantColor();
+		return imageDominantColor;
 	}
 
 	@Override
 	public Binary setDominantColor(String color) {
-		delegate().setImageDominantColor(color);
+		this.imageDominantColor = color;
 		return this;
 	}
 
 	@Override
 	public BigDecimal getGeoLat() {
-		return delegate().getGeoLat();
+		return geoLat;
 	}
 
 	@Override
 	public Binary setGeoLat(BigDecimal lat) {
-		delegate().setGeoLat(lat);
+		this.geoLat = lat;
 		return this;
 	}
 
 	@Override
 	public BigDecimal getGeoLon() {
-		return delegate().getGeoLon();
+		return geoLon;
 	}
 
 	@Override
 	public Binary setGeoLon(BigDecimal lon) {
-		delegate().setGeoLon(lon);
+		this.geoLon = lon;
 		return this;
 	}
 	//
 
 	@Override
 	public String getMimeType() {
-		return delegate().getMimeType();
+		return mimeType;
 	}
 
 	@Override
 	public Binary setMimeType(String mimeType) {
-		delegate().setMimeType(mimeType);
+		this.mimeType = mimeType;
 		return this;
 	}
 }

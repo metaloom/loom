@@ -485,25 +485,4 @@ public class JooqWebhookRecord extends UpdatableRecordImpl<JooqWebhookRecord> im
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqWebhookRecord
-     */
-    public JooqWebhookRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqWebhook value) {
-        super(JooqWebhook.WEBHOOK);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setUrl(value.getUrl());
-            setStatus(value.getStatus());
-            setActive(value.getActive());
-            setTriggers(value.getTriggers());
-            setSecrettoken(value.getSecrettoken());
-            setMeta(value.getMeta());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-        }
-    }
 }

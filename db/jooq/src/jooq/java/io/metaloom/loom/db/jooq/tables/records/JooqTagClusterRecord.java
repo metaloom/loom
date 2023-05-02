@@ -142,16 +142,4 @@ public class JooqTagClusterRecord extends UpdatableRecordImpl<JooqTagClusterReco
         setTagUuid(tagUuid);
         setClusterUuid(clusterUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqTagClusterRecord
-     */
-    public JooqTagClusterRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqTagCluster value) {
-        super(JooqTagCluster.TAG_CLUSTER);
-
-        if (value != null) {
-            setTagUuid(value.getTagUuid());
-            setClusterUuid(value.getClusterUuid());
-        }
-    }
 }

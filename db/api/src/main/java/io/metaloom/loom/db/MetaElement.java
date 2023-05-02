@@ -5,7 +5,7 @@ import io.vertx.core.json.JsonObject;
 /**
  * Meta elements are elements which store additional meta properties (JSON).
  */
-public interface MetaElement extends Element {
+public interface MetaElement<SELF extends MetaElement<SELF>> extends Element<SELF> {
 
 	/**
 	 * Return the meta properties.
@@ -20,6 +20,6 @@ public interface MetaElement extends Element {
 	 * @param meta
 	 * @return Fluent API
 	 */
-	Element setMeta(JsonObject meta);
+	SELF setMeta(JsonObject meta);
 
 }

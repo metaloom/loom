@@ -220,18 +220,4 @@ public class JooqTagUserMetaRecord extends UpdatableRecordImpl<JooqTagUserMetaRe
         setRating(rating);
         setMeta(meta);
     }
-
-    /**
-     * Create a detached, initialised JooqTagUserMetaRecord
-     */
-    public JooqTagUserMetaRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqTagUserMeta value) {
-        super(JooqTagUserMeta.TAG_USER_META);
-
-        if (value != null) {
-            setTagUuid(value.getTagUuid());
-            setUserUuid(value.getUserUuid());
-            setRating(value.getRating());
-            setMeta(value.getMeta());
-        }
-    }
 }

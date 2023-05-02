@@ -19,21 +19,21 @@ public class LoomUserDaoTest extends AbstractJooqTest {
 		UserDao userDao = userDao();
 		User createdUser = userDao.createUser("dummy");
 
-		Stream<User> obs = userDao.findAll();
+		Stream<? extends User> obs = userDao.findAll();
 
-		User loadedUser = userDao.loadUser(createdUser.getUuid());
+		User loadedUser = userDao.load(createdUser.getUuid());
 		assertNotNull(loadedUser);
 		obs.forEach(u -> {
 			System.out.println("User: " + u.getUsername() + " " + u.getUuid());
 		});
 
 		GroupDao groupDao = groupDao();
-		Group group = groupDao.createGroup("test");
+		Group group = groupDao.create("test");
 		assertNotNull(group);
 
 		groupDao.addUserToGroup(group, loadedUser);
 
-		Group loadedGroup = groupDao.loadGroup(group.getUuid());
+		Group loadedGroup = groupDao.load(group.getUuid());
 
 	}
 

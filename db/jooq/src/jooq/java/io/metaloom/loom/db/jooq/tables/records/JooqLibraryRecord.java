@@ -369,22 +369,4 @@ public class JooqLibraryRecord extends UpdatableRecordImpl<JooqLibraryRecord> im
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqLibraryRecord
-     */
-    public JooqLibraryRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqLibrary value) {
-        super(JooqLibrary.LIBRARY);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setName(value.getName());
-            setMeta(value.getMeta());
-            setDescription(value.getDescription());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-        }
-    }
 }

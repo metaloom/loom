@@ -142,16 +142,4 @@ public class JooqTaskAssetRecord extends UpdatableRecordImpl<JooqTaskAssetRecord
         setTaskUuid(taskUuid);
         setAssetUuid(assetUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqTaskAssetRecord
-     */
-    public JooqTaskAssetRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqTaskAsset value) {
-        super(JooqTaskAsset.TASK_ASSET);
-
-        if (value != null) {
-            setTaskUuid(value.getTaskUuid());
-            setAssetUuid(value.getAssetUuid());
-        }
-    }
 }

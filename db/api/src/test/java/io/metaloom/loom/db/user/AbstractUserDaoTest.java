@@ -42,8 +42,8 @@ public abstract class AbstractUserDaoTest {
 		User user = dao.createUser("joeddoe");
 
 		// Now assert deletion
-		dao.deleteUser(user);
-		assertNull(dao.loadUser(user.getUuid()), "The returned maybe should be empty.");
+		dao.delete(user);
+		assertNull(dao.load(user.getUuid()), "The returned maybe should be empty.");
 	}
 
 	@Test
@@ -55,10 +55,10 @@ public abstract class AbstractUserDaoTest {
 
 		// Now update
 		user.setUsername("joedoe2");
-		dao.updateUser(user);
+		dao.update(user);
 
 		// Load and assert update was persisted
-		User updatedUser = dao.loadUser(user.getUuid());
+		User updatedUser = dao.load(user.getUuid());
 		assertEquals("joedoe2", updatedUser.getUsername());
 
 	}
@@ -71,6 +71,6 @@ public abstract class AbstractUserDaoTest {
 		User user = dao.createUser("joedoe");
 
 		// Now load again
-		assertNotNull(dao.loadUser(user.getUuid()));
+		assertNotNull(dao.load(user.getUuid()));
 	}
 }

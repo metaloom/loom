@@ -78,23 +78,23 @@ public class PoolSetupAction {
 		// User
 		User adminUser = userDao.createUser("admin");
 		adminUser.setPasswordHash(authService.encodePassword("finger"));
-		userDao.storeUser(adminUser);
+		userDao.store(adminUser);
 
 		// Group + Assign User to Group
-		Group group = groupDao.createGroup("test-group");
-		groupDao.storeGroup(group);
+		Group group = groupDao.create("test-group");
+		groupDao.store(group);
 		groupDao.addUserToGroup(group, adminUser);
 
 		// Role + Assign Role to Group + Role Permission
 		Role role = roleDao.createRole("test-role", adminUser.getUuid());
-		roleDao.storeRole(role);
+		roleDao.store(role);
 		groupDao.addRoleToGroup(group, role);
 		permissionDao.grantRolePermission(role.getUuid(), Permission.READ_USER, "test");
 
 		// Second user
 		User joeDoeUser = userDao.createUser("joedoe");
 		joeDoeUser.setPasswordHash(authService.encodePassword("finger"));
-		userDao.storeUser(joeDoeUser);
+		userDao.store(joeDoeUser);
 		permissionDao.grantUserPermission(joeDoeUser.getUuid(), Permission.READ_USER, "test");
 		
 

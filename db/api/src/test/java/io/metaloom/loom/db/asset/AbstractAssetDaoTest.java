@@ -54,8 +54,8 @@ public abstract class AbstractAssetDaoTest {
 		Asset asset = createTestAsset();
 
 		// Now assert deletion
-		dao.deleteAsset(asset);
-		assertNull(dao.loadAsset(asset.getUuid()), "The asset should be deleted");
+		dao.delete(asset);
+		assertNull(dao.load(asset.getUuid()), "The asset should be deleted");
 	}
 
 	@Test
@@ -67,10 +67,10 @@ public abstract class AbstractAssetDaoTest {
 
 		// Now update
 		asset.setPath("blume2.jpg");
-		dao.updateAsset(asset);
+		dao.update(asset);
 
 		// Load and assert update was persisted
-		Asset updatedAsset = dao.loadAsset(asset.getUuid());
+		Asset updatedAsset = dao.load(asset.getUuid());
 		assertEquals("blume2.jpg", updatedAsset.getPath());
 	}
 
@@ -81,6 +81,6 @@ public abstract class AbstractAssetDaoTest {
 		Asset asset = createTestAsset();
 
 		// Now load again
-		assertNotNull(dao.loadAsset(asset.getUuid()));
+		assertNotNull(dao.load(asset.getUuid()));
 	}
 }

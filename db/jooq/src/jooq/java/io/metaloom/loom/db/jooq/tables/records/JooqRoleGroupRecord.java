@@ -142,16 +142,4 @@ public class JooqRoleGroupRecord extends UpdatableRecordImpl<JooqRoleGroupRecord
         setGroupUuid(groupUuid);
         setRoleUuid(roleUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqRoleGroupRecord
-     */
-    public JooqRoleGroupRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqRoleGroup value) {
-        super(JooqRoleGroup.ROLE_GROUP);
-
-        if (value != null) {
-            setGroupUuid(value.getGroupUuid());
-            setRoleUuid(value.getRoleUuid());
-        }
-    }
 }

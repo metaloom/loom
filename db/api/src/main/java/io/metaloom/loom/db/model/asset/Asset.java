@@ -1,10 +1,12 @@
 package io.metaloom.loom.db.model.asset;
 
+import java.util.UUID;
+
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.MetaElement;
 import io.metaloom.loom.db.Taggable;
 
-public interface Asset extends CUDElement, Taggable, MetaElement {
+public interface Asset extends CUDElement<Asset>, Taggable, MetaElement<Asset> {
 
 	/**
 	 * Return the filesystem path of the asset.
@@ -20,5 +22,9 @@ public interface Asset extends CUDElement, Taggable, MetaElement {
 	 * @return Fluent API
 	 */
 	Asset setPath(String filename);
+
+	UUID getBinaryUuid();
+
+	Asset setBinaryUuid(UUID binaryUuid);
 
 }

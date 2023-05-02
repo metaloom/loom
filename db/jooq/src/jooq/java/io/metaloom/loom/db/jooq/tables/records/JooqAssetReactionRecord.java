@@ -142,16 +142,4 @@ public class JooqAssetReactionRecord extends UpdatableRecordImpl<JooqAssetReacti
         setAssetUuid(assetUuid);
         setReactionAssetUuid(reactionAssetUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqAssetReactionRecord
-     */
-    public JooqAssetReactionRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqAssetReaction value) {
-        super(JooqAssetReaction.ASSET_REACTION);
-
-        if (value != null) {
-            setAssetUuid(value.getAssetUuid());
-            setReactionAssetUuid(value.getReactionAssetUuid());
-        }
-    }
 }

@@ -21,7 +21,7 @@ import io.metaloom.loom.db.model.library.LibraryDao;
 import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.role.RoleDao;
 import io.metaloom.loom.db.model.tag.TagDao;
-import io.metaloom.loom.db.model.user.TokenDao;
+import io.metaloom.loom.db.model.token.TokenDao;
 import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.model.webhook.WebhookDao;
 

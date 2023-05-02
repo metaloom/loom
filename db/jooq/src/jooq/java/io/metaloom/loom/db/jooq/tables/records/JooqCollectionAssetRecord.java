@@ -142,16 +142,4 @@ public class JooqCollectionAssetRecord extends UpdatableRecordImpl<JooqCollectio
         setCollectionUuid(collectionUuid);
         setAssetUuid(assetUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqCollectionAssetRecord
-     */
-    public JooqCollectionAssetRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqCollectionAsset value) {
-        super(JooqCollectionAsset.COLLECTION_ASSET);
-
-        if (value != null) {
-            setCollectionUuid(value.getCollectionUuid());
-            setAssetUuid(value.getAssetUuid());
-        }
-    }
 }

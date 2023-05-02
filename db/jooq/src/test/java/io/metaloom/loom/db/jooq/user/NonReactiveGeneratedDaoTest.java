@@ -2,8 +2,6 @@ package io.metaloom.loom.db.jooq.user;
 
 import static io.metaloom.loom.db.jooq.user.LoomExtensionHelper.toOptions;
 
-import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.jooq.DSLContext;
@@ -16,8 +14,9 @@ import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
-import io.metaloom.loom.db.jooq.tables.daos.JooqUserDao;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqUser;
+import io.metaloom.loom.db.jooq.dao.user.UserDaoImpl;
+import io.metaloom.loom.db.model.user.User;
+import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.test.LoomProviderExtension;
 
 public class NonReactiveGeneratedDaoTest extends AbstractJooqTest {
@@ -43,12 +42,10 @@ public class NonReactiveGeneratedDaoTest extends AbstractJooqTest {
 		//
 		// f.blockFirst();
 
-		JooqUserDao dao = new JooqUserDao(ctx.configuration());
+		UserDao dao = new UserDaoImpl(ctx);
 
-		List<JooqUser> users = dao.fetchByJooqUsername("joedoe");
-		for (JooqUser u : users) {
-			System.out.println("Found: " + u.getUsername() + " " + u.getUuid());
-		}
+		User user = dao.loadUserByUsername("joedoe");
+		System.out.println("Found: " + user.getUsername() + " " + user.getUuid());
 
 	}
 }

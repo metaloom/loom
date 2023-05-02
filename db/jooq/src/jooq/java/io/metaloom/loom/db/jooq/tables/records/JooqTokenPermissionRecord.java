@@ -183,17 +183,4 @@ public class JooqTokenPermissionRecord extends UpdatableRecordImpl<JooqTokenPerm
         setResource(resource);
         setPermission(permission);
     }
-
-    /**
-     * Create a detached, initialised JooqTokenPermissionRecord
-     */
-    public JooqTokenPermissionRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqTokenPermission value) {
-        super(JooqTokenPermission.TOKEN_PERMISSION);
-
-        if (value != null) {
-            setTokenUuid(value.getTokenUuid());
-            setResource(value.getResource());
-            setPermission(value.getPermission());
-        }
-    }
 }

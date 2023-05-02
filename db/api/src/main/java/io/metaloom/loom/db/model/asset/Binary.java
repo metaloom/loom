@@ -2,9 +2,10 @@ package io.metaloom.loom.db.model.asset;
 
 import java.math.BigDecimal;
 
-import io.metaloom.loom.db.Element;
+import io.metaloom.loom.db.CUDElement;
+import io.metaloom.loom.db.Taggable;
 
-public interface Binary extends Element {
+public interface Binary extends CUDElement<Binary>, Taggable {
 
 	String getSHA512();
 

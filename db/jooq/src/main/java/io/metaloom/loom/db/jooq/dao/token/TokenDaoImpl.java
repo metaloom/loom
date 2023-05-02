@@ -4,16 +4,29 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
+import org.jooq.Table;
+import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqTokenDao;
-import io.metaloom.loom.db.model.user.TokenDao;
+import io.metaloom.loom.db.jooq.tables.JooqToken;
+import io.metaloom.loom.db.model.token.Token;
+import io.metaloom.loom.db.model.token.TokenDao;
 
 @Singleton
-public class TokenDaoImpl extends AbstractJooqDao<JooqTokenDao> implements TokenDao {
+public class TokenDaoImpl extends AbstractJooqDao<Token> implements TokenDao {
 
 	@Inject
-	public TokenDaoImpl(JooqTokenDao dao, DSLContext ctx) {
-		super(dao, ctx);
+	public TokenDaoImpl(DSLContext ctx) {
+		super(ctx);
+	}
+
+	@Override
+	protected Table<? extends TableRecord<?>> getTable() {
+		return JooqToken.TOKEN;
+	}
+
+	@Override
+	protected Class<? extends Token> getPojoClass() {
+		return TokenImpl.class;
 	}
 }

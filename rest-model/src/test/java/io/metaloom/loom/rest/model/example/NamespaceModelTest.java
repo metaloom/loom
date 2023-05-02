@@ -1,10 +1,10 @@
 package io.metaloom.loom.rest.model.example;
 
 import static io.metaloom.loom.rest.model.example.ModelTestHelper.assertModel;
-import static io.metaloom.loom.rest.model.example.NamespaceExamples.namespaceCreateRequest;
-import static io.metaloom.loom.rest.model.example.NamespaceExamples.namespaceListResponse;
-import static io.metaloom.loom.rest.model.example.NamespaceExamples.namespaceResponse;
-import static io.metaloom.loom.rest.model.example.NamespaceExamples.namespaceUpdateRequest;
+import static io.metaloom.loom.rest.model.example.LibraryExamples.namespaceCreateRequest;
+import static io.metaloom.loom.rest.model.example.LibraryExamples.namespaceListResponse;
+import static io.metaloom.loom.rest.model.example.LibraryExamples.namespaceResponse;
+import static io.metaloom.loom.rest.model.example.LibraryExamples.namespaceUpdateRequest;
 
 import org.junit.jupiter.api.Test;
 

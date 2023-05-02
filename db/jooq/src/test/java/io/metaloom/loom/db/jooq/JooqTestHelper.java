@@ -21,7 +21,7 @@ public interface JooqTestHelper {
 
 	default User createUser(String username) {
 		User user = userDao().createUser(username);
-		userDao().storeUser(user);
+		userDao().store(user);
 		return user;
 	}
 
@@ -33,13 +33,13 @@ public interface JooqTestHelper {
 
 	default Library createLibrary(String name) {
 		Library library = libraryDao().createLibrary(name);
-		libraryDao().storeLibrary(library);
+		libraryDao().store(library);
 		return library;
 	}
 
 	default Binary createBinary() {
 		Binary binary = binaryDao().createBinary(DUMMY_SHA512SUM, 42L);
-		binaryDao().storeBinary(binary);
+		binaryDao().store(binary);
 		return binary;
 	}
 

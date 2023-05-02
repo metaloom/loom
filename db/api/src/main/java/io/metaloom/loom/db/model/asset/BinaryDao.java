@@ -2,22 +2,14 @@ package io.metaloom.loom.db.model.asset;
 
 import java.util.UUID;
 
-import io.metaloom.loom.db.Dao;
+import io.metaloom.loom.db.CRUDDao;
 
-public interface BinaryDao extends Dao {
+public interface BinaryDao extends CRUDDao<Binary> {
 
 	Binary createBinary(String sha512sum, long size);
 
-	void storeBinary(Binary binary);
+	Binary loadBySHA512Sum(String sha512sum);
 
-	void updateBinary(Binary binary);
-
-	void deleteBinary(Binary binary);
-
-	long count();
-
-	Binary loadBinaryBySHA512Sum(String sha512sum);
-
-	Binary loadBinaryByUuid(UUID uuid);
+	Binary loadByUuid(UUID uuid);
 
 }

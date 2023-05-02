@@ -443,24 +443,4 @@ public class JooqTaskRecord extends UpdatableRecordImpl<JooqTaskRecord> implemen
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqTaskRecord
-     */
-    public JooqTaskRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqTask value) {
-        super(JooqTask.TASK);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setTitle(value.getTitle());
-            setContent(value.getContent());
-            setDueDate(value.getDueDate());
-            setStatus(value.getStatus());
-            setPriority(value.getPriority());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-        }
-    }
 }

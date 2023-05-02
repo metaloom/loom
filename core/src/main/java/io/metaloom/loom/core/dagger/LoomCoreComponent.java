@@ -15,7 +15,6 @@ import io.metaloom.loom.db.dagger.DBBindModule;
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
-import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
 import io.metaloom.loom.rest.dagger.RESTModule;
 
 /**
@@ -30,7 +29,6 @@ import io.metaloom.loom.rest.dagger.RESTModule;
 	DBBindModule.class,
 	JooqLoomDaoBindModule.class,
 	JooqModule.class,
-	JooqNativeDaoModule.class,
 	RESTModule.class,
 	RoutingContextModule.class })
 public interface LoomCoreComponent {

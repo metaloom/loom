@@ -5,7 +5,7 @@ import io.metaloom.loom.db.CUDElement;
 /**
  * Tags are elements which can be attached to various other elements (e.g. Namespaces, Contents, Assets)
  */
-public interface Tag extends CUDElement {
+public interface Tag extends CUDElement<Tag> {
 
 	/**
 	 * Return the name of the tag.

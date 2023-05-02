@@ -142,16 +142,4 @@ public class JooqCommentTaskRecord extends UpdatableRecordImpl<JooqCommentTaskRe
         setCommentUuid(commentUuid);
         setTaskUuid(taskUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqCommentTaskRecord
-     */
-    public JooqCommentTaskRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqCommentTask value) {
-        super(JooqCommentTask.COMMENT_TASK);
-
-        if (value != null) {
-            setCommentUuid(value.getCommentUuid());
-            setTaskUuid(value.getTaskUuid());
-        }
-    }
 }

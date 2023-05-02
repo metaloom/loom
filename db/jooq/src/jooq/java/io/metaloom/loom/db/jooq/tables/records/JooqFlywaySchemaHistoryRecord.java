@@ -439,24 +439,4 @@ public class JooqFlywaySchemaHistoryRecord extends UpdatableRecordImpl<JooqFlywa
         setExecutionTime(executionTime);
         setSuccess(success);
     }
-
-    /**
-     * Create a detached, initialised JooqFlywaySchemaHistoryRecord
-     */
-    public JooqFlywaySchemaHistoryRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqFlywaySchemaHistory value) {
-        super(JooqFlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY);
-
-        if (value != null) {
-            setInstalledRank(value.getInstalledRank());
-            setVersion(value.getVersion());
-            setDescription(value.getDescription());
-            setType(value.getType());
-            setScript(value.getScript());
-            setChecksum(value.getChecksum());
-            setInstalledBy(value.getInstalledBy());
-            setInstalledOn(value.getInstalledOn());
-            setExecutionTime(value.getExecutionTime());
-            setSuccess(value.getSuccess());
-        }
-    }
 }

@@ -41,8 +41,8 @@ public abstract class AbstractRoleDaoTest {
 		Role role = dao.createRole("Guests");
 
 		// Now assert deletion
-		dao.deleteRole(role.getUuid());
-		assertNull( dao.loadRole(role.getUuid()), "No role should be found after deletion.");
+		dao.delete(role.getUuid());
+		assertNull( dao.load(role.getUuid()), "No role should be found after deletion.");
 	}
 
 	@Test
@@ -54,10 +54,10 @@ public abstract class AbstractRoleDaoTest {
 
 		// Now update
 		role.setName("Guests2");
-		dao.updateRole(role);
+		dao.update(role);
 
 		// Load and assert update was persisted
-		Role updatedRole = dao.loadRole(role.getUuid());
+		Role updatedRole = dao.load(role.getUuid());
 		assertEquals("Guests2", updatedRole.getName());
 	}
 
@@ -69,6 +69,6 @@ public abstract class AbstractRoleDaoTest {
 		Role role = dao.createRole("Guests");
 
 		// Now load again
-		assertNotNull(dao.loadRole(role.getUuid()));
+		assertNotNull(dao.load(role.getUuid()));
 	}
 }

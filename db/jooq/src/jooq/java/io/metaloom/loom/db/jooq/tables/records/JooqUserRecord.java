@@ -558,27 +558,4 @@ public class JooqUserRecord extends UpdatableRecordImpl<JooqUserRecord> implemen
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqUserRecord
-     */
-    public JooqUserRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqUser value) {
-        super(JooqUser.USER);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setUsername(value.getUsername());
-            setFirstname(value.getFirstname());
-            setLastname(value.getLastname());
-            setEmail(value.getEmail());
-            setEnabled(value.getEnabled());
-            setSso(value.getSso());
-            setPasswordHash(value.getPasswordHash());
-            setMeta(value.getMeta());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-        }
-    }
 }

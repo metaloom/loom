@@ -1,23 +1,26 @@
 package io.metaloom.loom.db.mem;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import io.metaloom.loom.db.CUDElement;
-import io.metaloom.loom.db.Element;
-import io.metaloom.loom.db.model.user.User;
 
-public abstract class AbstractMemCUDElement extends AbstractMemLoomElement implements CUDElement {
+public abstract class AbstractMemCUDElement<SELF extends CUDElement<SELF>> extends AbstractMemLoomElement<SELF> implements CUDElement<SELF> {
 
-	private User creator;
 	private LocalDateTime cdate;
-
-	private User editor;
 	private LocalDateTime edate;
+	private UUID editorUuid;
+	private UUID creatorUuid;
 
 	@Override
-	public Element setEditor(User editor) {
-		this.editor = editor;
-		return this;
+	public UUID getEditorUuid() {
+		return editorUuid;
+	}
+
+	@Override
+	public SELF setEditorUuid(UUID editorUuid) {
+		this.editorUuid = editorUuid;
+		return self();
 	}
 
 	@Override
@@ -26,15 +29,20 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	}
 
 	@Override
-	public Element setEdited(LocalDateTime edate) {
+	public SELF setEdited(LocalDateTime edate) {
 		this.edate = edate;
-		return this;
+		return self();
 	}
 
 	@Override
-	public Element setCreator(User creator) {
-		this.creator = creator;
-		return this;
+	public UUID getCreatorUuid() {
+		return creatorUuid;
+	}
+
+	@Override
+	public SELF setCreatorUuid(UUID creatorUuid) {
+		this.creatorUuid = creatorUuid;
+		return self();
 	}
 
 	@Override
@@ -43,10 +51,9 @@ public abstract class AbstractMemCUDElement extends AbstractMemLoomElement imple
 	}
 
 	@Override
-	public Element setCreated(LocalDateTime cdate) {
+	public SELF setCreated(LocalDateTime cdate) {
 		this.cdate = cdate;
-		return this;
-
+		return self();
 	}
 
 }

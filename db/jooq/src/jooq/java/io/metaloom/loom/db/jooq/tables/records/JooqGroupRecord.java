@@ -332,21 +332,4 @@ public class JooqGroupRecord extends UpdatableRecordImpl<JooqGroupRecord> implem
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqGroupRecord
-     */
-    public JooqGroupRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqGroup value) {
-        super(JooqGroup.GROUP);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setName(value.getName());
-            setMeta(value.getMeta());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-        }
-    }
 }

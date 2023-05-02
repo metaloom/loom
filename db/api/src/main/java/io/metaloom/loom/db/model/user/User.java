@@ -3,7 +3,7 @@ package io.metaloom.loom.db.model.user;
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.MetaElement;
 
-public interface User extends CUDElement, MetaElement {
+public interface User extends CUDElement<User>, MetaElement<User> {
 
 	/**
 	 * Return the username.
@@ -25,10 +25,8 @@ public interface User extends CUDElement, MetaElement {
 	 * 
 	 * @return
 	 */
-	//@Column(name = "password_hash")
+	// @Column(name = "password_hash")
 	String getPasswordHash();
-	
-	
 
 	/**
 	 * Set the password hash.

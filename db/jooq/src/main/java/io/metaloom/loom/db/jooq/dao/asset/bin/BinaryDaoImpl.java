@@ -6,54 +6,51 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
+import org.jooq.Table;
+import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqBinaryDao;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqBinary;
+import io.metaloom.loom.db.jooq.tables.JooqBinary;
 import io.metaloom.loom.db.model.asset.Binary;
 import io.metaloom.loom.db.model.asset.BinaryDao;
 
 @Singleton
-public class BinaryDaoImpl extends AbstractJooqDao<JooqBinaryDao> implements BinaryDao {
+public class BinaryDaoImpl extends AbstractJooqDao<Binary> implements BinaryDao {
 
 	@Inject
-	public BinaryDaoImpl(JooqBinaryDao dao, DSLContext ctx) {
-		super(dao, ctx);
+	public BinaryDaoImpl(DSLContext ctx) {
+		super(ctx);
+	}
+
+	@Override
+	protected Table<? extends TableRecord<?>> getTable() {
+		return JooqBinary.BINARY;
+	}
+
+	@Override
+	protected Class<? extends Binary> getPojoClass() {
+		return BinaryImpl.class;
 	}
 
 	@Override
 	public Binary createBinary(String sha512sum, long size) {
-		JooqBinary binary = new JooqBinary();
-		binary.setSha512sum(sha512sum);
+		Binary binary = new BinaryImpl();
+		binary.setSHA256(sha512sum);
 		binary.setSize(size);
-		return wrap(binary);
+		return binary;
 	}
 
 	@Override
-	public void storeBinary(Binary binary) {
-		JooqBinary jooq = unwrap(binary);
-		dao().insert(jooq);
+	public Binary loadBySHA512Sum(String sha512sum) {
+		return ctx()
+			.select(getTable())
+			.where(JooqBinary.BINARY.SHA512SUM.eq(sha512sum))
+			.fetchOneInto(getPojoClass());
 	}
 
 	@Override
-	public void updateBinary(Binary binary) {
-		JooqBinary jooq = unwrap(binary);
-		dao().update(jooq);
-	}
-
-	@Override
-	public void deleteBinary(Binary binary) {
-		dao().deleteById(binary.getSHA512());
-	}
-
-	@Override
-	public Binary loadBinaryBySHA512Sum(String sha512sum) {
-		return wrap(dao().findById(sha512sum));
-	}
-
-	@Override
-	public Binary loadBinaryByUuid(UUID uuid) {
-		return wrap(dao().fetchByJooqUuid(uuid));
+	public Binary loadByUuid(UUID uuid) {
+		return load(uuid);
 	}
 
 }

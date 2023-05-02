@@ -414,23 +414,4 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
         setReviewCount(reviewCount);
         setMeta(meta);
     }
-
-    /**
-     * Create a detached, initialised JooqBlacklistRecord
-     */
-    public JooqBlacklistRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqBlacklist value) {
-        super(JooqBlacklist.BLACKLIST);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setBinaryUuid(value.getBinaryUuid());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-            setType(value.getType());
-            setReviewCount(value.getReviewCount());
-            setMeta(value.getMeta());
-        }
-    }
 }

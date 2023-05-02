@@ -7,9 +7,11 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
+import org.jooq.Table;
+import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqWebhookDao;
+import io.metaloom.loom.db.jooq.tables.JooqWebhook;
 import io.metaloom.loom.db.model.webhook.Webhook;
 import io.metaloom.loom.db.model.webhook.WebhookDao;
 import io.reactivex.rxjava3.core.Completable;
@@ -17,11 +19,21 @@ import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 
 @Singleton
-public class WebhookDaoImpl extends AbstractJooqDao<JooqWebhookDao> implements WebhookDao {
+public class WebhookDaoImpl extends AbstractJooqDao<Webhook> implements WebhookDao {
 
 	@Inject
-	public WebhookDaoImpl(JooqWebhookDao dao, DSLContext ctx) {
-		super(dao, ctx);
+	public WebhookDaoImpl(DSLContext ctx) {
+		super(ctx);
+	}
+
+	@Override
+	protected Table<? extends TableRecord<?>> getTable() {
+		return JooqWebhook.WEBHOOK;
+	}
+
+	@Override
+	protected Class<? extends Webhook> getPojoClass() {
+		return WebhookImpl.class;
 	}
 
 	// @Override

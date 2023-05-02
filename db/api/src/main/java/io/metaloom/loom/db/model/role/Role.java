@@ -1,9 +1,8 @@
 package io.metaloom.loom.db.model.role;
 
 import io.metaloom.loom.db.CUDElement;
-import io.metaloom.loom.db.MetaElement;
 
-public interface Role extends CUDElement, MetaElement {
+public interface Role extends CUDElement<Role> {
 
 	/**
 	 * Return the name of the role.

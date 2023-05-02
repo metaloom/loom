@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.page.Page;
 
@@ -29,11 +28,11 @@ public class AssetDaoTest extends AbstractJooqTest {
 			assertNotNull(asset);
 			ref.set(asset.getUuid());
 			assertNotNull(asset.getUuid());
-			assetDao.storeAsset(asset);
+			assetDao.store(asset);
 		});
 
 		assertEquals(1, assetDao.count());
-		assertNotNull(assetDao.loadAsset(ref.get()));
+		assertNotNull(assetDao.load(ref.get()));
 	}
 
 	@Test
@@ -42,14 +41,14 @@ public class AssetDaoTest extends AbstractJooqTest {
 		//Library library = createLibrary("Test");
 		for (int i = 0; i < 1024; i++) {
 			Asset asset = createAsset("blume_" + i + ".jpg", creator);
-			assetDao().storeAsset(asset);
+			assetDao().store(asset);
 		}
 		assertEquals(1024, assetDao().count());
 
 		UUID uuid = null;
 		long totalFound = 0;
 		while (true) {
-			Page<Asset> page = assetDao().loadAssets(uuid, 30);
+			Page<Asset> page = assetDao().loadPage(uuid, 30);
 			if (page.isEmpty()) {
 				break;
 			} else {

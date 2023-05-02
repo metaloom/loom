@@ -142,16 +142,4 @@ public class JooqTagCollectionRecord extends UpdatableRecordImpl<JooqTagCollecti
         setTagUuid(tagUuid);
         setCollectionUuid(collectionUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqTagCollectionRecord
-     */
-    public JooqTagCollectionRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqTagCollection value) {
-        super(JooqTagCollection.TAG_COLLECTION);
-
-        if (value != null) {
-            setTagUuid(value.getTagUuid());
-            setCollectionUuid(value.getCollectionUuid());
-        }
-    }
 }

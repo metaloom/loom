@@ -332,21 +332,4 @@ public class JooqRoleRecord extends UpdatableRecordImpl<JooqRoleRecord> implemen
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqRoleRecord
-     */
-    public JooqRoleRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqRole value) {
-        super(JooqRole.ROLE);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setName(value.getName());
-            setMeta(value.getMeta());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-        }
-    }
 }

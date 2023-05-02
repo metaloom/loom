@@ -630,29 +630,4 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
         setMeta(meta);
         setThumbail(thumbail);
     }
-
-    /**
-     * Create a detached, initialised JooqAnnotationRecord
-     */
-    public JooqAnnotationRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqAnnotation value) {
-        super(JooqAnnotation.ANNOTATION);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setType(value.getType());
-            setAssetUuid(value.getAssetUuid());
-            setCreatorUuid(value.getCreatorUuid());
-            setCreated(value.getCreated());
-            setTitle(value.getTitle());
-            setDescription(value.getDescription());
-            setTimeFrom(value.getTimeFrom());
-            setTimeTo(value.getTimeTo());
-            setAreastartx(value.getAreastartx());
-            setAreastarty(value.getAreastarty());
-            setAreawidth(value.getAreawidth());
-            setAreaheight(value.getAreaheight());
-            setMeta(value.getMeta());
-            setThumbail(value.getThumbail());
-        }
-    }
 }

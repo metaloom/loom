@@ -142,16 +142,4 @@ public class JooqLibraryAssetRecord extends UpdatableRecordImpl<JooqLibraryAsset
         setLibraryUuid(libraryUuid);
         setAssetUuid(assetUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqLibraryAssetRecord
-     */
-    public JooqLibraryAssetRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqLibraryAsset value) {
-        super(JooqLibraryAsset.LIBRARY_ASSET);
-
-        if (value != null) {
-            setLibraryUuid(value.getLibraryUuid());
-            setAssetUuid(value.getAssetUuid());
-        }
-    }
 }

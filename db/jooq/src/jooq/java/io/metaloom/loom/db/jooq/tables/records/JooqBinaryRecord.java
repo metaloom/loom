@@ -552,46 +552,4 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
         setDocPlainText(docPlainText);
         setDocWordCount(docWordCount);
     }
-
-    /**
-     * Create a detached, initialised JooqBinaryRecord
-     */
-    public JooqBinaryRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqBinary value) {
-        super(JooqBinary.BINARY);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setSha512sum(value.getSha512sum());
-            setSize(value.getSize());
-            setSha256sum(value.getSha256sum());
-            setMd5sum(value.getMd5sum());
-            setChunkHash(value.getChunkHash());
-            setZeroChunkCount(value.getZeroChunkCount());
-            setMimeType(value.getMimeType());
-            setMeta(value.getMeta());
-            setAuthor(value.getAuthor());
-            setGeoLon(value.getGeoLon());
-            setGeoLat(value.getGeoLat());
-            setInitialOrigin(value.getInitialOrigin());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-            setS3BucketName(value.getS3BucketName());
-            setS3ObjectPath(value.getS3ObjectPath());
-            setMediaWidth(value.getMediaWidth());
-            setMediaHeight(value.getMediaHeight());
-            setDuration(value.getDuration());
-            setVideoFingerprint(value.getVideoFingerprint());
-            setImageFingerprint(value.getImageFingerprint());
-            setImageDominantColor(value.getImageDominantColor());
-            setAudioBpm(value.getAudioBpm());
-            setAudioSamplingRate(value.getAudioSamplingRate());
-            setAudioChannels(value.getAudioChannels());
-            setAudioEncoding(value.getAudioEncoding());
-            setAudioFingerprint(value.getAudioFingerprint());
-            setDocPlainText(value.getDocPlainText());
-            setDocWordCount(value.getDocWordCount());
-        }
-    }
 }

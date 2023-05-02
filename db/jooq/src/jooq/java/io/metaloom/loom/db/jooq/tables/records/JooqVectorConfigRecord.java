@@ -181,17 +181,4 @@ public class JooqVectorConfigRecord extends TableRecordImpl<JooqVectorConfigReco
         setName(name);
         setWeights(weights);
     }
-
-    /**
-     * Create a detached, initialised JooqVectorConfigRecord
-     */
-    public JooqVectorConfigRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqVectorConfig value) {
-        super(JooqVectorConfig.VECTOR_CONFIG);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setName(value.getName());
-            setWeights(value.getWeights());
-        }
-    }
 }

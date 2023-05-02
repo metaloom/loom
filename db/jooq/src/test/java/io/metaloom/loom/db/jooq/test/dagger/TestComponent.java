@@ -13,7 +13,6 @@ import io.metaloom.loom.common.dagger.VertxModule;
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
-import io.metaloom.loom.db.jooq.dagger.JooqNativeDaoModule;
 import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.asset.BinaryDao;
 import io.metaloom.loom.db.model.collection.CollectionDao;
@@ -25,7 +24,7 @@ import io.metaloom.loom.db.model.user.UserDao;
 import io.r2dbc.spi.ConnectionFactory;
 
 @Singleton
-@Component(modules = { JooqModule.class, FlywayModule.class, JooqLoomDaoBindModule.class, JooqNativeDaoModule.class, VertxModule.class })
+@Component(modules = { JooqModule.class, FlywayModule.class, JooqLoomDaoBindModule.class, VertxModule.class })
 public interface TestComponent {
 
 	Flyway flyway();

@@ -328,21 +328,4 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
         setEdited(edited);
         setParentUuid(parentUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqCommentRecord
-     */
-    public JooqCommentRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqComment value) {
-        super(JooqComment.COMMENT);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setTitle(value.getTitle());
-            setContent(value.getContent());
-            setUserUuid(value.getUserUuid());
-            setCreated(value.getCreated());
-            setEdited(value.getEdited());
-            setParentUuid(value.getParentUuid());
-        }
-    }
 }

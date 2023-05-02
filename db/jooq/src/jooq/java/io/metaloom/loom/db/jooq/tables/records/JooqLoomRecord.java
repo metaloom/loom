@@ -133,16 +133,4 @@ public class JooqLoomRecord extends TableRecordImpl<JooqLoomRecord> implements R
         setDbRev(dbRev);
         setLastUsedTimestamp(lastUsedTimestamp);
     }
-
-    /**
-     * Create a detached, initialised JooqLoomRecord
-     */
-    public JooqLoomRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqLoom value) {
-        super(JooqLoom.LOOM);
-
-        if (value != null) {
-            setDbRev(value.getDbRev());
-            setLastUsedTimestamp(value.getLastUsedTimestamp());
-        }
-    }
 }

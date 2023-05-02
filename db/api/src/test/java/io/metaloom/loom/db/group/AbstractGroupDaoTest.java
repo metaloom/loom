@@ -28,7 +28,7 @@ public abstract class AbstractGroupDaoTest {
 		GroupDao dao = getDao();
 
 		// Create group
-		Group group = dao.createGroup("Guests");
+		Group group = dao.create("Guests");
 		assertNotNull(group.getUuid());
 		assertEquals("Guests", group.getName());
 	}
@@ -38,11 +38,11 @@ public abstract class AbstractGroupDaoTest {
 		GroupDao dao = getDao();
 
 		// Create group
-		Group group = dao.createGroup("Guests");
+		Group group = dao.create("Guests");
 
 		// Now assert deletion
-		dao.deleteGroup(group.getUuid());
-		assertNull(dao.loadGroup(group.getUuid()), "The group should be deleted.");
+		dao.delete(group.getUuid());
+		assertNull(dao.load(group.getUuid()), "The group should be deleted.");
 	}
 
 	@Test
@@ -50,14 +50,14 @@ public abstract class AbstractGroupDaoTest {
 		GroupDao dao = getDao();
 
 		// Create and store
-		Group group = dao.createGroup("Guests");
+		Group group = dao.create("Guests");
 
 		// Now update
 		group.setName("Guests2");
-		dao.updateGroup(group);
+		dao.update(group);
 
 		// Load and assert update was persisted
-		Group updatedGroup = dao.loadGroup(group.getUuid());
+		Group updatedGroup = dao.load(group.getUuid());
 		assertEquals("Guests2", updatedGroup.getName());
 
 	}
@@ -67,9 +67,9 @@ public abstract class AbstractGroupDaoTest {
 		GroupDao dao = getDao();
 
 		// Create and store group
-		Group group = dao.createGroup("Guests");
+		Group group = dao.create("Guests");
 
 		// Now load again
-		assertNotNull(dao.loadGroup(group.getUuid()));
+		assertNotNull(dao.load(group.getUuid()));
 	}
 }

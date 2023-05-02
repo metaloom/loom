@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.Element;
 
-public class Page<T extends Element> implements Iterable<T> {
+public class Page<T extends Element<T>> implements Iterable<T> {
 
 	private List<T> list;
 

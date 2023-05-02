@@ -42,8 +42,8 @@ public abstract class AbstractLibraryDaoTest {
 		assertNotNull(library);
 
 		// Now assert deletion
-		dao.deleteLibrary(library);
-		assertNull(dao.loadLibrary(library.getUuid()), "The library should be deleted.");
+		dao.delete(library);
+		assertNull(dao.load(library.getUuid()), "The library should be deleted.");
 	}
 
 	@Test
@@ -55,10 +55,10 @@ public abstract class AbstractLibraryDaoTest {
 
 		// Now update
 		library.setName("Dummy2");
-		dao.updateLibrary(library);
+		dao.update(library);
 
 		// Load and assert update was persisted
-		Library updatedLibrary = dao.loadLibrary(library.getUuid());
+		Library updatedLibrary = dao.load(library.getUuid());
 		assertEquals("Dummy2", updatedLibrary.getName());
 
 	}
@@ -71,6 +71,6 @@ public abstract class AbstractLibraryDaoTest {
 		Library library = dao.createLibrary("Dummy");
 
 		// Now load again
-		assertNotNull(dao.loadLibrary(library.getUuid()));
+		assertNotNull(dao.load(library.getUuid()));
 	}
 }

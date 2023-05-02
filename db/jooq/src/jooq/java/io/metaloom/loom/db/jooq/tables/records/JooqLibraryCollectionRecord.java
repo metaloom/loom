@@ -142,16 +142,4 @@ public class JooqLibraryCollectionRecord extends UpdatableRecordImpl<JooqLibrary
         setLibraryUuid(libraryUuid);
         setCollectionUuid(collectionUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqLibraryCollectionRecord
-     */
-    public JooqLibraryCollectionRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqLibraryCollection value) {
-        super(JooqLibraryCollection.LIBRARY_COLLECTION);
-
-        if (value != null) {
-            setLibraryUuid(value.getLibraryUuid());
-            setCollectionUuid(value.getCollectionUuid());
-        }
-    }
 }

@@ -2,7 +2,7 @@ package io.metaloom.loom.db;
 
 import java.util.UUID;
 
-public interface Element {
+public interface Element<SELF extends Element<SELF>>  {
 
 	/**
 	 * Return the UUID of the element.
@@ -17,5 +17,13 @@ public interface Element {
 	 * @param uuid
 	 * @return Fluent API
 	 */
-	Element setUuid(UUID uuid);
+	SELF setUuid(UUID uuid);
+	
+	/**
+	 * @return a reference to this container instance, cast to the expected generic type.
+	 */
+	@SuppressWarnings("unchecked")
+	default SELF self() {
+		return (SELF) this;
+	}
 }

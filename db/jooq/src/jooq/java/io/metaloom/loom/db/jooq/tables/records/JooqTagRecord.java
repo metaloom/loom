@@ -408,23 +408,4 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
         setEdited(edited);
         setEditorUuid(editorUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqTagRecord
-     */
-    public JooqTagRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqTag value) {
-        super(JooqTag.TAG);
-
-        if (value != null) {
-            setUuid(value.getUuid());
-            setName(value.getName());
-            setCollection(value.getCollection());
-            setMeta(value.getMeta());
-            setRating(value.getRating());
-            setCreated(value.getCreated());
-            setCreatorUuid(value.getCreatorUuid());
-            setEdited(value.getEdited());
-            setEditorUuid(value.getEditorUuid());
-        }
-    }
 }

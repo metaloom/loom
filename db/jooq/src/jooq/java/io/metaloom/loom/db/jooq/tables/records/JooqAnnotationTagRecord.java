@@ -142,16 +142,4 @@ public class JooqAnnotationTagRecord extends UpdatableRecordImpl<JooqAnnotationT
         setAnnotationUuid(annotationUuid);
         setTagUuid(tagUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqAnnotationTagRecord
-     */
-    public JooqAnnotationTagRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqAnnotationTag value) {
-        super(JooqAnnotationTag.ANNOTATION_TAG);
-
-        if (value != null) {
-            setAnnotationUuid(value.getAnnotationUuid());
-            setTagUuid(value.getTagUuid());
-        }
-    }
 }

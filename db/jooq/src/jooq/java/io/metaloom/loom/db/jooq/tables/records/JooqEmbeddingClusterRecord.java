@@ -142,16 +142,4 @@ public class JooqEmbeddingClusterRecord extends UpdatableRecordImpl<JooqEmbeddin
         setEmbeddingUuid(embeddingUuid);
         setClusterUuid(clusterUuid);
     }
-
-    /**
-     * Create a detached, initialised JooqEmbeddingClusterRecord
-     */
-    public JooqEmbeddingClusterRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqEmbeddingCluster value) {
-        super(JooqEmbeddingCluster.EMBEDDING_CLUSTER);
-
-        if (value != null) {
-            setEmbeddingUuid(value.getEmbeddingUuid());
-            setClusterUuid(value.getClusterUuid());
-        }
-    }
 }

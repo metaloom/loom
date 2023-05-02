@@ -182,17 +182,4 @@ public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMe
         setUserUuid(userUuid);
         setMeta(meta);
     }
-
-    /**
-     * Create a detached, initialised JooqAssetUserMetaRecord
-     */
-    public JooqAssetUserMetaRecord(io.metaloom.loom.db.jooq.tables.pojos.JooqAssetUserMeta value) {
-        super(JooqAssetUserMeta.ASSET_USER_META);
-
-        if (value != null) {
-            setAssetUuid(value.getAssetUuid());
-            setUserUuid(value.getUserUuid());
-            setMeta(value.getMeta());
-        }
-    }
 }

@@ -4,7 +4,7 @@ import io.metaloom.loom.db.mem.AbstractMemCUDElement;
 import io.metaloom.loom.db.model.user.User;
 import io.vertx.core.json.JsonObject;
 
-public class MemUserImpl extends AbstractMemCUDElement implements User {
+public class MemUserImpl extends AbstractMemCUDElement<User> implements User {
 
 	private String lastname;
 	private String firstname;

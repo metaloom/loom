@@ -1,96 +1,45 @@
 package io.metaloom.loom.db.jooq.dao.group;
 
-import java.util.UUID;
+import static io.metaloom.loom.db.jooq.tables.JooqGroup.GROUP;
+import static io.metaloom.loom.db.jooq.tables.JooqRole.ROLE;
+import static io.metaloom.loom.db.jooq.tables.JooqRoleGroup.ROLE_GROUP;
+import static io.metaloom.loom.db.jooq.tables.JooqUserGroup.USER_GROUP;
+
+import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
+import org.jooq.Table;
+import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqGroupDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqRoleGroupDao;
-import io.metaloom.loom.db.jooq.tables.daos.JooqUserGroupDao;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqGroup;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqRoleGroup;
-import io.metaloom.loom.db.jooq.tables.pojos.JooqUserGroup;
+import io.metaloom.loom.db.jooq.dao.role.RoleImpl;
+import io.metaloom.loom.db.jooq.tables.JooqGroup;
 import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.role.Role;
 import io.metaloom.loom.db.model.user.User;
-import io.reactivex.rxjava3.core.Completable;
 
 @Singleton
-public class GroupDaoImpl extends AbstractJooqDao<JooqGroupDao> implements GroupDao {
-
-	private final JooqUserGroupDao userGroupDao;
-	private final JooqRoleGroupDao roleGroupDao;
+public class GroupDaoImpl extends AbstractJooqDao<Group> implements GroupDao {
 
 	@Inject
-	public GroupDaoImpl(JooqGroupDao groupDao,
-		JooqUserGroupDao userGroupDao,
-		JooqRoleGroupDao roleGroupDao,
-		DSLContext context) {
-		super(groupDao, context);
-		this.userGroupDao = userGroupDao;
-		this.roleGroupDao = roleGroupDao;
+	public GroupDaoImpl(DSLContext context) {
+		super(context);
 	}
-
-	// @Override
-	// public Single<? extends LoomGroup> createGroup(String name, Consumer<LoomGroup> modifier) {
-	// Single<? extends Group> result = Single.create(sub -> {
-	// try {
-	// Group g = new Group();
-	// g.setUuid(UUID.randomUUID());
-	// g.setName("dummy");
-	// groupDao.insert(g);
-	// sub.onSuccess(new LoomGroupImpl(g));
-	// } catch (Throwable e) {
-	// sub.onError(e);
-	// }
-	// });
-	// return result.subscribeOn(scheduler);
-	// }
 
 	@Override
-	public Group loadGroup(UUID uuid) {
-		return wrap(dao().findById(uuid));
+	protected Class<? extends Group> getPojoClass() {
+		return GroupImpl.class;
 	}
 
-	// @Override
-	// public Maybe<? extends Group> loadGroup(UUID uuid) {
-	// return Maybe.create(sub -> {
-	// List<Group> res = ctx.select(
-	// GROUP.NAME,
-	// GROUP.UUID,
-	// multiset(
-	// select(
-	// USER_GROUP.user().UUID,
-	// USER_GROUP.user().USERNAME)
-	// .from(USER_GROUP)
-	// .where(USER_GROUP.GROUP_UUID.eq(GROUP.UUID)))
-	// // .convertFrom(r -> r.map(mapping(LoomUserPojoImpl::new)))
-	// .convertFrom(r -> r.into(LoomUserPojoImpl.class))
-	// .as("users"))
-	// .from(GROUP)
-	// .fetchInto(LoomGroupPojoImpl.class);
-	// System.out.println("-----------");
-	// for (Group g : res) {
-	// System.out.println(g.getClass().getName());
-	// System.out.println(g.getUuid());
-	// System.out.println(g.getName());
-	//
-	// for (LoomUser u : g.getUsers()) {
-	// System.out.println(u.getClass().getName());
-	// System.out.println("Users: " + u.toString());
-	// }
-	// }
-	// System.out.println("-----------");
-	// sub.onComplete();
-	// });
-	// }
+	@Override
+	protected Table<? extends TableRecord<?>> getTable() {
+		return JooqGroup.GROUP;
+	}
 
 	// @Override
 	// public Completable addUserToGroup(Group group, LoomUser user) {
@@ -145,51 +94,56 @@ public class GroupDaoImpl extends AbstractJooqDao<JooqGroupDao> implements Group
 
 	@Override
 	public void removeRoleFromGroup(Group group, Role role) {
+		// ctx().deleteFrom(ROLE_GROUP)
+		// .where(ROLE_GROUP.GROUP_UUID.eq(group.getUuid())
+		// .and(ROLE_GROUP.ROLE_UUID.eq(role.getUuid())))
+		// .execute();
+
+		deleteCrossTableEntry(ROLE_GROUP.GROUP_UUID, group.getUuid(), ROLE_GROUP.ROLE_UUID, role.getUuid());
 	}
 
 	@Override
 	public void addRoleToGroup(Group group, Role role) {
-		roleGroupDao.insert(new JooqRoleGroup(group.getUuid(), role.getUuid()));
+		ctx().insertInto(ROLE_GROUP,
+			ROLE_GROUP.ROLE_UUID, ROLE_GROUP.GROUP_UUID)
+			.values(role.getUuid(), group.getUuid())
+			.execute();
 	}
 
 	@Override
-	public Role loadRoles(Group group) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Role> loadRoles(Group group) {
+		return ctx().select(GROUP)
+			.from(ROLE)
+			.join(ROLE_GROUP)
+			.on(ROLE_GROUP.GROUP_UUID.eq(group.getUuid()))
+			.where(GROUP.UUID.eq(group.getUuid()))
+			.fetchInto(RoleImpl.class);
 	}
 
 	@Override
-	public Group createGroup(String name, Consumer<Group> modifier) {
-		JooqGroup group = new JooqGroup();
+	public Group create(String name, Consumer<Group> modifier) {
+		Group group = new GroupImpl();
 		group.setName(name);
-		return new GroupImpl(group);
-	}
-
-	@Override
-	public void storeGroup(Group group) {
-		JooqGroup jooq = unwrap(group);
-		dao().insert(jooq);
-	}
-
-	@Override
-	public Completable deleteGroup(UUID uuid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Group updateGroup(Group group) {
-		// TODO Auto-generated method stub
-		return null;
+		if (modifier != null) {
+			modifier.accept(group);
+		}
+		return group;
 	}
 
 	@Override
 	public void addUserToGroup(Group group, User user) {
-		userGroupDao.insert(new JooqUserGroup(user.getUuid(), group.getUuid()));
+		ctx().insertInto(USER_GROUP,
+			USER_GROUP.USER_UUID, USER_GROUP.GROUP_UUID)
+			.values(user.getUuid(), group.getUuid())
+			.execute();
 	}
 
 	@Override
 	public void removeUserFromGroup(Group group, User user) {
+		ctx().deleteFrom(USER_GROUP)
+			.where(USER_GROUP.GROUP_UUID.eq(group.getUuid())
+				.and(USER_GROUP.USER_UUID.eq(user.getUuid())))
+			.execute();
 	}
 
 	@Override
@@ -199,12 +153,6 @@ public class GroupDaoImpl extends AbstractJooqDao<JooqGroupDao> implements Group
 
 	@Override
 	public void testMultiOp() {
-	}
-
-	@Override
-	public Stream<Group> findAll() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	// @Override
