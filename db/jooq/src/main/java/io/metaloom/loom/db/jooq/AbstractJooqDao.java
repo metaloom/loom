@@ -2,7 +2,6 @@ package io.metaloom.loom.db.jooq;
 
 import static io.metaloom.loom.db.jooq.tables.JooqAsset.ASSET;
 import static io.metaloom.loom.db.jooq.tables.JooqUser.USER;
-import static org.jooq.impl.DSL.row;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +11,6 @@ import java.util.stream.Stream;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Field;
-import org.jooq.Record;
 import org.jooq.Record3;
 import org.jooq.SelectSeekStep1;
 import org.jooq.Table;
@@ -52,12 +50,7 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	abstract protected Class<? extends T> getPojoClass();
 
-	public <PK> TableField<?, PK> pkField() {
-		return (TableField<?, PK>) getTable().getPrimaryKey();
-	}
-
 	public <PK> Condition pkSelect(PK pk) {
-		TableField<?, PK> field = null;
 		TableField<? extends TableRecord<?>, PK> field2 = (TableField<? extends TableRecord<?>, PK>) getTable().getPrimaryKey().getFieldsArray()[0];
 		return field2.eq(pk);
 	}
@@ -212,18 +205,13 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 			.execute();
 	}
 
-	private /* non-final */ Condition equal(Field<?>[] pk, T id) {
-		if (pk.length == 1)
-			return ((Field<Object>) pk[0]).equal(pk[0].getDataType().convert(id));
-
-		// [#2573] Composite key T types are of type Record[N]
-		else
-			return row(pk).equal((Record) id);
-	}
-
 	private /* non-final */ Field<?>[] pk() {
 		UniqueKey<?> key = getTable().getPrimaryKey();
 		return key == null ? null : key.getFieldsArray();
+	}
+
+	private <PK> TableField<?, PK> pkField() {
+		return (TableField<?, PK>) getTable().getPrimaryKey();
 	}
 
 	// String json = meta.encode();

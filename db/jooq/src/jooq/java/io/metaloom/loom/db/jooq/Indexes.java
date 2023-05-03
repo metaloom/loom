@@ -11,6 +11,7 @@ import io.metaloom.loom.db.jooq.tables.JooqBlacklist;
 import io.metaloom.loom.db.jooq.tables.JooqCluster;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionAsset;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionBinary;
+import io.metaloom.loom.db.jooq.tables.JooqCollectionCluster;
 import io.metaloom.loom.db.jooq.tables.JooqEmbedding;
 import io.metaloom.loom.db.jooq.tables.JooqFlywaySchemaHistory;
 import io.metaloom.loom.db.jooq.tables.JooqGroup;
@@ -50,6 +51,8 @@ public class Indexes {
     public static final Index COLLECTION_ASSET_COLLECTION_UUID_IDX = Internal.createIndex(DSL.name("collection_asset_collection_uuid_idx"), JooqCollectionAsset.COLLECTION_ASSET, new OrderField[] { JooqCollectionAsset.COLLECTION_ASSET.COLLECTION_UUID }, false);
     public static final Index COLLECTION_BINARY_BINARY_UUID_IDX = Internal.createIndex(DSL.name("collection_binary_binary_uuid_idx"), JooqCollectionBinary.COLLECTION_BINARY, new OrderField[] { JooqCollectionBinary.COLLECTION_BINARY.BINARY_UUID }, false);
     public static final Index COLLECTION_BINARY_COLLECTION_UUID_IDX = Internal.createIndex(DSL.name("collection_binary_collection_uuid_idx"), JooqCollectionBinary.COLLECTION_BINARY, new OrderField[] { JooqCollectionBinary.COLLECTION_BINARY.COLLECTION_UUID }, false);
+    public static final Index COLLECTION_CLUSTER_CLUSTER_UUID_IDX = Internal.createIndex(DSL.name("collection_cluster_cluster_uuid_idx"), JooqCollectionCluster.COLLECTION_CLUSTER, new OrderField[] { JooqCollectionCluster.COLLECTION_CLUSTER.CLUSTER_UUID }, false);
+    public static final Index COLLECTION_CLUSTER_COLLECTION_UUID_IDX = Internal.createIndex(DSL.name("collection_cluster_collection_uuid_idx"), JooqCollectionCluster.COLLECTION_CLUSTER, new OrderField[] { JooqCollectionCluster.COLLECTION_CLUSTER.COLLECTION_UUID }, false);
     public static final Index EMBEDDING_BINARY_UUID_IDX = Internal.createIndex(DSL.name("embedding_binary_uuid_idx"), JooqEmbedding.EMBEDDING, new OrderField[] { JooqEmbedding.EMBEDDING.BINARY_UUID }, false);
     public static final Index FLYWAY_SCHEMA_HISTORY_S_IDX = Internal.createIndex(DSL.name("flyway_schema_history_s_idx"), JooqFlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { JooqFlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SUCCESS }, false);
     public static final Index GROUP_NAME_IDX = Internal.createIndex(DSL.name("group_name_idx"), JooqGroup.GROUP, new OrderField[] { JooqGroup.GROUP.NAME }, true);

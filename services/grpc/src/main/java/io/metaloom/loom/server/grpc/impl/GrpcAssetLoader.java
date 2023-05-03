@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.metaloom.loom.db.DaoCollection;
+import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.Binary;
 import io.metaloom.loom.db.model.library.Library;
@@ -33,16 +33,16 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		long size = request.getSize();
 		String path = request.getPath();
 
-		Binary binary = daos.assetBinaryDao().loadBySHA512Sum(sha512sum);
+		Binary binary = daos.binaryDao().loadBySHA512Sum(sha512sum);
 		if (binary == null) {
-			binary = daos.assetBinaryDao().createBinary(sha512sum, size);
+			binary = daos.binaryDao().createBinary(sha512sum, size);
 		}
 
 		binary.setSHA256(sha256sum);
 		binary.setVideoFingerprint(fingerprint);
 		binary.setZeroChunkCount(zeroChunkCount);
 		binary.setChunkHash(chunkHash);
-		daos.assetBinaryDao().store(binary);
+		daos.binaryDao().store(binary);
 
 		User creator = daos.userDao().createUser("test");
 		daos.userDao().store(creator);

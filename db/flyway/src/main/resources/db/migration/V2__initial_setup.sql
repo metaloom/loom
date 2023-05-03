@@ -330,6 +330,13 @@ CREATE TABLE "collection_binary" (
   PRIMARY KEY ("collection_uuid", "binary_uuid")
 );
 
+CREATE TABLE "collection_cluster" (
+  "collection_uuid" uuid NOT NULL,
+  "cluster_uuid" uuid NOT NULL,
+  PRIMARY KEY ("collection_uuid", "cluster_uuid")
+);
+
+
 CREATE TABLE "vector_config" (
    "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar UNIQUE NOT NULL,
@@ -499,6 +506,10 @@ CREATE INDEX ON "collection_asset" ("asset_uuid");
 CREATE INDEX ON "collection_binary" ("collection_uuid");
 
 CREATE INDEX ON "collection_binary" ("binary_uuid");
+
+CREATE INDEX ON "collection_cluster" ("collection_uuid");
+
+CREATE INDEX ON "collection_cluster" ("cluster_uuid");
 
 CREATE UNIQUE INDEX ON "blacklist" ("binary_uuid", "creator_uuid");
 
@@ -782,6 +793,10 @@ ALTER TABLE "collection_asset" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset"
 ALTER TABLE "collection_binary" ADD FOREIGN KEY ("collection_uuid") REFERENCES "collection" ("uuid");
 
 ALTER TABLE "collection_binary" ADD FOREIGN KEY ("binary_uuid") REFERENCES "binary" ("uuid");
+
+ALTER TABLE "collection_cluster" ADD FOREIGN KEY ("collection_uuid") REFERENCES "collection" ("uuid");
+
+ALTER TABLE "collection_cluster" ADD FOREIGN KEY ("cluster_uuid") REFERENCES "cluster" ("uuid");
 
 ALTER TABLE "comment" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid");
 

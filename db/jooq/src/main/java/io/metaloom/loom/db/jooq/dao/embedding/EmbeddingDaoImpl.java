@@ -1,5 +1,8 @@
 package io.metaloom.loom.db.jooq.dao.embedding;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.jooq.TableRecord;
@@ -10,8 +13,10 @@ import io.metaloom.loom.db.model.embedding.Embedding;
 import io.metaloom.loom.db.model.embedding.EmbeddingDao;
 import io.metaloom.loom.db.model.embedding.FaceOrigin;
 
+@Singleton
 public class EmbeddingDaoImpl extends AbstractJooqDao<Embedding> implements EmbeddingDao {
 
+	@Inject
 	public EmbeddingDaoImpl(DSLContext ctx) {
 		super(ctx);
 	}

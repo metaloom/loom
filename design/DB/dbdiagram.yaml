@@ -23,6 +23,7 @@ Table user as U [headercolor: #16a085] {
   enabled boolean [default: true, not null, note: "Flag to enable or disable the user."]
   sso boolean [default: false, not null, note: "Flag that indicates that the user was created via SSO mappings"]
   meta jsonb [note: "Custom meta properties to the element"]
+  password_hash varchar
   
   created timestamp [default: `now()`]
   creator_uuid uuid  [ref: > U.uuid]
@@ -219,9 +220,11 @@ Table binary as BIN [headercolor: #16a085] {
 
   // Common properties
   sha512sum varchar [not null]
-  size int [not null]
+  size bigint [not null]
   sha256sum varchar [not null]
   md5sum varchar [not null]
+  chunk_hash varchar [not null]
+  zero_chunk_count bigint [not null]
   mime_type varchar [not null]
   meta jsonb [note: "Custom meta properties to the asset"]
   author varchar
@@ -348,6 +351,7 @@ Table embedding as EMBEDDING [headercolor: #16A085] {
 
   // Actual embedding data
   embeddings bytea [not null, note: "Actual embedding data"]
+  embedding_id int [note: "Additional id which references the embedding in the binary. (A binary can have multiple embeddings)"]
   embedding_type embedding_type [note: "Type of the embedding (e.g. dlib_facemark)"]
 
   created timestamp [default: `now()`, not null]
@@ -472,11 +476,27 @@ Table collection_binary {
   '''
 }
 
+Table collection_cluster {
+  collection_uuid uuid [ref: > COLLECTION.uuid, not null]
+  cluster_uuid uuid [ref: > CLUSTER.uuid, not null]
+
+  Indexes {
+    (collection_uuid, cluster_uuid) [pk]
+    (collection_uuid)
+    (cluster_uuid)
+  }
+
+  note: '''
+    Track clusters of embeddings that belong to a collection.
+  '''
+}
+
 
 tablegroup AssetCollection {
   collection
   collection_asset
   collection_binary
+  collection_cluster
 }
 
 // Vector Index Configuration
@@ -740,7 +760,93 @@ Table webhook as W [headercolor: #16a085] {
 }
 
 
-// Groups
+// Libary
+
+Table library as LIB [headercolor: #16a085] {
+ uuid uuid [increment]
+ name varchar [not null]
+ meta jsonb [note: "Custom meta properties to the element"]
+ description varchar
+
+ created timestamp [default: `now()`, not null]
+ creator_uuid uuid [ref: > U.uuid, not null]
+ edited timestamp [default: `now()`]
+ editor_uuid uuid [ref: > U.uuid]
+
+ Indexes {
+    (uuid) [pk]
+    (name) [unique]
+  }
+}
+
+Table library_asset {
+ library_uuid uuid [ref: > LIB.uuid, not null]
+ asset_uuid   uuid [ref: > ASSET.uuid, not null]
+ 
+ Indexes {
+    (library_uuid, asset_uuid) [pk]
+ }
+}
+
+Table library_collection {
+ library_uuid uuid [ref: > LIB.uuid, not null]
+ collection_uuid   uuid [ref: > COLLECTION.uuid, not null]
+
+ Indexes {
+    (library_uuid, collection_uuid) [pk]
+ }
+}
+
+tablegroup Library {
+  library
+  library_asset
+  library_collection
+}
+
+// Project
+
+Table project as PROJECT [headercolor: #16a085] {
+ uuid uuid [increment]
+ name varchar [not null]
+ meta jsonb [note: "Custom meta properties to the element"]
+ description varchar
+
+ created timestamp [default: `now()`, not null]
+ creator_uuid uuid [ref: > U.uuid, not null]
+ edited timestamp [default: `now()`]
+ editor_uuid uuid [ref: > U.uuid]
+
+ Indexes {
+    (uuid) [pk]
+    (name) [unique]
+  }
+}
+
+Table project_collection {
+ project_uuid uuid [ref: > PROJECT.uuid, not null]
+ collection_uuid   uuid [ref: > COLLECTION.uuid, not null]
+
+ Indexes {
+    (project_uuid, collection_uuid) [pk]
+ }
+}
+
+Table project_library {
+ project_uuid uuid [ref: > PROJECT.uuid, not null]
+ library_uuid   uuid [ref: > LIB.uuid, not null]
+
+ Indexes {
+    (project_uuid, library_uuid) [pk]
+ }
+}
+
+tablegroup Project {
+  project
+  project_collection
+  project_library
+}
+
+// Other
 
 tablegroup Others {
   loom

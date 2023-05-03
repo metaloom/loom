@@ -17,6 +17,7 @@ import io.metaloom.loom.db.jooq.tables.JooqCluster;
 import io.metaloom.loom.db.jooq.tables.JooqCollection;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionAsset;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionBinary;
+import io.metaloom.loom.db.jooq.tables.JooqCollectionCluster;
 import io.metaloom.loom.db.jooq.tables.JooqComment;
 import io.metaloom.loom.db.jooq.tables.JooqCommentAnnotaion;
 import io.metaloom.loom.db.jooq.tables.JooqCommentReaction;
@@ -29,6 +30,9 @@ import io.metaloom.loom.db.jooq.tables.JooqLibrary;
 import io.metaloom.loom.db.jooq.tables.JooqLibraryAsset;
 import io.metaloom.loom.db.jooq.tables.JooqLibraryCollection;
 import io.metaloom.loom.db.jooq.tables.JooqLoom;
+import io.metaloom.loom.db.jooq.tables.JooqProject;
+import io.metaloom.loom.db.jooq.tables.JooqProjectCollection;
+import io.metaloom.loom.db.jooq.tables.JooqProjectLibrary;
 import io.metaloom.loom.db.jooq.tables.JooqReaction;
 import io.metaloom.loom.db.jooq.tables.JooqRole;
 import io.metaloom.loom.db.jooq.tables.JooqRoleGroup;
@@ -135,6 +139,11 @@ public class Tables {
     public static final JooqCollectionBinary COLLECTION_BINARY = JooqCollectionBinary.COLLECTION_BINARY;
 
     /**
+     * The table <code>public.collection_cluster</code>.
+     */
+    public static final JooqCollectionCluster COLLECTION_CLUSTER = JooqCollectionCluster.COLLECTION_CLUSTER;
+
+    /**
      * Stores comments on tasks, annotations..
      */
     public static final JooqComment COMMENT = JooqComment.COMMENT;
@@ -193,6 +202,21 @@ public class Tables {
      * The table <code>public.loom</code>.
      */
     public static final JooqLoom LOOM = JooqLoom.LOOM;
+
+    /**
+     * The table <code>public.project</code>.
+     */
+    public static final JooqProject PROJECT = JooqProject.PROJECT;
+
+    /**
+     * The table <code>public.project_collection</code>.
+     */
+    public static final JooqProjectCollection PROJECT_COLLECTION = JooqProjectCollection.PROJECT_COLLECTION;
+
+    /**
+     * The table <code>public.project_library</code>.
+     */
+    public static final JooqProjectLibrary PROJECT_LIBRARY = JooqProjectLibrary.PROJECT_LIBRARY;
 
     /**
      * Stores social reactions on multiple elements
