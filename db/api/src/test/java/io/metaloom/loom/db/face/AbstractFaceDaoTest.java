@@ -3,34 +3,29 @@ package io.metaloom.loom.db.face;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.IOException;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.metaloom.loom.db.model.asset.Binary;
 import io.metaloom.loom.db.model.embedding.Embedding;
 import io.metaloom.loom.db.model.embedding.EmbeddingDao;
+import io.metaloom.loom.db.model.embedding.EmbeddingType;
 import io.metaloom.loom.db.model.embedding.FaceOrigin;
+import io.metaloom.loom.db.model.user.User;
 
 public abstract class AbstractFaceDaoTest {
 
 	abstract public EmbeddingDao getDao();
 
-	@AfterEach
-	@BeforeEach
-	public void clearPersistence() throws IOException {
-		getDao().clear();
-	}
-	
 	@Test
 	public void testCreate() {
 		EmbeddingDao dao = getDao();
 
-		float[] embeddingData = new float[] {0,0,0};
+		float[] embeddingData = new float[] { 0, 0, 0 };
 		FaceOrigin origin = null;
-		Embedding embedding = dao.createEmbedding("source", embeddingData, origin );
+		User user = null;
+		Binary binary = null;
+		Embedding embedding = dao.createEmbedding(user, binary, embeddingData, EmbeddingType.DLIB_FACE_RESNET_v1, 1);
 		assertNotNull(embedding.getUuid());
-		assertEquals(42L, embedding.getEmbeddingId().longValue());
+		assertEquals(42L, embedding.getId());
 	}
 }

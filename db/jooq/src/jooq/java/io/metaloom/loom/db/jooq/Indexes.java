@@ -65,6 +65,7 @@ public class Indexes {
     public static final Index TOKEN_PERMISSION_TOKEN_UUID_RESOURCE_PERMISSION_IDX = Internal.createIndex(DSL.name("token_permission_token_uuid_resource_permission_idx"), JooqTokenPermission.TOKEN_PERMISSION, new OrderField[] { JooqTokenPermission.TOKEN_PERMISSION.TOKEN_UUID, JooqTokenPermission.TOKEN_PERMISSION.RESOURCE, JooqTokenPermission.TOKEN_PERMISSION.PERMISSION }, true);
     public static final Index TOKEN_TOKEN_IDX = Internal.createIndex(DSL.name("token_token_idx"), JooqToken.TOKEN, new OrderField[] { JooqToken.TOKEN.TOKEN_ }, true);
     public static final Index TOKEN_USER_UUID_IDX = Internal.createIndex(DSL.name("token_user_uuid_idx"), JooqToken.TOKEN, new OrderField[] { JooqToken.TOKEN.USER_UUID }, false);
+    public static final Index TOKEN_USER_UUID_NAME_IDX = Internal.createIndex(DSL.name("token_user_uuid_name_idx"), JooqToken.TOKEN, new OrderField[] { JooqToken.TOKEN.USER_UUID, JooqToken.TOKEN.NAME }, true);
     public static final Index USER_PERMISSION_USER_UUID_RESOURCE_PERMISSION_IDX = Internal.createIndex(DSL.name("user_permission_user_uuid_resource_permission_idx"), JooqUserPermission.USER_PERMISSION, new OrderField[] { JooqUserPermission.USER_PERMISSION.USER_UUID, JooqUserPermission.USER_PERMISSION.RESOURCE, JooqUserPermission.USER_PERMISSION.PERMISSION }, true);
     public static final Index USER_USERNAME_IDX = Internal.createIndex(DSL.name("user_username_idx"), JooqUser.USER, new OrderField[] { JooqUser.USER.USERNAME }, true);
 }

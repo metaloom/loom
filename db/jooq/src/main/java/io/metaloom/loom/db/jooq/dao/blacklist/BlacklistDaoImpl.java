@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.blacklist;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -8,7 +10,7 @@ import org.jooq.Table;
 import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.JooqTask;
+import io.metaloom.loom.db.jooq.tables.JooqBlacklist;
 import io.metaloom.loom.db.model.blacklist.Blacklist;
 import io.metaloom.loom.db.model.blacklist.BlacklistDao;
 
@@ -22,7 +24,7 @@ public class BlacklistDaoImpl extends AbstractJooqDao<Blacklist> implements Blac
 
 	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
-		return JooqTask.TASK;
+		return JooqBlacklist.BLACKLIST;
 	}
 
 	@Override
@@ -31,9 +33,11 @@ public class BlacklistDaoImpl extends AbstractJooqDao<Blacklist> implements Blac
 	}
 
 	@Override
-	public Blacklist createBlacklist(String name) {
+	public Blacklist createBlacklist(UUID userUuid, UUID binaryUuid, String name) {
 		Blacklist list = new BlacklistImpl();
 		list.setName(name);
+		list.setBinaryUuid(binaryUuid);
+		setCreatorEditor(list, userUuid);
 		return list;
 	}
 

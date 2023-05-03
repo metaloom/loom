@@ -30,12 +30,15 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		long zeroChunkCount = request.getZeroChunkCount();
 		String sha256sum = request.getSha256Sum();
 		String sha512sum = request.getSha512Sum();
+		String mimeType = request.getMimeType();
 		long size = request.getSize();
 		String path = request.getPath();
+		String initialOrigin = request.getInitialOrigin();
 
+		User user = null;
 		Binary binary = daos.binaryDao().loadBySHA512Sum(sha512sum);
 		if (binary == null) {
-			binary = daos.binaryDao().createBinary(sha512sum, size);
+			binary = daos.binaryDao().createBinary(user, sha512sum, mimeType, initialOrigin, size);
 		}
 
 		binary.setSHA256(sha256sum);
@@ -47,7 +50,7 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		User creator = daos.userDao().createUser("test");
 		daos.userDao().store(creator);
 		
-		Library library = daos.libraryDao().createLibrary("test");
+		Library library = daos.libraryDao().createLibrary(user, "test");
 		Asset asset = daos.assetDao().createAsset(path, binary.getUuid(), creator.getUuid(), library.getUuid());
 		daos.assetDao().store(asset);
 

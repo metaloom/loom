@@ -1,37 +1,29 @@
 package io.metaloom.loom.db.model.tag;
 
-import java.util.function.Consumer;
+import java.util.UUID;
 
 import io.metaloom.loom.db.CRUDDao;
+import io.metaloom.loom.db.model.annotation.Annotation;
 import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.loom.db.model.user.User;
 
 /**
  * DAO to manage {@link Tag} elements.
  */
 public interface TagDao extends CRUDDao<Tag> {
-	/**
-	 * Create a new tag.
-	 * 
-	 * @param name
-	 * @param collection
-	 * @return
-	 */
-	default Tag createTag(String name, String collection) {
-		return createTag(name, collection, null);
+
+	default Tag createTag(User user, String name, String collection) {
+		return createTag(user.getUuid(), name, collection);
 	}
 
-	/**
-	 * Create a new tag.
-	 * 
-	 * @param name
-	 * @param collection
-	 * @param modifier
-	 * @return
-	 */
-	Tag createTag(String name, String collection, Consumer<Tag> modifier);
+	Tag createTag(UUID userUuid, String name, String collection);
 
 	void tagAsset(Tag tag, Asset asset);
 
 	void untagAsset(Tag tag, Asset asset);
+
+	void tagAnnotation(Tag tag, Annotation annotation);
+
+	void untagAnnotation(Tag tag, Annotation annotation);
 
 }

@@ -125,4 +125,8 @@ public interface Binary extends CUDElement<Binary>, Taggable {
 	BigDecimal getGeoLat();
 
 	Binary setGeoLat(BigDecimal lat);
+
+	String getInitialOrigin();
+
+	Binary setInitialOrigin(String initialOrigin);
 }

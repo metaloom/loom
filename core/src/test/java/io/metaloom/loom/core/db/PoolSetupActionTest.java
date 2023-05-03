@@ -2,26 +2,13 @@ package io.metaloom.loom.core.db;
 
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.output.MigrateResult;
+import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.api.options.LoomOptions;
-import io.metaloom.loom.auth.AuthenticationService;
 import io.metaloom.loom.core.dagger.DaggerLoomCoreComponent;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
-import io.metaloom.loom.db.dagger.DaoCollection;
-import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.asset.BinaryDao;
-import io.metaloom.loom.db.model.cluster.ClusterDao;
-import io.metaloom.loom.db.model.group.Group;
-import io.metaloom.loom.db.model.group.GroupDao;
-import io.metaloom.loom.db.model.library.LibraryDao;
-import io.metaloom.loom.db.model.perm.Permission;
-import io.metaloom.loom.db.model.perm.PermissionDao;
-import io.metaloom.loom.db.model.role.Role;
-import io.metaloom.loom.db.model.role.RoleDao;
-import io.metaloom.loom.db.model.task.TaskDao;
-import io.metaloom.loom.db.model.user.User;
-import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.core.db.fixture.TestFixtureProvider;
 import io.metaloom.loom.test.TestEnvHelper;
 import io.metaloom.test.container.provider.client.TestDatabaseProvider;
 import io.metaloom.test.container.provider.common.config.ProviderConfig;
@@ -30,9 +17,10 @@ import io.metaloom.test.container.provider.model.DatabasePoolResponse;
 /**
  * Example implementation for a custom pool setup operation.
  */
-public class PoolSetupAction {
+public class PoolSetupActionTest {
 
-	public static void main(String[] args) throws Exception {
+	@Test
+	public void testSetup() throws Exception {
 
 		ProviderConfig config = TestEnvHelper.prepareProvider();
 
@@ -63,7 +51,8 @@ public class PoolSetupAction {
 		dbOptions.setUsername(config.getPostgresql().getUsername());
 
 		LoomCoreComponent component = DaggerLoomCoreComponent.builder().configuration(loomOptions).build();
-		TestFixtureProvider.setup(component);
+		TestFixtureProvider provider = new TestFixtureProvider(component);
+		provider.setup();
 
 		// 4. Now recreate the dummy pool. The pool will provide the new databases for our tests.
 		DatabasePoolResponse response = TestDatabaseProvider.createPool("loom-dev", templateDBName);

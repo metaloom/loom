@@ -1,6 +1,9 @@
 package io.metaloom.loom.db.jooq.dao.tag;
 
-import java.util.function.Consumer;
+import static io.metaloom.loom.db.jooq.tables.JooqAnnotationTag.ANNOTATION_TAG;
+import static io.metaloom.loom.db.jooq.tables.JooqTagAsset.TAG_ASSET;
+
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -11,6 +14,7 @@ import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqTag;
+import io.metaloom.loom.db.model.annotation.Annotation;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.model.tag.TagDao;
@@ -70,23 +74,45 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 	// }
 
 	@Override
-	public Tag createTag(String name, String collection, Consumer<Tag> modifier) {
+	public Tag createTag(UUID userUuid, String name, String collection) {
 		Tag tag = new TagImpl();
 		tag.setName(name);
-		if (modifier != null) {
-			modifier.accept(tag);
-		}
+		tag.setCollection(collection);
+		setCreatorEditor(tag, userUuid);
 		return tag;
 	}
 
 	@Override
 	public void tagAsset(Tag tag, Asset asset) {
-		// TODO Auto-generated method stub
+		ctx().insertInto(TAG_ASSET,
+			TAG_ASSET.TAG_UUID, TAG_ASSET.ASSET_UUID)
+			.values(tag.getUuid(), asset.getUuid())
+			.execute();
 	}
 
 	@Override
 	public void untagAsset(Tag tag, Asset asset) {
-		// TODO Auto-generated method stub
+		ctx().deleteFrom(TAG_ASSET)
+			.where(TAG_ASSET.TAG_UUID.eq(tag.getUuid())
+				.and(TAG_ASSET.ASSET_UUID.eq(asset.getUuid())))
+			.execute();
+	}
+
+	@Override
+	public void tagAnnotation(Tag tag, Annotation annotation) {
+		ctx().insertInto(ANNOTATION_TAG,
+			ANNOTATION_TAG.TAG_UUID, ANNOTATION_TAG.ANNOTATION_UUID)
+			.values(tag.getUuid(), annotation.getUuid())
+			.execute();
+	}
+
+	@Override
+	public void untagAnnotation(Tag tag, Annotation annotation) {
+		ctx().deleteFrom(ANNOTATION_TAG)
+			.where(ANNOTATION_TAG.TAG_UUID.eq(tag.getUuid())
+				.and(ANNOTATION_TAG.ANNOTATION_UUID.eq(annotation.getUuid())))
+			.execute();
+
 	}
 
 }

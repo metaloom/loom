@@ -69,22 +69,22 @@ public class JooqBinary extends TableImpl<JooqBinaryRecord> {
     /**
      * The column <code>public.binary.sha256sum</code>.
      */
-    public final TableField<JooqBinaryRecord, String> SHA256SUM = createField(DSL.name("sha256sum"), SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<JooqBinaryRecord, String> SHA256SUM = createField(DSL.name("sha256sum"), SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.binary.md5sum</code>.
      */
-    public final TableField<JooqBinaryRecord, String> MD5SUM = createField(DSL.name("md5sum"), SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<JooqBinaryRecord, String> MD5SUM = createField(DSL.name("md5sum"), SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.binary.chunk_hash</code>.
      */
-    public final TableField<JooqBinaryRecord, String> CHUNK_HASH = createField(DSL.name("chunk_hash"), SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<JooqBinaryRecord, String> CHUNK_HASH = createField(DSL.name("chunk_hash"), SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.binary.zero_chunk_count</code>.
      */
-    public final TableField<JooqBinaryRecord, Long> ZERO_CHUNK_COUNT = createField(DSL.name("zero_chunk_count"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<JooqBinaryRecord, Long> ZERO_CHUNK_COUNT = createField(DSL.name("zero_chunk_count"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.binary.mime_type</code>.

@@ -95,14 +95,4 @@ public class UserImpl extends AbstractEditableElement<User> implements User {
 		return this;
 	}
 
-	@Override
-	public LocalDateTime getCreated() {
-		return super.getCreated();
-	}
-
-	@Override
-	public LocalDateTime getEdited() {
-		return super.getEdited();
-	}
-
 }

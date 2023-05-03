@@ -41,8 +41,6 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 		Objects.requireNonNull(libraryUuid, "Library uuid must not be null");
 		Objects.requireNonNull(binaryUuid, "Binary uuid must not be null");
 		Asset asset = new AssetImpl();
-		UUID newUuid = UUID.randomUUID();
-		asset.setUuid(newUuid);
 		asset.setPath(filename);
 		asset.setCreated(LocalDateTime.now());
 		asset.setCreatorUuid(creatorUuid);

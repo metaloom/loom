@@ -3,6 +3,7 @@ package io.metaloom.loom.db.jooq;
 import static io.metaloom.loom.db.jooq.tables.JooqAsset.ASSET;
 import static io.metaloom.loom.db.jooq.tables.JooqUser.USER;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ import org.jooq.TableRecord;
 import org.jooq.UniqueKey;
 
 import io.metaloom.loom.db.CRUDDao;
+import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.Element;
 import io.metaloom.loom.db.page.Page;
 
@@ -39,20 +41,13 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 		return ctx;
 	}
 
-	protected long count(Table<?> table) {
-		return ctx()
-			.selectCount()
-			.from(table)
-			.fetchOne(0, Long.class);
-	}
-
 	abstract protected Table<? extends TableRecord<?>> getTable();
 
 	abstract protected Class<? extends T> getPojoClass();
 
 	public <PK> Condition pkSelect(PK pk) {
-		TableField<? extends TableRecord<?>, PK> field2 = (TableField<? extends TableRecord<?>, PK>) getTable().getPrimaryKey().getFieldsArray()[0];
-		return field2.eq(pk);
+		TableField<? extends TableRecord<?>, PK> field = (TableField<? extends TableRecord<?>, PK>) getTable().getPrimaryKey().getFieldsArray()[0];
+		return field.eq(pk);
 	}
 
 	@Override
@@ -71,14 +66,19 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	@Override
 	public void store(T element) {
-		// Record elementRecord = ctx().newRecord(getTable(), element);
 		TableRecord<?> reco = ctx().newRecord(getTable(), element);
-		T result = ctx().insertInto(getTable())
+		if (element.getUuid() == null) {
+			reco.reset("uuid");
+		}
+		UUID uuid = ctx().insertInto(getTable())
 			.set(reco)
-			.returning(getTable().getPrimaryKey().getFields())
-			.fetchOneInto(getPojoClass());
-		element.setUuid(result.getUuid());
-		// TODO check whether it can be merged
+			.returning(getTable().field("uuid", UUID.class))
+			.fetchOne("uuid", UUID.class);
+		if (uuid == null) {
+			throw new RuntimeException("Key null!!");
+		}
+		element.setUuid(uuid);
+		System.out.println("Element: " + element);
 	}
 
 	@Override
@@ -217,5 +217,12 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	// String json = meta.encode();
 	// delegate().setMeta(JSONB.jsonbOrNull(json));
 	// return this;
+
+	protected void setCreatorEditor(CUDElement<?> element, UUID userUuid) {
+		element.setCreatorUuid(userUuid);
+		element.setEditorUuid(userUuid);
+		element.setCreated(LocalDateTime.now());
+		element.setEdited(LocalDateTime.now());
+	}
 
 }

@@ -12,12 +12,9 @@ import io.metaloom.loom.db.model.library.LibraryDao;
 import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.test.TestValues;
 
-public interface JooqTestHelper {
-
-	public static final String DUMMY_SHA512SUM = "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123";
-
-	public static final String DUMMY_LIBRARY_NAME = "test-library";
+public interface JooqTestHelper extends TestValues {
 
 	default User createUser(String username) {
 		User user = userDao().createUser(username);
@@ -26,19 +23,19 @@ public interface JooqTestHelper {
 	}
 
 	default Asset createAsset(String filename, User user) {
-		Binary binary = createBinary();
-		Library library = createLibrary(DUMMY_LIBRARY_NAME);
+		Binary binary = createBinary(user);
+		Library library = createLibrary(user, LIBRARY_NAME);
 		return assetDao().createAsset(filename, binary.getUuid(), user.getUuid(), library.getUuid());
 	}
 
-	default Library createLibrary(String name) {
-		Library library = libraryDao().createLibrary(name);
+	default Library createLibrary(User user, String name) {
+		Library library = libraryDao().createLibrary(user, name);
 		libraryDao().store(library);
 		return library;
 	}
 
-	default Binary createBinary() {
-		Binary binary = binaryDao().createBinary(DUMMY_SHA512SUM, 42L);
+	default Binary createBinary(User user) {
+		Binary binary = binaryDao().createBinary(user, SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
 		binaryDao().store(binary);
 		return binary;
 	}

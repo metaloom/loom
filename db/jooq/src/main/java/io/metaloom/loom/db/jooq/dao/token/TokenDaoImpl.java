@@ -29,4 +29,12 @@ public class TokenDaoImpl extends AbstractJooqDao<Token> implements TokenDao {
 	protected Class<? extends Token> getPojoClass() {
 		return TokenImpl.class;
 	}
+
+	@Override
+	public Token createToken(String name, String tokenValue) {
+		Token token = new TokenImpl();
+		token.setName(name);
+		token.setToken(tokenValue);
+		return token;
+	}
 }

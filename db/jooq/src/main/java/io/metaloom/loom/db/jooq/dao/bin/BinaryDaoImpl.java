@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.jooq.dao.bin;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -33,10 +34,14 @@ public class BinaryDaoImpl extends AbstractJooqDao<Binary> implements BinaryDao 
 	}
 
 	@Override
-	public Binary createBinary(String sha512sum, long size) {
+	public Binary createBinary(UUID userUuid, String sha512sum, String mimeType, String initialOrigin, long size) {
+		Objects.requireNonNull(sha512sum, "Binary sha512sum must not be null");
 		Binary binary = new BinaryImpl();
-		binary.setSHA256(sha512sum);
+		binary.setSHA512(sha512sum);
 		binary.setSize(size);
+		binary.setMimeType(mimeType);
+		binary.setInitialOrigin(initialOrigin);
+		setCreatorEditor(binary, userUuid);
 		return binary;
 	}
 

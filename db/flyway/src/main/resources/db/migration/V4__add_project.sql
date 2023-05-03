@@ -1,5 +1,5 @@
 CREATE TABLE "project" (
-  "uuid" uuid,
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar NOT NULL,
   "meta" jsonb,
   "description" varchar,

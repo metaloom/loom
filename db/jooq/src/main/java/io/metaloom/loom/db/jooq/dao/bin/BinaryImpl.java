@@ -23,11 +23,11 @@ public class BinaryImpl extends AbstractEditableElement<Binary> implements Binar
 	private BigDecimal geoLat;
 	private BigDecimal geoLon;
 	private String mimeType;
+	private String initialOrigin;
 
 	public BinaryImpl() {
 	}
 
-	
 	@Override
 	public String getSHA512() {
 		return sha512sum;
@@ -202,6 +202,17 @@ public class BinaryImpl extends AbstractEditableElement<Binary> implements Binar
 	@Override
 	public Binary setMimeType(String mimeType) {
 		this.mimeType = mimeType;
+		return this;
+	}
+
+	@Override
+	public String getInitialOrigin() {
+		return initialOrigin;
+	}
+
+	@Override
+	public Binary setInitialOrigin(String initialOrigin) {
+		this.initialOrigin = initialOrigin;
 		return this;
 	}
 }

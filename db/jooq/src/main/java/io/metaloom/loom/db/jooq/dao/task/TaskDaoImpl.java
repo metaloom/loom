@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.task;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -31,9 +33,10 @@ public class TaskDaoImpl extends AbstractJooqDao<Task> implements TaskDao {
 	}
 
 	@Override
-	public Task createTask(String title) {
+	public Task createTask(UUID userUuid, String title) {
 		Task task = new TaskImpl();
 		task.setTitle(title);
+		setCreatorEditor(task, userUuid);
 		return task;
 	}
 

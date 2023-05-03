@@ -38,6 +38,7 @@ Table user as U [headercolor: #16a085] {
 
 Table token as AK [headercolor: #16A085] {
   uuid uuid [increment]
+  name varchar [not null]
   user_uuid uuid [ref: > U.uuid]
   description varchar
   token varchar [not null]
@@ -48,6 +49,7 @@ Table token as AK [headercolor: #16A085] {
     (uuid) [pk]
     (token) [unique]
     (user_uuid)
+    (user_uuid, name) [unique]
   }
 }
 
@@ -343,16 +345,16 @@ Table embedding as EMBEDDING [headercolor: #16A085] {
   source varchar [note: "Additional source information (e.g. face number by dlib)"]
 
   // Spatial / temporal origin of the embedding
-  frame int [note: "Source frame where the face has been detected.", not null]
-  areaHeight int [note: "Area info where the face has been detected.", not null]
-  areaWidth  int [note: "Area info where the face has been detected.", not null]
-  areaStartX int [note: "Area info where the face has been detected.", not null]
-  areaStartY int [note: "Area info where the face has been detected.", not null]
+  frame int [note: "Source frame where the face has been detected."]
+  areaHeight int [note: "Area info where the face has been detected."]
+  areaWidth  int [note: "Area info where the face has been detected."]
+  areaStartX int [note: "Area info where the face has been detected."]
+  areaStartY int [note: "Area info where the face has been detected."]
 
   // Actual embedding data
-  embeddings bytea [not null, note: "Actual embedding data"]
-  embedding_id int [note: "Additional id which references the embedding in the binary. (A binary can have multiple embeddings)"]
-  embedding_type embedding_type [note: "Type of the embedding (e.g. dlib_facemark)"]
+  data float[] [not null, note: "Actual embedding data"]
+  id int [note: "Additional id which references the embedding in the binary. (A binary can have multiple embeddings)"]
+  type embedding_type [note: "Type of the embedding (e.g. dlib_facemark)", not null]
 
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]

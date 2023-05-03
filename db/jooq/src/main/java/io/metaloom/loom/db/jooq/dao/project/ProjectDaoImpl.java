@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.project;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -8,7 +10,7 @@ import org.jooq.Table;
 import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.JooqLibrary;
+import io.metaloom.loom.db.jooq.tables.JooqProject;
 import io.metaloom.loom.db.model.project.Project;
 import io.metaloom.loom.db.model.project.ProjectDao;
 
@@ -22,7 +24,7 @@ public class ProjectDaoImpl extends AbstractJooqDao<Project> implements ProjectD
 
 	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
-		return JooqLibrary.LIBRARY;
+		return JooqProject.PROJECT;
 	}
 
 	@Override
@@ -31,9 +33,10 @@ public class ProjectDaoImpl extends AbstractJooqDao<Project> implements ProjectD
 	}
 
 	@Override
-	public Project createProject(String name) {
+	public Project createProject(UUID userUuid, String name) {
 		Project project = new ProjectImpl();
 		project.setName(name);
+		setCreatorEditor(project, userUuid);
 		return project;
 	}
 

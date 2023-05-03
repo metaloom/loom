@@ -1,25 +1,16 @@
 package io.metaloom.loom.db.model.webhook;
 
 import java.util.UUID;
-import java.util.function.Consumer;
 
-import io.metaloom.loom.db.Dao;
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Maybe;
-import io.reactivex.rxjava3.core.Single;
+import io.metaloom.loom.db.CRUDDao;
+import io.metaloom.loom.db.model.user.User;
 
-public interface WebhookDao extends Dao {
+public interface WebhookDao extends CRUDDao<Webhook> {
 
-	default Single<? extends Webhook> createWebhook(String url) {
-		return createWebhook(url, null);
+	default Webhook createWebhook(User user, String url) {
+		return createWebhook(user.getUuid(), url);
 	}
 
-	Single<? extends Webhook> createWebhook(String url, Consumer<Webhook> modifier);
-
-	Maybe<? extends Webhook> loadWebhook(UUID uuid);
-
-	Completable updateWebhook(Webhook webhook);
-
-	Completable deleteWebhook(Webhook webhook);
+	Webhook createWebhook(UUID userUuid, String url);
 
 }

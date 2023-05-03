@@ -56,7 +56,7 @@ public class JooqProject extends TableImpl<JooqProjectRecord> {
     /**
      * The column <code>public.project.uuid</code>.
      */
-    public final TableField<JooqProjectRecord, java.util.UUID> UUID = createField(DSL.name("uuid"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<JooqProjectRecord, java.util.UUID> UUID = createField(DSL.name("uuid"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field("uuid_generate_v4()", SQLDataType.UUID)), this, "");
 
     /**
      * The column <code>public.project.name</code>.

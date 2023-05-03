@@ -7,4 +7,9 @@ public interface Cluster extends CUDElement<Cluster> {
 	String getName();
 
 	Cluster setName(String name);
+
+	ClusterType getType();
+
+	Cluster setType(ClusterType type);
+
 }

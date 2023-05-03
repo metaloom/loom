@@ -4,31 +4,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.io.IOException;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.library.LibraryDao;
+import io.metaloom.loom.db.model.user.User;
 
 public abstract class AbstractLibraryDaoTest {
 
 	abstract public LibraryDao getDao();
 
-	@AfterEach
-	@BeforeEach
-	public void clearPersistence() throws IOException {
-		getDao().clear();
-	}
+	abstract User getUser();
 
 	@Test
 	public void testCreate() {
 		LibraryDao dao = getDao();
+		User user = getUser();
 
 		// Create library
-		Library library = dao.createLibrary("Dummy");
+		Library library = dao.createLibrary(user, "Dummy");
 		assertNotNull(library.getUuid());
 		assertEquals("Dummy", library.getName());
 	}
@@ -36,9 +30,10 @@ public abstract class AbstractLibraryDaoTest {
 	@Test
 	public void testDelete() {
 		LibraryDao dao = getDao();
+		User user = getUser();
 
 		// Create library
-		Library library = dao.createLibrary("Dummy");
+		Library library = dao.createLibrary(user, "Dummy");
 		assertNotNull(library);
 
 		// Now assert deletion
@@ -49,9 +44,10 @@ public abstract class AbstractLibraryDaoTest {
 	@Test
 	public void testUpdate() {
 		LibraryDao dao = getDao();
+		User user = getUser();
 
 		// Create and store
-		Library library = dao.createLibrary("Dummy");
+		Library library = dao.createLibrary(user, "Dummy");
 
 		// Now update
 		library.setName("Dummy2");
@@ -66,9 +62,10 @@ public abstract class AbstractLibraryDaoTest {
 	@Test
 	public void testLoad() {
 		LibraryDao dao = getDao();
-
+		User user = getUser();
+		
 		// Create and store library
-		Library library = dao.createLibrary("Dummy");
+		Library library = dao.createLibrary(user, "Dummy");
 
 		// Now load again
 		assertNotNull(dao.load(library.getUuid()));

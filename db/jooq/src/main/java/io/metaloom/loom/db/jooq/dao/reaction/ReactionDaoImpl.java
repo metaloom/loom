@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.reaction;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -8,9 +10,12 @@ import org.jooq.Table;
 import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.JooqLibrary;
+import io.metaloom.loom.db.jooq.tables.JooqReaction;
+import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.loom.db.model.asset.Binary;
 import io.metaloom.loom.db.model.reaction.Reaction;
 import io.metaloom.loom.db.model.reaction.ReactionDao;
+import io.metaloom.loom.db.model.task.Task;
 
 @Singleton
 public class ReactionDaoImpl extends AbstractJooqDao<Reaction> implements ReactionDao {
@@ -22,7 +27,7 @@ public class ReactionDaoImpl extends AbstractJooqDao<Reaction> implements Reacti
 
 	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
-		return JooqLibrary.LIBRARY;
+		return JooqReaction.REACTION;
 	}
 
 	@Override
@@ -31,9 +36,47 @@ public class ReactionDaoImpl extends AbstractJooqDao<Reaction> implements Reacti
 	}
 
 	@Override
-	public Reaction createReaction(String name) {
+	public Reaction createReaction(UUID userUuid, String type) {
 		Reaction reaction = new ReactionImpl();
+		reaction.setType(type);
+		setCreatorEditor(reaction, userUuid);
 		return reaction;
+	}
+
+	@Override
+	public void link(Reaction reaction, Binary binary) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void unlink(Reaction reaction, Binary binary) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void link(Reaction reaction, Asset asset) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void unlink(Reaction reaction, Asset asset) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void link(Reaction reaction, Task task) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void unlink(Reaction reaction, Task task) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

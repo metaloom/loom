@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.library;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -31,9 +33,10 @@ public class LibraryDaoImpl extends AbstractJooqDao<Library> implements LibraryD
 	}
 
 	@Override
-	public Library createLibrary(String name) {
+	public Library createLibrary(UUID userUuid, String name) {
 		Library library = new LibraryImpl();
 		library.setName(name);
+		setCreatorEditor(library, userUuid);
 		return library;
 	}
 

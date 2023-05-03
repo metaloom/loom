@@ -77,48 +77,47 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
      * The column <code>public.embedding.frame</code>. Source frame where the
      * face has been detected.
      */
-    public final TableField<JooqEmbeddingRecord, Integer> FRAME = createField(DSL.name("frame"), SQLDataType.INTEGER.nullable(false), this, "Source frame where the face has been detected.");
+    public final TableField<JooqEmbeddingRecord, Integer> FRAME = createField(DSL.name("frame"), SQLDataType.INTEGER, this, "Source frame where the face has been detected.");
 
     /**
      * The column <code>public.embedding.areaHeight</code>. Area info where the
      * face has been detected.
      */
-    public final TableField<JooqEmbeddingRecord, Integer> AREAHEIGHT = createField(DSL.name("areaHeight"), SQLDataType.INTEGER.nullable(false), this, "Area info where the face has been detected.");
+    public final TableField<JooqEmbeddingRecord, Integer> AREAHEIGHT = createField(DSL.name("areaHeight"), SQLDataType.INTEGER, this, "Area info where the face has been detected.");
 
     /**
      * The column <code>public.embedding.areaWidth</code>. Area info where the
      * face has been detected.
      */
-    public final TableField<JooqEmbeddingRecord, Integer> AREAWIDTH = createField(DSL.name("areaWidth"), SQLDataType.INTEGER.nullable(false), this, "Area info where the face has been detected.");
+    public final TableField<JooqEmbeddingRecord, Integer> AREAWIDTH = createField(DSL.name("areaWidth"), SQLDataType.INTEGER, this, "Area info where the face has been detected.");
 
     /**
      * The column <code>public.embedding.areaStartX</code>. Area info where the
      * face has been detected.
      */
-    public final TableField<JooqEmbeddingRecord, Integer> AREASTARTX = createField(DSL.name("areaStartX"), SQLDataType.INTEGER.nullable(false), this, "Area info where the face has been detected.");
+    public final TableField<JooqEmbeddingRecord, Integer> AREASTARTX = createField(DSL.name("areaStartX"), SQLDataType.INTEGER, this, "Area info where the face has been detected.");
 
     /**
      * The column <code>public.embedding.areaStartY</code>. Area info where the
      * face has been detected.
      */
-    public final TableField<JooqEmbeddingRecord, Integer> AREASTARTY = createField(DSL.name("areaStartY"), SQLDataType.INTEGER.nullable(false), this, "Area info where the face has been detected.");
+    public final TableField<JooqEmbeddingRecord, Integer> AREASTARTY = createField(DSL.name("areaStartY"), SQLDataType.INTEGER, this, "Area info where the face has been detected.");
 
     /**
-     * The column <code>public.embedding.embeddings</code>. Actual embedding
-     * data
+     * The column <code>public.embedding.data</code>. Actual embedding data
      */
-    public final TableField<JooqEmbeddingRecord, byte[]> EMBEDDINGS = createField(DSL.name("embeddings"), SQLDataType.BLOB.nullable(false), this, "Actual embedding data");
+    public final TableField<JooqEmbeddingRecord, Float[]> DATA = createField(DSL.name("data"), SQLDataType.REAL.getArrayDataType(), this, "Actual embedding data");
 
     /**
-     * The column <code>public.embedding.embedding_id</code>.
+     * The column <code>public.embedding.id</code>.
      */
-    public final TableField<JooqEmbeddingRecord, Long> EMBEDDING_ID = createField(DSL.name("embedding_id"), SQLDataType.BIGINT, this, "");
+    public final TableField<JooqEmbeddingRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.embedding.embedding_type</code>. Type of the
-     * embedding (e.g. dlib_facemark)
+     * The column <code>public.embedding.type</code>. Type of the embedding
+     * (e.g. dlib_facemark)
      */
-    public final TableField<JooqEmbeddingRecord, JooqEmbeddingType> EMBEDDING_TYPE = createField(DSL.name("embedding_type"), SQLDataType.VARCHAR.asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqEmbeddingType.class), this, "Type of the embedding (e.g. dlib_facemark)");
+    public final TableField<JooqEmbeddingRecord, JooqEmbeddingType> TYPE = createField(DSL.name("type"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqEmbeddingType.class), this, "Type of the embedding (e.g. dlib_facemark)");
 
     /**
      * The column <code>public.embedding.created</code>.
@@ -267,14 +266,14 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<java.util.UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, byte[], Long, JooqEmbeddingType, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID> fieldsRow() {
+    public Row16<java.util.UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, JooqEmbeddingType, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID> fieldsRow() {
         return (Row16) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function16<? super java.util.UUID, ? super JSONB, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super byte[], ? super Long, ? super JooqEmbeddingType, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function16<? super java.util.UUID, ? super JSONB, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Float[], ? super Long, ? super JooqEmbeddingType, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -282,7 +281,7 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super java.util.UUID, ? super JSONB, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super byte[], ? super Long, ? super JooqEmbeddingType, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super java.util.UUID, ? super JSONB, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Float[], ? super Long, ? super JooqEmbeddingType, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

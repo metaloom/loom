@@ -22,7 +22,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Embedding information which was extracted from a binary.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord> implements Record16<UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, byte[], Long, JooqEmbeddingType, LocalDateTime, UUID, LocalDateTime, UUID, UUID> {
+public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord> implements Record16<UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, JooqEmbeddingType, LocalDateTime, UUID, LocalDateTime, UUID, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -153,48 +153,46 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     /**
-     * Setter for <code>public.embedding.embeddings</code>. Actual embedding
-     * data
+     * Setter for <code>public.embedding.data</code>. Actual embedding data
      */
-    public void setEmbeddings(byte[] value) {
+    public void setData(Float[] value) {
         set(8, value);
     }
 
     /**
-     * Getter for <code>public.embedding.embeddings</code>. Actual embedding
-     * data
+     * Getter for <code>public.embedding.data</code>. Actual embedding data
      */
-    public byte[] getEmbeddings() {
-        return (byte[]) get(8);
+    public Float[] getData() {
+        return (Float[]) get(8);
     }
 
     /**
-     * Setter for <code>public.embedding.embedding_id</code>.
+     * Setter for <code>public.embedding.id</code>.
      */
-    public void setEmbeddingId(Long value) {
+    public void setId(Long value) {
         set(9, value);
     }
 
     /**
-     * Getter for <code>public.embedding.embedding_id</code>.
+     * Getter for <code>public.embedding.id</code>.
      */
-    public Long getEmbeddingId() {
+    public Long getId() {
         return (Long) get(9);
     }
 
     /**
-     * Setter for <code>public.embedding.embedding_type</code>. Type of the
-     * embedding (e.g. dlib_facemark)
+     * Setter for <code>public.embedding.type</code>. Type of the embedding
+     * (e.g. dlib_facemark)
      */
-    public void setEmbeddingType(JooqEmbeddingType value) {
+    public void setType(JooqEmbeddingType value) {
         set(10, value);
     }
 
     /**
-     * Getter for <code>public.embedding.embedding_type</code>. Type of the
-     * embedding (e.g. dlib_facemark)
+     * Getter for <code>public.embedding.type</code>. Type of the embedding
+     * (e.g. dlib_facemark)
      */
-    public JooqEmbeddingType getEmbeddingType() {
+    public JooqEmbeddingType getType() {
         return (JooqEmbeddingType) get(10);
     }
 
@@ -282,12 +280,12 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, byte[], Long, JooqEmbeddingType, LocalDateTime, UUID, LocalDateTime, UUID, UUID> fieldsRow() {
+    public Row16<UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, JooqEmbeddingType, LocalDateTime, UUID, LocalDateTime, UUID, UUID> fieldsRow() {
         return (Row16) super.fieldsRow();
     }
 
     @Override
-    public Row16<UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, byte[], Long, JooqEmbeddingType, LocalDateTime, UUID, LocalDateTime, UUID, UUID> valuesRow() {
+    public Row16<UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, JooqEmbeddingType, LocalDateTime, UUID, LocalDateTime, UUID, UUID> valuesRow() {
         return (Row16) super.valuesRow();
     }
 
@@ -332,18 +330,18 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public Field<byte[]> field9() {
-        return JooqEmbedding.EMBEDDING.EMBEDDINGS;
+    public Field<Float[]> field9() {
+        return JooqEmbedding.EMBEDDING.DATA;
     }
 
     @Override
     public Field<Long> field10() {
-        return JooqEmbedding.EMBEDDING.EMBEDDING_ID;
+        return JooqEmbedding.EMBEDDING.ID;
     }
 
     @Override
     public Field<JooqEmbeddingType> field11() {
-        return JooqEmbedding.EMBEDDING.EMBEDDING_TYPE;
+        return JooqEmbedding.EMBEDDING.TYPE;
     }
 
     @Override
@@ -412,18 +410,18 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public byte[] component9() {
-        return getEmbeddings();
+    public Float[] component9() {
+        return getData();
     }
 
     @Override
     public Long component10() {
-        return getEmbeddingId();
+        return getId();
     }
 
     @Override
     public JooqEmbeddingType component11() {
-        return getEmbeddingType();
+        return getType();
     }
 
     @Override
@@ -492,18 +490,18 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public byte[] value9() {
-        return getEmbeddings();
+    public Float[] value9() {
+        return getData();
     }
 
     @Override
     public Long value10() {
-        return getEmbeddingId();
+        return getId();
     }
 
     @Override
     public JooqEmbeddingType value11() {
-        return getEmbeddingType();
+        return getType();
     }
 
     @Override
@@ -580,20 +578,20 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public JooqEmbeddingRecord value9(byte[] value) {
-        setEmbeddings(value);
+    public JooqEmbeddingRecord value9(Float[] value) {
+        setData(value);
         return this;
     }
 
     @Override
     public JooqEmbeddingRecord value10(Long value) {
-        setEmbeddingId(value);
+        setId(value);
         return this;
     }
 
     @Override
     public JooqEmbeddingRecord value11(JooqEmbeddingType value) {
-        setEmbeddingType(value);
+        setType(value);
         return this;
     }
 
@@ -628,7 +626,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public JooqEmbeddingRecord values(UUID value1, JSONB value2, String value3, Integer value4, Integer value5, Integer value6, Integer value7, Integer value8, byte[] value9, Long value10, JooqEmbeddingType value11, LocalDateTime value12, UUID value13, LocalDateTime value14, UUID value15, UUID value16) {
+    public JooqEmbeddingRecord values(UUID value1, JSONB value2, String value3, Integer value4, Integer value5, Integer value6, Integer value7, Integer value8, Float[] value9, Long value10, JooqEmbeddingType value11, LocalDateTime value12, UUID value13, LocalDateTime value14, UUID value15, UUID value16) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -662,7 +660,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     /**
      * Create a detached, initialised JooqEmbeddingRecord
      */
-    public JooqEmbeddingRecord(UUID uuid, JSONB meta, String source, Integer frame, Integer areaheight, Integer areawidth, Integer areastartx, Integer areastarty, byte[] embeddings, Long embeddingId, JooqEmbeddingType embeddingType, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID binaryUuid) {
+    public JooqEmbeddingRecord(UUID uuid, JSONB meta, String source, Integer frame, Integer areaheight, Integer areawidth, Integer areastartx, Integer areastarty, Float[] data, Long id, JooqEmbeddingType type, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID binaryUuid) {
         super(JooqEmbedding.EMBEDDING);
 
         setUuid(uuid);
@@ -673,9 +671,9 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
         setAreawidth(areawidth);
         setAreastartx(areastartx);
         setAreastarty(areastarty);
-        setEmbeddings(embeddings);
-        setEmbeddingId(embeddingId);
-        setEmbeddingType(embeddingType);
+        setData(data);
+        setId(id);
+        setType(type);
         setCreated(created);
         setCreatorUuid(creatorUuid);
         setEdited(edited);

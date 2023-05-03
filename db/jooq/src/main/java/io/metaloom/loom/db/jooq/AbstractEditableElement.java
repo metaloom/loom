@@ -82,4 +82,8 @@ public abstract class AbstractEditableElement<SELF extends CUDElement<SELF>> ext
 		return self();
 	}
 
+	@Override
+	public String toString() {
+		return "[" + getClass().getSimpleName() + "] uuid: " + getUuid() + ", creator: " + getCreatorUuid();
+	}
 }

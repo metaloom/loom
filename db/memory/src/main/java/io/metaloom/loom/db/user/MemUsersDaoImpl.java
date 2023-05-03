@@ -18,7 +18,6 @@ public class MemUsersDaoImpl extends AbstractMemDao<User> implements UserDao {
 		return storage.values().stream().filter(u -> u.getUsername().equals(username)).findFirst().get();
 	}
 
-
 	@Override
 	public User createUser(String username) {
 		User user = new MemUserImpl();
@@ -26,6 +25,5 @@ public class MemUsersDaoImpl extends AbstractMemDao<User> implements UserDao {
 		user.setUsername(username);
 		return user;
 	}
-
 
 }

@@ -101,6 +101,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "token" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
+  "name" varchar,
   "user_uuid" uuid,
   "description" varchar,
   "token" varchar NOT NULL,
@@ -207,10 +208,10 @@ CREATE TABLE "binary" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "sha512sum" varchar NOT NULL,
   "size" bigint NOT NULL,
-  "sha256sum" varchar NOT NULL,
-  "md5sum" varchar NOT NULL,
-  "chunk_hash" varchar NOT NULL,
-  "zero_chunk_count" bigint NOT NULL,
+  "sha256sum" varchar,
+  "md5sum" varchar,
+  "chunk_hash" varchar,
+  "zero_chunk_count" bigint,
   "mime_type" varchar NOT NULL,
   "meta" jsonb,
   "author" varchar,
@@ -268,17 +269,17 @@ CREATE TABLE "asset" (
 );
 
 CREATE TABLE "embedding" (
-   "uuid" uuid DEFAULT uuid_generate_v4 (),
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "meta" jsonb,
   "source" varchar,
-  "frame" int NOT NULL,
-  "areaHeight" int NOT NULL,
-  "areaWidth" int NOT NULL,
-  "areaStartX" int NOT NULL,
-  "areaStartY" int NOT NULL,
-  "embeddings" bytea NOT NULL,
-  "embedding_id" bigint,
-  "embedding_type" embedding_type,
+  "frame" int,
+  "areaHeight" int,
+  "areaWidth" int,
+  "areaStartX" int,
+  "areaStartY" int,
+  "data" real[] NOT NULL,
+  "id" bigint,
+  "type" embedding_type NOT NULL,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
@@ -395,7 +396,7 @@ CREATE TABLE "reaction" (
 );
 
 CREATE TABLE "annotation" (
-   "uuid" uuid DEFAULT uuid_generate_v4 (),
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "type" annotation_type NOT NULL,
   "asset_uuid" uuid NOT NULL,
   "creator_uuid" uuid NOT NULL,
@@ -472,6 +473,8 @@ CREATE UNIQUE INDEX ON "user" ("username");
 CREATE UNIQUE INDEX ON "token" ("token");
 
 CREATE INDEX ON "token" ("user_uuid");
+
+CREATE UNIQUE INDEX ON "token" ("user_uuid", "name");
 
 CREATE UNIQUE INDEX ON "role" ("name");
 
@@ -603,9 +606,9 @@ COMMENT ON COLUMN "embedding"."areaStartX" IS 'Area info where the face has been
 
 COMMENT ON COLUMN "embedding"."areaStartY" IS 'Area info where the face has been detected.';
 
-COMMENT ON COLUMN "embedding"."embeddings" IS 'Actual embedding data';
+COMMENT ON COLUMN "embedding"."data" IS 'Actual embedding data';
 
-COMMENT ON COLUMN "embedding"."embedding_type" IS 'Type of the embedding (e.g. dlib_facemark)';
+COMMENT ON COLUMN "embedding"."type" IS 'Type of the embedding (e.g. dlib_facemark)';
 
 COMMENT ON TABLE "cluster" IS 'Generic cluster that aggregates multiple embeddings. 
 A cluster could for example represent a person which can have multiple face embeddings.
