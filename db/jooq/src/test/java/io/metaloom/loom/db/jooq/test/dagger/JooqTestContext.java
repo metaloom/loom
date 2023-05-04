@@ -4,7 +4,6 @@ import static io.metaloom.loom.db.jooq.user.LoomExtensionHelper.toOptions;
 
 import javax.sql.DataSource;
 
-import org.jooq.DSLContext;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -12,16 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.options.DatabaseOptions;
-import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.asset.BinaryDao;
-import io.metaloom.loom.db.model.collection.CollectionDao;
-import io.metaloom.loom.db.model.group.GroupDao;
-import io.metaloom.loom.db.model.library.LibraryDao;
-import io.metaloom.loom.db.model.perm.PermissionDao;
-import io.metaloom.loom.db.model.user.UserDao;
+import io.metaloom.loom.db.dagger.DaoCollection;
+import io.metaloom.loom.db.dagger.DaoProvider;
 import io.metaloom.loom.test.LoomProviderExtension;
 
-public class JooqTestContext implements BeforeEachCallback, AfterEachCallback {
+public class JooqTestContext implements BeforeEachCallback, AfterEachCallback, DaoProvider {
 
 	public static final Logger log = LoggerFactory.getLogger(JooqTestContext.class);
 
@@ -55,36 +49,9 @@ public class JooqTestContext implements BeforeEachCallback, AfterEachCallback {
 		return component.dataSource();
 	}
 
-	public UserDao userDao() {
-		return component.userDao();
-	}
-
-	public AssetDao assetDao() {
-		return component.assetDao();
-	}
-
-	public GroupDao groupDao() {
-		return component.groupDao();
-	}
-
-	public DSLContext context() {
-		return component.context();
-	}
-
-	public BinaryDao binaryDao() {
-		return component.binaryDao();
-	}
-
-	public PermissionDao permissionDao() {
-		return component.permissionDao();
-	}
-
-	public CollectionDao collectionDao() {
-		return component.collectionDao();
-	}
-	
-	public LibraryDao libraryDao() {
-		return component.libraryDao();
+	@Override
+	public DaoCollection daos() {
+		return component.daos();
 	}
 
 }

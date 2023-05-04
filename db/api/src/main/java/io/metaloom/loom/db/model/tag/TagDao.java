@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.model.tag;
 
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.model.annotation.Annotation;
@@ -17,6 +18,8 @@ public interface TagDao extends CRUDDao<Tag> {
 	}
 
 	Tag createTag(UUID userUuid, String name, String collection);
+
+	Stream<? extends Tag> loadTags(Asset asset);
 
 	void tagAsset(Tag tag, Asset asset);
 

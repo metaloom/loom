@@ -1,7 +1,6 @@
 package io.metaloom.loom.db.jooq;
 
 import static io.metaloom.loom.db.jooq.tables.JooqAsset.ASSET;
-import static io.metaloom.loom.db.jooq.tables.JooqUser.USER;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,6 +17,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableRecord;
 import org.jooq.UniqueKey;
+import org.jooq.UpdatableRecord;
 
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.CUDElement;
@@ -99,7 +99,11 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	@Override
 	public T load(UUID uuid) {
-		return ctx().fetchSingle(getTable(), USER.UUID.equal(uuid)).into(getPojoClass());
+		return ctx()
+			.select(getTable())
+			.from(getTable())
+			.where(getTable().field("uuid", UUID.class).eq(uuid))
+			.fetchOneInto(getPojoClass());
 		// return ctx().selectFrom(USER)
 		// .where(USER.UUID.equal(uuid))
 		// .fetchOneInto(User.class);
@@ -114,8 +118,9 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	@Override
 	public T update(T element) {
-		// TODO Auto-generated method stub
-		return null;
+		UpdatableRecord<?> reco = (UpdatableRecord<?>) ctx().newRecord(getTable(), element);
+		ctx().executeUpdate(reco);
+		return element;
 	}
 
 	@Override

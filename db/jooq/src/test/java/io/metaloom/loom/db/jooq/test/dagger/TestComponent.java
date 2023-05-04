@@ -10,21 +10,15 @@ import dagger.BindsInstance;
 import dagger.Component;
 import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.common.dagger.VertxModule;
+import io.metaloom.loom.db.dagger.DBBindModule;
+import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
-import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.asset.BinaryDao;
-import io.metaloom.loom.db.model.collection.CollectionDao;
-import io.metaloom.loom.db.model.group.GroupDao;
-import io.metaloom.loom.db.model.library.LibraryDao;
-import io.metaloom.loom.db.model.perm.PermissionDao;
-import io.metaloom.loom.db.model.role.RoleDao;
-import io.metaloom.loom.db.model.user.UserDao;
 import io.r2dbc.spi.ConnectionFactory;
 
 @Singleton
-@Component(modules = { JooqModule.class, FlywayModule.class, JooqLoomDaoBindModule.class, VertxModule.class })
+@Component(modules = { JooqModule.class, DBBindModule.class, FlywayModule.class, JooqLoomDaoBindModule.class, VertxModule.class })
 public interface TestComponent {
 
 	Flyway flyway();
@@ -35,23 +29,7 @@ public interface TestComponent {
 
 	ConnectionFactory r2dbcConnectionFactory();
 
-	UserDao userDao();
-
-	AssetDao assetDao();
-
-	GroupDao groupDao();
-
-	RoleDao roleDao();
-
-	PermissionDao permissionDao();
-
-	CollectionDao collectionDao();
-
-	LibraryDao libraryDao();
-
-	LibraryDao namespaceDao();
-
-	BinaryDao binaryDao();
+	DaoCollection daos();
 
 	@Component.Builder
 	interface Builder {

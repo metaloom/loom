@@ -1,20 +1,13 @@
-package io.metaloom.loom.db.jooq;
+package io.metaloom.loom.db;
 
-import javax.sql.DataSource;
-
+import io.metaloom.loom.db.dagger.DaoProvider;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.asset.Binary;
-import io.metaloom.loom.db.model.asset.BinaryDao;
-import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.library.Library;
-import io.metaloom.loom.db.model.library.LibraryDao;
-import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.user.User;
-import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.test.TestValues;
 
-public interface JooqTestHelper extends TestValues {
+public interface DatabaseTest extends TestValues, DaoProvider {
 
 	default User createUser(String username) {
 		User user = userDao().createUser(username);
@@ -40,17 +33,4 @@ public interface JooqTestHelper extends TestValues {
 		return binary;
 	}
 
-	DataSource dataSource();
-
-	GroupDao groupDao();
-
-	AssetDao assetDao();
-
-	BinaryDao binaryDao();
-
-	UserDao userDao();
-
-	LibraryDao libraryDao();
-
-	PermissionDao permissionDao();
 }

@@ -15,7 +15,8 @@ import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqAsset;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.tag.Tag;
+import io.metaloom.loom.db.model.user.User;
+import io.vertx.core.json.JsonObject;
 
 @Singleton
 public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
@@ -68,20 +69,24 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	// return update(jooqAsset).ignoreElement();
 	// }
 
+
+
 	@Override
-	public Tag loadTags(Asset asset) {
+	public void storeUserMeta(User user, Asset asset, JsonObject meta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteUserMeta(User user, Asset asset) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public JsonObject readUserMeta(User user, Asset asset) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void addTag(Asset asset, Tag tag) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void removeTag(Asset asset, Tag tag) {
-		// TODO Auto-generated method stub
 	}
 
 }

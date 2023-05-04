@@ -1,68 +1,33 @@
 package io.metaloom.loom.db.jooq.asset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
-
-import org.junit.jupiter.api.Test;
-
+import io.metaloom.loom.db.CRUDDaoTestcases;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.user.User;
-import io.metaloom.loom.db.page.Page;
 
-public class AssetDaoTest extends AbstractJooqTest {
+public class AssetDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<AssetDao, Asset> {
 
-	@Test
-	public void testCreateAsset() {
-		AssetDao assetDao = assetDao();
-
-		AtomicReference<UUID> ref = new AtomicReference<>();
-		User creator = createUser("joedoe");
-		//Namespace namespace = createNamespace("Test");
-		context.context().transaction(t -> {
-			Asset asset = createAsset("blume.jpg", creator);
-			assertNotNull(asset);
-			ref.set(asset.getUuid());
-			assertNotNull(asset.getUuid());
-			assetDao.store(asset);
-		});
-
-		assertEquals(1, assetDao.count());
-		assertNotNull(assetDao.load(ref.get()));
+	@Override
+	public Asset createElement(User user, int i) {
+		return assetDao().createAsset("test_" + i + ".jpg", BINARY_UUID, ADMIN_UUID, LIBRARY_UUID);
 	}
 
-	@Test
-	public void testLoadPage() {
-		User creator = createUser("joedoe");
-		//Library library = createLibrary("Test");
-		for (int i = 0; i < 1024; i++) {
-			Asset asset = createAsset("blume_" + i + ".jpg", creator);
-			assetDao().store(asset);
-		}
-		assertEquals(1024, assetDao().count());
+	@Override
+	public AssetDao getDao() {
+		return assetDao();
+	}
 
-		UUID uuid = null;
-		long totalFound = 0;
-		while (true) {
-			Page<Asset> page = assetDao().loadPage(uuid, 30);
-			if (page.isEmpty()) {
-				break;
-			} else {
-				uuid = page.lastUUID();
-			}
-			for (Asset asset : page) {
-				System.out.println(asset);
-				totalFound++;
-			}
-			System.out.println("--");
-		}
+	@Override
+	public void updateElement(Asset element) {
+		element.setPath("new path");
+	}
 
-		assertEquals(1024, totalFound);
-
+	@Override
+	public void assertUpdate(Asset updatedAsset) {
+		assertEquals("new path", updatedAsset.getPath());
 	}
 
 }

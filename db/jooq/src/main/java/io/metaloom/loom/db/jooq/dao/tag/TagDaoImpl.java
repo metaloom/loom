@@ -4,6 +4,7 @@ import static io.metaloom.loom.db.jooq.tables.JooqAnnotationTag.ANNOTATION_TAG;
 import static io.metaloom.loom.db.jooq.tables.JooqTagAsset.TAG_ASSET;
 
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -37,41 +38,14 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 		return TagImpl.class;
 	}
 
-	// @Override
-	// public void tagAsset(LoomTag tag, LoomAsset asset) {
-	// TagAsset tagging = new TagAsset(tag.getUuid(), asset.getUuid());
-	// return tagAssetDao.insert(tagging).ignoreElement();
-	// }
-	//
-	// @Override
-	// public void untagAsset(LoomTag tag, LoomAsset asset) {
-	// TagAssetRecord tagging = new TagAssetRecord(tag.getUuid(), asset.getUuid());
-	// return tagAssetDao.deleteById(tagging).ignoreElement();
-	// }
-	//
-	// @Override
-	// public void tagContent(LoomTag tag, LoomContent content) {
-	// TagContent tagging = new TagContent(tag.getUuid(), content.getUuid());
-	// return tagContentDao.insert(tagging).ignoreElement();
-	// }
-	//
-	// @Override
-	// public void untagContent(LoomTag tag, LoomContent content) {
-	// TagContentRecord tagging = new TagContentRecord(tag.getUuid(), content.getUuid());
-	// return tagContentDao.deleteById(tagging).ignoreElement();
-	// }
-	//
-	// @Override
-	// public void tagNamespace(LoomTag tag, LoomNamespace namespace) {
-	// TagNamespace tagging = new TagNamespace(tag.getUuid(), namespace.getUuid());
-	// return tagNamespaceDao.insert(tagging).ignoreElement();
-	// }
-	//
-	// @Override
-	// public void untagNamespace(LoomTag tag, LoomNamespace namespace) {
-	// TagNamespaceRecord tagging = new TagNamespaceRecord(tag.getUuid(), namespace.getUuid());
-	// return tagNamespaceDao.deleteById(tagging).ignoreElement();
-	// }
+	@Override
+	public Stream<? extends Tag> loadTags(Asset asset) {
+		return ctx().select(getTable()).from(getTable())
+			.join(TAG_ASSET)
+			.on(TAG_ASSET.ASSET_UUID.eq(TAG_ASSET.ASSET_UUID))
+			.where(TAG_ASSET.ASSET_UUID.eq(asset.getUuid()))
+			.fetchStreamInto(getPojoClass());
+	}
 
 	@Override
 	public Tag createTag(UUID userUuid, String name, String collection) {
