@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.token;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -31,10 +33,11 @@ public class TokenDaoImpl extends AbstractJooqDao<Token> implements TokenDao {
 	}
 
 	@Override
-	public Token createToken(String name, String tokenValue) {
+	public Token createToken(UUID userUuid, String name, String tokenValue) {
 		Token token = new TokenImpl();
 		token.setName(name);
 		token.setToken(tokenValue);
+		setCreatorEditor(token, userUuid);
 		return token;
 	}
 }

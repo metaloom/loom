@@ -204,7 +204,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		userDao().store(adminUser);
 
 		// Group + Assign User to Group
-		Group group = groupDao().create("test-group");
+		Group group = groupDao().create(adminUser, "test-group");
 		group.setUuid(GROUP_UUID);
 		groupDao().store(group);
 		groupDao().addUserToGroup(group, adminUser);
@@ -225,7 +225,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 
 		// Create token + Permissions
 		String tokenValue = StringUtils.randomHumanString(6);
-		Token token = tokenDao().createToken("test_toke", tokenValue);
+		Token token = tokenDao().createToken(joeDoeUser, "test_toke", tokenValue);
 		token.setUuid(TOKEN_UUID);
 		tokenDao().store(token);
 

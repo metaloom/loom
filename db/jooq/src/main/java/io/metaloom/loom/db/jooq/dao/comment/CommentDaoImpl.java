@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.comment;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -31,9 +33,10 @@ public class CommentDaoImpl extends AbstractJooqDao<Comment> implements CommentD
 	}
 
 	@Override
-	public Comment createComment(String title) {
+	public Comment createComment(UUID userUuid, String title) {
 		Comment comment = new CommentImpl();
 		comment.setTitle(title);
+		setCreatorEditor(comment, userUuid);
 		return comment;
 	}
 

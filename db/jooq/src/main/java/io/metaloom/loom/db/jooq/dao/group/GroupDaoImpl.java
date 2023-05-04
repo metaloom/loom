@@ -6,7 +6,7 @@ import static io.metaloom.loom.db.jooq.tables.JooqRoleGroup.ROLE_GROUP;
 import static io.metaloom.loom.db.jooq.tables.JooqUserGroup.USER_GROUP;
 
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -121,12 +121,10 @@ public class GroupDaoImpl extends AbstractJooqDao<Group> implements GroupDao {
 	}
 
 	@Override
-	public Group create(String name, Consumer<Group> modifier) {
+	public Group create(UUID userUuid, String name) {
 		Group group = new GroupImpl();
 		group.setName(name);
-		if (modifier != null) {
-			modifier.accept(group);
-		}
+		setCreatorEditor(group, userUuid);
 		return group;
 	}
 

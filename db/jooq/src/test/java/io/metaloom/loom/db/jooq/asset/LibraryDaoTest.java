@@ -1,4 +1,4 @@
-package io.metaloom.loom.db.jooq.library;
+package io.metaloom.loom.db.jooq.asset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
