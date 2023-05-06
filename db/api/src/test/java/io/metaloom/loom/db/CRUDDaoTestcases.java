@@ -21,18 +21,20 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T>, T extends Element<T>> 
 	@Test
 	default void testCreate() {
 		DAO dao = getDao();
+		long before = dao.count();
 
 		AtomicReference<UUID> ref = new AtomicReference<>();
 		User creator = dummyUser();
 		transaction(t -> {
 			T element = createElement(creator, 0);
 			assertNotNull(element);
+			dao.store(element);
 			ref.set(element.getUuid());
 			assertNotNull(element.getUuid());
 			getDao().store(element);
 		});
 
-		assertEquals(1, dao.count());
+		assertEquals(before + 1, dao.count());
 		assertNotNull(dao.load(ref.get()));
 	}
 

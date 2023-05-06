@@ -37,7 +37,6 @@ public class EmbeddingDaoImpl extends AbstractJooqDao<Embedding> implements Embe
 	@Override
 	public Embedding createEmbedding(UUID userUuid, UUID binaryUuid, float[] data, EmbeddingType type, long id) {
 		Embedding embedding = new EmbeddingImpl();
-		// embedding.setEmbeddingId(Long.valueOf(origin.faceNr()));
 		embedding.setData(ArrayUtils.toObject(data));
 		embedding.setType(type);
 		embedding.setId(id);

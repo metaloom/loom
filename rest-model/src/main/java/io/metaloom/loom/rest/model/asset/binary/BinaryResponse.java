@@ -5,11 +5,10 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.RestResponseModel;
 import io.metaloom.loom.rest.model.asset.AssetHash;
-import io.metaloom.loom.rest.model.asset.AssetResponse;
-import io.metaloom.loom.rest.model.asset.AssetS3Meta;
 
-public class BinaryResponse {
+public class BinaryResponse implements RestResponseModel {
 
 	@JsonPropertyDescription("A set of different computed hashes for the asset.")
 	private AssetHash hashes;

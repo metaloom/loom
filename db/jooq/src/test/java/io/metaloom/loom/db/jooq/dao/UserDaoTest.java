@@ -1,4 +1,4 @@
-package io.metaloom.loom.db.jooq.asset;
+package io.metaloom.loom.db.jooq.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

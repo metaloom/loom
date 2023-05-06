@@ -1,20 +1,16 @@
-package io.metaloom.loom.core.endpoint;
+package io.metaloom.loom.core.endpoint.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.metaloom.loom.client.http.LoomHttpClient;
-import io.metaloom.loom.core.LoomCoreTestExtension;
+import io.metaloom.loom.core.endpoint.AbstractEndpointTest;
 import io.metaloom.loom.rest.model.auth.AuthLoginResponse;
 import io.metaloom.loom.rest.model.user.UserResponse;
 
-public class LoginEndpointTest {
-
-	@RegisterExtension
-	LoomCoreTestExtension loom = new LoomCoreTestExtension();
+public class LoginEndpointTest extends AbstractEndpointTest {
 
 	@Test
 	public void testBasics() throws Exception {

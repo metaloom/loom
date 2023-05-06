@@ -4,6 +4,7 @@ import static io.metaloom.loom.db.jooq.user.LoomExtensionHelper.toOptions;
 
 import javax.sql.DataSource;
 
+import org.jooq.DSLContext;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -52,6 +53,10 @@ public class JooqTestContext implements BeforeEachCallback, AfterEachCallback, D
 	@Override
 	public DaoCollection daos() {
 		return component.daos();
+	}
+
+	public DSLContext ctx() {
+		return component.context();
 	}
 
 }

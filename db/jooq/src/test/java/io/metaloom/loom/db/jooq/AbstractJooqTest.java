@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.jooq;
 
+import org.jooq.DSLContext;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.metaloom.loom.db.DatabaseTest;
@@ -20,6 +21,9 @@ public abstract class AbstractJooqTest implements DatabaseTest, FixtureElementPr
 
 	@Override
 	public void transaction(TransactionCallable callable) {
-		// TODO Auto-generated method stub
+		DSLContext ctx = context.ctx();
+		ctx.transaction(t -> {
+			callable.accept(null);
+		});
 	}
 }
