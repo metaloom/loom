@@ -1,7 +1,9 @@
 package io.metaloom.loom.rest.model.asset.binary;
 
+import java.util.Date;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
@@ -26,7 +28,8 @@ public class BinaryResponse implements RestResponseModel {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("ISO8601 formatted editing date string.")
-	private String firstSeen;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+	private Date firstSeen;
 
 	@JsonPropertyDescription("The size of the asset in bytes.")
 	private long size;
@@ -91,11 +94,11 @@ public class BinaryResponse implements RestResponseModel {
 		return this;
 	}
 
-	public String getFirstSeen() {
+	public Date getFirstSeen() {
 		return firstSeen;
 	}
 
-	public BinaryResponse setFirstSeen(String firstSeen) {
+	public BinaryResponse setFirstSeen(Date firstSeen) {
 		this.firstSeen = firstSeen;
 		return this;
 	}

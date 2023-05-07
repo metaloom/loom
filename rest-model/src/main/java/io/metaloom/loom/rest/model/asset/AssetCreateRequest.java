@@ -1,14 +1,13 @@
 package io.metaloom.loom.rest.model.asset;
 
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.asset.workflow.Annotation;
 import io.metaloom.loom.rest.model.tag.TagReference;
+import io.vertx.core.json.JsonObject;
 
 public class AssetCreateRequest implements RestRequestModel {
 
@@ -25,7 +24,7 @@ public class AssetCreateRequest implements RestRequestModel {
 	private String dominantColor;
 
 	@JsonPropertyDescription("Custom meta properties for the asset.")
-	private Map<String, String> meta;
+	private JsonObject meta;
 
 	@JsonPropertyDescription("The GPS location of the asset.")
 	private AssetGeoLocation location;
@@ -99,11 +98,11 @@ public class AssetCreateRequest implements RestRequestModel {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
+	public JsonObject getMeta() {
 		return meta;
 	}
 
-	public AssetCreateRequest setMeta(Map<String, String> meta) {
+	public AssetCreateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}

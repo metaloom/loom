@@ -2,7 +2,6 @@ package io.metaloom.loom.rest.model.asset;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
@@ -14,7 +13,7 @@ import io.metaloom.loom.rest.model.asset.workflow.Annotation;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
-public class AssetResponse extends AbstractCreatorEditorRestResponse {
+public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetResponse> {
 
 	@JsonPropertyDescription("The current processing status of the asset.")
 	private AssetProcessStatus processStatus;
@@ -39,9 +38,6 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse {
 
 	@JsonPropertyDescription("The GPS location of the asset.")
 	private AssetGeoLocation geo;
-
-	@JsonPropertyDescription("Custom meta properties for the asset.")
-	private Map<String, String> meta;
 
 	@JsonPropertyDescription("Licenses related to the asset.")
 	private List<LicenseInfo> licenses = new ArrayList<>();
@@ -106,15 +102,6 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
-		return meta;
-	}
-
-	public AssetResponse setMeta(Map<String, String> meta) {
-		this.meta = meta;
-		return this;
-	}
-
 	public AssetGeoLocation getGeo() {
 		return geo;
 	}
@@ -157,6 +144,11 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse {
 
 	public void setLicenses(List<LicenseInfo> licenses) {
 		this.licenses = licenses;
+	}
+
+	@Override
+	public AssetResponse self() {
+		return this;
 	}
 
 }

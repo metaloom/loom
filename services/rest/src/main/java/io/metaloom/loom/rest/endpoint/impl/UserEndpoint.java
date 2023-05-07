@@ -19,6 +19,7 @@ import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.AbstractRESTEndpoint;
+import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.dagger.RestComponent;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
@@ -31,12 +32,14 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(UserEndpoint.class);
 	private final UserDao userDao;
+	private final LoomModelBuilder modelBuilder;
 
 	@Inject
 	public UserEndpoint(Vertx vertx, @Named("restRouter") Router router, LoomAuthenticationHandler authHandler, UserDao userDao,
-		Provider<RestComponent.Builder> restComponentProvider) {
+		Provider<RestComponent.Builder> restComponentProvider, LoomModelBuilder modelBuilder) {
 		super(vertx, router, restComponentProvider, authHandler);
 		this.userDao = userDao;
+		this.modelBuilder = modelBuilder;
 	}
 
 	@Override
@@ -71,7 +74,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 			Page<User> page = userDao.loadPage(null, 25);
 			UserListResponse response = new UserListResponse();
 			page.forEach(user -> {
-				response.add(toResponse(user));
+				response.add(modelBuilder.toResponse(user));
 			});
 			lrc.send(response);
 		});
@@ -88,7 +91,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 
 			User user = userDao.createUser(userName);
 			userDao.store(user);
-			lrc.send(toResponse(user), 201);
+			lrc.send(modelBuilder.toResponse(user), 201);
 		});
 	}
 
@@ -100,7 +103,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 					lrc.send(new GenericMessageResponse(), 404);
 					return;
 				}
-				UserResponse response = toResponse(user);
+				UserResponse response = modelBuilder.toResponse(user);
 				lrc.send(response);
 			}).onFailure(e -> {
 				// TODO this should be 500 error
@@ -110,11 +113,6 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 		});
 	}
 
-	private UserResponse toResponse(User user) {
-		UserResponse response = new UserResponse();
-		response.setUsername(user.getUsername());
-		response.setUuid(user.getUuid());
-		return response;
-	}
+
 
 }

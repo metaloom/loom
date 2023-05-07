@@ -2,7 +2,9 @@ package io.metaloom.loom.db.jooq;
 
 import static io.metaloom.loom.db.jooq.tables.JooqAsset.ASSET;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -226,8 +228,8 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	protected void setCreatorEditor(CUDElement<?> element, UUID userUuid) {
 		element.setCreatorUuid(userUuid);
 		element.setEditorUuid(userUuid);
-		element.setCreated(LocalDateTime.now());
-		element.setEdited(LocalDateTime.now());
+		element.setCreated(Date.from(Instant.now()));
+		element.setEdited(Date.from(Instant.now()));
 	}
 
 }

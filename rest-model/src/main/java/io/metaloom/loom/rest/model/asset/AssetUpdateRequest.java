@@ -5,11 +5,12 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.asset.workflow.Annotation;
 import io.metaloom.loom.rest.model.tag.TagReference;
+import io.vertx.core.json.JsonObject;
 
-public class AssetUpdateRequest implements RestModel {
+public class AssetUpdateRequest implements RestRequestModel {
 
 	@JsonPropertyDescription("The specific identified kind of asset.")
 	private AssetKind kind;
@@ -24,7 +25,7 @@ public class AssetUpdateRequest implements RestModel {
 	private String dominantColor;
 
 	@JsonPropertyDescription("Custom meta properties for the asset.")
-	private Map<String, String> meta;
+	private JsonObject meta;
 
 	@JsonPropertyDescription("The GPS location of the asset.")
 	private AssetGeoLocation location;
@@ -98,11 +99,11 @@ public class AssetUpdateRequest implements RestModel {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
+	public JsonObject getMeta() {
 		return meta;
 	}
 
-	public AssetUpdateRequest setMeta(Map<String, String> meta) {
+	public AssetUpdateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}

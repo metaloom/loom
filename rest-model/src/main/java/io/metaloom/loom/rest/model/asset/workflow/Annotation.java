@@ -1,16 +1,16 @@
 package io.metaloom.loom.rest.model.asset.workflow;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.model.tag.TagReference;
+import io.vertx.core.json.JsonObject;
 
-public class Annotation implements RestModel {
+public class Annotation implements RestModel, MetaModel<Annotation> {
 
 	@JsonPropertyDescription("Title of the annotation")
 	private String title;
@@ -32,16 +32,18 @@ public class Annotation implements RestModel {
 	private String thumbnail;
 
 	@JsonPropertyDescription("Additional custom meta properties.")
-	private Map<String, String> meta = new HashMap();
+	private JsonObject meta;
 
 	@JsonPropertyDescription("List of tags for the entry")
 	private List<TagReference> tags = new ArrayList<>();
 
-	public Map<String, String> getMeta() {
+	@Override
+	public JsonObject getMeta() {
 		return meta;
 	}
 
-	public Annotation setMeta(Map<String, String> meta) {
+	@Override
+	public Annotation setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}
@@ -106,6 +108,11 @@ public class Annotation implements RestModel {
 
 	public Annotation setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+		return this;
+	}
+
+	@Override
+	public Annotation self() {
 		return this;
 	}
 

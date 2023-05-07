@@ -1,13 +1,11 @@
 package io.metaloom.loom.rest.model.user;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.common.AbstractMetaModel;
 
-public class UserUpdateRequest implements RestModel {
+public class UserUpdateRequest extends AbstractMetaModel<UserUpdateRequest> {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("The new username of the user.")
@@ -24,10 +22,6 @@ public class UserUpdateRequest implements RestModel {
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("The email address of the user.")
 	private String email;
-
-	@JsonProperty(required = false)
-	@JsonPropertyDescription("Additional custom meta properties for the element.")
-	private Map<String, String> meta;
 
 	public UserUpdateRequest() {
 	}
@@ -68,12 +62,8 @@ public class UserUpdateRequest implements RestModel {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
-		return meta;
-	}
-
-	public UserUpdateRequest setMeta(Map<String, String> meta) {
-		this.meta = meta;
+	@Override
+	public UserUpdateRequest self() {
 		return this;
 	}
 

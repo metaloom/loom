@@ -1,13 +1,13 @@
 package io.metaloom.loom.rest.model.library;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestModel;
+import io.vertx.core.json.JsonObject;
 
-public class LibraryUpdateRequest implements RestModel {
+public class LibraryUpdateRequest implements RestModel, MetaModel<LibraryUpdateRequest> {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("The name of the library.")
@@ -15,7 +15,7 @@ public class LibraryUpdateRequest implements RestModel {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Additional custom meta properties for the element.")
-	private Map<String, String> meta;
+	private JsonObject meta;
 
 	public LibraryUpdateRequest() {
 	}
@@ -29,12 +29,19 @@ public class LibraryUpdateRequest implements RestModel {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
+	@Override
+	public JsonObject getMeta() {
 		return meta;
 	}
 
-	public LibraryUpdateRequest setMeta(Map<String, String> meta) {
+	@Override
+	public LibraryUpdateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
+		return this;
+	}
+
+	@Override
+	public LibraryUpdateRequest self() {
 		return this;
 	}
 }

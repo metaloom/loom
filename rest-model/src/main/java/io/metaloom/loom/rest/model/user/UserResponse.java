@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
-public class UserResponse extends AbstractCreatorEditorRestResponse {
+public class UserResponse extends AbstractCreatorEditorRestResponse<UserResponse> {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("The username of the user.")
@@ -68,12 +68,9 @@ public class UserResponse extends AbstractCreatorEditorRestResponse {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
-		return meta;
-	}
-
-	public UserResponse setMeta(Map<String, String> meta) {
-		this.meta = meta;
+	@Override
+	public UserResponse self() {
 		return this;
 	}
+
 }

@@ -1,13 +1,13 @@
 package io.metaloom.loom.rest.model.user;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
+import io.vertx.core.json.JsonObject;
 
-public class UserCreateRequest implements RestRequestModel {
+public class UserCreateRequest implements RestRequestModel, MetaModel<UserCreateRequest> {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("The username of the new user.")
@@ -27,7 +27,7 @@ public class UserCreateRequest implements RestRequestModel {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Additional custom meta properties for the element.")
-	private Map<String, String> meta;
+	private JsonObject meta;
 
 	public UserCreateRequest() {
 	}
@@ -68,12 +68,19 @@ public class UserCreateRequest implements RestRequestModel {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
+	@Override
+	public JsonObject getMeta() {
 		return meta;
 	}
 
-	public UserCreateRequest setMeta(Map<String, String> meta) {
+	@Override
+	public UserCreateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
+		return this;
+	}
+
+	@Override
+	public UserCreateRequest self() {
 		return this;
 	}
 

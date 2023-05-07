@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
-public class LibraryResponse extends AbstractCreatorEditorRestResponse {
+public class LibraryResponse extends AbstractCreatorEditorRestResponse<LibraryResponse> {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("The name of the library")
@@ -29,12 +29,8 @@ public class LibraryResponse extends AbstractCreatorEditorRestResponse {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
-		return meta;
-	}
-
-	public LibraryResponse setMeta(Map<String, String> meta) {
-		this.meta = meta;
+	@Override
+	public LibraryResponse self() {
 		return this;
 	}
 }

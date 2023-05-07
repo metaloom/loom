@@ -1,7 +1,10 @@
 package io.metaloom.loom.rest.model.example;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -19,12 +22,13 @@ import io.metaloom.loom.rest.model.common.PagingInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.metaloom.loom.rest.model.user.UserReference;
 import io.metaloom.utils.UUIDUtils;
+import io.vertx.core.json.JsonObject;
 
 public class AbstractExamples {
 
-	public static final String DATE_OLD = "2018-10-12T14:15:06.024Z";
+	public static final Date DATE_OLD = Date.from(Instant.parse("2018-10-12T14:15:06.024Z"));
 
-	public static final String DATE_NEW = "2018-11-20T20:12:01.084Z";
+	public static final Date DATE_NEW = Date.from(Instant.parse("2018-11-20T20:12:01.084Z"));
 
 	public static UUID uuidA() {
 		return UUIDUtils.fromString("f04e89d0-076d-4d90-b192-715a25a2cd59");
@@ -75,8 +79,10 @@ public class AbstractExamples {
 		return model;
 	}
 
-	public static Map<String, String> meta() {
-		return Collections.singletonMap("custom", "value");
+	public static JsonObject meta() {
+		JsonObject meta = new JsonObject();
+		meta.put("abc", "cdef");
+		return meta;
 	}
 
 	public static Map<String, String> meta2() {

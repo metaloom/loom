@@ -14,8 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.auth.LoomAuthenticationHandler;
+import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
+import io.metaloom.loom.db.model.asset.Binary;
+import io.metaloom.loom.db.model.asset.BinaryDao;
+import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.AbstractRESTEndpoint;
+import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.dagger.RestComponent;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
 import io.metaloom.loom.rest.model.asset.AssetListResponse;
@@ -27,13 +32,20 @@ public class AssetEndpoint extends AbstractRESTEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpoint.class);
 
-	private AssetDao assetDao;
+	private final AssetDao assetDao;
+
+	private final BinaryDao binaryDao;
+
+	private final LoomModelBuilder modelBuilder;
 
 	@Inject
-	public AssetEndpoint(Vertx vertx, @Named("restRouter") Router router, AssetDao assetDao, Provider<RestComponent.Builder> restComponentProvider,
-		LoomAuthenticationHandler authHandler) {
+	public AssetEndpoint(Vertx vertx, @Named("restRouter") Router router, AssetDao assetDao, BinaryDao binaryDao,
+		Provider<RestComponent.Builder> restComponentProvider,
+		LoomAuthenticationHandler authHandler, LoomModelBuilder modelBuilder) {
 		super(vertx, router, restComponentProvider, authHandler);
 		this.assetDao = assetDao;
+		this.binaryDao = binaryDao;
+		this.modelBuilder = modelBuilder;
 	}
 
 	@Override
@@ -50,18 +62,26 @@ public class AssetEndpoint extends AbstractRESTEndpoint {
 		});
 
 		addRoute("/assets/:uuid", DELETE, lrc -> {
-			System.out.println("DELETE ASSET " + lrc.pathParam("uuid"));
+			UUID uuid = UUID.fromString(lrc.pathParam("uuid"));
+			System.out.println("DELETE ASSET " + uuid);
+			// TODO check Perm
+			assetDao.delete(uuid);
 			AssetResponse response = new AssetResponse();
 			response.setUuid(UUID.randomUUID());
 			lrc.send();
 		});
 
 		addRoute("/assets", GET, lrc -> {
+			UUID fromUuid = UUID.fromString(lrc.pathParam("from"));
+			int limit = Integer.valueOf(lrc.pathParam("limit"));
+			Page<Asset> page = assetDao.loadPage(fromUuid, limit);
 			System.out.println("LIST ASSET");
 			AssetListResponse response = new AssetListResponse();
-			AssetResponse asset = new AssetResponse();
-			asset.setUuid(UUID.randomUUID());
-			response.add(asset);
+			page.forEach(asset -> {
+				Binary binary = binaryDao.load(asset.getBinaryUuid());
+				AssetResponse assetResponse = modelBuilder.toResponse(asset, binary);
+				response.add(assetResponse);
+			});
 			lrc.send(response);
 		});
 

@@ -1,14 +1,14 @@
 package io.metaloom.loom.rest.model.role;
 
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.MetaModel;
+import io.vertx.core.json.JsonObject;
 
-public class RoleUpdateRequest implements RestModel {
+public class RoleUpdateRequest implements MetaModel<RoleUpdateRequest> {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("The new name of the role.")
@@ -16,7 +16,7 @@ public class RoleUpdateRequest implements RestModel {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Additional custom meta properties for the element.")
-	private Map<String, String> meta;
+	private JsonObject meta;
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("A list of permissions that are granted by the role.")
@@ -34,11 +34,11 @@ public class RoleUpdateRequest implements RestModel {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
+	public JsonObject getMeta() {
 		return meta;
 	}
 
-	public RoleUpdateRequest setMeta(Map<String, String> meta) {
+	public RoleUpdateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}
@@ -49,6 +49,11 @@ public class RoleUpdateRequest implements RestModel {
 
 	public RoleUpdateRequest setPermissions(List<RolePermission> permissions) {
 		this.permissions = permissions;
+		return this;
+	}
+
+	@Override
+	public RoleUpdateRequest self() {
 		return this;
 	}
 

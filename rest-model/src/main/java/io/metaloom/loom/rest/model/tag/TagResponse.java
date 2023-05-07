@@ -1,13 +1,11 @@
 package io.metaloom.loom.rest.model.tag;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
-public class TagResponse extends AbstractCreatorEditorRestResponse {
+public class TagResponse extends AbstractCreatorEditorRestResponse<TagResponse> {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("Text value of the tag.")
@@ -16,10 +14,6 @@ public class TagResponse extends AbstractCreatorEditorRestResponse {
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("Name of the collection to which the tag belongs.")
 	private String collection;
-
-	@JsonProperty(required = false)
-	@JsonPropertyDescription("Additional custom meta properties for the element.")
-	private Map<String, String> meta;
 
 	public TagResponse() {
 	}
@@ -42,12 +36,8 @@ public class TagResponse extends AbstractCreatorEditorRestResponse {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
-		return meta;
-	}
-
-	public TagResponse setMeta(Map<String, String> meta) {
-		this.meta = meta;
+	@Override
+	public TagResponse self() {
 		return this;
 	}
 }

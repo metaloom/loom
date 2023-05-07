@@ -1,11 +1,10 @@
 package io.metaloom.loom.rest.model.group;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.RestModel;
+import io.vertx.core.json.JsonObject;
 
 public class GroupCreateRequest implements RestModel {
 
@@ -15,7 +14,7 @@ public class GroupCreateRequest implements RestModel {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Additional custom meta properties for the element.")
-	private Map<String, String> meta;
+	private JsonObject meta;
 
 	public GroupCreateRequest() {
 	}
@@ -29,11 +28,11 @@ public class GroupCreateRequest implements RestModel {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
+	public JsonObject getMeta() {
 		return meta;
 	}
 
-	public GroupCreateRequest setMeta(Map<String, String> meta) {
+	public GroupCreateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}

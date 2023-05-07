@@ -5,9 +5,11 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestModel;
+import io.vertx.core.json.JsonObject;
 
-public class GroupUpdateRequest implements RestModel {
+public class GroupUpdateRequest implements MetaModel<GroupUpdateRequest> {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Name of the group")
@@ -15,7 +17,7 @@ public class GroupUpdateRequest implements RestModel {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Additional custom meta properties for the element.")
-	private Map<String, String> meta;
+	private JsonObject meta;
 
 	public GroupUpdateRequest() {
 	}
@@ -29,13 +31,19 @@ public class GroupUpdateRequest implements RestModel {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
+	@Override
+	public JsonObject getMeta() {
 		return meta;
 	}
 
-	public GroupUpdateRequest setMeta(Map<String, String> meta) {
+	@Override
+	public GroupUpdateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}
 
+	@Override
+	public GroupUpdateRequest self() {
+		return this;
+	}
 }

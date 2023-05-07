@@ -1,5 +1,8 @@
 package io.metaloom.loom.rest.model.asset;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 public class AssetFilesystemLocation {
@@ -11,7 +14,8 @@ public class AssetFilesystemLocation {
 	private FileKey filekey;
 
 	@JsonPropertyDescription("ISO8601 formatted date string when the asset was last seen online.")
-	private String lastSeen;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+	private Date lastSeen;
 
 	public String getPath() {
 		return path;
@@ -31,11 +35,11 @@ public class AssetFilesystemLocation {
 		return this;
 	}
 
-	public String getLastSeen() {
+	public Date getLastSeen() {
 		return lastSeen;
 	}
 
-	public AssetFilesystemLocation setLastSeen(String lastSeen) {
+	public AssetFilesystemLocation setLastSeen(Date lastSeen) {
 		this.lastSeen = lastSeen;
 		return this;
 	}

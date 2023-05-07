@@ -9,10 +9,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import io.metaloom.loom.rest.json.deserializer.JsonArrayDeserializer;
+import io.metaloom.loom.rest.json.deserializer.JsonObjectDeserializer;
+import io.metaloom.loom.rest.json.serializer.JsonArraySerializer;
+import io.metaloom.loom.rest.json.serializer.JsonObjectSerializer;
 import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.model.RestResponseModel;
 import io.netty.buffer.ByteBufInputStream;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 
 /**
  * Helper which manages JSON handling.
@@ -28,6 +34,12 @@ public final class Json {
 			.setSerializationInclusion(Include.NON_NULL);
 
 		SimpleModule module = new SimpleModule();
+		module.addSerializer(JsonObject.class, new JsonObjectSerializer());
+		module.addSerializer(JsonArray.class, new JsonArraySerializer());
+
+		module.addDeserializer(JsonObject.class, new JsonObjectDeserializer());
+		module.addDeserializer(JsonArray.class, new JsonArrayDeserializer());
+
 		mapper.registerModule(module);
 	}
 

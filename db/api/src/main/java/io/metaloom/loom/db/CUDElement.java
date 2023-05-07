@@ -1,6 +1,6 @@
 package io.metaloom.loom.db;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -26,11 +26,11 @@ public interface CUDElement<SELF extends CUDElement<SELF>> extends Element<SELF>
 
 	SELF setCreatorUuid(UUID uuid);
 
-	LocalDateTime getEdited();
+	Date getEdited();
 
-	SELF setEdited(LocalDateTime edate);
+	SELF setEdited(Date edate);
 
-	LocalDateTime getCreated();
+	Date getCreated();
 
-	SELF setCreated(LocalDateTime cdate);
+	SELF setCreated(Date cdate);
 }

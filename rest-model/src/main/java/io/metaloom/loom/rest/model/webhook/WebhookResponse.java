@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
-public class WebhookResponse extends AbstractCreatorEditorRestResponse {
+public class WebhookResponse extends AbstractCreatorEditorRestResponse<WebhookResponse> {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("The url which should be invoked by the webhook.")
@@ -62,4 +62,8 @@ public class WebhookResponse extends AbstractCreatorEditorRestResponse {
 		return this;
 	}
 
+	@Override
+	public WebhookResponse self() {
+		return this;
+	}
 }

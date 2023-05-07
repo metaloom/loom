@@ -1,5 +1,9 @@
 package io.metaloom.loom.rest.model.common;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
@@ -13,15 +17,17 @@ public class CreatorEditorStatus {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("ISO8601 formatted creation date string.")
-	private String created;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+	private Date created;
 
-	@JsonProperty(required = false)
+	@JsonProperty(required = true)
 	@JsonPropertyDescription("Reference to the editor of the element.")
 	private UserReference editor;
 
-	@JsonProperty(required = false)
+	@JsonProperty(required = true)
 	@JsonPropertyDescription("ISO8601 formatted editing date string.")
-	private String edited;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+	private Date edited;
 
 	public UserReference getCreator() {
 		return creator;
@@ -32,11 +38,11 @@ public class CreatorEditorStatus {
 		return this;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
-	public CreatorEditorStatus setCreated(String created) {
+	public CreatorEditorStatus setCreated(Date created) {
 		this.created = created;
 		return this;
 	}
@@ -50,11 +56,11 @@ public class CreatorEditorStatus {
 		return this;
 	}
 
-	public String getEdited() {
+	public Date getEdited() {
 		return edited;
 	}
 
-	public CreatorEditorStatus setEdited(String edited) {
+	public CreatorEditorStatus setEdited(Date edited) {
 		this.edited = edited;
 		return this;
 	}

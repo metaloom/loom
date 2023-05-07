@@ -1,13 +1,12 @@
 package io.metaloom.loom.rest.model.tag;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.MetaModel;
+import io.vertx.core.json.JsonObject;
 
-public class TagUpdateRequest implements RestModel {
+public class TagUpdateRequest implements MetaModel<TagUpdateRequest> {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("Text value of the tag.")
@@ -19,7 +18,7 @@ public class TagUpdateRequest implements RestModel {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Additional custom meta properties for the element.")
-	private Map<String, String> meta;
+	private JsonObject meta;
 
 	public TagUpdateRequest() {
 	}
@@ -42,12 +41,19 @@ public class TagUpdateRequest implements RestModel {
 		return this;
 	}
 
-	public Map<String, String> getMeta() {
+	@Override
+	public JsonObject getMeta() {
 		return meta;
 	}
 
-	public TagUpdateRequest setMeta(Map<String, String> meta) {
+	@Override
+	public TagUpdateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
+		return this;
+	}
+
+	@Override
+	public TagUpdateRequest self() {
 		return this;
 	}
 
