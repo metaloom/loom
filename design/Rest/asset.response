@@ -1,0 +1,147 @@
+{
+ "uuid": "UUID",
+ "kind": "TYPE",
+ "status": {
+   "created": "",
+   "creator": {
+     "uuid": "<uuid>",
+     "name": "joedoe"
+   },
+   "edited": "",
+   "editor": {
+     "uuid": "<uuid>",
+     "name": "joedoe"
+   }
+ },
+ "views": 0,
+ "location": {
+   "lastSeen": "date",
+   "filekey": {
+    // TODO use hash instead?
+    "inode": 42,
+    "st_dev": 24,
+    "edate_nano": 42,
+    "edate": 41
+   },
+   "path": "/now/somewhere/else/blume.jpg"
+ },
+ "collections": [
+    {
+      "name":
+    }
+ ],
+ "binary": {
+   "uuid": "",
+   "initialOrigin": "/somewhere/test.jpg",
+   "firstSeen": "date",
+   "hashes":  {
+    "sha256":"",
+    "sha512": "",
+    "md5": ""
+   },
+   "geo": {
+
+   },
+   "licenses": {
+
+   },
+   "author": {
+
+   },
+   "social": {
+     "rating": {
+
+     },
+     "reactions": {
+
+     }
+   },
+   "image": {
+     "dimension": {
+       "width": 42,
+       "height": 42
+     },
+     "dominantColor": "",
+     "embeddings": {
+        "dlib_face": 20
+     }
+   },
+   "video": {
+     "dimension": {
+       "width": 42,
+       "height": 42
+     },
+     "audioTracks": 2,
+     "duration": 0,
+     "fingerprint": "",
+     "embeddings": {
+        "dlib_face": 20
+     }
+   },
+   "audio": {
+      "duration": 0,
+      "bpm": 80,
+      "samplingRate": 42000,
+      "channels": 2,
+      "encoding": "mp3",
+      "fingerprint": ""
+   },
+   "size": 0,
+   "mimeType": "image/jpg",
+   "meta": {}
+ },
+ "meta": {
+
+ },
+ // Annotations used to track comments/tasks on specific (spatial or temporal aspects of the asset)
+ "annotations": [ {
+   "meta": {
+
+    },
+   "from": 42,
+   "to": 45,
+   "area": {
+      "width": 120,
+      "height": 120,
+      "startX": 0,
+      "startY": 0
+   },
+   "tasks": [],
+   "comments": []
+ }],
+
+ // Generic comments to the asset
+ "comments":
+ [
+  {
+    "uuid": "<uuid>",
+    "user": {
+      "uuid": "<uuid>",
+      "name": "joedoe"
+    },
+    "title": "Cool image!",
+    "text": "-",
+    "reactions": []
+    // Add thread support
+    // Add like/dislike/rating
+  }
+ ],
+ "reactions": [
+  {
+    "type": "<emoji-code>",
+    "count": 41
+  }
+ ]
+ },
+ "project": {
+    "uuid": "<uuid>",
+    "name": "zoo-summer-2023"
+ },
+ "tags": [
+  {
+    "name": "red",
+    "collection": "colors",
+    "meta": {}
+  }
+ ]
+}

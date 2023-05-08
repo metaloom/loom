@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest.model.binary;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,7 +28,7 @@ public class BinaryResponse extends AbstractCreatorEditorRestResponse<BinaryResp
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("ISO8601 formatted editing date string.")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-	private Date firstSeen;
+	private OffsetDateTime firstSeen;
 
 	@JsonPropertyDescription("The size of the asset in bytes.")
 	private long size;
@@ -81,11 +81,11 @@ public class BinaryResponse extends AbstractCreatorEditorRestResponse<BinaryResp
 		return this;
 	}
 
-	public Date getFirstSeen() {
+	public OffsetDateTime getFirstSeen() {
 		return firstSeen;
 	}
 
-	public BinaryResponse setFirstSeen(Date firstSeen) {
+	public BinaryResponse setFirstSeen(OffsetDateTime firstSeen) {
 		this.firstSeen = firstSeen;
 		return this;
 	}

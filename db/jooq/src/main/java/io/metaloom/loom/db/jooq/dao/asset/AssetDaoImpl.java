@@ -1,8 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.asset;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -45,7 +44,7 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 		Objects.requireNonNull(binaryUuid, "Binary uuid must not be null");
 		Asset asset = new AssetImpl();
 		asset.setPath(filename);
-		asset.setCreated(Date.from(Instant.now()));
+		asset.setCreated(OffsetDateTime.from(Instant.now()));
 		asset.setCreatorUuid(creatorUuid);
 		asset.setBinaryUuid(binaryUuid);
 		return asset;

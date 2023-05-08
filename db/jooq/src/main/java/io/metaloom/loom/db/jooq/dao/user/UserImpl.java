@@ -1,7 +1,5 @@
 package io.metaloom.loom.db.jooq.dao.user;
 
-import java.time.LocalDateTime;
-
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.user.User;
 

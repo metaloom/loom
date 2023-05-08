@@ -1,14 +1,14 @@
 package io.metaloom.loom.db.mem;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import io.metaloom.loom.db.CUDElement;
 
 public abstract class AbstractMemCUDElement<SELF extends CUDElement<SELF>> extends AbstractMemLoomElement<SELF> implements CUDElement<SELF> {
 
-	private Date cdate;
-	private Date edate;
+	private OffsetDateTime cdate;
+	private OffsetDateTime edate;
 	private UUID editorUuid;
 	private UUID creatorUuid;
 
@@ -24,12 +24,12 @@ public abstract class AbstractMemCUDElement<SELF extends CUDElement<SELF>> exten
 	}
 
 	@Override
-	public Date getEdited() {
+	public OffsetDateTime getEdited() {
 		return edate;
 	}
 
 	@Override
-	public SELF setEdited(Date edate) {
+	public SELF setEdited(OffsetDateTime edate) {
 		this.edate = edate;
 		return self();
 	}
@@ -46,12 +46,12 @@ public abstract class AbstractMemCUDElement<SELF extends CUDElement<SELF>> exten
 	}
 
 	@Override
-	public Date getCreated() {
+	public OffsetDateTime getCreated() {
 		return cdate;
 	}
 
 	@Override
-	public SELF setCreated(Date cdate) {
+	public SELF setCreated(OffsetDateTime cdate) {
 		this.cdate = cdate;
 		return self();
 	}

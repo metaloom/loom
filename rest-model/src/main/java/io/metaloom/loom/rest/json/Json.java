@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import io.metaloom.loom.rest.json.deserializer.JsonArrayDeserializer;
 import io.metaloom.loom.rest.json.deserializer.JsonObjectDeserializer;
@@ -32,6 +33,7 @@ public final class Json {
 	static {
 		mapper = new ObjectMapper()
 			.setSerializationInclusion(Include.NON_NULL);
+		mapper.registerModule(new JavaTimeModule());
 
 		SimpleModule module = new SimpleModule();
 		module.addSerializer(JsonObject.class, new JsonObjectSerializer());

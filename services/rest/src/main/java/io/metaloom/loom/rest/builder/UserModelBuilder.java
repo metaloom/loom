@@ -37,8 +37,6 @@ public interface UserModelBuilder extends ModelBuilder {
 	default void setStatus(CUDElement<?> element, AbstractCreatorEditorRestResponse<?> response) {
 		User creator = daos().userDao().load(element.getCreatorUuid());
 		User editor = daos().userDao().load(element.getEditorUuid());
-
-		
 		CreatorEditorStatus status = response.getStatus();
 		status.setCreated(element.getCreated());
 		status.setEdited(element.getEdited());

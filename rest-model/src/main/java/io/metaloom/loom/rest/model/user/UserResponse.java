@@ -1,7 +1,5 @@
 package io.metaloom.loom.rest.model.user;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
@@ -24,10 +22,6 @@ public class UserResponse extends AbstractCreatorEditorRestResponse<UserResponse
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("The email address of the user.")
 	private String email;
-
-	@JsonProperty(required = false)
-	@JsonPropertyDescription("Additional custom meta properties for the element.")
-	private Map<String, String> meta;
 
 	public UserResponse() {
 	}
