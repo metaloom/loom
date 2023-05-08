@@ -11,7 +11,7 @@ import io.metaloom.loom.rest.model.user.UserResponse;
 
 public interface UserModelBuilder extends ModelBuilder {
 
-	default UserResponse toResponse(User user, User creator, User editor) {
+	default UserResponse toResponse(User user) {
 		UserResponse response = new UserResponse();
 		response.setUsername(user.getUsername());
 		response.setUuid(user.getUuid());
@@ -22,7 +22,7 @@ public interface UserModelBuilder extends ModelBuilder {
 	default UserListResponse toUserList(Page<User> page) {
 		UserListResponse response = new UserListResponse();
 		for (User user : page) {
-			response.add(toResponse(user, null, null));
+			response.add(toResponse(user));
 		}
 		return response;
 	}

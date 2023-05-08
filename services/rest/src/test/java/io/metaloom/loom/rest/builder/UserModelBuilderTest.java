@@ -17,7 +17,7 @@ public class UserModelBuilderTest extends AbstractModelBuilderTest {
 	@Override
 	public void testResponseModel() throws IOException {
 		User user = mockUser();
-		assertWithModel(builder().toResponse(user, user, user), "user.response");
+		assertWithModel(builder().toResponse(user), "user.response");
 	}
 
 	@Test

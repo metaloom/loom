@@ -4,7 +4,6 @@ import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.group.GroupListResponse;
 import io.metaloom.loom.rest.model.group.GroupResponse;
-import io.metaloom.loom.rest.model.role.RoleListResponse;
 
 public interface GroupModelBuilder extends ModelBuilder, UserModelBuilder {
 

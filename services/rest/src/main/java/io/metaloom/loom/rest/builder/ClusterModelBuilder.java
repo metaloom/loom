@@ -13,7 +13,7 @@ public interface ClusterModelBuilder extends ModelBuilder {
 		response.setName(cluster.getName());
 		return response;
 	}
-	
+
 	default ClusterListResponse toClusterList(Page<Cluster> page) {
 		return setPage(new ClusterListResponse(), page, cluster -> {
 			return toResponse(cluster);

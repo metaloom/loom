@@ -3,6 +3,7 @@ package io.metaloom.loom.rest;
 import javax.inject.Inject;
 
 import io.metaloom.loom.auth.LoomAuthorizationProvider;
+import io.metaloom.loom.auth.LoomUser;
 import io.metaloom.loom.db.model.perm.Permission;
 import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestRequestModel;
@@ -51,6 +52,10 @@ public class LoomRoutingContext {
 	// TODO wrap into LoomUser for typesafe attr access
 	public User user() {
 		return rc.user();
+	}
+
+	public LoomUser loomUser() {
+		return new LoomUser(user());
 	}
 
 	public Future<LoomRoutingContext> requirePerm(Permission... perms) {
