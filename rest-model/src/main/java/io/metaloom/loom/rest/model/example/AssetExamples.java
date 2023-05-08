@@ -34,7 +34,7 @@ public class AssetExamples extends AbstractExamples {
 		bin.setImage(new ImageInfo().setWidth(800).setHeight(600).setDominantColor("#FFFF00"));
 		bin.setVideo(new VideoInfo().setDuration(20000).setWidth(4000).setHeight(2250));
 		bin.setAudio(new AudioInfo().setBpm(120).setChannels(2).setDuration(240).setSamplingRate(48000).setEncoding("mp3"));
-		bin.setMeta(meta2())
+		bin.setMeta(meta())
 			.setHashes(assetHashes())
 			.setSize(2005225)
 			.setFirstSeen(DATE_OLD)

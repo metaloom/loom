@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import io.metaloom.loom.auth.LoomAuthenticationHandler;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.asset.Binary;
 import io.metaloom.loom.db.model.asset.BinaryDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.AbstractRESTEndpoint;
@@ -75,21 +74,14 @@ public class AssetEndpoint extends AbstractRESTEndpoint {
 			UUID fromUuid = UUID.fromString(lrc.pathParam("from"));
 			int limit = Integer.valueOf(lrc.pathParam("limit"));
 			Page<Asset> page = assetDao.loadPage(fromUuid, limit);
-			System.out.println("LIST ASSET");
-			AssetListResponse response = new AssetListResponse();
-			page.forEach(asset -> {
-				Binary binary = binaryDao.load(asset.getBinaryUuid());
-				AssetResponse assetResponse = modelBuilder.toResponse(asset, binary);
-				response.add(assetResponse);
-			});
+			AssetListResponse response = modelBuilder.toAssetList(page);
 			lrc.send(response);
 		});
 
 		addRoute("/assets/:uuid", GET, lrc -> {
-			System.out.println("Assets" + lrc.pathParam("uuid"));
-			AssetResponse response = new AssetResponse();
-			response.setUuid(UUID.randomUUID());
-			// throw new RuntimeException("asefgasdgas");
+			UUID uuid = UUID.fromString(lrc.pathParam("uuid"));
+			Asset asset = assetDao.load(uuid);
+			AssetResponse response = modelBuilder.toResponse(asset);
 			lrc.send(response);
 		});
 	}

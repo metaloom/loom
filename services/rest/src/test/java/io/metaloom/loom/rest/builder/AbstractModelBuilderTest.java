@@ -17,7 +17,9 @@ import org.mockito.Mockito;
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.Element;
 import io.metaloom.loom.db.MetaElement;
+import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.user.User;
+import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.builder.impl.LoomModelBuilderImpl;
 import io.metaloom.loom.rest.json.Json;
@@ -28,9 +30,15 @@ import io.vertx.core.json.JsonObject;
 
 public abstract class AbstractModelBuilderTest implements TestValues {
 
-	private LoomModelBuilder builder = new LoomModelBuilderImpl();
-
 	public LoomModelBuilder builder() {
+		DaoCollection daos = mock(DaoCollection.class);
+		UserDao userDao = mock(UserDao.class);
+		User user = mock(User.class);
+		when(user.getUsername()).thenReturn("creatorEditor");
+		when(user.getUuid()).thenReturn(USER_UUID);
+		when(userDao.load(Mockito.any())).thenReturn(user);
+		when(daos.userDao()).thenReturn(userDao);
+		LoomModelBuilder builder = new LoomModelBuilderImpl(daos);
 		return builder;
 	}
 
@@ -70,13 +78,13 @@ public abstract class AbstractModelBuilderTest implements TestValues {
 		when(user.getUsername()).thenReturn(username);
 		return user;
 	}
-	
+
 	public <T extends Element<T>> Page<T> mockPage(T... elements) {
 		List<T> list = new ArrayList<>();
 		for (T element : elements) {
 			list.add(element);
 		}
-		Page<T> page = new Page<>(list);
+		Page<T> page = new Page<>(25, list);
 		return page;
 	}
 

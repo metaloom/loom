@@ -10,7 +10,10 @@ public class Page<T extends Element<T>> implements Iterable<T> {
 
 	private List<T> list;
 
-	public Page(List<T> list) {
+	private long perPage;
+
+	public Page(long perPage, List<T> list) {
+		this.perPage = perPage;
 		this.list = list;
 	}
 
@@ -49,6 +52,10 @@ public class Page<T extends Element<T>> implements Iterable<T> {
 		} else {
 			return list.get(0);
 		}
+	}
+
+	public long perPage() {
+		return perPage;
 	}
 
 }

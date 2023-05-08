@@ -1,27 +1,25 @@
 package io.metaloom.loom.rest.builder;
 
 import io.metaloom.loom.db.model.group.Group;
-import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.group.GroupListResponse;
 import io.metaloom.loom.rest.model.group.GroupResponse;
+import io.metaloom.loom.rest.model.role.RoleListResponse;
 
 public interface GroupModelBuilder extends ModelBuilder, UserModelBuilder {
 
-	default GroupResponse toResponse(Group group, User creator, User editor) {
+	default GroupResponse toResponse(Group group) {
 		GroupResponse response = new GroupResponse();
 		response.setName(group.getName());
 		response.setMeta(group.getMeta());
-		setStatus(group, creator, editor, response);
+		setStatus(group, response);
 		return response;
 	}
 
 	default GroupListResponse toGroupList(Page<Group> page) {
-		GroupListResponse response = new GroupListResponse();
-		for(Group group : page) {
-			response.add(toResponse(group, null, null));
-		}
-		return response;
+		return setPage(new GroupListResponse(), page, group -> {
+			return toResponse(group);
+		});
 	}
-	
+
 }

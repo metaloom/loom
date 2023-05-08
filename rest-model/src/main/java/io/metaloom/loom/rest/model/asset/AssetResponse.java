@@ -6,10 +6,10 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
-import io.metaloom.loom.rest.model.asset.collection.AssetCollection;
 import io.metaloom.loom.rest.model.asset.license.LicenseInfo;
 import io.metaloom.loom.rest.model.asset.social.SocialInfo;
 import io.metaloom.loom.rest.model.binary.BinaryResponse;
+import io.metaloom.loom.rest.model.collection.CollectionResponse;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
@@ -52,7 +52,7 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 	private List<AnnotationResponse> annotations = new ArrayList<>();
 
 	@JsonPropertyDescription("List of collections to which the asset has been added")
-	private List<AssetCollection> collections = new ArrayList<>();
+	private List<CollectionResponse> collections = new ArrayList<>();
 
 	public AssetResponse() {
 	}

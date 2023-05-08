@@ -7,7 +7,6 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.model.annotation.Annotation;
-import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.annotation.AnnotationListResponse;
 
@@ -17,8 +16,7 @@ public class AnnotationModelBuilderTest extends AbstractModelBuilderTest {
 	@Override
 	void testResponseModel() throws IOException {
 		Annotation annotation = mockAnnotation();
-		User user = mockUser("joedoe");
-		assertWithModel(builder().toResponse(annotation, user, user), "annotation.response");
+		assertWithModel(builder().toResponse(annotation), "annotation.response");
 	}
 
 	@Test

@@ -70,7 +70,7 @@ public abstract class AbstractMemDao<T extends Element<T>> implements CRUDDao<T>
 				}
 			}
 		}
-		return new Page<>(list);
+		return new Page<>(pageSize, list);
 	}
 
 }

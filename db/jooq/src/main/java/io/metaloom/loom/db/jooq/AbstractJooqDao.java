@@ -3,7 +3,6 @@ package io.metaloom.loom.db.jooq;
 import static io.metaloom.loom.db.jooq.tables.JooqAsset.ASSET;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -138,7 +137,7 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 			.limit(pageSize)
 			.fetchStreamInto(getPojoClass())
 			.collect(Collectors.toList());
-		return new Page<>(list);
+		return new Page<>(pageSize, list);
 	}
 
 	public T findByUUID(UUID id) {

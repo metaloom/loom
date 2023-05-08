@@ -1,19 +1,18 @@
 package io.metaloom.loom.rest.model.binary;
 
 import java.util.Date;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestResponseModel;
-import io.metaloom.loom.rest.model.asset.AssetHash;
+import io.metaloom.loom.rest.model.asset.HashInfo;
+import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
-public class BinaryResponse implements RestResponseModel<BinaryResponse> {
+public class BinaryResponse extends AbstractCreatorEditorRestResponse<BinaryResponse> {
 
 	@JsonPropertyDescription("A set of different computed hashes for the asset.")
-	private AssetHash hashes;
+	private HashInfo hashes;
 
 	@JsonPropertyDescription("Information about the image component of the asset (if present)")
 	private ImageInfo image;
@@ -34,17 +33,14 @@ public class BinaryResponse implements RestResponseModel<BinaryResponse> {
 	@JsonPropertyDescription("The size of the asset in bytes.")
 	private long size;
 
-	@JsonPropertyDescription("Custom meta properties for the binary.")
-	private Map<String, String> meta;
-
 	// @JsonPropertyDescription("S3 meta information on the asset. (only set when S3 is being utilized).")
 	// private AssetS3Meta s3;
 
-	public AssetHash getHashes() {
+	public HashInfo getHashes() {
 		return hashes;
 	}
 
-	public BinaryResponse setHashes(AssetHash hashes) {
+	public BinaryResponse setHashes(HashInfo hashes) {
 		this.hashes = hashes;
 		return this;
 	}
@@ -73,15 +69,6 @@ public class BinaryResponse implements RestResponseModel<BinaryResponse> {
 
 	public BinaryResponse setVideo(VideoInfo video) {
 		this.video = video;
-		return this;
-	}
-
-	public Map<String, String> getMeta() {
-		return meta;
-	}
-
-	public BinaryResponse setMeta(Map<String, String> meta) {
-		this.meta = meta;
 		return this;
 	}
 

@@ -1,48 +1,26 @@
 package io.metaloom.loom.rest.model.common;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 public class PagingInfo {
 
 	@JsonProperty(required = true)
-	@JsonPropertyDescription("Number of the current page.")
-	private long currentPage;
+	@JsonPropertyDescription("The UUID of the last element.")
+	private UUID lastUuid;
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("Number of elements which can be included in a single page.")
 	private Long perPage;
 
 	@JsonProperty(required = true)
-	@JsonPropertyDescription("Number of the pages which can be found for the given per page count.")
-	private long pageCount;
-
-	@JsonProperty(required = true)
-	@JsonPropertyDescription("Number of all elements which could be found.")
+	@JsonPropertyDescription("Number of elements in the page.")
 	private long totalCount;
 
 	public PagingInfo() {
 
-	}
-
-	/**
-	 * Return the current page number.
-	 * 
-	 * @return Current page number
-	 */
-	public long getCurrentPage() {
-		return currentPage;
-	}
-
-	/**
-	 * Set the current page number.
-	 * 
-	 * @param currentPage Current page number
-	 * @return Fluent API
-	 */
-	public PagingInfo setCurrentPage(long currentPage) {
-		this.currentPage = currentPage;
-		return this;
 	}
 
 	/**
@@ -57,31 +35,12 @@ public class PagingInfo {
 	/**
 	 * Set the per page count.
 	 * 
-	 * @param perPage Per page count
+	 * @param perPage
+	 *            Per page count
 	 * @return Fluent API
 	 */
 	public PagingInfo setPerPage(Long perPage) {
 		this.perPage = perPage;
-		return this;
-	}
-
-	/**
-	 * Return the total page count.
-	 * 
-	 * @return Total page count
-	 */
-	public long getPageCount() {
-		return pageCount;
-	}
-
-	/**
-	 * Set the total page count.
-	 * 
-	 * @param pageCount Total page count
-	 * @return Fluent API
-	 */
-	public PagingInfo setPageCount(long pageCount) {
-		this.pageCount = pageCount;
 		return this;
 	}
 
@@ -97,11 +56,21 @@ public class PagingInfo {
 	/**
 	 * Set the total element count.
 	 * 
-	 * @param totalCount Total element count
+	 * @param totalCount
+	 *            Total element count
 	 * @return Fluent API
 	 */
 	public PagingInfo setTotalCount(long totalCount) {
 		this.totalCount = totalCount;
+		return this;
+	}
+
+	public UUID getLastUuid() {
+		return lastUuid;
+	}
+
+	public PagingInfo setLastUuid(UUID lastUuid) {
+		this.lastUuid = lastUuid;
 		return this;
 	}
 }

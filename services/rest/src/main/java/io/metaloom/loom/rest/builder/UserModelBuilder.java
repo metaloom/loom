@@ -15,7 +15,7 @@ public interface UserModelBuilder extends ModelBuilder {
 		UserResponse response = new UserResponse();
 		response.setUsername(user.getUsername());
 		response.setUuid(user.getUuid());
-		setStatus(user, creator, editor, response);
+		setStatus(user, response);
 		return response;
 	}
 
@@ -34,7 +34,11 @@ public interface UserModelBuilder extends ModelBuilder {
 		return ref;
 	}
 
-	default void setStatus(CUDElement<?> element, User creator, User editor, AbstractCreatorEditorRestResponse<?> response) {
+	default void setStatus(CUDElement<?> element, AbstractCreatorEditorRestResponse<?> response) {
+		User creator = daos().userDao().load(element.getCreatorUuid());
+		User editor = daos().userDao().load(element.getEditorUuid());
+
+		
 		CreatorEditorStatus status = response.getStatus();
 		status.setCreated(element.getCreated());
 		status.setEdited(element.getEdited());
