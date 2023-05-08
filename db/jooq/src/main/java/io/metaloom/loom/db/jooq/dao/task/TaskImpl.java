@@ -7,6 +7,8 @@ public class TaskImpl extends AbstractEditableElement<Task> implements Task {
 
 	private String title;
 
+	private String description;
+
 	@Override
 	public String getTitle() {
 		return title;
@@ -18,4 +20,14 @@ public class TaskImpl extends AbstractEditableElement<Task> implements Task {
 		return this;
 	}
 
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public Task setDescription(String description) {
+		this.description = description;
+		return this;
+	}
 }

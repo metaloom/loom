@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.user.User;
+import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.group.GroupListResponse;
 
 public class GroupModelBuilderTest extends AbstractModelBuilderTest {
@@ -20,20 +21,12 @@ public class GroupModelBuilderTest extends AbstractModelBuilderTest {
 		assertWithModel(builder().toResponse(group, user, user), "group.response");
 	}
 
-	private User mockUser(String username) {
-		User user = mock(User.class);
-		when(user.getUuid()).thenReturn(USER_UUID);
-		when(user.getUsername()).thenReturn(username);
-		return user;
-	}
-
 	@Test
 	public void testListResponseModel() throws IOException {
 		Group group = mockGroup();
 		User user = mockUser("joedoe");
-		GroupListResponse list = new GroupListResponse();
-		list.add(builder().toResponse(group, user, user));
-		list.add(builder().toResponse(group, user, user));
+		Page<Group> page = mockPage(group, group);
+		GroupListResponse list = builder().toGroupList(page);
 		assertWithModel(list, "group.list_response");
 	}
 
@@ -44,6 +37,5 @@ public class GroupModelBuilderTest extends AbstractModelBuilderTest {
 		mockCreatorEditor(group);
 		return group;
 	}
-
 
 }

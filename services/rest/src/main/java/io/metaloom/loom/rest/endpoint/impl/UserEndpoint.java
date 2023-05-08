@@ -72,10 +72,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 	private void registerListUsers() {
 		addRoute("/users", GET, lrc -> {
 			Page<User> page = userDao.loadPage(null, 25);
-			UserListResponse response = new UserListResponse();
-			page.forEach(user -> {
-				response.add(modelBuilder.toResponse(user));
-			});
+			UserListResponse response = modelBuilder.toUserList(page);
 			lrc.send(response);
 		});
 	}
@@ -89,9 +86,10 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 			// TODO validate request
 			// TODO handle conflicts
 
+			User creatorEditor = userDao.load(lrc.user().get("uuid"));
 			User user = userDao.createUser(userName);
 			userDao.store(user);
-			lrc.send(modelBuilder.toResponse(user), 201);
+			lrc.send(modelBuilder.toResponse(user, creatorEditor, creatorEditor), 201);
 		});
 	}
 
@@ -103,7 +101,9 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 					lrc.send(new GenericMessageResponse(), 404);
 					return;
 				}
-				UserResponse response = modelBuilder.toResponse(user);
+				User creator = userDao.load(user.getCreatorUuid());
+				User editor = userDao.load(user.getEditorUuid());
+				UserResponse response = modelBuilder.toResponse(user, creator, editor);
 				lrc.send(response);
 			}).onFailure(e -> {
 				// TODO this should be 500 error
@@ -112,7 +112,5 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 			});
 		});
 	}
-
-
 
 }

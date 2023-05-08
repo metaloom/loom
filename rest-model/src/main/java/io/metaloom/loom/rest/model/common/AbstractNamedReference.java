@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest.model.common;
 
-public class AbstractNamedReference extends AbstractResponse {
+public abstract class AbstractNamedReference extends AbstractResponse<AbstractNamedReference> {
 
 	private String name;
 

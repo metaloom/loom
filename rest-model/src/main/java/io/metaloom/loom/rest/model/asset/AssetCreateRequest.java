@@ -5,7 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.RestRequestModel;
-import io.metaloom.loom.rest.model.asset.workflow.Annotation;
+import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.vertx.core.json.JsonObject;
 
@@ -30,7 +30,7 @@ public class AssetCreateRequest implements RestRequestModel {
 	private AssetGeoLocation location;
 
 	@JsonPropertyDescription("Timeline information on the asset.")
-	private List<Annotation> timeline;
+	private List<AnnotationResponse> timeline;
 
 	@JsonPropertyDescription("A list of tags on the asset.")
 	private List<TagReference> tags;
@@ -107,11 +107,11 @@ public class AssetCreateRequest implements RestRequestModel {
 		return this;
 	}
 
-	public List<Annotation> getTimeline() {
+	public List<AnnotationResponse> getTimeline() {
 		return timeline;
 	}
 
-	public AssetCreateRequest setTimeline(List<Annotation> timeline) {
+	public AssetCreateRequest setTimeline(List<AnnotationResponse> timeline) {
 		this.timeline = timeline;
 		return this;
 	}

@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.asset.binary.BinaryResponse;
+import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.asset.collection.AssetCollection;
 import io.metaloom.loom.rest.model.asset.license.LicenseInfo;
 import io.metaloom.loom.rest.model.asset.social.SocialInfo;
-import io.metaloom.loom.rest.model.asset.workflow.Annotation;
+import io.metaloom.loom.rest.model.binary.BinaryResponse;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
@@ -49,7 +49,7 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 	private List<TagReference> tags = new ArrayList<>();
 
 	@JsonPropertyDescription("Annotations on areas of the asset.")
-	private List<Annotation> annotations = new ArrayList<>();
+	private List<AnnotationResponse> annotations = new ArrayList<>();
 
 	@JsonPropertyDescription("List of collections to which the asset has been added")
 	private List<AssetCollection> collections = new ArrayList<>();
@@ -75,11 +75,11 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 		return this;
 	}
 
-	public List<Annotation> getAnnotations() {
+	public List<AnnotationResponse> getAnnotations() {
 		return annotations;
 	}
 
-	public AssetResponse setAnnotations(List<Annotation> annotations) {
+	public AssetResponse setAnnotations(List<AnnotationResponse> annotations) {
 		this.annotations = annotations;
 		return this;
 	}

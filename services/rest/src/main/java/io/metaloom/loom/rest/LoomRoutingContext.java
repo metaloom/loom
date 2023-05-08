@@ -48,6 +48,7 @@ public class LoomRoutingContext {
 		return rc.pathParam(key);
 	}
 
+	// TODO wrap into LoomUser for typesafe attr access
 	public User user() {
 		return rc.user();
 	}

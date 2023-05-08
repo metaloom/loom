@@ -2,7 +2,7 @@ package io.metaloom.loom.rest.model.message;
 
 import io.metaloom.loom.rest.model.RestResponseModel;
 
-public class GenericMessageResponse implements RestResponseModel {
+public class GenericMessageResponse implements RestResponseModel<GenericMessageResponse> {
 
 	private String message;
 
@@ -15,4 +15,8 @@ public class GenericMessageResponse implements RestResponseModel {
 		return this;
 	}
 
+	@Override
+	public GenericMessageResponse self() {
+		return this;
+	}
 }

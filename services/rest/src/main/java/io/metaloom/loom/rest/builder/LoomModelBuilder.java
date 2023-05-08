@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest.builder;
 
-public interface LoomModelBuilder extends AssetBuilder, BinaryBuilder, UserBuilder, GroupBuilder, RoleBuilder, TagBuilder, TaskBuilder,
-	LibraryBuilder, ProjectBuilder, ReactionBuilder, AnnotationBuilder {
+public interface LoomModelBuilder extends AssetModelBuilder, BinaryModelBuilder, UserModelBuilder, GroupModelBuilder, RoleModelBuilder, TagModelBuilder, TaskModelBuilder,
+	LibraryModelBuilder, ProjectModelBuilder, ReactionModelBuilder, AnnotationModelBuilder {
 
 }

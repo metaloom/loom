@@ -2,16 +2,23 @@ package io.metaloom.loom.rest.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.mockito.Mockito;
 
 import io.metaloom.loom.db.CUDElement;
+import io.metaloom.loom.db.Element;
 import io.metaloom.loom.db.MetaElement;
+import io.metaloom.loom.db.model.user.User;
+import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.builder.impl.LoomModelBuilderImpl;
 import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestModel;
@@ -56,5 +63,25 @@ public abstract class AbstractModelBuilderTest implements TestValues {
 		json.put("array", new JsonArray().add(42).add(24));
 		Mockito.when(element.getMeta()).thenReturn(json);
 	}
+
+	public User mockUser(String username) {
+		User user = mock(User.class);
+		when(user.getUuid()).thenReturn(USER_UUID);
+		when(user.getUsername()).thenReturn(username);
+		return user;
+	}
+	
+	public <T extends Element<T>> Page<T> mockPage(T... elements) {
+		List<T> list = new ArrayList<>();
+		for (T element : elements) {
+			list.add(element);
+		}
+		Page<T> page = new Page<>(list);
+		return page;
+	}
+
+	abstract void testResponseModel() throws IOException;
+
+	abstract void testListResponseModel() throws IOException;
 
 }

@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.AssetHash;
-import io.metaloom.loom.rest.model.asset.social.Reaction;
+import io.metaloom.loom.rest.model.asset.social.ReactionType;
 import io.metaloom.loom.rest.model.asset.social.SocialInfo;
-import io.metaloom.loom.rest.model.asset.workflow.Annotation;
 import io.metaloom.loom.rest.model.asset.workflow.Area;
 import io.metaloom.loom.rest.model.asset.workflow.Comment;
-import io.metaloom.loom.rest.model.asset.workflow.Task;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.common.PagingInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
+import io.metaloom.loom.rest.model.task.TaskResponse;
 import io.metaloom.loom.rest.model.user.UserReference;
 import io.metaloom.utils.UUIDUtils;
 import io.vertx.core.json.JsonObject;
@@ -105,8 +105,8 @@ public class AbstractExamples {
 		return location;
 	}
 
-	private static Task task() {
-		Task task = new Task();
+	private static TaskResponse task() {
+		TaskResponse task = new TaskResponse();
 		task.setUuid(uuidC());
 		task.setTitle("Fix text offset here");
 		task.setDescription("The text is not aligned with the title");
@@ -117,7 +117,7 @@ public class AbstractExamples {
 	private static SocialInfo social() {
 		SocialInfo social = new SocialInfo();
 		social.getRating().setDownVotes(0).setUpVotes(42).setStars(10);
-		social.getReactions().put(Reaction.SATISFIED, 10L);
+		social.getReactions().put(ReactionType.SATISFIED, 10L);
 		return social;
 	}
 
@@ -130,10 +130,10 @@ public class AbstractExamples {
 		return comment;
 	}
 
-	public static List<Annotation> assetAnnotations() {
-		List<Annotation> list = new ArrayList<>();
+	public static List<AnnotationResponse> assetAnnotations() {
+		List<AnnotationResponse> list = new ArrayList<>();
 
-		Annotation first = new Annotation();
+		AnnotationResponse first = new AnnotationResponse();
 		first.setTitle("Intro Feedback");
 		first.setArea(new Area().setFrom(0).setTo(10));
 		first.setDescription("The very nice intro");

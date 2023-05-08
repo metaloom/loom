@@ -10,11 +10,11 @@ import io.metaloom.loom.rest.model.asset.AssetResponse;
 import io.metaloom.loom.rest.model.asset.AssetS3Meta;
 import io.metaloom.loom.rest.model.asset.AssetUpdateRequest;
 import io.metaloom.loom.rest.model.asset.FileKey;
-import io.metaloom.loom.rest.model.asset.binary.AudioInfo;
-import io.metaloom.loom.rest.model.asset.binary.BinaryResponse;
-import io.metaloom.loom.rest.model.asset.binary.ImageInfo;
-import io.metaloom.loom.rest.model.asset.binary.VideoInfo;
 import io.metaloom.loom.rest.model.asset.license.LicenseInfo;
+import io.metaloom.loom.rest.model.binary.AudioInfo;
+import io.metaloom.loom.rest.model.binary.BinaryResponse;
+import io.metaloom.loom.rest.model.binary.ImageInfo;
+import io.metaloom.loom.rest.model.binary.VideoInfo;
 
 public class AssetExamples extends AbstractExamples {
 

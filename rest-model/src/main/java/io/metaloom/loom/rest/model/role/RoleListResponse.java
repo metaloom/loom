@@ -1,7 +1,12 @@
 package io.metaloom.loom.rest.model.role;
 
-import io.metaloom.loom.rest.model.common.ListResponse;
+import io.metaloom.loom.rest.model.common.AbstractListResponse;
 
-public class RoleListResponse extends ListResponse<RoleResponse> {
+public class RoleListResponse extends AbstractListResponse<RoleListResponse, RoleResponse> {
+
+	@Override
+	public RoleListResponse self() {
+		return this;
+	}
 
 }

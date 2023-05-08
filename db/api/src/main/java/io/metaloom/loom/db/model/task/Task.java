@@ -8,4 +8,8 @@ public interface Task extends CUDElement<Task> {
 
 	Task setTitle(String title);
 
+	String getDescription();
+
+	Task setDescription(String description);
+
 }

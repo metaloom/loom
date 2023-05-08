@@ -9,7 +9,7 @@ import io.vertx.core.json.JsonObject;
 /**
  * Abstract class for responses which contain editor and creator information.
  */
-public abstract class AbstractCreatorEditorRestResponse<T extends AbstractCreatorEditorRestResponse<T>> extends AbstractResponse
+public abstract class AbstractCreatorEditorRestResponse<T extends AbstractCreatorEditorRestResponse<T>> extends AbstractResponse<T>
 	implements MetaModel<T> {
 
 	private CreatorEditorStatus status = new CreatorEditorStatus();

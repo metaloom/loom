@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import io.metaloom.loom.rest.model.RestResponseModel;
 
-public abstract class AbstractResponse implements RestResponseModel {
+public abstract class AbstractResponse<T extends AbstractResponse<T>> implements RestResponseModel<T> {
 
 	private UUID uuid;
 
@@ -12,7 +12,9 @@ public abstract class AbstractResponse implements RestResponseModel {
 		return uuid;
 	}
 
-	public void setUuid(UUID uuid) {
+	public T setUuid(UUID uuid) {
 		this.uuid = uuid;
+		return self();
 	}
+
 }

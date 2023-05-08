@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.RestRequestModel;
-import io.metaloom.loom.rest.model.asset.workflow.Annotation;
+import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.vertx.core.json.JsonObject;
 
@@ -31,7 +31,7 @@ public class AssetUpdateRequest implements RestRequestModel {
 	private AssetGeoLocation location;
 
 	@JsonPropertyDescription("Timeline information on the asset.")
-	private List<Annotation> timeline;
+	private List<AnnotationResponse> timeline;
 
 	@JsonPropertyDescription("S3 meta information on the asset. (only set when S3 is being utilized).")
 	private AssetS3Meta s3;
@@ -108,11 +108,11 @@ public class AssetUpdateRequest implements RestRequestModel {
 		return this;
 	}
 
-	public List<Annotation> getTimeline() {
+	public List<AnnotationResponse> getTimeline() {
 		return timeline;
 	}
 
-	public AssetUpdateRequest setTimeline(List<Annotation> timeline) {
+	public AssetUpdateRequest setTimeline(List<AnnotationResponse> timeline) {
 		this.timeline = timeline;
 		return this;
 	}

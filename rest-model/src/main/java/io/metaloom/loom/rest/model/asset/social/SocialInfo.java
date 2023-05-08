@@ -7,7 +7,7 @@ public class SocialInfo {
 
 	private Rating rating = new Rating();
 
-	private Map<Reaction, Long> reactions = new HashMap<>();
+	private Map<ReactionType, Long> reactions = new HashMap<>();
 
 	public Rating getRating() {
 		return rating;
@@ -18,11 +18,11 @@ public class SocialInfo {
 		return this;
 	}
 
-	public Map<Reaction, Long> getReactions() {
+	public Map<ReactionType, Long> getReactions() {
 		return reactions;
 	}
 
-	public void setReactions(Map<Reaction, Long> reactions) {
+	public void setReactions(Map<ReactionType, Long> reactions) {
 		this.reactions = reactions;
 	}
 }

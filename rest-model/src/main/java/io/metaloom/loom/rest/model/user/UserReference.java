@@ -4,4 +4,9 @@ import io.metaloom.loom.rest.model.common.AbstractNamedReference;
 
 public class UserReference extends AbstractNamedReference {
 
+	@Override
+	public UserReference self() {
+		return this;
+	}
+
 }
