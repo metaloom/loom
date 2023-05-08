@@ -3,9 +3,10 @@ package io.metaloom.loom.rest.model.user;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.common.AbstractMetaModel;
 
-public class UserUpdateRequest extends AbstractMetaModel<UserUpdateRequest> {
+public class UserUpdateRequest extends AbstractMetaModel<UserUpdateRequest> implements RestRequestModel {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("The new username of the user.")

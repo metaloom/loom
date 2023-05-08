@@ -33,7 +33,7 @@ public class UserEndpointTest extends AbstractEndpointTest {
 				client.createUser(userRequest).sync();
 			}
 
-			UserListResponse listResponse = client.listUsers().sync();
+			UserListResponse listResponse = client.listUsers(null, 25).sync();
 			assertEquals(25, listResponse.getData().size(), "There should have been 25 users loaded");
 
 			UUID uuid = listResponse.getData().get(0).getUuid();
