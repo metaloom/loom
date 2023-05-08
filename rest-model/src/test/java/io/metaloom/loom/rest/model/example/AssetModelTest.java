@@ -4,13 +4,14 @@ import static io.metaloom.loom.rest.model.example.ModelTestHelper.assertModel;
 
 import org.junit.jupiter.api.Test;
 
-import io.vertx.core.json.Json;
+import io.metaloom.loom.rest.json.Json;
+
 
 public class AssetModelTest implements ModelTestcases {
 
 	@Test
 	public void testModelOutput() {
-		System.out.println(Json.encodePrettily(assetResponse()));
+		System.out.println(Json.parse(assetResponse()));
 	}
 
 	@Test

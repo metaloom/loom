@@ -9,7 +9,7 @@ import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
 
-import io.metaloom.loom.api.json.JsonUtil;
+import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestModel;
 
 public final class ModelTestHelper {
@@ -29,11 +29,11 @@ public final class ModelTestHelper {
 		}
 		try {
 			String referenceJson = IOUtils.toString(ins, Charset.defaultCharset());
-			String modelJson = JsonUtil.toJson(model);
+			String modelJson = Json.parse(model);
 			if (!modelJson.equals(referenceJson)) {
 				System.out.println(modelJson);
 			}
-			assertEquals("The JSON of the model did not match with the reference.", referenceJson, modelJson);
+			assertEquals(referenceJson, modelJson, "The JSON of the model did not match with the reference.");
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail("Could not read resource");

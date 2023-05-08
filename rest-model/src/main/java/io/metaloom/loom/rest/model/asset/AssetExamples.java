@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.model.asset;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 import io.metaloom.loom.rest.model.asset.license.LicenseInfo;
@@ -14,7 +15,7 @@ public interface AssetExamples extends ExampleValues {
 	default AssetResponse assetResponse() {
 		AssetResponse model = new AssetResponse();
 		setCreatorEditor(model);
-		model.setUuid(UUID.randomUUID());
+		model.setUuid(uuidA());
 		model.getLicenses().add(new LicenseInfo().setName("license-name").setVersion("v1"));
 		model.setMeta(meta());
 		model.setLocation(new AssetFilesystemLocation().setFilekey(new FileKey().setInode(42).setStDev(12)).setLastSeen(DATE_NEW)
@@ -33,6 +34,7 @@ public interface AssetExamples extends ExampleValues {
 			.setFirstSeen(DATE_OLD)
 			.setOrigin("/initialPath/bigbuckbunny-4k.mp4");
 
+		model.getTags().add(tagReferenceA());
 		// .setLocalPath("/opt/movies/bigbuckbunny-4k.mp4")
 		// .setS3(new AssetS3Meta().setBucket("big_bucket").setKey("themovie"))
 		// .setMimeType("video/mp4")
