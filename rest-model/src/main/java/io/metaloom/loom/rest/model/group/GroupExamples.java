@@ -1,14 +1,10 @@
-package io.metaloom.loom.rest.model.example;
+package io.metaloom.loom.rest.model.group;
 
-import io.metaloom.loom.rest.model.group.GroupCreateRequest;
-import io.metaloom.loom.rest.model.group.GroupListResponse;
-import io.metaloom.loom.rest.model.group.GroupReference;
-import io.metaloom.loom.rest.model.group.GroupResponse;
-import io.metaloom.loom.rest.model.group.GroupUpdateRequest;
+import io.metaloom.loom.rest.model.example.ExampleValues;
 
-public class GroupExamples extends AbstractExamples {
+public interface GroupExamples extends ExampleValues {
 
-	public static GroupResponse groupResponse() {
+	default GroupResponse groupResponse() {
 		GroupResponse model = new GroupResponse();
 		model.setUuid(uuidC());
 		model.setName("Guests");
@@ -17,28 +13,28 @@ public class GroupExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static GroupReference groupReference() {
+	default GroupReference groupReference() {
 		GroupReference model = new GroupReference();
 		model.setUuid(uuidA());
 		model.setName("Guests");
 		return model;
 	}
 
-	public static GroupUpdateRequest groupUpdateRequest() {
+	default GroupUpdateRequest groupUpdateRequest() {
 		GroupUpdateRequest model = new GroupUpdateRequest();
 		model.setName("NewGuests");
 		model.setMeta(meta());
 		return model;
 	}
 
-	public static GroupCreateRequest groupCreateRequest() {
+	default GroupCreateRequest groupCreateRequest() {
 		GroupCreateRequest model = new GroupCreateRequest();
 		model.setName("Guests");
 		model.setMeta(meta());
 		return model;
 	}
 
-	public static GroupListResponse groupListResponse() {
+	default GroupListResponse groupListResponse() {
 		GroupListResponse model = new GroupListResponse();
 		model.setMetainfo(pagingInfo());
 		model.add(groupResponse());

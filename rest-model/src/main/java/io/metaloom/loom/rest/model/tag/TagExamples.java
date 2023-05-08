@@ -1,14 +1,10 @@
-package io.metaloom.loom.rest.model.example;
+package io.metaloom.loom.rest.model.tag;
 
-import io.metaloom.loom.rest.model.tag.TagCreateRequest;
-import io.metaloom.loom.rest.model.tag.TagListResponse;
-import io.metaloom.loom.rest.model.tag.TagReference;
-import io.metaloom.loom.rest.model.tag.TagResponse;
-import io.metaloom.loom.rest.model.tag.TagUpdateRequest;
+import io.metaloom.loom.rest.model.example.ExampleValues;
 
-public final class TagExamples extends AbstractExamples {
+public interface TagExamples extends ExampleValues {
 
-	public static TagResponse tagResponse() {
+	default TagResponse tagResponse() {
 		TagResponse model = new TagResponse();
 		model.setUuid(uuidB());
 		model.setName("red");
@@ -18,7 +14,7 @@ public final class TagExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static TagCreateRequest tagCreateRequest() {
+	default TagCreateRequest tagCreateRequest() {
 		TagCreateRequest model = new TagCreateRequest();
 		model.setName("red");
 		model.setCollection("colors");
@@ -26,7 +22,7 @@ public final class TagExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static TagUpdateRequest tagUpdateRequest() {
+	default TagUpdateRequest tagUpdateRequest() {
 		TagUpdateRequest model = new TagUpdateRequest();
 		model.setName("red");
 		model.setCollection("colors");
@@ -34,7 +30,7 @@ public final class TagExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static TagListResponse tagListResponse() {
+	default TagListResponse tagListResponse() {
 		TagListResponse model = new TagListResponse();
 		model.setMetainfo(pagingInfo());
 		model.add(tagResponse());
@@ -42,7 +38,7 @@ public final class TagExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static TagReference tagReference() {
+	default TagReference tagReference() {
 		return tagReferenceA();
 	}
 

@@ -1,11 +1,6 @@
 package io.metaloom.loom.rest.model.example;
 
 import static io.metaloom.loom.rest.model.example.ModelTestHelper.assertModel;
-import static io.metaloom.loom.rest.model.example.RoleExamples.roleCreateRequest;
-import static io.metaloom.loom.rest.model.example.RoleExamples.roleListResponse;
-import static io.metaloom.loom.rest.model.example.RoleExamples.roleReference;
-import static io.metaloom.loom.rest.model.example.RoleExamples.roleResponse;
-import static io.metaloom.loom.rest.model.example.RoleExamples.roleUpdateRequest;
 
 import org.junit.jupiter.api.Test;
 

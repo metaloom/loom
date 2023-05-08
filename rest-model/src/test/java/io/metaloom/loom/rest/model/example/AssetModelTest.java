@@ -1,10 +1,5 @@
 package io.metaloom.loom.rest.model.example;
 
-import static io.metaloom.loom.rest.model.example.AssetExamples.assetCreateRequest;
-import static io.metaloom.loom.rest.model.example.AssetExamples.assetListResponse;
-import static io.metaloom.loom.rest.model.example.AssetExamples.assetReference;
-import static io.metaloom.loom.rest.model.example.AssetExamples.assetResponse;
-import static io.metaloom.loom.rest.model.example.AssetExamples.assetUpdateRequest;
 import static io.metaloom.loom.rest.model.example.ModelTestHelper.assertModel;
 
 import org.junit.jupiter.api.Test;

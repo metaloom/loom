@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.UUID;
 
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
+import io.metaloom.loom.rest.model.annotation.Area;
+import io.metaloom.loom.rest.model.annotation.Comment;
 import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.HashInfo;
 import io.metaloom.loom.rest.model.asset.social.ReactionType;
 import io.metaloom.loom.rest.model.asset.social.SocialInfo;
-import io.metaloom.loom.rest.model.asset.workflow.Area;
-import io.metaloom.loom.rest.model.asset.workflow.Comment;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.common.PagingInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
@@ -21,66 +21,66 @@ import io.metaloom.loom.rest.model.user.UserReference;
 import io.metaloom.utils.UUIDUtils;
 import io.vertx.core.json.JsonObject;
 
-public class AbstractExamples {
+public interface ExampleValues {
 
 	public static final OffsetDateTime DATE_OLD = OffsetDateTime.from(Instant.parse("2018-10-12T14:15:06.024Z"));
 
 	public static final OffsetDateTime DATE_NEW = OffsetDateTime.from(Instant.parse("2018-11-20T20:12:01.084Z"));
 
-	public static UUID uuidA() {
+	default UUID uuidA() {
 		return UUIDUtils.fromString("f04e89d0-076d-4d90-b192-715a25a2cd59");
 	}
 
-	public static UUID uuidB() {
+	default UUID uuidB() {
 		return UUIDUtils.fromString("86abc160-4da2-4951-a91f-da0c33fbc634");
 	}
 
-	public static UUID uuidC() {
+	default UUID uuidC() {
 		return UUIDUtils.fromString("0f3332a6-e404-4777-88a9-1fa984a311bc");
 	}
 
-	public static UserReference userReferenceA() {
+	default UserReference userReferenceA() {
 		UserReference reference = new UserReference();
 		reference.setUuid(uuidA());
 		reference.setName("joedoe");
 		return reference;
 	}
 
-	public static PagingInfo pagingInfo() {
+	default PagingInfo pagingInfo() {
 		PagingInfo info = new PagingInfo();
 		info.setTotalCount(28);
 		info.setPerPage(2L);
 		return info;
 	}
 
-	public static void setCreatorEditor(AbstractCreatorEditorRestResponse<?> model) {
+	default void setCreatorEditor(AbstractCreatorEditorRestResponse<?> model) {
 		model.getStatus().setCreator(userReferenceA());
 		model.getStatus().setCreated(DATE_OLD);
 		model.getStatus().setEditor(userReferenceA());
 		model.getStatus().setEdited(DATE_NEW);
 	}
 
-	public static TagReference tagReferenceA() {
+	default TagReference tagReferenceA() {
 		TagReference model = new TagReference();
 		model.setUuid(uuidA());
 		model.setName("red");
 		return model;
 	}
 
-	public static TagReference tagReferenceB() {
+	default TagReference tagReferenceB() {
 		TagReference model = new TagReference();
 		model.setUuid(uuidB());
 		model.setName("blue");
 		return model;
 	}
 
-	public static JsonObject meta() {
+	default JsonObject meta() {
 		JsonObject meta = new JsonObject();
 		meta.put("abc", "cdef");
 		return meta;
 	}
 
-	public static HashInfo assetHashes() {
+	default HashInfo assetHashes() {
 		HashInfo hashes = new HashInfo();
 		hashes.setSha512(
 			"0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123");
@@ -89,14 +89,14 @@ public class AbstractExamples {
 		return hashes;
 	}
 
-	public static AssetGeoLocation assetGeoLocation() {
+	default AssetGeoLocation assetGeoLocation() {
 		AssetGeoLocation location = new AssetGeoLocation();
 		location.setLat(52.156);
 		location.setLon(32.56);
 		return location;
 	}
 
-	private static TaskResponse task() {
+	default TaskResponse task() {
 		TaskResponse task = new TaskResponse();
 		task.setUuid(uuidC());
 		task.setTitle("Fix text offset here");
@@ -112,7 +112,7 @@ public class AbstractExamples {
 		return social;
 	}
 
-	private static Comment comment() {
+	default Comment comment() {
 		Comment comment = new Comment();
 		comment.setUuid(uuidB());
 		comment.setTitle("Great work!");
@@ -121,7 +121,7 @@ public class AbstractExamples {
 		return comment;
 	}
 
-	public static List<AnnotationResponse> assetAnnotations() {
+	default List<AnnotationResponse> assetAnnotations() {
 		List<AnnotationResponse> list = new ArrayList<>();
 
 		AnnotationResponse first = new AnnotationResponse();

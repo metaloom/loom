@@ -1,14 +1,10 @@
-package io.metaloom.loom.rest.model.example;
+package io.metaloom.loom.rest.model.user;
 
-import io.metaloom.loom.rest.model.user.UserCreateRequest;
-import io.metaloom.loom.rest.model.user.UserListResponse;
-import io.metaloom.loom.rest.model.user.UserReference;
-import io.metaloom.loom.rest.model.user.UserResponse;
-import io.metaloom.loom.rest.model.user.UserUpdateRequest;
+import io.metaloom.loom.rest.model.example.ExampleValues;
 
-public class UserExamples extends AbstractExamples {
+public interface UserExamples extends ExampleValues {
 
-	public static UserResponse userResponse() {
+	default UserResponse userResponse() {
 		UserResponse model = new UserResponse();
 		model.setUuid(uuidA());
 		model.setUsername("joedoe");
@@ -20,7 +16,7 @@ public class UserExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static UserUpdateRequest userUpdateRequest() {
+	default UserUpdateRequest userUpdateRequest() {
 		UserUpdateRequest model = new UserUpdateRequest();
 		model.setUsername("joedoe");
 		model.setEmail("joedoe@metaloom.io");
@@ -30,7 +26,7 @@ public class UserExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static UserCreateRequest userCreateRequest() {
+	default UserCreateRequest userCreateRequest() {
 		UserCreateRequest model = new UserCreateRequest();
 		model.setUsername("joedoe");
 		model.setEmail("joedoe@metaloom.io");
@@ -40,14 +36,14 @@ public class UserExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static UserReference userReference() {
+	default UserReference userReference() {
 		UserReference model = new UserReference();
 		model.setUuid(uuidA());
 		model.setName("joedoe");
 		return model;
 	}
 
-	public static UserListResponse userListResponse() {
+	default UserListResponse userListResponse() {
 		UserListResponse model = new UserListResponse();
 		model.setMetainfo(pagingInfo());
 		model.add(userResponse());

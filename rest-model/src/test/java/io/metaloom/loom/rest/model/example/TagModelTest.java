@@ -1,11 +1,6 @@
 package io.metaloom.loom.rest.model.example;
 
 import static io.metaloom.loom.rest.model.example.ModelTestHelper.assertModel;
-import static io.metaloom.loom.rest.model.example.TagExamples.tagCreateRequest;
-import static io.metaloom.loom.rest.model.example.TagExamples.tagListResponse;
-import static io.metaloom.loom.rest.model.example.TagExamples.tagReference;
-import static io.metaloom.loom.rest.model.example.TagExamples.tagResponse;
-import static io.metaloom.loom.rest.model.example.TagExamples.tagUpdateRequest;
 
 import org.junit.jupiter.api.Test;
 

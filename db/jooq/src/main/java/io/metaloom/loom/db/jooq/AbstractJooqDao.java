@@ -150,59 +150,6 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 		}
 		return null;
 	}
-	//
-	// @Override
-	// public <Z> List<P> fetchRange(Field<Z> field, Z lowerInclusive, Z upperInclusive) {
-	// return ctx()
-	// .selectFrom(table)
-	// .where(
-	// lowerInclusive == null
-	// ? upperInclusive == null
-	// ? noCondition()
-	// : field.le(upperInclusive)
-	// : upperInclusive == null
-	// ? field.ge(lowerInclusive)
-	// : field.between(lowerInclusive, upperInclusive))
-	// .fetch(mapper());
-	// }
-	//
-	// @Override
-	// public /* non-final */ void insert(Collection<P> objects) {
-	//
-	// // Execute a batch INSERT
-	// if (objects.size() > 1)
-	//
-	// // [#2536] [#3327] We cannot batch INSERT RETURNING calls yet
-	// if (!FALSE.equals(settings().isReturnRecordToPojo()))
-	// for (R record : records(objects, false))
-	// record.insert();
-	// else
-	// ctx().batchInsert(records(objects, false)).execute();
-	//
-	// // Execute a regular INSERT
-	// else if (objects.size() == 1)
-	// records(objects, false).get(0).insert();
-	// }
-	//
-	// @Override
-	// public /* non-final */ void update(Collection<P> objects) {
-	//
-	// // Execute a batch UPDATE
-	// if (objects.size() > 1)
-	//
-	// // [#2536] [#3327] We cannot batch UPDATE RETURNING calls yet
-	// if (!FALSE.equals(settings().isReturnRecordToPojo()) &&
-	// TRUE.equals(settings().isReturnAllOnUpdatableRecord()))
-	// for (R record : records(objects, true))
-	// record.update();
-	// else
-	// ctx().batchUpdate(records(objects, true)).execute();
-	//
-	// // Execute a regular UPDATE
-	// else if (objects.size() == 1)
-	// records(objects, true).get(0).update();
-	// }
-	//
 
 	protected void deleteCrossTableEntry(TableField<?, UUID> aField, UUID a, TableField<?, UUID> bField, UUID b) {
 		ctx().deleteFrom(aField.getTable())

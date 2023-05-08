@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.asset.workflow;
+package io.metaloom.loom.rest.model.annotation;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 

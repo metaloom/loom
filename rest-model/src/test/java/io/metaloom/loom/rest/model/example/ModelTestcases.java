@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest.model.example;
 
-public interface ModelTestcases {
+public interface ModelTestcases extends Examples {
 
 	void testResponse();
 

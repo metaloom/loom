@@ -1,17 +1,12 @@
-package io.metaloom.loom.rest.model.example;
+package io.metaloom.loom.rest.model.role;
 
 import java.util.Arrays;
 
-import io.metaloom.loom.rest.model.role.RoleCreateRequest;
-import io.metaloom.loom.rest.model.role.RoleListResponse;
-import io.metaloom.loom.rest.model.role.RolePermission;
-import io.metaloom.loom.rest.model.role.RoleReference;
-import io.metaloom.loom.rest.model.role.RoleResponse;
-import io.metaloom.loom.rest.model.role.RoleUpdateRequest;
+import io.metaloom.loom.rest.model.example.ExampleValues;
 
-public class RoleExamples extends AbstractExamples {
+public interface RoleExamples extends ExampleValues {
 
-	public static RoleResponse roleResponse() {
+	default RoleResponse roleResponse() {
 		RoleResponse model = new RoleResponse();
 		model.setUuid(uuidA());
 		model.setName("GuestPermissions");
@@ -21,14 +16,14 @@ public class RoleExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static RoleReference roleReference() {
+	default RoleReference roleReference() {
 		RoleReference model = new RoleReference();
 		model.setName("GuestPermissions");
 		model.setUuid(uuidA());
 		return model;
 	}
 
-	public static RoleCreateRequest roleCreateRequest() {
+	default RoleCreateRequest roleCreateRequest() {
 		RoleCreateRequest model = new RoleCreateRequest();
 		model.setName("GuestPermissions");
 		model.setPermissions(Arrays.asList(RolePermission.CREATE_USER));
@@ -36,7 +31,7 @@ public class RoleExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static RoleUpdateRequest roleUpdateRequest() {
+	default RoleUpdateRequest roleUpdateRequest() {
 		RoleUpdateRequest model = new RoleUpdateRequest();
 		model.setName("new_role_name");
 		model.setPermissions(Arrays.asList(RolePermission.CREATE_USER));
@@ -44,7 +39,7 @@ public class RoleExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static RoleListResponse roleListResponse() {
+	default RoleListResponse roleListResponse() {
 		RoleListResponse model = new RoleListResponse();
 		model.add(roleResponse());
 		model.add(roleResponse());

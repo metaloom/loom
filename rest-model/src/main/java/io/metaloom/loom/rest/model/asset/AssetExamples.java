@@ -1,24 +1,17 @@
-package io.metaloom.loom.rest.model.example;
+package io.metaloom.loom.rest.model.asset;
 
 import java.util.UUID;
 
-import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
-import io.metaloom.loom.rest.model.asset.AssetFilesystemLocation;
-import io.metaloom.loom.rest.model.asset.AssetListResponse;
-import io.metaloom.loom.rest.model.asset.AssetReference;
-import io.metaloom.loom.rest.model.asset.AssetResponse;
-import io.metaloom.loom.rest.model.asset.AssetS3Meta;
-import io.metaloom.loom.rest.model.asset.AssetUpdateRequest;
-import io.metaloom.loom.rest.model.asset.FileKey;
 import io.metaloom.loom.rest.model.asset.license.LicenseInfo;
 import io.metaloom.loom.rest.model.binary.AudioInfo;
 import io.metaloom.loom.rest.model.binary.BinaryResponse;
 import io.metaloom.loom.rest.model.binary.ImageInfo;
 import io.metaloom.loom.rest.model.binary.VideoInfo;
+import io.metaloom.loom.rest.model.example.ExampleValues;
 
-public class AssetExamples extends AbstractExamples {
+public interface AssetExamples extends ExampleValues {
 
-	public static AssetResponse assetResponse() {
+	default AssetResponse assetResponse() {
 		AssetResponse model = new AssetResponse();
 		setCreatorEditor(model);
 		model.setUuid(UUID.randomUUID());
@@ -46,7 +39,7 @@ public class AssetExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static AssetListResponse assetListResponse() {
+	default AssetListResponse assetListResponse() {
 		AssetListResponse model = new AssetListResponse();
 		model.setMetainfo(pagingInfo());
 		model.add(assetResponse());
@@ -54,7 +47,7 @@ public class AssetExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static AssetCreateRequest assetCreateRequest() {
+	default AssetCreateRequest assetCreateRequest() {
 		AssetCreateRequest model = new AssetCreateRequest();
 		model.setFilename("bigbuckbunny-4k.mp4")
 			.setDominantColor("#FFFF00")
@@ -67,7 +60,7 @@ public class AssetExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static AssetUpdateRequest assetUpdateRequest() {
+	default AssetUpdateRequest assetUpdateRequest() {
 		AssetUpdateRequest model = new AssetUpdateRequest();
 		model.setFilename("bigbuckbunny-4k.mp4")
 			.setDominantColor("#FFFF00")
@@ -80,7 +73,7 @@ public class AssetExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static AssetReference assetReference() {
+	default AssetReference assetReference() {
 		AssetReference model = new AssetReference();
 		model.setUuid(uuidC());
 		return model;

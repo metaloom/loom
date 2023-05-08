@@ -1,16 +1,12 @@
-package io.metaloom.loom.rest.model.example;
+package io.metaloom.loom.rest.model.webhook;
 
 import java.util.Arrays;
 
-import io.metaloom.loom.rest.model.webhook.WebhookCreateRequest;
-import io.metaloom.loom.rest.model.webhook.WebhookListResponse;
-import io.metaloom.loom.rest.model.webhook.WebhookResponse;
-import io.metaloom.loom.rest.model.webhook.WebhookTrigger;
-import io.metaloom.loom.rest.model.webhook.WebhookUpdateRequest;
+import io.metaloom.loom.rest.model.example.ExampleValues;
 
-public class WebhookExamples extends AbstractExamples {
+public interface WebhookExamples extends ExampleValues {
 
-	public static WebhookResponse webhookResponse() {
+	default WebhookResponse webhookResponse() {
 		WebhookResponse model = new WebhookResponse();
 		model.setUuid(uuidC());
 		model.setUrl("http://myService/hook");
@@ -20,7 +16,7 @@ public class WebhookExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static WebhookListResponse webhookListResponse() {
+	default WebhookListResponse webhookListResponse() {
 		WebhookListResponse model = new WebhookListResponse();
 		model.add(webhookResponse());
 		model.add(webhookResponse());
@@ -28,7 +24,7 @@ public class WebhookExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static WebhookUpdateRequest webhookUpdateRequest() {
+	default WebhookUpdateRequest webhookUpdateRequest() {
 		WebhookUpdateRequest model = new WebhookUpdateRequest();
 		model.setUrl("http://myService/newHook");
 		model.setTriggers(Arrays.asList(WebhookTrigger.ASSET_CREATED));
@@ -36,7 +32,7 @@ public class WebhookExamples extends AbstractExamples {
 		return model;
 	}
 
-	public static WebhookCreateRequest webhookCreateRequest() {
+	default WebhookCreateRequest webhookCreateRequest() {
 		WebhookCreateRequest model = new WebhookCreateRequest();
 		model.setUrl("http://myService/hook");
 		model.setTriggers(Arrays.asList(WebhookTrigger.ASSET_CREATED));

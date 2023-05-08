@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestModel;
 
-public abstract class AbstractModelTest {
+public abstract class AbstractModelTest implements ModelTestcases  {
 
 	public String load(String modelName) {
 		String path = "/models/" + modelName + ".json";

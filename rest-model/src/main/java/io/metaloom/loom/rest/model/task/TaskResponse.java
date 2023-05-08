@@ -3,7 +3,7 @@ package io.metaloom.loom.rest.model.task;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.metaloom.loom.rest.model.asset.workflow.Comment;
+import io.metaloom.loom.rest.model.annotation.Comment;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
 public class TaskResponse extends AbstractCreatorEditorRestResponse<TaskResponse> {
