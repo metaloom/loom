@@ -37,7 +37,7 @@ public class UserEndpoint extends AbstractRESTEndpoint {
 		secure("/users*");
 
 		addRoute("/users/:uuid", DELETE, lrc -> {
-			userService.deleteUser(lrc);
+			userService.delete(lrc);
 		});
 
 		addRoute("/users", GET, lrc -> {

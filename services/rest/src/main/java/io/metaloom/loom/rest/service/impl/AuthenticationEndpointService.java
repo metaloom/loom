@@ -6,19 +6,21 @@ import javax.inject.Singleton;
 import io.metaloom.loom.auth.AuthenticationService;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.rest.LoomRoutingContext;
+import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.auth.AuthLoginRequest;
 import io.metaloom.loom.rest.model.auth.AuthLoginResponse;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
-import io.metaloom.loom.rest.service.EndpointService;
+import io.metaloom.loom.rest.service.AbstractEndpointService;
 import io.vertx.core.json.JsonObject;
 
 @Singleton
-public class AuthenticationEndpointService implements EndpointService {
+public class AuthenticationEndpointService extends AbstractEndpointService {
 
 	private final AuthenticationService authService;
 
 	@Inject
-	public AuthenticationEndpointService(AuthenticationService authService) {
+	public AuthenticationEndpointService(AuthenticationService authService, LoomModelBuilder modelBuilder) {
+		super(modelBuilder);
 		this.authService = authService;
 	}
 

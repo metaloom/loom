@@ -2,8 +2,6 @@ package io.metaloom.loom.rest.service.impl;
 
 import static io.metaloom.loom.db.model.perm.Permission.READ_USER;
 
-import java.util.UUID;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -19,37 +17,20 @@ import io.metaloom.loom.rest.model.message.GenericMessageResponse;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.model.user.UserListResponse;
 import io.metaloom.loom.rest.model.user.UserResponse;
-import io.metaloom.loom.rest.service.EndpointService;
+import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class UserEndpointService implements EndpointService {
+public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, User> {
 
 	private static final Logger log = LoggerFactory.getLogger(UserEndpointService.class);
 
-	private final UserDao userDao;
-	private final LoomModelBuilder modelBuilder;
-
 	@Inject
 	public UserEndpointService(UserDao userDao, LoomModelBuilder modelBuilder) {
-		this.userDao = userDao;
-		this.modelBuilder = modelBuilder;
-	}
-
-	public void deleteUser(LoomRoutingContext lrc) {
-		String uuidStr = lrc.pathParam("uuid");
-		UUID uuid = UUID.fromString(uuidStr);
-		User user = userDao.load(uuid);
-		if (user == null) {
-			lrc.send(new GenericMessageResponse(), 404);
-			return;
-		} else {
-			userDao.delete(user);
-			lrc.send();
-		}
+		super(userDao, modelBuilder);
 	}
 
 	public void listUsers(LoomRoutingContext lrc) {
-		Page<User> page = userDao.loadPage(null, 25);
+		Page<User> page = dao().loadPage(null, 25);
 		UserListResponse response = modelBuilder.toUserList(page);
 		lrc.send(response);
 	}
@@ -62,21 +43,21 @@ public class UserEndpointService implements EndpointService {
 		// TODO validate request
 		// TODO handle conflicts
 
-		User creatorEditor = userDao.load(lrc.user().get("uuid"));
-		User user = userDao.createUser(userName);
-		userDao.store(user);
+		User creatorEditor = dao().load(lrc.user().get("uuid"));
+		User user = dao().createUser(userName);
+		dao().store(user);
 		lrc.send(modelBuilder.toResponse(user, creatorEditor, creatorEditor), 201);
 	}
 
 	public void loadUser(LoomRoutingContext lrc) {
 		lrc.requirePerm(READ_USER).onSuccess(l -> {
-			User user = userDao.loadUserByUsername(lrc.pathParam("name"));
+			User user = dao().loadUserByUsername(lrc.pathParam("name"));
 			if (user == null) {
 				lrc.send(new GenericMessageResponse(), 404);
 				return;
 			}
-			User creator = userDao.load(user.getCreatorUuid());
-			User editor = userDao.load(user.getEditorUuid());
+			User creator = dao().load(user.getCreatorUuid());
+			User editor = dao().load(user.getEditorUuid());
 			UserResponse response = modelBuilder.toResponse(user, creator, editor);
 			lrc.send(response);
 		}).onFailure(e -> {
