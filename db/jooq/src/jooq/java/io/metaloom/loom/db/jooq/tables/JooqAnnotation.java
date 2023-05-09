@@ -126,10 +126,10 @@ public class JooqAnnotation extends TableImpl<JooqAnnotationRecord> {
     public final TableField<JooqAnnotationRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties");
 
     /**
-     * The column <code>public.annotation.thumbail</code>. Reference to the
+     * The column <code>public.annotation.thumbnail</code>. Reference to the
      * thumbnail that depics the annotated element/area
      */
-    public final TableField<JooqAnnotationRecord, String> THUMBAIL = createField(DSL.name("thumbail"), SQLDataType.VARCHAR, this, "Reference to the thumbnail that depics the annotated element/area");
+    public final TableField<JooqAnnotationRecord, String> THUMBNAIL = createField(DSL.name("thumbnail"), SQLDataType.VARCHAR, this, "Reference to the thumbnail that depics the annotated element/area");
 
     private JooqAnnotation(Name alias, Table<JooqAnnotationRecord> aliased) {
         this(alias, aliased, null);

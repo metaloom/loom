@@ -113,6 +113,11 @@ public class JooqBinary extends TableImpl<JooqBinaryRecord> {
     public final TableField<JooqBinaryRecord, BigDecimal> GEO_LAT = createField(DSL.name("geo_lat"), SQLDataType.NUMERIC(8, 6), this, "");
 
     /**
+     * The column <code>public.binary.geo_alias</code>.
+     */
+    public final TableField<JooqBinaryRecord, String> GEO_ALIAS = createField(DSL.name("geo_alias"), SQLDataType.VARCHAR, this, "");
+
+    /**
      * The column <code>public.binary.initial_origin</code>. Document the
      * initial origin of the binary (e.g. first filepath encountered, first s3
      * path, url, hash)

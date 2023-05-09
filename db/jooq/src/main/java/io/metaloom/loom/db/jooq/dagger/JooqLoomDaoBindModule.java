@@ -23,7 +23,7 @@ import io.metaloom.loom.db.jooq.dao.user.UserDaoImpl;
 import io.metaloom.loom.db.jooq.dao.webhook.WebhookDaoImpl;
 import io.metaloom.loom.db.model.annotation.AnnotationDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.asset.BinaryDao;
+import io.metaloom.loom.db.model.binary.BinaryDao;
 import io.metaloom.loom.db.model.blacklist.BlacklistDao;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
 import io.metaloom.loom.db.model.collection.CollectionDao;

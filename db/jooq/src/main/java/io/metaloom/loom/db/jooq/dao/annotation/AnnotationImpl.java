@@ -14,6 +14,8 @@ public class AnnotationImpl extends AbstractEditableElement<Annotation> implemen
 
 	private UUID assetUuid;
 
+	private String description;
+
 	@Override
 	public String getTitle() {
 		return title;
@@ -44,6 +46,17 @@ public class AnnotationImpl extends AbstractEditableElement<Annotation> implemen
 	@Override
 	public Annotation setAssetUuid(UUID assetUuid) {
 		this.assetUuid = assetUuid;
+		return this;
+	}
+
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public Annotation setDescription(String description) {
+		this.description = description;
 		return this;
 	}
 }

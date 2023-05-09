@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.comment.CommentResponse;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.metaloom.loom.rest.model.task.TaskResponse;
@@ -24,7 +25,7 @@ public class AnnotationResponse extends AbstractCreatorEditorRestResponse<Annota
 	private List<TaskResponse> tasks = new ArrayList<>();
 
 	@JsonPropertyDescription("Comments for the annotation")
-	private List<Comment> comments = new ArrayList<>();
+	private List<CommentResponse> comments = new ArrayList<>();
 
 	// TODO spec this
 	@JsonPropertyDescription("Thumbnail reference information")
@@ -69,11 +70,11 @@ public class AnnotationResponse extends AbstractCreatorEditorRestResponse<Annota
 		return this;
 	}
 
-	public List<Comment> getComments() {
+	public List<CommentResponse> getComments() {
 		return comments;
 	}
 
-	public AnnotationResponse setComments(List<Comment> comments) {
+	public AnnotationResponse setComments(List<CommentResponse> comments) {
 		this.comments = comments;
 		return this;
 	}

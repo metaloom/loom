@@ -1,4 +1,4 @@
-package io.metaloom.loom.db.model.asset;
+package io.metaloom.loom.db.model.binary;
 
 import java.util.UUID;
 

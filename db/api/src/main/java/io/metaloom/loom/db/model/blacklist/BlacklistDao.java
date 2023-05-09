@@ -3,7 +3,7 @@ package io.metaloom.loom.db.model.blacklist;
 import java.util.UUID;
 
 import io.metaloom.loom.db.CRUDDao;
-import io.metaloom.loom.db.model.asset.Binary;
+import io.metaloom.loom.db.model.binary.Binary;
 import io.metaloom.loom.db.model.user.User;
 
 public interface BlacklistDao extends CRUDDao<Blacklist> {

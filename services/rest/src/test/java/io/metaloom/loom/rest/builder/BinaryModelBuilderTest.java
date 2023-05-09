@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import io.metaloom.loom.db.model.asset.Binary;
+import io.metaloom.loom.db.model.binary.Binary;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.binary.BinaryListResponse;
 

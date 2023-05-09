@@ -224,18 +224,18 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     /**
-     * Setter for <code>public.annotation.thumbail</code>. Reference to the
+     * Setter for <code>public.annotation.thumbnail</code>. Reference to the
      * thumbnail that depics the annotated element/area
      */
-    public void setThumbail(String value) {
+    public void setThumbnail(String value) {
         set(14, value);
     }
 
     /**
-     * Getter for <code>public.annotation.thumbail</code>. Reference to the
+     * Getter for <code>public.annotation.thumbnail</code>. Reference to the
      * thumbnail that depics the annotated element/area
      */
-    public String getThumbail() {
+    public String getThumbnail() {
         return (String) get(14);
     }
 
@@ -334,7 +334,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
 
     @Override
     public Field<String> field15() {
-        return JooqAnnotation.ANNOTATION.THUMBAIL;
+        return JooqAnnotation.ANNOTATION.THUMBNAIL;
     }
 
     @Override
@@ -409,7 +409,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
 
     @Override
     public String component15() {
-        return getThumbail();
+        return getThumbnail();
     }
 
     @Override
@@ -484,7 +484,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
 
     @Override
     public String value15() {
-        return getThumbail();
+        return getThumbnail();
     }
 
     @Override
@@ -573,7 +573,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
 
     @Override
     public JooqAnnotationRecord value15(String value) {
-        setThumbail(value);
+        setThumbnail(value);
         return this;
     }
 
@@ -611,7 +611,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     /**
      * Create a detached, initialised JooqAnnotationRecord
      */
-    public JooqAnnotationRecord(UUID uuid, JooqAnnotationType type, UUID assetUuid, UUID creatorUuid, LocalDateTime created, String title, String description, Integer timeFrom, Integer timeTo, Integer areastartx, Integer areastarty, Integer areawidth, Integer areaheight, JSONB meta, String thumbail) {
+    public JooqAnnotationRecord(UUID uuid, JooqAnnotationType type, UUID assetUuid, UUID creatorUuid, LocalDateTime created, String title, String description, Integer timeFrom, Integer timeTo, Integer areastartx, Integer areastarty, Integer areawidth, Integer areaheight, JSONB meta, String thumbnail) {
         super(JooqAnnotation.ANNOTATION);
 
         setUuid(uuid);
@@ -628,6 +628,6 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
         setAreawidth(areawidth);
         setAreaheight(areaheight);
         setMeta(meta);
-        setThumbail(thumbail);
+        setThumbnail(thumbnail);
     }
 }

@@ -149,6 +149,7 @@
 							<url>${db.url}</url>
 							<user>${db.username}</user>
 							<password>${db.password}</password>
+							<validateMigrationNaming>true</validateMigrationNaming>
 							<locations>
 								<location>
 									filesystem:../flyway/src/main/resources/db/migration</location>

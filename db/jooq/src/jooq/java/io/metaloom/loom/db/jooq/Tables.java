@@ -121,8 +121,8 @@ public class Tables {
 
     /**
      * Collections are used to group assets together.
-     * 
-     * A collection may be a folder which groups together assets for a project.
+     *           A collection may be a folder which groups together assets for a
+     * project.
      */
     public static final JooqCollection COLLECTION = JooqCollection.COLLECTION;
 

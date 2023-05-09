@@ -3,8 +3,8 @@ package io.metaloom.loom.db.jooq.dao.tag;
 import static io.metaloom.loom.db.jooq.tables.JooqAnnotationTag.ANNOTATION_TAG;
 import static io.metaloom.loom.db.jooq.tables.JooqTagAsset.TAG_ASSET;
 
+import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -39,15 +39,6 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 	}
 
 	@Override
-	public Stream<? extends Tag> loadTags(Asset asset) {
-		return ctx().select(getTable()).from(getTable())
-			.join(TAG_ASSET)
-			.on(TAG_ASSET.ASSET_UUID.eq(TAG_ASSET.ASSET_UUID))
-			.where(TAG_ASSET.ASSET_UUID.eq(asset.getUuid()))
-			.fetchStreamInto(getPojoClass());
-	}
-
-	@Override
 	public Tag createTag(UUID userUuid, String name, String collection) {
 		Tag tag = new TagImpl();
 		tag.setName(name);
@@ -62,6 +53,15 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 			TAG_ASSET.TAG_UUID, TAG_ASSET.ASSET_UUID)
 			.values(tag.getUuid(), asset.getUuid())
 			.execute();
+	}
+
+	@Override
+	public List<Tag> assetTags(Asset asset) {
+		return ctx().select(getTable()).from(getTable())
+			.join(TAG_ASSET)
+			.on(TAG_ASSET.ASSET_UUID.eq(TAG_ASSET.ASSET_UUID))
+			.where(TAG_ASSET.ASSET_UUID.eq(asset.getUuid()))
+			.fetchInto(getPojoClass());
 	}
 
 	@Override

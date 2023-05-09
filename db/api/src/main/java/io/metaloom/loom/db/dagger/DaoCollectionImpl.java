@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 import dagger.Lazy;
 import io.metaloom.loom.db.model.annotation.AnnotationDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.asset.BinaryDao;
+import io.metaloom.loom.db.model.binary.BinaryDao;
 import io.metaloom.loom.db.model.blacklist.BlacklistDao;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
 import io.metaloom.loom.db.model.collection.CollectionDao;

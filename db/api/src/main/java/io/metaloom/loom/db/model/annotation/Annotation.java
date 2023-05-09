@@ -19,4 +19,8 @@ public interface Annotation extends CUDElement<Annotation>, Taggable {
 
 	Annotation setAssetUuid(UUID assetUuid);
 
+	String getDescription();
+
+	Annotation setDescription(String description);
+
 }

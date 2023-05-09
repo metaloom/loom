@@ -19,8 +19,8 @@ import org.jooq.impl.UpdatableRecordImpl;
 
 /**
  * Collections are used to group assets together.
- * 
- * A collection may be a folder which groups together assets for a project.
+ *           A collection may be a folder which groups together assets for a
+ * project.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionRecord> implements Record9<UUID, String, JSONB, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> {

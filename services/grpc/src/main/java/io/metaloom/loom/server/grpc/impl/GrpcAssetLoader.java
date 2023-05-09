@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.asset.Binary;
+import io.metaloom.loom.db.model.binary.Binary;
 import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.proto.AssetRequest;

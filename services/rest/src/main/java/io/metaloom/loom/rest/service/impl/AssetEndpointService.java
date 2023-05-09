@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.asset.BinaryDao;
+import io.metaloom.loom.db.model.binary.BinaryDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;

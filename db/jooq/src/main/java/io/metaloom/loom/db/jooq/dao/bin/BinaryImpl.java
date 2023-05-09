@@ -3,7 +3,7 @@ package io.metaloom.loom.db.jooq.dao.bin;
 import java.math.BigDecimal;
 
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
-import io.metaloom.loom.db.model.asset.Binary;
+import io.metaloom.loom.db.model.binary.Binary;
 
 public class BinaryImpl extends AbstractEditableElement<Binary> implements Binary {
 
@@ -22,6 +22,7 @@ public class BinaryImpl extends AbstractEditableElement<Binary> implements Binar
 	private String imageDominantColor;
 	private BigDecimal geoLat;
 	private BigDecimal geoLon;
+	private String geoAlias;
 	private String mimeType;
 	private String initialOrigin;
 
@@ -192,7 +193,17 @@ public class BinaryImpl extends AbstractEditableElement<Binary> implements Binar
 		this.geoLon = lon;
 		return this;
 	}
-	//
+
+	@Override
+	public String getGeoAlias() {
+		return geoAlias;
+	}
+
+	@Override
+	public Binary setGeoAlias(String geoAlias) {
+		this.geoAlias = geoAlias;
+		return this;
+	}
 
 	@Override
 	public String getMimeType() {

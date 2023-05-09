@@ -194,12 +194,26 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
     }
 
     /**
+     * Setter for <code>public.binary.geo_alias</code>.
+     */
+    public void setGeoAlias(String value) {
+        set(12, value);
+    }
+
+    /**
+     * Getter for <code>public.binary.geo_alias</code>.
+     */
+    public String getGeoAlias() {
+        return (String) get(12);
+    }
+
+    /**
      * Setter for <code>public.binary.initial_origin</code>. Document the
      * initial origin of the binary (e.g. first filepath encountered, first s3
      * path, url, hash)
      */
     public void setInitialOrigin(String value) {
-        set(12, value);
+        set(13, value);
     }
 
     /**
@@ -208,91 +222,91 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * path, url, hash)
      */
     public String getInitialOrigin() {
-        return (String) get(12);
+        return (String) get(13);
     }
 
     /**
      * Setter for <code>public.binary.created</code>.
      */
     public void setCreated(LocalDateTime value) {
-        set(13, value);
+        set(14, value);
     }
 
     /**
      * Getter for <code>public.binary.created</code>.
      */
     public LocalDateTime getCreated() {
-        return (LocalDateTime) get(13);
+        return (LocalDateTime) get(14);
     }
 
     /**
      * Setter for <code>public.binary.creator_uuid</code>.
      */
     public void setCreatorUuid(UUID value) {
-        set(14, value);
+        set(15, value);
     }
 
     /**
      * Getter for <code>public.binary.creator_uuid</code>.
      */
     public UUID getCreatorUuid() {
-        return (UUID) get(14);
+        return (UUID) get(15);
     }
 
     /**
      * Setter for <code>public.binary.edited</code>.
      */
     public void setEdited(LocalDateTime value) {
-        set(15, value);
+        set(16, value);
     }
 
     /**
      * Getter for <code>public.binary.edited</code>.
      */
     public LocalDateTime getEdited() {
-        return (LocalDateTime) get(15);
+        return (LocalDateTime) get(16);
     }
 
     /**
      * Setter for <code>public.binary.editor_uuid</code>.
      */
     public void setEditorUuid(UUID value) {
-        set(16, value);
+        set(17, value);
     }
 
     /**
      * Getter for <code>public.binary.editor_uuid</code>.
      */
     public UUID getEditorUuid() {
-        return (UUID) get(16);
+        return (UUID) get(17);
     }
 
     /**
      * Setter for <code>public.binary.s3_bucket_name</code>.
      */
     public void setS3BucketName(String value) {
-        set(17, value);
+        set(18, value);
     }
 
     /**
      * Getter for <code>public.binary.s3_bucket_name</code>.
      */
     public String getS3BucketName() {
-        return (String) get(17);
+        return (String) get(18);
     }
 
     /**
      * Setter for <code>public.binary.s3_object_path</code>.
      */
     public void setS3ObjectPath(String value) {
-        set(18, value);
+        set(19, value);
     }
 
     /**
      * Getter for <code>public.binary.s3_object_path</code>.
      */
     public String getS3ObjectPath() {
-        return (String) get(18);
+        return (String) get(19);
     }
 
     /**
@@ -300,7 +314,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * video
      */
     public void setMediaWidth(Integer value) {
-        set(19, value);
+        set(20, value);
     }
 
     /**
@@ -308,7 +322,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * video
      */
     public Integer getMediaWidth() {
-        return (Integer) get(19);
+        return (Integer) get(20);
     }
 
     /**
@@ -316,7 +330,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * video
      */
     public void setMediaHeight(Integer value) {
-        set(20, value);
+        set(21, value);
     }
 
     /**
@@ -324,7 +338,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * video
      */
     public Integer getMediaHeight() {
-        return (Integer) get(20);
+        return (Integer) get(21);
     }
 
     /**
@@ -332,7 +346,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * audio
      */
     public void setDuration(Integer value) {
-        set(21, value);
+        set(22, value);
     }
 
     /**
@@ -340,7 +354,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * audio
      */
     public Integer getDuration() {
-        return (Integer) get(21);
+        return (Integer) get(22);
     }
 
     /**
@@ -348,7 +362,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * fingerprint information
      */
     public void setVideoFingerprint(String value) {
-        set(22, value);
+        set(23, value);
     }
 
     /**
@@ -356,7 +370,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * fingerprint information
      */
     public String getVideoFingerprint() {
-        return (String) get(22);
+        return (String) get(23);
     }
 
     /**
@@ -364,7 +378,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * fingerprint information
      */
     public void setImageFingerprint(String value) {
-        set(23, value);
+        set(24, value);
     }
 
     /**
@@ -372,63 +386,63 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * fingerprint information
      */
     public String getImageFingerprint() {
-        return (String) get(23);
+        return (String) get(24);
     }
 
     /**
      * Setter for <code>public.binary.image_dominant_color</code>.
      */
     public void setImageDominantColor(String value) {
-        set(24, value);
+        set(25, value);
     }
 
     /**
      * Getter for <code>public.binary.image_dominant_color</code>.
      */
     public String getImageDominantColor() {
-        return (String) get(24);
+        return (String) get(25);
     }
 
     /**
      * Setter for <code>public.binary.audio_bpm</code>.
      */
     public void setAudioBpm(Integer value) {
-        set(25, value);
+        set(26, value);
     }
 
     /**
      * Getter for <code>public.binary.audio_bpm</code>.
      */
     public Integer getAudioBpm() {
-        return (Integer) get(25);
+        return (Integer) get(26);
     }
 
     /**
      * Setter for <code>public.binary.audio_sampling_rate</code>.
      */
     public void setAudioSamplingRate(Integer value) {
-        set(26, value);
+        set(27, value);
     }
 
     /**
      * Getter for <code>public.binary.audio_sampling_rate</code>.
      */
     public Integer getAudioSamplingRate() {
-        return (Integer) get(26);
+        return (Integer) get(27);
     }
 
     /**
      * Setter for <code>public.binary.audio_channels</code>.
      */
     public void setAudioChannels(Integer value) {
-        set(27, value);
+        set(28, value);
     }
 
     /**
      * Getter for <code>public.binary.audio_channels</code>.
      */
     public Integer getAudioChannels() {
-        return (Integer) get(27);
+        return (Integer) get(28);
     }
 
     /**
@@ -436,7 +450,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * encoding used for the binary (e.g. mp3, flac)
      */
     public void setAudioEncoding(String value) {
-        set(28, value);
+        set(29, value);
     }
 
     /**
@@ -444,7 +458,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * encoding used for the binary (e.g. mp3, flac)
      */
     public String getAudioEncoding() {
-        return (String) get(28);
+        return (String) get(29);
     }
 
     /**
@@ -452,7 +466,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * fingerprint information
      */
     public void setAudioFingerprint(String value) {
-        set(29, value);
+        set(30, value);
     }
 
     /**
@@ -460,7 +474,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * fingerprint information
      */
     public String getAudioFingerprint() {
-        return (String) get(29);
+        return (String) get(30);
     }
 
     /**
@@ -468,7 +482,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * the document
      */
     public void setDocPlainText(String value) {
-        set(30, value);
+        set(31, value);
     }
 
     /**
@@ -476,21 +490,21 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
      * the document
      */
     public String getDocPlainText() {
-        return (String) get(30);
+        return (String) get(31);
     }
 
     /**
      * Setter for <code>public.binary.doc_word_count</code>.
      */
     public void setDocWordCount(Integer value) {
-        set(31, value);
+        set(32, value);
     }
 
     /**
      * Getter for <code>public.binary.doc_word_count</code>.
      */
     public Integer getDocWordCount() {
-        return (Integer) get(31);
+        return (Integer) get(32);
     }
 
     // -------------------------------------------------------------------------
@@ -516,7 +530,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
     /**
      * Create a detached, initialised JooqBinaryRecord
      */
-    public JooqBinaryRecord(UUID uuid, String sha512sum, Long size, String sha256sum, String md5sum, String chunkHash, Long zeroChunkCount, String mimeType, JSONB meta, String author, BigDecimal geoLon, BigDecimal geoLat, String initialOrigin, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String s3BucketName, String s3ObjectPath, Integer mediaWidth, Integer mediaHeight, Integer duration, String videoFingerprint, String imageFingerprint, String imageDominantColor, Integer audioBpm, Integer audioSamplingRate, Integer audioChannels, String audioEncoding, String audioFingerprint, String docPlainText, Integer docWordCount) {
+    public JooqBinaryRecord(UUID uuid, String sha512sum, Long size, String sha256sum, String md5sum, String chunkHash, Long zeroChunkCount, String mimeType, JSONB meta, String author, BigDecimal geoLon, BigDecimal geoLat, String geoAlias, String initialOrigin, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String s3BucketName, String s3ObjectPath, Integer mediaWidth, Integer mediaHeight, Integer duration, String videoFingerprint, String imageFingerprint, String imageDominantColor, Integer audioBpm, Integer audioSamplingRate, Integer audioChannels, String audioEncoding, String audioFingerprint, String docPlainText, Integer docWordCount) {
         super(JooqBinary.BINARY);
 
         setUuid(uuid);
@@ -531,6 +545,7 @@ public class JooqBinaryRecord extends UpdatableRecordImpl<JooqBinaryRecord> {
         setAuthor(author);
         setGeoLon(geoLon);
         setGeoLat(geoLat);
+        setGeoAlias(geoAlias);
         setInitialOrigin(initialOrigin);
         setCreated(created);
         setCreatorUuid(creatorUuid);

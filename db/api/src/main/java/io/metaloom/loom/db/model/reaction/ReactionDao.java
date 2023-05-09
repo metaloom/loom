@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.asset.Binary;
+import io.metaloom.loom.db.model.binary.Binary;
 import io.metaloom.loom.db.model.task.Task;
 import io.metaloom.loom.db.model.user.User;
 

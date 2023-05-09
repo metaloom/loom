@@ -1,4 +1,4 @@
-package io.metaloom.loom.db.model.asset;
+package io.metaloom.loom.db.model.binary;
 
 import java.math.BigDecimal;
 
@@ -126,7 +126,12 @@ public interface Binary extends CUDElement<Binary>, Taggable {
 
 	Binary setGeoLat(BigDecimal lat);
 
+	String getGeoAlias();
+
+	Binary setGeoAlias(String geoAlias);
+
 	String getInitialOrigin();
 
 	Binary setInitialOrigin(String initialOrigin);
+
 }

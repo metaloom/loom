@@ -12,7 +12,7 @@ import org.jooq.TableRecord;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqReaction;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.asset.Binary;
+import io.metaloom.loom.db.model.binary.Binary;
 import io.metaloom.loom.db.model.reaction.Reaction;
 import io.metaloom.loom.db.model.reaction.ReactionDao;
 import io.metaloom.loom.db.model.task.Task;

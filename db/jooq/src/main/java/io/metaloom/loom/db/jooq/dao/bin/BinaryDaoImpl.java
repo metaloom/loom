@@ -12,8 +12,8 @@ import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqBinary;
-import io.metaloom.loom.db.model.asset.Binary;
-import io.metaloom.loom.db.model.asset.BinaryDao;
+import io.metaloom.loom.db.model.binary.Binary;
+import io.metaloom.loom.db.model.binary.BinaryDao;
 
 @Singleton
 public class BinaryDaoImpl extends AbstractJooqDao<Binary> implements BinaryDao {

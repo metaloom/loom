@@ -6,7 +6,7 @@ import io.metaloom.loom.core.dagger.LoomCoreComponent;
 import io.metaloom.loom.db.model.annotation.Annotation;
 import io.metaloom.loom.db.model.annotation.AnnotationType;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.asset.Binary;
+import io.metaloom.loom.db.model.binary.Binary;
 import io.metaloom.loom.db.model.blacklist.Blacklist;
 import io.metaloom.loom.db.model.cluster.Cluster;
 import io.metaloom.loom.db.model.cluster.ClusterType;

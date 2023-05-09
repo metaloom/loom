@@ -34,8 +34,8 @@ import org.jooq.impl.TableImpl;
 
 /**
  * Collections are used to group assets together.
- * 
- * A collection may be a folder which groups together assets for a project.
+ *           A collection may be a folder which groups together assets for a
+ * project.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JooqCollection extends TableImpl<JooqCollectionRecord> {
@@ -105,7 +105,7 @@ public class JooqCollection extends TableImpl<JooqCollectionRecord> {
     }
 
     private JooqCollection(Name alias, Table<JooqCollectionRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment("Collections are used to group assets together.\n\nA collection may be a folder which groups together assets for a project."), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment("Collections are used to group assets together.\n          A collection may be a folder which groups together assets for a project."), TableOptions.table());
     }
 
     /**

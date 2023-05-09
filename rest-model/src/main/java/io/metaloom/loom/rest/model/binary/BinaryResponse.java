@@ -23,6 +23,9 @@ public class BinaryResponse extends AbstractCreatorEditorRestResponse<BinaryResp
 	@JsonPropertyDescription("Information about the audio component of the asset (if present)")
 	private AudioInfo audio;
 
+	@JsonPropertyDescription("Information about the document (text) component of the asset (if present)")
+	private DocumentInfo document;
+
 	private String origin;
 
 	@JsonProperty(required = true)
@@ -69,6 +72,15 @@ public class BinaryResponse extends AbstractCreatorEditorRestResponse<BinaryResp
 
 	public BinaryResponse setVideo(VideoInfo video) {
 		this.video = video;
+		return this;
+	}
+
+	public DocumentInfo getDocument() {
+		return document;
+	}
+
+	public BinaryResponse setDocument(DocumentInfo document) {
+		this.document = document;
 		return this;
 	}
 

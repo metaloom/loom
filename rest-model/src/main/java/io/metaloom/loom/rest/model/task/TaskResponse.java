@@ -3,7 +3,7 @@ package io.metaloom.loom.rest.model.task;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.metaloom.loom.rest.model.annotation.Comment;
+import io.metaloom.loom.rest.model.comment.CommentResponse;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
 public class TaskResponse extends AbstractCreatorEditorRestResponse<TaskResponse> {
@@ -12,13 +12,9 @@ public class TaskResponse extends AbstractCreatorEditorRestResponse<TaskResponse
 
 	private String description;
 
-	private List<Comment> comments = new ArrayList<>();
-
-	// creator
-	// editor
+	private List<CommentResponse> comments = new ArrayList<>();
 
 	// reactions
-	// comments
 
 	// assignedTo
 
@@ -40,11 +36,11 @@ public class TaskResponse extends AbstractCreatorEditorRestResponse<TaskResponse
 		return this;
 	}
 
-	public List<Comment> getComments() {
+	public List<CommentResponse> getComments() {
 		return comments;
 	}
 
-	public TaskResponse setComments(List<Comment> comments) {
+	public TaskResponse setComments(List<CommentResponse> comments) {
 		this.comments = comments;
 		return this;
 	}

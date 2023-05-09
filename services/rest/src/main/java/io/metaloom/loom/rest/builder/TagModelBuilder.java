@@ -3,6 +3,7 @@ package io.metaloom.loom.rest.builder;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.tag.TagListResponse;
+import io.metaloom.loom.rest.model.tag.TagReference;
 import io.metaloom.loom.rest.model.tag.TagResponse;
 
 public interface TagModelBuilder extends ModelBuilder, UserModelBuilder {
@@ -14,6 +15,11 @@ public interface TagModelBuilder extends ModelBuilder, UserModelBuilder {
 		response.setCollection(tag.getCollection());
 		setStatus(tag, response);
 		return response;
+	}
+	
+	default TagReference toReference(Tag tag) {
+		TagReference reference = new TagReference();
+		return reference.setName(tag.getName()).setUuid(tag.getUuid());
 	}
 
 	default TagListResponse toTagList(Page<Tag> page) {

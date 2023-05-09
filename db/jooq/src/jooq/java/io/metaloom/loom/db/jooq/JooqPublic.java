@@ -135,8 +135,8 @@ public class JooqPublic extends SchemaImpl {
 
     /**
      * Collections are used to group assets together.
-     * 
-     * A collection may be a folder which groups together assets for a project.
+     *           A collection may be a folder which groups together assets for a
+     * project.
      */
     public final JooqCollection COLLECTION = JooqCollection.COLLECTION;
 

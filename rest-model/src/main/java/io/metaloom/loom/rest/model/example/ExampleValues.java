@@ -9,11 +9,11 @@ import java.util.UUID;
 
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.annotation.Area;
-import io.metaloom.loom.rest.model.annotation.Comment;
 import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.HashInfo;
 import io.metaloom.loom.rest.model.asset.social.ReactionType;
 import io.metaloom.loom.rest.model.asset.social.SocialInfo;
+import io.metaloom.loom.rest.model.comment.CommentResponse;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.common.PagingInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
@@ -113,8 +113,8 @@ public interface ExampleValues {
 		return social;
 	}
 
-	default Comment comment() {
-		Comment comment = new Comment();
+	default CommentResponse comment() {
+		CommentResponse comment = new CommentResponse();
 		comment.setUuid(uuidB());
 		comment.setTitle("Great work!");
 		comment.setSocial(social());

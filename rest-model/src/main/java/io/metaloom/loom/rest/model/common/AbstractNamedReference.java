@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest.model.common;
 
-public abstract class AbstractNamedReference extends AbstractResponse<AbstractNamedReference> {
+public abstract class AbstractNamedReference<T extends AbstractNamedReference<T>> extends AbstractResponse<T> {
 
 	private String name;
 
@@ -8,7 +8,8 @@ public abstract class AbstractNamedReference extends AbstractResponse<AbstractNa
 		return name;
 	}
 
-	public void setName(String name) {
+	public T setName(String name) {
 		this.name = name;
+		return self();
 	}
 }

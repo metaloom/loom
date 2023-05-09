@@ -151,4 +151,13 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 		return this;
 	}
 
+	public List<CollectionResponse> getCollections() {
+		return collections;
+	}
+
+	public AssetResponse setCollections(List<CollectionResponse> collections) {
+		this.collections = collections;
+		return this;
+	}
+
 }

@@ -2,7 +2,9 @@ package io.metaloom.loom.rest.model.binary;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-public class AudioInfo {
+import io.metaloom.loom.rest.model.RestModel;
+
+public class AudioInfo implements RestModel {
 
 	@JsonPropertyDescription("The duration of the media in milliseconds.")
 	private long duration;
