@@ -1,5 +1,9 @@
 package io.metaloom.loom.db.jooq.dao.comment;
 
+import static io.metaloom.loom.db.jooq.tables.JooqComment.COMMENT;
+import static io.metaloom.loom.db.jooq.tables.JooqCommentTask.COMMENT_TASK;
+
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -10,7 +14,7 @@ import org.jooq.Table;
 import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.JooqLibrary;
+import io.metaloom.loom.db.jooq.tables.JooqComment;
 import io.metaloom.loom.db.model.comment.Comment;
 import io.metaloom.loom.db.model.comment.CommentDao;
 
@@ -24,7 +28,7 @@ public class CommentDaoImpl extends AbstractJooqDao<Comment> implements CommentD
 
 	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
-		return JooqLibrary.LIBRARY;
+		return JooqComment.COMMENT;
 	}
 
 	@Override
@@ -38,6 +42,15 @@ public class CommentDaoImpl extends AbstractJooqDao<Comment> implements CommentD
 		comment.setTitle(title);
 		setCreatorEditor(comment, userUuid);
 		return comment;
+	}
+
+	@Override
+	public List<Comment> loadForTask(UUID taskUuid) {
+		return ctx().select(getTable()).from(getTable())
+			.join(COMMENT_TASK)
+			.on(COMMENT_TASK.COMMENT_UUID.eq(COMMENT.UUID))
+			.where(COMMENT_TASK.TASK_UUID.eq(taskUuid))
+			.fetchInto(getPojoClass());
 	}
 
 }

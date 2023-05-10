@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.model.comment;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.metaloom.loom.db.CRUDDao;
@@ -12,5 +13,7 @@ public interface CommentDao extends CRUDDao<Comment> {
 	}
 
 	Comment createComment(UUID userUuid, String title);
+
+	List<Comment> loadForTask(UUID taskUuid);
 
 }

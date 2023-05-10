@@ -1,5 +1,9 @@
 package io.metaloom.loom.db.jooq.dao.annotation;
 
+import static io.metaloom.loom.db.jooq.tables.JooqAnnotationAsset.ANNOTATION_ASSET;
+import static io.metaloom.loom.db.jooq.tables.JooqTagAsset.TAG_ASSET;
+
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -41,6 +45,15 @@ public class AnnotationDaoImpl extends AbstractJooqDao<Annotation> implements An
 		annotation.setType(type);
 		setCreatorEditor(annotation, userUuid);
 		return annotation;
+	}
+
+	@Override
+	public List<Annotation> loadForAsset(UUID assetUuid) {
+		return ctx().select(getTable()).from(getTable())
+			.join(ANNOTATION_ASSET)
+			.on(ANNOTATION_ASSET.ANNOTATION_UUID.eq(JooqAnnotation.ANNOTATION.UUID))
+			.where(ANNOTATION_ASSET.ASSET_UUID.eq(assetUuid))
+			.fetchInto(getPojoClass());
 	}
 
 }

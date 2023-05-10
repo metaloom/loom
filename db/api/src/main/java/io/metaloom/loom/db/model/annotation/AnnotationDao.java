@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.model.annotation;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.metaloom.loom.db.CRUDDao;
@@ -13,5 +14,13 @@ public interface AnnotationDao extends CRUDDao<Annotation> {
 	}
 
 	Annotation createAnnotation(UUID userUuid, UUID assetUuid, String title, AnnotationType type);
+
+	/**
+	 * Load list of annotations that have been added to the asset.
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	List<Annotation> loadForAsset(UUID uuid);
 
 }

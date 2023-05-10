@@ -20,6 +20,8 @@ public class VideoInfo {
 
 	private Embeddings embeddings;
 
+	private String encoding;
+
 	public long getDuration() {
 		return duration;
 	}
@@ -62,6 +64,15 @@ public class VideoInfo {
 
 	public VideoInfo setEmbeddings(Embeddings embeddings) {
 		this.embeddings = embeddings;
+		return this;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public VideoInfo setEncoding(String encoding) {
+		this.encoding = encoding;
 		return this;
 	}
 

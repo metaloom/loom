@@ -19,17 +19,25 @@ CREATE TABLE "binary" (
   "editor_uuid" uuid,
   "s3_bucket_name" varchar,
   "s3_object_path" varchar,
+  
   "media_width" int,
   "media_height" int,
-  "duration" int,
+  "media_duration" int,
+  
+  "video_width" int,
+  "video_height" int,
   "video_fingerprint" varchar,
-  "image_fingerprint" varchar,
+  "video_encoding" varchar,
+
   "image_dominant_color" varchar,
+  "image_fingerprint" varchar,
+
   "audio_bpm" int,
   "audio_sampling_rate" int,
   "audio_channels" int,
   "audio_encoding" varchar,
   "audio_fingerprint" varchar,
+
   "doc_plain_text" varchar,
   "doc_word_count" int,
   PRIMARY KEY ("sha512sum")
@@ -85,7 +93,7 @@ COMMENT ON COLUMN "binary"."media_width" IS 'Only set for images, video';
 
 COMMENT ON COLUMN "binary"."media_height" IS 'Only set for images, video';
 
-COMMENT ON COLUMN "binary"."duration" IS 'Duration of the video, audio';
+COMMENT ON COLUMN "binary"."media_duration" IS 'Duration of the video, audio';
 
 COMMENT ON COLUMN "binary"."video_fingerprint" IS 'Video fingerprint information';
 

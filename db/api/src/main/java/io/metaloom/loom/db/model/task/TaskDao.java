@@ -1,5 +1,6 @@
 package io.metaloom.loom.db.model.task;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.metaloom.loom.db.CRUDDao;
@@ -12,5 +13,7 @@ public interface TaskDao extends CRUDDao<Task> {
 	}
 
 	Task createTask(UUID userUuid, String title);
+
+	List<Task> loadForAnnotation(UUID annotationUuid);
 
 }

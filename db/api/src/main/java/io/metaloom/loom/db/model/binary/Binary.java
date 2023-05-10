@@ -134,4 +134,30 @@ public interface Binary extends CUDElement<Binary>, Taggable {
 
 	Binary setInitialOrigin(String initialOrigin);
 
+	Integer getAudioBPM();
+
+	Binary setAudioBPM(Integer audioBPM);
+
+	Integer getAudioChannels();
+
+	String getAudioEncoding();
+
+	Binary setAudioEncoding(String audioEncoding);
+
+	Integer getAudioSamplingRate();
+
+	Long getDocumentWordCount();
+
+	Binary setDocumentWordCount(Long documentWordCount);
+
+	Long getMediaDuration();
+
+	Binary setMediaDuration(Long mediaDuration);
+
+	String getVideoEncoding();
+
+	Binary setVideoEncoding(String videoEncoding);
+
+	Binary setAudioSampleRate(Integer audioSampleRate);
+
 }

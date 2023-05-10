@@ -17,7 +17,7 @@ public interface TaskModelBuilder extends ModelBuilder, UserModelBuilder, Commen
 		response.setUuid(task.getUuid());
 		response.setTitle(task.getTitle());
 		response.setDescription(task.getDescription());
-		
+
 		List<Comment> comments = daos().commentDao().loadForTask(task.getUuid());
 		List<CommentResponse> restComments = comments.stream().map(this::toResponse).collect(Collectors.toList());
 		response.setComments(restComments);

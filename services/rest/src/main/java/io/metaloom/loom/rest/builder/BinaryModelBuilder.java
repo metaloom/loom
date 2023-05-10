@@ -49,7 +49,7 @@ public interface BinaryModelBuilder extends ModelBuilder, UserModelBuilder {
 		AudioInfo info = new AudioInfo();
 		info.setBpm(binary.getAudioBPM());
 		info.setChannels(binary.getAudioChannels());
-		info.setDuration(binary.getAudioDuration());
+		info.setDuration(binary.getMediaDuration());
 		info.setEncoding(binary.getAudioEncoding());
 		info.setFingerprint(binary.getAudioFingerprint());
 		info.setSamplingRate(binary.getAudioSamplingRate());
@@ -58,8 +58,10 @@ public interface BinaryModelBuilder extends ModelBuilder, UserModelBuilder {
 
 	default VideoInfo binaryVideoInfo(Binary binary) {
 		VideoInfo info = new VideoInfo();
-		info.setDuration(binary.getVideoDuration());
-		info.setEmbeddings();
+		info.setDuration(binary.getMediaDuration());
+		// TODO use dedicated /binary/:uuid/embeddings endpoint for this
+		//info.setEmbeddings();
+		info.setEncoding(binary.getVideoEncoding());
 		info.setFingerprint(binary.getVideoFingerprint());
 		info.setHeight(binary.getMediaHeight());
 		info.setWidth(binary.getMediaWidth());

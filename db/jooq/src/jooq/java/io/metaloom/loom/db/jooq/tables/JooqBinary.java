@@ -167,10 +167,20 @@ public class JooqBinary extends TableImpl<JooqBinaryRecord> {
     public final TableField<JooqBinaryRecord, Integer> MEDIA_HEIGHT = createField(DSL.name("media_height"), SQLDataType.INTEGER, this, "Only set for images, video");
 
     /**
-     * The column <code>public.binary.duration</code>. Duration of the video,
-     * audio
+     * The column <code>public.binary.media_duration</code>. Duration of the
+     * video, audio
      */
-    public final TableField<JooqBinaryRecord, Integer> DURATION = createField(DSL.name("duration"), SQLDataType.INTEGER, this, "Duration of the video, audio");
+    public final TableField<JooqBinaryRecord, Integer> MEDIA_DURATION = createField(DSL.name("media_duration"), SQLDataType.INTEGER, this, "Duration of the video, audio");
+
+    /**
+     * The column <code>public.binary.video_width</code>.
+     */
+    public final TableField<JooqBinaryRecord, Integer> VIDEO_WIDTH = createField(DSL.name("video_width"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.binary.video_height</code>.
+     */
+    public final TableField<JooqBinaryRecord, Integer> VIDEO_HEIGHT = createField(DSL.name("video_height"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>public.binary.video_fingerprint</code>. Video
@@ -179,15 +189,20 @@ public class JooqBinary extends TableImpl<JooqBinaryRecord> {
     public final TableField<JooqBinaryRecord, String> VIDEO_FINGERPRINT = createField(DSL.name("video_fingerprint"), SQLDataType.VARCHAR, this, "Video fingerprint information");
 
     /**
-     * The column <code>public.binary.image_fingerprint</code>. Image
-     * fingerprint information
+     * The column <code>public.binary.video_encoding</code>.
      */
-    public final TableField<JooqBinaryRecord, String> IMAGE_FINGERPRINT = createField(DSL.name("image_fingerprint"), SQLDataType.VARCHAR, this, "Image fingerprint information");
+    public final TableField<JooqBinaryRecord, String> VIDEO_ENCODING = createField(DSL.name("video_encoding"), SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.binary.image_dominant_color</code>.
      */
     public final TableField<JooqBinaryRecord, String> IMAGE_DOMINANT_COLOR = createField(DSL.name("image_dominant_color"), SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.binary.image_fingerprint</code>. Image
+     * fingerprint information
+     */
+    public final TableField<JooqBinaryRecord, String> IMAGE_FINGERPRINT = createField(DSL.name("image_fingerprint"), SQLDataType.VARCHAR, this, "Image fingerprint information");
 
     /**
      * The column <code>public.binary.audio_bpm</code>.

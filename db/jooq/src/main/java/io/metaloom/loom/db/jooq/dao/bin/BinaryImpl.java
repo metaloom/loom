@@ -12,17 +12,38 @@ public class BinaryImpl extends AbstractEditableElement<Binary> implements Binar
 	private String md5sum;
 	private String chunkHash;
 	private long zeroChunkCount;
+	private long size;
+
+	// Video
 	private String videoFingerprint;
+	private String videoEncoding;
+
+	// Audio
+	private Integer audioBPM;
+	private Integer audioChannels;
+	private Integer audioSampleRate;
+	private String audioEncoding;
 	private String audioFingerprint;
+
+	// Image
+	private String imageDominantColor;
+
+	// Document
+	private Long documentWordCount;
+
+	// General
 	private Integer mediaHeight;
 	private Integer mediaWidth;
+	private Long mediaDuration;
+
 	private String s3BucketName;
-	private long size;
 	private String s3ObjectPath;
-	private String imageDominantColor;
+
+	// Geo
 	private BigDecimal geoLat;
 	private BigDecimal geoLon;
 	private String geoAlias;
+
 	private String mimeType;
 	private String initialOrigin;
 
@@ -226,4 +247,76 @@ public class BinaryImpl extends AbstractEditableElement<Binary> implements Binar
 		this.initialOrigin = initialOrigin;
 		return this;
 	}
+
+	@Override
+	public Long getMediaDuration() {
+		return mediaDuration;
+	}
+
+	@Override
+	public Binary setMediaDuration(Long mediaDuration) {
+		this.mediaDuration = mediaDuration;
+		return this;
+	}
+
+	@Override
+	public Integer getAudioBPM() {
+		return audioBPM;
+	}
+
+	@Override
+	public Binary setAudioBPM(Integer audioBPM) {
+		this.audioBPM = audioBPM;
+		return this;
+	}
+
+	@Override
+	public Integer getAudioChannels() {
+		return audioChannels;
+	}
+
+	@Override
+	public String getAudioEncoding() {
+		return audioEncoding;
+	}
+
+	@Override
+	public Binary setAudioEncoding(String audioEncoding) {
+		this.audioEncoding = audioEncoding;
+		return this;
+	}
+
+	@Override
+	public Integer getAudioSamplingRate() {
+		return audioSampleRate;
+	}
+
+	@Override
+	public Binary setAudioSampleRate(Integer audioSampleRate) {
+		this.audioSampleRate = audioSampleRate;
+		return this;
+	}
+
+	@Override
+	public String getVideoEncoding() {
+		return videoEncoding;
+	}
+
+	@Override
+	public Binary setVideoEncoding(String videoEncoding) {
+		this.videoEncoding = videoEncoding;
+		return this;
+	}
+
+	@Override
+	public Long getDocumentWordCount() {
+		return documentWordCount;
+	}
+
+	@Override
+	public Binary setDocumentWordCount(Long documentWordCount) {
+		this.documentWordCount = documentWordCount;
+		return this;
+	}
+
 }
