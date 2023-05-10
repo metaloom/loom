@@ -8,7 +8,7 @@ import io.metaloom.loom.db.model.task.Task;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.annotation.AnnotationListResponse;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
-import io.metaloom.loom.rest.model.annotation.Area;
+import io.metaloom.loom.rest.model.annotation.AreaInfo;
 import io.metaloom.loom.rest.model.task.TaskResponse;
 
 public interface AnnotationModelBuilder extends ModelBuilder, UserModelBuilder, TaskModelBuilder {
@@ -29,14 +29,14 @@ public interface AnnotationModelBuilder extends ModelBuilder, UserModelBuilder, 
 		return response;
 	}
 
-	default Area annotationArea(Annotation annotation) {
-		Area area = new Area();
-		area.setFrom(0);
-		area.setTo(0);
-		area.setHeight(0);
-		area.setWidth(0);
-		area.setStartX(0);
-		area.setStartY(0);
+	default AreaInfo annotationArea(Annotation annotation) {
+		AreaInfo area = new AreaInfo();
+		area.setFrom(annotation.getTimeFrom());
+		area.setTo(annotation.getTimeTo());
+		area.setHeight(annotation.getAreaHeight());
+		area.setWidth(annotation.getAreaWidth());
+		area.setStartX(annotation.getAreaStartX());
+		area.setStartY(annotation.getAreaStartY());
 		return area;
 	}
 

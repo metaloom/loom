@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 /**
  * Spatial or temporal area used to annotate the asset.
  */
-public class Area {
+public class AreaInfo {
 
 	@JsonPropertyDescription("Start time of the entry in milliseconds")
 	private long from;
@@ -13,7 +13,6 @@ public class Area {
 	@JsonPropertyDescription("End time of the entry in milliseconds")
 	private long to;
 
-	
 	private int width;
 	private int height;
 	private int startX;
@@ -23,7 +22,7 @@ public class Area {
 		return width;
 	}
 
-	public Area setWidth(int width) {
+	public AreaInfo setWidth(int width) {
 		this.width = width;
 		return this;
 	}
@@ -32,7 +31,7 @@ public class Area {
 		return height;
 	}
 
-	public Area setHeight(int height) {
+	public AreaInfo setHeight(int height) {
 		this.height = height;
 		return this;
 	}
@@ -41,7 +40,7 @@ public class Area {
 		return startX;
 	}
 
-	public Area setStartX(int startX) {
+	public AreaInfo setStartX(int startX) {
 		this.startX = startX;
 		return this;
 	}
@@ -50,7 +49,7 @@ public class Area {
 		return startY;
 	}
 
-	public Area setStartY(int startY) {
+	public AreaInfo setStartY(int startY) {
 		this.startY = startY;
 		return this;
 	}
@@ -59,7 +58,7 @@ public class Area {
 		return from;
 	}
 
-	public Area setFrom(long from) {
+	public AreaInfo setFrom(long from) {
 		this.from = from;
 		return this;
 	}
@@ -68,7 +67,7 @@ public class Area {
 		return to;
 	}
 
-	public Area setTo(long to) {
+	public AreaInfo setTo(long to) {
 		this.to = to;
 		return this;
 	}

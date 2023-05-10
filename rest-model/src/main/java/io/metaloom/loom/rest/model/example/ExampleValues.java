@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
-import io.metaloom.loom.rest.model.annotation.Area;
+import io.metaloom.loom.rest.model.annotation.AreaInfo;
 import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.HashInfo;
 import io.metaloom.loom.rest.model.asset.social.ReactionType;
@@ -127,7 +127,7 @@ public interface ExampleValues {
 
 		AnnotationResponse first = new AnnotationResponse();
 		first.setTitle("Intro Feedback");
-		first.setArea(new Area().setFrom(0).setTo(10));
+		first.setArea(new AreaInfo().setFrom(0).setTo(10));
 		first.setDescription("The very nice intro");
 		first.setThumbnail("???");
 		first.setMeta(meta());

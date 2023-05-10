@@ -23,4 +23,28 @@ public interface Annotation extends CUDElement<Annotation>, Taggable {
 
 	Annotation setDescription(String description);
 
+	Integer getAreaStartY();
+
+	Annotation setAreaStartY(Integer areaStartY);
+
+	Integer getAreaStartX();
+
+	Annotation setAreaStartX(Integer areaStartX);
+
+	Integer getAreaWidth();
+
+	Annotation setAreaWidth(Integer areaWidth);
+
+	Integer getAreaHeight();
+
+	Annotation setAreaHeight(Integer areaHeight);
+
+	Integer getTimeTo();
+
+	Annotation setTimeTo(Integer timeTo);
+
+	Integer getTimeFrom();
+
+	Annotation setTimeFrom(Integer timeFrom);
+
 }

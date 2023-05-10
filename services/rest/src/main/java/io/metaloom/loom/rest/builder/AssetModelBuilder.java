@@ -14,6 +14,8 @@ import io.metaloom.loom.rest.model.asset.AssetFilesystemLocation;
 import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.AssetListResponse;
 import io.metaloom.loom.rest.model.asset.AssetResponse;
+import io.metaloom.loom.rest.model.asset.FileKey;
+import io.metaloom.loom.rest.model.asset.license.LicenseInfo;
 import io.metaloom.loom.rest.model.binary.BinaryResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
@@ -27,24 +29,27 @@ public interface AssetModelBuilder extends ModelBuilder, BinaryModelBuilder, Tag
 		setStatus(asset, binaryResponse);
 		response.setBinary(binaryResponse);
 		response.setMeta(asset.getMeta());
+		response.setMimeType(asset.getMimeType());
 		response.setLocation(assetLocation(asset));
 
-		// TODO
 		response.setTags(assetTags(asset));
 		List<Annotation> annotations = daos().annotationDao().loadForAsset(asset.getUuid());
 		List<AnnotationResponse> restAnnotations = annotations.stream().map(this::toResponse).collect(Collectors.toList());
 		response.setAnnotations(restAnnotations);
 
 		response.setGeo(assetGeoLocation(binary));
-		response.setLicenses(null);
+		response.setLicenses(assetLicense(asset));
 		response.setKind(null);
-		response.setMimeType(null);
-		response.setFilename(null);
 		// response.setViews();
 		// response.setSocial();
 		response.setCollections(null);
 
 		return response;
+	}
+
+	default List<LicenseInfo> assetLicense(Asset asset) {
+		List<LicenseInfo> info = new ArrayList<>();
+		return info;
 	}
 
 	default AssetGeoLocation assetGeoLocation(Binary binary) {
@@ -64,10 +69,19 @@ public interface AssetModelBuilder extends ModelBuilder, BinaryModelBuilder, Tag
 
 	default AssetFilesystemLocation assetLocation(Asset asset) {
 		AssetFilesystemLocation location = new AssetFilesystemLocation();
-		location.setLastSeen(null);
+		//location.setLastSeen(asset.getLastSeen());
 		location.setPath(asset.getPath());
-		location.setFilekey(null);
+		location.setFilekey(assetFilekey(asset));
 		return location;
+	}
+
+	default FileKey assetFilekey(Asset asset) {
+		FileKey key = new FileKey();
+		key.setInode(asset.getFilekeyInode());
+		key.setStDev(asset.getFilekeyStDev());
+		key.setEDate(asset.getFilekeyEdate());
+		key.setEDateNano(asset.getFilekeyEdateNano());
+		return key;
 	}
 
 	default AssetListResponse toAssetList(Page<Asset> page) {

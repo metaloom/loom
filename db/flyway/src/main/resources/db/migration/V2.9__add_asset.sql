@@ -1,15 +1,15 @@
 CREATE TABLE "asset" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "binary_uuid" uuid NOT NULL,
-  "path" varchar NOT NULL,
+  "path" varchar NOT NULL, /* unclear */
   "filekey_inode" int,
   "filekey_stdev" int,
   "filekey_edate_nano" int,
   "filekey_edate" int,
   "meta" varchar,
   "mime_type" varchar,
-  "license" varchar,
-  "state" varchar,
+  "license" varchar, /* unclear */
+  "state" varchar, /* unclear */
   "locked_by_uuid" uuid,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,

@@ -16,7 +16,7 @@ public class AnnotationResponse extends AbstractCreatorEditorRestResponse<Annota
 	private String title;
 
 	@JsonPropertyDescription("Spatial or temporal area the annotation references in the asset.")
-	private Area area;
+	private AreaInfo area;
 
 	@JsonPropertyDescription("Description of the annotation")
 	private String description;
@@ -61,11 +61,11 @@ public class AnnotationResponse extends AbstractCreatorEditorRestResponse<Annota
 		return this;
 	}
 
-	public Area getArea() {
+	public AreaInfo getArea() {
 		return area;
 	}
 
-	public AnnotationResponse setArea(Area area) {
+	public AnnotationResponse setArea(AreaInfo area) {
 		this.area = area;
 		return this;
 	}

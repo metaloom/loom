@@ -27,4 +27,24 @@ public interface Asset extends CUDElement<Asset>, Taggable, MetaElement<Asset> {
 
 	Asset setBinaryUuid(UUID binaryUuid);
 
+	String getMimeType();
+
+	Asset setMimeType(String mimeType);
+
+	Long getFilekeyInode();
+
+	Asset setFilekeyInode(Long inode);
+
+	Long getFilekeyStDev();
+
+	Asset setFilekeyStDev(Long stDev);
+
+	Long getFilekeyEdate();
+
+	Asset setFilekeyEdate(Long edate);
+
+	Long getFilekeyEdateNano();
+
+	Asset setFilekeyEdateNano(Long edate);
+
 }

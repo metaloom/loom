@@ -16,6 +16,13 @@ public class AnnotationImpl extends AbstractEditableElement<Annotation> implemen
 
 	private String description;
 
+	private Integer timeFrom;
+	private Integer timeTo;
+	private Integer areaStartX;
+	private Integer areaStartY;
+	private Integer areaWidth;
+	private Integer areaHeight;
+
 	@Override
 	public String getTitle() {
 		return title;
@@ -57,6 +64,72 @@ public class AnnotationImpl extends AbstractEditableElement<Annotation> implemen
 	@Override
 	public Annotation setDescription(String description) {
 		this.description = description;
+		return this;
+	}
+
+	@Override
+	public Integer getTimeFrom() {
+		return timeFrom;
+	}
+
+	@Override
+	public Annotation setTimeFrom(Integer timeFrom) {
+		this.timeFrom = timeFrom;
+		return this;
+	}
+
+	@Override
+	public Integer getTimeTo() {
+		return timeTo;
+	}
+
+	@Override
+	public Annotation setTimeTo(Integer timeTo) {
+		this.timeTo = timeTo;
+		return this;
+	}
+
+	@Override
+	public Integer getAreaHeight() {
+		return areaHeight;
+	}
+
+	@Override
+	public Annotation setAreaHeight(Integer areaHeight) {
+		this.areaHeight = areaHeight;
+		return this;
+	}
+
+	@Override
+	public Integer getAreaWidth() {
+		return areaWidth;
+	}
+
+	@Override
+	public Annotation setAreaWidth(Integer areaWidth) {
+		this.areaWidth = areaWidth;
+		return this;
+	}
+
+	@Override
+	public Integer getAreaStartX() {
+		return areaStartX;
+	}
+
+	@Override
+	public Annotation setAreaStartX(Integer areaStartX) {
+		this.areaStartX = areaStartX;
+		return this;
+	}
+
+	@Override
+	public Integer getAreaStartY() {
+		return areaStartY;
+	}
+
+	@Override
+	public Annotation setAreaStartY(Integer areaStartY) {
+		this.areaStartY = areaStartY;
 		return this;
 	}
 }
