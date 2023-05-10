@@ -12,7 +12,7 @@ import org.jooq.TableRecord;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqReaction;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.binary.Binary;
+import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.reaction.Reaction;
 import io.metaloom.loom.db.model.reaction.ReactionDao;
 import io.metaloom.loom.db.model.task.Task;
@@ -44,25 +44,25 @@ public class ReactionDaoImpl extends AbstractJooqDao<Reaction> implements Reacti
 	}
 
 	@Override
-	public void link(Reaction reaction, Binary binary) {
+	public void link(Reaction reaction, Asset binary) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void unlink(Reaction reaction, Binary binary) {
+	public void unlink(Reaction reaction, Asset binary) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void link(Reaction reaction, Asset asset) {
+	public void link(Reaction reaction, AssetLocation asset) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void unlink(Reaction reaction, Asset asset) {
+	public void unlink(Reaction reaction, AssetLocation asset) {
 		// TODO Auto-generated method stub
 
 	}

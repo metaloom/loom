@@ -2,7 +2,7 @@ package io.metaloom.loom.db.dagger;
 
 import io.metaloom.loom.db.model.annotation.AnnotationDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.binary.BinaryDao;
+import io.metaloom.loom.db.model.asset.AssetLocationDao;
 import io.metaloom.loom.db.model.blacklist.BlacklistDao;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
 import io.metaloom.loom.db.model.collection.CollectionDao;
@@ -54,11 +54,11 @@ public interface DaoProvider extends DaoCollection {
 
 	// Asset
 
-	default AssetDao assetDao() {
+	default AssetLocationDao assetDao() {
 		return daos().assetDao();
 	}
 
-	default BinaryDao binaryDao() {
+	default AssetDao binaryDao() {
 		return daos().binaryDao();
 	}
 

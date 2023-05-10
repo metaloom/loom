@@ -5,12 +5,11 @@ package io.metaloom.loom.db.jooq;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqAsset;
-import io.metaloom.loom.db.jooq.tables.JooqBinary;
-import io.metaloom.loom.db.jooq.tables.JooqBinaryRemix;
+import io.metaloom.loom.db.jooq.tables.JooqAssetLocation;
+import io.metaloom.loom.db.jooq.tables.JooqAssetRemix;
 import io.metaloom.loom.db.jooq.tables.JooqBlacklist;
 import io.metaloom.loom.db.jooq.tables.JooqCluster;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionAsset;
-import io.metaloom.loom.db.jooq.tables.JooqCollectionBinary;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionCluster;
 import io.metaloom.loom.db.jooq.tables.JooqEmbedding;
 import io.metaloom.loom.db.jooq.tables.JooqFlywaySchemaHistory;
@@ -40,20 +39,18 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
-    public static final Index ASSET_PATH_IDX = Internal.createIndex(DSL.name("asset_path_idx"), JooqAsset.ASSET, new OrderField[] { JooqAsset.ASSET.PATH }, false);
-    public static final Index BINARY_GEO_LON_GEO_LAT_IDX = Internal.createIndex(DSL.name("binary_geo_lon_geo_lat_idx"), JooqBinary.BINARY, new OrderField[] { JooqBinary.BINARY.GEO_LON, JooqBinary.BINARY.GEO_LAT }, false);
-    public static final Index BINARY_REMIX_BINARY_A_UUID_IDX = Internal.createIndex(DSL.name("binary_remix_binary_a_uuid_idx"), JooqBinaryRemix.BINARY_REMIX, new OrderField[] { JooqBinaryRemix.BINARY_REMIX.BINARY_A_UUID }, false);
-    public static final Index BINARY_REMIX_BINARY_B_UUID_IDX = Internal.createIndex(DSL.name("binary_remix_binary_b_uuid_idx"), JooqBinaryRemix.BINARY_REMIX, new OrderField[] { JooqBinaryRemix.BINARY_REMIX.BINARY_B_UUID }, false);
-    public static final Index BINARY_UUID_IDX = Internal.createIndex(DSL.name("binary_uuid_idx"), JooqBinary.BINARY, new OrderField[] { JooqBinary.BINARY.UUID }, true);
-    public static final Index BLACKLIST_BINARY_UUID_CREATOR_UUID_IDX = Internal.createIndex(DSL.name("blacklist_binary_uuid_creator_uuid_idx"), JooqBlacklist.BLACKLIST, new OrderField[] { JooqBlacklist.BLACKLIST.BINARY_UUID, JooqBlacklist.BLACKLIST.CREATOR_UUID }, true);
+    public static final Index ASSET_GEO_LON_GEO_LAT_IDX = Internal.createIndex(DSL.name("asset_geo_lon_geo_lat_idx"), JooqAsset.ASSET, new OrderField[] { JooqAsset.ASSET.GEO_LON, JooqAsset.ASSET.GEO_LAT }, false);
+    public static final Index ASSET_LOCATION_PATH_IDX = Internal.createIndex(DSL.name("asset_location_path_idx"), JooqAssetLocation.ASSET_LOCATION, new OrderField[] { JooqAssetLocation.ASSET_LOCATION.PATH }, false);
+    public static final Index ASSET_REMIX_ASSET_A_UUID_IDX = Internal.createIndex(DSL.name("asset_remix_asset_a_uuid_idx"), JooqAssetRemix.ASSET_REMIX, new OrderField[] { JooqAssetRemix.ASSET_REMIX.ASSET_A_UUID }, false);
+    public static final Index ASSET_REMIX_ASSET_B_UUID_IDX = Internal.createIndex(DSL.name("asset_remix_asset_b_uuid_idx"), JooqAssetRemix.ASSET_REMIX, new OrderField[] { JooqAssetRemix.ASSET_REMIX.ASSET_B_UUID }, false);
+    public static final Index ASSET_UUID_IDX = Internal.createIndex(DSL.name("asset_uuid_idx"), JooqAsset.ASSET, new OrderField[] { JooqAsset.ASSET.UUID }, true);
+    public static final Index BLACKLIST_ASSET_UUID_CREATOR_UUID_IDX = Internal.createIndex(DSL.name("blacklist_asset_uuid_creator_uuid_idx"), JooqBlacklist.BLACKLIST, new OrderField[] { JooqBlacklist.BLACKLIST.ASSET_UUID, JooqBlacklist.BLACKLIST.CREATOR_UUID }, true);
     public static final Index CLUSTER_NAME_IDX = Internal.createIndex(DSL.name("cluster_name_idx"), JooqCluster.CLUSTER, new OrderField[] { JooqCluster.CLUSTER.NAME }, true);
     public static final Index COLLECTION_ASSET_ASSET_UUID_IDX = Internal.createIndex(DSL.name("collection_asset_asset_uuid_idx"), JooqCollectionAsset.COLLECTION_ASSET, new OrderField[] { JooqCollectionAsset.COLLECTION_ASSET.ASSET_UUID }, false);
     public static final Index COLLECTION_ASSET_COLLECTION_UUID_IDX = Internal.createIndex(DSL.name("collection_asset_collection_uuid_idx"), JooqCollectionAsset.COLLECTION_ASSET, new OrderField[] { JooqCollectionAsset.COLLECTION_ASSET.COLLECTION_UUID }, false);
-    public static final Index COLLECTION_BINARY_BINARY_UUID_IDX = Internal.createIndex(DSL.name("collection_binary_binary_uuid_idx"), JooqCollectionBinary.COLLECTION_BINARY, new OrderField[] { JooqCollectionBinary.COLLECTION_BINARY.BINARY_UUID }, false);
-    public static final Index COLLECTION_BINARY_COLLECTION_UUID_IDX = Internal.createIndex(DSL.name("collection_binary_collection_uuid_idx"), JooqCollectionBinary.COLLECTION_BINARY, new OrderField[] { JooqCollectionBinary.COLLECTION_BINARY.COLLECTION_UUID }, false);
     public static final Index COLLECTION_CLUSTER_CLUSTER_UUID_IDX = Internal.createIndex(DSL.name("collection_cluster_cluster_uuid_idx"), JooqCollectionCluster.COLLECTION_CLUSTER, new OrderField[] { JooqCollectionCluster.COLLECTION_CLUSTER.CLUSTER_UUID }, false);
     public static final Index COLLECTION_CLUSTER_COLLECTION_UUID_IDX = Internal.createIndex(DSL.name("collection_cluster_collection_uuid_idx"), JooqCollectionCluster.COLLECTION_CLUSTER, new OrderField[] { JooqCollectionCluster.COLLECTION_CLUSTER.COLLECTION_UUID }, false);
-    public static final Index EMBEDDING_BINARY_UUID_IDX = Internal.createIndex(DSL.name("embedding_binary_uuid_idx"), JooqEmbedding.EMBEDDING, new OrderField[] { JooqEmbedding.EMBEDDING.BINARY_UUID }, false);
+    public static final Index EMBEDDING_ASSET_UUID_IDX = Internal.createIndex(DSL.name("embedding_asset_uuid_idx"), JooqEmbedding.EMBEDDING, new OrderField[] { JooqEmbedding.EMBEDDING.ASSET_UUID }, false);
     public static final Index FLYWAY_SCHEMA_HISTORY_S_IDX = Internal.createIndex(DSL.name("flyway_schema_history_s_idx"), JooqFlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { JooqFlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SUCCESS }, false);
     public static final Index GROUP_NAME_IDX = Internal.createIndex(DSL.name("group_name_idx"), JooqGroup.GROUP, new OrderField[] { JooqGroup.GROUP.NAME }, true);
     public static final Index REACTION_CREATOR_UUID_TYPE_ANNOTATION_UUID_IDX = Internal.createIndex(DSL.name("reaction_creator_uuid_type_annotation_uuid_idx"), JooqReaction.REACTION, new OrderField[] { JooqReaction.REACTION.CREATOR_UUID, JooqReaction.REACTION.TYPE, JooqReaction.REACTION.ANNOTATION_UUID }, true);

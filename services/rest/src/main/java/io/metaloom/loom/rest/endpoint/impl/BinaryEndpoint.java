@@ -4,14 +4,14 @@ import javax.inject.Inject;
 
 import io.metaloom.loom.rest.AbstractRESTEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
-import io.metaloom.loom.rest.service.impl.BinaryEndpointService;
+import io.metaloom.loom.rest.service.impl.AssetLocationEndpointService;
 
 public class BinaryEndpoint extends AbstractRESTEndpoint {
 
-	private final BinaryEndpointService binaryService;
+	private final AssetLocationEndpointService binaryService;
 
 	@Inject
-	public BinaryEndpoint(BinaryEndpointService binaryService, EndpointDependencies deps) {
+	public BinaryEndpoint(AssetLocationEndpointService binaryService, EndpointDependencies deps) {
 		super(deps);
 		this.binaryService = binaryService;
 	}

@@ -36,7 +36,7 @@ import org.jooq.impl.TableImpl;
 
 /**
  * Stores information on blocked binaries.
- * A binary can be blocked due to copyright claim issues or because the virus
+ * A asset can be blocked due to copyright claim issues or because the virus
  * scanner marked it.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
@@ -63,9 +63,9 @@ public class JooqBlacklist extends TableImpl<JooqBlacklistRecord> {
     public final TableField<JooqBlacklistRecord, java.util.UUID> UUID = createField(DSL.name("uuid"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field("uuid_generate_v4()", SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>public.blacklist.binary_uuid</code>. Blacklisted binary
+     * The column <code>public.blacklist.asset_uuid</code>. Blacklisted asset
      */
-    public final TableField<JooqBlacklistRecord, java.util.UUID> BINARY_UUID = createField(DSL.name("binary_uuid"), SQLDataType.UUID.nullable(false), this, "Blacklisted binary");
+    public final TableField<JooqBlacklistRecord, java.util.UUID> ASSET_UUID = createField(DSL.name("asset_uuid"), SQLDataType.UUID.nullable(false), this, "Blacklisted asset");
 
     /**
      * The column <code>public.blacklist.created</code>. Creation timestamp
@@ -111,7 +111,7 @@ public class JooqBlacklist extends TableImpl<JooqBlacklistRecord> {
     }
 
     private JooqBlacklist(Name alias, Table<JooqBlacklistRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment("Stores information on blocked binaries.\nA binary can be blocked due to copyright claim issues or because the virus scanner marked it."), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment("Stores information on blocked binaries.\nA asset can be blocked due to copyright claim issues or because the virus scanner marked it."), TableOptions.table());
     }
 
     /**
@@ -146,7 +146,7 @@ public class JooqBlacklist extends TableImpl<JooqBlacklistRecord> {
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.asList(Indexes.BLACKLIST_BINARY_UUID_CREATOR_UUID_IDX);
+        return Arrays.asList(Indexes.BLACKLIST_ASSET_UUID_CREATOR_UUID_IDX);
     }
 
     @Override

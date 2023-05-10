@@ -176,21 +176,10 @@ public class JooqAnnotation extends TableImpl<JooqAnnotationRecord> {
 
     @Override
     public List<ForeignKey<JooqAnnotationRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ANNOTATION__ANNOTATION_ASSET_UUID_FKEY, Keys.ANNOTATION__ANNOTATION_CREATOR_UUID_FKEY);
+        return Arrays.asList(Keys.ANNOTATION__ANNOTATION_CREATOR_UUID_FKEY);
     }
 
-    private transient JooqAsset _asset;
     private transient JooqUser _user;
-
-    /**
-     * Get the implicit join path to the <code>public.asset</code> table.
-     */
-    public JooqAsset asset() {
-        if (_asset == null)
-            _asset = new JooqAsset(this, Keys.ANNOTATION__ANNOTATION_ASSET_UUID_FKEY);
-
-        return _asset;
-    }
 
     /**
      * Get the implicit join path to the <code>public.user</code> table.

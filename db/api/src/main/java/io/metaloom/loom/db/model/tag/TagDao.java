@@ -2,7 +2,6 @@ package io.metaloom.loom.db.model.tag;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.model.annotation.Annotation;

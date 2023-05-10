@@ -6,7 +6,7 @@ import io.metaloom.loom.core.dagger.LoomCoreComponent;
 import io.metaloom.loom.db.model.annotation.Annotation;
 import io.metaloom.loom.db.model.annotation.AnnotationType;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.binary.Binary;
+import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.blacklist.Blacklist;
 import io.metaloom.loom.db.model.cluster.Cluster;
 import io.metaloom.loom.db.model.cluster.ClusterType;
@@ -41,8 +41,8 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		Library library = createLibrary(user, "4k B-roll");
 
 		// Add Assets to library
-		Binary binary = createBinary(library, user);
-		Asset asset = createAsset(library, binary, user);
+		Asset asset = createAsset(library, user);
+		AssetLocation assetLocation = createAssetLocation(library, asset, user);
 
 		// Tag assets
 		Tag assetTag = tagAsset(user, asset, "red");
@@ -52,9 +52,9 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		Tag annotationTag = tagAnnotation(user, annotation, "important");
 
 		// Store embedding + cluster
-		Embedding embedding1 = createEmbedding(EMBEDDING_UUID, user, binary);
-		Embedding embedding2 = createEmbedding(UUID.randomUUID(), user, binary);
-		Embedding embedding3 = createEmbedding(UUID.randomUUID(), user, binary);
+		Embedding embedding1 = createEmbedding(EMBEDDING_UUID, user, asset);
+		Embedding embedding2 = createEmbedding(UUID.randomUUID(), user, asset);
+		Embedding embedding3 = createEmbedding(UUID.randomUUID(), user, asset);
 		Cluster cluster = clusterEmbeddings(user, embedding1, embedding2, embedding3);
 
 		// Create project
@@ -67,10 +67,10 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		Task task = createTask(user);
 		Reaction reaction1 = reactOnTask(user, task);
 		Reaction reaction2 = reactOnAsset(user, asset);
-		Reaction reaction3 = reactOnBinary(user, binary);
+		Reaction reaction3 = reactOnBinary(user, asset);
 
 		// Create blacklist with multiple entries
-		Blacklist blacklist = createBlacklist(user, binary, "blocked");
+		Blacklist blacklist = createBlacklist(user, asset, "blocked");
 
 		// Register webhook
 		Webhook webhook = createWebhook(user, "http://localhost:9090/trigger");
@@ -84,14 +84,14 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		return webhook;
 	}
 
-	private Blacklist createBlacklist(User user, Binary binary, String name) {
+	private Blacklist createBlacklist(User user, Asset binary, String name) {
 		Blacklist blacklist = blacklistDao().createBlacklist(user, binary, name);
 		blacklist.setUuid(BLACKLIST_UUID);
 		blacklistDao().store(blacklist);
 		return blacklist;
 	}
 
-	private Reaction reactOnBinary(User user, Binary binary) {
+	private Reaction reactOnBinary(User user, Asset binary) {
 		Reaction reaction = reactionDao().createReaction(user, "thumbsup");
 		reaction.setUuid(REACTION_UUID);
 		reactionDao().store(reaction);
@@ -145,7 +145,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		return cluster;
 	}
 
-	private Embedding createEmbedding(UUID uuid, User user, Binary binary) {
+	private Embedding createEmbedding(UUID uuid, User user, Asset binary) {
 		Embedding embedding = embeddingDao().createEmbedding(user, binary, VECTOR_DATA, EmbeddingType.DLIB_FACE_RESNET_v1, VECTOR_ID);
 		embedding.setUuid(uuid);
 		embeddingDao().store(embedding);
@@ -174,15 +174,15 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		return tag;
 	}
 
-	private Binary createBinary(Library library, User user) {
-		Binary binary = binaryDao().createBinary(user, SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
+	private Asset createAsset(Library library, User user) {
+		Asset binary = binaryDao().createAsset(user, SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
 		binary.setUuid(BINARY_UUID);
 		binaryDao().store(binary);
 		return binary;
 	}
 
-	private Asset createAsset(Library library, Binary binary, User user) {
-		Asset asset = assetDao().createAsset("blume.mp4", binary.getUuid(), user.getUuid(), library.getUuid());
+	private AssetLocation createAssetLocation(Library library, Asset binary, User user) {
+		AssetLocation asset = assetDao().createAssetLocation("blume.mp4", binary.getUuid(), user.getUuid(), library.getUuid());
 		asset.setUuid(ASSET_UUID);
 		assetDao().store(asset);
 		return asset;

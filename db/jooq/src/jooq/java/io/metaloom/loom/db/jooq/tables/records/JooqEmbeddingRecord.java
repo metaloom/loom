@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 
 
 /**
- * Embedding information which was extracted from a binary.
+ * Embedding information which was extracted from an asset.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord> implements Record16<UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, JooqEmbeddingType, LocalDateTime, UUID, LocalDateTime, UUID, UUID> {
@@ -253,16 +253,16 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     /**
-     * Setter for <code>public.embedding.binary_uuid</code>.
+     * Setter for <code>public.embedding.asset_uuid</code>.
      */
-    public void setBinaryUuid(UUID value) {
+    public void setAssetUuid(UUID value) {
         set(15, value);
     }
 
     /**
-     * Getter for <code>public.embedding.binary_uuid</code>.
+     * Getter for <code>public.embedding.asset_uuid</code>.
      */
-    public UUID getBinaryUuid() {
+    public UUID getAssetUuid() {
         return (UUID) get(15);
     }
 
@@ -366,7 +366,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
 
     @Override
     public Field<UUID> field16() {
-        return JooqEmbedding.EMBEDDING.BINARY_UUID;
+        return JooqEmbedding.EMBEDDING.ASSET_UUID;
     }
 
     @Override
@@ -446,7 +446,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
 
     @Override
     public UUID component16() {
-        return getBinaryUuid();
+        return getAssetUuid();
     }
 
     @Override
@@ -526,7 +526,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
 
     @Override
     public UUID value16() {
-        return getBinaryUuid();
+        return getAssetUuid();
     }
 
     @Override
@@ -621,7 +621,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
 
     @Override
     public JooqEmbeddingRecord value16(UUID value) {
-        setBinaryUuid(value);
+        setAssetUuid(value);
         return this;
     }
 
@@ -660,7 +660,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     /**
      * Create a detached, initialised JooqEmbeddingRecord
      */
-    public JooqEmbeddingRecord(UUID uuid, JSONB meta, String source, Integer frame, Integer areaheight, Integer areawidth, Integer areastartx, Integer areastarty, Float[] data, Long id, JooqEmbeddingType type, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID binaryUuid) {
+    public JooqEmbeddingRecord(UUID uuid, JSONB meta, String source, Integer frame, Integer areaheight, Integer areawidth, Integer areastartx, Integer areastarty, Float[] data, Long id, JooqEmbeddingType type, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID assetUuid) {
         super(JooqEmbedding.EMBEDDING);
 
         setUuid(uuid);
@@ -678,6 +678,6 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
         setCreatorUuid(creatorUuid);
         setEdited(edited);
         setEditorUuid(editorUuid);
-        setBinaryUuid(binaryUuid);
+        setAssetUuid(assetUuid);
     }
 }

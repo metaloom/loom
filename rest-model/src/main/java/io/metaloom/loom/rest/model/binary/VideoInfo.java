@@ -2,7 +2,7 @@ package io.metaloom.loom.rest.model.binary;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.asset.video.Embeddings;
+import io.metaloom.loom.rest.model.asset.location.video.Embeddings;
 
 public class VideoInfo {
 

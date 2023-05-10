@@ -36,7 +36,7 @@ import org.jooq.impl.TableImpl;
 
 
 /**
- * Embedding information which was extracted from a binary.
+ * Embedding information which was extracted from an asset.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
@@ -140,16 +140,16 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
     public final TableField<JooqEmbeddingRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
 
     /**
-     * The column <code>public.embedding.binary_uuid</code>.
+     * The column <code>public.embedding.asset_uuid</code>.
      */
-    public final TableField<JooqEmbeddingRecord, java.util.UUID> BINARY_UUID = createField(DSL.name("binary_uuid"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<JooqEmbeddingRecord, java.util.UUID> ASSET_UUID = createField(DSL.name("asset_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqEmbedding(Name alias, Table<JooqEmbeddingRecord> aliased) {
         this(alias, aliased, null);
     }
 
     private JooqEmbedding(Name alias, Table<JooqEmbeddingRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment("Embedding information which was extracted from a binary."), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment("Embedding information which was extracted from an asset."), TableOptions.table());
     }
 
     /**
@@ -184,7 +184,7 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.asList(Indexes.EMBEDDING_BINARY_UUID_IDX);
+        return Arrays.asList(Indexes.EMBEDDING_ASSET_UUID_IDX);
     }
 
     @Override

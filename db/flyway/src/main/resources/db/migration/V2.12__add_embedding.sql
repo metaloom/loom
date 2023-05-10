@@ -24,7 +24,7 @@ CREATE TABLE "embedding" (
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
   "editor_uuid" uuid,
-  "binary_uuid" uuid NOT NULL,
+  "asset_uuid" uuid NOT NULL,
   PRIMARY KEY ("uuid")
 );
 
@@ -53,7 +53,7 @@ CREATE TABLE "embedding_cluster" (
   PRIMARY KEY ("embedding_uuid", "cluster_uuid")
 );
 
-CREATE INDEX ON "embedding" ("binary_uuid");
+CREATE INDEX ON "embedding" ("asset_uuid");
 
 CREATE UNIQUE INDEX ON "cluster" ("name");
 
@@ -69,7 +69,7 @@ ALTER TABLE "embedding" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uui
 
 ALTER TABLE "embedding" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-ALTER TABLE "embedding" ADD FOREIGN KEY ("binary_uuid") REFERENCES "binary" ("uuid");
+ALTER TABLE "embedding" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
 
 ALTER TABLE "cluster" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 
@@ -79,7 +79,7 @@ ALTER TABLE "embedding_cluster" ADD FOREIGN KEY ("embedding_uuid") REFERENCES "e
 
 ALTER TABLE "embedding_cluster" ADD FOREIGN KEY ("cluster_uuid") REFERENCES "cluster" ("uuid");
 
-COMMENT ON TABLE "embedding" IS 'Embedding information which was extracted from a binary.';
+COMMENT ON TABLE "embedding" IS 'Embedding information which was extracted from an asset.';
 
 COMMENT ON COLUMN "embedding"."meta" IS 'Custom meta properties to the embedding.';
 

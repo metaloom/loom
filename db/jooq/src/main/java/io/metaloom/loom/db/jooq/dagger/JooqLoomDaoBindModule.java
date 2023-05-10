@@ -3,8 +3,8 @@ package io.metaloom.loom.db.jooq.dagger;
 import dagger.Binds;
 import dagger.Module;
 import io.metaloom.loom.db.jooq.dao.annotation.AnnotationDaoImpl;
-import io.metaloom.loom.db.jooq.dao.asset.AssetDaoImpl;
-import io.metaloom.loom.db.jooq.dao.bin.BinaryDaoImpl;
+import io.metaloom.loom.db.jooq.dao.asset.AssetLocationDaoImpl;
+import io.metaloom.loom.db.jooq.dao.bin.AssetDaoImpl;
 import io.metaloom.loom.db.jooq.dao.blacklist.BlacklistDaoImpl;
 import io.metaloom.loom.db.jooq.dao.cluster.ClusterDaoImpl;
 import io.metaloom.loom.db.jooq.dao.collection.CollectionDaoImpl;
@@ -23,7 +23,7 @@ import io.metaloom.loom.db.jooq.dao.user.UserDaoImpl;
 import io.metaloom.loom.db.jooq.dao.webhook.WebhookDaoImpl;
 import io.metaloom.loom.db.model.annotation.AnnotationDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.binary.BinaryDao;
+import io.metaloom.loom.db.model.asset.AssetLocationDao;
 import io.metaloom.loom.db.model.blacklist.BlacklistDao;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
 import io.metaloom.loom.db.model.collection.CollectionDao;
@@ -63,10 +63,10 @@ public abstract class JooqLoomDaoBindModule {
 	abstract WebhookDao webhookDao(WebhookDaoImpl dao);
 
 	@Binds
-	abstract BinaryDao assetBinaryDao(BinaryDaoImpl dao);
+	abstract AssetDao assetBinaryDao(AssetDaoImpl dao);
 
 	@Binds
-	abstract AssetDao assetDao(AssetDaoImpl dao);
+	abstract AssetLocationDao assetDao(AssetLocationDaoImpl dao);
 
 	@Binds
 	abstract CollectionDao collectionDao(CollectionDaoImpl dao);

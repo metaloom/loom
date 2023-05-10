@@ -10,10 +10,10 @@ import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractEndpointTest;
 import io.metaloom.loom.core.endpoint.CRUDEndpointTestcases;
-import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
-import io.metaloom.loom.rest.model.asset.AssetListResponse;
-import io.metaloom.loom.rest.model.asset.AssetResponse;
-import io.metaloom.loom.rest.model.asset.AssetUpdateRequest;
+import io.metaloom.loom.rest.model.binary.AssetCreateRequest;
+import io.metaloom.loom.rest.model.binary.AssetListResponse;
+import io.metaloom.loom.rest.model.binary.AssetResponse;
+import io.metaloom.loom.rest.model.binary.AssetUpdateRequest;
 
 public class AssetEndpointTest extends AbstractEndpointTest implements CRUDEndpointTestcases {
 
@@ -62,10 +62,10 @@ public class AssetEndpointTest extends AbstractEndpointTest implements CRUDEndpo
 			AssetUpdateRequest request = new AssetUpdateRequest();
 			request.setLocalPath(NEW_NAME);
 			AssetResponse response = client.updateAsset(ASSET_UUID, request).sync();
-			assertEquals(NEW_NAME, response.getLocation().getPath());
+			assertEquals(NEW_NAME, response.getLocations().get(0).getPath());
 
 			AssetResponse loadResponse = client.loadAsset(ASSET_UUID).sync();
-			assertEquals(NEW_NAME, loadResponse.getLocation().getPath());
+			assertEquals(NEW_NAME, loadResponse.getLocations().get(0).getPath());
 		}
 	}
 

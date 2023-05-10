@@ -2,7 +2,7 @@ package io.metaloom.loom.rest.model.binary;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.asset.AssetResponse;
+import io.metaloom.loom.rest.model.asset.location.LocationResponse;
 
 public class ImageInfo {
 

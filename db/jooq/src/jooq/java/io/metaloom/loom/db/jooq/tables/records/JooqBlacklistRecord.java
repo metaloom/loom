@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 
 /**
  * Stores information on blocked binaries.
- * A binary can be blocked due to copyright claim issues or because the virus
+ * A asset can be blocked due to copyright claim issues or because the virus
  * scanner marked it.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
@@ -42,16 +42,16 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     }
 
     /**
-     * Setter for <code>public.blacklist.binary_uuid</code>. Blacklisted binary
+     * Setter for <code>public.blacklist.asset_uuid</code>. Blacklisted asset
      */
-    public void setBinaryUuid(UUID value) {
+    public void setAssetUuid(UUID value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>public.blacklist.binary_uuid</code>. Blacklisted binary
+     * Getter for <code>public.blacklist.asset_uuid</code>. Blacklisted asset
      */
-    public UUID getBinaryUuid() {
+    public UUID getAssetUuid() {
         return (UUID) get(1);
     }
 
@@ -191,7 +191,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
 
     @Override
     public Field<UUID> field2() {
-        return JooqBlacklist.BLACKLIST.BINARY_UUID;
+        return JooqBlacklist.BLACKLIST.ASSET_UUID;
     }
 
     @Override
@@ -236,7 +236,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
 
     @Override
     public UUID component2() {
-        return getBinaryUuid();
+        return getAssetUuid();
     }
 
     @Override
@@ -281,7 +281,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
 
     @Override
     public UUID value2() {
-        return getBinaryUuid();
+        return getAssetUuid();
     }
 
     @Override
@@ -327,7 +327,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
 
     @Override
     public JooqBlacklistRecord value2(UUID value) {
-        setBinaryUuid(value);
+        setAssetUuid(value);
         return this;
     }
 
@@ -401,11 +401,11 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     /**
      * Create a detached, initialised JooqBlacklistRecord
      */
-    public JooqBlacklistRecord(UUID uuid, UUID binaryUuid, String created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String type, Integer reviewCount, JSONB meta) {
+    public JooqBlacklistRecord(UUID uuid, UUID assetUuid, String created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String type, Integer reviewCount, JSONB meta) {
         super(JooqBlacklist.BLACKLIST);
 
         setUuid(uuid);
-        setBinaryUuid(binaryUuid);
+        setAssetUuid(assetUuid);
         setCreated(created);
         setCreatorUuid(creatorUuid);
         setEdited(edited);

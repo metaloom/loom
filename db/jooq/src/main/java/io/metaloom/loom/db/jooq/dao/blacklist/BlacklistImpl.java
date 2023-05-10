@@ -27,7 +27,7 @@ public class BlacklistImpl extends AbstractEditableElement<Blacklist> implements
 	}
 
 	@Override
-	public Blacklist setBinaryUuid(UUID binaryUuid) {
+	public Blacklist setAssetUuid(UUID binaryUuid) {
 		this.binaryUuid = binaryUuid;
 		return this;
 	}

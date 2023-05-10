@@ -11,15 +11,15 @@ import io.metaloom.loom.db.jooq.tables.JooqAnnotationReaction;
 import io.metaloom.loom.db.jooq.tables.JooqAnnotationTag;
 import io.metaloom.loom.db.jooq.tables.JooqAnnotationTask;
 import io.metaloom.loom.db.jooq.tables.JooqAsset;
+import io.metaloom.loom.db.jooq.tables.JooqAssetLocation;
 import io.metaloom.loom.db.jooq.tables.JooqAssetReaction;
+import io.metaloom.loom.db.jooq.tables.JooqAssetRemix;
+import io.metaloom.loom.db.jooq.tables.JooqAssetTask;
 import io.metaloom.loom.db.jooq.tables.JooqAssetUserMeta;
-import io.metaloom.loom.db.jooq.tables.JooqBinary;
-import io.metaloom.loom.db.jooq.tables.JooqBinaryRemix;
 import io.metaloom.loom.db.jooq.tables.JooqBlacklist;
 import io.metaloom.loom.db.jooq.tables.JooqCluster;
 import io.metaloom.loom.db.jooq.tables.JooqCollection;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionAsset;
-import io.metaloom.loom.db.jooq.tables.JooqCollectionBinary;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionCluster;
 import io.metaloom.loom.db.jooq.tables.JooqComment;
 import io.metaloom.loom.db.jooq.tables.JooqCommentReaction;
@@ -45,7 +45,6 @@ import io.metaloom.loom.db.jooq.tables.JooqTagCluster;
 import io.metaloom.loom.db.jooq.tables.JooqTagCollection;
 import io.metaloom.loom.db.jooq.tables.JooqTagUserMeta;
 import io.metaloom.loom.db.jooq.tables.JooqTask;
-import io.metaloom.loom.db.jooq.tables.JooqTaskAsset;
 import io.metaloom.loom.db.jooq.tables.JooqToken;
 import io.metaloom.loom.db.jooq.tables.JooqTokenPermission;
 import io.metaloom.loom.db.jooq.tables.JooqUser;
@@ -93,11 +92,16 @@ public class Tables {
     public static final JooqAnnotationTask ANNOTATION_TASK = JooqAnnotationTask.ANNOTATION_TASK;
 
     /**
-     * Assets keep track of media that has been found by the scanner. Multiple
-     * assets may share the same binary thus the properties will be decoupled
-     * from binary.
+     * This table stores information on the asset component of the asset
      */
     public static final JooqAsset ASSET = JooqAsset.ASSET;
+
+    /**
+     * Assets keep track of media that has been found by the scanner. Multiple
+     * asset_locations may share the same asset thus the properties will be
+     * decoupled from asset.
+     */
+    public static final JooqAssetLocation ASSET_LOCATION = JooqAssetLocation.ASSET_LOCATION;
 
     /**
      * The table <code>public.asset_reaction</code>.
@@ -105,24 +109,24 @@ public class Tables {
     public static final JooqAssetReaction ASSET_REACTION = JooqAssetReaction.ASSET_REACTION;
 
     /**
-     * Stores user specific metadata that can be added to assets
+     * Store information on remixes of binaries.
+     */
+    public static final JooqAssetRemix ASSET_REMIX = JooqAssetRemix.ASSET_REMIX;
+
+    /**
+     * The table <code>public.asset_task</code>.
+     */
+    public static final JooqAssetTask ASSET_TASK = JooqAssetTask.ASSET_TASK;
+
+    /**
+     * Stores user specific metadata that can be added to asset
      */
     public static final JooqAssetUserMeta ASSET_USER_META = JooqAssetUserMeta.ASSET_USER_META;
 
     /**
-     * This table stores information on the binary component of the asset
-     */
-    public static final JooqBinary BINARY = JooqBinary.BINARY;
-
-    /**
-     * Store information on remixes of binaries.
-     */
-    public static final JooqBinaryRemix BINARY_REMIX = JooqBinaryRemix.BINARY_REMIX;
-
-    /**
      * Stores information on blocked binaries.
-     * A binary can be blocked due to copyright claim issues or because the
-     * virus scanner marked it.
+     * A asset can be blocked due to copyright claim issues or because the virus
+     * scanner marked it.
      */
     public static final JooqBlacklist BLACKLIST = JooqBlacklist.BLACKLIST;
 
@@ -148,13 +152,6 @@ public class Tables {
     public static final JooqCollectionAsset COLLECTION_ASSET = JooqCollectionAsset.COLLECTION_ASSET;
 
     /**
-     * Track binaries that belong to a collection.
-     * User facing this will result in all transitive assets being added to the
-     * collection.
-     */
-    public static final JooqCollectionBinary COLLECTION_BINARY = JooqCollectionBinary.COLLECTION_BINARY;
-
-    /**
      * The table <code>public.collection_cluster</code>.
      */
     public static final JooqCollectionCluster COLLECTION_CLUSTER = JooqCollectionCluster.COLLECTION_CLUSTER;
@@ -175,7 +172,7 @@ public class Tables {
     public static final JooqCommentTask COMMENT_TASK = JooqCommentTask.COMMENT_TASK;
 
     /**
-     * Embedding information which was extracted from a binary.
+     * Embedding information which was extracted from an asset.
      */
     public static final JooqEmbedding EMBEDDING = JooqEmbedding.EMBEDDING;
 
@@ -278,11 +275,6 @@ public class Tables {
      * The table <code>public.task</code>.
      */
     public static final JooqTask TASK = JooqTask.TASK;
-
-    /**
-     * The table <code>public.task_asset</code>.
-     */
-    public static final JooqTaskAsset TASK_ASSET = JooqTaskAsset.TASK_ASSET;
 
     /**
      * The table <code>public.token</code>.

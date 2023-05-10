@@ -9,21 +9,18 @@ import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.tables.records.JooqAssetRecord;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function16;
 import org.jooq.Index;
+import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row16;
 import org.jooq.Schema;
-import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -34,9 +31,7 @@ import org.jooq.impl.TableImpl;
 
 
 /**
- * Assets keep track of media that has been found by the scanner. Multiple
- * assets may share the same binary thus the properties will be decoupled from
- * binary.
+ * This table stores information on the asset component of the asset
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JooqAsset extends TableImpl<JooqAssetRecord> {
@@ -59,65 +54,75 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
     /**
      * The column <code>public.asset.uuid</code>.
      */
-    public final TableField<JooqAssetRecord, java.util.UUID> UUID = createField(DSL.name("uuid"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field("uuid_generate_v4()", SQLDataType.UUID)), this, "");
+    public final TableField<JooqAssetRecord, java.util.UUID> UUID = createField(DSL.name("uuid"), SQLDataType.UUID.defaultValue(DSL.field("uuid_generate_v4()", SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>public.asset.binary_uuid</code>. Reference to the media
-     * binary that contains the actual data for the asset.
+     * The column <code>public.asset.sha512sum</code>.
      */
-    public final TableField<JooqAssetRecord, java.util.UUID> BINARY_UUID = createField(DSL.name("binary_uuid"), SQLDataType.UUID.nullable(false), this, "Reference to the media binary that contains the actual data for the asset.");
+    public final TableField<JooqAssetRecord, String> SHA512SUM = createField(DSL.name("sha512sum"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.asset.path</code>. Currently known path to the
-     * asset in the filesystem
+     * The column <code>public.asset.size</code>.
      */
-    public final TableField<JooqAssetRecord, String> PATH = createField(DSL.name("path"), SQLDataType.VARCHAR.nullable(false), this, "Currently known path to the asset in the filesystem");
+    public final TableField<JooqAssetRecord, Long> SIZE = createField(DSL.name("size"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.asset.filekey_inode</code>.
+     * The column <code>public.asset.sha256sum</code>.
      */
-    public final TableField<JooqAssetRecord, Integer> FILEKEY_INODE = createField(DSL.name("filekey_inode"), SQLDataType.INTEGER, this, "");
+    public final TableField<JooqAssetRecord, String> SHA256SUM = createField(DSL.name("sha256sum"), SQLDataType.VARCHAR, this, "");
 
     /**
-     * The column <code>public.asset.filekey_stdev</code>.
+     * The column <code>public.asset.md5sum</code>.
      */
-    public final TableField<JooqAssetRecord, Integer> FILEKEY_STDEV = createField(DSL.name("filekey_stdev"), SQLDataType.INTEGER, this, "");
+    public final TableField<JooqAssetRecord, String> MD5SUM = createField(DSL.name("md5sum"), SQLDataType.VARCHAR, this, "");
 
     /**
-     * The column <code>public.asset.filekey_edate_nano</code>.
+     * The column <code>public.asset.chunk_hash</code>.
      */
-    public final TableField<JooqAssetRecord, Integer> FILEKEY_EDATE_NANO = createField(DSL.name("filekey_edate_nano"), SQLDataType.INTEGER, this, "");
+    public final TableField<JooqAssetRecord, String> CHUNK_HASH = createField(DSL.name("chunk_hash"), SQLDataType.VARCHAR, this, "");
 
     /**
-     * The column <code>public.asset.filekey_edate</code>.
+     * The column <code>public.asset.zero_chunk_count</code>.
      */
-    public final TableField<JooqAssetRecord, Integer> FILEKEY_EDATE = createField(DSL.name("filekey_edate"), SQLDataType.INTEGER, this, "");
+    public final TableField<JooqAssetRecord, Long> ZERO_CHUNK_COUNT = createField(DSL.name("zero_chunk_count"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>public.asset.mime_type</code>.
+     */
+    public final TableField<JooqAssetRecord, String> MIME_TYPE = createField(DSL.name("mime_type"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
      * The column <code>public.asset.meta</code>. Custom meta properties to the
      * asset
      */
-    public final TableField<JooqAssetRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties to the asset");
+    public final TableField<JooqAssetRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the asset");
 
     /**
-     * The column <code>public.asset.mime_type</code>.
+     * The column <code>public.asset.author</code>.
      */
-    public final TableField<JooqAssetRecord, String> MIME_TYPE = createField(DSL.name("mime_type"), SQLDataType.VARCHAR, this, "");
+    public final TableField<JooqAssetRecord, String> AUTHOR = createField(DSL.name("author"), SQLDataType.VARCHAR, this, "");
 
     /**
-     * The column <code>public.asset.license</code>.
+     * The column <code>public.asset.geo_lon</code>.
      */
-    public final TableField<JooqAssetRecord, String> LICENSE = createField(DSL.name("license"), SQLDataType.VARCHAR, this, "");
+    public final TableField<JooqAssetRecord, BigDecimal> GEO_LON = createField(DSL.name("geo_lon"), SQLDataType.NUMERIC(9, 6), this, "");
 
     /**
-     * The column <code>public.asset.state</code>.
+     * The column <code>public.asset.geo_lat</code>.
      */
-    public final TableField<JooqAssetRecord, String> STATE = createField(DSL.name("state"), SQLDataType.VARCHAR, this, "");
+    public final TableField<JooqAssetRecord, BigDecimal> GEO_LAT = createField(DSL.name("geo_lat"), SQLDataType.NUMERIC(8, 6), this, "");
 
     /**
-     * The column <code>public.asset.locked_by_uuid</code>.
+     * The column <code>public.asset.geo_alias</code>.
      */
-    public final TableField<JooqAssetRecord, java.util.UUID> LOCKED_BY_UUID = createField(DSL.name("locked_by_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqAssetRecord, String> GEO_ALIAS = createField(DSL.name("geo_alias"), SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.asset.initial_origin</code>. Document the initial
+     * origin of the asset (e.g. first filepath encountered, first s3 path, url,
+     * hash)
+     */
+    public final TableField<JooqAssetRecord, String> INITIAL_ORIGIN = createField(DSL.name("initial_origin"), SQLDataType.VARCHAR.nullable(false), this, "Document the initial origin of the asset (e.g. first filepath encountered, first s3 path, url, hash)");
 
     /**
      * The column <code>public.asset.created</code>.
@@ -127,7 +132,7 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
     /**
      * The column <code>public.asset.creator_uuid</code>.
      */
-    public final TableField<JooqAssetRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<JooqAssetRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID, this, "");
 
     /**
      * The column <code>public.asset.edited</code>.
@@ -139,12 +144,110 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
      */
     public final TableField<JooqAssetRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
 
+    /**
+     * The column <code>public.asset.s3_bucket_name</code>.
+     */
+    public final TableField<JooqAssetRecord, String> S3_BUCKET_NAME = createField(DSL.name("s3_bucket_name"), SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.asset.s3_object_path</code>.
+     */
+    public final TableField<JooqAssetRecord, String> S3_OBJECT_PATH = createField(DSL.name("s3_object_path"), SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.asset.media_width</code>. Only set for images,
+     * video
+     */
+    public final TableField<JooqAssetRecord, Integer> MEDIA_WIDTH = createField(DSL.name("media_width"), SQLDataType.INTEGER, this, "Only set for images, video");
+
+    /**
+     * The column <code>public.asset.media_height</code>. Only set for images,
+     * video
+     */
+    public final TableField<JooqAssetRecord, Integer> MEDIA_HEIGHT = createField(DSL.name("media_height"), SQLDataType.INTEGER, this, "Only set for images, video");
+
+    /**
+     * The column <code>public.asset.media_duration</code>. Duration of the
+     * video, audio
+     */
+    public final TableField<JooqAssetRecord, Integer> MEDIA_DURATION = createField(DSL.name("media_duration"), SQLDataType.INTEGER, this, "Duration of the video, audio");
+
+    /**
+     * The column <code>public.asset.video_width</code>.
+     */
+    public final TableField<JooqAssetRecord, Integer> VIDEO_WIDTH = createField(DSL.name("video_width"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.asset.video_height</code>.
+     */
+    public final TableField<JooqAssetRecord, Integer> VIDEO_HEIGHT = createField(DSL.name("video_height"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.asset.video_fingerprint</code>. Video fingerprint
+     * information
+     */
+    public final TableField<JooqAssetRecord, String> VIDEO_FINGERPRINT = createField(DSL.name("video_fingerprint"), SQLDataType.VARCHAR, this, "Video fingerprint information");
+
+    /**
+     * The column <code>public.asset.video_encoding</code>.
+     */
+    public final TableField<JooqAssetRecord, String> VIDEO_ENCODING = createField(DSL.name("video_encoding"), SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.asset.image_dominant_color</code>.
+     */
+    public final TableField<JooqAssetRecord, String> IMAGE_DOMINANT_COLOR = createField(DSL.name("image_dominant_color"), SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.asset.image_fingerprint</code>. Image fingerprint
+     * information
+     */
+    public final TableField<JooqAssetRecord, String> IMAGE_FINGERPRINT = createField(DSL.name("image_fingerprint"), SQLDataType.VARCHAR, this, "Image fingerprint information");
+
+    /**
+     * The column <code>public.asset.audio_bpm</code>.
+     */
+    public final TableField<JooqAssetRecord, Integer> AUDIO_BPM = createField(DSL.name("audio_bpm"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.asset.audio_sampling_rate</code>.
+     */
+    public final TableField<JooqAssetRecord, Integer> AUDIO_SAMPLING_RATE = createField(DSL.name("audio_sampling_rate"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.asset.audio_channels</code>.
+     */
+    public final TableField<JooqAssetRecord, Integer> AUDIO_CHANNELS = createField(DSL.name("audio_channels"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.asset.audio_encoding</code>. Store the audio
+     * encoding used for the asset (e.g. mp3, flac)
+     */
+    public final TableField<JooqAssetRecord, String> AUDIO_ENCODING = createField(DSL.name("audio_encoding"), SQLDataType.VARCHAR, this, "Store the audio encoding used for the asset (e.g. mp3, flac)");
+
+    /**
+     * The column <code>public.asset.audio_fingerprint</code>. Audio fingerprint
+     * information
+     */
+    public final TableField<JooqAssetRecord, String> AUDIO_FINGERPRINT = createField(DSL.name("audio_fingerprint"), SQLDataType.VARCHAR, this, "Audio fingerprint information");
+
+    /**
+     * The column <code>public.asset.doc_plain_text</code>. Extracted text of
+     * the document
+     */
+    public final TableField<JooqAssetRecord, String> DOC_PLAIN_TEXT = createField(DSL.name("doc_plain_text"), SQLDataType.VARCHAR, this, "Extracted text of the document");
+
+    /**
+     * The column <code>public.asset.doc_word_count</code>.
+     */
+    public final TableField<JooqAssetRecord, Integer> DOC_WORD_COUNT = createField(DSL.name("doc_word_count"), SQLDataType.INTEGER, this, "");
+
     private JooqAsset(Name alias, Table<JooqAssetRecord> aliased) {
         this(alias, aliased, null);
     }
 
     private JooqAsset(Name alias, Table<JooqAssetRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment("Assets keep track of media that has been found by the scanner. Multiple assets may share the same binary thus the properties will be decoupled from binary."), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment("This table stores information on the asset component of the asset"), TableOptions.table());
     }
 
     /**
@@ -179,7 +282,7 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.asList(Indexes.ASSET_PATH_IDX);
+        return Arrays.asList(Indexes.ASSET_GEO_LON_GEO_LAT_IDX, Indexes.ASSET_UUID_IDX);
     }
 
     @Override
@@ -189,23 +292,11 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
 
     @Override
     public List<ForeignKey<JooqAssetRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ASSET__ASSET_LOCKED_BY_UUID_FKEY, Keys.ASSET__ASSET_CREATOR_UUID_FKEY, Keys.ASSET__ASSET_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.ASSET__ASSET_CREATOR_UUID_FKEY, Keys.ASSET__ASSET_EDITOR_UUID_FKEY);
     }
 
-    private transient JooqUser _assetLockedByUuidFkey;
     private transient JooqUser _assetCreatorUuidFkey;
     private transient JooqUser _assetEditorUuidFkey;
-
-    /**
-     * Get the implicit join path to the <code>public.user</code> table, via the
-     * <code>asset_locked_by_uuid_fkey</code> key.
-     */
-    public JooqUser assetLockedByUuidFkey() {
-        if (_assetLockedByUuidFkey == null)
-            _assetLockedByUuidFkey = new JooqUser(this, Keys.ASSET__ASSET_LOCKED_BY_UUID_FKEY);
-
-        return _assetLockedByUuidFkey;
-    }
 
     /**
      * Get the implicit join path to the <code>public.user</code> table, via the
@@ -266,29 +357,5 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
     @Override
     public JooqAsset rename(Table<?> name) {
         return new JooqAsset(name.getQualifiedName(), null);
-    }
-
-    // -------------------------------------------------------------------------
-    // Row16 type methods
-    // -------------------------------------------------------------------------
-
-    @Override
-    public Row16<java.util.UUID, java.util.UUID, String, Integer, Integer, Integer, Integer, String, String, String, String, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
-        return (Row16) super.fieldsRow();
-    }
-
-    /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
-     */
-    public <U> SelectField<U> mapping(Function16<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super String, ? super String, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
-        return convertFrom(Records.mapping(from));
-    }
-
-    /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
-     */
-    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super String, ? super String, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
-        return convertFrom(toType, Records.mapping(from));
     }
 }

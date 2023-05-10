@@ -58,9 +58,9 @@ public class JooqAssetReaction extends TableImpl<JooqAssetReactionRecord> {
     public final TableField<JooqAssetReactionRecord, UUID> ASSET_UUID = createField(DSL.name("asset_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.asset_reaction.reaction_asset_uuid</code>.
+     * The column <code>public.asset_reaction.reaction_uuid</code>.
      */
-    public final TableField<JooqAssetReactionRecord, UUID> REACTION_ASSET_UUID = createField(DSL.name("reaction_asset_uuid"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<JooqAssetReactionRecord, UUID> REACTION_UUID = createField(DSL.name("reaction_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqAssetReaction(Name alias, Table<JooqAssetReactionRecord> aliased) {
         this(alias, aliased, null);
@@ -107,28 +107,17 @@ public class JooqAssetReaction extends TableImpl<JooqAssetReactionRecord> {
 
     @Override
     public List<ForeignKey<JooqAssetReactionRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ASSET_REACTION__ASSET_REACTION_ASSET_UUID_FKEY, Keys.ASSET_REACTION__ASSET_REACTION_REACTION_ASSET_UUID_FKEY);
+        return Arrays.asList(Keys.ASSET_REACTION__ASSET_REACTION_REACTION_UUID_FKEY);
     }
 
-    private transient JooqAsset _asset;
     private transient JooqReaction _reaction;
-
-    /**
-     * Get the implicit join path to the <code>public.asset</code> table.
-     */
-    public JooqAsset asset() {
-        if (_asset == null)
-            _asset = new JooqAsset(this, Keys.ASSET_REACTION__ASSET_REACTION_ASSET_UUID_FKEY);
-
-        return _asset;
-    }
 
     /**
      * Get the implicit join path to the <code>public.reaction</code> table.
      */
     public JooqReaction reaction() {
         if (_reaction == null)
-            _reaction = new JooqReaction(this, Keys.ASSET_REACTION__ASSET_REACTION_REACTION_ASSET_UUID_FKEY);
+            _reaction = new JooqReaction(this, Keys.ASSET_REACTION__ASSET_REACTION_REACTION_UUID_FKEY);
 
         return _reaction;
     }

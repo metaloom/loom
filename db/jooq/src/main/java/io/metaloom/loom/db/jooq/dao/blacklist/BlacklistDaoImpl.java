@@ -36,7 +36,7 @@ public class BlacklistDaoImpl extends AbstractJooqDao<Blacklist> implements Blac
 	public Blacklist createBlacklist(UUID userUuid, UUID binaryUuid, String name) {
 		Blacklist list = new BlacklistImpl();
 		list.setName(name);
-		list.setBinaryUuid(binaryUuid);
+		list.setAssetUuid(binaryUuid);
 		setCreatorEditor(list, userUuid);
 		return list;
 	}

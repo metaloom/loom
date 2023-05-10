@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 import dagger.Lazy;
 import io.metaloom.loom.db.model.annotation.AnnotationDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.binary.BinaryDao;
+import io.metaloom.loom.db.model.asset.AssetLocationDao;
 import io.metaloom.loom.db.model.blacklist.BlacklistDao;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
 import io.metaloom.loom.db.model.collection.CollectionDao;
@@ -30,9 +30,9 @@ public class DaoCollectionImpl implements DaoCollection {
 	private final Lazy<UserDao> userDao;
 	private final Lazy<GroupDao> groupDao;
 	private final Lazy<RoleDao> roleDao;
-	private final Lazy<AssetDao> assetDao;
+	private final Lazy<AssetLocationDao> assetDao;
 	private final Lazy<PermissionDao> permissionDao;
-	private final Lazy<BinaryDao> binaryDao;
+	private final Lazy<AssetDao> binaryDao;
 	private final Lazy<WebhookDao> webhookDao;
 	private final Lazy<CollectionDao> collectionDao;
 	private final Lazy<LibraryDao> libraryDao;
@@ -49,7 +49,7 @@ public class DaoCollectionImpl implements DaoCollection {
 
 	@Inject
 	public DaoCollectionImpl(Lazy<UserDao> userDao, Lazy<PermissionDao> permissionDao,
-		Lazy<RoleDao> roleDao, Lazy<GroupDao> groupDao, Lazy<AssetDao> assetDao, Lazy<BinaryDao> binaryDao,
+		Lazy<RoleDao> roleDao, Lazy<GroupDao> groupDao, Lazy<AssetLocationDao> assetDao, Lazy<AssetDao> binaryDao,
 		Lazy<WebhookDao> webhookDao, Lazy<CollectionDao> collectionDao, Lazy<LibraryDao> libraryDao,
 		Lazy<AnnotationDao> annotationDao, Lazy<TaskDao> taskDao, Lazy<ReactionDao> reactionDao,
 		Lazy<BlacklistDao> blacklistDao, Lazy<CommentDao> commentDao, Lazy<ProjectDao> projectDao,
@@ -77,12 +77,12 @@ public class DaoCollectionImpl implements DaoCollection {
 	}
 
 	@Override
-	public AssetDao assetDao() {
+	public AssetLocationDao assetDao() {
 		return assetDao.get();
 	}
 
 	@Override
-	public BinaryDao binaryDao() {
+	public AssetDao binaryDao() {
 		return binaryDao.get();
 	}
 

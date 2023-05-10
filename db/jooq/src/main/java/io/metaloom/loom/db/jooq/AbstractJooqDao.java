@@ -1,7 +1,5 @@
 package io.metaloom.loom.db.jooq;
 
-import static io.metaloom.loom.db.jooq.tables.JooqAsset.ASSET;
-
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -12,7 +10,6 @@ import java.util.stream.Stream;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Field;
-import org.jooq.Record3;
 import org.jooq.SelectSeekStep1;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -126,10 +123,11 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	@Override
 	public Page<T> loadPage(UUID fromUuid, int pageSize) {
-		SelectSeekStep1<Record3<UUID, String, UUID>, UUID> query = ctx()
-			.select(ASSET.UUID, ASSET.PATH, ASSET.BINARY_UUID)
-			.from(ASSET)
-			.orderBy(ASSET.UUID);
+		//SelectSeekStep1<Record3<UUID, String, UUID>, UUID> 
+		SelectSeekStep1<?, ?> query = ctx()
+			.select(getTable())
+			.from(getTable())
+			.orderBy(getTable().getPrimaryKey().getFields().get(0));
 		if (fromUuid != null) {
 			query.seek(fromUuid);
 		}

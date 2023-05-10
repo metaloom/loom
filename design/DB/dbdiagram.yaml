@@ -217,7 +217,7 @@ tablegroup Tagging {
 
 // Asset
 
-Table binary as BIN [headercolor: #16a085] {
+Table asset as ASSET [headercolor: #16a085] {
   uuid uuid [increment]
 
   // Common properties
@@ -238,6 +238,9 @@ Table binary as BIN [headercolor: #16a085] {
   creator_uuid uuid  [ref: > U.uuid]
   edited timestamp [default: `now()`]
   editor_uuid uuid [ref: > U.uuid]
+
+  // TODO same mime_type in binary to override the value?
+  license varchar
 
   // S3
   // Whenever the props change the asset_binary information has to be checked
@@ -279,24 +282,24 @@ Table binary as BIN [headercolor: #16a085] {
   note: "This table stores information on the binary component of the asset"
 }
 
-Table binary_remix {
-  binary_a_uuid uuid [ref: > BIN.uuid, not null]
-  binary_b_uuid uuid [ref: > BIN.uuid, not null]
+Table asset_remix {
+  asset_a_uuid uuid [ref: > ASSET.uuid, not null]
+  asset_b_uuid uuid [ref: > ASSET.uuid, not null]
   meta jsonb [note: "Custom meta properties to the element"]
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
 
   Indexes {
-    (binary_a_uuid)
-    (binary_b_uuid)
+    (asset_a_uuid)
+    (asset_b_uuid)
   }
 
   note: "Store information on remixes of binaries."
 }
 
-Table asset as ASSET [headercolor: #16a085] {
+Table asset_location as ASSET_LOC [headercolor: #16a085] {
   uuid uuid [increment]
-  binary_uuid uuid [ref: > BIN.uuid, not null, note: "Reference to the media binary that contains the actual data for the asset."]
+  asset_uuid uuid [ref: > ASSET.uuid, not null, note: "Reference to the media binary that contains the actual data for the asset."]
 
   path varchar [not null, note: "Currently known path to the asset in the filesystem"]
   
@@ -305,12 +308,6 @@ Table asset as ASSET [headercolor: #16a085] {
   filekey_stdev int
   filekey_edate_nano int
   filekey_edate int
-
-  meta varchar [note: "Custom meta properties to the asset"]
-
-  // TODO same mime_type in binary to override the value?
-  mime_type varchar
-  license varchar
 
   state varchar
   locked_by_uuid uuid [ref: > U.uuid]
@@ -332,8 +329,8 @@ Table asset as ASSET [headercolor: #16a085] {
 
 tablegroup Assets {
   asset
-  binary
-  binary_remix
+  asset_location
+  asset_remix
   asset_user_meta
 }
 
@@ -361,11 +358,11 @@ Table embedding as EMBEDDING [headercolor: #16A085] {
   edited timestamp [default: `now()`]
   editor_uuid uuid [ref: > U.uuid]
 
-  binary_uuid uuid [ref: > BIN.uuid, not null]
+  asset_uuid uuid [ref: > ASSET.uuid, not null]
 
   Indexes {
     (uuid) [pk]
-    (binary_uuid) [note: "Index to allow faster selection of embeddings of an binary"]
+    (asset_uuid) [note: "Index to allow faster selection of embeddings of an binary"]
   }
 
   note: "Embedding information which was extracted from a binary."
@@ -459,22 +456,8 @@ Table collection_asset {
     (asset_uuid)
   }
 
-  note: "Track assets that belong to a collection."
-}
-
-Table collection_binary {
-  collection_uuid uuid [ref: > COLLECTION.uuid, not null]
-  binary_uuid uuid [ref: > BIN.uuid, not null]
-
-  Indexes {
-    (collection_uuid, binary_uuid) [pk]
-    (collection_uuid)
-    (binary_uuid)
-  }
-
   note: '''
-    Track binaries that belong to a collection.
-    User facing this will result in all transitive assets being added to the collection.
+    Track assets that belong to a collection.
   '''
 }
 
@@ -497,7 +480,6 @@ Table collection_cluster {
 tablegroup AssetCollection {
   collection
   collection_asset
-  collection_binary
   collection_cluster
 }
 
@@ -565,7 +547,7 @@ tablegroup Comment {
 
 Table blacklist as BLACKLIST [headercolor: #16A085] {
   uuid uuid [increment]
-  binary_uuid uuid [ref: > BIN.uuid, note: "Blacklisted binary", not null] 
+  asset_uuid uuid [ref: > ASSET.uuid, note: "Blacklisted binary", not null] 
   
   created varchar  [note: "Creation timestamp", not null]
   creator_uuid  uuid [ref: > U.uuid, note: "Creator of the blacklist entry", not null]
@@ -578,7 +560,7 @@ Table blacklist as BLACKLIST [headercolor: #16A085] {
 
   Indexes {
     (uuid) [pk]
-    (binary_uuid, creator_uuid) [unique, note: "Allow only one blacklist entry per user for a binary"]
+    (asset_uuid, creator_uuid) [unique, note: "Allow only one blacklist entry per user for a binary"]
   }
 
   note: '''

@@ -1,8 +1,8 @@
 package io.metaloom.loom.rest.model.example;
 
 import io.metaloom.loom.rest.model.annotation.AnnotationExamples;
-import io.metaloom.loom.rest.model.asset.AssetExamples;
-import io.metaloom.loom.rest.model.binary.BinaryExamples;
+import io.metaloom.loom.rest.model.asset.location.LocationExamples;
+import io.metaloom.loom.rest.model.binary.AssetExamples;
 import io.metaloom.loom.rest.model.cluster.ClusterExamples;
 import io.metaloom.loom.rest.model.comment.CommentExamples;
 import io.metaloom.loom.rest.model.group.GroupExamples;
@@ -19,7 +19,7 @@ import io.metaloom.loom.rest.model.webhook.WebhookExamples;
 public interface Examples extends
 	AnnotationExamples,
 	AssetExamples,
-	BinaryExamples,
+	LocationExamples,
 	ClusterExamples,
 	CommentExamples,
 	TaskExamples,

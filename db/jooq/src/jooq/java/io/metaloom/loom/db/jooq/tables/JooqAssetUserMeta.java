@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 
 
 /**
- * Stores user specific metadata that can be added to assets
+ * Stores user specific metadata that can be added to asset
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JooqAssetUserMeta extends TableImpl<JooqAssetUserMetaRecord> {
@@ -73,7 +73,7 @@ public class JooqAssetUserMeta extends TableImpl<JooqAssetUserMetaRecord> {
     }
 
     private JooqAssetUserMeta(Name alias, Table<JooqAssetUserMetaRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment("Stores user specific metadata that can be added to assets"), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment("Stores user specific metadata that can be added to asset"), TableOptions.table());
     }
 
     /**
@@ -113,21 +113,10 @@ public class JooqAssetUserMeta extends TableImpl<JooqAssetUserMetaRecord> {
 
     @Override
     public List<ForeignKey<JooqAssetUserMetaRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ASSET_USER_META__ASSET_USER_META_ASSET_UUID_FKEY, Keys.ASSET_USER_META__ASSET_USER_META_USER_UUID_FKEY);
+        return Arrays.asList(Keys.ASSET_USER_META__ASSET_USER_META_USER_UUID_FKEY);
     }
 
-    private transient JooqAsset _asset;
     private transient JooqUser _user;
-
-    /**
-     * Get the implicit join path to the <code>public.asset</code> table.
-     */
-    public JooqAsset asset() {
-        if (_asset == null)
-            _asset = new JooqAsset(this, Keys.ASSET_USER_META__ASSET_USER_META_ASSET_UUID_FKEY);
-
-        return _asset;
-    }
 
     /**
      * Get the implicit join path to the <code>public.user</code> table.

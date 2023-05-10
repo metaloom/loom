@@ -13,6 +13,6 @@ public interface Blacklist extends CUDElement<Blacklist>, Taggable {
 
 	UUID getBinaryUuid();
 
-	Blacklist setBinaryUuid(UUID binaryUuid);
+	Blacklist setAssetUuid(UUID assetUuid);
 
 }

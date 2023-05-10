@@ -6,23 +6,20 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 import io.metaloom.loom.db.jooq.tables.JooqAsset;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.jooq.Field;
+import org.jooq.JSONB;
 import org.jooq.Record1;
-import org.jooq.Record16;
-import org.jooq.Row16;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
 /**
- * Assets keep track of media that has been found by the scanner. Multiple
- * assets may share the same binary thus the properties will be decoupled from
- * binary.
+ * This table stores information on the asset component of the asset
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> implements Record16<UUID, UUID, String, Integer, Integer, Integer, Integer, String, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> {
+public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
 
     private static final long serialVersionUID = 1L;
 
@@ -41,219 +38,515 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> implem
     }
 
     /**
-     * Setter for <code>public.asset.binary_uuid</code>. Reference to the media
-     * binary that contains the actual data for the asset.
+     * Setter for <code>public.asset.sha512sum</code>.
      */
-    public void setBinaryUuid(UUID value) {
+    public void setSha512sum(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>public.asset.binary_uuid</code>. Reference to the media
-     * binary that contains the actual data for the asset.
+     * Getter for <code>public.asset.sha512sum</code>.
      */
-    public UUID getBinaryUuid() {
-        return (UUID) get(1);
+    public String getSha512sum() {
+        return (String) get(1);
     }
 
     /**
-     * Setter for <code>public.asset.path</code>. Currently known path to the
-     * asset in the filesystem
+     * Setter for <code>public.asset.size</code>.
      */
-    public void setPath(String value) {
+    public void setSize(Long value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>public.asset.path</code>. Currently known path to the
-     * asset in the filesystem
+     * Getter for <code>public.asset.size</code>.
      */
-    public String getPath() {
-        return (String) get(2);
+    public Long getSize() {
+        return (Long) get(2);
     }
 
     /**
-     * Setter for <code>public.asset.filekey_inode</code>.
+     * Setter for <code>public.asset.sha256sum</code>.
      */
-    public void setFilekeyInode(Integer value) {
+    public void setSha256sum(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>public.asset.filekey_inode</code>.
+     * Getter for <code>public.asset.sha256sum</code>.
      */
-    public Integer getFilekeyInode() {
-        return (Integer) get(3);
+    public String getSha256sum() {
+        return (String) get(3);
     }
 
     /**
-     * Setter for <code>public.asset.filekey_stdev</code>.
+     * Setter for <code>public.asset.md5sum</code>.
      */
-    public void setFilekeyStdev(Integer value) {
+    public void setMd5sum(String value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>public.asset.filekey_stdev</code>.
+     * Getter for <code>public.asset.md5sum</code>.
      */
-    public Integer getFilekeyStdev() {
-        return (Integer) get(4);
+    public String getMd5sum() {
+        return (String) get(4);
     }
 
     /**
-     * Setter for <code>public.asset.filekey_edate_nano</code>.
+     * Setter for <code>public.asset.chunk_hash</code>.
      */
-    public void setFilekeyEdateNano(Integer value) {
+    public void setChunkHash(String value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>public.asset.filekey_edate_nano</code>.
+     * Getter for <code>public.asset.chunk_hash</code>.
      */
-    public Integer getFilekeyEdateNano() {
-        return (Integer) get(5);
+    public String getChunkHash() {
+        return (String) get(5);
     }
 
     /**
-     * Setter for <code>public.asset.filekey_edate</code>.
+     * Setter for <code>public.asset.zero_chunk_count</code>.
      */
-    public void setFilekeyEdate(Integer value) {
+    public void setZeroChunkCount(Long value) {
         set(6, value);
     }
 
     /**
-     * Getter for <code>public.asset.filekey_edate</code>.
+     * Getter for <code>public.asset.zero_chunk_count</code>.
      */
-    public Integer getFilekeyEdate() {
-        return (Integer) get(6);
-    }
-
-    /**
-     * Setter for <code>public.asset.meta</code>. Custom meta properties to the
-     * asset
-     */
-    public void setMeta(String value) {
-        set(7, value);
-    }
-
-    /**
-     * Getter for <code>public.asset.meta</code>. Custom meta properties to the
-     * asset
-     */
-    public String getMeta() {
-        return (String) get(7);
+    public Long getZeroChunkCount() {
+        return (Long) get(6);
     }
 
     /**
      * Setter for <code>public.asset.mime_type</code>.
      */
     public void setMimeType(String value) {
-        set(8, value);
+        set(7, value);
     }
 
     /**
      * Getter for <code>public.asset.mime_type</code>.
      */
     public String getMimeType() {
-        return (String) get(8);
+        return (String) get(7);
     }
 
     /**
-     * Setter for <code>public.asset.license</code>.
+     * Setter for <code>public.asset.meta</code>. Custom meta properties to the
+     * asset
      */
-    public void setLicense(String value) {
+    public void setMeta(JSONB value) {
+        set(8, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.meta</code>. Custom meta properties to the
+     * asset
+     */
+    public JSONB getMeta() {
+        return (JSONB) get(8);
+    }
+
+    /**
+     * Setter for <code>public.asset.author</code>.
+     */
+    public void setAuthor(String value) {
         set(9, value);
     }
 
     /**
-     * Getter for <code>public.asset.license</code>.
+     * Getter for <code>public.asset.author</code>.
      */
-    public String getLicense() {
+    public String getAuthor() {
         return (String) get(9);
     }
 
     /**
-     * Setter for <code>public.asset.state</code>.
+     * Setter for <code>public.asset.geo_lon</code>.
      */
-    public void setState(String value) {
+    public void setGeoLon(BigDecimal value) {
         set(10, value);
     }
 
     /**
-     * Getter for <code>public.asset.state</code>.
+     * Getter for <code>public.asset.geo_lon</code>.
      */
-    public String getState() {
-        return (String) get(10);
+    public BigDecimal getGeoLon() {
+        return (BigDecimal) get(10);
     }
 
     /**
-     * Setter for <code>public.asset.locked_by_uuid</code>.
+     * Setter for <code>public.asset.geo_lat</code>.
      */
-    public void setLockedByUuid(UUID value) {
+    public void setGeoLat(BigDecimal value) {
         set(11, value);
     }
 
     /**
-     * Getter for <code>public.asset.locked_by_uuid</code>.
+     * Getter for <code>public.asset.geo_lat</code>.
      */
-    public UUID getLockedByUuid() {
-        return (UUID) get(11);
+    public BigDecimal getGeoLat() {
+        return (BigDecimal) get(11);
+    }
+
+    /**
+     * Setter for <code>public.asset.geo_alias</code>.
+     */
+    public void setGeoAlias(String value) {
+        set(12, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.geo_alias</code>.
+     */
+    public String getGeoAlias() {
+        return (String) get(12);
+    }
+
+    /**
+     * Setter for <code>public.asset.initial_origin</code>. Document the initial
+     * origin of the asset (e.g. first filepath encountered, first s3 path, url,
+     * hash)
+     */
+    public void setInitialOrigin(String value) {
+        set(13, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.initial_origin</code>. Document the initial
+     * origin of the asset (e.g. first filepath encountered, first s3 path, url,
+     * hash)
+     */
+    public String getInitialOrigin() {
+        return (String) get(13);
     }
 
     /**
      * Setter for <code>public.asset.created</code>.
      */
     public void setCreated(LocalDateTime value) {
-        set(12, value);
+        set(14, value);
     }
 
     /**
      * Getter for <code>public.asset.created</code>.
      */
     public LocalDateTime getCreated() {
-        return (LocalDateTime) get(12);
+        return (LocalDateTime) get(14);
     }
 
     /**
      * Setter for <code>public.asset.creator_uuid</code>.
      */
     public void setCreatorUuid(UUID value) {
-        set(13, value);
+        set(15, value);
     }
 
     /**
      * Getter for <code>public.asset.creator_uuid</code>.
      */
     public UUID getCreatorUuid() {
-        return (UUID) get(13);
+        return (UUID) get(15);
     }
 
     /**
      * Setter for <code>public.asset.edited</code>.
      */
     public void setEdited(LocalDateTime value) {
-        set(14, value);
+        set(16, value);
     }
 
     /**
      * Getter for <code>public.asset.edited</code>.
      */
     public LocalDateTime getEdited() {
-        return (LocalDateTime) get(14);
+        return (LocalDateTime) get(16);
     }
 
     /**
      * Setter for <code>public.asset.editor_uuid</code>.
      */
     public void setEditorUuid(UUID value) {
-        set(15, value);
+        set(17, value);
     }
 
     /**
      * Getter for <code>public.asset.editor_uuid</code>.
      */
     public UUID getEditorUuid() {
-        return (UUID) get(15);
+        return (UUID) get(17);
+    }
+
+    /**
+     * Setter for <code>public.asset.s3_bucket_name</code>.
+     */
+    public void setS3BucketName(String value) {
+        set(18, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.s3_bucket_name</code>.
+     */
+    public String getS3BucketName() {
+        return (String) get(18);
+    }
+
+    /**
+     * Setter for <code>public.asset.s3_object_path</code>.
+     */
+    public void setS3ObjectPath(String value) {
+        set(19, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.s3_object_path</code>.
+     */
+    public String getS3ObjectPath() {
+        return (String) get(19);
+    }
+
+    /**
+     * Setter for <code>public.asset.media_width</code>. Only set for images,
+     * video
+     */
+    public void setMediaWidth(Integer value) {
+        set(20, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.media_width</code>. Only set for images,
+     * video
+     */
+    public Integer getMediaWidth() {
+        return (Integer) get(20);
+    }
+
+    /**
+     * Setter for <code>public.asset.media_height</code>. Only set for images,
+     * video
+     */
+    public void setMediaHeight(Integer value) {
+        set(21, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.media_height</code>. Only set for images,
+     * video
+     */
+    public Integer getMediaHeight() {
+        return (Integer) get(21);
+    }
+
+    /**
+     * Setter for <code>public.asset.media_duration</code>. Duration of the
+     * video, audio
+     */
+    public void setMediaDuration(Integer value) {
+        set(22, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.media_duration</code>. Duration of the
+     * video, audio
+     */
+    public Integer getMediaDuration() {
+        return (Integer) get(22);
+    }
+
+    /**
+     * Setter for <code>public.asset.video_width</code>.
+     */
+    public void setVideoWidth(Integer value) {
+        set(23, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.video_width</code>.
+     */
+    public Integer getVideoWidth() {
+        return (Integer) get(23);
+    }
+
+    /**
+     * Setter for <code>public.asset.video_height</code>.
+     */
+    public void setVideoHeight(Integer value) {
+        set(24, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.video_height</code>.
+     */
+    public Integer getVideoHeight() {
+        return (Integer) get(24);
+    }
+
+    /**
+     * Setter for <code>public.asset.video_fingerprint</code>. Video fingerprint
+     * information
+     */
+    public void setVideoFingerprint(String value) {
+        set(25, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.video_fingerprint</code>. Video fingerprint
+     * information
+     */
+    public String getVideoFingerprint() {
+        return (String) get(25);
+    }
+
+    /**
+     * Setter for <code>public.asset.video_encoding</code>.
+     */
+    public void setVideoEncoding(String value) {
+        set(26, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.video_encoding</code>.
+     */
+    public String getVideoEncoding() {
+        return (String) get(26);
+    }
+
+    /**
+     * Setter for <code>public.asset.image_dominant_color</code>.
+     */
+    public void setImageDominantColor(String value) {
+        set(27, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.image_dominant_color</code>.
+     */
+    public String getImageDominantColor() {
+        return (String) get(27);
+    }
+
+    /**
+     * Setter for <code>public.asset.image_fingerprint</code>. Image fingerprint
+     * information
+     */
+    public void setImageFingerprint(String value) {
+        set(28, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.image_fingerprint</code>. Image fingerprint
+     * information
+     */
+    public String getImageFingerprint() {
+        return (String) get(28);
+    }
+
+    /**
+     * Setter for <code>public.asset.audio_bpm</code>.
+     */
+    public void setAudioBpm(Integer value) {
+        set(29, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.audio_bpm</code>.
+     */
+    public Integer getAudioBpm() {
+        return (Integer) get(29);
+    }
+
+    /**
+     * Setter for <code>public.asset.audio_sampling_rate</code>.
+     */
+    public void setAudioSamplingRate(Integer value) {
+        set(30, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.audio_sampling_rate</code>.
+     */
+    public Integer getAudioSamplingRate() {
+        return (Integer) get(30);
+    }
+
+    /**
+     * Setter for <code>public.asset.audio_channels</code>.
+     */
+    public void setAudioChannels(Integer value) {
+        set(31, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.audio_channels</code>.
+     */
+    public Integer getAudioChannels() {
+        return (Integer) get(31);
+    }
+
+    /**
+     * Setter for <code>public.asset.audio_encoding</code>. Store the audio
+     * encoding used for the asset (e.g. mp3, flac)
+     */
+    public void setAudioEncoding(String value) {
+        set(32, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.audio_encoding</code>. Store the audio
+     * encoding used for the asset (e.g. mp3, flac)
+     */
+    public String getAudioEncoding() {
+        return (String) get(32);
+    }
+
+    /**
+     * Setter for <code>public.asset.audio_fingerprint</code>. Audio fingerprint
+     * information
+     */
+    public void setAudioFingerprint(String value) {
+        set(33, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.audio_fingerprint</code>. Audio fingerprint
+     * information
+     */
+    public String getAudioFingerprint() {
+        return (String) get(33);
+    }
+
+    /**
+     * Setter for <code>public.asset.doc_plain_text</code>. Extracted text of
+     * the document
+     */
+    public void setDocPlainText(String value) {
+        set(34, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.doc_plain_text</code>. Extracted text of
+     * the document
+     */
+    public String getDocPlainText() {
+        return (String) get(34);
+    }
+
+    /**
+     * Setter for <code>public.asset.doc_word_count</code>.
+     */
+    public void setDocWordCount(Integer value) {
+        set(35, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.doc_word_count</code>.
+     */
+    public Integer getDocWordCount() {
+        return (Integer) get(35);
     }
 
     // -------------------------------------------------------------------------
@@ -261,379 +554,8 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> implem
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<UUID> key() {
+    public Record1<String> key() {
         return (Record1) super.key();
-    }
-
-    // -------------------------------------------------------------------------
-    // Record16 type implementation
-    // -------------------------------------------------------------------------
-
-    @Override
-    public Row16<UUID, UUID, String, Integer, Integer, Integer, Integer, String, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
-        return (Row16) super.fieldsRow();
-    }
-
-    @Override
-    public Row16<UUID, UUID, String, Integer, Integer, Integer, Integer, String, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
-        return (Row16) super.valuesRow();
-    }
-
-    @Override
-    public Field<UUID> field1() {
-        return JooqAsset.ASSET.UUID;
-    }
-
-    @Override
-    public Field<UUID> field2() {
-        return JooqAsset.ASSET.BINARY_UUID;
-    }
-
-    @Override
-    public Field<String> field3() {
-        return JooqAsset.ASSET.PATH;
-    }
-
-    @Override
-    public Field<Integer> field4() {
-        return JooqAsset.ASSET.FILEKEY_INODE;
-    }
-
-    @Override
-    public Field<Integer> field5() {
-        return JooqAsset.ASSET.FILEKEY_STDEV;
-    }
-
-    @Override
-    public Field<Integer> field6() {
-        return JooqAsset.ASSET.FILEKEY_EDATE_NANO;
-    }
-
-    @Override
-    public Field<Integer> field7() {
-        return JooqAsset.ASSET.FILEKEY_EDATE;
-    }
-
-    @Override
-    public Field<String> field8() {
-        return JooqAsset.ASSET.META;
-    }
-
-    @Override
-    public Field<String> field9() {
-        return JooqAsset.ASSET.MIME_TYPE;
-    }
-
-    @Override
-    public Field<String> field10() {
-        return JooqAsset.ASSET.LICENSE;
-    }
-
-    @Override
-    public Field<String> field11() {
-        return JooqAsset.ASSET.STATE;
-    }
-
-    @Override
-    public Field<UUID> field12() {
-        return JooqAsset.ASSET.LOCKED_BY_UUID;
-    }
-
-    @Override
-    public Field<LocalDateTime> field13() {
-        return JooqAsset.ASSET.CREATED;
-    }
-
-    @Override
-    public Field<UUID> field14() {
-        return JooqAsset.ASSET.CREATOR_UUID;
-    }
-
-    @Override
-    public Field<LocalDateTime> field15() {
-        return JooqAsset.ASSET.EDITED;
-    }
-
-    @Override
-    public Field<UUID> field16() {
-        return JooqAsset.ASSET.EDITOR_UUID;
-    }
-
-    @Override
-    public UUID component1() {
-        return getUuid();
-    }
-
-    @Override
-    public UUID component2() {
-        return getBinaryUuid();
-    }
-
-    @Override
-    public String component3() {
-        return getPath();
-    }
-
-    @Override
-    public Integer component4() {
-        return getFilekeyInode();
-    }
-
-    @Override
-    public Integer component5() {
-        return getFilekeyStdev();
-    }
-
-    @Override
-    public Integer component6() {
-        return getFilekeyEdateNano();
-    }
-
-    @Override
-    public Integer component7() {
-        return getFilekeyEdate();
-    }
-
-    @Override
-    public String component8() {
-        return getMeta();
-    }
-
-    @Override
-    public String component9() {
-        return getMimeType();
-    }
-
-    @Override
-    public String component10() {
-        return getLicense();
-    }
-
-    @Override
-    public String component11() {
-        return getState();
-    }
-
-    @Override
-    public UUID component12() {
-        return getLockedByUuid();
-    }
-
-    @Override
-    public LocalDateTime component13() {
-        return getCreated();
-    }
-
-    @Override
-    public UUID component14() {
-        return getCreatorUuid();
-    }
-
-    @Override
-    public LocalDateTime component15() {
-        return getEdited();
-    }
-
-    @Override
-    public UUID component16() {
-        return getEditorUuid();
-    }
-
-    @Override
-    public UUID value1() {
-        return getUuid();
-    }
-
-    @Override
-    public UUID value2() {
-        return getBinaryUuid();
-    }
-
-    @Override
-    public String value3() {
-        return getPath();
-    }
-
-    @Override
-    public Integer value4() {
-        return getFilekeyInode();
-    }
-
-    @Override
-    public Integer value5() {
-        return getFilekeyStdev();
-    }
-
-    @Override
-    public Integer value6() {
-        return getFilekeyEdateNano();
-    }
-
-    @Override
-    public Integer value7() {
-        return getFilekeyEdate();
-    }
-
-    @Override
-    public String value8() {
-        return getMeta();
-    }
-
-    @Override
-    public String value9() {
-        return getMimeType();
-    }
-
-    @Override
-    public String value10() {
-        return getLicense();
-    }
-
-    @Override
-    public String value11() {
-        return getState();
-    }
-
-    @Override
-    public UUID value12() {
-        return getLockedByUuid();
-    }
-
-    @Override
-    public LocalDateTime value13() {
-        return getCreated();
-    }
-
-    @Override
-    public UUID value14() {
-        return getCreatorUuid();
-    }
-
-    @Override
-    public LocalDateTime value15() {
-        return getEdited();
-    }
-
-    @Override
-    public UUID value16() {
-        return getEditorUuid();
-    }
-
-    @Override
-    public JooqAssetRecord value1(UUID value) {
-        setUuid(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value2(UUID value) {
-        setBinaryUuid(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value3(String value) {
-        setPath(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value4(Integer value) {
-        setFilekeyInode(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value5(Integer value) {
-        setFilekeyStdev(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value6(Integer value) {
-        setFilekeyEdateNano(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value7(Integer value) {
-        setFilekeyEdate(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value8(String value) {
-        setMeta(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value9(String value) {
-        setMimeType(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value10(String value) {
-        setLicense(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value11(String value) {
-        setState(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value12(UUID value) {
-        setLockedByUuid(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value13(LocalDateTime value) {
-        setCreated(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value14(UUID value) {
-        setCreatorUuid(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value15(LocalDateTime value) {
-        setEdited(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord value16(UUID value) {
-        setEditorUuid(value);
-        return this;
-    }
-
-    @Override
-    public JooqAssetRecord values(UUID value1, UUID value2, String value3, Integer value4, Integer value5, Integer value6, Integer value7, String value8, String value9, String value10, String value11, UUID value12, LocalDateTime value13, UUID value14, LocalDateTime value15, UUID value16) {
-        value1(value1);
-        value2(value2);
-        value3(value3);
-        value4(value4);
-        value5(value5);
-        value6(value6);
-        value7(value7);
-        value8(value8);
-        value9(value9);
-        value10(value10);
-        value11(value11);
-        value12(value12);
-        value13(value13);
-        value14(value14);
-        value15(value15);
-        value16(value16);
-        return this;
     }
 
     // -------------------------------------------------------------------------
@@ -650,24 +572,44 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> implem
     /**
      * Create a detached, initialised JooqAssetRecord
      */
-    public JooqAssetRecord(UUID uuid, UUID binaryUuid, String path, Integer filekeyInode, Integer filekeyStdev, Integer filekeyEdateNano, Integer filekeyEdate, String meta, String mimeType, String license, String state, UUID lockedByUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
+    public JooqAssetRecord(UUID uuid, String sha512sum, Long size, String sha256sum, String md5sum, String chunkHash, Long zeroChunkCount, String mimeType, JSONB meta, String author, BigDecimal geoLon, BigDecimal geoLat, String geoAlias, String initialOrigin, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String s3BucketName, String s3ObjectPath, Integer mediaWidth, Integer mediaHeight, Integer mediaDuration, Integer videoWidth, Integer videoHeight, String videoFingerprint, String videoEncoding, String imageDominantColor, String imageFingerprint, Integer audioBpm, Integer audioSamplingRate, Integer audioChannels, String audioEncoding, String audioFingerprint, String docPlainText, Integer docWordCount) {
         super(JooqAsset.ASSET);
 
         setUuid(uuid);
-        setBinaryUuid(binaryUuid);
-        setPath(path);
-        setFilekeyInode(filekeyInode);
-        setFilekeyStdev(filekeyStdev);
-        setFilekeyEdateNano(filekeyEdateNano);
-        setFilekeyEdate(filekeyEdate);
-        setMeta(meta);
+        setSha512sum(sha512sum);
+        setSize(size);
+        setSha256sum(sha256sum);
+        setMd5sum(md5sum);
+        setChunkHash(chunkHash);
+        setZeroChunkCount(zeroChunkCount);
         setMimeType(mimeType);
-        setLicense(license);
-        setState(state);
-        setLockedByUuid(lockedByUuid);
+        setMeta(meta);
+        setAuthor(author);
+        setGeoLon(geoLon);
+        setGeoLat(geoLat);
+        setGeoAlias(geoAlias);
+        setInitialOrigin(initialOrigin);
         setCreated(created);
         setCreatorUuid(creatorUuid);
         setEdited(edited);
         setEditorUuid(editorUuid);
+        setS3BucketName(s3BucketName);
+        setS3ObjectPath(s3ObjectPath);
+        setMediaWidth(mediaWidth);
+        setMediaHeight(mediaHeight);
+        setMediaDuration(mediaDuration);
+        setVideoWidth(videoWidth);
+        setVideoHeight(videoHeight);
+        setVideoFingerprint(videoFingerprint);
+        setVideoEncoding(videoEncoding);
+        setImageDominantColor(imageDominantColor);
+        setImageFingerprint(imageFingerprint);
+        setAudioBpm(audioBpm);
+        setAudioSamplingRate(audioSamplingRate);
+        setAudioChannels(audioChannels);
+        setAudioEncoding(audioEncoding);
+        setAudioFingerprint(audioFingerprint);
+        setDocPlainText(docPlainText);
+        setDocWordCount(docWordCount);
     }
 }

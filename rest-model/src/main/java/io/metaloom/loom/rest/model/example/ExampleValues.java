@@ -9,10 +9,10 @@ import java.util.UUID;
 
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.annotation.AreaInfo;
-import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
-import io.metaloom.loom.rest.model.asset.HashInfo;
-import io.metaloom.loom.rest.model.asset.social.ReactionType;
-import io.metaloom.loom.rest.model.asset.social.SocialInfo;
+import io.metaloom.loom.rest.model.asset.location.HashInfo;
+import io.metaloom.loom.rest.model.asset.location.social.ReactionType;
+import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
+import io.metaloom.loom.rest.model.binary.AssetGeoLocation;
 import io.metaloom.loom.rest.model.comment.CommentResponse;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.common.PagingInfo;
@@ -81,10 +81,14 @@ public interface ExampleValues {
 		return meta;
 	}
 
+	default String sha512sum() {
+		return "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123";
+	}
+
 	default HashInfo assetHashes() {
 		HashInfo hashes = new HashInfo();
 		hashes.setSha512(
-			"0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123");
+			sha512sum());
 		hashes.setSha256("f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2");
 		hashes.setMD5("d8e8fca2dc0f896fd7cb4cb0031ba249");
 		return hashes;

@@ -10,13 +10,14 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.binary.BinaryDao;
+import io.metaloom.loom.db.model.asset.AssetLocationDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
-import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
-import io.metaloom.loom.rest.model.asset.AssetListResponse;
-import io.metaloom.loom.rest.model.asset.AssetResponse;
+import io.metaloom.loom.rest.model.asset.location.LocationResponse;
+import io.metaloom.loom.rest.model.binary.AssetCreateRequest;
+import io.metaloom.loom.rest.model.binary.AssetListResponse;
+import io.metaloom.loom.rest.model.binary.AssetResponse;
 import io.metaloom.loom.rest.service.AbstractEndpointService;
 
 @Singleton
@@ -24,14 +25,14 @@ public class AssetEndpointService extends AbstractEndpointService {
 
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpointService.class);
 
-	private BinaryDao binaryDao;
 	private AssetDao assetDao;
+	private AssetLocationDao assetLocationDao;
 
 	@Inject
-	public AssetEndpointService(AssetDao assetDao, BinaryDao binaryDao, LoomModelBuilder modelBuilder) {
+	public AssetEndpointService(AssetDao assetDao, AssetLocationDao assetLocationDao, LoomModelBuilder modelBuilder) {
 		super(modelBuilder);
 		this.assetDao = assetDao;
-		this.binaryDao = binaryDao;
+		this.assetLocationDao = assetLocationDao;
 	}
 
 	public void delete(LoomRoutingContext lrc) {
@@ -39,7 +40,7 @@ public class AssetEndpointService extends AbstractEndpointService {
 		System.out.println("DELETE ASSET " + uuid);
 		// TODO check Perm
 		assetDao.delete(uuid);
-		AssetResponse response = new AssetResponse();
+		LocationResponse response = new LocationResponse();
 		response.setUuid(UUID.randomUUID());
 		lrc.send();
 
@@ -51,7 +52,6 @@ public class AssetEndpointService extends AbstractEndpointService {
 		Page<Asset> page = assetDao.loadPage(fromUuid, limit);
 		AssetListResponse response = modelBuilder.toAssetList(page);
 		lrc.send(response);
-
 	}
 
 	public void load(LoomRoutingContext lrc) {
@@ -65,7 +65,7 @@ public class AssetEndpointService extends AbstractEndpointService {
 		AssetCreateRequest request = lrc.requestBody(AssetCreateRequest.class);
 
 		System.out.println("From Request " + request.getLocalPath());
-		AssetResponse response = new AssetResponse();
+		LocationResponse response = new LocationResponse();
 		response.setUuid(UUID.randomUUID());
 		lrc.send(response);
 	}

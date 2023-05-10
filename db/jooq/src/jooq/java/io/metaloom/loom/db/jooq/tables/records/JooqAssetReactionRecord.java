@@ -37,16 +37,16 @@ public class JooqAssetReactionRecord extends UpdatableRecordImpl<JooqAssetReacti
     }
 
     /**
-     * Setter for <code>public.asset_reaction.reaction_asset_uuid</code>.
+     * Setter for <code>public.asset_reaction.reaction_uuid</code>.
      */
-    public void setReactionAssetUuid(UUID value) {
+    public void setReactionUuid(UUID value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>public.asset_reaction.reaction_asset_uuid</code>.
+     * Getter for <code>public.asset_reaction.reaction_uuid</code>.
      */
-    public UUID getReactionAssetUuid() {
+    public UUID getReactionUuid() {
         return (UUID) get(1);
     }
 
@@ -80,7 +80,7 @@ public class JooqAssetReactionRecord extends UpdatableRecordImpl<JooqAssetReacti
 
     @Override
     public Field<UUID> field2() {
-        return JooqAssetReaction.ASSET_REACTION.REACTION_ASSET_UUID;
+        return JooqAssetReaction.ASSET_REACTION.REACTION_UUID;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class JooqAssetReactionRecord extends UpdatableRecordImpl<JooqAssetReacti
 
     @Override
     public UUID component2() {
-        return getReactionAssetUuid();
+        return getReactionUuid();
     }
 
     @Override
@@ -100,7 +100,7 @@ public class JooqAssetReactionRecord extends UpdatableRecordImpl<JooqAssetReacti
 
     @Override
     public UUID value2() {
-        return getReactionAssetUuid();
+        return getReactionUuid();
     }
 
     @Override
@@ -111,7 +111,7 @@ public class JooqAssetReactionRecord extends UpdatableRecordImpl<JooqAssetReacti
 
     @Override
     public JooqAssetReactionRecord value2(UUID value) {
-        setReactionAssetUuid(value);
+        setReactionUuid(value);
         return this;
     }
 
@@ -136,10 +136,10 @@ public class JooqAssetReactionRecord extends UpdatableRecordImpl<JooqAssetReacti
     /**
      * Create a detached, initialised JooqAssetReactionRecord
      */
-    public JooqAssetReactionRecord(UUID assetUuid, UUID reactionAssetUuid) {
+    public JooqAssetReactionRecord(UUID assetUuid, UUID reactionUuid) {
         super(JooqAssetReaction.ASSET_REACTION);
 
         setAssetUuid(assetUuid);
-        setReactionAssetUuid(reactionAssetUuid);
+        setReactionUuid(reactionUuid);
     }
 }

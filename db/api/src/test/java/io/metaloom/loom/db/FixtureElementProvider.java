@@ -1,7 +1,7 @@
 package io.metaloom.loom.db;
 
 import io.metaloom.loom.db.dagger.DaoProvider;
-import io.metaloom.loom.db.model.binary.Binary;
+import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.project.Project;
 import io.metaloom.loom.db.model.user.User;
@@ -31,7 +31,7 @@ public interface FixtureElementProvider extends DaoProvider, TestValues {
 		return libraryDao().load(LIBRARY_UUID);
 	}
 	
-	default Binary binary() {
+	default Asset binary() {
 		return binaryDao().load(BINARY_UUID);
 	}
 }

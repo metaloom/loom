@@ -16,7 +16,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 
 
 /**
- * Stores user specific metadata that can be added to assets
+ * Stores user specific metadata that can be added to asset
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMetaRecord> implements Record3<UUID, UUID, String> {

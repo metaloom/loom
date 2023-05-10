@@ -1,6 +1,6 @@
 CREATE TABLE "blacklist" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
-  "binary_uuid" uuid NOT NULL,
+  "asset_uuid" uuid NOT NULL,
   "created" varchar NOT NULL,
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
@@ -12,9 +12,9 @@ CREATE TABLE "blacklist" (
 );
 
 COMMENT ON TABLE "blacklist" IS 'Stores information on blocked binaries.
-A binary can be blocked due to copyright claim issues or because the virus scanner marked it.';
+A asset can be blocked due to copyright claim issues or because the virus scanner marked it.';
 
-COMMENT ON COLUMN "blacklist"."binary_uuid" IS 'Blacklisted binary';
+COMMENT ON COLUMN "blacklist"."asset_uuid" IS 'Blacklisted asset';
 
 COMMENT ON COLUMN "blacklist"."created" IS 'Creation timestamp';
 
@@ -26,9 +26,9 @@ COMMENT ON COLUMN "blacklist"."review_count" IS 'Amount of times this blacklist 
 
 COMMENT ON COLUMN "blacklist"."meta" IS 'Custom meta properties of the block entry. May contain additional information on the reason.';
 
-CREATE UNIQUE INDEX ON "blacklist" ("binary_uuid", "creator_uuid");
+CREATE UNIQUE INDEX ON "blacklist" ("asset_uuid", "creator_uuid");
 
-ALTER TABLE "blacklist" ADD FOREIGN KEY ("binary_uuid") REFERENCES "binary" ("uuid");
+ALTER TABLE "blacklist" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
 
 ALTER TABLE "blacklist" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 

@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest.model.comment;
 
-import io.metaloom.loom.rest.model.asset.social.SocialInfo;
+import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
 public class CommentResponse extends AbstractCreatorEditorRestResponse<CommentResponse> {
