@@ -279,16 +279,16 @@ Table binary as BIN [headercolor: #16a085] {
   note: "This table stores information on the binary component of the asset"
 }
 
-Table binary_remix {
-  binary_a_uuid uuid [ref: > BIN.uuid, not null]
-  binary_b_uuid uuid [ref: > BIN.uuid, not null]
+Table asset_remix {
+  asset_a_uuid uuid [ref: > ASSET.uuid, not null]
+  asset_b_uuid uuid [ref: > ASSET.uuid, not null]
   meta jsonb [note: "Custom meta properties to the element"]
   created timestamp [default: `now()`, not null]
   creator_uuid uuid  [ref: > U.uuid, not null]
 
   Indexes {
-    (binary_a_uuid)
-    (binary_b_uuid)
+    (asset_a_uuid)
+    (asset_b_uuid)
   }
 
   note: "Store information on remixes of binaries."

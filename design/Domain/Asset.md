@@ -22,9 +22,9 @@ ac: {
   a2: Asset 2 { shape: package }
 }
 
-# Asset Binary
-abc: Asset Binary Collection {
- ab: Asset Binary { shape: class
+# Asset
+abc: Asset Collection {
+ ab: Asset { shape: class
     initialPath: "string"
     sha512: "string"
     sha256: "string"
@@ -32,7 +32,7 @@ abc: Asset Binary Collection {
     fingerprint: "string"
     size: "long"
  }
- ab2: Asset Binary 2
+ ab2: Asset 2
 }
 
 abc.ab -> ac.a1
@@ -45,7 +45,7 @@ rc: {
   r: ReportResult { shape: class
     uuid: "<uuid>"
     type: "<string>"
-    asset_binary_uuid: "<uuid>"
+    asset_uuid: "<uuid>"
     reviewer: "<uuid>"
     reviewdate: "<date>"
     reviewed: "boolean"

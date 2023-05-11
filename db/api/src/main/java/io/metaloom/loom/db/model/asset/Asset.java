@@ -88,14 +88,14 @@ public interface Asset extends CUDElement<Asset>, Taggable {
 	Asset setAudioFingerprint(String fingerprint);
 
 	/**
-	 * Return the binary size in bytes.
+	 * Return the asset size in bytes.
 	 * 
 	 * @return
 	 */
 	long getSize();
 
 	/**
-	 * Set the binary size in bytes.
+	 * Set the asset size in bytes.
 	 * 
 	 * @param size
 	 * @return Fluent API

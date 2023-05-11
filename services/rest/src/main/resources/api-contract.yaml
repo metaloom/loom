@@ -2362,17 +2362,17 @@ components:
             * audio - Audio files (e.g. mp3, wav, ogg, flac)
             * doc   - Document files (e.g. doc, docx, txt)
             * 3d    - 3D model data (stl, obj, fbx, 3ds, vrml)
-            * bin   - Other binary files
+            * bin   - Other asset files
         hashes:
           type: object
-          description: "A set of computed hashsums for the binary data."
+          description: "A set of computed hashsums for the asset data."
         filename:
           type: string
           description: "Filename of the asset."
           example: "flower.jpeg"
         size:
           type: number
-          description: "Size of the asset binary in bytes."
+          description: "Size of the asset data in bytes."
           example: 1024
         mimeType:
           type: string
