@@ -44,25 +44,13 @@ public class ReactionDaoImpl extends AbstractJooqDao<Reaction> implements Reacti
 	}
 
 	@Override
-	public void link(Reaction reaction, Asset binary) {
+	public void link(Reaction reaction, Asset asset) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void unlink(Reaction reaction, Asset binary) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void link(Reaction reaction, AssetLocation asset) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void unlink(Reaction reaction, AssetLocation asset) {
+	public void unlink(Reaction reaction, Asset asset) {
 		// TODO Auto-generated method stub
 
 	}

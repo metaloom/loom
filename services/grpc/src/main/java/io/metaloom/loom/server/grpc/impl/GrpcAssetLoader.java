@@ -36,23 +36,23 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		String initialOrigin = request.getInitialOrigin();
 
 		User user = null;
-		Asset binary = daos.binaryDao().loadBySHA512Sum(sha512sum);
+		Asset binary = daos.assetDao().loadBySHA512Sum(sha512sum);
 		if (binary == null) {
-			binary = daos.binaryDao().createAsset(user, sha512sum, mimeType, initialOrigin, size);
+			binary = daos.assetDao().createAsset(user, sha512sum, mimeType, initialOrigin, size);
 		}
 
 		binary.setSHA256(sha256sum);
 		binary.setVideoFingerprint(fingerprint);
 		binary.setZeroChunkCount(zeroChunkCount);
 		binary.setChunkHash(chunkHash);
-		daos.binaryDao().store(binary);
+		daos.assetDao().store(binary);
 
 		User creator = daos.userDao().createUser("test");
 		daos.userDao().store(creator);
 		
 		Library library = daos.libraryDao().createLibrary(user, "test");
-		AssetLocation asset = daos.assetDao().createAssetLocation(path, binary.getUuid(), creator.getUuid(), library.getUuid());
-		daos.assetDao().store(asset);
+		AssetLocation asset = daos.assetLocationDao().createAssetLocation(path, binary.getUuid(), creator.getUuid(), library.getUuid());
+		daos.assetLocationDao().store(asset);
 
 		UUID uuid = asset.getUuid();
 

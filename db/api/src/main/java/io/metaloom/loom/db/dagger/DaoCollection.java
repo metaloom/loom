@@ -43,9 +43,9 @@ public interface DaoCollection {
 
 	// Asset
 
-	AssetLocationDao assetDao();
+	AssetLocationDao assetLocationDao();
 
-	AssetDao binaryDao();
+	AssetDao assetDao();
 
 	// Management
 

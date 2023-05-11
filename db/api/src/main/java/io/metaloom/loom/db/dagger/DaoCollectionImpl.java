@@ -30,9 +30,9 @@ public class DaoCollectionImpl implements DaoCollection {
 	private final Lazy<UserDao> userDao;
 	private final Lazy<GroupDao> groupDao;
 	private final Lazy<RoleDao> roleDao;
-	private final Lazy<AssetLocationDao> assetDao;
+	private final Lazy<AssetLocationDao> assetLocationDao;
 	private final Lazy<PermissionDao> permissionDao;
-	private final Lazy<AssetDao> binaryDao;
+	private final Lazy<AssetDao> assetDao;
 	private final Lazy<WebhookDao> webhookDao;
 	private final Lazy<CollectionDao> collectionDao;
 	private final Lazy<LibraryDao> libraryDao;
@@ -49,7 +49,7 @@ public class DaoCollectionImpl implements DaoCollection {
 
 	@Inject
 	public DaoCollectionImpl(Lazy<UserDao> userDao, Lazy<PermissionDao> permissionDao,
-		Lazy<RoleDao> roleDao, Lazy<GroupDao> groupDao, Lazy<AssetLocationDao> assetDao, Lazy<AssetDao> binaryDao,
+		Lazy<RoleDao> roleDao, Lazy<GroupDao> groupDao, Lazy<AssetLocationDao> assetLocationDao, Lazy<AssetDao> assetDao,
 		Lazy<WebhookDao> webhookDao, Lazy<CollectionDao> collectionDao, Lazy<LibraryDao> libraryDao,
 		Lazy<AnnotationDao> annotationDao, Lazy<TaskDao> taskDao, Lazy<ReactionDao> reactionDao,
 		Lazy<BlacklistDao> blacklistDao, Lazy<CommentDao> commentDao, Lazy<ProjectDao> projectDao,
@@ -60,7 +60,7 @@ public class DaoCollectionImpl implements DaoCollection {
 		this.roleDao = roleDao;
 		this.assetDao = assetDao;
 		this.permissionDao = permissionDao;
-		this.binaryDao = binaryDao;
+		this.assetLocationDao = assetLocationDao;
 		this.webhookDao = webhookDao;
 		this.libraryDao = libraryDao;
 		this.collectionDao = collectionDao;
@@ -77,13 +77,13 @@ public class DaoCollectionImpl implements DaoCollection {
 	}
 
 	@Override
-	public AssetLocationDao assetDao() {
-		return assetDao.get();
+	public AssetLocationDao assetLocationDao() {
+		return assetLocationDao.get();
 	}
 
 	@Override
-	public AssetDao binaryDao() {
-		return binaryDao.get();
+	public AssetDao assetDao() {
+		return assetDao.get();
 	}
 
 	@Override

@@ -54,12 +54,12 @@ public interface DaoProvider extends DaoCollection {
 
 	// Asset
 
-	default AssetLocationDao assetDao() {
+	default AssetDao assetDao() {
 		return daos().assetDao();
 	}
 
-	default AssetDao binaryDao() {
-		return daos().binaryDao();
+	default AssetLocationDao assetLocationDao() {
+		return daos().assetLocationDao();
 	}
 
 	// Management

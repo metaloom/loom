@@ -4,30 +4,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.metaloom.loom.db.CRUDDaoTestcases;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
-import io.metaloom.loom.db.model.asset.AssetLocation;
-import io.metaloom.loom.db.model.asset.AssetLocationDao;
+import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.user.User;
 
-public class AssetDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<AssetLocationDao, AssetLocation> {
+public class AssetDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<AssetDao, Asset> {
 
 	@Override
-	public AssetLocation createElement(User user, int i) {
-		return assetDao().createAssetLocation("test_" + i + ".jpg", BINARY_UUID, ADMIN_UUID, LIBRARY_UUID);
+	public Asset createElement(User user, int i) {
+		return assetDao().createAsset(user.getUuid(), SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
 	}
 
 	@Override
-	public AssetLocationDao getDao() {
+	public AssetDao getDao() {
 		return assetDao();
 	}
 
 	@Override
-	public void updateElement(AssetLocation element) {
-		element.setPath("new path");
+	public void updateElement(Asset element) {
+		element.setAudioFingerprint("new fingerprint");
 	}
 
 	@Override
-	public void assertUpdate(AssetLocation updatedAsset) {
-		assertEquals("new path", updatedAsset.getPath());
+	public void assertUpdate(Asset updatedAsset) {
+		assertEquals("new fingerprint", updatedAsset.getAudioFingerprint());
 	}
 
 }

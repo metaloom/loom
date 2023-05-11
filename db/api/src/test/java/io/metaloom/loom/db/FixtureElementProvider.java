@@ -30,8 +30,8 @@ public interface FixtureElementProvider extends DaoProvider, TestValues {
 	default Library library() {
 		return libraryDao().load(LIBRARY_UUID);
 	}
-	
-	default Asset binary() {
-		return binaryDao().load(BINARY_UUID);
+
+	default Asset asset() {
+		return assetDao().load(ASSET_UUID);
 	}
 }

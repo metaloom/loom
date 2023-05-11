@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.binary;
+package io.metaloom.loom.rest.model.asset;
 
 /**
  * Definition of the different kinds of assets. 

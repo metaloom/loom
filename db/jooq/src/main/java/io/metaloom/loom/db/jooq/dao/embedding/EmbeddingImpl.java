@@ -14,19 +14,19 @@ public class EmbeddingImpl extends AbstractEditableElement<Embedding> implements
 
 	private EmbeddingType type;
 
-	private UUID binaryUuid;
+	private UUID assetUuid;
 
 	public EmbeddingImpl() {
 	}
 
 	@Override
-	public UUID getBinaryUuid() {
-		return binaryUuid;
+	public UUID getAssetUuid() {
+		return assetUuid;
 	}
 
 	@Override
-	public Embedding setBinaryUuid(UUID binaryUuid) {
-		this.binaryUuid = binaryUuid;
+	public Embedding setAssetUuid(UUID assetUuid) {
+		this.assetUuid = assetUuid;
 		return this;
 	}
 

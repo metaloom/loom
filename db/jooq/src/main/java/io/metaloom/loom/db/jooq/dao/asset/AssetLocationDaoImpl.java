@@ -35,17 +35,17 @@ public class AssetLocationDaoImpl extends AbstractJooqDao<AssetLocation> impleme
 	}
 
 	@Override
-	public AssetLocation createAssetLocation(String filename, UUID binaryUuid, UUID creatorUuid, UUID libraryUuid) {
+	public AssetLocation createAssetLocation(String filename, UUID assetUuid, UUID creatorUuid, UUID libraryUuid) {
 		Objects.requireNonNull(creatorUuid, "Creator uuid must not be null");
 		Objects.requireNonNull(libraryUuid, "Library uuid must not be null");
-		Objects.requireNonNull(binaryUuid, "Binary uuid must not be null");
+		Objects.requireNonNull(assetUuid, "Binary uuid must not be null");
 		AssetLocation asset = new AssetLocationImpl();
 		asset.setPath(filename);
 		OffsetDateTime now = OffsetDateTime.now();
 		asset.setCreated(now);
 		asset.setEdited(now);
 		asset.setCreatorUuid(creatorUuid);
-		asset.setBinaryUuid(binaryUuid);
+		asset.setAssetUuid(assetUuid);
 		return asset;
 	}
 

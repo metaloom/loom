@@ -10,16 +10,16 @@ import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
+import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
+import io.metaloom.loom.rest.model.asset.AssetListResponse;
+import io.metaloom.loom.rest.model.asset.AssetResponse;
+import io.metaloom.loom.rest.model.asset.AudioInfo;
+import io.metaloom.loom.rest.model.asset.DocumentInfo;
+import io.metaloom.loom.rest.model.asset.ImageInfo;
+import io.metaloom.loom.rest.model.asset.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.HashInfo;
 import io.metaloom.loom.rest.model.asset.location.LocationReference;
 import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
-import io.metaloom.loom.rest.model.binary.AssetGeoLocation;
-import io.metaloom.loom.rest.model.binary.AssetListResponse;
-import io.metaloom.loom.rest.model.binary.AssetResponse;
-import io.metaloom.loom.rest.model.binary.AudioInfo;
-import io.metaloom.loom.rest.model.binary.DocumentInfo;
-import io.metaloom.loom.rest.model.binary.ImageInfo;
-import io.metaloom.loom.rest.model.binary.VideoInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
 public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, LocationModelBuilder, TagModelBuilder, AnnotationModelBuilder  {
@@ -31,13 +31,13 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Locat
 		return info;
 	}
 
-	default AssetGeoLocation assetGeoLocation(Asset binary) {
+	default AssetGeoLocation assetGeoLocation(Asset asset) {
 		AssetGeoLocation location = new AssetGeoLocation();
-		Double lat = binary.getGeoLat() == null ? null : binary.getGeoLat().doubleValue();
-		Double lon = binary.getGeoLon() == null ? null : binary.getGeoLon().doubleValue();
+		Double lat = asset.getGeoLat() == null ? null : asset.getGeoLat().doubleValue();
+		Double lon = asset.getGeoLon() == null ? null : asset.getGeoLon().doubleValue();
 		location.setLat(lat);
 		location.setLon(lon);
-		location.setAlias(binary.getGeoAlias());
+		location.setAlias(asset.getGeoAlias());
 		return location;
 	}
 
@@ -51,12 +51,12 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Locat
 		response.setUuid(asset.getUuid());
 		response.setMeta(asset.getMeta());
 		response.setMimeType(asset.getMimeType());
-		response.setHashes(binaryHasheInfo(asset));
+		response.setHashes(assetHasheInfo(asset));
 		response.setSize(asset.getSize());
-		response.setImage(binaryImageInfo(asset));
-		response.setVideo(binaryVideoInfo(asset));
-		response.setAudio(binaryAudioInfo(asset));
-		response.setDocument(binaryDocumentInfo(asset));
+		response.setImage(assetImageInfo(asset));
+		response.setVideo(assetVideoInfo(asset));
+		response.setAudio(assetAudioInfo(asset));
+		response.setDocument(assetDocumentInfo(asset));
 		response.setGeo(assetGeoLocation(asset));
 		response.setLicenses(assetLicense(asset));
 		response.setOrigin(asset.getInitialOrigin());
@@ -80,54 +80,54 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Locat
 		return response;
 	}
 
-	default HashInfo binaryHasheInfo(Asset binary) {
+	default HashInfo assetHasheInfo(Asset asset) {
 		HashInfo hashes = new HashInfo();
-		hashes.setSha512(binary.getSHA512());
-		hashes.setSha256(binary.getSHA256());
-		hashes.setMD5(binary.getMD5());
+		hashes.setSha512(asset.getSHA512());
+		hashes.setSha256(asset.getSHA256());
+		hashes.setMD5(asset.getMD5());
 		return hashes;
 	}
 
-	default DocumentInfo binaryDocumentInfo(Asset binary) {
+	default DocumentInfo assetDocumentInfo(Asset asset) {
 		DocumentInfo info = new DocumentInfo();
-		info.setWordCount(binary.getDocumentWordCount());
+		info.setWordCount(asset.getDocumentWordCount());
 		return info;
 	}
 
-	default AudioInfo binaryAudioInfo(Asset binary) {
+	default AudioInfo assetAudioInfo(Asset asset) {
 		AudioInfo info = new AudioInfo();
-		info.setBpm(binary.getAudioBPM());
-		info.setChannels(binary.getAudioChannels());
-		info.setDuration(binary.getMediaDuration());
-		info.setEncoding(binary.getAudioEncoding());
-		info.setFingerprint(binary.getAudioFingerprint());
-		info.setSamplingRate(binary.getAudioSamplingRate());
+		info.setBpm(asset.getAudioBPM());
+		info.setChannels(asset.getAudioChannels());
+		info.setDuration(asset.getMediaDuration());
+		info.setEncoding(asset.getAudioEncoding());
+		info.setFingerprint(asset.getAudioFingerprint());
+		info.setSamplingRate(asset.getAudioSamplingRate());
 		return info;
 	}
 
-	default VideoInfo binaryVideoInfo(Asset binary) {
+	default VideoInfo assetVideoInfo(Asset asset) {
 		VideoInfo info = new VideoInfo();
-		info.setDuration(binary.getMediaDuration());
-		// TODO use dedicated /binary/:uuid/embeddings endpoint for this
+		info.setDuration(asset.getMediaDuration());
+		// TODO use dedicated /asset/:uuid/embeddings endpoint for this
 		//info.setEmbeddings();
-		info.setEncoding(binary.getVideoEncoding());
-		info.setFingerprint(binary.getVideoFingerprint());
-		info.setHeight(binary.getMediaHeight());
-		info.setWidth(binary.getMediaWidth());
+		info.setEncoding(asset.getVideoEncoding());
+		info.setFingerprint(asset.getVideoFingerprint());
+		info.setHeight(asset.getMediaHeight());
+		info.setWidth(asset.getMediaWidth());
 		return info;
 	}
 
-	default ImageInfo binaryImageInfo(Asset binary) {
+	default ImageInfo assetImageInfo(Asset asset) {
 		ImageInfo info = new ImageInfo();
-		info.setDominantColor(binary.getDominantColor());
-		info.setHeight(binary.getMediaHeight());
-		info.setWidth(binary.getMediaWidth());
+		info.setDominantColor(asset.getDominantColor());
+		info.setHeight(asset.getMediaHeight());
+		info.setWidth(asset.getMediaWidth());
 		return info;
 	}
 
 	default AssetListResponse toAssetList(Page<Asset> page) {
-		return setPage(new AssetListResponse(), page, binary -> {
-			return toResponse(binary);
+		return setPage(new AssetListResponse(), page, asset -> {
+			return toResponse(asset);
 		});
 	}
 }

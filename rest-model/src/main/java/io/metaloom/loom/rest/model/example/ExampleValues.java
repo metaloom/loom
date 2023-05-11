@@ -9,10 +9,10 @@ import java.util.UUID;
 
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.annotation.AreaInfo;
+import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.location.HashInfo;
 import io.metaloom.loom.rest.model.asset.location.social.ReactionType;
 import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
-import io.metaloom.loom.rest.model.binary.AssetGeoLocation;
 import io.metaloom.loom.rest.model.comment.CommentResponse;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.common.PagingInfo;

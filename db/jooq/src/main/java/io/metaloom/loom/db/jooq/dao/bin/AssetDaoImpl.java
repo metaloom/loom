@@ -38,13 +38,13 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	@Override
 	public Asset createAsset(UUID userUuid, String sha512sum, String mimeType, String initialOrigin, long size) {
 		Objects.requireNonNull(sha512sum, "Binary sha512sum must not be null");
-		Asset binary = new AssetImpl();
-		binary.setSHA512(sha512sum);
-		binary.setSize(size);
-		binary.setMimeType(mimeType);
-		binary.setInitialOrigin(initialOrigin);
-		setCreatorEditor(binary, userUuid);
-		return binary;
+		Asset asset = new AssetImpl();
+		asset.setSHA512(sha512sum);
+		asset.setSize(size);
+		asset.setMimeType(mimeType);
+		asset.setInitialOrigin(initialOrigin);
+		setCreatorEditor(asset, userUuid);
+		return asset;
 	}
 
 	@Override

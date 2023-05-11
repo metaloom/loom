@@ -16,9 +16,9 @@ public interface DatabaseTest extends TestValues, DaoProvider {
 	}
 
 	default AssetLocation createAsset(String filename, User user) {
-		Asset binary = createBinary(user);
+		Asset asset = createAsset(user);
 		Library library = createLibrary(user, LIBRARY_NAME);
-		return assetDao().createAssetLocation(filename, binary.getUuid(), user.getUuid(), library.getUuid());
+		return assetLocationDao().createAssetLocation(filename, asset.getUuid(), user.getUuid(), library.getUuid());
 	}
 
 	default Library createLibrary(User user, String name) {
@@ -27,10 +27,10 @@ public interface DatabaseTest extends TestValues, DaoProvider {
 		return library;
 	}
 
-	default Asset createBinary(User user) {
-		Asset binary = binaryDao().createAsset(user, SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
-		binaryDao().store(binary);
-		return binary;
+	default Asset createAsset(User user) {
+		Asset asset = assetDao().createAsset(user, SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
+		assetDao().store(asset);
+		return asset;
 	}
 
 }

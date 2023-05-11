@@ -9,7 +9,7 @@ public class AssetLocationImpl extends AbstractEditableElement<AssetLocation> im
 
 	private String path;
 
-	private UUID binaryUuid;
+	private UUID assetUuid;
 
 	private String mimeType;
 
@@ -33,13 +33,13 @@ public class AssetLocationImpl extends AbstractEditableElement<AssetLocation> im
 	}
 
 	@Override
-	public UUID getBinaryUuid() {
-		return binaryUuid;
+	public UUID getAssetUuid() {
+		return assetUuid;
 	}
 
 	@Override
-	public AssetLocation setBinaryUuid(UUID binaryUuid) {
-		this.binaryUuid = binaryUuid;
+	public AssetLocation setAssetUuid(UUID assetUuid) {
+		this.assetUuid = assetUuid;
 		return this;
 	}
 

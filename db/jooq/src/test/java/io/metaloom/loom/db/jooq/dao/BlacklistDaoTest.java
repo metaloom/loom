@@ -17,7 +17,7 @@ public class BlacklistDaoTest extends AbstractJooqTest implements CRUDDaoTestcas
 
 	@Override
 	public Blacklist createElement(User user, int i) {
-		return getDao().createBlacklist(user, binary(), "name_" + i);
+		return getDao().createBlacklist(user, asset(), "name_" + i);
 	}
 
 	@Override

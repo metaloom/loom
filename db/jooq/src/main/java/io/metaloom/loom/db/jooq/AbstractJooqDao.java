@@ -41,6 +41,11 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	abstract protected Table<? extends TableRecord<?>> getTable();
 
+	public Field<UUID> getUuidField() {
+		// return JooqAsset.ASSET.UUID;
+		return getTable().field("uuid", UUID.class);
+	}
+
 	abstract protected Class<? extends T> getPojoClass();
 
 	public <PK> Condition pkSelect(PK pk) {
@@ -123,11 +128,11 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	@Override
 	public Page<T> loadPage(UUID fromUuid, int pageSize) {
-		//SelectSeekStep1<Record3<UUID, String, UUID>, UUID> 
-		SelectSeekStep1<?, ?> query = ctx()
+		// SelectSeekStep1<Record3<UUID, String, UUID>, UUID>
+		SelectSeekStep1<?, UUID> query = ctx()
 			.select(getTable())
 			.from(getTable())
-			.orderBy(getTable().getPrimaryKey().getFields().get(0));
+			.orderBy(getUuidField());
 		if (fromUuid != null) {
 			query.seek(fromUuid);
 		}

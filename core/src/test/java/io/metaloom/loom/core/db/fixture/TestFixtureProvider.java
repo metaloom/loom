@@ -67,7 +67,6 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		Task task = createTask(user);
 		Reaction reaction1 = reactOnTask(user, task);
 		Reaction reaction2 = reactOnAsset(user, asset);
-		Reaction reaction3 = reactOnBinary(user, asset);
 
 		// Create blacklist with multiple entries
 		Blacklist blacklist = createBlacklist(user, asset, "blocked");
@@ -84,23 +83,16 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		return webhook;
 	}
 
-	private Blacklist createBlacklist(User user, Asset binary, String name) {
-		Blacklist blacklist = blacklistDao().createBlacklist(user, binary, name);
+	private Blacklist createBlacklist(User user, Asset asset, String name) {
+		Blacklist blacklist = blacklistDao().createBlacklist(user, asset, name);
 		blacklist.setUuid(BLACKLIST_UUID);
 		blacklistDao().store(blacklist);
 		return blacklist;
 	}
 
-	private Reaction reactOnBinary(User user, Asset binary) {
-		Reaction reaction = reactionDao().createReaction(user, "thumbsup");
-		reaction.setUuid(REACTION_UUID);
-		reactionDao().store(reaction);
-		reactionDao().link(reaction, binary);
-		return reaction;
-	}
-
 	private Reaction reactOnAsset(User user, Asset asset) {
 		Reaction reaction = reactionDao().createReaction(user, "thumbsup");
+		reaction.setUuid(REACTION_UUID);
 		reactionDao().store(reaction);
 		reactionDao().link(reaction, asset);
 		return reaction;
@@ -145,8 +137,8 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		return cluster;
 	}
 
-	private Embedding createEmbedding(UUID uuid, User user, Asset binary) {
-		Embedding embedding = embeddingDao().createEmbedding(user, binary, VECTOR_DATA, EmbeddingType.DLIB_FACE_RESNET_v1, VECTOR_ID);
+	private Embedding createEmbedding(UUID uuid, User user, Asset asset) {
+		Embedding embedding = embeddingDao().createEmbedding(user, asset, VECTOR_DATA, EmbeddingType.DLIB_FACE_RESNET_v1, VECTOR_ID);
 		embedding.setUuid(uuid);
 		embeddingDao().store(embedding);
 		return embedding;
@@ -175,17 +167,17 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 	}
 
 	private Asset createAsset(Library library, User user) {
-		Asset binary = binaryDao().createAsset(user, SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
-		binary.setUuid(BINARY_UUID);
-		binaryDao().store(binary);
-		return binary;
-	}
-
-	private AssetLocation createAssetLocation(Library library, Asset binary, User user) {
-		AssetLocation asset = assetDao().createAssetLocation("blume.mp4", binary.getUuid(), user.getUuid(), library.getUuid());
+		Asset asset = assetDao().createAsset(user, SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
 		asset.setUuid(ASSET_UUID);
 		assetDao().store(asset);
 		return asset;
+	}
+
+	private AssetLocation createAssetLocation(Library library, Asset asset, User user) {
+		AssetLocation assetLocation = assetLocationDao().createAssetLocation("blume.mp4", asset.getUuid(), user.getUuid(), library.getUuid());
+		assetLocation.setUuid(ASSET_UUID);
+		assetLocationDao().store(assetLocation);
+		return assetLocation;
 	}
 
 	private Library createLibrary(User user, String name) {

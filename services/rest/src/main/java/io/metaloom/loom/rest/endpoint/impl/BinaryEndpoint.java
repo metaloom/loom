@@ -8,12 +8,12 @@ import io.metaloom.loom.rest.service.impl.AssetLocationEndpointService;
 
 public class BinaryEndpoint extends AbstractRESTEndpoint {
 
-	private final AssetLocationEndpointService binaryService;
+	private final AssetLocationEndpointService assetLocationService;
 
 	@Inject
-	public BinaryEndpoint(AssetLocationEndpointService binaryService, EndpointDependencies deps) {
+	public BinaryEndpoint(AssetLocationEndpointService assetLocationService, EndpointDependencies deps) {
 		super(deps);
-		this.binaryService = binaryService;
+		this.assetLocationService = assetLocationService;
 	}
 
 	@Override

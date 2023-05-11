@@ -23,9 +23,9 @@ public interface AssetLocation extends CUDElement<AssetLocation>, Taggable, Meta
 	 */
 	AssetLocation setPath(String filename);
 
-	UUID getBinaryUuid();
+	UUID getAssetUuid();
 
-	AssetLocation setBinaryUuid(UUID binaryUuid);
+	AssetLocation setAssetUuid(UUID assetUuid);
 
 	String getMimeType();
 

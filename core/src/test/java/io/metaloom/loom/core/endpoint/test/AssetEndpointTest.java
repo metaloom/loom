@@ -10,10 +10,10 @@ import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractEndpointTest;
 import io.metaloom.loom.core.endpoint.CRUDEndpointTestcases;
-import io.metaloom.loom.rest.model.binary.AssetCreateRequest;
-import io.metaloom.loom.rest.model.binary.AssetListResponse;
-import io.metaloom.loom.rest.model.binary.AssetResponse;
-import io.metaloom.loom.rest.model.binary.AssetUpdateRequest;
+import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
+import io.metaloom.loom.rest.model.asset.AssetListResponse;
+import io.metaloom.loom.rest.model.asset.AssetResponse;
+import io.metaloom.loom.rest.model.asset.AssetUpdateRequest;
 
 public class AssetEndpointTest extends AbstractEndpointTest implements CRUDEndpointTestcases {
 

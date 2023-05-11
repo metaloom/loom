@@ -6,9 +6,9 @@ import io.metaloom.loom.db.CUDElement;
 
 public interface Embedding extends CUDElement<Embedding> {
 
-	UUID getBinaryUuid();
+	UUID getAssetUuid();
 
-	Embedding setBinaryUuid(UUID binaryUuid);
+	Embedding setAssetUuid(UUID assetUuid);
 
 	Float[] getData();
 

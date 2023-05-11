@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.binary;
+package io.metaloom.loom.rest.model.asset;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 

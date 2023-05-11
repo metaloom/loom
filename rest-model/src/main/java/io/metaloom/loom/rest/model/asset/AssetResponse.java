@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.binary;
+package io.metaloom.loom.rest.model.asset;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;

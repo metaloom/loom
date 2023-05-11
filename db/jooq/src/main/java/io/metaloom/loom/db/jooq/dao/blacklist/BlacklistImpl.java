@@ -8,7 +8,7 @@ import io.metaloom.loom.db.model.blacklist.Blacklist;
 public class BlacklistImpl extends AbstractEditableElement<Blacklist> implements Blacklist {
 
 	private String name;
-	private UUID binaryUuid;
+	private UUID assetUuid;
 
 	@Override
 	public String getName() {
@@ -22,13 +22,13 @@ public class BlacklistImpl extends AbstractEditableElement<Blacklist> implements
 	}
 
 	@Override
-	public UUID getBinaryUuid() {
-		return binaryUuid;
+	public UUID getAssetUuid() {
+		return assetUuid;
 	}
 
 	@Override
-	public Blacklist setAssetUuid(UUID binaryUuid) {
-		this.binaryUuid = binaryUuid;
+	public Blacklist setAssetUuid(UUID assetUuid) {
+		this.assetUuid = assetUuid;
 		return this;
 	}
 

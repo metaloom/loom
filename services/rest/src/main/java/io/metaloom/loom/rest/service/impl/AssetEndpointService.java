@@ -14,10 +14,10 @@ import io.metaloom.loom.db.model.asset.AssetLocationDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
+import io.metaloom.loom.rest.model.asset.AssetListResponse;
+import io.metaloom.loom.rest.model.asset.AssetResponse;
 import io.metaloom.loom.rest.model.asset.location.LocationResponse;
-import io.metaloom.loom.rest.model.binary.AssetCreateRequest;
-import io.metaloom.loom.rest.model.binary.AssetListResponse;
-import io.metaloom.loom.rest.model.binary.AssetResponse;
 import io.metaloom.loom.rest.service.AbstractEndpointService;
 
 @Singleton
