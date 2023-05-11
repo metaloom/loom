@@ -12,8 +12,7 @@ public class AssetLocationEndpointTest extends AbstractEndpointTest {
 	public void testBasics() {
 		try (LoomHttpClient client = httpClient()) {
 			LocationCreateRequest request = new LocationCreateRequest();
-			client.createLocation(request);
-
+			client.storeLocation(request);
 		}
 	}
 }

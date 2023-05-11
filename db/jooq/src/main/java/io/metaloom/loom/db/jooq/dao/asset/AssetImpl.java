@@ -1,4 +1,4 @@
-package io.metaloom.loom.db.jooq.dao.bin;
+package io.metaloom.loom.db.jooq.dao.asset;
 
 import java.math.BigDecimal;
 

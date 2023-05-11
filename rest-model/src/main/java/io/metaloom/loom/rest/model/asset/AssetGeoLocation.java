@@ -18,7 +18,7 @@ public class AssetGeoLocation implements RestModel {
 	@JsonPropertyDescription("Alias name for the location.")
 	private String alias;
 
-	public double getLon() {
+	public Double getLon() {
 		return lon;
 	}
 
@@ -27,7 +27,7 @@ public class AssetGeoLocation implements RestModel {
 		return this;
 	}
 
-	public double getLat() {
+	public Double getLat() {
 		return lat;
 	}
 

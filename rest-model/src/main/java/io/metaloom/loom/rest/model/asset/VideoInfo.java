@@ -7,13 +7,13 @@ import io.metaloom.loom.rest.model.asset.location.video.Embeddings;
 public class VideoInfo {
 
 	@JsonPropertyDescription("The duration of the media in milliseconds.")
-	private long duration;
+	private Long duration;
 
 	@JsonPropertyDescription("The video width in pixel of the asset.")
-	private int width;
+	private Integer width;
 
 	@JsonPropertyDescription("The video height in pixel of the asset.")
-	private int height;
+	private Integer height;
 
 	@JsonPropertyDescription("The digital fingerprint of the media.")
 	private String fingerprint;
@@ -22,29 +22,29 @@ public class VideoInfo {
 
 	private String encoding;
 
-	public long getDuration() {
+	public Long getDuration() {
 		return duration;
 	}
 
-	public VideoInfo setDuration(long duration) {
+	public VideoInfo setDuration(Long duration) {
 		this.duration = duration;
 		return this;
 	}
 
-	public int getWidth() {
+	public Integer getWidth() {
 		return width;
 	}
 
-	public VideoInfo setWidth(int width) {
+	public VideoInfo setWidth(Integer width) {
 		this.width = width;
 		return this;
 	}
 
-	public int getHeight() {
+	public Integer getHeight() {
 		return height;
 	}
 
-	public VideoInfo setHeight(int height) {
+	public VideoInfo setHeight(Integer height) {
 		this.height = height;
 		return this;
 	}

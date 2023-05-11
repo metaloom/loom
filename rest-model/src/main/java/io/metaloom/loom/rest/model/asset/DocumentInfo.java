@@ -4,13 +4,13 @@ import io.metaloom.loom.rest.model.RestModel;
 
 public class DocumentInfo implements RestModel {
 
-	private long wordCount;
+	private Long wordCount;
 
-	public long getWordCount() {
+	public Long getWordCount() {
 		return wordCount;
 	}
 
-	public DocumentInfo setWordCount(long documentWordCount) {
+	public DocumentInfo setWordCount(Long documentWordCount) {
 		this.wordCount = documentWordCount;
 		return this;
 	}

@@ -1,4 +1,4 @@
-package io.metaloom.loom.db.jooq.dao.asset;
+package io.metaloom.loom.db.jooq.dao.asset.location;
 
 import java.time.OffsetDateTime;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import org.jooq.Table;
 import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.JooqAsset;
+import io.metaloom.loom.db.jooq.tables.JooqAssetLocation;
 import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.asset.AssetLocationDao;
 
@@ -26,7 +26,7 @@ public class AssetLocationDaoImpl extends AbstractJooqDao<AssetLocation> impleme
 
 	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
-		return JooqAsset.ASSET;
+		return JooqAssetLocation.ASSET_LOCATION;
 	}
 
 	@Override

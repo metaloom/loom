@@ -71,7 +71,7 @@ public class LoomCoreTestExtension implements BeforeEachCallback, AfterEachCallb
 
 	@Override
 	public void afterEach(ExtensionContext context) throws Exception {
-		ext.afterEach(context);
+		//ext.afterEach(context);
 		if (loomInternal != null) {
 			loomInternal.boot().deinit();
 		}

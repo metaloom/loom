@@ -1,4 +1,4 @@
-package io.metaloom.loom.db.jooq.dao.asset;
+package io.metaloom.loom.db.jooq.dao.asset.location;
 
 import java.util.UUID;
 

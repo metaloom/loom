@@ -47,8 +47,16 @@ public class AssetEndpointService extends AbstractEndpointService {
 	}
 
 	public void list(LoomRoutingContext lrc) {
-		UUID fromUuid = UUID.fromString(lrc.pathParam("from"));
-		int limit = Integer.valueOf(lrc.pathParam("limit"));
+		String fromStr = lrc.pathParam("from");
+		UUID fromUuid = null;
+		if (fromStr != null) {
+			fromUuid = UUID.fromString(fromStr);
+		}
+		String limitStr = lrc.pathParam("limit");
+		int limit = 25;
+		if (limitStr != null) {
+			limit = Integer.valueOf(limitStr);
+		}
 		Page<Asset> page = assetDao.loadPage(fromUuid, limit);
 		AssetListResponse response = modelBuilder.toAssetList(page);
 		lrc.send(response);

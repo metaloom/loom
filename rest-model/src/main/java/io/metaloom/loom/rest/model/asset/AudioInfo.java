@@ -7,51 +7,51 @@ import io.metaloom.loom.rest.model.RestModel;
 public class AudioInfo implements RestModel {
 
 	@JsonPropertyDescription("The duration of the media in milliseconds.")
-	private long duration;
+	private Long duration;
 
-	private int channels;
+	private Integer channels;
 
 	private String encoding;
 
-	private long samplingRate;
+	private Integer samplingRate;
 
-	private int bpm;
-	
+	private Integer bpm;
+
 	@JsonPropertyDescription("The digital fingerprint of the media.")
 	private String fingerprint;
 
-	public long getDuration() {
+	public Long getDuration() {
 		return duration;
 	}
 
-	public AudioInfo setDuration(long duration) {
+	public AudioInfo setDuration(Long duration) {
 		this.duration = duration;
 		return this;
 	}
 
-	public int getChannels() {
+	public Integer getChannels() {
 		return channels;
 	}
 
-	public AudioInfo setChannels(int channels) {
+	public AudioInfo setChannels(Integer channels) {
 		this.channels = channels;
 		return this;
 	}
 
-	public long getSamplingRate() {
+	public Integer getSamplingRate() {
 		return samplingRate;
 	}
 
-	public AudioInfo setSamplingRate(long samplingRate) {
+	public AudioInfo setSamplingRate(Integer samplingRate) {
 		this.samplingRate = samplingRate;
 		return this;
 	}
 
-	public int getBpm() {
+	public Integer getBpm() {
 		return bpm;
 	}
 
-	public AudioInfo setBpm(int bpm) {
+	public AudioInfo setBpm(Integer bpm) {
 		this.bpm = bpm;
 		return this;
 	}
@@ -64,11 +64,11 @@ public class AudioInfo implements RestModel {
 		this.encoding = encoding;
 		return this;
 	}
-	
+
 	public String getFingerprint() {
 		return fingerprint;
 	}
-	
+
 	public AudioInfo setFingerprint(String fingerprint) {
 		this.fingerprint = fingerprint;
 		return this;

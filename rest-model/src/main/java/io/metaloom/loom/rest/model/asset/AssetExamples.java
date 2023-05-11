@@ -17,8 +17,8 @@ public interface AssetExamples extends ExampleValues, LocationExamples {
 			.setAnnotations(assetAnnotations());
 
 		model.setImage(new ImageInfo().setWidth(800).setHeight(600).setDominantColor("#FFFF00"));
-		model.setVideo(new VideoInfo().setDuration(20000).setWidth(4000).setHeight(2250));
-		model.setAudio(new AudioInfo().setBpm(120).setChannels(2).setDuration(240).setSamplingRate(48000).setEncoding("mp3"));
+		model.setVideo(new VideoInfo().setDuration(20000L).setWidth(4000).setHeight(2250));
+		model.setAudio(new AudioInfo().setBpm(120).setChannels(2).setDuration(240L).setSamplingRate(48000).setEncoding("mp3"));
 		model.setMeta(meta())
 			.setHashes(assetHashes())
 			.setSize(2005225)
