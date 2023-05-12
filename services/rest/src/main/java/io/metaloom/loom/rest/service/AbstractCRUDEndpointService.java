@@ -2,6 +2,7 @@ package io.metaloom.loom.rest.service;
 
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,10 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 
 	public D dao() {
 		return crudDao;
+	}
+
+	public DaoCollection daos() {
+		return daos;
 	}
 
 	public void delete(LoomRoutingContext lrc) {
@@ -75,10 +80,10 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 		});
 	}
 
-	public void create(LoomRoutingContext lrc, Permission permission, Function<DaoCollection, E> creator,
+	public void create(LoomRoutingContext lrc, Permission permission, Supplier<E> creator,
 		Function<E, RestResponseModel<?>> builder) {
 		lrc.requirePerm(permission).onSuccess(l -> {
-			E element = creator.apply(daos);
+			E element = creator.get();
 			dao().store(element);
 			RestResponseModel<?> response = builder.apply(element);
 			lrc.send(response, 201);

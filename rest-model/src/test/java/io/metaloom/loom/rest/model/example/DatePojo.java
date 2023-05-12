@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest.model.example;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,15 +11,15 @@ import io.metaloom.loom.rest.model.RestModel;
 public class DatePojo implements RestModel {
 
 	@JsonProperty(required = true)
-	@JsonPropertyDescription("ISO8601 formatted editing date string.")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-	private OffsetDateTime edited;
+	@JsonPropertyDescription("ISO8601 formatted editing date.")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+	private Instant edited;
 
-	public OffsetDateTime getEdited() {
+	public Instant getEdited() {
 		return edited;
 	}
 
-	public void setEdited(OffsetDateTime edited) {
+	public void setEdited(Instant edited) {
 		this.edited = edited;
 	}
 }

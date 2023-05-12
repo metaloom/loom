@@ -17,12 +17,12 @@ public class AssetEndpoint extends AbstractRESTEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpoint.class);
 
-	private final AssetEndpointService assetService;
+	private final AssetEndpointService service;
 
 	@Inject
 	public AssetEndpoint(EndpointDependencies deps, AssetEndpointService assetService) {
 		super(deps);
-		this.assetService = assetService;
+		this.service = assetService;
 	}
 
 	@Override
@@ -30,19 +30,19 @@ public class AssetEndpoint extends AbstractRESTEndpoint {
 		log.info("Registering asset endpoint");
 
 		addRoute("/assets", POST, lrc -> {
-			assetService.create(lrc);
+			service.create(lrc);
 		});
 
 		addRoute("/assets/:uuid", DELETE, lrc -> {
-			assetService.delete(lrc);
+			service.delete(lrc);
 		});
 
 		addRoute("/assets", GET, lrc -> {
-			assetService.list(lrc);
+			service.list(lrc);
 		});
 
 		addRoute("/assets/:uuid", GET, lrc -> {
-			assetService.load(lrc);
+			service.load(lrc);
 		});
 	}
 

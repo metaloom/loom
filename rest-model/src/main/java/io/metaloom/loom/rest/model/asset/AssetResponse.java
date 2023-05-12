@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest.model.asset;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,8 +68,8 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("ISO8601 formatted editing date string.")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-	private OffsetDateTime firstSeen;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+	private Instant firstSeen;
 
 	@JsonPropertyDescription("The size of the asset in bytes.")
 	private long size;
@@ -205,11 +205,11 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 		return this;
 	}
 
-	public OffsetDateTime getFirstSeen() {
+	public Instant getFirstSeen() {
 		return firstSeen;
 	}
 
-	public AssetResponse setFirstSeen(OffsetDateTime firstSeen) {
+	public AssetResponse setFirstSeen(Instant firstSeen) {
 		this.firstSeen = firstSeen;
 		return this;
 	}

@@ -1,6 +1,7 @@
 package io.metaloom.loom.rest.json;
 
 import java.io.InputStream;
+import java.util.TimeZone;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JacksonException;
@@ -33,15 +34,13 @@ public final class Json {
 	static {
 		mapper = new ObjectMapper()
 			.setSerializationInclusion(Include.NON_NULL);
-		mapper.registerModule(new JavaTimeModule());
-
 		SimpleModule module = new SimpleModule();
 		module.addSerializer(JsonObject.class, new JsonObjectSerializer());
 		module.addSerializer(JsonArray.class, new JsonArraySerializer());
-
 		module.addDeserializer(JsonObject.class, new JsonObjectDeserializer());
 		module.addDeserializer(JsonArray.class, new JsonArrayDeserializer());
-
+		mapper.registerModule(new JavaTimeModule());
+		mapper.setTimeZone(TimeZone.getTimeZone("UTC"));
 		mapper.registerModule(module);
 	}
 

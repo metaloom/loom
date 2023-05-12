@@ -1,6 +1,6 @@
 package io.metaloom.loom.rest.model.example;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,8 @@ public class DateTest implements TestValues {
 	@Test
 	public void testDate() {
 		DatePojo pojo = new DatePojo();
-		pojo.setEdited(DATE_NEW);
+		Instant date = Instant.parse("2023-04-20T20:12:01Z");
+		pojo.setEdited(date);
 		String json = Json.parse(pojo);
 		System.out.println(json);
 	}

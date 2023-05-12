@@ -1,7 +1,6 @@
 package io.metaloom.loom.db.jooq;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -177,8 +176,8 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	protected void setCreatorEditor(CUDElement<?> element, UUID userUuid) {
 		element.setCreatorUuid(userUuid);
 		element.setEditorUuid(userUuid);
-		element.setCreated(OffsetDateTime.now(ZoneOffset.UTC));
-		element.setEdited(OffsetDateTime.now(ZoneOffset.UTC));
+		element.setCreated(Instant.now());
+		element.setEdited(Instant.now());
 	}
 
 }

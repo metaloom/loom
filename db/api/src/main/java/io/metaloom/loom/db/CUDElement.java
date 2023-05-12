@@ -1,5 +1,6 @@
 package io.metaloom.loom.db;
 
+import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -26,11 +27,11 @@ public interface CUDElement<SELF extends CUDElement<SELF>> extends Element<SELF>
 
 	SELF setCreatorUuid(UUID uuid);
 
-	OffsetDateTime getEdited();
+	Instant getEdited();
 
-	SELF setEdited(OffsetDateTime edate);
+	SELF setEdited(Instant edate);
 
-	OffsetDateTime getCreated();
+	Instant getCreated();
 
-	SELF setCreated(OffsetDateTime cdate);
+	SELF setCreated(Instant cdate);
 }

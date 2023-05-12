@@ -28,16 +28,16 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 	}
 
 	public void createUser(LoomRoutingContext lrc) {
-		create(lrc, CREATE_USER, daos -> {
-			UserDao userDao = daos.userDao();
+		create(lrc, CREATE_USER, () -> {
+			UserDao userDao = daos().userDao();
 			UserCreateRequest request = lrc.requestBody(UserCreateRequest.class);
 			String userName = request.getUsername();
 
 			// TODO validate request
 			// TODO handle conflicts
 
-			User creatorEditor = userDao.load(lrc.loomUser().getUuid());
-			User element = userDao.createUser(userName);
+			User creatorEditor = dao().load(lrc.loomUser().getUuid());
+			User element = dao().createUser(userName);
 			element.setCreator(creatorEditor);
 			element.setEditor(creatorEditor);
 

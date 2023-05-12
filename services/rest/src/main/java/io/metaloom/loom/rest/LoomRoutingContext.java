@@ -1,13 +1,17 @@
 package io.metaloom.loom.rest;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 
+import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.auth.LoomAuthorizationProvider;
 import io.metaloom.loom.auth.LoomUser;
 import io.metaloom.loom.db.model.perm.Permission;
 import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.RestResponseModel;
+import io.metaloom.loom.rest.model.message.GenericMessageResponse;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.ext.auth.User;
@@ -70,6 +74,18 @@ public class LoomRoutingContext {
 			}
 			return Future.succeededFuture(context);
 		});
+	}
+
+	public void error(String msg) {
+		send(new GenericMessageResponse().setMessage(msg), 500);
+	}
+
+	public UUID pathParamUUID(String key) {
+		String val = pathParam(key);
+		if (val == null) {
+			throw new LoomRestException(400, "Path parameter " + key + " not found");
+		}
+		return UUID.fromString(val);
 	}
 
 }

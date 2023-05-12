@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.model.asset.AssetLocationDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
@@ -26,13 +25,11 @@ public class AssetEndpointService extends AbstractEndpointService {
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpointService.class);
 
 	private AssetDao assetDao;
-	private AssetLocationDao assetLocationDao;
 
 	@Inject
-	public AssetEndpointService(AssetDao assetDao, AssetLocationDao assetLocationDao, LoomModelBuilder modelBuilder) {
+	public AssetEndpointService(AssetDao assetDao, LoomModelBuilder modelBuilder) {
 		super(modelBuilder);
 		this.assetDao = assetDao;
-		this.assetLocationDao = assetLocationDao;
 	}
 
 	public void delete(LoomRoutingContext lrc) {

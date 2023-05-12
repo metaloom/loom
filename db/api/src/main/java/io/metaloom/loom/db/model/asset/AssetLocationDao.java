@@ -6,6 +6,6 @@ import io.metaloom.loom.db.CRUDDao;
 
 public interface AssetLocationDao extends CRUDDao<AssetLocation> {
 
-	AssetLocation createAssetLocation(String filename, UUID assetUuid, UUID creatorUuid, UUID libraryUuid);
+	AssetLocation createAssetLocation(String path, UUID assetUuid, UUID creatorUuid, UUID libraryUuid);
 
 }

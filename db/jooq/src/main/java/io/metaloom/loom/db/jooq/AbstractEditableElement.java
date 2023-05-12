@@ -1,6 +1,6 @@
 package io.metaloom.loom.db.jooq;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import io.metaloom.loom.db.CUDElement;
@@ -13,8 +13,8 @@ public abstract class AbstractEditableElement<SELF extends CUDElement<SELF>> ext
 	private JsonObject meta;
 	private UUID creatorUuid;
 	private UUID editorUuid;
-	private OffsetDateTime edited;
-	private OffsetDateTime created;
+	private Instant edited;
+	private Instant created;
 
 	@Override
 	public UUID getUuid() {
@@ -50,23 +50,23 @@ public abstract class AbstractEditableElement<SELF extends CUDElement<SELF>> ext
 	}
 
 	@Override
-	public OffsetDateTime getEdited() {
+	public Instant getEdited() {
 		return edited;
 	}
 
 	@Override
-	public SELF setEdited(OffsetDateTime edate) {
+	public SELF setEdited(Instant edate) {
 		this.edited = edate;
 		return self();
 	}
 
 	@Override
-	public OffsetDateTime getCreated() {
+	public Instant getCreated() {
 		return created;
 	}
 
 	@Override
-	public SELF setCreated(OffsetDateTime cdate) {
+	public SELF setCreated(Instant cdate) {
 		this.created = cdate;
 		return self();
 	}

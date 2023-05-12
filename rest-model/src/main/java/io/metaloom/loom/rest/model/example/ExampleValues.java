@@ -1,8 +1,6 @@
 package io.metaloom.loom.rest.model.example;
 
 import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,9 +22,9 @@ import io.vertx.core.json.JsonObject;
 
 public interface ExampleValues {
 
-	public static final OffsetDateTime DATE_OLD = OffsetDateTime.from(Instant.parse("2018-10-12T14:15:06.024Z").atOffset(ZoneOffset.UTC));
+	public static final Instant DATE_OLD = Instant.parse("2018-10-12T14:15:06.024Z");
 
-	public static final OffsetDateTime DATE_NEW = OffsetDateTime.from(Instant.parse("2018-11-20T20:12:01.084Z").atOffset(ZoneOffset.UTC));
+	public static final Instant DATE_NEW = Instant.parse("2018-11-20T20:12:01.084Z");
 
 	default UUID uuidA() {
 		return UUIDUtils.fromString("f04e89d0-076d-4d90-b192-715a25a2cd59");
