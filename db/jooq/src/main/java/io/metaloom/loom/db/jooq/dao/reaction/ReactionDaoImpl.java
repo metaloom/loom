@@ -18,7 +18,7 @@ import io.metaloom.loom.db.model.reaction.ReactionDao;
 import io.metaloom.loom.db.model.task.Task;
 
 @Singleton
-public class ReactionDaoImpl extends AbstractJooqDao<Reaction> implements ReactionDao {
+public class ReactionDaoImpl extends AbstractJooqDao<Reaction,UUID> implements ReactionDao {
 
 	@Inject
 	public ReactionDaoImpl(DSLContext ctx) {

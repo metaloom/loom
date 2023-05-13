@@ -4,35 +4,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.Element;
 import io.metaloom.loom.db.page.Page;
 
-public abstract class AbstractMemDao<T extends Element<T>> implements CRUDDao<T> {
+public abstract class AbstractMemDao<T extends Element<T>, PT> implements CRUDDao<T, PT> {
 
-	protected Map<UUID, T> storage = new HashMap<>();
+	protected Map<PT, T> storage = new HashMap<>();
 
 	@Override
-	public T load(UUID uuid) {
-		return storage.get(uuid);
+	public T load(PT id) {
+		return storage.get(id);
 	}
 
 	@Override
-	public void delete(UUID uuid) {
-		storage.remove(uuid);
+	public void delete(PT id) {
+		storage.remove(id);
 	}
 
 	@Override
 	public void store(T element) {
-		storage.put(element.getUuid(), element);
+		PT id = primaryId(element);
+		storage.put(id, element);
 	}
 
 	@Override
 	public T update(T element) {
-		storage.put(element.getUuid(), element);
+		PT id = primaryId(element);
+		storage.put(id, element);
 		return element;
 	}
 
@@ -52,10 +53,10 @@ public abstract class AbstractMemDao<T extends Element<T>> implements CRUDDao<T>
 	}
 
 	@Override
-	public Page<T> loadPage(UUID fromUuid, int pageSize) {
+	public Page<T> loadPage(PT from, int pageSize) {
 		List<T> list = new ArrayList<>();
 		int n = 0;
-		boolean start = fromUuid == null;
+		boolean start = from == null;
 		for (T element : storage.values()) {
 			n++;
 			if (n >= pageSize) {
@@ -64,7 +65,7 @@ public abstract class AbstractMemDao<T extends Element<T>> implements CRUDDao<T>
 			if (start) {
 				list.add(element);
 			} else {
-				if (fromUuid.equals(element.getUuid())) {
+				if (from.equals(element.getUuid())) {
 					start = true;
 					list.add(element);
 				}

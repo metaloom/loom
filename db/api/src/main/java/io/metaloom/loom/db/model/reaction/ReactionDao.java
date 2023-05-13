@@ -7,7 +7,7 @@ import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.task.Task;
 import io.metaloom.loom.db.model.user.User;
 
-public interface ReactionDao extends CRUDDao<Reaction> {
+public interface ReactionDao extends CRUDDao<Reaction, UUID> {
 
 	default Reaction createReaction(User user, String type) {
 		return createReaction(user.getUuid(), type);

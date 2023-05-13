@@ -11,7 +11,7 @@ import io.metaloom.loom.db.model.user.User;
 /**
  * DAO to manage {@link Tag} elements.
  */
-public interface TagDao extends CRUDDao<Tag> {
+public interface TagDao extends CRUDDao<Tag, UUID> {
 
 	default Tag createTag(User user, String name, String collection) {
 		return createTag(user.getUuid(), name, collection);

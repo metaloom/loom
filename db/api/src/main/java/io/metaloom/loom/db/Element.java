@@ -4,6 +4,10 @@ import java.util.UUID;
 
 public interface Element<SELF extends Element<SELF>> {
 
+//	PT getId();
+//
+//	SELF setId(PT id);
+
 	/**
 	 * Return the UUID of the element.
 	 * 

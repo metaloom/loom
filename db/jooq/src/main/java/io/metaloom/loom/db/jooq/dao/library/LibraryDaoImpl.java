@@ -15,7 +15,7 @@ import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.library.LibraryDao;
 
 @Singleton
-public class LibraryDaoImpl extends AbstractJooqDao<Library> implements LibraryDao {
+public class LibraryDaoImpl extends AbstractJooqDao<Library,UUID> implements LibraryDao {
 
 	@Inject
 	public LibraryDaoImpl(DSLContext ctx) {

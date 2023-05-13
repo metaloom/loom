@@ -15,7 +15,7 @@ import io.metaloom.loom.db.model.role.Role;
 import io.metaloom.loom.db.model.role.RoleDao;
 
 @Singleton
-public class RoleDaoImpl extends AbstractJooqDao<Role> implements RoleDao {
+public class RoleDaoImpl extends AbstractJooqDao<Role,UUID> implements RoleDao {
 
 	@Inject
 	public RoleDaoImpl(DSLContext ctx) {

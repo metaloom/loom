@@ -15,10 +15,11 @@ import io.metaloom.loom.db.jooq.tables.JooqAsset;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.user.User;
+import io.metaloom.utils.hash.SHA512Sum;
 import io.vertx.core.json.JsonObject;
 
 @Singleton
-public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
+public class AssetDaoImpl extends AbstractJooqDao<Asset,SHA512Sum> implements AssetDao {
 
 	@Inject
 	public AssetDaoImpl(DSLContext ctx) {
@@ -36,10 +37,10 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	}
 
 	@Override
-	public Asset createAsset(UUID userUuid, String sha512sum, String mimeType, String initialOrigin, long size) {
+	public Asset createAsset(UUID userUuid, SHA512Sum sha512sum, String mimeType, String initialOrigin, long size) {
 		Objects.requireNonNull(sha512sum, "Binary sha512sum must not be null");
 		Asset asset = new AssetImpl();
-		asset.setSHA512(sha512sum);
+		asset.setSHA512(sha512sum.toString());
 		asset.setSize(size);
 		asset.setMimeType(mimeType);
 		asset.setInitialOrigin(initialOrigin);
@@ -48,16 +49,16 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	}
 
 	@Override
-	public Asset loadBySHA512Sum(String sha512sum) {
+	public Asset load(SHA512Sum sha512sum) {
 		return ctx()
 			.select(getTable())
-			.where(JooqAsset.ASSET.SHA512SUM.eq(sha512sum))
+			.where(JooqAsset.ASSET.SHA512SUM.eq(sha512sum.toString()))
 			.fetchOneInto(getPojoClass());
 	}
 
 	@Override
 	public Asset loadByUuid(UUID uuid) {
-		return load(uuid);
+		return loadByUuid(uuid);
 	}
 
 	@Override

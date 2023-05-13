@@ -24,7 +24,7 @@ import io.metaloom.loom.db.model.role.Role;
 import io.metaloom.loom.db.model.user.User;
 
 @Singleton
-public class GroupDaoImpl extends AbstractJooqDao<Group> implements GroupDao {
+public class GroupDaoImpl extends AbstractJooqDao<Group,UUID> implements GroupDao {
 
 	@Inject
 	public GroupDaoImpl(DSLContext context) {

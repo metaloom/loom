@@ -1,7 +1,11 @@
 package io.metaloom.loom.rest.service.impl;
 
 import static io.metaloom.loom.db.model.perm.Permission.CREATE_USER;
+import static io.metaloom.loom.db.model.perm.Permission.DELETE_USER;
 import static io.metaloom.loom.db.model.perm.Permission.READ_USER;
+import static io.metaloom.loom.db.model.perm.Permission.UPDATE_USER;
+
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -18,7 +22,7 @@ import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, User> {
+public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, User, UUID> {
 
 	private static final Logger log = LoggerFactory.getLogger(UserEndpointService.class);
 
@@ -27,7 +31,12 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 		super(userDao, daos, modelBuilder);
 	}
 
-	public void createUser(LoomRoutingContext lrc) {
+	@Override
+	public void delete(LoomRoutingContext lrc, UUID uuid) {
+		delete(lrc, DELETE_USER, uuid);
+	}
+
+	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_USER, () -> {
 			UserDao userDao = daos().userDao();
 			UserCreateRequest request = lrc.requestBody(UserCreateRequest.class);
@@ -42,25 +51,28 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 			element.setEditor(creatorEditor);
 
 			return userDao.createUser("test");
-		}, user -> {
-			return modelBuilder.toResponse(user);
-		});
+		}, modelBuilder::toResponse);
 	}
 
-	public void loadUser(LoomRoutingContext lrc) {
-		load(lrc, READ_USER, dao -> {
-			return dao.loadUserByUsername(lrc.pathParam("name"));
-		}, user -> {
-			return modelBuilder.toResponse(user);
-		});
+	@Override
+	public void update(LoomRoutingContext lrc, UUID id) {
+		update(lrc, UPDATE_USER, () -> {
+			User user = dao().load(id);
+			// TODO update
+			return dao().update(user);
+		}, modelBuilder::toResponse);
 	}
 
-	public void listUsers(LoomRoutingContext lrc) {
-		list(lrc, READ_USER, dao -> {
-			return dao.loadPage(null, 25);
-		}, page -> {
-			return modelBuilder.toUserList(page);
-		});
+	public void load(LoomRoutingContext lrc, UUID uuid) {
+		load(lrc, READ_USER, () -> {
+			return dao().load(uuid);
+		}, modelBuilder::toResponse);
+	}
+
+	public void list(LoomRoutingContext lrc) {
+		list(lrc, READ_USER, () -> {
+			return dao().loadPage(null, 25);
+		}, modelBuilder::toUserList);
 	}
 
 }

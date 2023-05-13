@@ -9,41 +9,54 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.metaloom.loom.rest.AbstractRESTEndpoint;
+import io.metaloom.loom.rest.AbstractEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
+import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.service.impl.AssetEndpointService;
+import io.metaloom.utils.hash.SHA512Sum;
 
-public class AssetEndpoint extends AbstractRESTEndpoint {
+public class AssetEndpoint extends AbstractEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpoint.class);
-
 	private final AssetEndpointService service;
 
 	@Inject
-	public AssetEndpoint(EndpointDependencies deps, AssetEndpointService assetService) {
+	public AssetEndpoint(AssetEndpointService service, EndpointDependencies deps) {
 		super(deps);
-		this.service = assetService;
+		this.service = service;
 	}
 
 	@Override
 	public void register() {
-		log.info("Registering asset endpoint");
+		log.info("Registering assets endpoint");
 
-		addRoute("/assets", POST, lrc -> {
+		addRoute(basePath(), POST, lrc -> {
 			service.create(lrc);
 		});
 
-		addRoute("/assets/:uuid", DELETE, lrc -> {
-			service.delete(lrc);
+		addRoute(basePath() + "/:sha512", POST, lrc -> {
+			service.update(lrc, pathHash(lrc, "sha512"));
 		});
 
-		addRoute("/assets", GET, lrc -> {
+		addRoute(basePath() + "/:sha512", DELETE, lrc -> {
+			service.delete(lrc, pathHash(lrc, "sha512"));
+		});
+
+		addRoute(basePath(), GET, lrc -> {
 			service.list(lrc);
 		});
 
-		addRoute("/assets/:uuid", GET, lrc -> {
-			service.load(lrc);
+		addRoute(basePath() + "/:sha512", GET, lrc -> {
+			service.load(lrc, pathHash(lrc, "sha512"));
 		});
 	}
 
+	private String basePath() {
+		return "/assets";
+	}
+	
+	public SHA512Sum pathHash(LoomRoutingContext lrc, String key) {
+		String value = lrc.pathParam(key);
+		return SHA512Sum.fromString(value);
+	}
 }

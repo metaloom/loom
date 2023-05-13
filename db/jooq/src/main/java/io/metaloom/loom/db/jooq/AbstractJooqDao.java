@@ -26,7 +26,7 @@ import io.metaloom.loom.db.page.Page;
  * @param <T>
  *            Pojo type
  */
-public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, CRUDDao<T> {
+public abstract class AbstractJooqDao<T extends Element<T>, PT> implements JooqDao, CRUDDao<T, PT> {
 
 	private final DSLContext ctx;
 
@@ -39,6 +39,10 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	}
 
 	abstract protected Table<? extends TableRecord<?>> getTable();
+
+	public Field<PT> getIdField(){
+		return (Field<PT>) getTable().field("uuid", UUID.class);
+	}
 
 	public Field<UUID> getUuidField() {
 		// return JooqAsset.ASSET.UUID;
@@ -84,12 +88,12 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	}
 
 	@Override
-	public void delete(UUID uuid) {
+	public void delete(PT id) {
 		Field<?>[] pk = pk();
 
 		if (pk != null) {
 			ctx().delete(getTable())
-				.where(pkSelect(uuid))
+				.where(pkSelect(id))
 				.execute();
 		}
 	}
@@ -100,11 +104,11 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	}
 
 	@Override
-	public T load(UUID uuid) {
+	public T load(PT id) {
 		return ctx()
 			.select(getTable())
 			.from(getTable())
-			.where(getTable().field("uuid", UUID.class).eq(uuid))
+			.where(getIdField().eq(id))
 			.fetchOneInto(getPojoClass());
 		// return ctx().selectFrom(USER)
 		// .where(USER.UUID.equal(uuid))
@@ -126,14 +130,14 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	}
 
 	@Override
-	public Page<T> loadPage(UUID fromUuid, int pageSize) {
+	public Page<T> loadPage(PT fromId, int pageSize) {
 		// SelectSeekStep1<Record3<UUID, String, UUID>, UUID>
-		SelectSeekStep1<?, UUID> query = ctx()
+		SelectSeekStep1<?, PT> query = ctx()
 			.select(getTable())
 			.from(getTable())
-			.orderBy(getUuidField());
-		if (fromUuid != null) {
-			query.seek(fromUuid);
+			.orderBy(getIdField());
+		if (fromId != null) {
+			query.seek(fromId);
 		}
 		List<T> list = query
 			.limit(pageSize)

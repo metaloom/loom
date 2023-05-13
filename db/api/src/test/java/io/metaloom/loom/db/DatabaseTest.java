@@ -6,6 +6,7 @@ import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.test.TestValues;
+import io.metaloom.utils.hash.SHA512Sum;
 
 public interface DatabaseTest extends TestValues, DaoProvider {
 
@@ -28,7 +29,7 @@ public interface DatabaseTest extends TestValues, DaoProvider {
 	}
 
 	default Asset createAsset(User user) {
-		Asset asset = assetDao().createAsset(user, SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
+		Asset asset = assetDao().createAsset(user, SHA512Sum.fromString(SHA512SUM), IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
 		assetDao().store(asset);
 		return asset;
 	}

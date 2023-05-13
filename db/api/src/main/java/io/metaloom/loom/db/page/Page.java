@@ -2,7 +2,6 @@ package io.metaloom.loom.db.page;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 
 import io.metaloom.loom.db.Element;
 
@@ -28,14 +27,6 @@ public class Page<T extends Element<T>> implements Iterable<T> {
 
 	public boolean isEmpty() {
 		return list.isEmpty();
-	}
-
-	public UUID lastUUID() {
-		if (isEmpty()) {
-			return null;
-		} else {
-			return last().getUuid();
-		}
 	}
 
 	public T last() {

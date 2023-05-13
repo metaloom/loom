@@ -25,6 +25,7 @@ import io.metaloom.loom.db.model.token.Token;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.model.webhook.Webhook;
 import io.metaloom.utils.StringUtils;
+import io.metaloom.utils.hash.SHA512Sum;
 
 public class TestFixtureProvider extends AbstractFixtureProvider {
 
@@ -167,7 +168,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 	}
 
 	private Asset createAsset(Library library, User user) {
-		Asset asset = assetDao().createAsset(user, SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
+		Asset asset = assetDao().createAsset(user, SHA512Sum.fromString(SHA256SUM), IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
 		asset.setUuid(ASSET_UUID);
 		assetDao().store(asset);
 		return asset;

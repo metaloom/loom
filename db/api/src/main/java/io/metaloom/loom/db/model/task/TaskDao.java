@@ -6,7 +6,7 @@ import java.util.UUID;
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.model.user.User;
 
-public interface TaskDao extends CRUDDao<Task> {
+public interface TaskDao extends CRUDDao<Task, UUID> {
 
 	default Task createTask(User user, String title) {
 		return createTask(user.getUuid(), title);

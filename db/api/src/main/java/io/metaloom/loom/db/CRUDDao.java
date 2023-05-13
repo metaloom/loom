@@ -1,26 +1,35 @@
 package io.metaloom.loom.db;
 
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import io.metaloom.loom.db.page.Page;
 
-public interface CRUDDao<T extends Element<T>> extends Dao {
+/**
+ * @param <T>
+ *            Element type for the DTO
+ * @param <PT>
+ *            Type of the id
+ */
+public interface CRUDDao<T extends Element<T>, PT> extends Dao {
 
 	default void delete(T element) {
-		delete(element.getUuid());
+		delete(primaryId(element));
+	}
+
+	default PT primaryId(T element) {
+		return (PT) element.getUuid();
 	}
 
 	/**
-	 * Delete the element with the given uuid.
+	 * Delete the element with the given id.
 	 * 
-	 * @param uuid
+	 * @param id
 	 */
-	void delete(UUID uuid);
+	void delete(PT id);
 
 	T update(T element);
 
-	T load(UUID uuid);
+	T load(PT id);
 
 	/**
 	 * Store the element.
@@ -32,11 +41,11 @@ public interface CRUDDao<T extends Element<T>> extends Dao {
 	/**
 	 * Load a page of elements.
 	 * 
-	 * @param fromUuid
+	 * @param fromId
 	 * @param pageSize
 	 * @return
 	 */
-	Page<T> loadPage(UUID fromUuid, int pageSize);
+	Page<T> loadPage(PT fromId, int pageSize);
 
 	Stream<? extends T> findAll();
 

@@ -8,11 +8,11 @@ import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.Router;
 
-public abstract class AbstractRESTEndpoint implements RESTEndpoint {
+public abstract class AbstractEndpoint implements RESTEndpoint {
 
 	private EndpointDependencies deps;
 
-	public AbstractRESTEndpoint(EndpointDependencies deps) {
+	public AbstractEndpoint(EndpointDependencies deps) {
 		this.deps = deps;
 	}
 

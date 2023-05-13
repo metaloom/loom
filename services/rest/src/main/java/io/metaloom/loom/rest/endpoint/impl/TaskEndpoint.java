@@ -2,24 +2,29 @@ package io.metaloom.loom.rest.endpoint.impl;
 
 import javax.inject.Inject;
 
-import io.metaloom.loom.rest.AbstractRESTEndpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.metaloom.loom.rest.AbstractCRUDEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
 import io.metaloom.loom.rest.service.impl.TaskEndpointService;
 
-public class TaskEndpoint  extends AbstractRESTEndpoint {
+public class TaskEndpoint extends AbstractCRUDEndpoint<TaskEndpointService> {
 
-	private final TaskEndpointService taskService;
+	private static final Logger log = LoggerFactory.getLogger(TaskEndpoint.class);
 
 	@Inject
-	public TaskEndpoint(TaskEndpointService taskService, EndpointDependencies deps) {
-		super(deps);
-		this.taskService = taskService;
+	public TaskEndpoint(TaskEndpointService service, EndpointDependencies deps) {
+		super(service, deps);
 	}
 
 	@Override
-	public void register() {
-		// TODO Auto-generated method stub
-		
+	protected String name() {
+		return "task";
 	}
 
+	@Override
+	protected String basePath() {
+		return "/tasks";
+	}
 }

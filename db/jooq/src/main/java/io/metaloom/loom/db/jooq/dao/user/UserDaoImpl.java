@@ -2,6 +2,8 @@ package io.metaloom.loom.db.jooq.dao.user;
 
 import static io.metaloom.loom.db.jooq.tables.JooqUser.USER;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -16,7 +18,7 @@ import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.model.user.UserDao;
 
 @Singleton
-public class UserDaoImpl extends AbstractJooqDao<User> implements UserDao, JooqDao {
+public class UserDaoImpl extends AbstractJooqDao<User,UUID> implements UserDao, JooqDao {
 
 	@Inject
 	public UserDaoImpl(DSLContext ctx) {

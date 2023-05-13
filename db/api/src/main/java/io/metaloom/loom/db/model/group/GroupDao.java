@@ -7,7 +7,7 @@ import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.model.role.Role;
 import io.metaloom.loom.db.model.user.User;
 
-public interface GroupDao extends CRUDDao<Group> {
+public interface GroupDao extends CRUDDao<Group, UUID> {
 
 	default Group create(User user, String name) {
 		return create(user.getUuid(), name);

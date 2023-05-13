@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
-import io.metaloom.loom.rest.model.asset.location.AssetS3Meta;
+import io.metaloom.loom.rest.model.asset.location.HashInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.vertx.core.json.JsonObject;
 
@@ -38,6 +38,26 @@ public class AssetCreateRequest implements RestRequestModel {
 
 	@JsonPropertyDescription("The local path of the asset. This will only be returned when the asset was created using a local path.")
 	private String localPath;
+
+	@JsonPropertyDescription("A set of different computed hashes for the asset.")
+	private HashInfo hashes;
+
+	@JsonPropertyDescription("Information about the image component of the asset (if present)")
+	private ImageInfo image;
+
+	@JsonPropertyDescription("Information about the video component of the asset (if present)")
+	private VideoInfo video;
+
+	@JsonPropertyDescription("Information about the audio component of the asset (if present)")
+	private AudioInfo audio;
+
+	@JsonPropertyDescription("Information about the document (text) component of the asset (if present)")
+	private DocumentInfo document;
+
+	private String origin;
+
+	@JsonPropertyDescription("The size of the asset in bytes.")
+	private long size;
 
 	public AssetCreateRequest() {
 	}
@@ -120,6 +140,69 @@ public class AssetCreateRequest implements RestRequestModel {
 
 	public AssetCreateRequest setTags(List<TagReference> tags) {
 		this.tags = tags;
+		return this;
+	}
+
+	public HashInfo getHashes() {
+		return hashes;
+	}
+
+	public AssetCreateRequest setHashes(HashInfo hashes) {
+		this.hashes = hashes;
+		return this;
+	}
+
+	public AudioInfo getAudio() {
+		return audio;
+	}
+
+	public AssetCreateRequest setAudio(AudioInfo audio) {
+		this.audio = audio;
+		return this;
+	}
+
+	public ImageInfo getImage() {
+		return image;
+	}
+
+	public AssetCreateRequest setImage(ImageInfo image) {
+		this.image = image;
+		return this;
+	}
+
+	public VideoInfo getVideo() {
+		return video;
+	}
+
+	public AssetCreateRequest setVideo(VideoInfo video) {
+		this.video = video;
+		return this;
+	}
+
+	public DocumentInfo getDocument() {
+		return document;
+	}
+
+	public AssetCreateRequest setDocument(DocumentInfo document) {
+		this.document = document;
+		return this;
+	}
+
+	public String getOrigin() {
+		return origin;
+	}
+
+	public AssetCreateRequest setOrigin(String origin) {
+		this.origin = origin;
+		return this;
+	}
+
+	public long getSize() {
+		return size;
+	}
+
+	public AssetCreateRequest setSize(long size) {
+		this.size = size;
 		return this;
 	}
 

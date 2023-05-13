@@ -5,7 +5,7 @@ import java.util.UUID;
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.model.user.User;
 
-public interface WebhookDao extends CRUDDao<Webhook> {
+public interface WebhookDao extends CRUDDao<Webhook, UUID> {
 
 	default Webhook createWebhook(User user, String url) {
 		return createWebhook(user.getUuid(), url);

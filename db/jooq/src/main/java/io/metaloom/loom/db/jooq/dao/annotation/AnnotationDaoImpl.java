@@ -20,7 +20,7 @@ import io.metaloom.loom.db.model.annotation.AnnotationDao;
 import io.metaloom.loom.db.model.annotation.AnnotationType;
 
 @Singleton
-public class AnnotationDaoImpl extends AbstractJooqDao<Annotation> implements AnnotationDao {
+public class AnnotationDaoImpl extends AbstractJooqDao<Annotation,UUID> implements AnnotationDao {
 
 	@Inject
 	public AnnotationDaoImpl(DSLContext ctx) {

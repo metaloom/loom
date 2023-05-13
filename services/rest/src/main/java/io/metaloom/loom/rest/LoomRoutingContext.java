@@ -88,4 +88,17 @@ public class LoomRoutingContext {
 		return UUID.fromString(val);
 	}
 
+	public int pageSize() {
+		String limitStr = pathParam("limit");
+		int limit = 25;
+		if (limitStr != null) {
+			limit = Integer.valueOf(limitStr);
+		}
+		return limit;
+	}
+
+	public UUID userUuid() {
+		return loomUser().getUuid();
+	}
+
 }

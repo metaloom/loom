@@ -17,7 +17,7 @@ import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.asset.AssetLocationDao;
 
 @Singleton
-public class AssetLocationDaoImpl extends AbstractJooqDao<AssetLocation> implements AssetLocationDao {
+public class AssetLocationDaoImpl extends AbstractJooqDao<AssetLocation,UUID> implements AssetLocationDao {
 
 	@Inject
 	public AssetLocationDaoImpl(DSLContext ctx) {

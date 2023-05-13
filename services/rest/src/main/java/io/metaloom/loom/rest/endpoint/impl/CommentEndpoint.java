@@ -1,22 +1,28 @@
 package io.metaloom.loom.rest.endpoint.impl;
 
-import io.metaloom.loom.rest.AbstractRESTEndpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.metaloom.loom.rest.AbstractCRUDEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
 import io.metaloom.loom.rest.service.impl.CommentEndpointService;
 
-public class CommentEndpoint extends AbstractRESTEndpoint {
+public class CommentEndpoint extends AbstractCRUDEndpoint<CommentEndpointService> {
 
-	private final CommentEndpointService commentService;
+	private static final Logger log = LoggerFactory.getLogger(CommentEndpoint.class);
 
-	public CommentEndpoint(CommentEndpointService commentService, EndpointDependencies deps) {
-		super(deps);
-		this.commentService = commentService;
+	public CommentEndpoint(CommentEndpointService service, EndpointDependencies deps) {
+		super(service, deps);
 	}
 
 	@Override
-	public void register() {
-		// TODO Auto-generated method stub
+	protected String name() {
+		return "comment";
+	}
 
+	@Override
+	protected String basePath() {
+		return "/comments";
 	}
 
 }

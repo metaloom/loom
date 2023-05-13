@@ -15,7 +15,7 @@ import io.metaloom.loom.db.model.token.Token;
 import io.metaloom.loom.db.model.token.TokenDao;
 
 @Singleton
-public class TokenDaoImpl extends AbstractJooqDao<Token> implements TokenDao {
+public class TokenDaoImpl extends AbstractJooqDao<Token,UUID> implements TokenDao {
 
 	@Inject
 	public TokenDaoImpl(DSLContext ctx) {

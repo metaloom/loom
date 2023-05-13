@@ -2,23 +2,30 @@ package io.metaloom.loom.rest.endpoint.impl;
 
 import javax.inject.Inject;
 
-import io.metaloom.loom.rest.AbstractRESTEndpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.metaloom.loom.rest.AbstractCRUDEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
 import io.metaloom.loom.rest.service.impl.WebhookEndpointService;
 
-public class WebhookEndpoint extends AbstractRESTEndpoint {
+public class WebhookEndpoint extends AbstractCRUDEndpoint<WebhookEndpointService> {
 
-	private WebhookEndpointService webhookService;
+	private static final Logger log = LoggerFactory.getLogger(WebhookEndpoint.class);
 
 	@Inject
-	public WebhookEndpoint(WebhookEndpointService webhookService, EndpointDependencies deps) {
-		super(deps);
-		this.webhookService = webhookService;
+	public WebhookEndpoint(WebhookEndpointService service, EndpointDependencies deps) {
+		super(service, deps);
 	}
 
 	@Override
-	public void register() {
+	protected String name() {
+		return "webhook";
+	}
 
+	@Override
+	protected String basePath() {
+		return "/webhooks";
 	}
 
 }

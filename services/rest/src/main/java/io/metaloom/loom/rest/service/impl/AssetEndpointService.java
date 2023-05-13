@@ -1,5 +1,9 @@
 package io.metaloom.loom.rest.service.impl;
 
+import static io.metaloom.loom.db.model.perm.Permission.CREATE_ASSET;
+import static io.metaloom.loom.db.model.perm.Permission.READ_ASSET;
+import static io.metaloom.loom.db.model.perm.Permission.UPDATE_ASSET;
+
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -8,71 +12,63 @@ import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
-import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
-import io.metaloom.loom.rest.model.asset.AssetListResponse;
-import io.metaloom.loom.rest.model.asset.AssetResponse;
-import io.metaloom.loom.rest.model.asset.location.LocationResponse;
-import io.metaloom.loom.rest.service.AbstractEndpointService;
+import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.utils.hash.SHA512Sum;
 
 @Singleton
-public class AssetEndpointService extends AbstractEndpointService {
+public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, Asset, SHA512Sum> {
 
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpointService.class);
 
-	private AssetDao assetDao;
-
 	@Inject
-	public AssetEndpointService(AssetDao assetDao, LoomModelBuilder modelBuilder) {
-		super(modelBuilder);
-		this.assetDao = assetDao;
+	public AssetEndpointService(AssetDao assetDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
+		super(assetDao, daos, modelBuilder);
 	}
 
-	public void delete(LoomRoutingContext lrc) {
-		UUID uuid = UUID.fromString(lrc.pathParam("uuid"));
-		System.out.println("DELETE ASSET " + uuid);
-		// TODO check Perm
-		assetDao.delete(uuid);
-		LocationResponse response = new LocationResponse();
-		response.setUuid(UUID.randomUUID());
-		lrc.send();
-
+	public void delete(LoomRoutingContext lrc, SHA512Sum uuid) {
+		delete(lrc, uuid);
 	}
 
 	public void list(LoomRoutingContext lrc) {
-		String fromStr = lrc.pathParam("from");
-		UUID fromUuid = null;
-		if (fromStr != null) {
-			fromUuid = UUID.fromString(fromStr);
-		}
-		String limitStr = lrc.pathParam("limit");
-		int limit = 25;
-		if (limitStr != null) {
-			limit = Integer.valueOf(limitStr);
-		}
-		Page<Asset> page = assetDao.loadPage(fromUuid, limit);
-		AssetListResponse response = modelBuilder.toAssetList(page);
-		lrc.send(response);
+		list(lrc, READ_ASSET, () -> {
+			SHA512Sum from = SHA512Sum.fromString(lrc.pathParam("from"));
+			return dao().loadPage(from, lrc.pageSize());
+		}, modelBuilder::toAssetList);
 	}
 
-	public void load(LoomRoutingContext lrc) {
-		UUID uuid = UUID.fromString(lrc.pathParam("uuid"));
-		Asset asset = assetDao.load(uuid);
-		AssetResponse response = modelBuilder.toResponse(asset);
-		lrc.send(response);
+	public void load(LoomRoutingContext lrc, SHA512Sum sha512sum) {
+		load(lrc, READ_ASSET, () -> {
+			Asset asset = dao().load(sha512sum);
+			return asset;
+		}, modelBuilder::toResponse);
+	}
+
+	@Override
+	public void update(LoomRoutingContext lrc, SHA512Sum id) {
+		update(lrc, UPDATE_ASSET, () -> {
+			Asset asset = dao().load(id);
+			// TODO Update
+			return dao().update(asset);
+		}, modelBuilder::toResponse);
 	}
 
 	public void create(LoomRoutingContext lrc) {
-		AssetCreateRequest request = lrc.requestBody(AssetCreateRequest.class);
-
-		System.out.println("From Request " + request.getLocalPath());
-		LocationResponse response = new LocationResponse();
-		response.setUuid(UUID.randomUUID());
-		lrc.send(response);
+		create(lrc, CREATE_ASSET, () -> {
+			AssetCreateRequest request = lrc.requestBody(AssetCreateRequest.class);
+			UUID userUuid = lrc.userUuid();
+			String sha512sumStr = request.getHashes().getSha512();
+			SHA512Sum sha512sum = SHA512Sum.fromString(sha512sumStr);
+			String mimeType = request.getMimeType();
+			String initialOrigin = request.getOrigin();
+			Long size = request.getSize();
+			return dao().createAsset(userUuid, sha512sum, mimeType, initialOrigin, size);
+		}, modelBuilder::toResponse);
 	}
 
 }

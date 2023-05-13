@@ -11,7 +11,7 @@ import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.utils.UUIDUtils;
 
-public class MemUsersDaoImpl extends AbstractMemDao<User> implements UserDao {
+public class MemUsersDaoImpl extends AbstractMemDao<User,UUID> implements UserDao {
 
 	@Override
 	public User loadUserByUsername(String username) {
