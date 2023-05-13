@@ -30,6 +30,7 @@ public class AssetEndpoint extends AbstractEndpoint {
 	public void register() {
 		log.info("Registering assets endpoint");
 
+		secure(basePath() + "*");
 		addRoute(basePath(), POST, lrc -> {
 			service.create(lrc);
 		});
@@ -54,7 +55,7 @@ public class AssetEndpoint extends AbstractEndpoint {
 	private String basePath() {
 		return "/assets";
 	}
-	
+
 	public SHA512Sum pathHash(LoomRoutingContext lrc, String key) {
 		String value = lrc.pathParam(key);
 		return SHA512Sum.fromString(value);

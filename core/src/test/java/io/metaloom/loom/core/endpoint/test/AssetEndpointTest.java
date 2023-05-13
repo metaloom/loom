@@ -46,9 +46,7 @@ public class AssetEndpointTest extends AbstractEndpointTest implements CRUDEndpo
 				client.loadAsset(ASSET_UUID).sync();
 				fail("The load should fail");
 			} catch (HttpErrorException e) {
-				{
-					e.printStackTrace();
-				}
+				e.printStackTrace();
 			}
 		}
 	}
