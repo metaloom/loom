@@ -1,5 +1,10 @@
 package io.metaloom.loom.rest.service.impl;
 
+import static io.metaloom.loom.db.model.perm.Permission.CREATE_GROUP;
+import static io.metaloom.loom.db.model.perm.Permission.DELETE_GROUP;
+import static io.metaloom.loom.db.model.perm.Permission.READ_GROUP;
+import static io.metaloom.loom.db.model.perm.Permission.UPDATE_GROUP;
+
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -21,33 +26,39 @@ public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, 
 	}
 
 	@Override
-	public void delete(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-
+	public void delete(LoomRoutingContext lrc, UUID id) {
+		delete(lrc, DELETE_GROUP, id);
 	}
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		// TODO Auto-generated method stub
-
+		list(lrc, READ_GROUP, () -> {
+			return dao().loadPage(null, 0);
+		}, modelBuilder::toGroupList);
 	}
 
 	@Override
-	public void load(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-
+	public void load(LoomRoutingContext lrc, UUID id) {
+		load(lrc, READ_GROUP, () -> {
+			return dao().load(id);
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
 	public void create(LoomRoutingContext lrc) {
-		// TODO Auto-generated method stub
-
+		create(lrc, CREATE_GROUP, () -> {
+			String name = null;
+			UUID userUuid = lrc.userUuid();
+			return dao().create(userUuid, name);
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
-	public void update(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-
+	public void update(LoomRoutingContext lrc, UUID id) {
+		update(lrc, UPDATE_GROUP, () -> {
+			Group group = dao().load(id);
+			// TOOD update
+			return dao().update(group);
+		}, modelBuilder::toResponse);
 	}
-
 }

@@ -1,5 +1,10 @@
 package io.metaloom.loom.rest.service.impl;
 
+import static io.metaloom.loom.db.model.perm.Permission.CREATE_WEBHOOK;
+import static io.metaloom.loom.db.model.perm.Permission.DELETE_WEBHOOK;
+import static io.metaloom.loom.db.model.perm.Permission.READ_WEBHOOK;
+import static io.metaloom.loom.db.model.perm.Permission.UPDATE_WEBHOOK;
+
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -21,31 +26,39 @@ public class WebhookEndpointService extends AbstractCRUDEndpointService<WebhookD
 	}
 
 	@Override
-	public void delete(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-		
+	public void delete(LoomRoutingContext lrc, UUID id) {
+		delete(lrc, DELETE_WEBHOOK, id);
 	}
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		// TODO Auto-generated method stub
-		
+		list(lrc, READ_WEBHOOK, () -> {
+			return dao().loadPage(null, 0);
+		}, modelBuilder::toWebhookList);
 	}
 
 	@Override
-	public void load(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-		
+	public void load(LoomRoutingContext lrc, UUID id) {
+		load(lrc, READ_WEBHOOK, () -> {
+			return dao().load(id);
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
 	public void create(LoomRoutingContext lrc) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void update(LoomRoutingContext lrc, UUID uuid) {
-		
+		create(lrc, CREATE_WEBHOOK, () -> {
+			UUID userUuid = lrc.userUuid();
+			String url = null;
+			return dao().createWebhook(userUuid, url);
+		}, modelBuilder::toResponse);
 	}
 
+	@Override
+	public void update(LoomRoutingContext lrc, UUID id) {
+		update(lrc, UPDATE_WEBHOOK, () -> {
+			Webhook webhook = dao().load(id);
+			// TOOD update
+			return dao().update(webhook);
+		}, modelBuilder::toResponse);
+	}
 }

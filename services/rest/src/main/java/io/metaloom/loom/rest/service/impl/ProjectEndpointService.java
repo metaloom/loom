@@ -1,5 +1,10 @@
 package io.metaloom.loom.rest.service.impl;
 
+import static io.metaloom.loom.db.model.perm.Permission.CREATE_PROJECT;
+import static io.metaloom.loom.db.model.perm.Permission.DELETE_PROJECT;
+import static io.metaloom.loom.db.model.perm.Permission.READ_PROJECT;
+import static io.metaloom.loom.db.model.perm.Permission.UPDATE_PROJECT;
+
 import java.util.UUID;
 
 import javax.inject.Singleton;
@@ -20,33 +25,40 @@ public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectD
 	}
 
 	@Override
-	public void delete(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-
+	public void delete(LoomRoutingContext lrc, UUID id) {
+		delete(lrc, DELETE_PROJECT, id);
 	}
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		// TODO Auto-generated method stub
-
+		list(lrc, READ_PROJECT, () -> {
+			return dao().loadPage(null, 0);
+		}, modelBuilder::toProjectList);
 	}
 
 	@Override
-	public void load(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-
+	public void load(LoomRoutingContext lrc, UUID id) {
+		load(lrc, READ_PROJECT, () -> {
+			return dao().load(id);
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
 	public void create(LoomRoutingContext lrc) {
-		// TODO Auto-generated method stub
-
+		create(lrc, CREATE_PROJECT, () -> {
+			UUID userUuid = lrc.userUuid();
+			String name = null;
+			return dao().createProject(userUuid, name);
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
-	public void update(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-
+	public void update(LoomRoutingContext lrc, UUID id) {
+		update(lrc, UPDATE_PROJECT, () -> {
+			Project project = dao().load(id);
+			// TOOD update
+			return dao().update(project);
+		}, modelBuilder::toResponse);
 	}
 
 }

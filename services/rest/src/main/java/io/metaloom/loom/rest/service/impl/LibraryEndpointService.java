@@ -1,5 +1,10 @@
 package io.metaloom.loom.rest.service.impl;
 
+import static io.metaloom.loom.db.model.perm.Permission.CREATE_LIBRARY;
+import static io.metaloom.loom.db.model.perm.Permission.DELETE_LIBRARY;
+import static io.metaloom.loom.db.model.perm.Permission.READ_LIBRARY;
+import static io.metaloom.loom.db.model.perm.Permission.UPDATE_LIBRARY;
+
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -21,32 +26,40 @@ public class LibraryEndpointService extends AbstractCRUDEndpointService<LibraryD
 	}
 
 	@Override
-	public void delete(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-
+	public void delete(LoomRoutingContext lrc, UUID id) {
+		delete(lrc, DELETE_LIBRARY, id);
 	}
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		// TODO Auto-generated method stub
-
+		list(lrc, READ_LIBRARY, () -> {
+			return dao().loadPage(null, 0);
+		}, modelBuilder::toLibraryList);
 	}
 
 	@Override
-	public void load(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-
+	public void load(LoomRoutingContext lrc, UUID id) {
+		load(lrc, READ_LIBRARY, () -> {
+			return dao().load(id);
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
 	public void create(LoomRoutingContext lrc) {
-		// TODO Auto-generated method stub
-
+		create(lrc, CREATE_LIBRARY, () -> {
+			String name = null;
+			UUID userUuid = lrc.userUuid();
+			return dao().createLibrary(userUuid, name);
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
-	public void update(LoomRoutingContext lrc, UUID uuid) {
-
+	public void update(LoomRoutingContext lrc, UUID id) {
+		update(lrc, UPDATE_LIBRARY, () -> {
+			Library library = dao().load(id);
+			// TOOD update
+			return dao().update(library);
+		}, modelBuilder::toResponse);
 	}
 
 }

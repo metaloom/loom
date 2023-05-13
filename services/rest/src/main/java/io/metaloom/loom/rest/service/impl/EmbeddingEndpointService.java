@@ -6,8 +6,6 @@ import static io.metaloom.loom.db.model.perm.Permission.READ_EMBEDDING;
 import static io.metaloom.loom.db.model.perm.Permission.UPDATE_EMBEDDING;
 
 import java.util.UUID;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -16,10 +14,8 @@ import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.embedding.Embedding;
 import io.metaloom.loom.db.model.embedding.EmbeddingDao;
 import io.metaloom.loom.db.model.embedding.EmbeddingType;
-import io.metaloom.loom.db.model.perm.Permission;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
-import io.metaloom.loom.rest.model.RestResponseModel;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
@@ -65,7 +61,7 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 			return modelBuilder.toResponse(embedding);
 		});
 	}
-	
+
 	@Override
 	public void update(LoomRoutingContext lrc, UUID uuid) {
 		create(lrc, UPDATE_EMBEDDING, () -> {

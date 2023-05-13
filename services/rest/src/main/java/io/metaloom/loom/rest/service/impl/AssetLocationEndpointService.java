@@ -56,9 +56,7 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 				lrc.error("Unknown location information");
 				return null;
 			}
-		}, location -> {
-			return modelBuilder.toResponse(location);
-		});
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
@@ -67,25 +65,19 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 			AssetLocation location = dao().load(uuid);
 			// TODO update
 			return dao().update(location);
-		}, location -> {
-			return modelBuilder.toResponse(location);
-		});
+		}, modelBuilder::toResponse);
 	}
 
 	public void load(LoomRoutingContext lrc, UUID uuid) {
 		load(lrc, READ_ASSET_LOCATION, () -> {
 			return dao().load(uuid);
-		}, location -> {
-			return modelBuilder.toResponse(location);
-		});
+		}, modelBuilder::toResponse);
 	}
 
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_ASSET_LOCATION, () -> {
 			return dao().loadPage(null, 25);
-		}, page -> {
-			return modelBuilder.toLocationList(page);
-		});
+		}, modelBuilder::toLocationList);
 	}
 
 }

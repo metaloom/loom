@@ -1,21 +1,67 @@
 package io.metaloom.loom.rest.service.impl;
 
+import static io.metaloom.loom.db.model.perm.Permission.CREATE_CLUSTER;
+import static io.metaloom.loom.db.model.perm.Permission.DELETE_CLUSTER;
+import static io.metaloom.loom.db.model.perm.Permission.READ_CLUSTER;
+import static io.metaloom.loom.db.model.perm.Permission.UPDATE_CLUSTER;
+
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.metaloom.loom.db.dagger.DaoCollection;
+import io.metaloom.loom.db.model.cluster.Cluster;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
+import io.metaloom.loom.db.model.cluster.ClusterType;
+import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
-import io.metaloom.loom.rest.service.AbstractEndpointService;
+import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class ClusterEndpointService extends AbstractEndpointService {
-
-	private final ClusterDao clusterDao;
+public class ClusterEndpointService extends AbstractCRUDEndpointService<ClusterDao, Cluster, UUID> {
 
 	@Inject
-	public ClusterEndpointService(ClusterDao clusterDao, LoomModelBuilder modelBuilder) {
-		super(modelBuilder);
-		this.clusterDao = clusterDao;
+	public ClusterEndpointService(ClusterDao clusterDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
+		super(clusterDao, daos, modelBuilder);
+	}
+
+	@Override
+	public void delete(LoomRoutingContext lrc, UUID id) {
+		delete(lrc, DELETE_CLUSTER, id);
+	}
+
+	@Override
+	public void list(LoomRoutingContext lrc) {
+		list(lrc, READ_CLUSTER, () -> {
+			return dao().loadPage(null, 0);
+		}, modelBuilder::toClusterList);
+	}
+
+	@Override
+	public void load(LoomRoutingContext lrc, UUID id) {
+		load(lrc, READ_CLUSTER, () -> {
+			return dao().load(id);
+		}, modelBuilder::toResponse);
+	}
+
+	@Override
+	public void create(LoomRoutingContext lrc) {
+		create(lrc, CREATE_CLUSTER, () -> {
+			String name = null;
+			UUID userUuid = lrc.userUuid();
+			ClusterType type = null;
+			return dao().createCluster(userUuid, name, type);
+		}, modelBuilder::toResponse);
+	}
+
+	@Override
+	public void update(LoomRoutingContext lrc, UUID id) {
+		update(lrc, UPDATE_CLUSTER, () -> {
+			Cluster cluster = dao().load(id);
+			// TOOD update
+			return dao().update(cluster);
+		}, modelBuilder::toResponse);
 	}
 
 }

@@ -1,5 +1,10 @@
 package io.metaloom.loom.rest.service.impl;
 
+import static io.metaloom.loom.db.model.perm.Permission.CREATE_COMMENT;
+import static io.metaloom.loom.db.model.perm.Permission.DELETE_COMMENT;
+import static io.metaloom.loom.db.model.perm.Permission.READ_COMMENT;
+import static io.metaloom.loom.db.model.perm.Permission.UPDATE_COMMENT;
+
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -20,33 +25,41 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 		super(commentDao, daos, modelBuilder);
 	}
 
+	
 	@Override
-	public void delete(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-		
+	public void delete(LoomRoutingContext lrc, UUID id) {
+		delete(lrc, DELETE_COMMENT, id);
 	}
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		// TODO Auto-generated method stub
-		
+		list(lrc, READ_COMMENT, () -> {
+			return dao().loadPage(null, 0);
+		}, modelBuilder::toCommentList);
 	}
 
 	@Override
-	public void load(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-		
+	public void load(LoomRoutingContext lrc, UUID id) {
+		load(lrc, READ_COMMENT, () -> {
+			return dao().load(id);
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
 	public void create(LoomRoutingContext lrc) {
-		// TODO Auto-generated method stub
-		
+		create(lrc, CREATE_COMMENT, () -> {
+			UUID userUuid = lrc.userUuid();
+			String title = null;
+			return dao().createComment(userUuid, title);
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
-	public void update(LoomRoutingContext lrc, UUID uuid) {
-		// TODO Auto-generated method stub
-		
+	public void update(LoomRoutingContext lrc, UUID id) {
+		update(lrc, UPDATE_COMMENT, () -> {
+			Comment comment = dao().load(id);
+			// TOOD update
+			return dao().update(comment);
+		}, modelBuilder::toResponse);
 	}
 }

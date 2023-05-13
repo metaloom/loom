@@ -7,6 +7,14 @@ import io.metaloom.loom.rest.model.token.TokenResponse;
 
 public interface TokenModelBuilder extends ModelBuilder, UserModelBuilder {
 
+	default TokenResponse toResponse(Token token) {
+		return toResponse(token, false);
+	}
+
+	default TokenResponse toResponseWithToken(Token token) {
+		return toResponse(token, true);
+	}
+
 	default TokenResponse toResponse(Token token, boolean exposeToken) {
 		TokenResponse response = new TokenResponse();
 		response.setUuid(token.getUuid());
