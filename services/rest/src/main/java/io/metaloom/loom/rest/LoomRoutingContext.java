@@ -4,6 +4,9 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.auth.LoomAuthorizationProvider;
 import io.metaloom.loom.auth.LoomUser;
@@ -12,6 +15,7 @@ import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.RestResponseModel;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
+import io.metaloom.loom.rest.service.impl.CollectionEndpointService;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.ext.auth.User;
@@ -19,6 +23,8 @@ import io.vertx.ext.auth.authorization.PermissionBasedAuthorization;
 import io.vertx.ext.web.RoutingContext;
 
 public class LoomRoutingContext {
+
+	private static final Logger log = LoggerFactory.getLogger(LoomRoutingContext.class);
 
 	private final RoutingContext rc;
 	private final LoomAuthorizationProvider authorizationProvider;
@@ -69,6 +75,9 @@ public class LoomRoutingContext {
 			for (Permission perm : perms) {
 				boolean hasPerm = PermissionBasedAuthorization.create(perm.name()).match(user);
 				if (!hasPerm) {
+					if (log.isDebugEnabled()) {
+						log.debug("User is lacking permission {}", perm);
+					}
 					return Future.failedFuture("Missing permission " + perm.name());
 				}
 			}

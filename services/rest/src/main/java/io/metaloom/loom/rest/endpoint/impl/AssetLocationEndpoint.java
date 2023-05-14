@@ -19,7 +19,7 @@ public class AssetLocationEndpoint extends AbstractCRUDEndpoint<AssetLocationEnd
 	}
 
 	@Override
-	protected String name() {
+	public String name() {
 		return "location";
 	}
 

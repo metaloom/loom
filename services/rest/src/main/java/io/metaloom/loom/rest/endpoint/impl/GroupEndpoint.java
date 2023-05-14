@@ -19,7 +19,7 @@ public class GroupEndpoint extends AbstractCRUDEndpoint<GroupEndpointService> {
 	}
 
 	@Override
-	protected String name() {
+	public String name() {
 		return "group";
 	}
 

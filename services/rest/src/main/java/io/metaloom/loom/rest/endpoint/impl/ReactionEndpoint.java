@@ -19,7 +19,7 @@ public class ReactionEndpoint extends AbstractCRUDEndpoint<ReactionEndpointServi
 	}
 
 	@Override
-	protected String name() {
+	public String name() {
 		return "reaction";
 	}
 

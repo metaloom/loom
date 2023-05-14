@@ -19,7 +19,7 @@ public class ProjectEndpoint extends AbstractCRUDEndpoint<ProjectEndpointService
 	}
 
 	@Override
-	protected String name() {
+	public String name() {
 		return "project";
 	}
 

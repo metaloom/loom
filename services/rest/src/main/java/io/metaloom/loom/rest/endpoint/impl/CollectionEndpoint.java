@@ -19,7 +19,7 @@ public class CollectionEndpoint extends AbstractCRUDEndpoint<CollectionEndpointS
 	}
 
 	@Override
-	protected String name() {
+	public String name() {
 		return "collection";
 	}
 

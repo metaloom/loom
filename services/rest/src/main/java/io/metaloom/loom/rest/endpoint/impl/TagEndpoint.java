@@ -7,25 +7,25 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.rest.AbstractCRUDEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
-import io.metaloom.loom.rest.service.impl.CommentEndpointService;
+import io.metaloom.loom.rest.service.impl.TagEndpointService;
 
-public class CommentEndpoint extends AbstractCRUDEndpoint<CommentEndpointService> {
+public class TagEndpoint extends AbstractCRUDEndpoint<TagEndpointService> {
 
-	private static final Logger log = LoggerFactory.getLogger(CommentEndpoint.class);
+	private static final Logger log = LoggerFactory.getLogger(RoleEndpoint.class);
 
 	@Inject
-	public CommentEndpoint(CommentEndpointService service, EndpointDependencies deps) {
+	public TagEndpoint(TagEndpointService service, EndpointDependencies deps) {
 		super(service, deps);
 	}
 
 	@Override
 	public String name() {
-		return "comment";
+		return "tag";
 	}
 
 	@Override
 	protected String basePath() {
-		return "/comments";
+		return "/tags";
 	}
 
 }

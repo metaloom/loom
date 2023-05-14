@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest;
 
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
@@ -11,9 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.common.service.AbstractService;
-import io.metaloom.loom.rest.endpoint.impl.AssetEndpoint;
-import io.metaloom.loom.rest.endpoint.impl.LoginEndpoint;
-import io.metaloom.loom.rest.endpoint.impl.UserEndpoint;
+import io.metaloom.loom.rest.dagger.RESTEndpoints;
+import io.metaloom.loom.rest.endpoint.RESTEndpoint;
 import io.metaloom.loom.rest.model.error.ErrorResponse;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
@@ -30,20 +30,13 @@ public class RESTService extends AbstractService {
 	private Router router;
 	private HttpServer server;
 
-	private UserEndpoint userEndpoint;
-
-	private AssetEndpoint assetEndpoint;
-
-	private LoginEndpoint loginEndpoint;
+	private Set<RESTEndpoint> endpoints;
 
 	@Inject
-	public RESTService(Vertx vertx, LoomOptions options, @Named("restRouter") Router router, LoginEndpoint loginEndpoint, AssetEndpoint assetEndpoint,
-		UserEndpoint userEndpoint) {
+	public RESTService(Vertx vertx, LoomOptions options, @Named("restRouter") Router router, @RESTEndpoints Set<RESTEndpoint> endpoints) {
 		super(vertx, options);
 		this.router = router;
-		this.loginEndpoint = loginEndpoint;
-		this.assetEndpoint = assetEndpoint;
-		this.userEndpoint = userEndpoint;
+		this.endpoints = endpoints;
 	}
 
 	public HttpServer start() throws InterruptedException, ExecutionException {
@@ -65,9 +58,11 @@ public class RESTService extends AbstractService {
 
 	private void setupRouter() {
 		router.route().handler(BodyHandler.create());
-		userEndpoint.register();
-		assetEndpoint.register();
-		loginEndpoint.register();
+
+		for (RESTEndpoint endpoint : endpoints) {
+			endpoint.register();
+		}
+		// endpoints.register();
 		router.errorHandler(404, rc -> {
 			log.error("Request failed {}", rc.normalizedPath(), rc.failure());
 			ErrorResponse error = new ErrorResponse();

@@ -15,6 +15,7 @@ import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.flyway.dagger.FlywayModule;
 import io.metaloom.loom.db.jooq.dagger.JooqLoomDaoBindModule;
 import io.metaloom.loom.db.jooq.dagger.JooqModule;
+import io.metaloom.loom.rest.dagger.EndpointModule;
 import io.metaloom.loom.rest.dagger.RESTBindModule;
 import io.metaloom.loom.rest.dagger.RESTModule;
 
@@ -30,6 +31,7 @@ import io.metaloom.loom.rest.dagger.RESTModule;
 	DBBindModule.class,
 	JooqLoomDaoBindModule.class,
 	JooqModule.class,
+	EndpointModule.class,
 	RESTBindModule.class,
 	RESTModule.class,
 	RoutingContextModule.class })

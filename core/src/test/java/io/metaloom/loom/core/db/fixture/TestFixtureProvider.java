@@ -224,7 +224,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 
 		// Create token + Permissions
 		String tokenValue = StringUtils.randomHumanString(6);
-		Token token = tokenDao().createToken(joeDoeUser, "test_toke", tokenValue);
+		Token token = tokenDao().createToken(joeDoeUser, "test_token", tokenValue);
 		token.setUuid(TOKEN_UUID);
 		tokenDao().store(token);
 

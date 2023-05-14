@@ -19,7 +19,7 @@ public class RoleEndpoint extends AbstractCRUDEndpoint<RoleEndpointService> {
 	}
 
 	@Override
-	protected String name() {
+	public String name() {
 		return "role";
 	}
 

@@ -7,6 +7,7 @@ import static io.metaloom.loom.db.model.perm.Permission.UPDATE_PROJECT;
 
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.metaloom.loom.db.dagger.DaoCollection;
@@ -19,7 +20,7 @@ import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 @Singleton
 public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectDao, Project> {
 
-	@Singleton
+	@Inject
 	public ProjectEndpointService(ProjectDao projectDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
 		super(projectDao, daos, modelBuilder);
 	}

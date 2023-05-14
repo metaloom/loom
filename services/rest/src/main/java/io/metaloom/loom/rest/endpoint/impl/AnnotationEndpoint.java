@@ -19,13 +19,13 @@ public class AnnotationEndpoint extends AbstractCRUDEndpoint<AnnotationEndpointS
 	}
 
 	@Override
-	protected String basePath() {
-		return "/annotations";
+	public String name() {
+		return "annotation";
 	}
 
 	@Override
-	protected String name() {
-		return "annotation";
+	protected String basePath() {
+		return "/annotations";
 	}
 
 }

@@ -19,7 +19,7 @@ public class LibraryEndpoint extends AbstractCRUDEndpoint<LibraryEndpointService
 	}
 
 	@Override
-	protected String name() {
+	public String name() {
 		return "library";
 	}
 

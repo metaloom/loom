@@ -19,7 +19,7 @@ public class TaskEndpoint extends AbstractCRUDEndpoint<TaskEndpointService> {
 	}
 
 	@Override
-	protected String name() {
+	public String name() {
 		return "task";
 	}
 

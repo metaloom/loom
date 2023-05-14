@@ -19,7 +19,7 @@ public class WebhookEndpoint extends AbstractCRUDEndpoint<WebhookEndpointService
 	}
 
 	@Override
-	protected String name() {
+	public String name() {
 		return "webhook";
 	}
 

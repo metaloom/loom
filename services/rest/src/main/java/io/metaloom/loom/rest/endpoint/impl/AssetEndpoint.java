@@ -25,6 +25,11 @@ public class AssetEndpoint extends AbstractEndpoint {
 	}
 
 	@Override
+	public String name() {
+		return "asset";
+	}
+
+	@Override
 	public void register() {
 		log.info("Registering assets endpoint");
 

@@ -16,6 +16,7 @@ import io.metaloom.loom.db.model.embedding.EmbeddingDao;
 import io.metaloom.loom.db.model.embedding.EmbeddingType;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.embedding.EmbeddingCreateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
@@ -52,10 +53,11 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_EMBEDDING, () -> {
-			UUID assetUuid = null;
-			float[] data = null;
-			EmbeddingType type = null;
-			Long id = null;
+			EmbeddingCreateRequest request = lrc.requestBody(EmbeddingCreateRequest.class);
+			float[] data = request.getData();
+			EmbeddingType type = request.getType() == null ? null : EmbeddingType.valueOf(request.getType().name());
+			Long id = request.getId();
+			UUID assetUuid = request.getAssetUuid();
 			return dao().createEmbedding(lrc.userUuid(), assetUuid, data, type, id);
 		}, embedding -> {
 			return modelBuilder.toResponse(embedding);

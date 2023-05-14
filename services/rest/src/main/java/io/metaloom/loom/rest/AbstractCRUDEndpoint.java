@@ -20,13 +20,6 @@ public abstract class AbstractCRUDEndpoint<S extends AbstractCRUDEndpointService
 		this.service = service;
 	}
 
-	/**
-	 * Name of the endpoint
-	 * 
-	 * @return
-	 */
-	protected abstract String name();
-
 	protected abstract String basePath();
 
 	@Override
@@ -34,22 +27,28 @@ public abstract class AbstractCRUDEndpoint<S extends AbstractCRUDEndpointService
 		log.info("Registering {} endpoint", name());
 
 		secure(basePath() + "*");
+
+		// Create
 		addRoute(basePath(), POST, lrc -> {
 			service.create(lrc);
 		});
 
+		// Update
 		addRoute(basePath() + "/:uuid", POST, lrc -> {
 			service.update(lrc, lrc.pathParamUUID("uuid"));
 		});
 
+		// Delete
 		addRoute(basePath() + "/:uuid", DELETE, lrc -> {
 			service.delete(lrc, lrc.pathParamUUID("uuid"));
 		});
 
+		// List
 		addRoute(basePath(), GET, lrc -> {
 			service.list(lrc);
 		});
 
+		// Read
 		addRoute(basePath() + "/:uuid", GET, lrc -> {
 			service.load(lrc, lrc.pathParamUUID("uuid"));
 		});
