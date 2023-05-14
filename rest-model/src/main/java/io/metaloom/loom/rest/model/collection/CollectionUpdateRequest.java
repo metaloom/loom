@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.model.collection;
 
-public class CollectionUpdateRequest {
+import io.metaloom.loom.rest.model.RestRequestModel;
+
+public class CollectionUpdateRequest implements RestRequestModel {
 
 }

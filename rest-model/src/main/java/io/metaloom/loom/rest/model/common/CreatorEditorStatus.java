@@ -1,7 +1,6 @@
 package io.metaloom.loom.rest.model.common;
 
 import java.time.Instant;
-import java.time.OffsetDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

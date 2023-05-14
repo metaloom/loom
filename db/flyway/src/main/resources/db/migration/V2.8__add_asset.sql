@@ -9,14 +9,16 @@ CREATE TABLE "asset" (
   "mime_type" varchar NOT NULL,
   "meta" jsonb,
   "author" varchar,
+
   "geo_lon" decimal(9,6),
   "geo_lat" decimal(8,6),
   "geo_alias" varchar,
+
   "initial_origin" varchar NOT NULL,
   "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid,
+  "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid,
+  "editor_uuid" uuid NOT NULL,
   "s3_bucket_name" varchar,
   "s3_object_path" varchar,
 
@@ -27,14 +29,17 @@ CREATE TABLE "asset" (
   "video_width" int,
   "video_height" int,
   "video_fingerprint" varchar,
+  "video_bitrate" int,
   "video_encoding" varchar,
 
   "image_dominant_color" varchar,
+  "image_encoding" varchar,
   "image_fingerprint" varchar,
 
   "audio_bpm" int,
   "audio_sampling_rate" int,
   "audio_channels" int,
+  "audio_bitrate"  int,
   "audio_encoding" varchar,
   "audio_fingerprint" varchar,
 

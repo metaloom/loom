@@ -3,10 +3,10 @@ package io.metaloom.loom.rest.model.library;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
 
-public class LibraryCreateRequest implements RestModel {
+public class LibraryCreateRequest implements RestRequestModel {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("The name of the library.")

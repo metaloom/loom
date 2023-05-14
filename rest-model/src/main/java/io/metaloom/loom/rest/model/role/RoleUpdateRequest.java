@@ -6,9 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.MetaModel;
+import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
 
-public class RoleUpdateRequest implements MetaModel<RoleUpdateRequest> {
+public class RoleUpdateRequest implements MetaModel<RoleUpdateRequest>, RestRequestModel {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("The new name of the role.")

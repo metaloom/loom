@@ -3,10 +3,10 @@ package io.metaloom.loom.rest.model.group;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
 
-public class GroupCreateRequest implements RestModel {
+public class GroupCreateRequest implements RestRequestModel {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("Name of the group")

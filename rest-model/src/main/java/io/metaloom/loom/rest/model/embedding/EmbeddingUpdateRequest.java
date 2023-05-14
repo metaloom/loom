@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.model.embedding;
 
-public class EmbeddingUpdateRequest {
+import io.metaloom.loom.rest.model.RestRequestModel;
+
+public class EmbeddingUpdateRequest implements RestRequestModel {
 
 }

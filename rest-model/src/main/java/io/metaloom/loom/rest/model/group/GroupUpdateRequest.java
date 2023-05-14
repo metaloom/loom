@@ -1,15 +1,13 @@
 package io.metaloom.loom.rest.model.group;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.MetaModel;
-import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
 
-public class GroupUpdateRequest implements MetaModel<GroupUpdateRequest> {
+public class GroupUpdateRequest implements MetaModel<GroupUpdateRequest>, RestRequestModel {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Name of the group")
