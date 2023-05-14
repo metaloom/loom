@@ -17,7 +17,7 @@ import io.metaloom.loom.db.model.embedding.EmbeddingDao;
 import io.metaloom.loom.db.model.embedding.EmbeddingType;
 
 @Singleton
-public class EmbeddingDaoImpl extends AbstractJooqDao<Embedding,UUID> implements EmbeddingDao {
+public class EmbeddingDaoImpl extends AbstractJooqDao<Embedding> implements EmbeddingDao {
 
 	@Inject
 	public EmbeddingDaoImpl(DSLContext ctx) {

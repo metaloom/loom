@@ -19,7 +19,7 @@ import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class EmbeddingEndpointService extends AbstractCRUDEndpointService<EmbeddingDao, Embedding, UUID> {
+public class EmbeddingEndpointService extends AbstractCRUDEndpointService<EmbeddingDao, Embedding> {
 
 	@Inject
 	public EmbeddingEndpointService(EmbeddingDao embeddingDao, DaoCollection daos, LoomModelBuilder modelBuilder) {

@@ -19,7 +19,7 @@ import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class AnnotationEndpointService extends AbstractCRUDEndpointService<AnnotationDao, Annotation, UUID> {
+public class AnnotationEndpointService extends AbstractCRUDEndpointService<AnnotationDao, Annotation> {
 
 	@Inject
 	public AnnotationEndpointService(AnnotationDao annotationDao, DaoCollection daos, LoomModelBuilder modelBuilder) {

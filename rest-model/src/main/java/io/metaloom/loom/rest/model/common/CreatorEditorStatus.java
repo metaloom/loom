@@ -17,7 +17,7 @@ public class CreatorEditorStatus {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("ISO8601 formatted creation date string.")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
 	private Instant created;
 
 	@JsonProperty(required = true)
@@ -26,7 +26,7 @@ public class CreatorEditorStatus {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("ISO8601 formatted editing date string.")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
 	private Instant edited;
 
 	public UserReference getCreator() {

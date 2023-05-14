@@ -18,7 +18,7 @@ import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class ReactionEndpointService extends AbstractCRUDEndpointService<ReactionDao, Reaction, UUID> {
+public class ReactionEndpointService extends AbstractCRUDEndpointService<ReactionDao, Reaction> {
 
 	@Inject
 	public ReactionEndpointService(ReactionDao reactionDao, DaoCollection daos, LoomModelBuilder modelBuilder) {

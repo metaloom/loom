@@ -4,14 +4,12 @@ import static io.vertx.core.http.HttpMethod.DELETE;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
 
-import java.util.UUID;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
-public abstract class AbstractCRUDEndpoint<S extends AbstractCRUDEndpointService<?, ?, UUID>> extends AbstractEndpoint {
+public abstract class AbstractCRUDEndpoint<S extends AbstractCRUDEndpointService<?, ?>> extends AbstractEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractCRUDEndpoint.class);
 
@@ -35,6 +33,7 @@ public abstract class AbstractCRUDEndpoint<S extends AbstractCRUDEndpointService
 	public void register() {
 		log.info("Registering {} endpoint", name());
 
+		secure(basePath() + "*");
 		addRoute(basePath(), POST, lrc -> {
 			service.create(lrc);
 		});

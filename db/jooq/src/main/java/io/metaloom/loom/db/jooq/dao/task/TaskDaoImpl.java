@@ -20,7 +20,7 @@ import io.metaloom.loom.db.model.task.Task;
 import io.metaloom.loom.db.model.task.TaskDao;
 
 @Singleton
-public class TaskDaoImpl extends AbstractJooqDao<Task,UUID> implements TaskDao {
+public class TaskDaoImpl extends AbstractJooqDao<Task> implements TaskDao {
 
 	@Inject
 	public TaskDaoImpl(DSLContext ctx) {

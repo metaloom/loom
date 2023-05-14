@@ -18,7 +18,7 @@ import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, Group, UUID> {
+public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, Group> {
 
 	@Inject
 	public GroupEndpointService(GroupDao groupDao, DaoCollection daos, LoomModelBuilder modelBuilder) {

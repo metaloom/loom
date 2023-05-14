@@ -21,7 +21,7 @@ import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.model.tag.TagDao;
 
 @Singleton
-public class TagDaoImpl extends AbstractJooqDao<Tag,UUID> implements TagDao {
+public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 
 	@Inject
 	public TagDaoImpl(DSLContext ctx) {

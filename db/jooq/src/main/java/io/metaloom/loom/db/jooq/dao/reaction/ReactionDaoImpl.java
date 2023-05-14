@@ -12,13 +12,12 @@ import org.jooq.TableRecord;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqReaction;
 import io.metaloom.loom.db.model.asset.Asset;
-import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.reaction.Reaction;
 import io.metaloom.loom.db.model.reaction.ReactionDao;
 import io.metaloom.loom.db.model.task.Task;
 
 @Singleton
-public class ReactionDaoImpl extends AbstractJooqDao<Reaction,UUID> implements ReactionDao {
+public class ReactionDaoImpl extends AbstractJooqDao<Reaction> implements ReactionDao {
 
 	@Inject
 	public ReactionDaoImpl(DSLContext ctx) {

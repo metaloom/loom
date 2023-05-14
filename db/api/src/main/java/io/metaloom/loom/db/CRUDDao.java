@@ -1,5 +1,6 @@
 package io.metaloom.loom.db;
 
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import io.metaloom.loom.db.page.Page;
@@ -7,17 +8,13 @@ import io.metaloom.loom.db.page.Page;
 /**
  * @param <T>
  *            Element type for the DTO
- * @param <PT>
+ * @param <UUID>
  *            Type of the id
  */
-public interface CRUDDao<T extends Element<T>, PT> extends Dao {
+public interface CRUDDao<T extends Element<T>> extends Dao {
 
 	default void delete(T element) {
-		delete(primaryId(element));
-	}
-
-	default PT primaryId(T element) {
-		return (PT) element.getUuid();
+		delete(element.getUuid());
 	}
 
 	/**
@@ -25,11 +22,11 @@ public interface CRUDDao<T extends Element<T>, PT> extends Dao {
 	 * 
 	 * @param id
 	 */
-	void delete(PT id);
+	void delete(UUID id);
 
 	T update(T element);
 
-	T load(PT id);
+	T load(UUID id);
 
 	/**
 	 * Store the element.
@@ -45,7 +42,7 @@ public interface CRUDDao<T extends Element<T>, PT> extends Dao {
 	 * @param pageSize
 	 * @return
 	 */
-	Page<T> loadPage(PT fromId, int pageSize);
+	Page<T> loadPage(UUID fromId, int pageSize);
 
 	Stream<? extends T> findAll();
 

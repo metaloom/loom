@@ -26,7 +26,7 @@ import io.metaloom.loom.db.page.Page;
  * @param <T>
  *            Pojo type
  */
-public abstract class AbstractJooqDao<T extends Element<T>, PT> implements JooqDao, CRUDDao<T, PT> {
+public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, CRUDDao<T> {
 
 	private final DSLContext ctx;
 
@@ -40,8 +40,8 @@ public abstract class AbstractJooqDao<T extends Element<T>, PT> implements JooqD
 
 	abstract protected Table<? extends TableRecord<?>> getTable();
 
-	public Field<PT> getIdField(){
-		return (Field<PT>) getTable().field("uuid", UUID.class);
+	public Field<UUID> getIdField(){
+		return (Field<UUID>) getTable().field("uuid", UUID.class);
 	}
 
 	public Field<UUID> getUuidField() {
@@ -88,7 +88,7 @@ public abstract class AbstractJooqDao<T extends Element<T>, PT> implements JooqD
 	}
 
 	@Override
-	public void delete(PT id) {
+	public void delete(UUID id) {
 		Field<?>[] pk = pk();
 
 		if (pk != null) {
@@ -104,7 +104,7 @@ public abstract class AbstractJooqDao<T extends Element<T>, PT> implements JooqD
 	}
 
 	@Override
-	public T load(PT id) {
+	public T load(UUID id) {
 		return ctx()
 			.select(getTable())
 			.from(getTable())
@@ -130,9 +130,9 @@ public abstract class AbstractJooqDao<T extends Element<T>, PT> implements JooqD
 	}
 
 	@Override
-	public Page<T> loadPage(PT fromId, int pageSize) {
+	public Page<T> loadPage(UUID fromId, int pageSize) {
 		// SelectSeekStep1<Record3<UUID, String, UUID>, UUID>
-		SelectSeekStep1<?, PT> query = ctx()
+		SelectSeekStep1<?, UUID> query = ctx()
 			.select(getTable())
 			.from(getTable())
 			.orderBy(getIdField());

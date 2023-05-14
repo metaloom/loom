@@ -26,6 +26,8 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 
 	@Override
 	public Future<AssetResponse> store(AssetRequest request) {
+		//String uuid = request.getUuid();
+		
 		String fingerprint = request.getFingerprint();
 		String chunkHash = request.getChunkHash();
 		long zeroChunkCount = request.getZeroChunkCount();
@@ -38,7 +40,7 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		String initialOrigin = request.getInitialOrigin();
 
 		User user = null;
-		Asset asset = daos.assetDao().load(sha512sum);
+		Asset asset = daos.assetDao().loadBySHA512(sha512sum);
 		if (asset == null) {
 			asset = daos.assetDao().createAsset(user, sha512sum, mimeType, initialOrigin, size);
 		}

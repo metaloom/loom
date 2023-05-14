@@ -1,6 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.asset;
 
 import java.util.Objects;
+import static io.metaloom.loom.db.jooq.tables.JooqAsset.*;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ import io.metaloom.utils.hash.SHA512Sum;
 import io.vertx.core.json.JsonObject;
 
 @Singleton
-public class AssetDaoImpl extends AbstractJooqDao<Asset,SHA512Sum> implements AssetDao {
+public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 
 	@Inject
 	public AssetDaoImpl(DSLContext ctx) {
@@ -49,7 +50,15 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset,SHA512Sum> implements As
 	}
 
 	@Override
-	public Asset load(SHA512Sum sha512sum) {
+	public Asset load(UUID uuid) {
+		return ctx()
+			.select(getTable())
+			.where(JooqAsset.ASSET.UUID.eq(uuid))
+			.fetchOneInto(getPojoClass());
+	}
+
+	@Override
+	public Asset loadBySHA512(SHA512Sum sha512sum) {
 		return ctx()
 			.select(getTable())
 			.where(JooqAsset.ASSET.SHA512SUM.eq(sha512sum.toString()))
@@ -57,8 +66,10 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset,SHA512Sum> implements As
 	}
 
 	@Override
-	public Asset loadByUuid(UUID uuid) {
-		return loadByUuid(uuid);
+	public void deleteBySHA512(SHA512Sum sha512sum) {
+		ctx().delete(getTable())
+			.where(ASSET.SHA512SUM.eq(sha512sum.toString()))
+			.execute();
 	}
 
 	@Override

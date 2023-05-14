@@ -193,6 +193,8 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		// User
 		User adminUser = userDao().createUser("admin");
 		adminUser.setUuid(ADMIN_UUID);
+		adminUser.setCreator(adminUser);
+		adminUser.setEditor(adminUser);
 		adminUser.setPasswordHash(authService.encodePassword("finger"));
 		userDao().store(adminUser);
 
@@ -213,8 +215,10 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 
 		// Second user
 		User joeDoeUser = userDao().createUser("joedoe");
-		joeDoeUser.setPasswordHash(authService.encodePassword("finger"));
 		joeDoeUser.setUuid(USER_UUID);
+		joeDoeUser.setCreator(adminUser);
+		joeDoeUser.setEditor(adminUser);
+		joeDoeUser.setPasswordHash(authService.encodePassword("finger"));
 		userDao().store(joeDoeUser);
 		permissionDao().grantUserPermission(joeDoeUser.getUuid(), Permission.READ_USER, "test");
 

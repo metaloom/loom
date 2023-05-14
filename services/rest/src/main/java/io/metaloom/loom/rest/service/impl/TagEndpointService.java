@@ -21,7 +21,7 @@ import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag, UUID> {
+public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag> {
 
 	private static final Logger log = LoggerFactory.getLogger(TagEndpointService.class);
 

@@ -1,7 +1,6 @@
 package io.metaloom.loom.db;
 
 import java.time.Instant;
-import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,7 +12,7 @@ public interface CUDElement<SELF extends CUDElement<SELF>> extends Element<SELF>
 
 	default SELF setEditor(User editor) {
 		Objects.requireNonNull(editor, "The editor is null");
-		return setEditor(editor);
+		return setEditorUuid(editor.getUuid());
 	}
 
 	SELF setEditorUuid(UUID editorUuid);
@@ -22,7 +21,7 @@ public interface CUDElement<SELF extends CUDElement<SELF>> extends Element<SELF>
 
 	default SELF setCreator(User creator) {
 		Objects.requireNonNull(creator, "The creator is null");
-		return setCreator(creator);
+		return setCreatorUuid(creator.getUuid());
 	}
 
 	SELF setCreatorUuid(UUID uuid);

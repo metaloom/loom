@@ -1,5 +1,7 @@
 package io.metaloom.loom.core;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -26,6 +28,7 @@ public class LoomCoreTestExtension implements BeforeEachCallback, AfterEachCallb
 	public LoomHttpClient httpClient() {
 		return LoomHttpClient.builder()
 			.setHostname("localhost")
+			.setReadTimeout(Duration.ofHours(2))
 			.setPort(loomInternal.boot().getRestService().getServer().actualPort())
 			.build();
 	}

@@ -1,10 +1,12 @@
 package io.metaloom.loom.rest.service.impl;
 
 import static io.metaloom.loom.db.model.perm.Permission.CREATE_ASSET;
+import static io.metaloom.loom.db.model.perm.Permission.DELETE_ASSET;
 import static io.metaloom.loom.db.model.perm.Permission.READ_ASSET;
 import static io.metaloom.loom.db.model.perm.Permission.UPDATE_ASSET;
 
 import java.util.UUID;
+import java.util.function.Supplier;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -19,10 +21,11 @@ import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.utils.UUIDUtils;
 import io.metaloom.utils.hash.SHA512Sum;
 
 @Singleton
-public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, Asset, SHA512Sum> {
+public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, Asset> {
 
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpointService.class);
 
@@ -31,28 +34,73 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 		super(assetDao, daos, modelBuilder);
 	}
 
-	public void delete(LoomRoutingContext lrc, SHA512Sum uuid) {
-		delete(lrc, uuid);
+	public void delete(LoomRoutingContext lrc, String sha512orUUID) {
+		if (UUIDUtils.isUUID(sha512orUUID)) {
+			delete(lrc, UUID.fromString(sha512orUUID));
+		} else {
+			SHA512Sum sha512 = SHA512Sum.fromString(sha512orUUID);
+			delete(lrc, DELETE_ASSET, () -> {
+				return dao().loadBySHA512(sha512);
+			});
+		}
+	}
+
+	@Override
+	public void delete(LoomRoutingContext lrc, UUID id) {
+		delete(lrc, DELETE_ASSET, id);
 	}
 
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_ASSET, () -> {
-			SHA512Sum from = SHA512Sum.fromString(lrc.pathParam("from"));
+			UUID from = UUID.fromString(lrc.pathParam("from"));
 			return dao().loadPage(from, lrc.pageSize());
 		}, modelBuilder::toAssetList);
 	}
 
-	public void load(LoomRoutingContext lrc, SHA512Sum sha512sum) {
-		load(lrc, READ_ASSET, () -> {
-			Asset asset = dao().load(sha512sum);
-			return asset;
-		}, modelBuilder::toResponse);
+	public void load(LoomRoutingContext lrc, String sha512orUUID) {
+		if (UUIDUtils.isUUID(sha512orUUID)) {
+			load(lrc, UUID.fromString(sha512orUUID));
+		} else {
+			SHA512Sum sha512 = SHA512Sum.fromString(sha512orUUID);
+			load(lrc, () -> {
+				return dao().loadBySHA512(sha512);
+			});
+		}
 	}
 
 	@Override
-	public void update(LoomRoutingContext lrc, SHA512Sum id) {
+	public void load(LoomRoutingContext lrc, UUID uuid) {
+		load (lrc , () -> {
+			return dao().load(uuid);
+		});
+	}
+	
+	private void load(LoomRoutingContext lrc, Supplier<Asset> loader) {
+		load(lrc, READ_ASSET, () -> {
+			return loader.get();
+		}, modelBuilder::toResponse);
+	}
+
+	public void update(LoomRoutingContext lrc, String sha512orUUID) {
+		if (UUIDUtils.isUUID(sha512orUUID)) {
+			update(lrc, UUID.fromString(sha512orUUID));
+		} else {
+			update(lrc, () -> {
+				return dao().loadBySHA512(SHA512Sum.fromString(sha512orUUID));
+			});
+		}
+	}
+
+	@Override
+	public void update(LoomRoutingContext lrc, UUID uuid) {
+		update(lrc, () -> {
+			return dao().load(uuid);
+		});
+	}
+
+	protected void update(LoomRoutingContext lrc, Supplier<Asset> loader) {
 		update(lrc, UPDATE_ASSET, () -> {
-			Asset asset = dao().load(id);
+			Asset asset = loader.get();
 			// TODO Update
 			return dao().update(asset);
 		}, modelBuilder::toResponse);

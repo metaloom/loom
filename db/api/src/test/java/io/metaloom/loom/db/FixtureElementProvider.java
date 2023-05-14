@@ -32,6 +32,6 @@ public interface FixtureElementProvider extends DaoProvider, TestValues {
 	}
 
 	default Asset asset() {
-		return assetDao().load(ASSET_SHA512SUM);
+		return assetDao().load(ASSET_UUID);
 	}
 }

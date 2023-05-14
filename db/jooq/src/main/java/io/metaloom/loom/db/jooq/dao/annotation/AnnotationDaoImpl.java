@@ -1,7 +1,6 @@
 package io.metaloom.loom.db.jooq.dao.annotation;
 
 import static io.metaloom.loom.db.jooq.tables.JooqAnnotationAsset.ANNOTATION_ASSET;
-import static io.metaloom.loom.db.jooq.tables.JooqTagAsset.TAG_ASSET;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +19,7 @@ import io.metaloom.loom.db.model.annotation.AnnotationDao;
 import io.metaloom.loom.db.model.annotation.AnnotationType;
 
 @Singleton
-public class AnnotationDaoImpl extends AbstractJooqDao<Annotation,UUID> implements AnnotationDao {
+public class AnnotationDaoImpl extends AbstractJooqDao<Annotation> implements AnnotationDao {
 
 	@Inject
 	public AnnotationDaoImpl(DSLContext ctx) {

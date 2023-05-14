@@ -2,15 +2,13 @@ package io.metaloom.loom.db.jooq.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.UUID;
-
 import io.metaloom.loom.db.CRUDDaoTestcases;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.model.blacklist.Blacklist;
 import io.metaloom.loom.db.model.blacklist.BlacklistDao;
 import io.metaloom.loom.db.model.user.User;
 
-public class BlacklistDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<BlacklistDao, Blacklist, UUID> {
+public class BlacklistDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<BlacklistDao, Blacklist> {
 
 	@Override
 	public BlacklistDao getDao() {

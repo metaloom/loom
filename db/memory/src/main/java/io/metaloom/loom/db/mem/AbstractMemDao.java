@@ -4,35 +4,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.Element;
 import io.metaloom.loom.db.page.Page;
 
-public abstract class AbstractMemDao<T extends Element<T>, PT> implements CRUDDao<T, PT> {
+public abstract class AbstractMemDao<T extends Element<T>> implements CRUDDao<T> {
 
-	protected Map<PT, T> storage = new HashMap<>();
+	protected Map<UUID, T> storage = new HashMap<>();
 
 	@Override
-	public T load(PT id) {
+	public T load(UUID id) {
 		return storage.get(id);
 	}
 
 	@Override
-	public void delete(PT id) {
+	public void delete(UUID id) {
 		storage.remove(id);
 	}
 
 	@Override
 	public void store(T element) {
-		PT id = primaryId(element);
+		UUID id = element.getUuid();
 		storage.put(id, element);
 	}
 
 	@Override
 	public T update(T element) {
-		PT id = primaryId(element);
+		UUID id = element.getUuid();
 		storage.put(id, element);
 		return element;
 	}
@@ -53,7 +54,7 @@ public abstract class AbstractMemDao<T extends Element<T>, PT> implements CRUDDa
 	}
 
 	@Override
-	public Page<T> loadPage(PT from, int pageSize) {
+	public Page<T> loadPage(UUID from, int pageSize) {
 		List<T> list = new ArrayList<>();
 		int n = 0;
 		boolean start = from == null;

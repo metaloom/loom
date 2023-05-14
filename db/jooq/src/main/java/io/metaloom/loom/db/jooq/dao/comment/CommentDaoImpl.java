@@ -19,7 +19,7 @@ import io.metaloom.loom.db.model.comment.Comment;
 import io.metaloom.loom.db.model.comment.CommentDao;
 
 @Singleton
-public class CommentDaoImpl extends AbstractJooqDao<Comment,UUID> implements CommentDao {
+public class CommentDaoImpl extends AbstractJooqDao<Comment> implements CommentDao {
 
 	@Inject
 	public CommentDaoImpl(DSLContext ctx) {

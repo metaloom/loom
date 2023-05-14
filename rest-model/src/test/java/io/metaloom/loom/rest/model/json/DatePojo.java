@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.example;
+package io.metaloom.loom.rest.model.json;
 
 import java.time.Instant;
 
@@ -12,7 +12,7 @@ public class DatePojo implements RestModel {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("ISO8601 formatted editing date.")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
 	private Instant edited;
 
 	public Instant getEdited() {

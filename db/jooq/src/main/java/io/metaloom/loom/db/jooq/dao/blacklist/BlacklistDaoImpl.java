@@ -15,7 +15,7 @@ import io.metaloom.loom.db.model.blacklist.Blacklist;
 import io.metaloom.loom.db.model.blacklist.BlacklistDao;
 
 @Singleton
-public class BlacklistDaoImpl extends AbstractJooqDao<Blacklist,UUID> implements BlacklistDao {
+public class BlacklistDaoImpl extends AbstractJooqDao<Blacklist> implements BlacklistDao {
 
 	@Inject
 	public BlacklistDaoImpl(DSLContext ctx) {

@@ -18,7 +18,7 @@ import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class WebhookEndpointService extends AbstractCRUDEndpointService<WebhookDao, Webhook, UUID> {
+public class WebhookEndpointService extends AbstractCRUDEndpointService<WebhookDao, Webhook> {
 
 	@Inject
 	public WebhookEndpointService(WebhookDao webhookDao, DaoCollection daos, LoomModelBuilder modelBuilder) {

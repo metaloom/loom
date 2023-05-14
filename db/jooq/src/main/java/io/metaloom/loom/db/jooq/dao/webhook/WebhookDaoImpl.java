@@ -15,7 +15,7 @@ import io.metaloom.loom.db.model.webhook.Webhook;
 import io.metaloom.loom.db.model.webhook.WebhookDao;
 
 @Singleton
-public class WebhookDaoImpl extends AbstractJooqDao<Webhook,UUID> implements WebhookDao {
+public class WebhookDaoImpl extends AbstractJooqDao<Webhook> implements WebhookDao {
 
 	@Inject
 	public WebhookDaoImpl(DSLContext ctx) {

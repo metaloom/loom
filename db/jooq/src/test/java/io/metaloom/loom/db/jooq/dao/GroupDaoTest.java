@@ -2,15 +2,13 @@ package io.metaloom.loom.db.jooq.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.UUID;
-
 import io.metaloom.loom.db.CRUDDaoTestcases;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.db.model.user.User;
 
-public class GroupDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<GroupDao, Group, UUID> {
+public class GroupDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<GroupDao, Group> {
 
 	@Override
 	public GroupDao getDao() {

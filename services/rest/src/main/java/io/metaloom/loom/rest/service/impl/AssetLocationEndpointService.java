@@ -23,7 +23,7 @@ import io.metaloom.loom.rest.model.asset.location.LocationFilesystemInfo;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class AssetLocationEndpointService extends AbstractCRUDEndpointService<AssetLocationDao, AssetLocation, UUID> {
+public class AssetLocationEndpointService extends AbstractCRUDEndpointService<AssetLocationDao, AssetLocation> {
 
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpointService.class);
 

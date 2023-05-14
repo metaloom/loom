@@ -18,7 +18,7 @@ import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class TaskEndpointService extends AbstractCRUDEndpointService<TaskDao, Task, UUID> {
+public class TaskEndpointService extends AbstractCRUDEndpointService<TaskDao, Task> {
 
 	@Inject
 	public TaskEndpointService(TaskDao taskDao, DaoCollection daos, LoomModelBuilder modelBuilder) {

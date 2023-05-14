@@ -19,7 +19,7 @@ import io.metaloom.loom.db.model.cluster.ClusterType;
 import io.metaloom.loom.db.model.embedding.Embedding;
 
 @Singleton
-public class ClusterDaoImpl extends AbstractJooqDao<Cluster,UUID> implements ClusterDao {
+public class ClusterDaoImpl extends AbstractJooqDao<Cluster> implements ClusterDao {
 
 	@Inject
 	public ClusterDaoImpl(DSLContext ctx) {

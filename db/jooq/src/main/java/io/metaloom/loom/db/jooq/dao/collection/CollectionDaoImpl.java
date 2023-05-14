@@ -17,7 +17,7 @@ import io.metaloom.loom.db.model.collection.Collection;
 import io.metaloom.loom.db.model.collection.CollectionDao;
 
 @Singleton
-public class CollectionDaoImpl extends AbstractJooqDao<Collection,UUID> implements CollectionDao {
+public class CollectionDaoImpl extends AbstractJooqDao<Collection> implements CollectionDao {
 
 	@Inject
 	public CollectionDaoImpl(DSLContext ctx) {

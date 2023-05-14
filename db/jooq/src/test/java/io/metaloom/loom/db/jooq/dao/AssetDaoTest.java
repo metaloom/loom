@@ -9,7 +9,7 @@ import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.utils.hash.SHA512Sum;
 
-public class AssetDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<AssetDao, Asset, SHA512Sum> {
+public class AssetDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<AssetDao, Asset> {
 
 	@Override
 	public Asset createElement(User user, int i) {

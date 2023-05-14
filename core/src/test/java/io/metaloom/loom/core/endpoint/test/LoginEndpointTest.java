@@ -18,7 +18,7 @@ public class LoginEndpointTest extends AbstractEndpointTest {
 			AuthLoginResponse response = client.login("admin", "finger").sync();
 			System.out.println("Got Token: " + response.getToken());
 			client.setToken(response.getToken());
-			UserResponse response2 = client.loadUser("admin").sync();
+			UserResponse response2 = client.loadUser(ADMIN_UUID).sync();
 			assertEquals("admin", response2.getUsername());
 			assertNotNull(response2);
 		}

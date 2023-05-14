@@ -11,9 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.rest.AbstractEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
-import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.service.impl.AssetEndpointService;
-import io.metaloom.utils.hash.SHA512Sum;
 
 public class AssetEndpoint extends AbstractEndpoint {
 
@@ -35,20 +33,20 @@ public class AssetEndpoint extends AbstractEndpoint {
 			service.create(lrc);
 		});
 
-		addRoute(basePath() + "/:sha512", POST, lrc -> {
-			service.update(lrc, pathHash(lrc, "sha512"));
+		addRoute(basePath() + "/:sha512orUUID", POST, lrc -> {
+			service.update(lrc, lrc.pathParam("sha512orUUID"));
 		});
 
-		addRoute(basePath() + "/:sha512", DELETE, lrc -> {
-			service.delete(lrc, pathHash(lrc, "sha512"));
+		addRoute(basePath() + "/:sha512orUUID", DELETE, lrc -> {
+			service.delete(lrc, lrc.pathParam("sha512orUUID"));
 		});
 
 		addRoute(basePath(), GET, lrc -> {
 			service.list(lrc);
 		});
 
-		addRoute(basePath() + "/:sha512", GET, lrc -> {
-			service.load(lrc, pathHash(lrc, "sha512"));
+		addRoute(basePath() + "/:sha512orUUID", GET, lrc -> {
+			service.load(lrc, lrc.pathParam("sha512orUUID"));
 		});
 	}
 
@@ -56,8 +54,4 @@ public class AssetEndpoint extends AbstractEndpoint {
 		return "/assets";
 	}
 
-	public SHA512Sum pathHash(LoomRoutingContext lrc, String key) {
-		String value = lrc.pathParam(key);
-		return SHA512Sum.fromString(value);
-	}
 }

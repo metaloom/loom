@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.example;
+package io.metaloom.loom.rest.model.json;
 
 import java.time.Instant;
 
@@ -16,5 +16,7 @@ public class DateTest implements TestValues {
 		pojo.setEdited(date);
 		String json = Json.parse(pojo);
 		System.out.println(json);
+		
+		DatePojo fromJson = Json.parse(json, DatePojo.class);
 	}
 }

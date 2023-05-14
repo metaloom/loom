@@ -11,7 +11,7 @@ import io.metaloom.loom.db.model.embedding.EmbeddingDao;
 import io.metaloom.loom.db.model.embedding.EmbeddingType;
 import io.metaloom.loom.db.model.user.User;
 
-public class EmbeddingDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<EmbeddingDao, Embedding, UUID> {
+public class EmbeddingDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<EmbeddingDao, Embedding> {
 
 	@Override
 	public EmbeddingDao getDao() {

@@ -6,7 +6,7 @@ import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.user.User;
 
-public interface CollectionDao extends CRUDDao<Collection, UUID> {
+public interface CollectionDao extends CRUDDao<Collection> {
 
 	default Collection createCollection(User user, String name) {
 		return createCollection(user.getUuid(), name);

@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.service;
 
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -22,10 +23,8 @@ import io.metaloom.loom.rest.model.message.GenericMessageResponse;
  *            DAO Type
  * @param <E>
  *            DTO / POJO Type
- * @param <PT>
- *            Type of the path id element
  */
-public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E, PT>, E extends Element<E>, PT> extends AbstractEndpointService {
+public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extends Element<E>> extends AbstractEndpointService {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractCRUDEndpointService.class);
 
@@ -47,11 +46,17 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E, PT>, E ex
 		return daos;
 	}
 
-	public abstract void delete(LoomRoutingContext lrc, PT id);
+	public abstract void delete(LoomRoutingContext lrc, UUID uuid);
 
-	protected void delete(LoomRoutingContext lrc, Permission permission, PT id) {
+	protected void delete(LoomRoutingContext lrc, Permission permission, UUID uuid) {
+		delete(lrc, permission, () -> {
+			return dao().load(uuid);
+		});
+	}
+
+	protected void delete(LoomRoutingContext lrc, Permission permission, Supplier<E> loader) {
 		lrc.requirePerm(permission).onSuccess(l -> {
-			E element = dao().load(id);
+			E element = loader.get();
 			if (element == null) {
 				lrc.send(new GenericMessageResponse(), 404);
 				return;
@@ -80,7 +85,7 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E, PT>, E ex
 		});
 	}
 
-	public abstract void load(LoomRoutingContext lrc, PT id);
+	public abstract void load(LoomRoutingContext lrc, UUID uuid);
 
 	protected void load(LoomRoutingContext lrc, Permission permission, Supplier<E> loader, Function<E, RestResponseModel<?>> builder) {
 		lrc.requirePerm(permission).onSuccess(l -> {
@@ -115,7 +120,7 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E, PT>, E ex
 
 	}
 
-	public abstract void update(LoomRoutingContext lrc, PT id);
+	public abstract void update(LoomRoutingContext lrc, UUID uuid);
 
 	protected void update(LoomRoutingContext lrc, Permission permission, Supplier<E> updator,
 		Function<E, RestResponseModel<?>> builder) {

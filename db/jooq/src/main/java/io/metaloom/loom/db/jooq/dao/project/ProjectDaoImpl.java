@@ -15,7 +15,7 @@ import io.metaloom.loom.db.model.project.Project;
 import io.metaloom.loom.db.model.project.ProjectDao;
 
 @Singleton
-public class ProjectDaoImpl extends AbstractJooqDao<Project,UUID> implements ProjectDao {
+public class ProjectDaoImpl extends AbstractJooqDao<Project> implements ProjectDao {
 
 	@Inject
 	public ProjectDaoImpl(DSLContext ctx) {

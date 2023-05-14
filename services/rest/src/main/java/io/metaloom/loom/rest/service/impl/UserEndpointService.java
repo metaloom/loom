@@ -5,6 +5,7 @@ import static io.metaloom.loom.db.model.perm.Permission.DELETE_USER;
 import static io.metaloom.loom.db.model.perm.Permission.READ_USER;
 import static io.metaloom.loom.db.model.perm.Permission.UPDATE_USER;
 
+import java.time.Instant;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -22,7 +23,7 @@ import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
 @Singleton
-public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, User, UUID> {
+public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, User> {
 
 	private static final Logger log = LoggerFactory.getLogger(UserEndpointService.class);
 
@@ -38,7 +39,6 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_USER, () -> {
-			UserDao userDao = daos().userDao();
 			UserCreateRequest request = lrc.requestBody(UserCreateRequest.class);
 			String userName = request.getUsername();
 
@@ -49,8 +49,9 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 			User element = dao().createUser(userName);
 			element.setCreator(creatorEditor);
 			element.setEditor(creatorEditor);
-
-			return userDao.createUser("test");
+			element.setCreated(Instant.now());
+			element.setEdited(Instant.now());
+			return element;
 		}, modelBuilder::toResponse);
 	}
 

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.page.Page;
 
-public interface CRUDDaoTestcases<DAO extends CRUDDao<T, PT>, T extends Element<T>, PT> extends FixtureElementProvider {
+public interface CRUDDaoTestcases<DAO extends CRUDDao<T>, T extends Element<T>> extends FixtureElementProvider {
 
 	DAO getDao();
 
@@ -23,13 +23,13 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T, PT>, T extends Element<
 		DAO dao = getDao();
 		long before = dao.count();
 
-		AtomicReference<PT> ref = new AtomicReference<>();
+		AtomicReference<UUID> ref = new AtomicReference<>();
 		User creator = dummyUser();
 		transaction(t -> {
 			T element = createElement(creator, 0);
 			assertNotNull(element);
 			dao.store(element);
-			ref.set(dao.primaryId(element));
+			ref.set(element.getUuid());
 			assertNotNull(element.getUuid());
 			getDao().store(element);
 		});
@@ -49,7 +49,7 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T, PT>, T extends Element<
 
 		// Now assert deletion
 		dao.delete(element);
-		assertNull(dao.load(dao.primaryId(element)), "The library should be deleted.");
+		assertNull(dao.load(element.getUuid()), "The library should be deleted.");
 	}
 
 	@Test
@@ -66,7 +66,7 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T, PT>, T extends Element<
 		dao.update(element);
 
 		// Load and assert update was persisted
-		T updatedElement = dao.load(dao.primaryId(element));
+		T updatedElement = dao.load(element.getUuid());
 		assertUpdate(updatedElement);
 
 	}
@@ -86,7 +86,7 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T, PT>, T extends Element<
 		dao.store(element);
 
 		// Now load again
-		assertNotNull(dao.load(dao.primaryId(element)));
+		assertNotNull(element.getUuid());
 	}
 
 	@Test
@@ -97,14 +97,14 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T, PT>, T extends Element<
 		}
 		assertEquals(1024, getDao().count());
 
-		PT id = null;
+		UUID id = null;
 		long totalFound = 0;
 		while (true) {
 			Page<T> page = getDao().loadPage(id, 30);
 			if (page.isEmpty()) {
 				break;
 			} else {
-				id = getDao().primaryId(page.last());
+				id = page.last().getUuid();
 			}
 			for (T element : page) {
 				System.out.println(element);
