@@ -5,7 +5,6 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.jooq.TableRecord;
@@ -35,9 +34,9 @@ public class EmbeddingDaoImpl extends AbstractJooqDao<Embedding> implements Embe
 	}
 
 	@Override
-	public Embedding createEmbedding(UUID userUuid, UUID assetUuid, float[] data, EmbeddingType type, long id) {
+	public Embedding createEmbedding(UUID userUuid, UUID assetUuid, Float[] data, EmbeddingType type, long id) {
 		Embedding embedding = new EmbeddingImpl();
-		embedding.setData(ArrayUtils.toObject(data));
+		embedding.setData(data);
 		embedding.setType(type);
 		embedding.setId(id);
 		embedding.setAssetUuid(assetUuid);

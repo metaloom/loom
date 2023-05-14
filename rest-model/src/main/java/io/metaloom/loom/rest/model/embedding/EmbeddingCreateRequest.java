@@ -17,7 +17,7 @@ public class EmbeddingCreateRequest implements MetaModel<EmbeddingCreateRequest>
 
 	private EmbeddingType type;
 
-	private float[] data;
+	private Float[] data;
 
 	private UUID assetUuid;
 
@@ -73,11 +73,11 @@ public class EmbeddingCreateRequest implements MetaModel<EmbeddingCreateRequest>
 		return this;
 	}
 
-	public float[] getData() {
+	public Float[] getData() {
 		return data;
 	}
 
-	public EmbeddingCreateRequest setData(float[] data) {
+	public EmbeddingCreateRequest setData(Float[] data) {
 		this.data = data;
 		return this;
 	}
