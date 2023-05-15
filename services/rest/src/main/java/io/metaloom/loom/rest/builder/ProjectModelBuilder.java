@@ -16,9 +16,7 @@ public interface ProjectModelBuilder extends ModelBuilder, UserModelBuilder {
 	}
 
 	default ProjectListResponse toProjectList(Page<Project> page) {
-		return setPage(new ProjectListResponse(), page, project -> {
-			return toResponse(project);
-		});
+		return setPage(new ProjectListResponse(), page, this::toResponse);
 	}
 
 }

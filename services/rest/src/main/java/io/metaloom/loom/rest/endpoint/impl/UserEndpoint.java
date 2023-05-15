@@ -5,10 +5,8 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dagger.multibindings.ElementsIntoSet;
 import io.metaloom.loom.rest.AbstractCRUDEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
-import io.metaloom.loom.rest.dagger.RESTEndpoints;
 import io.metaloom.loom.rest.service.impl.UserEndpointService;
 
 public class UserEndpoint extends AbstractCRUDEndpoint<UserEndpointService> {

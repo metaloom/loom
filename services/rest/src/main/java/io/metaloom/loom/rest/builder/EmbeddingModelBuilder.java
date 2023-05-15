@@ -16,8 +16,6 @@ public interface EmbeddingModelBuilder extends ModelBuilder, UserModelBuilder {
 	}
 
 	default EmbeddingListResponse toEmbeddingList(Page<Embedding> page) {
-		return setPage(new EmbeddingListResponse(), page, embedding -> {
-			return toResponse(embedding);
-		});
+		return setPage(new EmbeddingListResponse(), page, this::toResponse);
 	}
 }

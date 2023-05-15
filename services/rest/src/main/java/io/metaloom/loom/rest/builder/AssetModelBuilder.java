@@ -124,8 +124,6 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 	}
 
 	default AssetListResponse toAssetList(Page<Asset> page) {
-		return setPage(new AssetListResponse(), page, asset -> {
-			return toResponse(asset);
-		});
+		return setPage(new AssetListResponse(), page, this::toResponse);
 	}
 }

@@ -16,9 +16,7 @@ public interface GroupModelBuilder extends ModelBuilder, UserModelBuilder {
 	}
 
 	default GroupListResponse toGroupList(Page<Group> page) {
-		return setPage(new GroupListResponse(), page, group -> {
-			return toResponse(group);
-		});
+		return setPage(new GroupListResponse(), page, this::toResponse);
 	}
 
 }

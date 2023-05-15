@@ -23,9 +23,7 @@ public interface TagModelBuilder extends ModelBuilder, UserModelBuilder {
 	}
 
 	default TagListResponse toTagList(Page<Tag> page) {
-		return setPage(new TagListResponse(), page, tag -> {
-			return toResponse(tag);
-		});
+		return setPage(new TagListResponse(), page, this::toResponse);
 	}
 
 }

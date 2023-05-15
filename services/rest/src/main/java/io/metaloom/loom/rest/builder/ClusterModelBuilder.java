@@ -15,9 +15,7 @@ public interface ClusterModelBuilder extends ModelBuilder {
 	}
 
 	default ClusterListResponse toClusterList(Page<Cluster> page) {
-		return setPage(new ClusterListResponse(), page, cluster -> {
-			return toResponse(cluster);
-		});
+		return setPage(new ClusterListResponse(), page, this::toResponse);
 	}
 
 }

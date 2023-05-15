@@ -43,9 +43,7 @@ public interface AssetLocationModelBuilder extends ModelBuilder {
 	}
 
 	default LocationListResponse toLocationList(Page<AssetLocation> page) {
-		return setPage(new LocationListResponse(), page, location -> {
-			return toResponse(location);
-		});
+		return setPage(new LocationListResponse(), page, this::toResponse);
 	}
 
 }

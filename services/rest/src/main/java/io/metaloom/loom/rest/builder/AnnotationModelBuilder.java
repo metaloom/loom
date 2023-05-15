@@ -41,9 +41,7 @@ public interface AnnotationModelBuilder extends ModelBuilder, UserModelBuilder, 
 	}
 
 	default AnnotationListResponse toAnnotationList(Page<Annotation> page) {
-		return setPage(new AnnotationListResponse(), page, annotation -> {
-			return toResponse(annotation);
-		});
+		return setPage(new AnnotationListResponse(), page, this::toResponse);
 	}
 
 }

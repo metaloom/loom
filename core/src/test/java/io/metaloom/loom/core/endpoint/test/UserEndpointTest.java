@@ -8,21 +8,19 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.client.http.LoomHttpClient;
+import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractEndpointTest;
-import io.metaloom.loom.rest.model.auth.AuthLoginResponse;
+import io.metaloom.loom.core.endpoint.CRUDEndpointTestcases;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.model.user.UserListResponse;
 import io.metaloom.loom.rest.model.user.UserResponse;
 
-public class UserEndpointTest extends AbstractEndpointTest {
+public class UserEndpointTest extends AbstractEndpointTest implements CRUDEndpointTestcases {
 
 	@Test
 	public void testBasics() throws Exception {
 		try (LoomHttpClient client = loom.httpClient()) {
-
-			AuthLoginResponse authResponse = client.login("admin", "finger").sync();
-			System.out.println("Got Token: " + authResponse.getToken());
-			client.setToken(authResponse.getToken());
+			loginAdmin(client);
 
 			UserResponse response = client.loadUser(USER_UUID).sync();
 			assertNotNull(response);
@@ -40,6 +38,55 @@ public class UserEndpointTest extends AbstractEndpointTest {
 			client.deleteUser(uuid).sync();
 
 		}
+	}
+
+	@Test
+	@Override
+	public void testRead() throws HttpErrorException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Test
+	@Override
+	public void testCreate() throws HttpErrorException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Test
+	@Override
+	public void testDelete() throws HttpErrorException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Test
+	@Override
+	public void testUpdate() throws HttpErrorException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Test
+	@Override
+	public void testReadPaged() throws HttpErrorException {
+		try (LoomHttpClient client = loom.httpClient()) {
+			loginAdmin(client);
+
+			for (int i = 0; i < 100; i++) {
+				UserCreateRequest request = new UserCreateRequest();
+				request.setUsername("user_" + i);
+				client.createUser(request).sync();
+			}
+
+			UserListResponse pageResponse = client.listUsers(10).sync();
+
+			UserListResponse secondPage = client.listUsers(pageResponse.getMetainfo().getLastUuid(), 2).sync();
+			assertEquals(2, secondPage.getMetainfo().getTotalCount(), "There should only be two users in the list");
+			assertEquals(2, secondPage.getData().size(), "There should only be two responses");
+		}
+
 	}
 
 }

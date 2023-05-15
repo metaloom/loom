@@ -16,9 +16,7 @@ public interface LibraryModelBuilder extends ModelBuilder, UserModelBuilder {
 	}
 
 	default LibraryListResponse toLibraryList(Page<Library> page) {
-		return setPage(new LibraryListResponse(), page, lib -> {
-			return toResponse(lib);
-		});
+		return setPage(new LibraryListResponse(), page, this::toResponse);
 	}
 
 }

@@ -20,11 +20,7 @@ public interface UserModelBuilder extends ModelBuilder {
 	}
 
 	default UserListResponse toUserList(Page<User> page) {
-		UserListResponse response = new UserListResponse();
-		for (User user : page) {
-			response.add(toResponse(user));
-		}
-		return response;
+		return setPage(new UserListResponse(), page, this::toResponse);
 	}
 
 	default UserReference toReference(User user) {

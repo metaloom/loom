@@ -16,8 +16,6 @@ public interface RoleModelBuilder extends ModelBuilder, UserModelBuilder {
 	}
 
 	default RoleListResponse toRoleList(Page<Role> page) {
-		return setPage(new RoleListResponse(), page, role -> {
-			return toResponse(role);
-		});
+		return setPage(new RoleListResponse(), page, this::toResponse);
 	}
 }

@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -15,7 +16,7 @@ import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.RestResponseModel;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
-import io.metaloom.loom.rest.validation.LoomModelValidator;
+import io.metaloom.loom.rest.parameter.PagingParameters;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.ext.auth.User;
@@ -28,13 +29,12 @@ public class LoomRoutingContext {
 
 	private final RoutingContext rc;
 	private final LoomAuthorizationProvider authorizationProvider;
-	private final LoomModelValidator validator;
+	
 
 	@Inject
-	public LoomRoutingContext(RoutingContext rc, LoomAuthorizationProvider authorizationProvider, LoomModelValidator validator) {
+	public LoomRoutingContext(RoutingContext rc, LoomAuthorizationProvider authorizationProvider) {
 		this.rc = rc;
 		this.authorizationProvider = authorizationProvider;
-		this.validator = validator;
 	}
 
 	public <T extends RestRequestModel> T requestBody(Class<T> clazz) {
@@ -42,11 +42,11 @@ public class LoomRoutingContext {
 		return model;
 	}
 
-	public void send(RestResponseModel response) {
+	public void send(RestResponseModel<?> response) {
 		send(response, 200);
 	}
 
-	public void send(RestResponseModel response, int statusCode) {
+	public void send(RestResponseModel<?> response, int statusCode) {
 		rc.response().headers().set(HttpHeaders.CONTENT_TYPE, "application/json");
 		rc.response().setStatusCode(statusCode).end(Json.encodeToBuffer(response));
 	}
@@ -56,6 +56,10 @@ public class LoomRoutingContext {
 	 */
 	public void send() {
 		rc.response().setStatusCode(204).end();
+	}
+
+	public List<String> queryParam(String key) {
+		return rc.queryParam(key);
 	}
 
 	public String pathParam(String key) {
@@ -111,6 +115,10 @@ public class LoomRoutingContext {
 
 	public UUID userUuid() {
 		return loomUser().getUuid();
+	}
+
+	public PagingParameters pagingParams() {
+		return PagingParameters.create(this);
 	}
 
 }

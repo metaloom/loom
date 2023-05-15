@@ -16,8 +16,6 @@ public interface CommentModelBuilder extends ModelBuilder, UserModelBuilder {
 	}
 
 	default CommentListResponse toCommentList(Page<Comment> page) {
-		return setPage(new CommentListResponse(), page, comment -> {
-			return toResponse(comment);
-		});
+		return setPage(new CommentListResponse(), page, this::toResponse);
 	}
 }

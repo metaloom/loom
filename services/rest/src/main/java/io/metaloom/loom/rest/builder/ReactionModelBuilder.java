@@ -14,9 +14,7 @@ public interface ReactionModelBuilder extends ModelBuilder {
 	}
 
 	default ReactionListResponse toReactionList(Page<Reaction> page) {
-		return setPage(new ReactionListResponse(), page, reaction -> {
-			return toResponse(reaction);
-		});
+		return setPage(new ReactionListResponse(), page, this::toResponse);
 	}
 
 }

@@ -21,6 +21,7 @@ import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.model.user.UserUpdateRequest;
+import io.metaloom.loom.rest.parameter.PagingParameters;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -79,7 +80,13 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_USER, () -> {
-			return dao().loadPage(null, 25);
+			PagingParameters pagingParameters = lrc.pagingParams();
+			UUID from = pagingParameters.from();
+			int pageSize = pagingParameters.perPage();
+			if (log.isDebugEnabled()) {
+				log.debug("Loading user page from {} pageSize: {}", from, pageSize);
+			}
+			return dao().loadPage(from, pageSize);
 		}, modelBuilder::toUserList);
 	}
 

@@ -16,9 +16,7 @@ public interface CollectionModelBuilder extends ModelBuilder, UserModelBuilder {
 	}
 
 	default CollectionListResponse toCollectionList(Page<Collection> page) {
-		return setPage(new CollectionListResponse(), page, collection -> {
-			return toResponse(collection);
-		});
+		return setPage(new CollectionListResponse(), page, this::toResponse);
 	}
 
 }

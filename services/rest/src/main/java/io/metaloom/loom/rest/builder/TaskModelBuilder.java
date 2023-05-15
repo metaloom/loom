@@ -26,8 +26,6 @@ public interface TaskModelBuilder extends ModelBuilder, UserModelBuilder, Commen
 	}
 
 	default TaskListResponse toTaskList(Page<Task> page) {
-		return setPage(new TaskListResponse(), page, task -> {
-			return toResponse(task);
-		});
+		return setPage(new TaskListResponse(), page, this::toResponse);
 	}
 }

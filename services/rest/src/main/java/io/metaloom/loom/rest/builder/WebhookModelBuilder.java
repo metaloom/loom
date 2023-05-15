@@ -16,8 +16,6 @@ public interface WebhookModelBuilder extends ModelBuilder, UserModelBuilder {
 	}
 
 	default WebhookListResponse toWebhookList(Page<Webhook> page) {
-		return setPage(new WebhookListResponse(), page, webhook -> {
-			return toResponse(webhook);
-		});
+		return setPage(new WebhookListResponse(), page, this::toResponse);
 	}
 }
