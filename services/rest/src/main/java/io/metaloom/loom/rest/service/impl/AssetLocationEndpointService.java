@@ -21,6 +21,7 @@ import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.asset.location.LocationCreateRequest;
 import io.metaloom.loom.rest.model.asset.location.LocationFilesystemInfo;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class AssetLocationEndpointService extends AbstractCRUDEndpointService<AssetLocationDao, AssetLocation> {
@@ -28,8 +29,8 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpointService.class);
 
 	@Inject
-	public AssetLocationEndpointService(AssetLocationDao assetLocationDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(assetLocationDao, daos, modelBuilder);
+	public AssetLocationEndpointService(AssetLocationDao assetLocationDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(assetLocationDao, daos, modelBuilder, validator);
 	}
 
 	@Override

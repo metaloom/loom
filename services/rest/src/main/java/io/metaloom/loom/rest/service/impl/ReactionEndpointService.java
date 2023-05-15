@@ -16,13 +16,14 @@ import io.metaloom.loom.db.model.reaction.ReactionDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class ReactionEndpointService extends AbstractCRUDEndpointService<ReactionDao, Reaction> {
 
 	@Inject
-	public ReactionEndpointService(ReactionDao reactionDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(reactionDao, daos, modelBuilder);
+	public ReactionEndpointService(ReactionDao reactionDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(reactionDao, daos, modelBuilder, validator);
 	}
 
 	@Override

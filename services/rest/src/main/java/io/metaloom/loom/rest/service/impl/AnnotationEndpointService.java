@@ -17,13 +17,14 @@ import io.metaloom.loom.db.model.annotation.AnnotationType;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class AnnotationEndpointService extends AbstractCRUDEndpointService<AnnotationDao, Annotation> {
 
 	@Inject
-	public AnnotationEndpointService(AnnotationDao annotationDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(annotationDao, daos, modelBuilder);
+	public AnnotationEndpointService(AnnotationDao annotationDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(annotationDao, daos, modelBuilder, validator);
 	}
 
 	@Override

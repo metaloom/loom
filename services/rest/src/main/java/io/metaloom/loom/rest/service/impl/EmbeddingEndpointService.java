@@ -19,14 +19,15 @@ import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.embedding.EmbeddingCreateRequest;
 import io.metaloom.loom.rest.model.embedding.EmbeddingUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 import io.metaloom.utils.FloatUtils;
 
 @Singleton
 public class EmbeddingEndpointService extends AbstractCRUDEndpointService<EmbeddingDao, Embedding> {
 
 	@Inject
-	public EmbeddingEndpointService(EmbeddingDao embeddingDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(embeddingDao, daos, modelBuilder);
+	public EmbeddingEndpointService(EmbeddingDao embeddingDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(embeddingDao, daos, modelBuilder, validator);
 	}
 
 	@Override

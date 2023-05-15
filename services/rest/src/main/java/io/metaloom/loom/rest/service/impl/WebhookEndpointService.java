@@ -16,13 +16,14 @@ import io.metaloom.loom.db.model.webhook.WebhookDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class WebhookEndpointService extends AbstractCRUDEndpointService<WebhookDao, Webhook> {
 
 	@Inject
-	public WebhookEndpointService(WebhookDao webhookDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(webhookDao, daos, modelBuilder);
+	public WebhookEndpointService(WebhookDao webhookDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(webhookDao, daos, modelBuilder, validator);
 	}
 
 	@Override

@@ -16,13 +16,14 @@ import io.metaloom.loom.db.model.task.TaskDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class TaskEndpointService extends AbstractCRUDEndpointService<TaskDao, Task> {
 
 	@Inject
-	public TaskEndpointService(TaskDao taskDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(taskDao, daos, modelBuilder);
+	public TaskEndpointService(TaskDao taskDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(taskDao, daos, modelBuilder, validator);
 	}
 
 	@Override

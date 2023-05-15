@@ -16,13 +16,14 @@ import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, Group> {
 
 	@Inject
-	public GroupEndpointService(GroupDao groupDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(groupDao, daos, modelBuilder);
+	public GroupEndpointService(GroupDao groupDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(groupDao, daos, modelBuilder, validator);
 	}
 
 	@Override

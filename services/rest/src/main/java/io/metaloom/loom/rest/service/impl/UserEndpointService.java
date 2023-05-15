@@ -20,7 +20,9 @@ import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
+import io.metaloom.loom.rest.model.user.UserUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, User> {
@@ -28,8 +30,8 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 	private static final Logger log = LoggerFactory.getLogger(UserEndpointService.class);
 
 	@Inject
-	public UserEndpointService(UserDao userDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(userDao, daos, modelBuilder);
+	public UserEndpointService(UserDao userDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(userDao, daos, modelBuilder, validator);
 	}
 
 	@Override
@@ -40,6 +42,8 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_USER, () -> {
 			UserCreateRequest request = lrc.requestBody(UserCreateRequest.class);
+			validator.validate(request);
+
 			String userName = request.getUsername();
 
 			// TODO validate request
@@ -56,9 +60,12 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 	}
 
 	@Override
-	public void update(LoomRoutingContext lrc, UUID id) {
+	public void update(LoomRoutingContext lrc, UUID uuid) {
 		update(lrc, UPDATE_USER, () -> {
-			User user = dao().load(id);
+			UserUpdateRequest request = lrc.requestBody(UserUpdateRequest.class);
+			validator.validate(request);
+
+			User user = dao().load(uuid);
 			// TODO update
 			return dao().update(user);
 		}, modelBuilder::toResponse);

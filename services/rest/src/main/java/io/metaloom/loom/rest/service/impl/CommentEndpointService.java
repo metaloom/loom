@@ -16,16 +16,16 @@ import io.metaloom.loom.db.model.comment.CommentDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class CommentEndpointService extends AbstractCRUDEndpointService<CommentDao, Comment> {
 
 	@Inject
-	public CommentEndpointService(CommentDao commentDao,  DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(commentDao, daos, modelBuilder);
+	public CommentEndpointService(CommentDao commentDao,  DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(commentDao, daos, modelBuilder, validator);
 	}
 
-	
 	@Override
 	public void delete(LoomRoutingContext lrc, UUID id) {
 		delete(lrc, DELETE_COMMENT, id);

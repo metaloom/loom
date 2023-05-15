@@ -20,6 +20,8 @@ public class VideoInfo {
 
 	private Embeddings embeddings;
 
+	private Integer bitrate;
+
 	private String encoding;
 
 	public Long getDuration() {
@@ -73,6 +75,15 @@ public class VideoInfo {
 
 	public VideoInfo setEncoding(String encoding) {
 		this.encoding = encoding;
+		return this;
+	}
+
+	public Integer getBitrate() {
+		return bitrate;
+	}
+
+	public VideoInfo setBitrate(Integer bitrate) {
+		this.bitrate = bitrate;
 		return this;
 	}
 

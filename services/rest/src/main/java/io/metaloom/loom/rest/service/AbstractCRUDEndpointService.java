@@ -16,6 +16,7 @@ import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.RestResponseModel;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 /**
  * 
@@ -32,8 +33,8 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 
 	private final DaoCollection daos;
 
-	public AbstractCRUDEndpointService(D crudDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(modelBuilder);
+	public AbstractCRUDEndpointService(D crudDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(modelBuilder, validator);
 		this.crudDao = crudDao;
 		this.daos = daos;
 	}

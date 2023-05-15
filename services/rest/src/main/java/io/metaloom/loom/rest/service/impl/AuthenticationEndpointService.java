@@ -11,6 +11,7 @@ import io.metaloom.loom.rest.model.auth.AuthLoginRequest;
 import io.metaloom.loom.rest.model.auth.AuthLoginResponse;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
 import io.metaloom.loom.rest.service.AbstractEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 import io.vertx.core.json.JsonObject;
 
 @Singleton
@@ -19,8 +20,8 @@ public class AuthenticationEndpointService extends AbstractEndpointService {
 	private final AuthenticationService authService;
 
 	@Inject
-	public AuthenticationEndpointService(AuthenticationService authService, LoomModelBuilder modelBuilder) {
-		super(modelBuilder);
+	public AuthenticationEndpointService(AuthenticationService authService, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(modelBuilder, validator);
 		this.authService = authService;
 	}
 

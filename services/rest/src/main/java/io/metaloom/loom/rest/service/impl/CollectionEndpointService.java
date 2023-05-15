@@ -19,6 +19,7 @@ import io.metaloom.loom.db.model.collection.CollectionDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class CollectionEndpointService extends AbstractCRUDEndpointService<CollectionDao, Collection> {
@@ -26,8 +27,8 @@ public class CollectionEndpointService extends AbstractCRUDEndpointService<Colle
 	private static final Logger log = LoggerFactory.getLogger(CollectionEndpointService.class);
 
 	@Inject
-	public CollectionEndpointService(CollectionDao collectionDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(collectionDao, daos, modelBuilder);
+	public CollectionEndpointService(CollectionDao collectionDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(collectionDao, daos, modelBuilder, validator);
 	}
 
 	@Override

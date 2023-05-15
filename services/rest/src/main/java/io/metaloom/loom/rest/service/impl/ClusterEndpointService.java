@@ -17,13 +17,14 @@ import io.metaloom.loom.db.model.cluster.ClusterType;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class ClusterEndpointService extends AbstractCRUDEndpointService<ClusterDao, Cluster> {
 
 	@Inject
-	public ClusterEndpointService(ClusterDao clusterDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(clusterDao, daos, modelBuilder);
+	public ClusterEndpointService(ClusterDao clusterDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(clusterDao, daos, modelBuilder, validator);
 	}
 
 	@Override

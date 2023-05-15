@@ -13,6 +13,8 @@ public class AudioInfo implements RestModel {
 
 	private String encoding;
 
+	private Integer bitrate;
+
 	private Integer samplingRate;
 
 	private Integer bpm;
@@ -71,6 +73,15 @@ public class AudioInfo implements RestModel {
 
 	public AudioInfo setFingerprint(String fingerprint) {
 		this.fingerprint = fingerprint;
+		return this;
+	}
+
+	public Integer getBitrate() {
+		return bitrate;
+	}
+
+	public AudioInfo setBitrate(Integer bitrate) {
+		this.bitrate = bitrate;
 		return this;
 	}
 

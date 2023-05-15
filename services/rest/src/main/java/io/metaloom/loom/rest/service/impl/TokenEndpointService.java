@@ -16,13 +16,14 @@ import io.metaloom.loom.db.model.token.TokenDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class TokenEndpointService extends AbstractCRUDEndpointService<TokenDao, Token> {
 
 	@Inject
-	public TokenEndpointService(TokenDao tokenDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(tokenDao, daos, modelBuilder);
+	public TokenEndpointService(TokenDao tokenDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(tokenDao, daos, modelBuilder, validator);
 	}
 
 	@Override

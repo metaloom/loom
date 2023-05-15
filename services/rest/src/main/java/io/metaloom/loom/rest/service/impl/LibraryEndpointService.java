@@ -16,13 +16,14 @@ import io.metaloom.loom.db.model.library.LibraryDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class LibraryEndpointService extends AbstractCRUDEndpointService<LibraryDao, Library> {
 
 	@Inject
-	public LibraryEndpointService(LibraryDao libraryDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(libraryDao, daos, modelBuilder);
+	public LibraryEndpointService(LibraryDao libraryDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(libraryDao, daos, modelBuilder, validator);
 	}
 
 	@Override

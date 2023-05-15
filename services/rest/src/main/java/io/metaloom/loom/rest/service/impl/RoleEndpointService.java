@@ -17,13 +17,14 @@ import io.metaloom.loom.db.model.role.RoleDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class RoleEndpointService extends AbstractCRUDEndpointService<RoleDao, Role> {
 
 	@Inject
-	public RoleEndpointService(RoleDao roleDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(roleDao, daos, modelBuilder);
+	public RoleEndpointService(RoleDao roleDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(roleDao, daos, modelBuilder, validator);
 	}
 
 	@Override

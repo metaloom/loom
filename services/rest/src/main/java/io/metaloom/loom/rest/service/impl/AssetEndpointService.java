@@ -21,6 +21,7 @@ import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 import io.metaloom.utils.UUIDUtils;
 import io.metaloom.utils.hash.SHA512Sum;
 
@@ -30,8 +31,8 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpointService.class);
 
 	@Inject
-	public AssetEndpointService(AssetDao assetDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(assetDao, daos, modelBuilder);
+	public AssetEndpointService(AssetDao assetDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(assetDao, daos, modelBuilder, validator);
 	}
 
 	public void delete(LoomRoutingContext lrc, String sha512orUUID) {

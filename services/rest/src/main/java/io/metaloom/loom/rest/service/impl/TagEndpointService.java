@@ -19,6 +19,7 @@ import io.metaloom.loom.db.model.tag.TagDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag> {
@@ -26,8 +27,8 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 	private static final Logger log = LoggerFactory.getLogger(TagEndpointService.class);
 
 	@Inject
-	public TagEndpointService(TagDao tagDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(tagDao, daos, modelBuilder);
+	public TagEndpointService(TagDao tagDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(tagDao, daos, modelBuilder, validator);
 	}
 	
 	@Override

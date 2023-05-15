@@ -16,13 +16,14 @@ import io.metaloom.loom.db.model.project.ProjectDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 
 @Singleton
 public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectDao, Project> {
 
 	@Inject
-	public ProjectEndpointService(ProjectDao projectDao, DaoCollection daos, LoomModelBuilder modelBuilder) {
-		super(projectDao, daos, modelBuilder);
+	public ProjectEndpointService(ProjectDao projectDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+		super(projectDao, daos, modelBuilder, validator);
 	}
 
 	@Override
