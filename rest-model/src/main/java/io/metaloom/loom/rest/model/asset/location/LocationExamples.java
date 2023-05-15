@@ -4,8 +4,8 @@ import io.metaloom.loom.rest.model.example.ExampleValues;
 
 public interface LocationExamples extends ExampleValues {
 
-	default LocationResponse locationResponse() {
-		LocationResponse model = new LocationResponse();
+	default AssetLocationResponse locationResponse() {
+		AssetLocationResponse model = new AssetLocationResponse();
 		model.setFilesystem(new LocationFilesystemInfo().setFilekey(new FileKey().setInode(42).setStDev(12)).setLastSeen(DATE_NEW)
 			.setPath("/the-current-path/bigbuckbunny-4k.mp4"));
 		model.setS3(new AssetS3Meta().setBucket("big_bucket").setKey("themovie"));
@@ -20,8 +20,8 @@ public interface LocationExamples extends ExampleValues {
 		return model;
 	}
 
-	default LocationUpdateRequest locationUpdateRequest() {
-		LocationUpdateRequest model = new LocationUpdateRequest();
+	default AssetLocationUpdateRequest locationUpdateRequest() {
+		AssetLocationUpdateRequest model = new AssetLocationUpdateRequest();
 		
 		return model;
 	}

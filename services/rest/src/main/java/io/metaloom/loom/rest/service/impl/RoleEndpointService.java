@@ -16,6 +16,8 @@ import io.metaloom.loom.db.model.role.Role;
 import io.metaloom.loom.db.model.role.RoleDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.role.RoleCreateRequest;
+import io.metaloom.loom.rest.model.role.RoleUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -49,7 +51,10 @@ public class RoleEndpointService extends AbstractCRUDEndpointService<RoleDao, Ro
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_ROLE, () -> {
-			String name = null;
+			RoleCreateRequest request = lrc.requestBody(RoleCreateRequest.class);
+			validator.validate(request);
+			
+			String name = request.getName();
 			UUID userUuid = lrc.userUuid();
 			return dao().createRole(name, userUuid);
 		}, modelBuilder::toResponse);
@@ -58,6 +63,9 @@ public class RoleEndpointService extends AbstractCRUDEndpointService<RoleDao, Ro
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_ROLE, () -> {
+			RoleUpdateRequest request = lrc.requestBody(RoleUpdateRequest.class);
+			validator.validate(request);
+
 			Role role = dao().load(id);
 			// TOOD update
 			return dao().update(role);

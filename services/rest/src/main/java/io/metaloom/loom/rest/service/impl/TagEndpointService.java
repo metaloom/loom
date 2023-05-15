@@ -18,6 +18,8 @@ import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.model.tag.TagDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.tag.TagCreateRequest;
+import io.metaloom.loom.rest.model.tag.TagUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -30,7 +32,7 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 	public TagEndpointService(TagDao tagDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
 		super(tagDao, daos, modelBuilder, validator);
 	}
-	
+
 	@Override
 	public void delete(LoomRoutingContext lrc, UUID id) {
 		delete(lrc, DELETE_TAG, id);
@@ -53,6 +55,9 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_TAG, () -> {
+			TagCreateRequest request = lrc.requestBody(TagCreateRequest.class);
+			validator.validate(request);
+
 			String name = null;
 			String collection = null;
 			UUID userUuid = lrc.userUuid();
@@ -63,6 +68,9 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_TAG, () -> {
+			TagUpdateRequest request = lrc.requestBody(TagUpdateRequest.class);
+			validator.validate(request);
+
 			Tag tag = dao().load(id);
 			// TOOD update
 			return dao().update(tag);

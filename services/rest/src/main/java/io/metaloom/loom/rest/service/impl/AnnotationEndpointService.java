@@ -16,6 +16,8 @@ import io.metaloom.loom.db.model.annotation.AnnotationDao;
 import io.metaloom.loom.db.model.annotation.AnnotationType;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.annotation.AnnotationCreateRequest;
+import io.metaloom.loom.rest.model.annotation.AnnotationUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -49,6 +51,9 @@ public class AnnotationEndpointService extends AbstractCRUDEndpointService<Annot
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_ANNOTATION, () -> {
+			AnnotationCreateRequest request = lrc.requestBody(AnnotationCreateRequest.class);
+			validator.validate(request);
+
 			UUID userUuid = lrc.userUuid();
 			UUID assetUuid = null;
 			String title = null;
@@ -60,6 +65,9 @@ public class AnnotationEndpointService extends AbstractCRUDEndpointService<Annot
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_ANNOTATION, () -> {
+			AnnotationUpdateRequest request = lrc.requestBody(AnnotationUpdateRequest.class);
+			validator.validate(request);
+
 			Annotation annotation = dao().load(id);
 			// TOOD update
 			return dao().update(annotation);

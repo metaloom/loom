@@ -15,6 +15,8 @@ import io.metaloom.loom.db.model.reaction.Reaction;
 import io.metaloom.loom.db.model.reaction.ReactionDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.reaction.ReactionCreateRequest;
+import io.metaloom.loom.rest.model.reaction.ReactionUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -48,6 +50,9 @@ public class ReactionEndpointService extends AbstractCRUDEndpointService<Reactio
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_REACTION, () -> {
+			ReactionCreateRequest request = lrc.requestBody(ReactionCreateRequest.class);
+			validator.validate(request);
+
 			UUID userUuid = lrc.userUuid();
 			String type = null;
 			return dao().createReaction(userUuid, type);
@@ -57,6 +62,9 @@ public class ReactionEndpointService extends AbstractCRUDEndpointService<Reactio
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_REACTION, () -> {
+			ReactionUpdateRequest request = lrc.requestBody(ReactionUpdateRequest.class);
+			validator.validate(request);
+
 			Reaction reaction = dao().load(id);
 			// TOOD update
 			return dao().update(reaction);

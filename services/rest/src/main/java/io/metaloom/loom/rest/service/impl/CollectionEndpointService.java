@@ -18,6 +18,8 @@ import io.metaloom.loom.db.model.collection.Collection;
 import io.metaloom.loom.db.model.collection.CollectionDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.collection.CollectionCreateRequest;
+import io.metaloom.loom.rest.model.collection.CollectionUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -53,6 +55,9 @@ public class CollectionEndpointService extends AbstractCRUDEndpointService<Colle
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_COLLECTION, () -> {
+			CollectionCreateRequest request = lrc.requestBody(CollectionCreateRequest.class);
+			validator.validate(request);
+
 			String name = null;
 			UUID userUuid = lrc.userUuid();
 			return dao().createCollection(userUuid, name);
@@ -62,6 +67,9 @@ public class CollectionEndpointService extends AbstractCRUDEndpointService<Colle
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_COLLECTION, () -> {
+			CollectionUpdateRequest request = lrc.requestBody(CollectionUpdateRequest.class);
+			validator.validate(request);
+
 			Collection collection = dao().load(id);
 			// TOOD update
 			return dao().update(collection);

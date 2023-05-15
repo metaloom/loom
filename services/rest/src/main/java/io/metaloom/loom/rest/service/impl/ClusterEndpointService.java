@@ -16,6 +16,8 @@ import io.metaloom.loom.db.model.cluster.ClusterDao;
 import io.metaloom.loom.db.model.cluster.ClusterType;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.cluster.ClusterCreateRequest;
+import io.metaloom.loom.rest.model.cluster.ClusterUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -49,6 +51,9 @@ public class ClusterEndpointService extends AbstractCRUDEndpointService<ClusterD
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_CLUSTER, () -> {
+			ClusterCreateRequest request = lrc.requestBody(ClusterCreateRequest.class);
+			validator.validate(request);
+
 			String name = null;
 			UUID userUuid = lrc.userUuid();
 			ClusterType type = null;
@@ -59,6 +64,9 @@ public class ClusterEndpointService extends AbstractCRUDEndpointService<ClusterD
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_CLUSTER, () -> {
+			ClusterUpdateRequest request = lrc.requestBody(ClusterUpdateRequest.class);
+			validator.validate(request);
+
 			Cluster cluster = dao().load(id);
 			// TOOD update
 			return dao().update(cluster);

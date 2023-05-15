@@ -15,6 +15,8 @@ import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.library.LibraryDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.library.LibraryCreateRequest;
+import io.metaloom.loom.rest.model.library.LibraryUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -48,7 +50,10 @@ public class LibraryEndpointService extends AbstractCRUDEndpointService<LibraryD
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_LIBRARY, () -> {
-			String name = null;
+			LibraryCreateRequest request = lrc.requestBody(LibraryCreateRequest.class);
+			validator.validate(request);
+
+			String name = request.getName();
 			UUID userUuid = lrc.userUuid();
 			return dao().createLibrary(userUuid, name);
 		}, modelBuilder::toResponse);
@@ -57,6 +62,9 @@ public class LibraryEndpointService extends AbstractCRUDEndpointService<LibraryD
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_LIBRARY, () -> {
+			LibraryUpdateRequest request = lrc.requestBody(LibraryUpdateRequest.class);
+			validator.validate(request);
+
 			Library library = dao().load(id);
 			// TOOD update
 			return dao().update(library);

@@ -15,6 +15,8 @@ import io.metaloom.loom.db.model.webhook.Webhook;
 import io.metaloom.loom.db.model.webhook.WebhookDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.webhook.WebhookCreateRequest;
+import io.metaloom.loom.rest.model.webhook.WebhookUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -48,8 +50,11 @@ public class WebhookEndpointService extends AbstractCRUDEndpointService<WebhookD
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_WEBHOOK, () -> {
+			WebhookCreateRequest request = lrc.requestBody(WebhookCreateRequest.class);
+			validator.validate(request);
+
 			UUID userUuid = lrc.userUuid();
-			String url = null;
+			String url = request.getUrl();
 			return dao().createWebhook(userUuid, url);
 		}, modelBuilder::toResponse);
 	}
@@ -57,6 +62,9 @@ public class WebhookEndpointService extends AbstractCRUDEndpointService<WebhookD
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_WEBHOOK, () -> {
+			WebhookUpdateRequest request = lrc.requestBody(WebhookUpdateRequest.class);
+			validator.validate(request);
+
 			Webhook webhook = dao().load(id);
 			// TOOD update
 			return dao().update(webhook);

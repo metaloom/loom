@@ -5,9 +5,12 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.RestRequestModel;
+import io.vertx.core.json.JsonObject;
 
-public class WebhookCreateRequest implements RestModel {
+public class WebhookCreateRequest implements RestRequestModel, MetaModel<WebhookCreateRequest> {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("The url which should be invoked by the webhook.")
@@ -19,6 +22,8 @@ public class WebhookCreateRequest implements RestModel {
 
 	@JsonPropertyDescription("The specified token which will be included in every webhook request to the endpoint. The endpoint can use this information to verify that the request is legitimate.")
 	private String secretToken;
+
+	private JsonObject meta;
 
 	public WebhookCreateRequest() {
 	}
@@ -46,6 +51,22 @@ public class WebhookCreateRequest implements RestModel {
 
 	public WebhookCreateRequest setSecretToken(String secretToken) {
 		this.secretToken = secretToken;
+		return this;
+	}
+
+	@Override
+	public JsonObject getMeta() {
+		return meta;
+	}
+
+	@Override
+	public WebhookCreateRequest setMeta(JsonObject meta) {
+		this.meta = meta;
+		return this;
+	}
+
+	@Override
+	public WebhookCreateRequest self() {
 		return this;
 	}
 

@@ -22,9 +22,7 @@ import io.metaloom.loom.rest.model.asset.location.LocationReference;
 import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
-public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, LocationModelBuilder, TagModelBuilder, AnnotationModelBuilder  {
-
-
+public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, AssetLocationModelBuilder, TagModelBuilder, AnnotationModelBuilder {
 
 	default List<LicenseInfo> assetLicense(Asset asset) {
 		List<LicenseInfo> info = new ArrayList<>();
@@ -77,7 +75,7 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Locat
 		// response.setSocial();
 		response.setCollections(null);
 
-		return response;
+		return validator().validate(response);
 	}
 
 	default HashInfo assetHasheInfo(Asset asset) {
@@ -109,7 +107,7 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Locat
 		VideoInfo info = new VideoInfo();
 		info.setDuration(asset.getMediaDuration());
 		// TODO use dedicated /asset/:uuid/embeddings endpoint for this
-		//info.setEmbeddings();
+		// info.setEmbeddings();
 		info.setEncoding(asset.getVideoEncoding());
 		info.setFingerprint(asset.getVideoFingerprint());
 		info.setHeight(asset.getMediaHeight());

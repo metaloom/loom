@@ -27,6 +27,8 @@ public class AuthenticationEndpointService extends AbstractEndpointService {
 
 	public void login(LoomRoutingContext lrc) {
 		AuthLoginRequest request = lrc.requestBody(AuthLoginRequest.class);
+		validator.validate(request);;
+
 		User user = authService.login(request.getUsername(), request.getPassword());
 		if (user == null) {
 			lrc.send(new GenericMessageResponse().setMessage("Login failed"), 401);

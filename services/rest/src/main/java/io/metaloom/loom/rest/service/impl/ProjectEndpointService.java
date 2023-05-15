@@ -15,6 +15,8 @@ import io.metaloom.loom.db.model.project.Project;
 import io.metaloom.loom.db.model.project.ProjectDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.project.ProjectCreateRequest;
+import io.metaloom.loom.rest.model.project.ProjectUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -48,6 +50,9 @@ public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectD
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_PROJECT, () -> {
+			ProjectCreateRequest request = lrc.requestBody(ProjectCreateRequest.class);
+			validator.validate(request);
+
 			UUID userUuid = lrc.userUuid();
 			String name = null;
 			return dao().createProject(userUuid, name);
@@ -57,6 +62,9 @@ public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectD
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_PROJECT, () -> {
+			ProjectUpdateRequest request = lrc.requestBody(ProjectUpdateRequest.class);
+			validator.validate(request);
+
 			Project project = dao().load(id);
 			// TOOD update
 			return dao().update(project);

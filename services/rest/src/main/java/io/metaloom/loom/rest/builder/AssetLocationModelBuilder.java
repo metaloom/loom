@@ -6,12 +6,12 @@ import io.metaloom.loom.rest.model.asset.location.FileKey;
 import io.metaloom.loom.rest.model.asset.location.LocationFilesystemInfo;
 import io.metaloom.loom.rest.model.asset.location.LocationListResponse;
 import io.metaloom.loom.rest.model.asset.location.LocationReference;
-import io.metaloom.loom.rest.model.asset.location.LocationResponse;
+import io.metaloom.loom.rest.model.asset.location.AssetLocationResponse;
 
-public interface LocationModelBuilder extends ModelBuilder {
+public interface AssetLocationModelBuilder extends ModelBuilder {
 
-	default LocationResponse toResponse(AssetLocation location) {
-		LocationResponse model = new LocationResponse();
+	default AssetLocationResponse toResponse(AssetLocation location) {
+		AssetLocationResponse model = new AssetLocationResponse();
 		model.setMeta(location.getMeta());
 		model.setUuid(location.getUuid());
 		model.setFilesystem(filesystemLocationInfo(location));

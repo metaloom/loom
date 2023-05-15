@@ -20,6 +20,7 @@ import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
+import io.metaloom.loom.rest.model.asset.AssetUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 import io.metaloom.utils.UUIDUtils;
@@ -101,6 +102,9 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 
 	protected void update(LoomRoutingContext lrc, Supplier<Asset> loader) {
 		update(lrc, UPDATE_ASSET, () -> {
+			AssetUpdateRequest request = lrc.requestBody(AssetUpdateRequest.class);
+			validator.validate(request);
+
 			Asset asset = loader.get();
 			// TODO Update
 			return dao().update(asset);
@@ -110,6 +114,8 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_ASSET, () -> {
 			AssetCreateRequest request = lrc.requestBody(AssetCreateRequest.class);
+			validator.validate(request);
+
 			UUID userUuid = lrc.userUuid();
 			String sha512sumStr = request.getHashes().getSha512();
 			SHA512Sum sha512sum = SHA512Sum.fromString(sha512sumStr);

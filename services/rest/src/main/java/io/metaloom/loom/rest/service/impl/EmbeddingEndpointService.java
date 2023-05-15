@@ -57,6 +57,8 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_EMBEDDING, () -> {
 			EmbeddingCreateRequest request = lrc.requestBody(EmbeddingCreateRequest.class);
+			validator.validate(request);
+
 			Float[] data = request.getData();
 			EmbeddingType type = request.getType() == null ? null : EmbeddingType.valueOf(request.getType().name());
 			Long id = request.getId();
@@ -71,6 +73,8 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 	public void update(LoomRoutingContext lrc, UUID uuid) {
 		create(lrc, UPDATE_EMBEDDING, () -> {
 			EmbeddingUpdateRequest request = lrc.requestBody(EmbeddingUpdateRequest.class);
+			validator.validate(request);
+
 			Embedding embedding = dao().load(uuid);
 			UUID assetUuid = request.getAssetUuid();
 			embedding.setAssetUuid(assetUuid);

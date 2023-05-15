@@ -15,6 +15,8 @@ import io.metaloom.loom.db.model.task.Task;
 import io.metaloom.loom.db.model.task.TaskDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.task.TaskCreateRequest;
+import io.metaloom.loom.rest.model.task.TaskUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -48,6 +50,9 @@ public class TaskEndpointService extends AbstractCRUDEndpointService<TaskDao, Ta
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_TASK, () -> {
+			TaskCreateRequest request = lrc.requestBody(TaskCreateRequest.class);
+			validator.validate(request);
+
 			String name = null;
 			UUID userUuid = lrc.userUuid();
 			return dao().createTask(userUuid, name);
@@ -57,6 +62,9 @@ public class TaskEndpointService extends AbstractCRUDEndpointService<TaskDao, Ta
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_TASK, () -> {
+			TaskUpdateRequest request = lrc.requestBody(TaskUpdateRequest.class);
+			validator.validate(request);
+
 			Task task = dao().load(id);
 			// TOOD update
 			return dao().update(task);

@@ -15,7 +15,7 @@ import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.RestResponseModel;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
-import io.metaloom.loom.rest.service.impl.CollectionEndpointService;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.ext.auth.User;
@@ -28,15 +28,18 @@ public class LoomRoutingContext {
 
 	private final RoutingContext rc;
 	private final LoomAuthorizationProvider authorizationProvider;
+	private final LoomModelValidator validator;
 
 	@Inject
-	public LoomRoutingContext(RoutingContext rc, LoomAuthorizationProvider authorizationProvider) {
+	public LoomRoutingContext(RoutingContext rc, LoomAuthorizationProvider authorizationProvider, LoomModelValidator validator) {
 		this.rc = rc;
 		this.authorizationProvider = authorizationProvider;
+		this.validator = validator;
 	}
 
 	public <T extends RestRequestModel> T requestBody(Class<T> clazz) {
-		return Json.parse(rc.body().buffer(), clazz);
+		T model = Json.parse(rc.body().buffer(), clazz);
+		return model;
 	}
 
 	public void send(RestResponseModel response) {

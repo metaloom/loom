@@ -10,8 +10,9 @@ public interface AssetModelValidator extends ModelValidator {
 
 	}
 
-	default void validate(AssetResponse response) {
-
+	default AssetResponse validate(AssetResponse response) {
+		validateCreatorEditorResponse(response);
+		return response;
 	}
 
 	default void validate(AssetCreateRequest request) {

@@ -24,6 +24,8 @@ import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.builder.impl.LoomModelBuilderImpl;
 import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.validation.LoomModelValidator;
+import io.metaloom.loom.rest.validation.impl.LoomModelValidatorImpl;
 import io.metaloom.loom.test.TestValues;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -32,13 +34,14 @@ public abstract class AbstractModelBuilderTest implements TestValues {
 
 	public LoomModelBuilder builder() {
 		DaoCollection daos = mock(DaoCollection.class);
+		LoomModelValidator validator = new LoomModelValidatorImpl();
 		UserDao userDao = mock(UserDao.class);
 		User user = mock(User.class);
 		when(user.getUsername()).thenReturn("creatorEditor");
 		when(user.getUuid()).thenReturn(USER_UUID);
 		when(userDao.load(Mockito.any())).thenReturn(user);
 		when(daos.userDao()).thenReturn(userDao);
-		LoomModelBuilder builder = new LoomModelBuilderImpl(daos);
+		LoomModelBuilder builder = new LoomModelBuilderImpl(daos, validator);
 		return builder;
 	}
 

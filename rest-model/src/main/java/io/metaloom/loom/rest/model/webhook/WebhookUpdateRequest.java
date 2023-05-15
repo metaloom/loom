@@ -5,9 +5,11 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.RestModel;
+import io.metaloom.loom.rest.model.MetaModel;
+import io.metaloom.loom.rest.model.RestRequestModel;
+import io.vertx.core.json.JsonObject;
 
-public class WebhookUpdateRequest implements RestModel {
+public class WebhookUpdateRequest implements RestRequestModel, MetaModel<WebhookUpdateRequest> {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("The url which should be invoked by the webhook.")
@@ -22,6 +24,8 @@ public class WebhookUpdateRequest implements RestModel {
 
 	@JsonPropertyDescription("Flag to enable or disable the webhook.")
 	private Boolean active;
+
+	private JsonObject meta;
 
 	public WebhookUpdateRequest() {
 	}
@@ -59,6 +63,22 @@ public class WebhookUpdateRequest implements RestModel {
 
 	public WebhookUpdateRequest setActive(Boolean active) {
 		this.active = active;
+		return this;
+	}
+
+	@Override
+	public JsonObject getMeta() {
+		return meta;
+	}
+
+	@Override
+	public WebhookUpdateRequest setMeta(JsonObject meta) {
+		this.meta = meta;
+		return this;
+	}
+
+	@Override
+	public WebhookUpdateRequest self() {
 		return this;
 	}
 

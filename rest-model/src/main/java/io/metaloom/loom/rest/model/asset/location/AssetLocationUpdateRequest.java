@@ -7,7 +7,7 @@ import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
 
-public class LocationUpdateRequest implements RestRequestModel, MetaModel<LocationUpdateRequest> {
+public class AssetLocationUpdateRequest implements RestRequestModel, MetaModel<AssetLocationUpdateRequest> {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Additional custom meta properties for the element.")
@@ -19,13 +19,13 @@ public class LocationUpdateRequest implements RestRequestModel, MetaModel<Locati
 	}
 
 	@Override
-	public LocationUpdateRequest setMeta(JsonObject meta) {
+	public AssetLocationUpdateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
 	}
 
 	@Override
-	public LocationUpdateRequest self() {
+	public AssetLocationUpdateRequest self() {
 		return this;
 	}
 

@@ -3,7 +3,7 @@ package io.metaloom.loom.rest.builder;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
 
 public interface LoomModelBuilder extends
-	LocationModelBuilder,
+	AssetLocationModelBuilder,
 	AnnotationModelBuilder,
 	AssetModelBuilder,
 	CollectionModelBuilder,

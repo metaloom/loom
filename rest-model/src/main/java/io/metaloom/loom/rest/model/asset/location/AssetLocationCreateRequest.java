@@ -2,25 +2,22 @@ package io.metaloom.loom.rest.model.asset.location;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
+import io.metaloom.loom.rest.model.RestRequestModel;
 
-public class LocationResponse extends AbstractCreatorEditorRestResponse<LocationResponse> {
+public class AssetLocationCreateRequest implements RestRequestModel {
 
 	@JsonPropertyDescription("Information about the location of the asset in the filesystem.")
 	private LocationFilesystemInfo filesystem;
-	
+
 	@JsonPropertyDescription("S3 meta information on the asset. (only set when S3 is being utilized).")
 	private AssetS3Meta s3;
-
-	public LocationResponse() {
-	}
 
 	public LocationFilesystemInfo getFilesystem() {
 		return filesystem;
 	}
 
-	public LocationResponse setFilesystem(LocationFilesystemInfo location) {
-		this.filesystem = location;
+	public AssetLocationCreateRequest setFilesystem(LocationFilesystemInfo filesystem) {
+		this.filesystem = filesystem;
 		return this;
 	}
 
@@ -28,14 +25,8 @@ public class LocationResponse extends AbstractCreatorEditorRestResponse<Location
 		return s3;
 	}
 
-	public LocationResponse setS3(AssetS3Meta s3) {
+	public AssetLocationCreateRequest setS3(AssetS3Meta s3) {
 		this.s3 = s3;
 		return this;
 	}
-	
-	@Override
-	public LocationResponse self() {
-		return this;
-	}
-
 }

@@ -15,6 +15,8 @@ import io.metaloom.loom.db.model.token.Token;
 import io.metaloom.loom.db.model.token.TokenDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.token.TokenCreateRequest;
+import io.metaloom.loom.rest.model.token.TokenUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -48,6 +50,9 @@ public class TokenEndpointService extends AbstractCRUDEndpointService<TokenDao, 
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_TOKEN, () -> {
+			TokenCreateRequest request = lrc.requestBody(TokenCreateRequest.class);
+			validator.validate(request);
+
 			String name = null;
 			String collection = null;
 			UUID userUuid = lrc.userUuid();
@@ -58,6 +63,9 @@ public class TokenEndpointService extends AbstractCRUDEndpointService<TokenDao, 
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_TOKEN, () -> {
+			TokenUpdateRequest request = lrc.requestBody(TokenUpdateRequest.class);
+			validator.validate(request);
+
 			Token token = dao().load(id);
 			// TOOD update
 			return dao().update(token);

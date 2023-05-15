@@ -18,7 +18,7 @@ import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.asset.AssetLocationDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
-import io.metaloom.loom.rest.model.asset.location.LocationCreateRequest;
+import io.metaloom.loom.rest.model.asset.location.AssetLocationCreateRequest;
 import io.metaloom.loom.rest.model.asset.location.LocationFilesystemInfo;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
@@ -40,7 +40,7 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_ASSET_LOCATION, () -> {
-			LocationCreateRequest request = lrc.requestBody(LocationCreateRequest.class);
+			AssetLocationCreateRequest request = lrc.requestBody(AssetLocationCreateRequest.class);
 
 			if (request.getFilesystem() != null) {
 				LocationFilesystemInfo fsInfo = request.getFilesystem();

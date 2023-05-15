@@ -15,6 +15,8 @@ import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.group.GroupDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
+import io.metaloom.loom.rest.model.group.GroupCreateRequest;
+import io.metaloom.loom.rest.model.group.GroupUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -48,7 +50,10 @@ public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, 
 	@Override
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_GROUP, () -> {
-			String name = null;
+			GroupCreateRequest request = lrc.requestBody(GroupCreateRequest.class);
+			validator.validate(request);
+
+			String name = request.getName();
 			UUID userUuid = lrc.userUuid();
 			return dao().create(userUuid, name);
 		}, modelBuilder::toResponse);
@@ -57,6 +62,9 @@ public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, 
 	@Override
 	public void update(LoomRoutingContext lrc, UUID id) {
 		update(lrc, UPDATE_GROUP, () -> {
+			GroupUpdateRequest request = lrc.requestBody(GroupUpdateRequest.class);
+			validator.validate(request);
+
 			Group group = dao().load(id);
 			// TOOD update
 			return dao().update(group);
