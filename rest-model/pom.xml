@@ -38,6 +38,10 @@
       <groupId>io.metaloom.utils</groupId>
       <artifactId>utils</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.metaloom.filter</groupId>
+      <artifactId>lhs-filter</artifactId>
+    </dependency>
 
     <!-- JSON -->
     <dependency>

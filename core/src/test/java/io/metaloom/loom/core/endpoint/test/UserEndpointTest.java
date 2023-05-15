@@ -11,6 +11,7 @@ import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractEndpointTest;
 import io.metaloom.loom.core.endpoint.CRUDEndpointTestcases;
+import io.metaloom.loom.rest.filter.LoomFilterKey;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.model.user.UserListResponse;
 import io.metaloom.loom.rest.model.user.UserResponse;
@@ -31,7 +32,7 @@ public class UserEndpointTest extends AbstractEndpointTest implements CRUDEndpoi
 				client.createUser(userRequest).sync();
 			}
 
-			UserListResponse listResponse = client.listUsers(null, 25).sync();
+			UserListResponse listResponse = client.listUsers().addLimit(12).sync();
 			assertEquals(25, listResponse.getData().size(), "There should have been 25 users loaded");
 
 			UUID uuid = listResponse.getData().get(0).getUuid();
@@ -80,13 +81,31 @@ public class UserEndpointTest extends AbstractEndpointTest implements CRUDEndpoi
 				client.createUser(request).sync();
 			}
 
-			UserListResponse pageResponse = client.listUsers(10).sync();
+			UserListResponse pageResponse = client.listUsers().addLimit(10).sync();
 
-			UserListResponse secondPage = client.listUsers(pageResponse.getMetainfo().getLastUuid(), 2).sync();
+			UserListResponse secondPage = client.listUsers().addLimit(2).addFrom(pageResponse.getMetainfo().getLastUuid()).sync();
 			assertEquals(2, secondPage.getMetainfo().getTotalCount(), "There should only be two users in the list");
 			assertEquals(2, secondPage.getData().size(), "There should only be two responses");
 		}
+	}
 
+	@Test
+	public void testFilterByUsername() throws HttpErrorException {
+		try (LoomHttpClient client = loom.httpClient()) {
+			loginAdmin(client);
+
+			for (int i = 0; i < 100; i++) {
+				UserCreateRequest request = new UserCreateRequest();
+				request.setUsername("user_" + i);
+				client.createUser(request).sync();
+			}
+
+			UserListResponse pageResponse = client.listUsers()
+				.addLimit(10)
+				.addEqualsFilter(LoomFilterKey.USER_USERNAME, "joedoe")
+				.sync();
+			assertEquals(1, pageResponse.getData().size(), "There should only be one result");
+		}
 	}
 
 }

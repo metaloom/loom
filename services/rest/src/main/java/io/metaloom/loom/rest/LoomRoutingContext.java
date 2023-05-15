@@ -16,6 +16,7 @@ import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.RestResponseModel;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
+import io.metaloom.loom.rest.parameter.FilterParameters;
 import io.metaloom.loom.rest.parameter.PagingParameters;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
@@ -119,6 +120,10 @@ public class LoomRoutingContext {
 
 	public PagingParameters pagingParams() {
 		return PagingParameters.create(this);
+	}
+	
+	public FilterParameters filterParams() {
+		return FilterParameters.create(this);
 	}
 
 }

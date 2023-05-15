@@ -3,11 +3,18 @@ package io.metaloom.loom.rest.parameter;
 import java.util.UUID;
 import java.util.function.Function;
 
+import io.metaloom.filter.Filter;
+import io.metaloom.loom.rest.filter.LoomFilterKey;
+
 public enum QueryParameterKey {
 
 	PER_PAGE("perPage", 25, Integer::valueOf),
 
-	FROM("from", null, UUID::fromString);
+	FROM("from", null, UUID::fromString), 
+
+	FILTER("filter", null, filterStr -> {
+		return Filter.parse(filterStr, LoomFilterKey::fromKey);
+	});
 
 	private String key;
 	private Function<String, ?> converter;
