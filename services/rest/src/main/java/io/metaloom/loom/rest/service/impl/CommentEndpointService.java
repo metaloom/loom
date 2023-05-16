@@ -36,7 +36,7 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_COMMENT, () -> {
-			return dao().loadPage(null, 0);
+			return dao().loadPage(null, 0, null);
 		}, modelBuilder::toCommentList);
 	}
 

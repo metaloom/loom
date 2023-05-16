@@ -7,11 +7,11 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
+import io.metaloom.loom.api.filter.LoomFilterKey;
 import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractEndpointTest;
 import io.metaloom.loom.core.endpoint.CRUDEndpointTestcases;
-import io.metaloom.loom.rest.filter.LoomFilterKey;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.model.user.UserListResponse;
 import io.metaloom.loom.rest.model.user.UserResponse;

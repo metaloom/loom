@@ -62,7 +62,7 @@ public class EmbeddingEndpointTest extends AbstractEndpointTest implements CRUDE
 	public void testReadPaged() throws HttpErrorException {
 		try (LoomHttpClient client = httpClient()) {
 			loginAdmin(client);
-			client.listEmbeddings(null, 25).sync();
+			client.listEmbeddings().sync();
 		}
 
 	}

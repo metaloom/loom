@@ -4,11 +4,11 @@ import java.util.UUID;
 import java.util.function.Function;
 
 import io.metaloom.filter.Filter;
-import io.metaloom.loom.rest.filter.LoomFilterKey;
+import io.metaloom.loom.api.filter.LoomFilterKey;
 
 public enum QueryParameterKey {
 
-	PER_PAGE("perPage", 25, Integer::valueOf),
+	LIMIT("limit", 25, Integer::valueOf),
 
 	FROM("from", null, UUID::fromString), 
 

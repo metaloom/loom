@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.filter;
+package io.metaloom.loom.api.filter;
 
 import io.metaloom.filter.FilterKey;
 

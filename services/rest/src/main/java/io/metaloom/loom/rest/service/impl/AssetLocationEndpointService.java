@@ -77,7 +77,7 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_ASSET_LOCATION, () -> {
-			return dao().loadPage(null, 25);
+			return dao().loadPage(null, 25, null);
 		}, modelBuilder::toLocationList);
 	}
 

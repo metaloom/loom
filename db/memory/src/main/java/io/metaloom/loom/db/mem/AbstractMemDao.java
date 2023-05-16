@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import io.metaloom.filter.Filter;
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.Element;
 import io.metaloom.loom.db.page.Page;
@@ -54,7 +56,7 @@ public abstract class AbstractMemDao<T extends Element<T>> implements CRUDDao<T>
 	}
 
 	@Override
-	public Page<T> loadPage(UUID from, int pageSize) {
+	public Page<T> loadPage(UUID from, int pageSize, Set<Filter> filters) {
 		List<T> list = new ArrayList<>();
 		int n = 0;
 		boolean start = from == null;

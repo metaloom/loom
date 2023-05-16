@@ -18,8 +18,8 @@ public class PagingParameters extends AbstractQueryParameters {
 		return mapParameter(QueryParameterKey.FROM);
 	}
 
-	public int perPage() {
-		return mapParameter(QueryParameterKey.PER_PAGE);
+	public int limit() {
+		return mapParameter(QueryParameterKey.LIMIT);
 	}
 
 }

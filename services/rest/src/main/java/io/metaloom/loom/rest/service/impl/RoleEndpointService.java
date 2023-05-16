@@ -37,7 +37,7 @@ public class RoleEndpointService extends AbstractCRUDEndpointService<RoleDao, Ro
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_ROLE, () -> {
-			return dao().loadPage(null, 0);
+			return dao().loadPage(null, 25, null);
 		}, modelBuilder::toRoleList);
 	}
 

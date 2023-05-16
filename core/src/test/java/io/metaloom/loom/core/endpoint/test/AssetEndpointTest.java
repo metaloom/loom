@@ -78,7 +78,7 @@ public class AssetEndpointTest extends AbstractEndpointTest implements CRUDEndpo
 				client.storeAsset(request).sync();
 			}
 
-			AssetListResponse response = client.listAssets(null, 25).sync();
+			AssetListResponse response = client.listAssets().sync();
 			assertNotNull(response);
 		}
 

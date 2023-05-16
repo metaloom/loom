@@ -6,6 +6,8 @@ import static io.metaloom.loom.db.model.perm.Permission.READ_USER;
 import static io.metaloom.loom.db.model.perm.Permission.UPDATE_USER;
 
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -21,6 +23,7 @@ import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.model.user.UserUpdateRequest;
+import io.metaloom.loom.rest.parameter.FilterParameters;
 import io.metaloom.loom.rest.parameter.PagingParameters;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
@@ -81,12 +84,13 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_USER, () -> {
 			PagingParameters pagingParameters = lrc.pagingParams();
+			FilterParameters filterParameters = lrc.filterParams();
 			UUID from = pagingParameters.from();
-			int pageSize = pagingParameters.perPage();
+			int pageSize = pagingParameters.limit();
 			if (log.isDebugEnabled()) {
 				log.debug("Loading user page from {} pageSize: {}", from, pageSize);
 			}
-			return dao().loadPage(from, pageSize);
+			return dao().loadPage(from, pageSize, new HashSet<>(Arrays.asList(filterParameters.filter())));
 		}, modelBuilder::toUserList);
 	}
 

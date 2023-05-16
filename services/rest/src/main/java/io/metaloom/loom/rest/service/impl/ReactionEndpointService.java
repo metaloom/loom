@@ -36,7 +36,7 @@ public class ReactionEndpointService extends AbstractCRUDEndpointService<Reactio
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_REACTION, () -> {
-			return dao().loadPage(null, 0);
+			return dao().loadPage(null, 0, null);
 		}, modelBuilder::toReactionList);
 	}
 

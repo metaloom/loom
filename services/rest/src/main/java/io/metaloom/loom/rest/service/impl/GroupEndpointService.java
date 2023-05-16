@@ -36,7 +36,7 @@ public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, 
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_GROUP, () -> {
-			return dao().loadPage(null, 0);
+			return dao().loadPage(null, 0, null);
 		}, modelBuilder::toGroupList);
 	}
 

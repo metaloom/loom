@@ -2,6 +2,7 @@ package io.metaloom.loom.db.jooq;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -9,6 +10,7 @@ import java.util.stream.Stream;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Field;
+import org.jooq.SelectJoinStep;
 import org.jooq.SelectSeekStep1;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -16,6 +18,7 @@ import org.jooq.TableRecord;
 import org.jooq.UniqueKey;
 import org.jooq.UpdatableRecord;
 
+import io.metaloom.filter.Filter;
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.Element;
@@ -40,7 +43,7 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	abstract protected Table<? extends TableRecord<?>> getTable();
 
-	public Field<UUID> getIdField(){
+	public Field<UUID> getIdField() {
 		return (Field<UUID>) getTable().field("uuid", UUID.class);
 	}
 
@@ -130,20 +133,31 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	}
 
 	@Override
-	public Page<T> loadPage(UUID fromId, int pageSize) {
+	public Page<T> loadPage(UUID fromId, int pageSize, Set<Filter> filters) {
 		// SelectSeekStep1<Record3<UUID, String, UUID>, UUID>
-		SelectSeekStep1<?, UUID> query = ctx()
+		SelectJoinStep<?> query = ctx()
 			.select(getTable())
-			.from(getTable())
-			.orderBy(getIdField());
-		if (fromId != null) {
-			query.seek(fromId);
+			.from(getTable());
+
+		if (filters != null) {
+			for (Filter filter : filters) {
+				applyFilter(query, filter);
+			}
 		}
-		List<T> list = query
+		SelectSeekStep1<?, UUID> query2 = query.orderBy(getIdField());
+
+		if (fromId != null) {
+			query2.seek(fromId);
+		}
+		List<T> list = query2
 			.limit(pageSize)
 			.fetchStreamInto(getPojoClass())
 			.collect(Collectors.toList());
 		return new Page<>(pageSize, list);
+	}
+
+	private void applyFilter(SelectJoinStep<?> query, Filter<?> filter) {
+		query.where(getTable().field(filter.filterKey().key(), String.class).eq(filter.value().toString()));
 	}
 
 	public T findByUUID(UUID id) {
