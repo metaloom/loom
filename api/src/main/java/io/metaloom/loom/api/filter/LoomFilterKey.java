@@ -1,28 +1,26 @@
 package io.metaloom.loom.api.filter;
 
 import io.metaloom.filter.FilterKey;
+import io.metaloom.filter.key.impl.StringFilterKey;
 
-public enum LoomFilterKey implements FilterKey {
+public enum LoomFilterKey {
 
-	USER_USERNAME("username", String.class);
+	USER_USERNAME(new StringFilterKey("username"));
 
-	private String key;
-	private Class<String> clazz;
+	private FilterKey<?> key;
 
-	LoomFilterKey(String key, Class<String> clazz) {
+	LoomFilterKey(FilterKey<?> key) {
 		this.key = key;
-		this.clazz = clazz;
 	}
 
-	@Override
-	public String key() {
+	public FilterKey<?> getKey() {
 		return key;
 	}
 
-	public static FilterKey fromKey(String key) {
-		for (FilterKey v : values()) {
-			if (v.key().equals(key)) {
-				return v;
+	public static FilterKey<?> fromKey(String key) {
+		for (LoomFilterKey v : values()) {
+			if (v.getKey().key().equals(key)) {
+				return v.getKey();
 			}
 		}
 		return null;
