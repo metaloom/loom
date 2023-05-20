@@ -1,5 +1,7 @@
 package io.metaloom.loom.rest.parameter;
 
+import java.util.List;
+
 import io.metaloom.filter.Filter;
 import io.metaloom.loom.rest.LoomRoutingContext;
 
@@ -13,7 +15,7 @@ public class FilterParameters extends AbstractQueryParameters {
 		return new FilterParameters(lrc);
 	}
 
-	public Filter filter() {
+	public List<Filter> filters() {
 		return mapParameter(QueryParameterKey.FILTER);
 	}
 

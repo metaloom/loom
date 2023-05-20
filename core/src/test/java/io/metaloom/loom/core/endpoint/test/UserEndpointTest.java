@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.api.filter.LoomFilterKey;
+import io.metaloom.loom.api.sort.LoomSortKey;
+import io.metaloom.loom.api.sort.SortDirection;
 import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractEndpointTest;
@@ -105,6 +107,29 @@ public class UserEndpointTest extends AbstractEndpointTest implements CRUDEndpoi
 				.addEqualsFilter(LoomFilterKey.USER_USERNAME, "joedoe")
 				.sync();
 			assertEquals(1, pageResponse.getData().size(), "There should only be one result");
+		}
+	}
+
+	@Test
+	public void testSortByUsername() throws HttpErrorException {
+		try (LoomHttpClient client = loom.httpClient()) {
+			loginAdmin(client);
+
+			for (int i = 0; i < 100; i++) {
+				UserCreateRequest request = new UserCreateRequest();
+				request.setUsername("user_" + i);
+				client.createUser(request).sync();
+			}
+
+			UserListResponse pageResponse = client.listUsers()
+				.addLimit(10)
+				.sortBy(LoomSortKey.UUID)
+				.sortDirection(SortDirection.ASCENDING)
+				.sync();
+
+			for(UserResponse element: pageResponse.getData()) {
+				System.out.println(element.getUsername());
+			}
 		}
 	}
 

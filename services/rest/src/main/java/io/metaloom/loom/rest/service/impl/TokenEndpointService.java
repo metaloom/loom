@@ -36,7 +36,7 @@ public class TokenEndpointService extends AbstractCRUDEndpointService<TokenDao, 
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_TOKEN, () -> {
-			return dao().loadPage(null, 0, null);
+			return dao().loadPage(null, 0, null, null, null);
 		}, modelBuilder::toTokenList);
 	}
 

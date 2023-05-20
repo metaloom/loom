@@ -36,7 +36,7 @@ public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectD
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_PROJECT, () -> {
-			return dao().loadPage(null, 0, null);
+			return dao().loadPage(null, 0, null, null, null);
 		}, modelBuilder::toProjectList);
 	}
 

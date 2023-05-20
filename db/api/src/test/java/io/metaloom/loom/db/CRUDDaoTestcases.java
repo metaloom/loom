@@ -100,7 +100,7 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T>, T extends Element<T>> 
 		UUID id = null;
 		long totalFound = 0;
 		while (true) {
-			Page<T> page = getDao().loadPage(id, 30, null);
+			Page<T> page = getDao().loadPage(id, 30, null, null, null);
 			if (page.isEmpty()) {
 				break;
 			} else {

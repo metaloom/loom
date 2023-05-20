@@ -55,7 +55,7 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_ASSET, () -> {
 			UUID from = UUID.fromString(lrc.pathParam("from"));
-			return dao().loadPage(from, lrc.pageSize(), null);
+			return dao().loadPage(from, lrc.pageSize(), null, null, null);
 		}, modelBuilder::toAssetList);
 	}
 

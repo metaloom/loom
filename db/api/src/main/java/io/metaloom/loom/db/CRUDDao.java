@@ -1,10 +1,12 @@
 package io.metaloom.loom.db;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
 import io.metaloom.filter.Filter;
+import io.metaloom.loom.api.sort.SortDirection;
+import io.metaloom.loom.api.sort.SortKey;
 import io.metaloom.loom.db.page.Page;
 
 /**
@@ -45,7 +47,7 @@ public interface CRUDDao<T extends Element<T>> extends Dao {
 	 * @param filters
 	 * @return
 	 */
-	Page<T> loadPage(UUID fromId, int pageSize, Set<Filter> filters);
+	Page<T> loadPage(UUID fromId, int pageSize, List<Filter> filters, SortKey sortBy, SortDirection sortDirection);
 
 	Stream<? extends T> findAll();
 

@@ -3,18 +3,23 @@ package io.metaloom.loom.rest.parameter;
 import java.util.UUID;
 import java.util.function.Function;
 
-import io.metaloom.filter.Filter;
-import io.metaloom.loom.api.filter.LoomFilterKey;
+import io.metaloom.filter.parser.LHSFilterParser;
+import io.metaloom.loom.api.sort.SortDirection;
+import io.metaloom.loom.api.sort.SortKey;
 
 public enum QueryParameterKey {
 
 	LIMIT("limit", 25, Integer::valueOf),
 
-	FROM("from", null, UUID::fromString), 
+	FROM("from", null, UUID::fromString),
 
 	FILTER("filter", null, filterStr -> {
-		return Filter.parse(filterStr, LoomFilterKey::fromKey);
-	});
+		return LHSFilterParser.getInstance().parse(filterStr);
+	}),
+
+	SORT("sort", null, SortKey::fromString),
+
+	DIRECTION("dir", null, SortDirection::fromString);
 
 	private String key;
 	private Function<String, ?> converter;

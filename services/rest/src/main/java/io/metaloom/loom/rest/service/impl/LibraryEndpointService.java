@@ -36,7 +36,7 @@ public class LibraryEndpointService extends AbstractCRUDEndpointService<LibraryD
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_LIBRARY, () -> {
-			return dao().loadPage(null, 0, null);
+			return dao().loadPage(null, 0, null, null, null);
 		}, modelBuilder::toLibraryList);
 	}
 

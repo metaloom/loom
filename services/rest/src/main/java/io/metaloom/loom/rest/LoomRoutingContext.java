@@ -18,6 +18,7 @@ import io.metaloom.loom.rest.model.RestResponseModel;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
 import io.metaloom.loom.rest.parameter.FilterParameters;
 import io.metaloom.loom.rest.parameter.PagingParameters;
+import io.metaloom.loom.rest.parameter.SortParameters;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.ext.auth.User;
@@ -30,7 +31,6 @@ public class LoomRoutingContext {
 
 	private final RoutingContext rc;
 	private final LoomAuthorizationProvider authorizationProvider;
-	
 
 	@Inject
 	public LoomRoutingContext(RoutingContext rc, LoomAuthorizationProvider authorizationProvider) {
@@ -121,9 +121,13 @@ public class LoomRoutingContext {
 	public PagingParameters pagingParams() {
 		return PagingParameters.create(this);
 	}
-	
+
 	public FilterParameters filterParams() {
 		return FilterParameters.create(this);
+	}
+
+	public SortParameters sortParams() {
+		return SortParameters.create(this);
 	}
 
 }

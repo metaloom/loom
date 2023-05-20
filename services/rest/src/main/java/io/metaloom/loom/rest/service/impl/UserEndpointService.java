@@ -25,6 +25,7 @@ import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.model.user.UserUpdateRequest;
 import io.metaloom.loom.rest.parameter.FilterParameters;
 import io.metaloom.loom.rest.parameter.PagingParameters;
+import io.metaloom.loom.rest.parameter.SortParameters;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -85,12 +86,14 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 		list(lrc, READ_USER, () -> {
 			PagingParameters pagingParameters = lrc.pagingParams();
 			FilterParameters filterParameters = lrc.filterParams();
+			SortParameters sortParameters = lrc.sortParams();
+
 			UUID from = pagingParameters.from();
 			int pageSize = pagingParameters.limit();
 			if (log.isDebugEnabled()) {
 				log.debug("Loading user page from {} pageSize: {}", from, pageSize);
 			}
-			return dao().loadPage(from, pageSize, new HashSet<>(Arrays.asList(filterParameters.filter())));
+			return dao().loadPage(from, pageSize, filterParameters.filters(), sortParameters.sortBy(), sortParameters.sortOrder());
 		}, modelBuilder::toUserList);
 	}
 

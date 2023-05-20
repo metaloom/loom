@@ -37,7 +37,7 @@ public class ClusterEndpointService extends AbstractCRUDEndpointService<ClusterD
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_CLUSTER, () -> {
-			return dao().loadPage(null, 0, null);
+			return dao().loadPage(null, 0, null, null, null);
 		}, modelBuilder::toClusterList);
 	}
 

@@ -36,7 +36,7 @@ public class WebhookEndpointService extends AbstractCRUDEndpointService<WebhookD
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_WEBHOOK, () -> {
-			return dao().loadPage(null, 0, null);
+			return dao().loadPage(null, 0, null, null, null);
 		}, modelBuilder::toWebhookList);
 	}
 

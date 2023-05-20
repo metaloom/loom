@@ -41,7 +41,7 @@ public class CollectionEndpointService extends AbstractCRUDEndpointService<Colle
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_COLLECTION, () -> {
-			return dao().loadPage(null, 0, null);
+			return dao().loadPage(null, 0, null, null, null);
 		}, modelBuilder::toCollectionList);
 	}
 

@@ -38,7 +38,7 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 	@Override
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_EMBEDDING, () -> {
-			return dao().loadPage(null, 0, null);
+			return dao().loadPage(null, 0, null, null, null);
 		}, page -> {
 			return modelBuilder.toEmbeddingList(page);
 		});

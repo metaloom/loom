@@ -2,7 +2,6 @@ package io.metaloom.loom.db.jooq;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,6 +11,7 @@ import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.SelectJoinStep;
 import org.jooq.SelectSeekStep1;
+import org.jooq.SortField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableRecord;
@@ -19,6 +19,8 @@ import org.jooq.UniqueKey;
 import org.jooq.UpdatableRecord;
 
 import io.metaloom.filter.Filter;
+import io.metaloom.loom.api.sort.SortDirection;
+import io.metaloom.loom.api.sort.SortKey;
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.Element;
@@ -45,6 +47,10 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	public Field<UUID> getIdField() {
 		return (Field<UUID>) getTable().field("uuid", UUID.class);
+	}
+
+	private Field<UUID> getField(SortKey sortBy) {
+		return getTable().field(sortBy.getName(), UUID.class);
 	}
 
 	public Field<UUID> getUuidField() {
@@ -133,19 +139,34 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	}
 
 	@Override
-	public Page<T> loadPage(UUID fromId, int pageSize, Set<Filter> filters) {
+	public Page<T> loadPage(UUID fromId, int pageSize, List<Filter> filters, SortKey sortBy, SortDirection sortDirection) {
 		// SelectSeekStep1<Record3<UUID, String, UUID>, UUID>
 		SelectJoinStep<?> query = ctx()
 			.select(getTable())
 			.from(getTable());
 
+		// Filtering
 		if (filters != null) {
 			for (Filter filter : filters) {
 				applyFilter(query, filter);
 			}
 		}
-		SelectSeekStep1<?, UUID> query2 = query.orderBy(getIdField());
 
+		// Sorting
+		SelectSeekStep1<?, UUID> query2;
+		if (sortBy == null) {
+			query2 = query.orderBy(getIdField());
+		} else {
+			SortField<UUID> field;
+			if (sortDirection == SortDirection.DESCENDING) {
+				field = getField(sortBy).desc();
+			} else {
+				field = getField(sortBy).asc();
+			}
+			query2 = query.orderBy(field);
+		}
+
+		// Seeking
 		if (fromId != null) {
 			query2.seek(fromId);
 		}
@@ -156,7 +177,7 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 		return new Page<>(pageSize, list);
 	}
 
-	private void applyFilter(SelectJoinStep<?> query, Filter<?> filter) {
+	private void applyFilter(SelectJoinStep<?> query, Filter filter) {
 		query.where(getTable().field(filter.filterKey().key(), String.class).eq(filter.value().toString()));
 	}
 
