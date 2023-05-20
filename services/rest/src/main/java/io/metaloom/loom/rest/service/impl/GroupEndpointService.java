@@ -35,9 +35,7 @@ public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, 
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_GROUP, () -> {
-			return dao().loadPage(null, 0, null, null, null);
-		}, modelBuilder::toGroupList);
+		list(lrc, READ_GROUP, modelBuilder::toGroupList);
 	}
 
 	@Override
@@ -53,9 +51,10 @@ public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, 
 			GroupCreateRequest request = lrc.requestBody(GroupCreateRequest.class);
 			validator.validate(request);
 
-			String name = request.getName();
 			UUID userUuid = lrc.userUuid();
-			return dao().create(userUuid, name);
+			String name = request.getName();
+			Group group = dao().create(userUuid, name);
+			return group;
 		}, modelBuilder::toResponse);
 	}
 
@@ -65,8 +64,13 @@ public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, 
 			GroupUpdateRequest request = lrc.requestBody(GroupUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Group group = dao().load(id);
 			// TOOD update
+			if (request.getName() != null) {
+				group.setName(request.getName());
+			}
+			setEditor(group, userUuid);
 			return dao().update(group);
 		}, modelBuilder::toResponse);
 	}

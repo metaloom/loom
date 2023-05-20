@@ -35,9 +35,7 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_COMMENT, () -> {
-			return dao().loadPage(null, 0, null, null, null);
-		}, modelBuilder::toCommentList);
+		list(lrc, READ_COMMENT, modelBuilder::toCommentList);
 	}
 
 	@Override
@@ -55,7 +53,8 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 			
 			UUID userUuid = lrc.userUuid();
 			String title = null;
-			return dao().createComment(userUuid, title);
+			Comment comment = dao().createComment(userUuid, title);
+			return comment;
 		}, modelBuilder::toResponse);
 	}
 

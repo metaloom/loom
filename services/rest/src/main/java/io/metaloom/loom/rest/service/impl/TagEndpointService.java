@@ -40,9 +40,7 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_TAG, () -> {
-			return dao().loadPage(null, 0, null, null, null);
-		}, modelBuilder::toTagList);
+		list(lrc, READ_TAG, modelBuilder::toTagList);
 	}
 
 	@Override

@@ -5,9 +5,6 @@ import static io.metaloom.loom.db.model.perm.Permission.DELETE_USER;
 import static io.metaloom.loom.db.model.perm.Permission.READ_USER;
 import static io.metaloom.loom.db.model.perm.Permission.UPDATE_USER;
 
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -23,9 +20,6 @@ import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.model.user.UserUpdateRequest;
-import io.metaloom.loom.rest.parameter.FilterParameters;
-import io.metaloom.loom.rest.parameter.PagingParameters;
-import io.metaloom.loom.rest.parameter.SortParameters;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -49,17 +43,13 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 			UserCreateRequest request = lrc.requestBody(UserCreateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			String userName = request.getUsername();
 
 			// TODO validate request
 			// TODO handle conflicts
 
-			User creatorEditor = dao().load(lrc.loomUser().getUuid());
-			User element = dao().createUser(userName);
-			element.setCreator(creatorEditor);
-			element.setEditor(creatorEditor);
-			element.setCreated(Instant.now());
-			element.setEdited(Instant.now());
+			User element = dao().createUser(userUuid, userName);
 			return element;
 		}, modelBuilder::toResponse);
 	}
@@ -83,18 +73,7 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 	}
 
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_USER, () -> {
-			PagingParameters pagingParameters = lrc.pagingParams();
-			FilterParameters filterParameters = lrc.filterParams();
-			SortParameters sortParameters = lrc.sortParams();
-
-			UUID from = pagingParameters.from();
-			int pageSize = pagingParameters.limit();
-			if (log.isDebugEnabled()) {
-				log.debug("Loading user page from {} pageSize: {}", from, pageSize);
-			}
-			return dao().loadPage(from, pageSize, filterParameters.filters(), sortParameters.sortBy(), sortParameters.sortOrder());
-		}, modelBuilder::toUserList);
+		list(lrc, READ_USER, modelBuilder::toUserList);
 	}
 
 }

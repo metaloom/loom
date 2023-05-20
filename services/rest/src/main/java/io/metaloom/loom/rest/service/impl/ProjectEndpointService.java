@@ -35,9 +35,7 @@ public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectD
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_PROJECT, () -> {
-			return dao().loadPage(null, 0, null, null, null);
-		}, modelBuilder::toProjectList);
+		list(lrc, READ_PROJECT, modelBuilder::toProjectList);
 	}
 
 	@Override
@@ -54,8 +52,9 @@ public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectD
 			validator.validate(request);
 
 			UUID userUuid = lrc.userUuid();
-			String name = null;
-			return dao().createProject(userUuid, name);
+			String name = request.getName();
+			Project project = dao().createProject(userUuid, name);
+			return project;
 		}, modelBuilder::toResponse);
 	}
 
@@ -65,8 +64,11 @@ public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectD
 			ProjectUpdateRequest request = lrc.requestBody(ProjectUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Project project = dao().load(id);
 			// TOOD update
+			update(request::getName, project::setName);
+			setEditor(project, userUuid);
 			return dao().update(project);
 		}, modelBuilder::toResponse);
 	}

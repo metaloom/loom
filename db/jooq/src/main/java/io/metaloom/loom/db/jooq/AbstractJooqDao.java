@@ -17,6 +17,8 @@ import org.jooq.TableField;
 import org.jooq.TableRecord;
 import org.jooq.UniqueKey;
 import org.jooq.UpdatableRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.metaloom.filter.Filter;
 import io.metaloom.loom.api.sort.SortDirection;
@@ -32,6 +34,8 @@ import io.metaloom.loom.db.page.Page;
  *            Pojo type
  */
 public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, CRUDDao<T> {
+
+	private static final Logger log = LoggerFactory.getLogger(AbstractJooqDao.class);
 
 	private final DSLContext ctx;
 
@@ -50,7 +54,7 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	}
 
 	private Field<UUID> getField(SortKey sortBy) {
-		return getTable().field(sortBy.getName(), UUID.class);
+		return getTable().field(sortBy.getKey(), UUID.class);
 	}
 
 	public Field<UUID> getUuidField() {
@@ -208,11 +212,10 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 		return (TableField<?, PK>) getTable().getPrimaryKey();
 	}
 
-	// String json = meta.encode();
-	// delegate().setMeta(JSONB.jsonbOrNull(json));
-	// return this;
-
 	protected void setCreatorEditor(CUDElement<?> element, UUID userUuid) {
+		if (log.isDebugEnabled()) {
+			log.debug("Setting creator/editor {}", userUuid);
+		}
 		element.setCreatorUuid(userUuid);
 		element.setEditorUuid(userUuid);
 		element.setCreated(Instant.now());

@@ -53,10 +53,7 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 	}
 
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_ASSET, () -> {
-			UUID from = UUID.fromString(lrc.pathParam("from"));
-			return dao().loadPage(from, lrc.pageSize(), null, null, null);
-		}, modelBuilder::toAssetList);
+		list(lrc, READ_ASSET, modelBuilder::toAssetList);
 	}
 
 	public void load(LoomRoutingContext lrc, String sha512orUUID) {
@@ -72,11 +69,11 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 
 	@Override
 	public void load(LoomRoutingContext lrc, UUID uuid) {
-		load (lrc , () -> {
+		load(lrc, () -> {
 			return dao().load(uuid);
 		});
 	}
-	
+
 	private void load(LoomRoutingContext lrc, Supplier<Asset> loader) {
 		load(lrc, READ_ASSET, () -> {
 			return loader.get();
@@ -105,8 +102,11 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 			AssetUpdateRequest request = lrc.requestBody(AssetUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Asset asset = loader.get();
 			// TODO Update
+			//update(request::getFilename, asset::setFilename);
+			setEditor(asset, userUuid);
 			return dao().update(asset);
 		}, modelBuilder::toResponse);
 	}
@@ -122,7 +122,8 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 			String mimeType = request.getMimeType();
 			String initialOrigin = request.getOrigin();
 			Long size = request.getSize();
-			return dao().createAsset(userUuid, sha512sum, mimeType, initialOrigin, size);
+			Asset asset = dao().createAsset(userUuid, sha512sum, mimeType, initialOrigin, size);
+			return asset;
 		}, modelBuilder::toResponse);
 	}
 

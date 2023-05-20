@@ -6,17 +6,13 @@ import io.metaloom.loom.db.CRUDDao;
 
 public interface RoleDao extends CRUDDao<Role> {
 
-	default Role createRole(String name) {
-		return createRole(name, null);
-	}
-
 	/**
 	 * Create and persist a new role.
 	 * 
+	 * @param creatorUuid
 	 * @param name
-	 * @param creator
 	 * @return
 	 */
-	Role createRole(String name, UUID creator);
+	Role createRole(UUID creatorUuid, String name);
 
 }

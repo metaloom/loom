@@ -4,8 +4,8 @@ import java.util.UUID;
 import java.util.function.Function;
 
 import io.metaloom.filter.parser.LHSFilterParser;
+import io.metaloom.loom.api.sort.LoomSortKey;
 import io.metaloom.loom.api.sort.SortDirection;
-import io.metaloom.loom.api.sort.SortKey;
 
 public enum QueryParameterKey {
 
@@ -17,7 +17,7 @@ public enum QueryParameterKey {
 		return LHSFilterParser.getInstance().parse(filterStr);
 	}),
 
-	SORT("sort", null, SortKey::fromString),
+	SORT("sort", null, LoomSortKey::fromString),
 
 	DIRECTION("dir", null, SortDirection::fromString);
 

@@ -33,12 +33,11 @@ public class RoleDaoImpl extends AbstractJooqDao<Role> implements RoleDao {
 	}
 
 	@Override
-	public Role createRole(String name, UUID creatorUUID) {
-		Role r = new RoleImpl();
-		r.setCreatorUuid(creatorUUID);
-		r.setUuid(UUID.randomUUID());
-		r.setName(name);
-		return r;
+	public Role createRole(UUID creatorUuid, String name) {
+		Role role = new RoleImpl();
+		role.setName(name);
+		setCreatorEditor(role, creatorUuid);
+		return role;
 	}
 
 }

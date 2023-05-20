@@ -35,9 +35,7 @@ public class TaskEndpointService extends AbstractCRUDEndpointService<TaskDao, Ta
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_TASK, () -> {
-			return dao().loadPage(null, 0, null, null, null);
-		}, modelBuilder::toTaskList);
+		list(lrc, READ_TASK, modelBuilder::toTaskList);
 	}
 
 	@Override

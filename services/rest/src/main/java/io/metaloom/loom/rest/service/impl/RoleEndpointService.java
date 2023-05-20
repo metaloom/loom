@@ -2,7 +2,6 @@ package io.metaloom.loom.rest.service.impl;
 
 import static io.metaloom.loom.db.model.perm.Permission.CREATE_ROLE;
 import static io.metaloom.loom.db.model.perm.Permission.DELETE_ROLE;
-import static io.metaloom.loom.db.model.perm.Permission.READ_CLUSTER;
 import static io.metaloom.loom.db.model.perm.Permission.READ_ROLE;
 import static io.metaloom.loom.db.model.perm.Permission.UPDATE_ROLE;
 
@@ -30,21 +29,19 @@ public class RoleEndpointService extends AbstractCRUDEndpointService<RoleDao, Ro
 	}
 
 	@Override
-	public void delete(LoomRoutingContext lrc, UUID id) {
-		delete(lrc, DELETE_ROLE, id);
+	public void delete(LoomRoutingContext lrc, UUID uuid) {
+		delete(lrc, DELETE_ROLE, uuid);
 	}
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_ROLE, () -> {
-			return dao().loadPage(null, 25, null, null, null);
-		}, modelBuilder::toRoleList);
+		list(lrc, READ_ROLE, modelBuilder::toRoleList);
 	}
 
 	@Override
-	public void load(LoomRoutingContext lrc, UUID id) {
-		load(lrc, READ_CLUSTER, () -> {
-			return dao().load(id);
+	public void load(LoomRoutingContext lrc, UUID uuid) {
+		load(lrc, READ_ROLE, () -> {
+			return dao().load(uuid);
 		}, modelBuilder::toResponse);
 	}
 
@@ -53,10 +50,11 @@ public class RoleEndpointService extends AbstractCRUDEndpointService<RoleDao, Ro
 		create(lrc, CREATE_ROLE, () -> {
 			RoleCreateRequest request = lrc.requestBody(RoleCreateRequest.class);
 			validator.validate(request);
-			
+
 			String name = request.getName();
 			UUID userUuid = lrc.userUuid();
-			return dao().createRole(name, userUuid);
+			Role role = dao().createRole(userUuid, name);
+			return role;
 		}, modelBuilder::toResponse);
 	}
 
@@ -66,8 +64,11 @@ public class RoleEndpointService extends AbstractCRUDEndpointService<RoleDao, Ro
 			RoleUpdateRequest request = lrc.requestBody(RoleUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Role role = dao().load(id);
 			// TOOD update
+			update(request::getName, role::setName);
+			setEditor(role, userUuid);
 			return dao().update(role);
 		}, modelBuilder::toResponse);
 	}

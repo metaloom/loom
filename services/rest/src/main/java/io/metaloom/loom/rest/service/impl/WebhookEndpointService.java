@@ -35,9 +35,7 @@ public class WebhookEndpointService extends AbstractCRUDEndpointService<WebhookD
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_WEBHOOK, () -> {
-			return dao().loadPage(null, 0, null, null, null);
-		}, modelBuilder::toWebhookList);
+		list(lrc, READ_WEBHOOK, modelBuilder::toWebhookList);
 	}
 
 	@Override
@@ -55,7 +53,8 @@ public class WebhookEndpointService extends AbstractCRUDEndpointService<WebhookD
 
 			UUID userUuid = lrc.userUuid();
 			String url = request.getUrl();
-			return dao().createWebhook(userUuid, url);
+			Webhook element = dao().createWebhook(userUuid, url);
+			return element;
 		}, modelBuilder::toResponse);
 	}
 
@@ -65,8 +64,10 @@ public class WebhookEndpointService extends AbstractCRUDEndpointService<WebhookD
 			WebhookUpdateRequest request = lrc.requestBody(WebhookUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Webhook webhook = dao().load(id);
 			// TOOD update
+			setEditor(webhook, userUuid);
 			return dao().update(webhook);
 		}, modelBuilder::toResponse);
 	}

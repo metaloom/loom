@@ -35,9 +35,7 @@ public class ReactionEndpointService extends AbstractCRUDEndpointService<Reactio
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_REACTION, () -> {
-			return dao().loadPage(null, 0, null, null, null);
-		}, modelBuilder::toReactionList);
+		list(lrc, READ_REACTION, modelBuilder::toReactionList);
 	}
 
 	@Override
@@ -55,7 +53,8 @@ public class ReactionEndpointService extends AbstractCRUDEndpointService<Reactio
 
 			UUID userUuid = lrc.userUuid();
 			String type = null;
-			return dao().createReaction(userUuid, type);
+			Reaction reaction = dao().createReaction(userUuid, type);
+			return reaction;
 		}, modelBuilder::toResponse);
 	}
 
@@ -65,8 +64,11 @@ public class ReactionEndpointService extends AbstractCRUDEndpointService<Reactio
 			ReactionUpdateRequest request = lrc.requestBody(ReactionUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Reaction reaction = dao().load(id);
 			// TOOD update
+			//update(request::getType, reaction::setType);
+			setEditor(reaction, userUuid);
 			return dao().update(reaction);
 		}, modelBuilder::toResponse);
 	}

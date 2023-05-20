@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.service;
 
+import java.time.Instant;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.db.CRUDDao;
+import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.Element;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.perm.Permission;
@@ -16,7 +18,11 @@ import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.RestResponseModel;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
+import io.metaloom.loom.rest.parameter.FilterParameters;
+import io.metaloom.loom.rest.parameter.PagingParameters;
+import io.metaloom.loom.rest.parameter.SortParameters;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
+import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
 
 /**
  * 
@@ -74,9 +80,17 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 
 	public abstract void list(LoomRoutingContext lrc);
 
-	protected void list(LoomRoutingContext lrc, Permission permission, Supplier<Page<E>> loader, Function<Page<E>, RestResponseModel<?>> builder) {
+	protected void list(LoomRoutingContext lrc, Permission permission, Function<Page<E>, RestResponseModel<?>> builder) {
 		lrc.requirePerm(permission).onSuccess(l -> {
-			Page<E> page = loader.get();
+			PagingParameters pagingParameters = lrc.pagingParams();
+			FilterParameters filterParameters = lrc.filterParams();
+			SortParameters sortParameters = lrc.sortParams();
+			UUID from = pagingParameters.from();
+			int limit = pagingParameters.limit();
+			if (log.isDebugEnabled()) {
+				log.debug("Loading page from {} limit: {}", from, limit);
+			}
+			Page<E> page = dao().loadPage(from, limit, filterParameters.filters(), sortParameters.sortBy(), sortParameters.sortOrder());
 			RestResponseModel<?> response = builder.apply(page);
 			lrc.send(response);
 		}).onFailure(e -> {
@@ -118,7 +132,6 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 			log.error("Failed to check perms", e);
 			lrc.send(new GenericMessageResponse().setMessage("Invalid permissions"), 403);
 		});
-
 	}
 
 	public abstract void update(LoomRoutingContext lrc, UUID uuid);
@@ -129,13 +142,25 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 			E element = updator.get();
 			dao().update(element);
 			RestResponseModel<?> response = builder.apply(element);
-			lrc.send(response, 201);
+			lrc.send(response, 200);
 		}).onFailure(e -> {
 			// TODO this should be 500 error
 			log.error("Failed to check perms", e);
 			lrc.send(new GenericMessageResponse().setMessage("Invalid permissions"), 403);
 		});
+	}
 
+	protected void setEditor(CUDElement<?> element, UUID userUuid) {
+		element.setEditorUuid(userUuid);
+		element.setEdited(Instant.now());
+	}
+
+	// TODO maybe add validation parameter?
+	protected <T> void update(Supplier<T> getter, Consumer<T> setter) {
+		T value = getter.get();
+		if (value != null) {
+			setter.accept(value);
+		}
 	}
 
 }

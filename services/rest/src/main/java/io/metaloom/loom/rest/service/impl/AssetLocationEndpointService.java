@@ -29,7 +29,8 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpointService.class);
 
 	@Inject
-	public AssetLocationEndpointService(AssetLocationDao assetLocationDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+	public AssetLocationEndpointService(AssetLocationDao assetLocationDao, DaoCollection daos, LoomModelBuilder modelBuilder,
+		LoomModelValidator validator) {
 		super(assetLocationDao, daos, modelBuilder, validator);
 	}
 
@@ -76,9 +77,7 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 	}
 
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_ASSET_LOCATION, () -> {
-			return dao().loadPage(null, 25, null, null, null);
-		}, modelBuilder::toLocationList);
+		list(lrc, READ_ASSET_LOCATION, modelBuilder::toLocationList);
 	}
 
 }

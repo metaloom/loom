@@ -35,9 +35,7 @@ public class LibraryEndpointService extends AbstractCRUDEndpointService<LibraryD
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_LIBRARY, () -> {
-			return dao().loadPage(null, 0, null, null, null);
-		}, modelBuilder::toLibraryList);
+		list(lrc, READ_LIBRARY, modelBuilder::toLibraryList);
 	}
 
 	@Override
@@ -65,8 +63,11 @@ public class LibraryEndpointService extends AbstractCRUDEndpointService<LibraryD
 			LibraryUpdateRequest request = lrc.requestBody(LibraryUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Library library = dao().load(id);
 			// TOOD update
+			update(request::getName, library::setName);
+			setEditor(library, userUuid);
 			return dao().update(library);
 		}, modelBuilder::toResponse);
 	}

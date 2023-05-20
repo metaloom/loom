@@ -2,6 +2,8 @@ package io.metaloom.loom.db.jooq.dao.user;
 
 import static io.metaloom.loom.db.jooq.tables.JooqUser.USER;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -34,10 +36,13 @@ public class UserDaoImpl extends AbstractJooqDao<User> implements UserDao, JooqD
 	}
 
 	@Override
-	public User createUser(String username) {
-		User u = new UserImpl();
-		u.setUsername(username);
-		return u;
+	public User createUser(UUID creatorUuid, String username) {
+		User user = new UserImpl();
+		user.setUsername(username);
+		if (creatorUuid != null) {
+			setCreatorEditor(user, creatorUuid);
+		}
+		return user;
 	}
 
 	@Override

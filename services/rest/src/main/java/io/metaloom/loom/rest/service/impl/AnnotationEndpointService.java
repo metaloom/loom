@@ -36,9 +36,7 @@ public class AnnotationEndpointService extends AbstractCRUDEndpointService<Annot
 
 	@Override
 	public void list(LoomRoutingContext lrc) {
-		list(lrc, READ_ANNOTATION, () -> {
-			return dao().loadPage(null, 0, null, null, null);
-		}, modelBuilder::toAnnotationList);
+		list(lrc, READ_ANNOTATION, modelBuilder::toAnnotationList);
 	}
 
 	@Override

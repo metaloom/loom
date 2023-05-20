@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.user;
 
+import java.util.UUID;
+
 import io.metaloom.loom.db.mem.AbstractMemDao;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.model.user.UserDao;
@@ -13,7 +15,7 @@ public class MemUsersDaoImpl extends AbstractMemDao<User> implements UserDao {
 	}
 
 	@Override
-	public User createUser(String username) {
+	public User createUser(UUID creatorUuid, String username) {
 		User user = new MemUserImpl();
 		user.setUuid(UUIDUtils.randomUUID());
 		user.setUsername(username);

@@ -205,7 +205,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		groupDao().addUserToGroup(group, adminUser);
 
 		// Role + Assign Role to Group + Role Permission
-		Role role = roleDao().createRole("test-role", adminUser.getUuid());
+		Role role = roleDao().createRole(adminUser.getUuid(), "test-role");
 		role.setUuid(ROLE_UUID);
 		roleDao().store(role);
 		groupDao().addRoleToGroup(group, role);
