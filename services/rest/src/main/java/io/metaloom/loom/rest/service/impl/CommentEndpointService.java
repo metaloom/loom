@@ -24,7 +24,7 @@ import io.metaloom.loom.rest.validation.LoomModelValidator;
 public class CommentEndpointService extends AbstractCRUDEndpointService<CommentDao, Comment> {
 
 	@Inject
-	public CommentEndpointService(CommentDao commentDao,  DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+	public CommentEndpointService(CommentDao commentDao, DaoCollection daos, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
 		super(commentDao, daos, modelBuilder, validator);
 	}
 
@@ -50,10 +50,12 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 		create(lrc, CREATE_COMMENT, () -> {
 			CommentCreateRequest request = lrc.requestBody(CommentCreateRequest.class);
 			validator.validate(request);
-			
+
 			UUID userUuid = lrc.userUuid();
-			String title = null;
+			String title = request.getTitle();
 			Comment comment = dao().createComment(userUuid, title);
+			comment.setText(request.getText());
+			comment.setMeta(request.getMeta());
 			return comment;
 		}, modelBuilder::toResponse);
 	}
@@ -66,7 +68,10 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 
 			Comment comment = dao().load(id);
 			// TOOD update
-			return dao().update(comment);
+			update(request::getTitle, comment::setTitle);
+			update(request::getText, comment::setText);
+			update(request::getMeta, comment::setMeta);
+			return comment;
 		}, modelBuilder::toResponse);
 	}
 }

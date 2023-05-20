@@ -1,10 +1,10 @@
 package io.metaloom.loom.rest.model.asset;
 
-import io.metaloom.loom.rest.model.asset.location.LocationExamples;
+import io.metaloom.loom.rest.model.asset.location.AssetLocationExamples;
 import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
 import io.metaloom.loom.rest.model.example.ExampleValues;
 
-public interface AssetExamples extends ExampleValues, LocationExamples {
+public interface AssetExamples extends ExampleValues, AssetLocationExamples {
 
 	default AssetResponse assetResponse() {
 		AssetResponse model = new AssetResponse();

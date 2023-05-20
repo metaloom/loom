@@ -19,6 +19,7 @@ import io.metaloom.loom.db.model.asset.AssetLocationDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationCreateRequest;
+import io.metaloom.loom.rest.model.asset.location.AssetLocationUpdateRequest;
 import io.metaloom.loom.rest.model.asset.location.LocationFilesystemInfo;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
@@ -46,10 +47,11 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 			if (request.getFilesystem() != null) {
 				LocationFilesystemInfo fsInfo = request.getFilesystem();
 				String path = fsInfo.getPath();
-				UUID creatorUuid = lrc.loomUser().getUuid();
+				UUID creatorUuid = lrc.userUuid();
 				UUID assetUuid = null;
 				UUID libraryUuid = null;
 				AssetLocation location = dao().createAssetLocation(path, assetUuid, creatorUuid, libraryUuid);
+				update(request::getMeta, location::setMeta);
 				return location;
 			} else if (request.getS3() != null) {
 				lrc.error("S3 support not yet implemented");
@@ -64,9 +66,14 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 	@Override
 	public void update(LoomRoutingContext lrc, UUID uuid) {
 		update(lrc, UPDATE_ASSET_LOCATION, () -> {
+			AssetLocationUpdateRequest request = lrc.requestBody(AssetLocationUpdateRequest.class);
+			UUID userUuid = lrc.userUuid();
+
 			AssetLocation location = dao().load(uuid);
 			// TODO update
-			return dao().update(location);
+			update(request::getMeta, location::setMeta);
+			setEditor(location, userUuid);
+			return location;
 		}, modelBuilder::toResponse);
 	}
 

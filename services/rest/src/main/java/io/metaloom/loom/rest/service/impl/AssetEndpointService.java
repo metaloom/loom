@@ -20,7 +20,14 @@ import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
+import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.AssetUpdateRequest;
+import io.metaloom.loom.rest.model.asset.AudioInfo;
+import io.metaloom.loom.rest.model.asset.DocumentInfo;
+import io.metaloom.loom.rest.model.asset.ImageInfo;
+import io.metaloom.loom.rest.model.asset.VideoInfo;
+import io.metaloom.loom.rest.model.asset.location.AssetS3Meta;
+import io.metaloom.loom.rest.model.asset.location.HashInfo;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 import io.metaloom.utils.UUIDUtils;
@@ -104,10 +111,78 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 
 			UUID userUuid = lrc.userUuid();
 			Asset asset = loader.get();
+
+			update(request::getMimeType, asset::setMimeType);
+			AssetS3Meta s3Info = request.getS3();
+			if (s3Info != null) {
+				update(s3Info::getBucket, asset::setS3BucketName);
+				update(s3Info::getObjectPath, asset::setS3ObjectPath);
+			}
+
+			update(request::getSize, asset::setSize);
+			// update(request::getOrigin, asset::setInitialOrigin);
+			// update(request::getZeroChunkCount, asset::setZeroChunkCount);
+
+			// License
+			// Annotations?
+			// Tasks?
+			// Reactions?
+			// tags
+			// firstSeen?
+			// Collections
+			// kind?
+			// processStatus?
+			// views?
+
 			// TODO Update
-			//update(request::getFilename, asset::setFilename);
+			HashInfo hashes = request.getHashes();
+			if (hashes != null) {
+				update(hashes::getMD5, asset::setMD5);
+				update(hashes::getSha256, asset::setSHA256);
+				update(hashes::getSha512, asset::setSHA512);
+			}
+
+			ImageInfo imageInfo = request.getImage();
+			if (imageInfo != null) {
+				update(imageInfo::getDominantColor, asset::setDominantColor);
+				update(imageInfo::getHeight, asset::setMediaHeight);
+				update(imageInfo::getWidth, asset::setMediaWidth);
+			}
+
+			VideoInfo videoInfo = request.getVideo();
+			if (videoInfo != null) {
+				update(videoInfo::getHeight, asset::setMediaHeight);
+				update(videoInfo::getWidth, asset::setMediaWidth);
+				update(videoInfo::getFingerprint, asset::setVideoFingerprint);
+				update(videoInfo::getEncoding, asset::setVideoEncoding);
+				update(videoInfo::getDuration, asset::setMediaDuration);
+				update(videoInfo::getBitrate, asset::setVideoBitrate);
+			}
+
+			AudioInfo audioInfo = request.getAudio();
+			if (audioInfo != null) {
+				update(audioInfo::getEncoding, asset::setAudioEncoding);
+				update(audioInfo::getSamplingRate, asset::setAudioSampleRate);
+				update(audioInfo::getBpm, asset::setAudioBPM);
+				update(audioInfo::getChannels, asset::setAudioChannels);
+				update(audioInfo::getFingerprint, asset::setAudioFingerprint);
+				update(audioInfo::getBitrate, asset::setAudioBitrate);
+			}
+
+			AssetGeoLocation geoInfo = request.getGeo();
+			if (geoInfo != null) {
+				update(geoInfo::getLon, asset::setGeoLon);
+				update(geoInfo::getLat, asset::setGeoLat);
+				update(geoInfo::getAlias, asset::setGeoAlias);
+			}
+
+			DocumentInfo docInfo = request.getDocument();
+			if (docInfo != null) {
+				update(docInfo::getWordCount, asset::setDocumentWordCount);
+			}
+
 			setEditor(asset, userUuid);
-			return dao().update(asset);
+			return asset;
 		}, modelBuilder::toResponse);
 	}
 

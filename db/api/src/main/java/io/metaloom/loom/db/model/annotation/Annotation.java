@@ -3,9 +3,10 @@ package io.metaloom.loom.db.model.annotation;
 import java.util.UUID;
 
 import io.metaloom.loom.db.CUDElement;
+import io.metaloom.loom.db.MetaElement;
 import io.metaloom.loom.db.Taggable;
 
-public interface Annotation extends CUDElement<Annotation>, Taggable {
+public interface Annotation extends CUDElement<Annotation>, Taggable, MetaElement<Annotation> {
 
 	String getTitle();
 
@@ -39,12 +40,12 @@ public interface Annotation extends CUDElement<Annotation>, Taggable {
 
 	Annotation setAreaHeight(Integer areaHeight);
 
-	Integer getTimeTo();
+	Long getTimeTo();
 
-	Annotation setTimeTo(Integer timeTo);
+	Annotation setTimeTo(Long timeTo);
 
-	Integer getTimeFrom();
+	Long getTimeFrom();
 
-	Annotation setTimeFrom(Integer timeFrom);
+	Annotation setTimeFrom(Long timeFrom);
 
 }

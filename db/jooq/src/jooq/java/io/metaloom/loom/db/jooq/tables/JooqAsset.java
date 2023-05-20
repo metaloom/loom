@@ -132,7 +132,7 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
     /**
      * The column <code>public.asset.creator_uuid</code>.
      */
-    public final TableField<JooqAssetRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqAssetRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.asset.edited</code>.
@@ -142,7 +142,7 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
     /**
      * The column <code>public.asset.editor_uuid</code>.
      */
-    public final TableField<JooqAssetRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqAssetRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.asset.s3_bucket_name</code>.
@@ -189,6 +189,11 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
     public final TableField<JooqAssetRecord, String> VIDEO_FINGERPRINT = createField(DSL.name("video_fingerprint"), SQLDataType.VARCHAR, this, "Video fingerprint information");
 
     /**
+     * The column <code>public.asset.video_bitrate</code>.
+     */
+    public final TableField<JooqAssetRecord, Integer> VIDEO_BITRATE = createField(DSL.name("video_bitrate"), SQLDataType.INTEGER, this, "");
+
+    /**
      * The column <code>public.asset.video_encoding</code>.
      */
     public final TableField<JooqAssetRecord, String> VIDEO_ENCODING = createField(DSL.name("video_encoding"), SQLDataType.VARCHAR, this, "");
@@ -197,6 +202,11 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
      * The column <code>public.asset.image_dominant_color</code>.
      */
     public final TableField<JooqAssetRecord, String> IMAGE_DOMINANT_COLOR = createField(DSL.name("image_dominant_color"), SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.asset.image_encoding</code>.
+     */
+    public final TableField<JooqAssetRecord, String> IMAGE_ENCODING = createField(DSL.name("image_encoding"), SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.asset.image_fingerprint</code>. Image fingerprint
@@ -218,6 +228,11 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
      * The column <code>public.asset.audio_channels</code>.
      */
     public final TableField<JooqAssetRecord, Integer> AUDIO_CHANNELS = createField(DSL.name("audio_channels"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.asset.audio_bitrate</code>.
+     */
+    public final TableField<JooqAssetRecord, Integer> AUDIO_BITRATE = createField(DSL.name("audio_bitrate"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>public.asset.audio_encoding</code>. Store the audio

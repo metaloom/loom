@@ -54,6 +54,7 @@ public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectD
 			UUID userUuid = lrc.userUuid();
 			String name = request.getName();
 			Project project = dao().createProject(userUuid, name);
+			update(request::getMeta, project::setMeta);
 			return project;
 		}, modelBuilder::toResponse);
 	}
@@ -69,7 +70,7 @@ public class ProjectEndpointService extends AbstractCRUDEndpointService<ProjectD
 			// TOOD update
 			update(request::getName, project::setName);
 			setEditor(project, userUuid);
-			return dao().update(project);
+			return project;
 		}, modelBuilder::toResponse);
 	}
 

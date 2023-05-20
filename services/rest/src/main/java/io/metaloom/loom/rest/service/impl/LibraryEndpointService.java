@@ -53,7 +53,9 @@ public class LibraryEndpointService extends AbstractCRUDEndpointService<LibraryD
 
 			String name = request.getName();
 			UUID userUuid = lrc.userUuid();
-			return dao().createLibrary(userUuid, name);
+			Library library = dao().createLibrary(userUuid, name);
+			update(request::getMeta, library::setMeta);
+			return library;
 		}, modelBuilder::toResponse);
 	}
 
@@ -66,9 +68,10 @@ public class LibraryEndpointService extends AbstractCRUDEndpointService<LibraryD
 			UUID userUuid = lrc.userUuid();
 			Library library = dao().load(id);
 			// TOOD update
+			update(request::getMeta, library::setMeta);
 			update(request::getName, library::setName);
 			setEditor(library, userUuid);
-			return dao().update(library);
+			return library;
 		}, modelBuilder::toResponse);
 	}
 

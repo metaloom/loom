@@ -8,11 +8,6 @@ public class TokenResponse extends AbstractCreatorEditorRestResponse<TokenRespon
 
 	private String token;
 
-	@Override
-	public TokenResponse self() {
-		return this;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -31,4 +26,8 @@ public class TokenResponse extends AbstractCreatorEditorRestResponse<TokenRespon
 		return this;
 	}
 
+	@Override
+	public TokenResponse self() {
+		return this;
+	}
 }

@@ -8,11 +8,11 @@ import io.metaloom.loom.db.model.user.User;
 
 public interface ClusterDao extends CRUDDao<Cluster> {
 
-	default Cluster createCluster(User user, String name, ClusterType type) {
+	default Cluster createCluster(User user, String name, String type) {
 		return createCluster(user.getUuid(), name, type);
 	}
 
-	Cluster createCluster(UUID userUuid, String name, ClusterType type);
+	Cluster createCluster(UUID userUuid, String name, String type);
 
 	void link(Cluster cluster, Embedding embedding);
 

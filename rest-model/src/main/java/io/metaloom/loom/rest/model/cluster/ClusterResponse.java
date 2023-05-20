@@ -6,12 +6,23 @@ public class ClusterResponse extends AbstractCreatorEditorRestResponse<ClusterRe
 
 	private String name;
 
+	private String type;
+
 	public String getName() {
 		return name;
 	}
 
 	public ClusterResponse setName(String name) {
 		this.name = name;
+		return this;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public ClusterResponse setType(String type) {
+		this.type = type;
 		return this;
 	}
 

@@ -10,7 +10,7 @@ public class AssetS3Meta implements RestModel {
 	private String bucket;
 
 	@JsonPropertyDescription("The key to the asset within the s3 bucket.")
-	private String key;
+	private String objectPath;
 
 	public AssetS3Meta() {
 	}
@@ -24,12 +24,12 @@ public class AssetS3Meta implements RestModel {
 		return this;
 	}
 
-	public String getKey() {
-		return key;
+	public String getObjectPath() {
+		return objectPath;
 	}
 
-	public AssetS3Meta setKey(String key) {
-		this.key = key;
+	public AssetS3Meta setObjectPath(String objectPath) {
+		this.objectPath = objectPath;
 		return this;
 	}
 }

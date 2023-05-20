@@ -402,31 +402,59 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
     }
 
     /**
+     * Setter for <code>public.asset.video_bitrate</code>.
+     */
+    public void setVideoBitrate(Integer value) {
+        set(26, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.video_bitrate</code>.
+     */
+    public Integer getVideoBitrate() {
+        return (Integer) get(26);
+    }
+
+    /**
      * Setter for <code>public.asset.video_encoding</code>.
      */
     public void setVideoEncoding(String value) {
-        set(26, value);
+        set(27, value);
     }
 
     /**
      * Getter for <code>public.asset.video_encoding</code>.
      */
     public String getVideoEncoding() {
-        return (String) get(26);
+        return (String) get(27);
     }
 
     /**
      * Setter for <code>public.asset.image_dominant_color</code>.
      */
     public void setImageDominantColor(String value) {
-        set(27, value);
+        set(28, value);
     }
 
     /**
      * Getter for <code>public.asset.image_dominant_color</code>.
      */
     public String getImageDominantColor() {
-        return (String) get(27);
+        return (String) get(28);
+    }
+
+    /**
+     * Setter for <code>public.asset.image_encoding</code>.
+     */
+    public void setImageEncoding(String value) {
+        set(29, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.image_encoding</code>.
+     */
+    public String getImageEncoding() {
+        return (String) get(29);
     }
 
     /**
@@ -434,7 +462,7 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
      * information
      */
     public void setImageFingerprint(String value) {
-        set(28, value);
+        set(30, value);
     }
 
     /**
@@ -442,49 +470,63 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
      * information
      */
     public String getImageFingerprint() {
-        return (String) get(28);
+        return (String) get(30);
     }
 
     /**
      * Setter for <code>public.asset.audio_bpm</code>.
      */
     public void setAudioBpm(Integer value) {
-        set(29, value);
+        set(31, value);
     }
 
     /**
      * Getter for <code>public.asset.audio_bpm</code>.
      */
     public Integer getAudioBpm() {
-        return (Integer) get(29);
+        return (Integer) get(31);
     }
 
     /**
      * Setter for <code>public.asset.audio_sampling_rate</code>.
      */
     public void setAudioSamplingRate(Integer value) {
-        set(30, value);
+        set(32, value);
     }
 
     /**
      * Getter for <code>public.asset.audio_sampling_rate</code>.
      */
     public Integer getAudioSamplingRate() {
-        return (Integer) get(30);
+        return (Integer) get(32);
     }
 
     /**
      * Setter for <code>public.asset.audio_channels</code>.
      */
     public void setAudioChannels(Integer value) {
-        set(31, value);
+        set(33, value);
     }
 
     /**
      * Getter for <code>public.asset.audio_channels</code>.
      */
     public Integer getAudioChannels() {
-        return (Integer) get(31);
+        return (Integer) get(33);
+    }
+
+    /**
+     * Setter for <code>public.asset.audio_bitrate</code>.
+     */
+    public void setAudioBitrate(Integer value) {
+        set(34, value);
+    }
+
+    /**
+     * Getter for <code>public.asset.audio_bitrate</code>.
+     */
+    public Integer getAudioBitrate() {
+        return (Integer) get(34);
     }
 
     /**
@@ -492,7 +534,7 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
      * encoding used for the asset (e.g. mp3, flac)
      */
     public void setAudioEncoding(String value) {
-        set(32, value);
+        set(35, value);
     }
 
     /**
@@ -500,7 +542,7 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
      * encoding used for the asset (e.g. mp3, flac)
      */
     public String getAudioEncoding() {
-        return (String) get(32);
+        return (String) get(35);
     }
 
     /**
@@ -508,7 +550,7 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
      * information
      */
     public void setAudioFingerprint(String value) {
-        set(33, value);
+        set(36, value);
     }
 
     /**
@@ -516,7 +558,7 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
      * information
      */
     public String getAudioFingerprint() {
-        return (String) get(33);
+        return (String) get(36);
     }
 
     /**
@@ -524,7 +566,7 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
      * the document
      */
     public void setDocPlainText(String value) {
-        set(34, value);
+        set(37, value);
     }
 
     /**
@@ -532,21 +574,21 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
      * the document
      */
     public String getDocPlainText() {
-        return (String) get(34);
+        return (String) get(37);
     }
 
     /**
      * Setter for <code>public.asset.doc_word_count</code>.
      */
     public void setDocWordCount(Integer value) {
-        set(35, value);
+        set(38, value);
     }
 
     /**
      * Getter for <code>public.asset.doc_word_count</code>.
      */
     public Integer getDocWordCount() {
-        return (Integer) get(35);
+        return (Integer) get(38);
     }
 
     // -------------------------------------------------------------------------
@@ -572,7 +614,7 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
     /**
      * Create a detached, initialised JooqAssetRecord
      */
-    public JooqAssetRecord(UUID uuid, String sha512sum, Long size, String sha256sum, String md5sum, String chunkHash, Long zeroChunkCount, String mimeType, JSONB meta, String author, BigDecimal geoLon, BigDecimal geoLat, String geoAlias, String initialOrigin, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String s3BucketName, String s3ObjectPath, Integer mediaWidth, Integer mediaHeight, Integer mediaDuration, Integer videoWidth, Integer videoHeight, String videoFingerprint, String videoEncoding, String imageDominantColor, String imageFingerprint, Integer audioBpm, Integer audioSamplingRate, Integer audioChannels, String audioEncoding, String audioFingerprint, String docPlainText, Integer docWordCount) {
+    public JooqAssetRecord(UUID uuid, String sha512sum, Long size, String sha256sum, String md5sum, String chunkHash, Long zeroChunkCount, String mimeType, JSONB meta, String author, BigDecimal geoLon, BigDecimal geoLat, String geoAlias, String initialOrigin, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String s3BucketName, String s3ObjectPath, Integer mediaWidth, Integer mediaHeight, Integer mediaDuration, Integer videoWidth, Integer videoHeight, String videoFingerprint, Integer videoBitrate, String videoEncoding, String imageDominantColor, String imageEncoding, String imageFingerprint, Integer audioBpm, Integer audioSamplingRate, Integer audioChannels, Integer audioBitrate, String audioEncoding, String audioFingerprint, String docPlainText, Integer docWordCount) {
         super(JooqAsset.ASSET);
 
         setUuid(uuid);
@@ -601,12 +643,15 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
         setVideoWidth(videoWidth);
         setVideoHeight(videoHeight);
         setVideoFingerprint(videoFingerprint);
+        setVideoBitrate(videoBitrate);
         setVideoEncoding(videoEncoding);
         setImageDominantColor(imageDominantColor);
+        setImageEncoding(imageEncoding);
         setImageFingerprint(imageFingerprint);
         setAudioBpm(audioBpm);
         setAudioSamplingRate(audioSamplingRate);
         setAudioChannels(audioChannels);
+        setAudioBitrate(audioBitrate);
         setAudioEncoding(audioEncoding);
         setAudioFingerprint(audioFingerprint);
         setDocPlainText(docPlainText);

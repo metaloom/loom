@@ -67,11 +67,10 @@ public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, 
 			UUID userUuid = lrc.userUuid();
 			Group group = dao().load(id);
 			// TOOD update
-			if (request.getName() != null) {
-				group.setName(request.getName());
-			}
+			update(request::getName, group::setName);
+			update(request::getMeta, group::setMeta);
 			setEditor(group, userUuid);
-			return dao().update(group);
+			return group;
 		}, modelBuilder::toResponse);
 	}
 }

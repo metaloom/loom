@@ -7,7 +7,6 @@ package io.metaloom.loom.db.jooq.tables;
 import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
-import io.metaloom.loom.db.jooq.enums.JooqEmbeddingType;
 import io.metaloom.loom.db.jooq.tables.records.JooqEmbeddingRecord;
 
 import java.time.LocalDateTime;
@@ -117,7 +116,7 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
      * The column <code>public.embedding.type</code>. Type of the embedding
      * (e.g. dlib_facemark)
      */
-    public final TableField<JooqEmbeddingRecord, JooqEmbeddingType> TYPE = createField(DSL.name("type"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqEmbeddingType.class), this, "Type of the embedding (e.g. dlib_facemark)");
+    public final TableField<JooqEmbeddingRecord, String> TYPE = createField(DSL.name("type"), SQLDataType.VARCHAR.nullable(false), this, "Type of the embedding (e.g. dlib_facemark)");
 
     /**
      * The column <code>public.embedding.created</code>.
@@ -266,14 +265,14 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<java.util.UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, JooqEmbeddingType, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID> fieldsRow() {
+    public Row16<java.util.UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID> fieldsRow() {
         return (Row16) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function16<? super java.util.UUID, ? super JSONB, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Float[], ? super Long, ? super JooqEmbeddingType, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function16<? super java.util.UUID, ? super JSONB, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Float[], ? super Long, ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -281,7 +280,7 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super java.util.UUID, ? super JSONB, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Float[], ? super Long, ? super JooqEmbeddingType, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super java.util.UUID, ? super JSONB, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Float[], ? super Long, ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

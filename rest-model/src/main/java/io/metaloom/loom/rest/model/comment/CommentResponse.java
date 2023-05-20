@@ -20,11 +20,6 @@ public class CommentResponse extends AbstractCreatorEditorRestResponse<CommentRe
 		return this;
 	}
 
-	@Override
-	public CommentResponse self() {
-		return this;
-	}
-
 	public String getText() {
 		return text;
 	}
@@ -40,6 +35,11 @@ public class CommentResponse extends AbstractCreatorEditorRestResponse<CommentRe
 
 	public CommentResponse setSocial(SocialInfo social) {
 		this.social = social;
+		return this;
+	}
+
+	@Override
+	public CommentResponse self() {
 		return this;
 	}
 

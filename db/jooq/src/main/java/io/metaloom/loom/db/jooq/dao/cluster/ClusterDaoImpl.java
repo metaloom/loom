@@ -15,7 +15,6 @@ import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqCluster;
 import io.metaloom.loom.db.model.cluster.Cluster;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
-import io.metaloom.loom.db.model.cluster.ClusterType;
 import io.metaloom.loom.db.model.embedding.Embedding;
 
 @Singleton
@@ -42,7 +41,7 @@ public class ClusterDaoImpl extends AbstractJooqDao<Cluster> implements ClusterD
 	}
 
 	@Override
-	public Cluster createCluster(UUID userUuid, String name, ClusterType type) {
+	public Cluster createCluster(UUID userUuid, String name, String type) {
 		Cluster cluster = new ClusterImpl();
 		cluster.setName(name);
 		cluster.setType(type);

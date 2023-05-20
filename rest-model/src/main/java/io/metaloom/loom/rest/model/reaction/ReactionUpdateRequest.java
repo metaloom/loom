@@ -1,7 +1,13 @@
 package io.metaloom.loom.rest.model.reaction;
 
 import io.metaloom.loom.rest.model.RestRequestModel;
+import io.metaloom.loom.rest.model.common.AbstractMetaModel;
 
-public class ReactionUpdateRequest implements RestRequestModel {
+public class ReactionUpdateRequest extends AbstractMetaModel<ReactionUpdateRequest> implements RestRequestModel {
+
+	@Override
+	public ReactionUpdateRequest self() {
+		return this;
+	}
 
 }

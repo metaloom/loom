@@ -6,7 +6,6 @@ import io.metaloom.loom.db.CRUDDaoTestcases;
 import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.model.cluster.Cluster;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
-import io.metaloom.loom.db.model.cluster.ClusterType;
 import io.metaloom.loom.db.model.user.User;
 
 public class ClusterDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<ClusterDao, Cluster> {
@@ -18,7 +17,7 @@ public class ClusterDaoTest extends AbstractJooqTest implements CRUDDaoTestcases
 
 	@Override
 	public Cluster createElement(User user, int i) {
-		return getDao().createCluster(user, "cluster_name_" + i, ClusterType.PERSON);
+		return getDao().createCluster(user, "cluster_name_" + i, "PERSON");
 	}
 
 	@Override

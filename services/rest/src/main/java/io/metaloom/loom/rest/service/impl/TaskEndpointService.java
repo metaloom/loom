@@ -51,9 +51,12 @@ public class TaskEndpointService extends AbstractCRUDEndpointService<TaskDao, Ta
 			TaskCreateRequest request = lrc.requestBody(TaskCreateRequest.class);
 			validator.validate(request);
 
-			String name = null;
+			String title = request.getTitle();
 			UUID userUuid = lrc.userUuid();
-			return dao().createTask(userUuid, name);
+			Task task = dao().createTask(userUuid, title);
+			update(task::getMeta, task::setMeta);
+			update(task::getDescription, task::setDescription);
+			return task;
 		}, modelBuilder::toResponse);
 	}
 
@@ -63,9 +66,13 @@ public class TaskEndpointService extends AbstractCRUDEndpointService<TaskDao, Ta
 			TaskUpdateRequest request = lrc.requestBody(TaskUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Task task = dao().load(id);
-			// TOOD update
-			return dao().update(task);
+			update(task::getMeta, task::setMeta);
+			update(task::getTitle, task::setTitle);
+			update(task::getDescription, task::setDescription);
+			setEditor(task, userUuid);
+			return task;
 		}, modelBuilder::toResponse);
 	}
 }

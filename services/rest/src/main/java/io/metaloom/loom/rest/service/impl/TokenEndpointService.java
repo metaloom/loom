@@ -19,6 +19,7 @@ import io.metaloom.loom.rest.model.token.TokenCreateRequest;
 import io.metaloom.loom.rest.model.token.TokenUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
+import io.metaloom.utils.StringUtils;
 
 @Singleton
 public class TokenEndpointService extends AbstractCRUDEndpointService<TokenDao, Token> {
@@ -51,10 +52,12 @@ public class TokenEndpointService extends AbstractCRUDEndpointService<TokenDao, 
 			TokenCreateRequest request = lrc.requestBody(TokenCreateRequest.class);
 			validator.validate(request);
 
-			String name = null;
-			String collection = null;
+			String name = request.getName();
 			UUID userUuid = lrc.userUuid();
-			return dao().createToken(userUuid, name, collection);
+			String tokenValue = StringUtils.randomHumanString(8);
+			Token token = dao().createToken(userUuid, name, tokenValue);
+			update(request::getMeta, token::setMeta);
+			return token;
 		}, modelBuilder::toResponseWithToken);
 	}
 
@@ -64,9 +67,13 @@ public class TokenEndpointService extends AbstractCRUDEndpointService<TokenDao, 
 			TokenUpdateRequest request = lrc.requestBody(TokenUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Token token = dao().load(id);
-			// TOOD update
-			return dao().update(token);
+
+			update(request::getName, token::setName);
+			update(request::getMeta, token::setMeta);
+			setEditor(token, userUuid);
+			return token;
 		}, modelBuilder::toResponse);
 	}
 

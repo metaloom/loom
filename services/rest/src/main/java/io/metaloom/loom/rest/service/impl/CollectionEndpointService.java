@@ -56,9 +56,11 @@ public class CollectionEndpointService extends AbstractCRUDEndpointService<Colle
 			CollectionCreateRequest request = lrc.requestBody(CollectionCreateRequest.class);
 			validator.validate(request);
 
-			String name = null;
+			String name = request.getName();
 			UUID userUuid = lrc.userUuid();
-			return dao().createCollection(userUuid, name);
+			Collection collection = dao().createCollection(userUuid, name);
+			update(request::getMeta, collection::setMeta);
+			return collection;
 		}, modelBuilder::toResponse);
 	}
 
@@ -68,9 +70,12 @@ public class CollectionEndpointService extends AbstractCRUDEndpointService<Colle
 			CollectionUpdateRequest request = lrc.requestBody(CollectionUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Collection collection = dao().load(id);
 			// TOOD update
-			return dao().update(collection);
+			update(request::getMeta, collection::setMeta);
+			setEditor(collection, userUuid);
+			return collection;
 		}, modelBuilder::toResponse);
 	}
 }

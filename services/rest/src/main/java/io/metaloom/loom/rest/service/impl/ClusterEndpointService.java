@@ -13,7 +13,6 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.cluster.Cluster;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
-import io.metaloom.loom.db.model.cluster.ClusterType;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.cluster.ClusterCreateRequest;
@@ -54,7 +53,7 @@ public class ClusterEndpointService extends AbstractCRUDEndpointService<ClusterD
 
 			String name = null;
 			UUID userUuid = lrc.userUuid();
-			ClusterType type = null;
+			String type = null;
 			return dao().createCluster(userUuid, name, type);
 		}, modelBuilder::toResponse);
 	}
@@ -65,9 +64,12 @@ public class ClusterEndpointService extends AbstractCRUDEndpointService<ClusterD
 			ClusterUpdateRequest request = lrc.requestBody(ClusterUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Cluster cluster = dao().load(id);
-			// TOOD update
-			return dao().update(cluster);
+			update(request::getName, cluster::setName);
+			update(request::getType, cluster::setType);
+			setEditor(cluster, userUuid);
+			return cluster;
 		}, modelBuilder::toResponse);
 	}
 

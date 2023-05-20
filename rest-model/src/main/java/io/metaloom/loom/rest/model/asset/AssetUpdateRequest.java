@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.asset.location.AssetS3Meta;
+import io.metaloom.loom.rest.model.asset.location.HashInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.vertx.core.json.JsonObject;
 
@@ -41,6 +42,27 @@ public class AssetUpdateRequest implements RestRequestModel {
 
 	@JsonPropertyDescription("A list of tags on the asset.")
 	private List<TagReference> tags;
+
+	@JsonPropertyDescription("A set of different computed hashes for the asset.")
+	private HashInfo hashes;
+
+	@JsonPropertyDescription("Information about the image component of the asset (if present)")
+	private ImageInfo image;
+
+	@JsonPropertyDescription("Information about the video component of the asset (if present)")
+	private VideoInfo video;
+
+	@JsonPropertyDescription("Information about the audio component of the asset (if present)")
+	private AudioInfo audio;
+
+	@JsonPropertyDescription("Information about the document (text) component of the asset (if present)")
+	private DocumentInfo document;
+
+	@JsonPropertyDescription("The spatial location of the asset.")
+	private AssetGeoLocation geo;
+	
+	@JsonPropertyDescription("The size of the asset in bytes.")
+	private long size;
 
 	public AssetUpdateRequest() {
 	}
@@ -134,4 +156,69 @@ public class AssetUpdateRequest implements RestRequestModel {
 		this.tags = tags;
 		return this;
 	}
+
+	public HashInfo getHashes() {
+		return hashes;
+	}
+
+	public AssetUpdateRequest setHashes(HashInfo hashes) {
+		this.hashes = hashes;
+		return this;
+	}
+
+	public AudioInfo getAudio() {
+		return audio;
+	}
+
+	public AssetUpdateRequest setAudio(AudioInfo audio) {
+		this.audio = audio;
+		return this;
+	}
+
+	public ImageInfo getImage() {
+		return image;
+	}
+
+	public AssetUpdateRequest setImage(ImageInfo image) {
+		this.image = image;
+		return this;
+	}
+
+	public VideoInfo getVideo() {
+		return video;
+	}
+
+	public AssetUpdateRequest setVideo(VideoInfo video) {
+		this.video = video;
+		return this;
+	}
+
+	public DocumentInfo getDocument() {
+		return document;
+	}
+
+	public AssetUpdateRequest setDocument(DocumentInfo document) {
+		this.document = document;
+		return this;
+	}
+
+	public AssetGeoLocation getGeo() {
+		return geo;
+	}
+
+	public AssetUpdateRequest setGeo(AssetGeoLocation geo) {
+		this.geo = geo;
+		return this;
+	}
+	
+	public long getSize() {
+		return size;
+	}
+
+	public AssetUpdateRequest setSize(long size) {
+		this.size = size;
+		return this;
+	}
+
+
 }

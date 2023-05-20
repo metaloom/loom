@@ -59,15 +59,15 @@ public class RoleEndpointService extends AbstractCRUDEndpointService<RoleDao, Ro
 	}
 
 	@Override
-	public void update(LoomRoutingContext lrc, UUID id) {
+	public void update(LoomRoutingContext lrc, UUID uuid) {
 		update(lrc, UPDATE_ROLE, () -> {
 			RoleUpdateRequest request = lrc.requestBody(RoleUpdateRequest.class);
 			validator.validate(request);
 
 			UUID userUuid = lrc.userUuid();
-			Role role = dao().load(id);
-			// TOOD update
+			Role role = dao().load(uuid);
 			update(request::getName, role::setName);
+			update(request::getMeta, role::setMeta);
 			setEditor(role, userUuid);
 			return dao().update(role);
 		}, modelBuilder::toResponse);

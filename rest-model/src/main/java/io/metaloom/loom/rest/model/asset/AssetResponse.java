@@ -232,12 +232,21 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 		return this;
 	}
 
-	@Override
-	public AssetResponse self() {
+	public void addLocation(LocationReference location) {
+		getLocations().add(location);
+	}
+
+	public SocialInfo getSocial() {
+		return social;
+	}
+
+	public AssetResponse setSocial(SocialInfo social) {
+		this.social = social;
 		return this;
 	}
 
-	public void addLocation(LocationReference location) {
-		getLocations().add(location);
+	@Override
+	public AssetResponse self() {
+		return this;
 	}
 }

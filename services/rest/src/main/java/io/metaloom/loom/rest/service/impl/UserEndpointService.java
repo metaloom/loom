@@ -45,12 +45,10 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 
 			UUID userUuid = lrc.userUuid();
 			String userName = request.getUsername();
-
-			// TODO validate request
 			// TODO handle conflicts
-
-			User element = dao().createUser(userUuid, userName);
-			return element;
+			User user = dao().createUser(userUuid, userName);
+			update(request::getMeta, user::setMeta);
+			return user;
 		}, modelBuilder::toResponse);
 	}
 
@@ -60,9 +58,12 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 			UserUpdateRequest request = lrc.requestBody(UserUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			User user = dao().load(uuid);
 			// TODO update
-			return dao().update(user);
+			update(request::getMeta, user::setMeta);
+			setEditor(user, userUuid);
+			return user;
 		}, modelBuilder::toResponse);
 	}
 

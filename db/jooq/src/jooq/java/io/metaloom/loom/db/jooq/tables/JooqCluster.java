@@ -7,7 +7,6 @@ package io.metaloom.loom.db.jooq.tables;
 import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
-import io.metaloom.loom.db.jooq.enums.JooqClusterType;
 import io.metaloom.loom.db.jooq.tables.records.JooqClusterRecord;
 
 import java.time.LocalDateTime;
@@ -81,7 +80,7 @@ public class JooqCluster extends TableImpl<JooqClusterRecord> {
      * The column <code>public.cluster.type</code>. Type of the cluster (e.g.
      * person)
      */
-    public final TableField<JooqClusterRecord, JooqClusterType> TYPE = createField(DSL.name("type"), SQLDataType.VARCHAR.nullable(false).asEnumDataType(io.metaloom.loom.db.jooq.enums.JooqClusterType.class), this, "Type of the cluster (e.g. person)");
+    public final TableField<JooqClusterRecord, String> TYPE = createField(DSL.name("type"), SQLDataType.VARCHAR.nullable(false), this, "Type of the cluster (e.g. person)");
 
     /**
      * The column <code>public.cluster.created</code>.
@@ -225,14 +224,14 @@ public class JooqCluster extends TableImpl<JooqClusterRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<java.util.UUID, String, JSONB, JooqClusterType, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
+    public Row8<java.util.UUID, String, JSONB, String, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row8) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function8<? super java.util.UUID, ? super String, ? super JSONB, ? super JooqClusterType, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function8<? super java.util.UUID, ? super String, ? super JSONB, ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -240,7 +239,7 @@ public class JooqCluster extends TableImpl<JooqClusterRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super java.util.UUID, ? super String, ? super JSONB, ? super JooqClusterType, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super java.util.UUID, ? super String, ? super JSONB, ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -1,7 +1,5 @@
 package io.metaloom.loom.db.jooq.dao.asset;
 
-import java.math.BigDecimal;
-
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.asset.Asset;
 
@@ -16,12 +14,14 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 
 	// Video
 	private String videoFingerprint;
+	private Integer videoBitrate;
 	private String videoEncoding;
 
 	// Audio
 	private Integer audioBPM;
 	private Integer audioChannels;
 	private Integer audioSampleRate;
+	private Integer audioBitrate;
 	private String audioEncoding;
 	private String audioFingerprint;
 
@@ -40,8 +40,8 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	private String s3ObjectPath;
 
 	// Geo
-	private BigDecimal geoLat;
-	private BigDecimal geoLon;
+	private Double geoLat;
+	private Double geoLon;
 	private String geoAlias;
 
 	private String mimeType;
@@ -139,6 +139,17 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	}
 
 	@Override
+	public Integer getVideoBitrate() {
+		return videoBitrate;
+	}
+
+	@Override
+	public Asset setVideoBitrate(Integer bitrate) {
+		this.videoBitrate = bitrate;
+		return this;
+	}
+
+	@Override
 	public String getAudioFingerprint() {
 		return audioFingerprint;
 	}
@@ -194,23 +205,23 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	}
 
 	@Override
-	public BigDecimal getGeoLat() {
+	public Double getGeoLat() {
 		return geoLat;
 	}
 
 	@Override
-	public Asset setGeoLat(BigDecimal lat) {
+	public Asset setGeoLat(Double lat) {
 		this.geoLat = lat;
 		return this;
 	}
 
 	@Override
-	public BigDecimal getGeoLon() {
+	public Double getGeoLon() {
 		return geoLon;
 	}
 
 	@Override
-	public Asset setGeoLon(BigDecimal lon) {
+	public Asset setGeoLon(Double lon) {
 		this.geoLon = lon;
 		return this;
 	}
@@ -273,6 +284,23 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	@Override
 	public Integer getAudioChannels() {
 		return audioChannels;
+	}
+
+	@Override
+	public Asset setAudioChannels(Integer channels) {
+		this.audioChannels = channels;
+		return this;
+	}
+
+	@Override
+	public Integer getAudioBitrate() {
+		return audioBitrate;
+	}
+
+	@Override
+	public Asset setAudioBitrate(Integer bitrate) {
+		this.audioBitrate = bitrate;
+		return this;
 	}
 
 	@Override

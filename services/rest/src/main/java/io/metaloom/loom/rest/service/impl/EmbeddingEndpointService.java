@@ -20,7 +20,6 @@ import io.metaloom.loom.rest.model.embedding.EmbeddingCreateRequest;
 import io.metaloom.loom.rest.model.embedding.EmbeddingUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
-import io.metaloom.utils.FloatUtils;
 
 @Singleton
 public class EmbeddingEndpointService extends AbstractCRUDEndpointService<EmbeddingDao, Embedding> {
@@ -44,9 +43,7 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 	public void load(LoomRoutingContext lrc, UUID uuid) {
 		load(lrc, READ_EMBEDDING, () -> {
 			return dao().load(uuid);
-		}, embedding -> {
-			return modelBuilder.toResponse(embedding);
-		});
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
@@ -60,9 +57,7 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 			Long id = request.getId();
 			UUID assetUuid = request.getAssetUuid();
 			return dao().createEmbedding(lrc.userUuid(), assetUuid, data, type, id);
-		}, embedding -> {
-			return modelBuilder.toResponse(embedding);
-		});
+		}, modelBuilder::toResponse);
 	}
 
 	@Override
@@ -71,6 +66,7 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 			EmbeddingUpdateRequest request = lrc.requestBody(EmbeddingUpdateRequest.class);
 			validator.validate(request);
 
+			UUID userUuid = lrc.userUuid();
 			Embedding embedding = dao().load(uuid);
 			UUID assetUuid = request.getAssetUuid();
 			embedding.setAssetUuid(assetUuid);
@@ -81,9 +77,8 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 				embedding.setType(type);
 			}
 			Long id = request.getId();
-			return dao().update(embedding);
-		}, embedding -> {
-			return modelBuilder.toResponse(embedding);
-		});
+			setEditor(embedding, userUuid);
+			return embedding;
+		}, modelBuilder::toResponse);
 	}
 }

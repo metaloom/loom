@@ -9,7 +9,6 @@ import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.blacklist.Blacklist;
 import io.metaloom.loom.db.model.cluster.Cluster;
-import io.metaloom.loom.db.model.cluster.ClusterType;
 import io.metaloom.loom.db.model.collection.Collection;
 import io.metaloom.loom.db.model.embedding.Embedding;
 import io.metaloom.loom.db.model.embedding.EmbeddingType;
@@ -129,7 +128,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 	}
 
 	private Cluster clusterEmbeddings(User user, Embedding... embeddings) {
-		Cluster cluster = clusterDao().createCluster(user, "Cats", ClusterType.PERSON);
+		Cluster cluster = clusterDao().createCluster(user, "Cats", "PERSON");
 		cluster.setUuid(CLUSTER_UUID);
 		clusterDao().store(cluster);
 		for (Embedding embedding : embeddings) {

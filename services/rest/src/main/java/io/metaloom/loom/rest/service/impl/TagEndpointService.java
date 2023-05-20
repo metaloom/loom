@@ -56,10 +56,12 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 			TagCreateRequest request = lrc.requestBody(TagCreateRequest.class);
 			validator.validate(request);
 
-			String name = null;
-			String collection = null;
+			String name = request.getName();
+			String collection = request.getCollection();
 			UUID userUuid = lrc.userUuid();
-			return dao().createTag(userUuid, name, collection);
+			Tag tag = dao().createTag(userUuid, name, collection);
+			update(request::getMeta, tag::setMeta);
+			return tag;
 		}, modelBuilder::toResponse);
 	}
 
@@ -70,8 +72,12 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 			validator.validate(request);
 
 			Tag tag = dao().load(id);
-			// TOOD update
-			return dao().update(tag);
+			UUID userUuid = lrc.userUuid();
+			update(request::getMeta, tag::setMeta);
+			update(request::getName, tag::setName);
+			update(request::getCollection, tag::setCollection);
+			setEditor(tag, userUuid);
+			return tag;
 		}, modelBuilder::toResponse);
 	}
 

@@ -7,6 +7,8 @@ public class CommentImpl extends AbstractEditableElement<Comment> implements Com
 
 	private String title;
 
+	private String text;
+
 	@Override
 	public String getTitle() {
 		return title;
@@ -15,6 +17,17 @@ public class CommentImpl extends AbstractEditableElement<Comment> implements Com
 	@Override
 	public Comment setTitle(String title) {
 		this.title = title;
+		return this;
+	}
+
+	@Override
+	public String getText() {
+		return text;
+	}
+
+	@Override
+	public Comment setText(String text) {
+		this.text = text;
 		return this;
 	}
 

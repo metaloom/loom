@@ -2,13 +2,12 @@ package io.metaloom.loom.db.jooq.dao.cluster;
 
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.cluster.Cluster;
-import io.metaloom.loom.db.model.cluster.ClusterType;
 
 public class ClusterImpl extends AbstractEditableElement<Cluster> implements Cluster {
 
 	private String name;
 
-	private ClusterType type;
+	private String type;
 
 	@Override
 	public String getName() {
@@ -22,12 +21,12 @@ public class ClusterImpl extends AbstractEditableElement<Cluster> implements Clu
 	}
 
 	@Override
-	public ClusterType getType() {
+	public String getType() {
 		return type;
 	}
 
 	@Override
-	public Cluster setType(ClusterType type) {
+	public Cluster setType(String type) {
 		this.type = type;
 		return this;
 	}

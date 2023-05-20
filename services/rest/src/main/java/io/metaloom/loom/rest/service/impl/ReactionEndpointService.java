@@ -54,6 +54,7 @@ public class ReactionEndpointService extends AbstractCRUDEndpointService<Reactio
 			UUID userUuid = lrc.userUuid();
 			String type = null;
 			Reaction reaction = dao().createReaction(userUuid, type);
+			update(request::getMeta, reaction::setMeta);
 			return reaction;
 		}, modelBuilder::toResponse);
 	}
@@ -66,10 +67,11 @@ public class ReactionEndpointService extends AbstractCRUDEndpointService<Reactio
 
 			UUID userUuid = lrc.userUuid();
 			Reaction reaction = dao().load(id);
-			// TOOD update
-			//update(request::getType, reaction::setType);
+			// TODO update
+			// update(request::getType, reaction::setType);
+			update(request::getMeta, reaction::setMeta);
 			setEditor(reaction, userUuid);
-			return dao().update(reaction);
+			return reaction;
 		}, modelBuilder::toResponse);
 	}
 }

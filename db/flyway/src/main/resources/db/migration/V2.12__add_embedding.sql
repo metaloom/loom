@@ -1,13 +1,3 @@
-CREATE TYPE "embedding_type" AS ENUM (
-  'DLIB_FACE_RESNET_v1',
-  'VIDEO4J_FINGERPRINT_V1'
-);
-
-CREATE TYPE "cluster_type" AS ENUM (
-  'PERSON',
-  'REMIX'
-);
-
 CREATE TABLE "embedding" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "meta" jsonb,
@@ -19,7 +9,7 @@ CREATE TABLE "embedding" (
   "areaStartY" int,
   "data" real[] NOT NULL,
   "id" bigint,
-  "type" embedding_type NOT NULL,
+  "type" varchar NOT NULL,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),
@@ -39,7 +29,7 @@ CREATE TABLE "cluster" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar NOT NULL,
   "meta" jsonb,
-  "type" cluster_type NOT NULL,
+  "type" varchar NOT NULL,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp DEFAULT (now()),

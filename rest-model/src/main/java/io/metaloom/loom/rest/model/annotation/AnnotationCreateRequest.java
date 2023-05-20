@@ -9,6 +9,15 @@ import io.vertx.core.json.JsonObject;
 
 public class AnnotationCreateRequest implements RestRequestModel, MetaModel<AnnotationCreateRequest> {
 
+	@JsonPropertyDescription("Title of the annotation")
+	private String title;
+
+	@JsonPropertyDescription("Spatial or temporal area the annotation references in the asset.")
+	private AreaInfo area;
+
+	@JsonPropertyDescription("Description of the annotation")
+	private String description;
+
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Additional custom meta properties for the element.")
 	private JsonObject meta;
@@ -21,6 +30,33 @@ public class AnnotationCreateRequest implements RestRequestModel, MetaModel<Anno
 	@Override
 	public AnnotationCreateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
+		return this;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public AnnotationCreateRequest setDescription(String description) {
+		this.description = description;
+		return this;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public AnnotationCreateRequest setTitle(String title) {
+		this.title = title;
+		return this;
+	}
+
+	public AreaInfo getArea() {
+		return area;
+	}
+
+	public AnnotationCreateRequest setArea(AreaInfo area) {
+		this.area = area;
 		return this;
 	}
 

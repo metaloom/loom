@@ -20,6 +20,7 @@ import io.metaloom.loom.rest.model.asset.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.HashInfo;
 import io.metaloom.loom.rest.model.asset.location.LocationReference;
 import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
+import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
 public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, AssetLocationModelBuilder, TagModelBuilder, AnnotationModelBuilder {
@@ -46,15 +47,20 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 
 	default AssetResponse toResponse(Asset asset) {
 		AssetResponse response = new AssetResponse();
+		//response.setProcessStatus(null)
+		//response.setKind(null)
+		//response.setViews
+
 		response.setUuid(asset.getUuid());
 		response.setMeta(asset.getMeta());
 		response.setMimeType(asset.getMimeType());
-		response.setHashes(assetHasheInfo(asset));
 		response.setSize(asset.getSize());
+		response.setHashes(assetHasheInfo(asset));
 		response.setImage(assetImageInfo(asset));
 		response.setVideo(assetVideoInfo(asset));
 		response.setAudio(assetAudioInfo(asset));
 		response.setDocument(assetDocumentInfo(asset));
+		response.setSocial(assetSocialInfo(asset));
 		response.setGeo(assetGeoLocation(asset));
 		response.setLicenses(assetLicense(asset));
 		response.setOrigin(asset.getInitialOrigin());
@@ -72,10 +78,17 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 
 		response.setKind(null);
 		// response.setViews();
-		// response.setSocial();
 		response.setCollections(null);
 
 		return validator().validate(response);
+	}
+
+	default SocialInfo assetSocialInfo(Asset asset) {
+		SocialInfo social = new SocialInfo();
+		//daos().reactionDao()
+		//social.setRating(rating)
+		//social.setReactions(null);
+		return social;
 	}
 
 	default HashInfo assetHasheInfo(Asset asset) {

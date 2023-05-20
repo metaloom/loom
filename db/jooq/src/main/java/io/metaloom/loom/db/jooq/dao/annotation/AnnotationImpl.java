@@ -16,8 +16,8 @@ public class AnnotationImpl extends AbstractEditableElement<Annotation> implemen
 
 	private String description;
 
-	private Integer timeFrom;
-	private Integer timeTo;
+	private Long timeFrom;
+	private Long timeTo;
 	private Integer areaStartX;
 	private Integer areaStartY;
 	private Integer areaWidth;
@@ -68,23 +68,23 @@ public class AnnotationImpl extends AbstractEditableElement<Annotation> implemen
 	}
 
 	@Override
-	public Integer getTimeFrom() {
+	public Long getTimeFrom() {
 		return timeFrom;
 	}
 
 	@Override
-	public Annotation setTimeFrom(Integer timeFrom) {
+	public Annotation setTimeFrom(Long timeFrom) {
 		this.timeFrom = timeFrom;
 		return this;
 	}
 
 	@Override
-	public Integer getTimeTo() {
+	public Long getTimeTo() {
 		return timeTo;
 	}
 
 	@Override
-	public Annotation setTimeTo(Integer timeTo) {
+	public Annotation setTimeTo(Long timeTo) {
 		this.timeTo = timeTo;
 		return this;
 	}

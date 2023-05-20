@@ -10,7 +10,7 @@ import io.metaloom.loom.db.jooq.tables.JooqRolePermission;
 import java.util.UUID;
 
 import org.jooq.Field;
-import org.jooq.Record1;
+import org.jooq.Record2;
 import org.jooq.Record3;
 import org.jooq.Row3;
 import org.jooq.impl.UpdatableRecordImpl;
@@ -73,8 +73,8 @@ public class JooqRolePermissionRecord extends UpdatableRecordImpl<JooqRolePermis
     // -------------------------------------------------------------------------
 
     @Override
-    public Record1<UUID> key() {
-        return (Record1) super.key();
+    public Record2<UUID, JooqLoomPermission> key() {
+        return (Record2) super.key();
     }
 
     // -------------------------------------------------------------------------

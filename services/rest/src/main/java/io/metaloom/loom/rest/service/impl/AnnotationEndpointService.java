@@ -18,6 +18,7 @@ import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.annotation.AnnotationCreateRequest;
 import io.metaloom.loom.rest.model.annotation.AnnotationUpdateRequest;
+import io.metaloom.loom.rest.model.annotation.AreaInfo;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -54,9 +55,12 @@ public class AnnotationEndpointService extends AbstractCRUDEndpointService<Annot
 
 			UUID userUuid = lrc.userUuid();
 			UUID assetUuid = null;
-			String title = null;
+			String title = request.getTitle();
 			AnnotationType type = null;
-			return dao().createAnnotation(userUuid, assetUuid, title, type);
+			Annotation annotation = dao().createAnnotation(userUuid, assetUuid, title, type);
+			update(request::getMeta, annotation::setMeta);
+			update(request::getDescription, annotation::setDescription);
+			return annotation;
 		}, modelBuilder::toResponse);
 	}
 
@@ -65,10 +69,23 @@ public class AnnotationEndpointService extends AbstractCRUDEndpointService<Annot
 		update(lrc, UPDATE_ANNOTATION, () -> {
 			AnnotationUpdateRequest request = lrc.requestBody(AnnotationUpdateRequest.class);
 			validator.validate(request);
+			UUID userUuid = lrc.userUuid();
 
 			Annotation annotation = dao().load(id);
-			// TOOD update
-			return dao().update(annotation);
+			update(request::getTitle, annotation::setTitle);
+			update(request::getDescription, annotation::setDescription);
+			AreaInfo areaInfo = request.getArea();
+			if (areaInfo != null) {
+				update(areaInfo::getHeight, annotation::setAreaHeight);
+				update(areaInfo::getWidth, annotation::setAreaWidth);
+				update(areaInfo::getStartX, annotation::setAreaStartX);
+				update(areaInfo::getStartY, annotation::setAreaStartY);
+				update(areaInfo::getFrom, annotation::setTimeFrom);
+				update(areaInfo::getTo, annotation::setTimeTo);
+			}
+			update(request::getMeta, annotation::setMeta);
+			setEditor(annotation, userUuid);
+			return annotation;
 		}, modelBuilder::toResponse);
 	}
 }
