@@ -26,6 +26,11 @@ public class UserDaoImpl extends AbstractJooqDao<User> implements UserDao, JooqD
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Users";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqUser.USER;
 	}

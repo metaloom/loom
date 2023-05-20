@@ -25,6 +25,11 @@ public class AssetLocationDaoImpl extends AbstractJooqDao<AssetLocation> impleme
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Asset Locations";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqAssetLocation.ASSET_LOCATION;
 	}
@@ -69,7 +74,5 @@ public class AssetLocationDaoImpl extends AbstractJooqDao<AssetLocation> impleme
 	// Asset jooqAsset = unwrap(asset);
 	// return update(jooqAsset).ignoreElement();
 	// }
-
-
 
 }

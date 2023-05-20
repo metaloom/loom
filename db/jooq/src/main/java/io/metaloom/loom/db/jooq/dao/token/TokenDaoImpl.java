@@ -21,6 +21,11 @@ public class TokenDaoImpl extends AbstractJooqDao<Token> implements TokenDao {
 	public TokenDaoImpl(DSLContext ctx) {
 		super(ctx);
 	}
+	
+	@Override
+	public String getTypeName() {
+		return "Tokens";
+	}
 
 	@Override
 	protected Table<? extends TableRecord<?>> getTable() {

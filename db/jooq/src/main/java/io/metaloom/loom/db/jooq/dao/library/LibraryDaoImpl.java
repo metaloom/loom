@@ -23,6 +23,11 @@ public class LibraryDaoImpl extends AbstractJooqDao<Library> implements LibraryD
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Libraries";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqLibrary.LIBRARY;
 	}

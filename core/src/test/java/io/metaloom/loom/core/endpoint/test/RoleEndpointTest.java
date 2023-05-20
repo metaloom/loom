@@ -35,4 +35,17 @@ public class RoleEndpointTest extends AbstractEndpointTest {
 			}
 		}
 	}
+
+	@Test
+	public void testBogusSortByKey() throws HttpErrorException {
+		try (LoomHttpClient client = loom.httpClient()) {
+			loginAdmin(client);
+
+			client.listRoles()
+				.addLimit(10)
+				.sortBy(LoomSortKey.EMAIL)
+				.sortDirection(SortDirection.ASCENDING)
+				.sync();
+		}
+	}
 }

@@ -23,6 +23,11 @@ public class ProjectDaoImpl extends AbstractJooqDao<Project> implements ProjectD
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Projects";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqProject.PROJECT;
 	}

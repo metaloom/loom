@@ -23,6 +23,11 @@ public class RoleDaoImpl extends AbstractJooqDao<Role> implements RoleDao {
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Roles";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqRole.ROLE;
 	}

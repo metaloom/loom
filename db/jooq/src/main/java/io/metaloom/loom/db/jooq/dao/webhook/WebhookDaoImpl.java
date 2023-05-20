@@ -21,6 +21,11 @@ public class WebhookDaoImpl extends AbstractJooqDao<Webhook> implements WebhookD
 	public WebhookDaoImpl(DSLContext ctx) {
 		super(ctx);
 	}
+	
+	@Override
+	public String getTypeName() {
+		return "Webhooks";
+	}
 
 	@Override
 	protected Table<? extends TableRecord<?>> getTable() {

@@ -24,6 +24,11 @@ public class EmbeddingDaoImpl extends AbstractJooqDao<Embedding> implements Embe
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Embeddings";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqEmbedding.EMBEDDING;
 	}

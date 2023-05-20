@@ -23,6 +23,11 @@ public class BlacklistDaoImpl extends AbstractJooqDao<Blacklist> implements Blac
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Blacklists";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqBlacklist.BLACKLIST;
 	}

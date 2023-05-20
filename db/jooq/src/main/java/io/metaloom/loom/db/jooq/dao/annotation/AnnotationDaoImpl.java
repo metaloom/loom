@@ -27,6 +27,11 @@ public class AnnotationDaoImpl extends AbstractJooqDao<Annotation> implements An
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Annotations";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqAnnotation.ANNOTATION;
 	}

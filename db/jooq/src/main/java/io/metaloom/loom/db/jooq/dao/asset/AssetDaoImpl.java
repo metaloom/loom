@@ -26,6 +26,11 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	public AssetDaoImpl(DSLContext ctx) {
 		super(ctx);
 	}
+	
+	@Override
+	public String getTypeName() {
+		return "Assets";
+	}
 
 	@Override
 	protected Table<? extends TableRecord<?>> getTable() {

@@ -15,6 +15,11 @@ public class MemUsersDaoImpl extends AbstractMemDao<User> implements UserDao {
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Users";
+	}
+
+	@Override
 	public User createUser(UUID creatorUuid, String username) {
 		User user = new MemUserImpl();
 		user.setUuid(UUIDUtils.randomUUID());

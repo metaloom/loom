@@ -11,7 +11,6 @@ import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.SelectJoinStep;
 import org.jooq.SelectSeekStep1;
-import org.jooq.SortField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableRecord;
@@ -161,13 +160,15 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 		if (sortBy == null) {
 			query2 = query.orderBy(getIdField());
 		} else {
-			SortField<UUID> field;
-			if (sortDirection == SortDirection.DESCENDING) {
-				field = getField(sortBy).desc();
-			} else {
-				field = getField(sortBy).asc();
+			Field<UUID> field = getField(sortBy);
+			if (field == null) {
+				throw new LoomJooqException("Field for sortkey " + sortBy.getKey() + " not found for type " + getTypeName());
 			}
-			query2 = query.orderBy(field);
+			if (sortDirection == SortDirection.DESCENDING) {
+				query2 = query.orderBy(field.desc());
+			} else {
+				query2 = query.orderBy(field.asc());
+			}
 		}
 
 		// Seeking

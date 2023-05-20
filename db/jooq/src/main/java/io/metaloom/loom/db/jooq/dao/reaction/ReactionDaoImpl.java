@@ -25,6 +25,11 @@ public class ReactionDaoImpl extends AbstractJooqDao<Reaction> implements Reacti
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Reactions";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqReaction.REACTION;
 	}

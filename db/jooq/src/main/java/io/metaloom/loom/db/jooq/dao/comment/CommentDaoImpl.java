@@ -25,6 +25,11 @@ public class CommentDaoImpl extends AbstractJooqDao<Comment> implements CommentD
 	public CommentDaoImpl(DSLContext ctx) {
 		super(ctx);
 	}
+	
+	@Override
+	public String getTypeName() {
+		return "Comments";
+	}
 
 	@Override
 	protected Table<? extends TableRecord<?>> getTable() {

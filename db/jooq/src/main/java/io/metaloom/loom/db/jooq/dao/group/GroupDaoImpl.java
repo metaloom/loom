@@ -32,6 +32,11 @@ public class GroupDaoImpl extends AbstractJooqDao<Group> implements GroupDao {
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Groups";
+	}
+
+	@Override
 	protected Class<? extends Group> getPojoClass() {
 		return GroupImpl.class;
 	}

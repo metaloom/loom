@@ -29,6 +29,11 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Tags";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqTag.TAG;
 	}

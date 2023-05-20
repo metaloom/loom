@@ -27,6 +27,11 @@ public class ClusterDaoImpl extends AbstractJooqDao<Cluster> implements ClusterD
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Clusters";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqCluster.CLUSTER;
 	}

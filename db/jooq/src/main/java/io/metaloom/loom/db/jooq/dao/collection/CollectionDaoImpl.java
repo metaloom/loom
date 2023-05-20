@@ -25,6 +25,11 @@ public class CollectionDaoImpl extends AbstractJooqDao<Collection> implements Co
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Collections";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqCollection.COLLECTION;
 	}

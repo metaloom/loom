@@ -28,6 +28,11 @@ public class TaskDaoImpl extends AbstractJooqDao<Task> implements TaskDao {
 	}
 
 	@Override
+	public String getTypeName() {
+		return "Tasks";
+	}
+
+	@Override
 	protected Table<? extends TableRecord<?>> getTable() {
 		return JooqTask.TASK;
 	}
@@ -44,7 +49,7 @@ public class TaskDaoImpl extends AbstractJooqDao<Task> implements TaskDao {
 		setCreatorEditor(task, userUuid);
 		return task;
 	}
-	
+
 	@Override
 	public List<Task> loadForAnnotation(UUID annotationUuid) {
 		return ctx().select(getTable()).from(getTable())
