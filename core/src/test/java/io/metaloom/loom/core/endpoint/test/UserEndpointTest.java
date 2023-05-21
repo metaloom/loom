@@ -104,7 +104,7 @@ public class UserEndpointTest extends AbstractEndpointTest implements CRUDEndpoi
 
 			UserListResponse pageResponse = client.listUsers()
 				.addLimit(10)
-				.addEqualsFilter(LoomFilterKey.USER_USERNAME, "joedoe")
+				.addEquals(LoomFilterKey.USERNAME, "joedoe")
 				.sync();
 			assertEquals(1, pageResponse.getData().size(), "There should only be one result");
 		}

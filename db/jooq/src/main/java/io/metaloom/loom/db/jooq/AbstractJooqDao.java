@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Field;
+import org.jooq.SelectConditionStep;
 import org.jooq.SelectJoinStep;
 import org.jooq.SelectSeekStep1;
 import org.jooq.Table;
@@ -20,6 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.filter.Filter;
+import io.metaloom.filter.FilterKey;
+import io.metaloom.loom.api.error.LoomRestException;
+import io.metaloom.loom.api.filter.LoomFilterKey;
 import io.metaloom.loom.api.sort.SortDirection;
 import io.metaloom.loom.api.sort.SortKey;
 import io.metaloom.loom.db.CRUDDao;
@@ -182,8 +186,12 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 		return new Page<>(pageSize, list);
 	}
 
-	private void applyFilter(SelectJoinStep<?> query, Filter filter) {
-		query.where(getTable().field(filter.filterKey().key(), String.class).eq(filter.value().toString()));
+	protected SelectConditionStep<?> applyFilter(SelectJoinStep<?> query, Filter filter) {
+		FilterKey key = filter.filterKey();
+		if (key == LoomFilterKey.UUID) {
+			return query.where(getTable().field("uuid", UUID.class).eq(UUID.fromString(filter.valueStr())));
+		}
+		throw new LoomRestException(400, "Unknown filter field " + key.id() + " for " + getTypeName());
 	}
 
 	public T findByUUID(UUID id) {

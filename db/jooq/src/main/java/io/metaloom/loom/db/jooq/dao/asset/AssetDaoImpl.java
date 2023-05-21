@@ -1,16 +1,28 @@
 package io.metaloom.loom.db.jooq.dao.asset;
 
+import static io.metaloom.loom.db.jooq.tables.JooqAsset.ASSET;
+
 import java.util.Objects;
-import static io.metaloom.loom.db.jooq.tables.JooqAsset.*;
 import java.util.UUID;
+import java.util.function.Function;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
+import org.jooq.SelectConditionStep;
+import org.jooq.SelectJoinStep;
 import org.jooq.Table;
 import org.jooq.TableRecord;
 
+import io.metaloom.filter.Filter;
+import io.metaloom.filter.Operation;
+import io.metaloom.filter.impl.RangeFilter;
+import io.metaloom.filter.impl.ValueFilter;
+import io.metaloom.filter.value.impl.SizeFilterValue;
+import io.metaloom.filter.value.impl.StringFilterValue;
+import io.metaloom.filter.value.impl.range.SizeRangeFilterValue;
+import io.metaloom.loom.api.filter.LoomFilterKey;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqAsset;
 import io.metaloom.loom.db.model.asset.Asset;
@@ -26,7 +38,7 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	public AssetDaoImpl(DSLContext ctx) {
 		super(ctx);
 	}
-	
+
 	@Override
 	public String getTypeName() {
 		return "Assets";
@@ -93,6 +105,16 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	public JsonObject readUserMeta(User user, Asset asset) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected SelectConditionStep<?> applyFilter(SelectJoinStep<?> query, Filter filter) {
+		if (filter.matches(LoomFilterKey.FILE_SIZE, Operation.RANGE)) {
+			return filter.apply(SizeRangeFilterValue.class, sv -> {
+				return query.where(ASSET.SIZE.ge(sv.getFrom())).and(ASSET.SIZE.le(sv.getTo()));
+			});
+		}
+		return super.applyFilter(query, filter);
 	}
 
 }

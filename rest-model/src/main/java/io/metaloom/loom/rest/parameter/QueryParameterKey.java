@@ -3,7 +3,7 @@ package io.metaloom.loom.rest.parameter;
 import java.util.UUID;
 import java.util.function.Function;
 
-import io.metaloom.filter.parser.LHSFilterParser;
+import io.metaloom.loom.api.filter.LoomLHSFilterParser;
 import io.metaloom.loom.api.sort.LoomSortKey;
 import io.metaloom.loom.api.sort.SortDirection;
 
@@ -14,7 +14,7 @@ public enum QueryParameterKey {
 	FROM("from", null, UUID::fromString),
 
 	FILTER("filter", null, filterStr -> {
-		return LHSFilterParser.getInstance().parse(filterStr);
+		return new LoomLHSFilterParser().parse(filterStr);
 	}),
 
 	SORT("sort", null, LoomSortKey::fromString),

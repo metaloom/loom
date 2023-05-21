@@ -39,14 +39,6 @@ public interface CRUDDao<T extends Element<T>> extends Dao {
 	 */
 	void store(T element);
 
-	/**
-	 * Load a page of elements.
-	 * 
-	 * @param fromId
-	 * @param pageSize
-	 * @param filters
-	 * @return
-	 */
 	Page<T> loadPage(UUID fromId, int pageSize, List<Filter> filters, SortKey sortBy, SortDirection sortDirection);
 
 	Stream<? extends T> findAll();

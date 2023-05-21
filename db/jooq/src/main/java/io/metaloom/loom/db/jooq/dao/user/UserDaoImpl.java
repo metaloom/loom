@@ -8,12 +8,19 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
+import org.jooq.SelectConditionStep;
+import org.jooq.SelectJoinStep;
 import org.jooq.Table;
 import org.jooq.TableRecord;
 
+import io.metaloom.filter.Filter;
+import io.metaloom.filter.FilterKey;
+import io.metaloom.loom.api.error.LoomRestException;
+import io.metaloom.loom.api.filter.LoomFilterKey;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.JooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqUser;
+import io.metaloom.loom.db.jooq.tables.records.JooqUserRecord;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.model.user.UserDao;
 
@@ -55,6 +62,15 @@ public class UserDaoImpl extends AbstractJooqDao<User> implements UserDao, JooqD
 		return ctx().selectFrom(USER)
 			.where(USER.USERNAME.equal(username))
 			.fetchOneInto(User.class);
+	}
+
+	@Override
+	protected SelectConditionStep<?> applyFilter(SelectJoinStep<?> query, Filter filter) {
+		FilterKey key = filter.filterKey();
+		if (key == LoomFilterKey.USERNAME && filter.getOperationKey().equals("eq")) {
+			return query.where(USER.USERNAME.eq(filter.value().toString()));
+		}
+		return super.applyFilter(query, filter);
 	}
 
 }
