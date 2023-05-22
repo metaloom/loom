@@ -8,18 +8,19 @@ import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.tables.records.JooqVectorConfigRecord;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function3;
+import org.jooq.Function7;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row3;
+import org.jooq.Row7;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -74,6 +75,26 @@ public class JooqVectorConfig extends TableImpl<JooqVectorConfigRecord> {
      * index
      */
     public final TableField<JooqVectorConfigRecord, JSONB> WEIGHTS = createField(DSL.name("weights"), SQLDataType.JSONB, this, "Index definition which lists the weights for each component that should be included in the index");
+
+    /**
+     * The column <code>public.vector_config.created</code>.
+     */
+    public final TableField<JooqVectorConfigRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
+     * The column <code>public.vector_config.creator_uuid</code>.
+     */
+    public final TableField<JooqVectorConfigRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
+
+    /**
+     * The column <code>public.vector_config.edited</code>.
+     */
+    public final TableField<JooqVectorConfigRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
+     * The column <code>public.vector_config.editor_uuid</code>.
+     */
+    public final TableField<JooqVectorConfigRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqVectorConfig(Name alias, Table<JooqVectorConfigRecord> aliased) {
         this(alias, aliased, null);
@@ -158,18 +179,18 @@ public class JooqVectorConfig extends TableImpl<JooqVectorConfigRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row3 type methods
+    // Row7 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<java.util.UUID, String, JSONB> fieldsRow() {
-        return (Row3) super.fieldsRow();
+    public Row7<java.util.UUID, String, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
+        return (Row7) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function3<? super java.util.UUID, ? super String, ? super JSONB, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function7<? super java.util.UUID, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -177,7 +198,7 @@ public class JooqVectorConfig extends TableImpl<JooqVectorConfigRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super java.util.UUID, ? super String, ? super JSONB, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super java.util.UUID, ? super String, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

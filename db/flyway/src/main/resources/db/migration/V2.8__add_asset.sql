@@ -17,7 +17,7 @@ CREATE TABLE "asset" (
   "initial_origin" varchar NOT NULL,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
-  "edited" timestamp DEFAULT (now()),
+  "edited" timestamp NOT NULL DEFAULT (now()),
   "editor_uuid" uuid NOT NULL,
   "s3_bucket_name" varchar,
   "s3_object_path" varchar,
@@ -69,7 +69,9 @@ CREATE TABLE "asset_remix" (
   "asset_b_uuid" uuid NOT NULL,
   "meta" jsonb,
   "created" timestamp NOT NULL DEFAULT (now()),
-  "creator_uuid" uuid NOT NULL
+  "creator_uuid" uuid NOT NULL,
+  "edited" timestamp NOT NULL DEFAULT (now()),
+  "editor_uuid" uuid NOT NULL
 );
 CREATE INDEX ON "asset_remix" ("asset_a_uuid");
 CREATE INDEX ON "asset_remix" ("asset_b_uuid");

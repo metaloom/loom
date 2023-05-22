@@ -13,8 +13,8 @@ import java.util.UUID;
 import org.jooq.Field;
 import org.jooq.JSONB;
 import org.jooq.Record1;
-import org.jooq.Record15;
-import org.jooq.Row15;
+import org.jooq.Record17;
+import org.jooq.Row17;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
@@ -23,7 +23,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * chapters or sections to assign tasks to.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationRecord> implements Record15<UUID, JooqAnnotationType, UUID, UUID, LocalDateTime, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> {
+public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationRecord> implements Record17<UUID, JooqAnnotationType, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> {
 
     private static final long serialVersionUID = 1L;
 
@@ -70,157 +70,185 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     /**
-     * Setter for <code>public.annotation.creator_uuid</code>.
-     */
-    public void setCreatorUuid(UUID value) {
-        set(3, value);
-    }
-
-    /**
-     * Getter for <code>public.annotation.creator_uuid</code>.
-     */
-    public UUID getCreatorUuid() {
-        return (UUID) get(3);
-    }
-
-    /**
      * Setter for <code>public.annotation.created</code>. Creation timestamp
      */
     public void setCreated(LocalDateTime value) {
-        set(4, value);
+        set(3, value);
     }
 
     /**
      * Getter for <code>public.annotation.created</code>. Creation timestamp
      */
     public LocalDateTime getCreated() {
-        return (LocalDateTime) get(4);
+        return (LocalDateTime) get(3);
+    }
+
+    /**
+     * Setter for <code>public.annotation.creator_uuid</code>.
+     */
+    public void setCreatorUuid(UUID value) {
+        set(4, value);
+    }
+
+    /**
+     * Getter for <code>public.annotation.creator_uuid</code>.
+     */
+    public UUID getCreatorUuid() {
+        return (UUID) get(4);
+    }
+
+    /**
+     * Setter for <code>public.annotation.edited</code>.
+     */
+    public void setEdited(LocalDateTime value) {
+        set(5, value);
+    }
+
+    /**
+     * Getter for <code>public.annotation.edited</code>.
+     */
+    public LocalDateTime getEdited() {
+        return (LocalDateTime) get(5);
+    }
+
+    /**
+     * Setter for <code>public.annotation.editor_uuid</code>.
+     */
+    public void setEditorUuid(UUID value) {
+        set(6, value);
+    }
+
+    /**
+     * Getter for <code>public.annotation.editor_uuid</code>.
+     */
+    public UUID getEditorUuid() {
+        return (UUID) get(6);
     }
 
     /**
      * Setter for <code>public.annotation.title</code>.
      */
     public void setTitle(String value) {
-        set(5, value);
+        set(7, value);
     }
 
     /**
      * Getter for <code>public.annotation.title</code>.
      */
     public String getTitle() {
-        return (String) get(5);
+        return (String) get(7);
     }
 
     /**
      * Setter for <code>public.annotation.description</code>.
      */
     public void setDescription(String value) {
-        set(6, value);
+        set(8, value);
     }
 
     /**
      * Getter for <code>public.annotation.description</code>.
      */
     public String getDescription() {
-        return (String) get(6);
+        return (String) get(8);
     }
 
     /**
      * Setter for <code>public.annotation.time_from</code>.
      */
     public void setTimeFrom(Integer value) {
-        set(7, value);
+        set(9, value);
     }
 
     /**
      * Getter for <code>public.annotation.time_from</code>.
      */
     public Integer getTimeFrom() {
-        return (Integer) get(7);
+        return (Integer) get(9);
     }
 
     /**
      * Setter for <code>public.annotation.time_to</code>.
      */
     public void setTimeTo(Integer value) {
-        set(8, value);
+        set(10, value);
     }
 
     /**
      * Getter for <code>public.annotation.time_to</code>.
      */
     public Integer getTimeTo() {
-        return (Integer) get(8);
+        return (Integer) get(10);
     }
 
     /**
      * Setter for <code>public.annotation.areaStartX</code>.
      */
     public void setAreastartx(Integer value) {
-        set(9, value);
+        set(11, value);
     }
 
     /**
      * Getter for <code>public.annotation.areaStartX</code>.
      */
     public Integer getAreastartx() {
-        return (Integer) get(9);
+        return (Integer) get(11);
     }
 
     /**
      * Setter for <code>public.annotation.areaStartY</code>.
      */
     public void setAreastarty(Integer value) {
-        set(10, value);
+        set(12, value);
     }
 
     /**
      * Getter for <code>public.annotation.areaStartY</code>.
      */
     public Integer getAreastarty() {
-        return (Integer) get(10);
+        return (Integer) get(12);
     }
 
     /**
      * Setter for <code>public.annotation.areaWidth</code>.
      */
     public void setAreawidth(Integer value) {
-        set(11, value);
+        set(13, value);
     }
 
     /**
      * Getter for <code>public.annotation.areaWidth</code>.
      */
     public Integer getAreawidth() {
-        return (Integer) get(11);
+        return (Integer) get(13);
     }
 
     /**
      * Setter for <code>public.annotation.areaHeight</code>.
      */
     public void setAreaheight(Integer value) {
-        set(12, value);
+        set(14, value);
     }
 
     /**
      * Getter for <code>public.annotation.areaHeight</code>.
      */
     public Integer getAreaheight() {
-        return (Integer) get(12);
+        return (Integer) get(14);
     }
 
     /**
      * Setter for <code>public.annotation.meta</code>. Custom meta properties
      */
     public void setMeta(JSONB value) {
-        set(13, value);
+        set(15, value);
     }
 
     /**
      * Getter for <code>public.annotation.meta</code>. Custom meta properties
      */
     public JSONB getMeta() {
-        return (JSONB) get(13);
+        return (JSONB) get(15);
     }
 
     /**
@@ -228,7 +256,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
      * thumbnail that depics the annotated element/area
      */
     public void setThumbnail(String value) {
-        set(14, value);
+        set(16, value);
     }
 
     /**
@@ -236,7 +264,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
      * thumbnail that depics the annotated element/area
      */
     public String getThumbnail() {
-        return (String) get(14);
+        return (String) get(16);
     }
 
     // -------------------------------------------------------------------------
@@ -249,17 +277,17 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     // -------------------------------------------------------------------------
-    // Record15 type implementation
+    // Record17 type implementation
     // -------------------------------------------------------------------------
 
     @Override
-    public Row15<UUID, JooqAnnotationType, UUID, UUID, LocalDateTime, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> fieldsRow() {
-        return (Row15) super.fieldsRow();
+    public Row17<UUID, JooqAnnotationType, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> fieldsRow() {
+        return (Row17) super.fieldsRow();
     }
 
     @Override
-    public Row15<UUID, JooqAnnotationType, UUID, UUID, LocalDateTime, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> valuesRow() {
-        return (Row15) super.valuesRow();
+    public Row17<UUID, JooqAnnotationType, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> valuesRow() {
+        return (Row17) super.valuesRow();
     }
 
     @Override
@@ -278,62 +306,72 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     @Override
-    public Field<UUID> field4() {
-        return JooqAnnotation.ANNOTATION.CREATOR_UUID;
-    }
-
-    @Override
-    public Field<LocalDateTime> field5() {
+    public Field<LocalDateTime> field4() {
         return JooqAnnotation.ANNOTATION.CREATED;
     }
 
     @Override
-    public Field<String> field6() {
+    public Field<UUID> field5() {
+        return JooqAnnotation.ANNOTATION.CREATOR_UUID;
+    }
+
+    @Override
+    public Field<LocalDateTime> field6() {
+        return JooqAnnotation.ANNOTATION.EDITED;
+    }
+
+    @Override
+    public Field<UUID> field7() {
+        return JooqAnnotation.ANNOTATION.EDITOR_UUID;
+    }
+
+    @Override
+    public Field<String> field8() {
         return JooqAnnotation.ANNOTATION.TITLE;
     }
 
     @Override
-    public Field<String> field7() {
+    public Field<String> field9() {
         return JooqAnnotation.ANNOTATION.DESCRIPTION;
     }
 
     @Override
-    public Field<Integer> field8() {
+    public Field<Integer> field10() {
         return JooqAnnotation.ANNOTATION.TIME_FROM;
     }
 
     @Override
-    public Field<Integer> field9() {
+    public Field<Integer> field11() {
         return JooqAnnotation.ANNOTATION.TIME_TO;
     }
 
     @Override
-    public Field<Integer> field10() {
+    public Field<Integer> field12() {
         return JooqAnnotation.ANNOTATION.AREASTARTX;
     }
 
     @Override
-    public Field<Integer> field11() {
+    public Field<Integer> field13() {
         return JooqAnnotation.ANNOTATION.AREASTARTY;
     }
 
     @Override
-    public Field<Integer> field12() {
+    public Field<Integer> field14() {
         return JooqAnnotation.ANNOTATION.AREAWIDTH;
     }
 
     @Override
-    public Field<Integer> field13() {
+    public Field<Integer> field15() {
         return JooqAnnotation.ANNOTATION.AREAHEIGHT;
     }
 
     @Override
-    public Field<JSONB> field14() {
+    public Field<JSONB> field16() {
         return JooqAnnotation.ANNOTATION.META;
     }
 
     @Override
-    public Field<String> field15() {
+    public Field<String> field17() {
         return JooqAnnotation.ANNOTATION.THUMBNAIL;
     }
 
@@ -353,62 +391,72 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     @Override
-    public UUID component4() {
-        return getCreatorUuid();
-    }
-
-    @Override
-    public LocalDateTime component5() {
+    public LocalDateTime component4() {
         return getCreated();
     }
 
     @Override
-    public String component6() {
+    public UUID component5() {
+        return getCreatorUuid();
+    }
+
+    @Override
+    public LocalDateTime component6() {
+        return getEdited();
+    }
+
+    @Override
+    public UUID component7() {
+        return getEditorUuid();
+    }
+
+    @Override
+    public String component8() {
         return getTitle();
     }
 
     @Override
-    public String component7() {
+    public String component9() {
         return getDescription();
     }
 
     @Override
-    public Integer component8() {
+    public Integer component10() {
         return getTimeFrom();
     }
 
     @Override
-    public Integer component9() {
+    public Integer component11() {
         return getTimeTo();
     }
 
     @Override
-    public Integer component10() {
+    public Integer component12() {
         return getAreastartx();
     }
 
     @Override
-    public Integer component11() {
+    public Integer component13() {
         return getAreastarty();
     }
 
     @Override
-    public Integer component12() {
+    public Integer component14() {
         return getAreawidth();
     }
 
     @Override
-    public Integer component13() {
+    public Integer component15() {
         return getAreaheight();
     }
 
     @Override
-    public JSONB component14() {
+    public JSONB component16() {
         return getMeta();
     }
 
     @Override
-    public String component15() {
+    public String component17() {
         return getThumbnail();
     }
 
@@ -428,62 +476,72 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     @Override
-    public UUID value4() {
-        return getCreatorUuid();
-    }
-
-    @Override
-    public LocalDateTime value5() {
+    public LocalDateTime value4() {
         return getCreated();
     }
 
     @Override
-    public String value6() {
+    public UUID value5() {
+        return getCreatorUuid();
+    }
+
+    @Override
+    public LocalDateTime value6() {
+        return getEdited();
+    }
+
+    @Override
+    public UUID value7() {
+        return getEditorUuid();
+    }
+
+    @Override
+    public String value8() {
         return getTitle();
     }
 
     @Override
-    public String value7() {
+    public String value9() {
         return getDescription();
     }
 
     @Override
-    public Integer value8() {
+    public Integer value10() {
         return getTimeFrom();
     }
 
     @Override
-    public Integer value9() {
+    public Integer value11() {
         return getTimeTo();
     }
 
     @Override
-    public Integer value10() {
+    public Integer value12() {
         return getAreastartx();
     }
 
     @Override
-    public Integer value11() {
+    public Integer value13() {
         return getAreastarty();
     }
 
     @Override
-    public Integer value12() {
+    public Integer value14() {
         return getAreawidth();
     }
 
     @Override
-    public Integer value13() {
+    public Integer value15() {
         return getAreaheight();
     }
 
     @Override
-    public JSONB value14() {
+    public JSONB value16() {
         return getMeta();
     }
 
     @Override
-    public String value15() {
+    public String value17() {
         return getThumbnail();
     }
 
@@ -506,79 +564,91 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     @Override
-    public JooqAnnotationRecord value4(UUID value) {
-        setCreatorUuid(value);
-        return this;
-    }
-
-    @Override
-    public JooqAnnotationRecord value5(LocalDateTime value) {
+    public JooqAnnotationRecord value4(LocalDateTime value) {
         setCreated(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord value6(String value) {
+    public JooqAnnotationRecord value5(UUID value) {
+        setCreatorUuid(value);
+        return this;
+    }
+
+    @Override
+    public JooqAnnotationRecord value6(LocalDateTime value) {
+        setEdited(value);
+        return this;
+    }
+
+    @Override
+    public JooqAnnotationRecord value7(UUID value) {
+        setEditorUuid(value);
+        return this;
+    }
+
+    @Override
+    public JooqAnnotationRecord value8(String value) {
         setTitle(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord value7(String value) {
+    public JooqAnnotationRecord value9(String value) {
         setDescription(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord value8(Integer value) {
+    public JooqAnnotationRecord value10(Integer value) {
         setTimeFrom(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord value9(Integer value) {
+    public JooqAnnotationRecord value11(Integer value) {
         setTimeTo(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord value10(Integer value) {
+    public JooqAnnotationRecord value12(Integer value) {
         setAreastartx(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord value11(Integer value) {
+    public JooqAnnotationRecord value13(Integer value) {
         setAreastarty(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord value12(Integer value) {
+    public JooqAnnotationRecord value14(Integer value) {
         setAreawidth(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord value13(Integer value) {
+    public JooqAnnotationRecord value15(Integer value) {
         setAreaheight(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord value14(JSONB value) {
+    public JooqAnnotationRecord value16(JSONB value) {
         setMeta(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord value15(String value) {
+    public JooqAnnotationRecord value17(String value) {
         setThumbnail(value);
         return this;
     }
 
     @Override
-    public JooqAnnotationRecord values(UUID value1, JooqAnnotationType value2, UUID value3, UUID value4, LocalDateTime value5, String value6, String value7, Integer value8, Integer value9, Integer value10, Integer value11, Integer value12, Integer value13, JSONB value14, String value15) {
+    public JooqAnnotationRecord values(UUID value1, JooqAnnotationType value2, UUID value3, LocalDateTime value4, UUID value5, LocalDateTime value6, UUID value7, String value8, String value9, Integer value10, Integer value11, Integer value12, Integer value13, Integer value14, Integer value15, JSONB value16, String value17) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -594,6 +664,8 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
         value13(value13);
         value14(value14);
         value15(value15);
+        value16(value16);
+        value17(value17);
         return this;
     }
 
@@ -611,14 +683,16 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     /**
      * Create a detached, initialised JooqAnnotationRecord
      */
-    public JooqAnnotationRecord(UUID uuid, JooqAnnotationType type, UUID assetUuid, UUID creatorUuid, LocalDateTime created, String title, String description, Integer timeFrom, Integer timeTo, Integer areastartx, Integer areastarty, Integer areawidth, Integer areaheight, JSONB meta, String thumbnail) {
+    public JooqAnnotationRecord(UUID uuid, JooqAnnotationType type, UUID assetUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String title, String description, Integer timeFrom, Integer timeTo, Integer areastartx, Integer areastarty, Integer areawidth, Integer areaheight, JSONB meta, String thumbnail) {
         super(JooqAnnotation.ANNOTATION);
 
         setUuid(uuid);
         setType(type);
         setAssetUuid(assetUuid);
-        setCreatorUuid(creatorUuid);
         setCreated(created);
+        setCreatorUuid(creatorUuid);
+        setEdited(edited);
+        setEditorUuid(editorUuid);
         setTitle(title);
         setDescription(description);
         setTimeFrom(timeFrom);

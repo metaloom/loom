@@ -131,12 +131,12 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
     /**
      * The column <code>public.embedding.edited</code>.
      */
-    public final TableField<JooqEmbeddingRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqEmbeddingRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.embedding.editor_uuid</code>.
      */
-    public final TableField<JooqEmbeddingRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqEmbeddingRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.embedding.asset_uuid</code>.

@@ -16,13 +16,13 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function7;
+import org.jooq.Function9;
 import org.jooq.Index;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row7;
+import org.jooq.Row9;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -66,11 +66,6 @@ public class JooqToken extends TableImpl<JooqTokenRecord> {
     public final TableField<JooqTokenRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR, this, "");
 
     /**
-     * The column <code>public.token.user_uuid</code>.
-     */
-    public final TableField<JooqTokenRecord, java.util.UUID> USER_UUID = createField(DSL.name("user_uuid"), SQLDataType.UUID, this, "");
-
-    /**
      * The column <code>public.token.description</code>.
      */
     public final TableField<JooqTokenRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR, this, "");
@@ -83,7 +78,22 @@ public class JooqToken extends TableImpl<JooqTokenRecord> {
     /**
      * The column <code>public.token.created</code>.
      */
-    public final TableField<JooqTokenRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqTokenRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
+     * The column <code>public.token.creator_uuid</code>.
+     */
+    public final TableField<JooqTokenRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
+
+    /**
+     * The column <code>public.token.edited</code>.
+     */
+    public final TableField<JooqTokenRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
+     * The column <code>public.token.editor_uuid</code>.
+     */
+    public final TableField<JooqTokenRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.token.meta</code>. Custom meta properties to the
@@ -131,7 +141,7 @@ public class JooqToken extends TableImpl<JooqTokenRecord> {
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.asList(Indexes.TOKEN_TOKEN_IDX, Indexes.TOKEN_USER_UUID_IDX, Indexes.TOKEN_USER_UUID_NAME_IDX);
+        return Arrays.asList(Indexes.TOKEN_CREATOR_UUID_IDX, Indexes.TOKEN_CREATOR_UUID_NAME_IDX, Indexes.TOKEN_TOKEN_IDX);
     }
 
     @Override
@@ -141,7 +151,7 @@ public class JooqToken extends TableImpl<JooqTokenRecord> {
 
     @Override
     public List<ForeignKey<JooqTokenRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.TOKEN__TOKEN_USER_UUID_FKEY);
+        return Arrays.asList(Keys.TOKEN__TOKEN_CREATOR_UUID_FKEY);
     }
 
     private transient JooqUser _user;
@@ -151,7 +161,7 @@ public class JooqToken extends TableImpl<JooqTokenRecord> {
      */
     public JooqUser user() {
         if (_user == null)
-            _user = new JooqUser(this, Keys.TOKEN__TOKEN_USER_UUID_FKEY);
+            _user = new JooqUser(this, Keys.TOKEN__TOKEN_CREATOR_UUID_FKEY);
 
         return _user;
     }
@@ -196,18 +206,18 @@ public class JooqToken extends TableImpl<JooqTokenRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row9 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<java.util.UUID, String, java.util.UUID, String, String, LocalDateTime, JSONB> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row9<java.util.UUID, String, String, String, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, JSONB> fieldsRow() {
+        return (Row9) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function7<? super java.util.UUID, ? super String, ? super java.util.UUID, ? super String, ? super String, ? super LocalDateTime, ? super JSONB, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function9<? super java.util.UUID, ? super String, ? super String, ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super JSONB, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -215,7 +225,7 @@ public class JooqToken extends TableImpl<JooqTokenRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super java.util.UUID, ? super String, ? super java.util.UUID, ? super String, ? super String, ? super LocalDateTime, ? super JSONB, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super java.util.UUID, ? super String, ? super String, ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super JSONB, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

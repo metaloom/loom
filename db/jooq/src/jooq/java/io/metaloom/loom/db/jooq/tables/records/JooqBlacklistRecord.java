@@ -23,7 +23,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * scanner marked it.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord> implements Record9<UUID, UUID, String, UUID, LocalDateTime, UUID, String, Integer, JSONB> {
+public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord> implements Record9<UUID, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, Integer, JSONB> {
 
     private static final long serialVersionUID = 1L;
 
@@ -58,15 +58,15 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     /**
      * Setter for <code>public.blacklist.created</code>. Creation timestamp
      */
-    public void setCreated(String value) {
+    public void setCreated(LocalDateTime value) {
         set(2, value);
     }
 
     /**
      * Getter for <code>public.blacklist.created</code>. Creation timestamp
      */
-    public String getCreated() {
-        return (String) get(2);
+    public LocalDateTime getCreated() {
+        return (LocalDateTime) get(2);
     }
 
     /**
@@ -175,12 +175,12 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<UUID, UUID, String, UUID, LocalDateTime, UUID, String, Integer, JSONB> fieldsRow() {
+    public Row9<UUID, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, Integer, JSONB> fieldsRow() {
         return (Row9) super.fieldsRow();
     }
 
     @Override
-    public Row9<UUID, UUID, String, UUID, LocalDateTime, UUID, String, Integer, JSONB> valuesRow() {
+    public Row9<UUID, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, Integer, JSONB> valuesRow() {
         return (Row9) super.valuesRow();
     }
 
@@ -195,7 +195,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     }
 
     @Override
-    public Field<String> field3() {
+    public Field<LocalDateTime> field3() {
         return JooqBlacklist.BLACKLIST.CREATED;
     }
 
@@ -240,7 +240,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     }
 
     @Override
-    public String component3() {
+    public LocalDateTime component3() {
         return getCreated();
     }
 
@@ -285,7 +285,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     }
 
     @Override
-    public String value3() {
+    public LocalDateTime value3() {
         return getCreated();
     }
 
@@ -332,7 +332,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     }
 
     @Override
-    public JooqBlacklistRecord value3(String value) {
+    public JooqBlacklistRecord value3(LocalDateTime value) {
         setCreated(value);
         return this;
     }
@@ -374,7 +374,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     }
 
     @Override
-    public JooqBlacklistRecord values(UUID value1, UUID value2, String value3, UUID value4, LocalDateTime value5, UUID value6, String value7, Integer value8, JSONB value9) {
+    public JooqBlacklistRecord values(UUID value1, UUID value2, LocalDateTime value3, UUID value4, LocalDateTime value5, UUID value6, String value7, Integer value8, JSONB value9) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -401,7 +401,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     /**
      * Create a detached, initialised JooqBlacklistRecord
      */
-    public JooqBlacklistRecord(UUID uuid, UUID assetUuid, String created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String type, Integer reviewCount, JSONB meta) {
+    public JooqBlacklistRecord(UUID uuid, UUID assetUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String type, Integer reviewCount, JSONB meta) {
         super(JooqBlacklist.BLACKLIST);
 
         setUuid(uuid);

@@ -137,7 +137,7 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
     /**
      * The column <code>public.asset.edited</code>.
      */
-    public final TableField<JooqAssetRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqAssetRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.asset.editor_uuid</code>.

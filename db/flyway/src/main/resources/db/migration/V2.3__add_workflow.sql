@@ -15,8 +15,8 @@ CREATE TABLE "task" (
   "priority" int,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
-  "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid,
+  "edited" timestamp NOT NULL DEFAULT (now()),
+  "editor_uuid" uuid NOT NULL,
   PRIMARY KEY ("uuid")
 );
 

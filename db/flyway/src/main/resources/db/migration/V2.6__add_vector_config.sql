@@ -1,7 +1,11 @@
 CREATE TABLE "vector_config" (
-   "uuid" uuid DEFAULT uuid_generate_v4 (),
+  "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar UNIQUE NOT NULL,
-  "weights" jsonb
+  "weights" jsonb,
+  "created" timestamp NOT NULL DEFAULT (now()),
+  "creator_uuid" uuid NOT NULL,
+  "edited" timestamp NOT NULL DEFAULT (now()),
+  "editor_uuid" uuid NOT NULL
 );
 
 COMMENT ON TABLE "vector_config" IS 'This table stores the custom index definition that will be used when creating custom indices in a vector database that list specific aspects of loom data.

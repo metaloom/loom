@@ -8,6 +8,7 @@ import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
 import io.metaloom.loom.db.jooq.tables.records.JooqCommentRecord;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -74,12 +75,12 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
     /**
      * The column <code>public.comment.created</code>. Creation timestamp
      */
-    public final TableField<JooqCommentRecord, String> CREATED = createField(DSL.name("created"), SQLDataType.VARCHAR.nullable(false), this, "Creation timestamp");
+    public final TableField<JooqCommentRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "Creation timestamp");
 
     /**
      * The column <code>public.comment.edited</code>. Edit timestamp
      */
-    public final TableField<JooqCommentRecord, String> EDITED = createField(DSL.name("edited"), SQLDataType.VARCHAR, this, "Edit timestamp");
+    public final TableField<JooqCommentRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "Edit timestamp");
 
     /**
      * The column <code>public.comment.parent_uuid</code>.
@@ -201,14 +202,14 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<java.util.UUID, String, String, java.util.UUID, String, String, java.util.UUID> fieldsRow() {
+    public Row7<java.util.UUID, String, String, java.util.UUID, LocalDateTime, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function7<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function7<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -216,7 +217,7 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -8,8 +8,12 @@ CREATE TABLE "annotation" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "type" annotation_type NOT NULL,
   "asset_uuid" uuid NOT NULL,
-  "creator_uuid" uuid NOT NULL,
+
   "created" timestamp NOT NULL DEFAULT (now()),
+  "creator_uuid" uuid NOT NULL,
+  "edited" timestamp NOT NULL DEFAULT (now()),
+  "editor_uuid" uuid NOT NULL,
+
   "title" varchar,
   "description" varchar,
   "time_from" int,

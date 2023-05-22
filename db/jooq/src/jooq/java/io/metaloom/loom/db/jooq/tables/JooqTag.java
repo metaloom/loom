@@ -95,12 +95,12 @@ public class JooqTag extends TableImpl<JooqTagRecord> {
     /**
      * The column <code>public.tag.edited</code>.
      */
-    public final TableField<JooqTagRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqTagRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.tag.editor_uuid</code>.
      */
-    public final TableField<JooqTagRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqTagRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqTag(Name alias, Table<JooqTagRecord> aliased) {
         this(alias, aliased, null);

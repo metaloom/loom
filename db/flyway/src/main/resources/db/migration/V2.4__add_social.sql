@@ -3,8 +3,8 @@ CREATE TABLE "comment" (
   "title" varchar,
   "content" varchar NOT NULL,
   "user_uuid" uuid NOT NULL,
-  "created" varchar NOT NULL,
-  "edited" varchar,
+  "created" timestamp NOT NULL DEFAULT (now()),
+  "edited" timestamp NOT NULL DEFAULT (now()),
   "parent_uuid" uuid,
   PRIMARY KEY ("uuid")
 );
@@ -23,8 +23,8 @@ CREATE TABLE "reaction" (
   "meta" jsonb,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
-  "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid,
+  "edited" timestamp NOT NULL DEFAULT (now()),
+  "editor_uuid" uuid NOT NULL,
   "asset_uuid" uuid,
   "comment_uuid" uuid,
   "annotation_uuid" uuid,

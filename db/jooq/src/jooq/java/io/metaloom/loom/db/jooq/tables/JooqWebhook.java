@@ -105,12 +105,12 @@ public class JooqWebhook extends TableImpl<JooqWebhookRecord> {
     /**
      * The column <code>public.webhook.edited</code>.
      */
-    public final TableField<JooqWebhookRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqWebhookRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.webhook.editor_uuid</code>.
      */
-    public final TableField<JooqWebhookRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqWebhookRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqWebhook(Name alias, Table<JooqWebhookRecord> aliased) {
         this(alias, aliased, null);

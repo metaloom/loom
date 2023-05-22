@@ -25,7 +25,6 @@ public abstract class AbstractCRUDEndpointTest extends AbstractEndpointTest impl
 			loginAdmin(client);
 			testCreate(client);
 		}
-
 	}
 
 	protected abstract void testCreate(LoomHttpClient client) throws HttpErrorException;

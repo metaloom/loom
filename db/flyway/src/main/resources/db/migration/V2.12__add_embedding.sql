@@ -10,10 +10,12 @@ CREATE TABLE "embedding" (
   "data" real[] NOT NULL,
   "id" bigint,
   "type" varchar NOT NULL,
+
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
-  "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid,
+  "edited" timestamp NOT NULL DEFAULT (now()),
+  "editor_uuid" uuid NOT NULL,
+
   "asset_uuid" uuid NOT NULL,
   PRIMARY KEY ("uuid")
 );
@@ -30,10 +32,12 @@ CREATE TABLE "cluster" (
   "name" varchar NOT NULL,
   "meta" jsonb,
   "type" varchar NOT NULL,
+
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
-  "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid,
+  "edited" timestamp NOT NULL DEFAULT (now()),
+  "editor_uuid" uuid NOT NULL,
+
   PRIMARY KEY ("uuid")
 );
 

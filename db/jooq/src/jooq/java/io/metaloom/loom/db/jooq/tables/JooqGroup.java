@@ -79,17 +79,17 @@ public class JooqGroup extends TableImpl<JooqGroupRecord> {
     /**
      * The column <code>public.group.creator_uuid</code>.
      */
-    public final TableField<JooqGroupRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqGroupRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.group.edited</code>.
      */
-    public final TableField<JooqGroupRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqGroupRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.group.editor_uuid</code>.
      */
-    public final TableField<JooqGroupRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqGroupRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqGroup(Name alias, Table<JooqGroupRecord> aliased) {
         this(alias, aliased, null);

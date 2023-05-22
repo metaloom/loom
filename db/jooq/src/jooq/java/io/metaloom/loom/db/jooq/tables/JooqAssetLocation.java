@@ -132,12 +132,12 @@ public class JooqAssetLocation extends TableImpl<JooqAssetLocationRecord> {
     /**
      * The column <code>public.asset_location.edited</code>.
      */
-    public final TableField<JooqAssetLocationRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqAssetLocationRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.asset_location.editor_uuid</code>.
      */
-    public final TableField<JooqAssetLocationRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqAssetLocationRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqAssetLocation(Name alias, Table<JooqAssetLocationRecord> aliased) {
         this(alias, aliased, null);

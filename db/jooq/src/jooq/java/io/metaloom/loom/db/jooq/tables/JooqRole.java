@@ -79,17 +79,17 @@ public class JooqRole extends TableImpl<JooqRoleRecord> {
     /**
      * The column <code>public.role.creator_uuid</code>.
      */
-    public final TableField<JooqRoleRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqRoleRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.role.edited</code>.
      */
-    public final TableField<JooqRoleRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqRoleRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.role.editor_uuid</code>.
      */
-    public final TableField<JooqRoleRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqRoleRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqRole(Name alias, Table<JooqRoleRecord> aliased) {
         this(alias, aliased, null);

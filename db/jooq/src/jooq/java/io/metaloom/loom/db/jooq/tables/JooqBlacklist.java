@@ -70,7 +70,7 @@ public class JooqBlacklist extends TableImpl<JooqBlacklistRecord> {
     /**
      * The column <code>public.blacklist.created</code>. Creation timestamp
      */
-    public final TableField<JooqBlacklistRecord, String> CREATED = createField(DSL.name("created"), SQLDataType.VARCHAR.nullable(false), this, "Creation timestamp");
+    public final TableField<JooqBlacklistRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "Creation timestamp");
 
     /**
      * The column <code>public.blacklist.creator_uuid</code>. Creator of the
@@ -81,12 +81,12 @@ public class JooqBlacklist extends TableImpl<JooqBlacklistRecord> {
     /**
      * The column <code>public.blacklist.edited</code>.
      */
-    public final TableField<JooqBlacklistRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqBlacklistRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.blacklist.editor_uuid</code>.
      */
-    public final TableField<JooqBlacklistRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqBlacklistRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.blacklist.type</code>. Type of the blacklist
@@ -228,14 +228,14 @@ public class JooqBlacklist extends TableImpl<JooqBlacklistRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<java.util.UUID, java.util.UUID, String, java.util.UUID, LocalDateTime, java.util.UUID, String, Integer, JSONB> fieldsRow() {
+    public Row9<java.util.UUID, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, String, Integer, JSONB> fieldsRow() {
         return (Row9) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function9<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super Integer, ? super JSONB, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function9<? super java.util.UUID, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super Integer, ? super JSONB, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -243,7 +243,7 @@ public class JooqBlacklist extends TableImpl<JooqBlacklistRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super Integer, ? super JSONB, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super java.util.UUID, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super Integer, ? super JSONB, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

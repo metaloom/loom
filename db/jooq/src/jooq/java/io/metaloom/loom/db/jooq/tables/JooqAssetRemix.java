@@ -17,13 +17,13 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function5;
+import org.jooq.Function7;
 import org.jooq.Index;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row5;
+import org.jooq.Row7;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -80,6 +80,16 @@ public class JooqAssetRemix extends TableImpl<JooqAssetRemixRecord> {
      * The column <code>public.asset_remix.creator_uuid</code>.
      */
     public final TableField<JooqAssetRemixRecord, UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
+
+    /**
+     * The column <code>public.asset_remix.edited</code>.
+     */
+    public final TableField<JooqAssetRemixRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
+     * The column <code>public.asset_remix.editor_uuid</code>.
+     */
+    public final TableField<JooqAssetRemixRecord, UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqAssetRemix(Name alias, Table<JooqAssetRemixRecord> aliased) {
         this(alias, aliased, null);
@@ -181,18 +191,18 @@ public class JooqAssetRemix extends TableImpl<JooqAssetRemixRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row5 type methods
+    // Row7 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<UUID, UUID, JSONB, LocalDateTime, UUID> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Row7<UUID, UUID, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+        return (Row7) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function5<? super UUID, ? super UUID, ? super JSONB, ? super LocalDateTime, ? super UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function7<? super UUID, ? super UUID, ? super JSONB, ? super LocalDateTime, ? super UUID, ? super LocalDateTime, ? super UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -200,7 +210,7 @@ public class JooqAssetRemix extends TableImpl<JooqAssetRemixRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super UUID, ? super UUID, ? super JSONB, ? super LocalDateTime, ? super UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super UUID, ? super UUID, ? super JSONB, ? super LocalDateTime, ? super UUID, ? super LocalDateTime, ? super UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

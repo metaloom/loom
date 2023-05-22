@@ -11,8 +11,8 @@ import java.util.UUID;
 
 import org.jooq.Field;
 import org.jooq.JSONB;
-import org.jooq.Record5;
-import org.jooq.Row5;
+import org.jooq.Record7;
+import org.jooq.Row7;
 import org.jooq.impl.TableRecordImpl;
 
 
@@ -20,7 +20,7 @@ import org.jooq.impl.TableRecordImpl;
  * Store information on remixes of binaries.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> implements Record5<UUID, UUID, JSONB, LocalDateTime, UUID> {
+public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> implements Record7<UUID, UUID, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -96,18 +96,46 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
         return (UUID) get(4);
     }
 
+    /**
+     * Setter for <code>public.asset_remix.edited</code>.
+     */
+    public void setEdited(LocalDateTime value) {
+        set(5, value);
+    }
+
+    /**
+     * Getter for <code>public.asset_remix.edited</code>.
+     */
+    public LocalDateTime getEdited() {
+        return (LocalDateTime) get(5);
+    }
+
+    /**
+     * Setter for <code>public.asset_remix.editor_uuid</code>.
+     */
+    public void setEditorUuid(UUID value) {
+        set(6, value);
+    }
+
+    /**
+     * Getter for <code>public.asset_remix.editor_uuid</code>.
+     */
+    public UUID getEditorUuid() {
+        return (UUID) get(6);
+    }
+
     // -------------------------------------------------------------------------
-    // Record5 type implementation
+    // Record7 type implementation
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<UUID, UUID, JSONB, LocalDateTime, UUID> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Row7<UUID, UUID, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+        return (Row7) super.fieldsRow();
     }
 
     @Override
-    public Row5<UUID, UUID, JSONB, LocalDateTime, UUID> valuesRow() {
-        return (Row5) super.valuesRow();
+    public Row7<UUID, UUID, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
+        return (Row7) super.valuesRow();
     }
 
     @Override
@@ -136,6 +164,16 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     }
 
     @Override
+    public Field<LocalDateTime> field6() {
+        return JooqAssetRemix.ASSET_REMIX.EDITED;
+    }
+
+    @Override
+    public Field<UUID> field7() {
+        return JooqAssetRemix.ASSET_REMIX.EDITOR_UUID;
+    }
+
+    @Override
     public UUID component1() {
         return getAssetAUuid();
     }
@@ -161,6 +199,16 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     }
 
     @Override
+    public LocalDateTime component6() {
+        return getEdited();
+    }
+
+    @Override
+    public UUID component7() {
+        return getEditorUuid();
+    }
+
+    @Override
     public UUID value1() {
         return getAssetAUuid();
     }
@@ -183,6 +231,16 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     @Override
     public UUID value5() {
         return getCreatorUuid();
+    }
+
+    @Override
+    public LocalDateTime value6() {
+        return getEdited();
+    }
+
+    @Override
+    public UUID value7() {
+        return getEditorUuid();
     }
 
     @Override
@@ -216,12 +274,26 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     }
 
     @Override
-    public JooqAssetRemixRecord values(UUID value1, UUID value2, JSONB value3, LocalDateTime value4, UUID value5) {
+    public JooqAssetRemixRecord value6(LocalDateTime value) {
+        setEdited(value);
+        return this;
+    }
+
+    @Override
+    public JooqAssetRemixRecord value7(UUID value) {
+        setEditorUuid(value);
+        return this;
+    }
+
+    @Override
+    public JooqAssetRemixRecord values(UUID value1, UUID value2, JSONB value3, LocalDateTime value4, UUID value5, LocalDateTime value6, UUID value7) {
         value1(value1);
         value2(value2);
         value3(value3);
         value4(value4);
         value5(value5);
+        value6(value6);
+        value7(value7);
         return this;
     }
 
@@ -239,7 +311,7 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     /**
      * Create a detached, initialised JooqAssetRemixRecord
      */
-    public JooqAssetRemixRecord(UUID assetAUuid, UUID assetBUuid, JSONB meta, LocalDateTime created, UUID creatorUuid) {
+    public JooqAssetRemixRecord(UUID assetAUuid, UUID assetBUuid, JSONB meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
         super(JooqAssetRemix.ASSET_REMIX);
 
         setAssetAUuid(assetAUuid);
@@ -247,5 +319,7 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
         setMeta(meta);
         setCreated(created);
         setCreatorUuid(creatorUuid);
+        setEdited(edited);
+        setEditorUuid(editorUuid);
     }
 }

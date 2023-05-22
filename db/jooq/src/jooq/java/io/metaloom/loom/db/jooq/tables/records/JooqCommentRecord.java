@@ -6,6 +6,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 import io.metaloom.loom.db.jooq.tables.JooqComment;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.jooq.Field;
@@ -19,7 +20,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Stores comments on tasks, annotations..
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> implements Record7<UUID, String, String, UUID, String, String, UUID> {
+public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> implements Record7<UUID, String, String, UUID, LocalDateTime, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -82,29 +83,29 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     /**
      * Setter for <code>public.comment.created</code>. Creation timestamp
      */
-    public void setCreated(String value) {
+    public void setCreated(LocalDateTime value) {
         set(4, value);
     }
 
     /**
      * Getter for <code>public.comment.created</code>. Creation timestamp
      */
-    public String getCreated() {
-        return (String) get(4);
+    public LocalDateTime getCreated() {
+        return (LocalDateTime) get(4);
     }
 
     /**
      * Setter for <code>public.comment.edited</code>. Edit timestamp
      */
-    public void setEdited(String value) {
+    public void setEdited(LocalDateTime value) {
         set(5, value);
     }
 
     /**
      * Getter for <code>public.comment.edited</code>. Edit timestamp
      */
-    public String getEdited() {
-        return (String) get(5);
+    public LocalDateTime getEdited() {
+        return (LocalDateTime) get(5);
     }
 
     /**
@@ -135,12 +136,12 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<UUID, String, String, UUID, String, String, UUID> fieldsRow() {
+    public Row7<UUID, String, String, UUID, LocalDateTime, LocalDateTime, UUID> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 
     @Override
-    public Row7<UUID, String, String, UUID, String, String, UUID> valuesRow() {
+    public Row7<UUID, String, String, UUID, LocalDateTime, LocalDateTime, UUID> valuesRow() {
         return (Row7) super.valuesRow();
     }
 
@@ -165,12 +166,12 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
-    public Field<String> field5() {
+    public Field<LocalDateTime> field5() {
         return JooqComment.COMMENT.CREATED;
     }
 
     @Override
-    public Field<String> field6() {
+    public Field<LocalDateTime> field6() {
         return JooqComment.COMMENT.EDITED;
     }
 
@@ -200,12 +201,12 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
-    public String component5() {
+    public LocalDateTime component5() {
         return getCreated();
     }
 
     @Override
-    public String component6() {
+    public LocalDateTime component6() {
         return getEdited();
     }
 
@@ -235,12 +236,12 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
-    public String value5() {
+    public LocalDateTime value5() {
         return getCreated();
     }
 
     @Override
-    public String value6() {
+    public LocalDateTime value6() {
         return getEdited();
     }
 
@@ -274,13 +275,13 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
-    public JooqCommentRecord value5(String value) {
+    public JooqCommentRecord value5(LocalDateTime value) {
         setCreated(value);
         return this;
     }
 
     @Override
-    public JooqCommentRecord value6(String value) {
+    public JooqCommentRecord value6(LocalDateTime value) {
         setEdited(value);
         return this;
     }
@@ -292,7 +293,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
-    public JooqCommentRecord values(UUID value1, String value2, String value3, UUID value4, String value5, String value6, UUID value7) {
+    public JooqCommentRecord values(UUID value1, String value2, String value3, UUID value4, LocalDateTime value5, LocalDateTime value6, UUID value7) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -317,7 +318,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     /**
      * Create a detached, initialised JooqCommentRecord
      */
-    public JooqCommentRecord(UUID uuid, String title, String content, UUID userUuid, String created, String edited, UUID parentUuid) {
+    public JooqCommentRecord(UUID uuid, String title, String content, UUID userUuid, LocalDateTime created, LocalDateTime edited, UUID parentUuid) {
         super(JooqComment.COMMENT);
 
         setUuid(uuid);

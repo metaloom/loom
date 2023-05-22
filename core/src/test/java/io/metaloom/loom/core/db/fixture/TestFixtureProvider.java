@@ -1,5 +1,6 @@
 package io.metaloom.loom.core.db.fixture;
 
+import java.time.Instant;
 import java.util.UUID;
 
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
@@ -191,9 +192,11 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 
 		// User
 		User adminUser = userDao().createUser("admin");
-		adminUser.setUuid(ADMIN_UUID);
+		adminUser.setUuid(ADMIN_UUID); 
 		adminUser.setCreator(adminUser);
 		adminUser.setEditor(adminUser);
+		adminUser.setEdited(Instant.now());
+		adminUser.setCreated(Instant.now());
 		adminUser.setPasswordHash(authService.encodePassword("finger"));
 		userDao().store(adminUser);
 
@@ -217,6 +220,8 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		joeDoeUser.setUuid(USER_UUID);
 		joeDoeUser.setCreator(adminUser);
 		joeDoeUser.setEditor(adminUser);
+		joeDoeUser.setEdited(Instant.now());
+		joeDoeUser.setCreated(Instant.now());
 		joeDoeUser.setPasswordHash(authService.encodePassword("finger"));
 		userDao().store(joeDoeUser);
 		permissionDao().grantUserPermission(joeDoeUser.getUuid(), Permission.READ_USER, "test");

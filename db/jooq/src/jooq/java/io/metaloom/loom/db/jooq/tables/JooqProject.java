@@ -87,12 +87,12 @@ public class JooqProject extends TableImpl<JooqProjectRecord> {
     /**
      * The column <code>public.project.edited</code>.
      */
-    public final TableField<JooqProjectRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqProjectRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.project.editor_uuid</code>.
      */
-    public final TableField<JooqProjectRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqProjectRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqProject(Name alias, Table<JooqProjectRecord> aliased) {
         this(alias, aliased, null);

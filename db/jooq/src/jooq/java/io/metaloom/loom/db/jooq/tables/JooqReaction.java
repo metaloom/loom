@@ -91,12 +91,12 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
     /**
      * The column <code>public.reaction.edited</code>.
      */
-    public final TableField<JooqReactionRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<JooqReactionRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.reaction.editor_uuid</code>.
      */
-    public final TableField<JooqReactionRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqReactionRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.reaction.asset_uuid</code>.

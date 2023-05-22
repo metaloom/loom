@@ -48,6 +48,7 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 			// TODO handle conflicts
 			User user = dao().createUser(userUuid, userName);
 			update(request::getMeta, user::setMeta);
+			setEditor(user, userUuid);
 			return user;
 		}, modelBuilder::toResponse);
 	}

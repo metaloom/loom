@@ -16,12 +16,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function15;
+import org.jooq.Function17;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row15;
+import org.jooq.Row17;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -71,14 +71,24 @@ public class JooqAnnotation extends TableImpl<JooqAnnotationRecord> {
     public final TableField<JooqAnnotationRecord, java.util.UUID> ASSET_UUID = createField(DSL.name("asset_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
+     * The column <code>public.annotation.created</code>. Creation timestamp
+     */
+    public final TableField<JooqAnnotationRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "Creation timestamp");
+
+    /**
      * The column <code>public.annotation.creator_uuid</code>.
      */
     public final TableField<JooqAnnotationRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.annotation.created</code>. Creation timestamp
+     * The column <code>public.annotation.edited</code>.
      */
-    public final TableField<JooqAnnotationRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "Creation timestamp");
+    public final TableField<JooqAnnotationRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
+     * The column <code>public.annotation.editor_uuid</code>.
+     */
+    public final TableField<JooqAnnotationRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.annotation.title</code>.
@@ -231,18 +241,18 @@ public class JooqAnnotation extends TableImpl<JooqAnnotationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row15 type methods
+    // Row17 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row15<java.util.UUID, JooqAnnotationType, java.util.UUID, java.util.UUID, LocalDateTime, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> fieldsRow() {
-        return (Row15) super.fieldsRow();
+    public Row17<java.util.UUID, JooqAnnotationType, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> fieldsRow() {
+        return (Row17) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function15<? super java.util.UUID, ? super JooqAnnotationType, ? super java.util.UUID, ? super java.util.UUID, ? super LocalDateTime, ? super String, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JSONB, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function17<? super java.util.UUID, ? super JooqAnnotationType, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JSONB, ? super String, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -250,7 +260,7 @@ public class JooqAnnotation extends TableImpl<JooqAnnotationRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function15<? super java.util.UUID, ? super JooqAnnotationType, ? super java.util.UUID, ? super java.util.UUID, ? super LocalDateTime, ? super String, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JSONB, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function17<? super java.util.UUID, ? super JooqAnnotationType, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JSONB, ? super String, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

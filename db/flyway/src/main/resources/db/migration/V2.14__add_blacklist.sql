@@ -1,10 +1,12 @@
 CREATE TABLE "blacklist" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "asset_uuid" uuid NOT NULL,
-  "created" varchar NOT NULL,
+
+  "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
-  "edited" timestamp DEFAULT (now()),
-  "editor_uuid" uuid,
+  "edited" timestamp NOT NULL DEFAULT (now()),
+  "editor_uuid" uuid NOT NULL,
+
   "type" varchar,
   "review_count" int DEFAULT 1,
   "meta" jsonb,
