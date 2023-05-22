@@ -18,7 +18,7 @@ import io.metaloom.loom.rest.model.asset.DocumentInfo;
 import io.metaloom.loom.rest.model.asset.ImageInfo;
 import io.metaloom.loom.rest.model.asset.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.HashInfo;
-import io.metaloom.loom.rest.model.asset.location.LocationReference;
+import io.metaloom.loom.rest.model.asset.location.AssetLocationReference;
 import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
 import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
@@ -68,7 +68,7 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 		setStatus(asset, response);
 
 		List<AssetLocation> locations = new ArrayList<>();
-		List<LocationReference> locationRefs = locations.stream().map(this::toReference).collect(Collectors.toList());
+		List<AssetLocationReference> locationRefs = locations.stream().map(this::toReference).collect(Collectors.toList());
 		response.setLocations(locationRefs);
 
 		response.setTags(assetTags(asset));

@@ -76,6 +76,12 @@
 
     <!-- Test -->
     <dependency>
+      <groupId>io.metaloom.loom</groupId>
+      <artifactId>loom-rest-model</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>io.metaloom.loom.test</groupId>
       <artifactId>loom-test-env</artifactId>
       <scope>test</scope>

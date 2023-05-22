@@ -6,14 +6,14 @@ public interface AssetLocationExamples extends ExampleValues {
 
 	default AssetLocationResponse locationResponse() {
 		AssetLocationResponse model = new AssetLocationResponse();
-		model.setFilesystem(new LocationFilesystemInfo().setFilekey(new FileKey().setInode(42).setStDev(12)).setLastSeen(DATE_NEW)
+		model.setFilesystem(new AssetLocationFilesystemInfo().setFilekey(new FileKey().setInode(42).setStDev(12)).setLastSeen(DATE_NEW)
 			.setPath("/the-current-path/bigbuckbunny-4k.mp4"));
 		model.setS3(new AssetS3Meta().setBucket("big_bucket").setObjectPath("themovie"));
 		return model;
 	}
 
-	default LocationListResponse locationListResponse() {
-		LocationListResponse model = new LocationListResponse();
+	default AssetLocationListResponse locationListResponse() {
+		AssetLocationListResponse model = new AssetLocationListResponse();
 		model.setMetainfo(pagingInfo());
 		model.add(locationResponse());
 		model.add(locationResponse());
@@ -26,8 +26,8 @@ public interface AssetLocationExamples extends ExampleValues {
 		return model;
 	}
 
-	default LocationReference locationReference() {
-		LocationReference model = new LocationReference();
+	default AssetLocationReference locationReference() {
+		AssetLocationReference model = new AssetLocationReference();
 		model.setUuid(uuidC());
 		model.setPath("/the-current-path/bigbuckbunny-4k.mp4");
 		return model;

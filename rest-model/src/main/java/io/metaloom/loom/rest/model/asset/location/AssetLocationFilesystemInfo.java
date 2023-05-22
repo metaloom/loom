@@ -5,7 +5,7 @@ import java.time.Instant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-public class LocationFilesystemInfo {
+public class AssetLocationFilesystemInfo {
 
 	@JsonPropertyDescription("Current path to the file")
 	private String path;
@@ -21,7 +21,7 @@ public class LocationFilesystemInfo {
 		return path;
 	}
 
-	public LocationFilesystemInfo setPath(String path) {
+	public AssetLocationFilesystemInfo setPath(String path) {
 		this.path = path;
 		return this;
 	}
@@ -30,7 +30,7 @@ public class LocationFilesystemInfo {
 		return filekey;
 	}
 
-	public LocationFilesystemInfo setFilekey(FileKey filekey) {
+	public AssetLocationFilesystemInfo setFilekey(FileKey filekey) {
 		this.filekey = filekey;
 		return this;
 	}
@@ -39,7 +39,7 @@ public class LocationFilesystemInfo {
 		return lastSeen;
 	}
 
-	public LocationFilesystemInfo setLastSeen(Instant lastSeen) {
+	public AssetLocationFilesystemInfo setLastSeen(Instant lastSeen) {
 		this.lastSeen = lastSeen;
 		return this;
 	}

@@ -7,19 +7,19 @@ import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 public class AssetLocationResponse extends AbstractCreatorEditorRestResponse<AssetLocationResponse> {
 
 	@JsonPropertyDescription("Information about the location of the asset in the filesystem.")
-	private LocationFilesystemInfo filesystem;
-	
+	private AssetLocationFilesystemInfo filesystem;
+
 	@JsonPropertyDescription("S3 meta information on the asset. (only set when S3 is being utilized).")
 	private AssetS3Meta s3;
 
 	public AssetLocationResponse() {
 	}
 
-	public LocationFilesystemInfo getFilesystem() {
+	public AssetLocationFilesystemInfo getFilesystem() {
 		return filesystem;
 	}
 
-	public AssetLocationResponse setFilesystem(LocationFilesystemInfo location) {
+	public AssetLocationResponse setFilesystem(AssetLocationFilesystemInfo location) {
 		this.filesystem = location;
 		return this;
 	}
@@ -32,7 +32,7 @@ public class AssetLocationResponse extends AbstractCreatorEditorRestResponse<Ass
 		this.s3 = s3;
 		return this;
 	}
-	
+
 	@Override
 	public AssetLocationResponse self() {
 		return this;

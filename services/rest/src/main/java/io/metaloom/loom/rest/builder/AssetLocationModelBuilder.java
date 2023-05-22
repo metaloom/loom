@@ -3,9 +3,9 @@ package io.metaloom.loom.rest.builder;
 import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.asset.location.FileKey;
-import io.metaloom.loom.rest.model.asset.location.LocationFilesystemInfo;
-import io.metaloom.loom.rest.model.asset.location.LocationListResponse;
-import io.metaloom.loom.rest.model.asset.location.LocationReference;
+import io.metaloom.loom.rest.model.asset.location.AssetLocationFilesystemInfo;
+import io.metaloom.loom.rest.model.asset.location.AssetLocationListResponse;
+import io.metaloom.loom.rest.model.asset.location.AssetLocationReference;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationResponse;
 
 public interface AssetLocationModelBuilder extends ModelBuilder {
@@ -18,16 +18,16 @@ public interface AssetLocationModelBuilder extends ModelBuilder {
 		return model;
 	}
 
-	default LocationFilesystemInfo filesystemLocationInfo(AssetLocation location) {
-		LocationFilesystemInfo model = new LocationFilesystemInfo();
+	default AssetLocationFilesystemInfo filesystemLocationInfo(AssetLocation location) {
+		AssetLocationFilesystemInfo model = new AssetLocationFilesystemInfo();
 		// location.setLastSeen(asset.getLastSeen());
 		model.setPath(location.getPath());
 		model.setFilekey(assetFilekey(location));
 		return model;
 	}
 
-	default LocationReference toReference(AssetLocation location) {
-		LocationReference model = new LocationReference();
+	default AssetLocationReference toReference(AssetLocation location) {
+		AssetLocationReference model = new AssetLocationReference();
 		model.setPath(location.getPath());
 		model.setUuid(location.getUuid());
 		return model;
@@ -42,8 +42,8 @@ public interface AssetLocationModelBuilder extends ModelBuilder {
 		return key;
 	}
 
-	default LocationListResponse toLocationList(Page<AssetLocation> page) {
-		return setPage(new LocationListResponse(), page, this::toResponse);
+	default AssetLocationListResponse toLocationList(Page<AssetLocation> page) {
+		return setPage(new AssetLocationListResponse(), page, this::toResponse);
 	}
 
 }

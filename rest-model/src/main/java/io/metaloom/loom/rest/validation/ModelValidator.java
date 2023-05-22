@@ -2,6 +2,7 @@ package io.metaloom.loom.rest.validation;
 
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.common.CreatorEditorStatus;
+import io.metaloom.loom.rest.model.common.PagingInfo;
 import io.metaloom.loom.rest.model.user.UserReference;
 
 public interface ModelValidator {
@@ -43,6 +44,10 @@ public interface ModelValidator {
 		requireNonNull(reference, "The user reference must be set");
 		requireNonNullOrEmpty(reference.getName(), "The user reference name was not set");
 		requireNonNull(reference.getUuid(), "The user reference uuid was not set");
+	}
+
+	default void validate(PagingInfo info) {
+		requireNonNull(info.getPerPage(), "The per page info was not set");
 	}
 
 }

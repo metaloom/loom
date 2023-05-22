@@ -20,7 +20,7 @@ import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationCreateRequest;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationUpdateRequest;
-import io.metaloom.loom.rest.model.asset.location.LocationFilesystemInfo;
+import io.metaloom.loom.rest.model.asset.location.AssetLocationFilesystemInfo;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 
@@ -45,7 +45,7 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 			AssetLocationCreateRequest request = lrc.requestBody(AssetLocationCreateRequest.class);
 
 			if (request.getFilesystem() != null) {
-				LocationFilesystemInfo fsInfo = request.getFilesystem();
+				AssetLocationFilesystemInfo fsInfo = request.getFilesystem();
 				String path = fsInfo.getPath();
 				UUID creatorUuid = lrc.userUuid();
 				UUID assetUuid = null;

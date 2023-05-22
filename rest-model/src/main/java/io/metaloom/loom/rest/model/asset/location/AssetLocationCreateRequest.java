@@ -8,16 +8,16 @@ import io.metaloom.loom.rest.model.common.AbstractMetaModel;
 public class AssetLocationCreateRequest extends AbstractMetaModel<AssetLocationCreateRequest> implements RestRequestModel {
 
 	@JsonPropertyDescription("Information about the location of the asset in the filesystem.")
-	private LocationFilesystemInfo filesystem;
+	private AssetLocationFilesystemInfo filesystem;
 
 	@JsonPropertyDescription("S3 meta information on the asset. (only set when S3 is being utilized).")
 	private AssetS3Meta s3;
 
-	public LocationFilesystemInfo getFilesystem() {
+	public AssetLocationFilesystemInfo getFilesystem() {
 		return filesystem;
 	}
 
-	public AssetLocationCreateRequest setFilesystem(LocationFilesystemInfo filesystem) {
+	public AssetLocationCreateRequest setFilesystem(AssetLocationFilesystemInfo filesystem) {
 		this.filesystem = filesystem;
 		return this;
 	}

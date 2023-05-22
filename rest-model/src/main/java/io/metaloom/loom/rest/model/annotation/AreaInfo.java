@@ -8,66 +8,66 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 public class AreaInfo {
 
 	@JsonPropertyDescription("Start time of the entry in milliseconds")
-	private long from;
+	private Long from;
 
 	@JsonPropertyDescription("End time of the entry in milliseconds")
-	private long to;
+	private Long to;
 
-	private int width;
-	private int height;
-	private int startX;
-	private int startY;
+	private Integer width;
+	private Integer height;
+	private Integer startX;
+	private Integer startY;
 
-	public int getWidth() {
+	public Integer getWidth() {
 		return width;
 	}
 
-	public AreaInfo setWidth(int width) {
+	public AreaInfo setWidth(Integer width) {
 		this.width = width;
 		return this;
 	}
 
-	public int getHeight() {
+	public Integer getHeight() {
 		return height;
 	}
 
-	public AreaInfo setHeight(int height) {
+	public AreaInfo setHeight(Integer height) {
 		this.height = height;
 		return this;
 	}
 
-	public int getStartX() {
+	public Integer getStartX() {
 		return startX;
 	}
 
-	public AreaInfo setStartX(int startX) {
+	public AreaInfo setStartX(Integer startX) {
 		this.startX = startX;
 		return this;
 	}
 
-	public int getStartY() {
+	public Integer getStartY() {
 		return startY;
 	}
 
-	public AreaInfo setStartY(int startY) {
+	public AreaInfo setStartY(Integer startY) {
 		this.startY = startY;
 		return this;
 	}
-	
+
 	public long getFrom() {
 		return from;
 	}
 
-	public AreaInfo setFrom(long from) {
+	public AreaInfo setFrom(Long from) {
 		this.from = from;
 		return this;
 	}
 
-	public long getTo() {
+	public Long getTo() {
 		return to;
 	}
 
-	public AreaInfo setTo(long to) {
+	public AreaInfo setTo(Long to) {
 		this.to = to;
 		return this;
 	}

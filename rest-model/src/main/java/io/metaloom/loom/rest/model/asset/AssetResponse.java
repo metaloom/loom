@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.asset.location.HashInfo;
-import io.metaloom.loom.rest.model.asset.location.LocationReference;
+import io.metaloom.loom.rest.model.asset.location.AssetLocationReference;
 import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
 import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
 import io.metaloom.loom.rest.model.collection.CollectionResponse;
@@ -78,7 +78,7 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 	// private AssetS3Meta s3;
 
 	@JsonPropertyDescription("Information about the actual binary media that is represented by the asset.")
-	private List<LocationReference> locations = new ArrayList<>();
+	private List<AssetLocationReference> locations = new ArrayList<>();
 
 	public AssetKind getKind() {
 		return kind;
@@ -223,16 +223,16 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 		return this;
 	}
 
-	public List<LocationReference> getLocations() {
+	public List<AssetLocationReference> getLocations() {
 		return locations;
 	}
 
-	public AssetResponse setLocations(List<LocationReference> locations) {
+	public AssetResponse setLocations(List<AssetLocationReference> locations) {
 		this.locations = locations;
 		return this;
 	}
 
-	public void addLocation(LocationReference location) {
+	public void addLocation(AssetLocationReference location) {
 		getLocations().add(location);
 	}
 

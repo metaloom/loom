@@ -129,7 +129,7 @@ public interface ExampleValues {
 
 		AnnotationResponse first = new AnnotationResponse();
 		first.setTitle("Intro Feedback");
-		first.setArea(new AreaInfo().setFrom(0).setTo(10));
+		first.setArea(new AreaInfo().setFrom(0L).setTo(10L));
 		first.setDescription("The very nice intro");
 		first.setThumbnail("???");
 		first.setMeta(meta());
