@@ -109,7 +109,7 @@ public class UserEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		UserUpdateRequest update = new UserUpdateRequest();
 		update.setUsername("updated-username");
 		UserResponse response = client.updateUser(USER_UUID, update).sync();

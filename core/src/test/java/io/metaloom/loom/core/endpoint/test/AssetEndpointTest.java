@@ -34,7 +34,7 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		final String NEW_NAME = "the_new_local_path.jpg";
 		AssetUpdateRequest request = new AssetUpdateRequest();
 		request.setLocalPath(NEW_NAME);

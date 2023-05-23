@@ -129,6 +129,10 @@ public enum JooqLoomPermission implements EnumType {
 
     UPDATE_TAG("UPDATE_TAG"),
 
+    TAG_ASSET("TAG_ASSET"),
+
+    UNTAG_ASSET("UNTAG_ASSET"),
+
     CREATE_TOKEN("CREATE_TOKEN"),
 
     READ_TOKEN("READ_TOKEN"),

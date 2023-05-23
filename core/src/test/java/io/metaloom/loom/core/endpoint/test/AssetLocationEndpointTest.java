@@ -38,7 +38,7 @@ public class AssetLocationEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		AssetLocationUpdateRequest update = new AssetLocationUpdateRequest();
 		update.setFilesystem(new AssetLocationFilesystemInfo().setPath("updated-path"));
 		AssetLocationResponse response = client.updateLocation(ASSET_LOCATION_UUID, update).sync();

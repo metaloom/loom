@@ -36,7 +36,7 @@ public class TaskEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		TaskUpdateRequest update = new TaskUpdateRequest();
 		update.setTitle("updated-title");
 		update.setDescription("updated-description");

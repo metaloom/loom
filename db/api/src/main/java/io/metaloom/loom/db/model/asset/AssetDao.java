@@ -23,6 +23,8 @@ public interface AssetDao extends CRUDDao<Asset> {
 
 	Asset loadBySHA512(SHA512Sum sha512sum);
 
+	Asset loadBySHA512OrUuid(String sha512sumOrUuid);
+
 	void deleteBySHA512(SHA512Sum sha512sum);
 
 }

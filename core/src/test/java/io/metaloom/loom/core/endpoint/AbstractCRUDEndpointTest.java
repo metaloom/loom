@@ -45,11 +45,11 @@ public abstract class AbstractCRUDEndpointTest extends AbstractEndpointTest impl
 	public void testUpdate() throws HttpErrorException {
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
-			testUpate(client);
+			testUpdate(client);
 		}
 	}
 
-	protected abstract void testUpate(LoomHttpClient client) throws HttpErrorException;
+	protected abstract void testUpdate(LoomHttpClient client) throws HttpErrorException;
 
 	@Test
 	@Override

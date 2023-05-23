@@ -4,7 +4,6 @@ import static io.metaloom.loom.db.jooq.tables.JooqAsset.ASSET;
 
 import java.util.Objects;
 import java.util.UUID;
-import java.util.function.Function;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -17,10 +16,6 @@ import org.jooq.TableRecord;
 
 import io.metaloom.filter.Filter;
 import io.metaloom.filter.Operation;
-import io.metaloom.filter.impl.RangeFilter;
-import io.metaloom.filter.impl.ValueFilter;
-import io.metaloom.filter.value.impl.SizeFilterValue;
-import io.metaloom.filter.value.impl.StringFilterValue;
 import io.metaloom.filter.value.impl.range.SizeRangeFilterValue;
 import io.metaloom.loom.api.filter.LoomFilterKey;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
@@ -28,6 +23,7 @@ import io.metaloom.loom.db.jooq.tables.JooqAsset;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.user.User;
+import io.metaloom.utils.UUIDUtils;
 import io.metaloom.utils.hash.SHA512Sum;
 import io.vertx.core.json.JsonObject;
 
@@ -70,6 +66,7 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	public Asset load(UUID uuid) {
 		return ctx()
 			.select(getTable())
+			.from(getTable())
 			.where(JooqAsset.ASSET.UUID.eq(uuid))
 			.fetchOneInto(getPojoClass());
 	}
@@ -78,8 +75,19 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	public Asset loadBySHA512(SHA512Sum sha512sum) {
 		return ctx()
 			.select(getTable())
+			.from(getTable())
 			.where(JooqAsset.ASSET.SHA512SUM.eq(sha512sum.toString()))
 			.fetchOneInto(getPojoClass());
+	}
+
+	@Override
+	public Asset loadBySHA512OrUuid(String sha512sumOrUuid) {
+		if (UUIDUtils.isUUID(sha512sumOrUuid)) {
+			return load(UUID.fromString(sha512sumOrUuid));
+		} else {
+			SHA512Sum sha512 = SHA512Sum.fromString(sha512sumOrUuid);
+			return loadBySHA512(sha512);
+		}
 	}
 
 	@Override

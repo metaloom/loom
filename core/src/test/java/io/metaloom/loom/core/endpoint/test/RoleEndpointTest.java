@@ -76,7 +76,7 @@ public class RoleEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		RoleUpdateRequest update = new RoleUpdateRequest();
 		update.setName("updated-name");
 		RoleResponse response = client.updateRole(ROLE_UUID, update).sync();

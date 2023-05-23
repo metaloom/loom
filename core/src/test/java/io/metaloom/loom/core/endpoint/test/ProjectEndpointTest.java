@@ -36,7 +36,7 @@ public class ProjectEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		ProjectUpdateRequest update = new ProjectUpdateRequest();
 		update.setName("updated-name");
 		ProjectResponse response = client.updateProject(PROJECT_UUID, update).sync();

@@ -37,7 +37,7 @@ public class ClusterEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		ClusterUpdateRequest update = new ClusterUpdateRequest();
 		update.setName("updated-name");
 		ClusterResponse response = client.updateCluster(CLUSTER_UUID, update).sync();

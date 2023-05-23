@@ -21,8 +21,8 @@ public interface LoomModelBuilder extends
 	ReactionModelBuilder,
 	WebhookModelBuilder {
 
-	default GenericMessageResponse elementNotFound() {
-		return new GenericMessageResponse();
+	default GenericMessageResponse elementNotFound(String msg) {
+		return new GenericMessageResponse().setMessage(msg);
 	}
 
 }

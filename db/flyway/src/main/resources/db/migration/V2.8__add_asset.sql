@@ -122,7 +122,6 @@ CREATE TABLE "asset_task" (
 ALTER TABLE "asset_task" ADD FOREIGN KEY ("task_uuid") REFERENCES "task" ("uuid");
 ALTER TABLE "asset_task" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
 
-
 CREATE TABLE "asset_reaction" (
   "asset_uuid" uuid,
   "reaction_uuid" uuid,
@@ -130,5 +129,4 @@ CREATE TABLE "asset_reaction" (
 );
 ALTER TABLE "asset_reaction" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
 ALTER TABLE "asset_reaction" ADD FOREIGN KEY ("reaction_uuid") REFERENCES "reaction" ("uuid");
-
 

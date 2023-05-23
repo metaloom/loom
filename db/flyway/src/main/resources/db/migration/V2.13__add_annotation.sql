@@ -29,6 +29,7 @@ CREATE TABLE "annotation" (
 
 ALTER TABLE "annotation" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
 ALTER TABLE "annotation" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
+ALTER TABLE "annotation" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
 COMMENT ON TABLE "annotation" IS 'This table contains asset annotation entries which can be used to create chapters or sections to assign tasks to.';
 COMMENT ON COLUMN "annotation"."created" IS 'Creation timestamp';
@@ -40,24 +41,24 @@ CREATE TABLE "annotation_task" (
   "task_uuid" uuid NOT NULL,
   PRIMARY KEY ("annotation_uuid", "task_uuid")
 );
-ALTER TABLE "annotation_task" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid");
-ALTER TABLE "annotation_task" ADD FOREIGN KEY ("task_uuid") REFERENCES "task" ("uuid");
+ALTER TABLE "annotation_task" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid") ON DELETE CASCADE;
+ALTER TABLE "annotation_task" ADD FOREIGN KEY ("task_uuid") REFERENCES "task" ("uuid") ON DELETE CASCADE;
 
 CREATE TABLE "annotation_asset" (
   "annotation_uuid" uuid NOT NULL,
   "asset_uuid" uuid NOT NULL,
   PRIMARY KEY ("annotation_uuid", "asset_uuid")
 );
-ALTER TABLE "annotation_asset" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid");
-ALTER TABLE "annotation_asset" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
+ALTER TABLE "annotation_asset" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid") ON DELETE CASCADE;
+ALTER TABLE "annotation_asset" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid") ON DELETE CASCADE;
 
 CREATE TABLE "annotation_tag" (
   "annotation_uuid" uuid NOT NULL,
   "tag_uuid" uuid NOT NULL,
   PRIMARY KEY ("annotation_uuid", "tag_uuid")
 );
-ALTER TABLE "annotation_tag" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid");
-ALTER TABLE "annotation_tag" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");
+ALTER TABLE "annotation_tag" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid") ON DELETE CASCADE;
+ALTER TABLE "annotation_tag" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid") ON DELETE CASCADE;
 
 
 CREATE TABLE "annotation_reaction" (
@@ -65,13 +66,13 @@ CREATE TABLE "annotation_reaction" (
   "reaction_annotation_uuid" uuid,
   PRIMARY KEY ("annotation_uuid", "reaction_annotation_uuid")
 );
-ALTER TABLE "annotation_reaction" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid");
-ALTER TABLE "annotation_reaction" ADD FOREIGN KEY ("reaction_annotation_uuid") REFERENCES "reaction" ("uuid");
+ALTER TABLE "annotation_reaction" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid") ON DELETE CASCADE;
+ALTER TABLE "annotation_reaction" ADD FOREIGN KEY ("reaction_annotation_uuid") REFERENCES "reaction" ("uuid") ON DELETE CASCADE;
 
 CREATE TABLE "annotation_comment" (
   "annotation_uuid" uuid NOT NULL,
   "comment_uuid" uuid NOT NULL,
   PRIMARY KEY ("annotation_uuid", "comment_uuid")
 );
-ALTER TABLE "annotation_comment" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid");
-ALTER TABLE "annotation_comment" ADD FOREIGN KEY ("comment_uuid") REFERENCES "comment" ("uuid");
+ALTER TABLE "annotation_comment" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation" ("uuid") ON DELETE CASCADE;
+ALTER TABLE "annotation_comment" ADD FOREIGN KEY ("comment_uuid") REFERENCES "comment" ("uuid") ON DELETE CASCADE;

@@ -37,7 +37,7 @@ public class EmbeddingEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		EmbeddingUpdateRequest request = new EmbeddingUpdateRequest();
 		client.updateEmbedding(EMBEDDING_UUID, request).sync();
 	}

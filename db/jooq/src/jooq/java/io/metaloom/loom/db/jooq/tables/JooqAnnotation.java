@@ -186,19 +186,32 @@ public class JooqAnnotation extends TableImpl<JooqAnnotationRecord> {
 
     @Override
     public List<ForeignKey<JooqAnnotationRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ANNOTATION__ANNOTATION_CREATOR_UUID_FKEY);
+        return Arrays.asList(Keys.ANNOTATION__ANNOTATION_CREATOR_UUID_FKEY, Keys.ANNOTATION__ANNOTATION_EDITOR_UUID_FKEY);
     }
 
-    private transient JooqUser _user;
+    private transient JooqUser _annotationCreatorUuidFkey;
+    private transient JooqUser _annotationEditorUuidFkey;
 
     /**
-     * Get the implicit join path to the <code>public.user</code> table.
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>annotation_creator_uuid_fkey</code> key.
      */
-    public JooqUser user() {
-        if (_user == null)
-            _user = new JooqUser(this, Keys.ANNOTATION__ANNOTATION_CREATOR_UUID_FKEY);
+    public JooqUser annotationCreatorUuidFkey() {
+        if (_annotationCreatorUuidFkey == null)
+            _annotationCreatorUuidFkey = new JooqUser(this, Keys.ANNOTATION__ANNOTATION_CREATOR_UUID_FKEY);
 
-        return _user;
+        return _annotationCreatorUuidFkey;
+    }
+
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>annotation_editor_uuid_fkey</code> key.
+     */
+    public JooqUser annotationEditorUuidFkey() {
+        if (_annotationEditorUuidFkey == null)
+            _annotationEditorUuidFkey = new JooqUser(this, Keys.ANNOTATION__ANNOTATION_EDITOR_UUID_FKEY);
+
+        return _annotationEditorUuidFkey;
     }
 
     @Override

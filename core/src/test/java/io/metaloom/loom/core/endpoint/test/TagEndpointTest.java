@@ -38,7 +38,7 @@ public class TagEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		TagUpdateRequest update = new TagUpdateRequest();
 		update.setName("updated-name");
 		TagResponse response = client.updateTag(TAG_UUID, update).sync();

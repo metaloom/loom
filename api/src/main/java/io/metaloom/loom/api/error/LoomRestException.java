@@ -19,9 +19,12 @@ public class LoomRestException extends RuntimeException {
 		this.message = message;
 	}
 
+	public String getMessage() {
+		return message;
+	}
+
 	public int httpCode() {
 		return code;
 	}
-	
 
 }

@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.Element;
@@ -62,26 +63,31 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 	}
 
 	protected void delete(LoomRoutingContext lrc, Permission permission, Supplier<E> loader) {
-		lrc.requirePerm(permission).onSuccess(l -> {
+		checkPerm(lrc, permission, () -> {
 			E element = loader.get();
 			if (element == null) {
-				lrc.send(new GenericMessageResponse(), 404);
-				return;
+				throw new LoomRestException(404, "Element not found.");
 			} else {
 				dao().delete(element);
 				lrc.send();
 			}
+		});
+	}
+
+	protected void checkPerm(LoomRoutingContext lrc, Permission permission, Runnable action) {
+		lrc.requirePerm(permission).onSuccess(l -> {
+			action.run();
 		}).onFailure(e -> {
 			// TODO this should be 500 error
 			log.error("Failed to check perms", e);
-			lrc.send(new GenericMessageResponse().setMessage("Invalid permissions"), 403);
+			throw new LoomRestException(403, "Invalid permissions");
 		});
 	}
 
 	public abstract void list(LoomRoutingContext lrc);
 
 	protected void list(LoomRoutingContext lrc, Permission permission, Function<Page<E>, RestResponseModel<?>> builder) {
-		lrc.requirePerm(permission).onSuccess(l -> {
+		checkPerm(lrc, permission, () -> {
 			PagingParameters pagingParameters = lrc.pagingParams();
 			FilterParameters filterParameters = lrc.filterParams();
 			SortParameters sortParameters = lrc.sortParams();
@@ -93,28 +99,19 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 			Page<E> page = dao().loadPage(from, limit, filterParameters.filters(), sortParameters.sortBy(), sortParameters.sortOrder());
 			RestResponseModel<?> response = builder.apply(page);
 			lrc.send(response);
-		}).onFailure(e -> {
-			// TODO this should be 500 error
-			log.error("Failed to check perms", e);
-			lrc.send(new GenericMessageResponse().setMessage("Invalid permissions"), 403);
 		});
 	}
 
 	public abstract void load(LoomRoutingContext lrc, UUID uuid);
 
 	protected void load(LoomRoutingContext lrc, Permission permission, Supplier<E> loader, Function<E, RestResponseModel<?>> builder) {
-		lrc.requirePerm(permission).onSuccess(l -> {
+		checkPerm(lrc, permission, () -> {
 			E element = loader.get();
 			if (element == null) {
-				lrc.send(modelBuilder.elementNotFound(), 404);
-				return;
+				throw new LoomRestException(404, "Element not found " + dao().getTypeName());
 			}
 			RestResponseModel<?> response = builder.apply(element);
 			lrc.send(response);
-		}).onFailure(e -> {
-			// TODO this should be 500 error
-			log.error("Failed to check perms", e);
-			lrc.send(new GenericMessageResponse().setMessage("Invalid permissions"), 403);
 		});
 	}
 
@@ -122,15 +119,11 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 
 	protected void create(LoomRoutingContext lrc, Permission permission, Supplier<E> creator,
 		Function<E, RestResponseModel<?>> builder) {
-		lrc.requirePerm(permission).onSuccess(l -> {
+		checkPerm(lrc, permission, () -> {
 			E element = creator.get();
 			dao().store(element);
 			RestResponseModel<?> response = builder.apply(element);
 			lrc.send(response, 201);
-		}).onFailure(e -> {
-			// TODO this should be 500 error
-			log.error("Failed to check perms", e);
-			lrc.send(new GenericMessageResponse().setMessage("Invalid permissions"), 403);
 		});
 	}
 
@@ -138,15 +131,11 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 
 	protected void update(LoomRoutingContext lrc, Permission permission, Supplier<E> updator,
 		Function<E, RestResponseModel<?>> builder) {
-		lrc.requirePerm(permission).onSuccess(l -> {
+		checkPerm(lrc, permission, () -> {
 			E element = updator.get();
 			dao().update(element);
 			RestResponseModel<?> response = builder.apply(element);
 			lrc.send(response, 200);
-		}).onFailure(e -> {
-			// TODO this should be 500 error
-			log.error("Failed to check perms", e);
-			lrc.send(new GenericMessageResponse().setMessage("Invalid permissions"), 403);
 		});
 	}
 

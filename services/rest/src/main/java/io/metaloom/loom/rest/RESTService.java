@@ -10,11 +10,13 @@ import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.common.service.AbstractService;
 import io.metaloom.loom.rest.dagger.RESTEndpoints;
 import io.metaloom.loom.rest.endpoint.RESTEndpoint;
 import io.metaloom.loom.rest.model.error.ErrorResponse;
+import io.metaloom.loom.rest.model.message.GenericMessageResponse;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
@@ -73,8 +75,14 @@ public class RESTService extends AbstractService {
 			log.error("Request failed {}", rc.normalizedPath(), rc.failure());
 			ErrorResponse error = new ErrorResponse();
 			// TODO Don't expose error details
-			error.setStatus("Internal Server Error " + rc.failure().getMessage());
-			rc.response().setStatusCode(400).end(Json.encodeToBuffer(error));
+			if (rc.failure() instanceof LoomRestException lre) {
+				GenericMessageResponse errorResponse = new GenericMessageResponse();
+				errorResponse.setMessage(lre.getMessage());
+				rc.response().setStatusCode(lre.httpCode()).end(Json.encodeToBuffer(errorResponse));
+			} else {
+				error.setStatus("Internal Server Error " + rc.failure().getMessage());
+				rc.response().setStatusCode(400).end(Json.encodeToBuffer(error));
+			}
 		});
 
 	}

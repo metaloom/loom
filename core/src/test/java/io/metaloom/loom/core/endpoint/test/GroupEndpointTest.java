@@ -36,7 +36,7 @@ public class GroupEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		GroupUpdateRequest update = new GroupUpdateRequest();
 		update.setName("updated-name");
 		GroupResponse response = client.updateGroup(GROUP_UUID, update).sync();

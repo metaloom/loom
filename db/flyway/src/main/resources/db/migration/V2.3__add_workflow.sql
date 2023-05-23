@@ -19,14 +19,10 @@ CREATE TABLE "task" (
   "editor_uuid" uuid NOT NULL,
   PRIMARY KEY ("uuid")
 );
-
-
 COMMENT ON COLUMN "task"."title" IS 'Title of the task';
-
 COMMENT ON COLUMN "task"."content" IS 'Description of the task';
-
 COMMENT ON COLUMN "task"."status" IS 'Current status of the task (e.g. PENDING, REJECTED)';
-
 ALTER TABLE "task" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
-
 ALTER TABLE "task" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
+
+

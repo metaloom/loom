@@ -36,7 +36,7 @@ public class LibraryEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		LibraryUpdateRequest update = new LibraryUpdateRequest();
 		update.setName("updated-name");
 		LibraryResponse response = client.updateLibrary(LIBRARY_UUID, update).sync();

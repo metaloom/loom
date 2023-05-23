@@ -36,7 +36,7 @@ public class AnnotationEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testUpate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		AnnotationUpdateRequest update = new AnnotationUpdateRequest();
 		update.setTitle("updated-title");
 		AnnotationResponse response = client.updateAnnotation(ANNOTATION_UUID, update).sync();
