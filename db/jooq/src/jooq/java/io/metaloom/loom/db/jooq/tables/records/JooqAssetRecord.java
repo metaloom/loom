@@ -5,12 +5,12 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqAsset;
+import io.vertx.core.json.JsonObject;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.jooq.JSONB;
 import org.jooq.Record1;
 import org.jooq.impl.UpdatableRecordImpl;
 
@@ -139,7 +139,7 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
      * Setter for <code>public.asset.meta</code>. Custom meta properties to the
      * asset
      */
-    public void setMeta(JSONB value) {
+    public void setMeta(JsonObject value) {
         set(8, value);
     }
 
@@ -147,8 +147,8 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
      * Getter for <code>public.asset.meta</code>. Custom meta properties to the
      * asset
      */
-    public JSONB getMeta() {
-        return (JSONB) get(8);
+    public JsonObject getMeta() {
+        return (JsonObject) get(8);
     }
 
     /**
@@ -614,7 +614,7 @@ public class JooqAssetRecord extends UpdatableRecordImpl<JooqAssetRecord> {
     /**
      * Create a detached, initialised JooqAssetRecord
      */
-    public JooqAssetRecord(UUID uuid, String sha512sum, Long size, String sha256sum, String md5sum, String chunkHash, Long zeroChunkCount, String mimeType, JSONB meta, String author, BigDecimal geoLon, BigDecimal geoLat, String geoAlias, String initialOrigin, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String s3BucketName, String s3ObjectPath, Integer mediaWidth, Integer mediaHeight, Integer mediaDuration, Integer videoWidth, Integer videoHeight, String videoFingerprint, Integer videoBitrate, String videoEncoding, String imageDominantColor, String imageEncoding, String imageFingerprint, Integer audioBpm, Integer audioSamplingRate, Integer audioChannels, Integer audioBitrate, String audioEncoding, String audioFingerprint, String docPlainText, Integer docWordCount) {
+    public JooqAssetRecord(UUID uuid, String sha512sum, Long size, String sha256sum, String md5sum, String chunkHash, Long zeroChunkCount, String mimeType, JsonObject meta, String author, BigDecimal geoLon, BigDecimal geoLat, String geoAlias, String initialOrigin, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String s3BucketName, String s3ObjectPath, Integer mediaWidth, Integer mediaHeight, Integer mediaDuration, Integer videoWidth, Integer videoHeight, String videoFingerprint, Integer videoBitrate, String videoEncoding, String imageDominantColor, String imageEncoding, String imageFingerprint, Integer audioBpm, Integer audioSamplingRate, Integer audioChannels, Integer audioBitrate, String audioEncoding, String audioFingerprint, String docPlainText, Integer docWordCount) {
         super(JooqAsset.ASSET);
 
         setUuid(uuid);

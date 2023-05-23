@@ -6,12 +6,12 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 import io.metaloom.loom.db.jooq.enums.JooqAnnotationType;
 import io.metaloom.loom.db.jooq.tables.JooqAnnotation;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.jooq.Field;
-import org.jooq.JSONB;
 import org.jooq.Record1;
 import org.jooq.Record17;
 import org.jooq.Row17;
@@ -23,7 +23,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * chapters or sections to assign tasks to.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationRecord> implements Record17<UUID, JooqAnnotationType, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> {
+public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationRecord> implements Record17<UUID, JooqAnnotationType, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JsonObject, String> {
 
     private static final long serialVersionUID = 1L;
 
@@ -240,15 +240,15 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     /**
      * Setter for <code>public.annotation.meta</code>. Custom meta properties
      */
-    public void setMeta(JSONB value) {
+    public void setMeta(JsonObject value) {
         set(15, value);
     }
 
     /**
      * Getter for <code>public.annotation.meta</code>. Custom meta properties
      */
-    public JSONB getMeta() {
-        return (JSONB) get(15);
+    public JsonObject getMeta() {
+        return (JsonObject) get(15);
     }
 
     /**
@@ -281,12 +281,12 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     // -------------------------------------------------------------------------
 
     @Override
-    public Row17<UUID, JooqAnnotationType, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> fieldsRow() {
+    public Row17<UUID, JooqAnnotationType, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JsonObject, String> fieldsRow() {
         return (Row17) super.fieldsRow();
     }
 
     @Override
-    public Row17<UUID, JooqAnnotationType, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> valuesRow() {
+    public Row17<UUID, JooqAnnotationType, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JsonObject, String> valuesRow() {
         return (Row17) super.valuesRow();
     }
 
@@ -366,7 +366,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     @Override
-    public Field<JSONB> field16() {
+    public Field<JsonObject> field16() {
         return JooqAnnotation.ANNOTATION.META;
     }
 
@@ -451,7 +451,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     @Override
-    public JSONB component16() {
+    public JsonObject component16() {
         return getMeta();
     }
 
@@ -536,7 +536,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     @Override
-    public JSONB value16() {
+    public JsonObject value16() {
         return getMeta();
     }
 
@@ -636,7 +636,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     @Override
-    public JooqAnnotationRecord value16(JSONB value) {
+    public JooqAnnotationRecord value16(JsonObject value) {
         setMeta(value);
         return this;
     }
@@ -648,7 +648,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     }
 
     @Override
-    public JooqAnnotationRecord values(UUID value1, JooqAnnotationType value2, UUID value3, LocalDateTime value4, UUID value5, LocalDateTime value6, UUID value7, String value8, String value9, Integer value10, Integer value11, Integer value12, Integer value13, Integer value14, Integer value15, JSONB value16, String value17) {
+    public JooqAnnotationRecord values(UUID value1, JooqAnnotationType value2, UUID value3, LocalDateTime value4, UUID value5, LocalDateTime value6, UUID value7, String value8, String value9, Integer value10, Integer value11, Integer value12, Integer value13, Integer value14, Integer value15, JsonObject value16, String value17) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -683,7 +683,7 @@ public class JooqAnnotationRecord extends UpdatableRecordImpl<JooqAnnotationReco
     /**
      * Create a detached, initialised JooqAnnotationRecord
      */
-    public JooqAnnotationRecord(UUID uuid, JooqAnnotationType type, UUID assetUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String title, String description, Integer timeFrom, Integer timeTo, Integer areastartx, Integer areastarty, Integer areawidth, Integer areaheight, JSONB meta, String thumbnail) {
+    public JooqAnnotationRecord(UUID uuid, JooqAnnotationType type, UUID assetUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String title, String description, Integer timeFrom, Integer timeTo, Integer areastartx, Integer areastarty, Integer areawidth, Integer areaheight, JsonObject meta, String thumbnail) {
         super(JooqAnnotation.ANNOTATION);
 
         setUuid(uuid);

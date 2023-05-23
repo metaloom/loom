@@ -7,7 +7,9 @@ package io.metaloom.loom.db.jooq.tables;
 import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
+import io.metaloom.loom.db.jooq.converter.JsonObjectConverter;
 import io.metaloom.loom.db.jooq.tables.records.JooqAssetRecord;
+import io.vertx.core.json.JsonObject;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,7 +19,6 @@ import java.util.List;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Index;
-import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Schema;
@@ -95,7 +96,7 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
      * The column <code>public.asset.meta</code>. Custom meta properties to the
      * asset
      */
-    public final TableField<JooqAssetRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the asset");
+    public final TableField<JooqAssetRecord, JsonObject> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the asset", new JsonObjectConverter());
 
     /**
      * The column <code>public.asset.author</code>.

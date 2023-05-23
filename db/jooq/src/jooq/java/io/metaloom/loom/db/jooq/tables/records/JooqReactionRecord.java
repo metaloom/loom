@@ -5,12 +5,12 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqReaction;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.jooq.Field;
-import org.jooq.JSONB;
 import org.jooq.Record1;
 import org.jooq.Record11;
 import org.jooq.Row11;
@@ -21,7 +21,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Stores social reactions on multiple elements
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> implements Record11<UUID, String, Integer, JSONB, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> {
+public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> implements Record11<UUID, String, Integer, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -73,7 +73,7 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
      * Setter for <code>public.reaction.meta</code>. Custom meta properties to
      * the reaction.
      */
-    public void setMeta(JSONB value) {
+    public void setMeta(JsonObject value) {
         set(3, value);
     }
 
@@ -81,8 +81,8 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
      * Getter for <code>public.reaction.meta</code>. Custom meta properties to
      * the reaction.
      */
-    public JSONB getMeta() {
-        return (JSONB) get(3);
+    public JsonObject getMeta() {
+        return (JsonObject) get(3);
     }
 
     /**
@@ -199,12 +199,12 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<UUID, String, Integer, JSONB, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> fieldsRow() {
+    public Row11<UUID, String, Integer, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> fieldsRow() {
         return (Row11) super.fieldsRow();
     }
 
     @Override
-    public Row11<UUID, String, Integer, JSONB, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> valuesRow() {
+    public Row11<UUID, String, Integer, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> valuesRow() {
         return (Row11) super.valuesRow();
     }
 
@@ -224,7 +224,7 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
     }
 
     @Override
-    public Field<JSONB> field4() {
+    public Field<JsonObject> field4() {
         return JooqReaction.REACTION.META;
     }
 
@@ -279,7 +279,7 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
     }
 
     @Override
-    public JSONB component4() {
+    public JsonObject component4() {
         return getMeta();
     }
 
@@ -334,7 +334,7 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
     }
 
     @Override
-    public JSONB value4() {
+    public JsonObject value4() {
         return getMeta();
     }
 
@@ -392,7 +392,7 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
     }
 
     @Override
-    public JooqReactionRecord value4(JSONB value) {
+    public JooqReactionRecord value4(JsonObject value) {
         setMeta(value);
         return this;
     }
@@ -440,7 +440,7 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
     }
 
     @Override
-    public JooqReactionRecord values(UUID value1, String value2, Integer value3, JSONB value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8, UUID value9, UUID value10, UUID value11) {
+    public JooqReactionRecord values(UUID value1, String value2, Integer value3, JsonObject value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8, UUID value9, UUID value10, UUID value11) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -469,7 +469,7 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
     /**
      * Create a detached, initialised JooqReactionRecord
      */
-    public JooqReactionRecord(UUID uuid, String type, Integer rating, JSONB meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID assetUuid, UUID commentUuid, UUID annotationUuid) {
+    public JooqReactionRecord(UUID uuid, String type, Integer rating, JsonObject meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID assetUuid, UUID commentUuid, UUID annotationUuid) {
         super(JooqReaction.REACTION);
 
         setUuid(uuid);

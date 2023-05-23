@@ -5,12 +5,12 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqEmbedding;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.jooq.Field;
-import org.jooq.JSONB;
 import org.jooq.Record1;
 import org.jooq.Record16;
 import org.jooq.Row16;
@@ -21,7 +21,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Embedding information which was extracted from an asset.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord> implements Record16<UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> {
+public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord> implements Record16<UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,7 +43,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
      * Setter for <code>public.embedding.meta</code>. Custom meta properties to
      * the embedding.
      */
-    public void setMeta(JSONB value) {
+    public void setMeta(JsonObject value) {
         set(1, value);
     }
 
@@ -51,8 +51,8 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
      * Getter for <code>public.embedding.meta</code>. Custom meta properties to
      * the embedding.
      */
-    public JSONB getMeta() {
-        return (JSONB) get(1);
+    public JsonObject getMeta() {
+        return (JsonObject) get(1);
     }
 
     /**
@@ -279,12 +279,12 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> fieldsRow() {
+    public Row16<UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> fieldsRow() {
         return (Row16) super.fieldsRow();
     }
 
     @Override
-    public Row16<UUID, JSONB, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> valuesRow() {
+    public Row16<UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> valuesRow() {
         return (Row16) super.valuesRow();
     }
 
@@ -294,7 +294,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public Field<JSONB> field2() {
+    public Field<JsonObject> field2() {
         return JooqEmbedding.EMBEDDING.META;
     }
 
@@ -374,7 +374,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public JSONB component2() {
+    public JsonObject component2() {
         return getMeta();
     }
 
@@ -454,7 +454,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public JSONB value2() {
+    public JsonObject value2() {
         return getMeta();
     }
 
@@ -535,7 +535,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public JooqEmbeddingRecord value2(JSONB value) {
+    public JooqEmbeddingRecord value2(JsonObject value) {
         setMeta(value);
         return this;
     }
@@ -625,7 +625,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public JooqEmbeddingRecord values(UUID value1, JSONB value2, String value3, Integer value4, Integer value5, Integer value6, Integer value7, Integer value8, Float[] value9, Long value10, String value11, LocalDateTime value12, UUID value13, LocalDateTime value14, UUID value15, UUID value16) {
+    public JooqEmbeddingRecord values(UUID value1, JsonObject value2, String value3, Integer value4, Integer value5, Integer value6, Integer value7, Integer value8, Float[] value9, Long value10, String value11, LocalDateTime value12, UUID value13, LocalDateTime value14, UUID value15, UUID value16) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -659,7 +659,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     /**
      * Create a detached, initialised JooqEmbeddingRecord
      */
-    public JooqEmbeddingRecord(UUID uuid, JSONB meta, String source, Integer frame, Integer areaheight, Integer areawidth, Integer areastartx, Integer areastarty, Float[] data, Long id, String type, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID assetUuid) {
+    public JooqEmbeddingRecord(UUID uuid, JsonObject meta, String source, Integer frame, Integer areaheight, Integer areawidth, Integer areastartx, Integer areastarty, Float[] data, Long id, String type, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID assetUuid) {
         super(JooqEmbedding.EMBEDDING);
 
         setUuid(uuid);

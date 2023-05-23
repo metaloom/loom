@@ -55,7 +55,7 @@ public class LoomRoutingContext {
 	/**
 	 * Send a 204 (No Content) response.
 	 */
-	public void send() {
+	public void sendNoContent() {
 		rc.response().setStatusCode(204).end();
 	}
 

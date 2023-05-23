@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqAssetLocation;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -22,7 +23,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * decoupled from asset.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocationRecord> implements Record16<UUID, UUID, String, Integer, Integer, Integer, Integer, String, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> {
+public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocationRecord> implements Record16<UUID, UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -132,7 +133,7 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
      * Setter for <code>public.asset_location.meta</code>. Custom meta
      * properties to the asset_location
      */
-    public void setMeta(String value) {
+    public void setMeta(JsonObject value) {
         set(7, value);
     }
 
@@ -140,8 +141,8 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
      * Getter for <code>public.asset_location.meta</code>. Custom meta
      * properties to the asset_location
      */
-    public String getMeta() {
-        return (String) get(7);
+    public JsonObject getMeta() {
+        return (JsonObject) get(7);
     }
 
     /**
@@ -270,12 +271,12 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<UUID, UUID, String, Integer, Integer, Integer, Integer, String, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+    public Row16<UUID, UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
         return (Row16) super.fieldsRow();
     }
 
     @Override
-    public Row16<UUID, UUID, String, Integer, Integer, Integer, Integer, String, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
+    public Row16<UUID, UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
         return (Row16) super.valuesRow();
     }
 
@@ -315,7 +316,7 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     @Override
-    public Field<String> field8() {
+    public Field<JsonObject> field8() {
         return JooqAssetLocation.ASSET_LOCATION.META;
     }
 
@@ -395,7 +396,7 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     @Override
-    public String component8() {
+    public JsonObject component8() {
         return getMeta();
     }
 
@@ -475,7 +476,7 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     @Override
-    public String value8() {
+    public JsonObject value8() {
         return getMeta();
     }
 
@@ -562,7 +563,7 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     @Override
-    public JooqAssetLocationRecord value8(String value) {
+    public JooqAssetLocationRecord value8(JsonObject value) {
         setMeta(value);
         return this;
     }
@@ -616,7 +617,7 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     @Override
-    public JooqAssetLocationRecord values(UUID value1, UUID value2, String value3, Integer value4, Integer value5, Integer value6, Integer value7, String value8, String value9, String value10, String value11, UUID value12, LocalDateTime value13, UUID value14, LocalDateTime value15, UUID value16) {
+    public JooqAssetLocationRecord values(UUID value1, UUID value2, String value3, Integer value4, Integer value5, Integer value6, Integer value7, JsonObject value8, String value9, String value10, String value11, UUID value12, LocalDateTime value13, UUID value14, LocalDateTime value15, UUID value16) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -650,7 +651,7 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     /**
      * Create a detached, initialised JooqAssetLocationRecord
      */
-    public JooqAssetLocationRecord(UUID uuid, UUID assetUuid, String path, Integer filekeyInode, Integer filekeyStdev, Integer filekeyEdateNano, Integer filekeyEdate, String meta, String mimeType, String license, String state, UUID lockedByUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
+    public JooqAssetLocationRecord(UUID uuid, UUID assetUuid, String path, Integer filekeyInode, Integer filekeyStdev, Integer filekeyEdateNano, Integer filekeyEdate, JsonObject meta, String mimeType, String license, String state, UUID lockedByUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
         super(JooqAssetLocation.ASSET_LOCATION);
 
         setUuid(uuid);

@@ -7,7 +7,9 @@ package io.metaloom.loom.db.jooq.tables;
 import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
+import io.metaloom.loom.db.jooq.converter.JsonObjectConverter;
 import io.metaloom.loom.db.jooq.tables.records.JooqAssetRemixRecord;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -19,7 +21,6 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Function7;
 import org.jooq.Index;
-import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
@@ -69,7 +70,7 @@ public class JooqAssetRemix extends TableImpl<JooqAssetRemixRecord> {
      * The column <code>public.asset_remix.meta</code>. Custom meta properties
      * to the element
      */
-    public final TableField<JooqAssetRemixRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the element");
+    public final TableField<JooqAssetRemixRecord, JsonObject> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the element", new JsonObjectConverter());
 
     /**
      * The column <code>public.asset_remix.created</code>.
@@ -195,14 +196,14 @@ public class JooqAssetRemix extends TableImpl<JooqAssetRemixRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<UUID, UUID, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+    public Row7<UUID, UUID, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function7<? super UUID, ? super UUID, ? super JSONB, ? super LocalDateTime, ? super UUID, ? super LocalDateTime, ? super UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function7<? super UUID, ? super UUID, ? super JsonObject, ? super LocalDateTime, ? super UUID, ? super LocalDateTime, ? super UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -210,7 +211,7 @@ public class JooqAssetRemix extends TableImpl<JooqAssetRemixRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super UUID, ? super UUID, ? super JSONB, ? super LocalDateTime, ? super UUID, ? super LocalDateTime, ? super UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super UUID, ? super UUID, ? super JsonObject, ? super LocalDateTime, ? super UUID, ? super LocalDateTime, ? super UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

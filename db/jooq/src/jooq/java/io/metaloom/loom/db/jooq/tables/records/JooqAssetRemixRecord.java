@@ -5,12 +5,12 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqAssetRemix;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.jooq.Field;
-import org.jooq.JSONB;
 import org.jooq.Record7;
 import org.jooq.Row7;
 import org.jooq.impl.TableRecordImpl;
@@ -20,7 +20,7 @@ import org.jooq.impl.TableRecordImpl;
  * Store information on remixes of binaries.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> implements Record7<UUID, UUID, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> {
+public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> implements Record7<UUID, UUID, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -56,7 +56,7 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
      * Setter for <code>public.asset_remix.meta</code>. Custom meta properties
      * to the element
      */
-    public void setMeta(JSONB value) {
+    public void setMeta(JsonObject value) {
         set(2, value);
     }
 
@@ -64,8 +64,8 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
      * Getter for <code>public.asset_remix.meta</code>. Custom meta properties
      * to the element
      */
-    public JSONB getMeta() {
-        return (JSONB) get(2);
+    public JsonObject getMeta() {
+        return (JsonObject) get(2);
     }
 
     /**
@@ -129,12 +129,12 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<UUID, UUID, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+    public Row7<UUID, UUID, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 
     @Override
-    public Row7<UUID, UUID, JSONB, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
+    public Row7<UUID, UUID, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
         return (Row7) super.valuesRow();
     }
 
@@ -149,7 +149,7 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     }
 
     @Override
-    public Field<JSONB> field3() {
+    public Field<JsonObject> field3() {
         return JooqAssetRemix.ASSET_REMIX.META;
     }
 
@@ -184,7 +184,7 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     }
 
     @Override
-    public JSONB component3() {
+    public JsonObject component3() {
         return getMeta();
     }
 
@@ -219,7 +219,7 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     }
 
     @Override
-    public JSONB value3() {
+    public JsonObject value3() {
         return getMeta();
     }
 
@@ -256,7 +256,7 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     }
 
     @Override
-    public JooqAssetRemixRecord value3(JSONB value) {
+    public JooqAssetRemixRecord value3(JsonObject value) {
         setMeta(value);
         return this;
     }
@@ -286,7 +286,7 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     }
 
     @Override
-    public JooqAssetRemixRecord values(UUID value1, UUID value2, JSONB value3, LocalDateTime value4, UUID value5, LocalDateTime value6, UUID value7) {
+    public JooqAssetRemixRecord values(UUID value1, UUID value2, JsonObject value3, LocalDateTime value4, UUID value5, LocalDateTime value6, UUID value7) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -311,7 +311,7 @@ public class JooqAssetRemixRecord extends TableRecordImpl<JooqAssetRemixRecord> 
     /**
      * Create a detached, initialised JooqAssetRemixRecord
      */
-    public JooqAssetRemixRecord(UUID assetAUuid, UUID assetBUuid, JSONB meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
+    public JooqAssetRemixRecord(UUID assetAUuid, UUID assetBUuid, JsonObject meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
         super(JooqAssetRemix.ASSET_REMIX);
 
         setAssetAUuid(assetAUuid);

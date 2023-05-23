@@ -13,6 +13,7 @@ public interface TagModelBuilder extends ModelBuilder, UserModelBuilder {
 		response.setUuid(tag.getUuid());
 		response.setName(tag.getName());
 		response.setCollection(tag.getCollection());
+		response.setMeta(tag.getMeta());
 		setStatus(tag, response);
 		return response;
 	}

@@ -7,7 +7,9 @@ package io.metaloom.loom.db.jooq.tables;
 import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
+import io.metaloom.loom.db.jooq.converter.JsonObjectConverter;
 import io.metaloom.loom.db.jooq.tables.records.JooqBlacklistRecord;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -18,7 +20,6 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Function9;
 import org.jooq.Index;
-import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
@@ -104,7 +105,7 @@ public class JooqBlacklist extends TableImpl<JooqBlacklistRecord> {
      * The column <code>public.blacklist.meta</code>. Custom meta properties of
      * the block entry. May contain additional information on the reason.
      */
-    public final TableField<JooqBlacklistRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties of the block entry. May contain additional information on the reason.");
+    public final TableField<JooqBlacklistRecord, JsonObject> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties of the block entry. May contain additional information on the reason.", new JsonObjectConverter());
 
     private JooqBlacklist(Name alias, Table<JooqBlacklistRecord> aliased) {
         this(alias, aliased, null);
@@ -228,14 +229,14 @@ public class JooqBlacklist extends TableImpl<JooqBlacklistRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<java.util.UUID, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, String, Integer, JSONB> fieldsRow() {
+    public Row9<java.util.UUID, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, String, Integer, JsonObject> fieldsRow() {
         return (Row9) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function9<? super java.util.UUID, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super Integer, ? super JSONB, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function9<? super java.util.UUID, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super Integer, ? super JsonObject, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -243,7 +244,7 @@ public class JooqBlacklist extends TableImpl<JooqBlacklistRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super java.util.UUID, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super Integer, ? super JSONB, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super java.util.UUID, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super Integer, ? super JsonObject, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

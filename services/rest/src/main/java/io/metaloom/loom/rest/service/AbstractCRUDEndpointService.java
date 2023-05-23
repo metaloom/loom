@@ -69,7 +69,7 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 				throw new LoomRestException(404, "Element not found.");
 			} else {
 				dao().delete(element);
-				lrc.send();
+				lrc.sendNoContent();
 			}
 		});
 	}

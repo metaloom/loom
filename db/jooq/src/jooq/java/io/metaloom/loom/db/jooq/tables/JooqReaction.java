@@ -7,7 +7,9 @@ package io.metaloom.loom.db.jooq.tables;
 import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
+import io.metaloom.loom.db.jooq.converter.JsonObjectConverter;
 import io.metaloom.loom.db.jooq.tables.records.JooqReactionRecord;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -18,7 +20,6 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Function11;
 import org.jooq.Index;
-import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
@@ -75,7 +76,7 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
      * The column <code>public.reaction.meta</code>. Custom meta properties to
      * the reaction.
      */
-    public final TableField<JooqReactionRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the reaction.");
+    public final TableField<JooqReactionRecord, JsonObject> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the reaction.", new JsonObjectConverter());
 
     /**
      * The column <code>public.reaction.created</code>. Creation timestamp
@@ -235,14 +236,14 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<java.util.UUID, String, Integer, JSONB, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID, java.util.UUID, java.util.UUID> fieldsRow() {
+    public Row11<java.util.UUID, String, Integer, JsonObject, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID, java.util.UUID, java.util.UUID> fieldsRow() {
         return (Row11) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function11<? super java.util.UUID, ? super String, ? super Integer, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function11<? super java.util.UUID, ? super String, ? super Integer, ? super JsonObject, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -250,7 +251,7 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super java.util.UUID, ? super String, ? super Integer, ? super JSONB, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super java.util.UUID, ? super String, ? super Integer, ? super JsonObject, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

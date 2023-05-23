@@ -6,8 +6,10 @@ package io.metaloom.loom.db.jooq.tables;
 
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
+import io.metaloom.loom.db.jooq.converter.JsonObjectConverter;
 import io.metaloom.loom.db.jooq.enums.JooqAnnotationType;
 import io.metaloom.loom.db.jooq.tables.records.JooqAnnotationRecord;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -17,7 +19,6 @@ import java.util.function.Function;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Function17;
-import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
@@ -133,7 +134,7 @@ public class JooqAnnotation extends TableImpl<JooqAnnotationRecord> {
     /**
      * The column <code>public.annotation.meta</code>. Custom meta properties
      */
-    public final TableField<JooqAnnotationRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties");
+    public final TableField<JooqAnnotationRecord, JsonObject> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties", new JsonObjectConverter());
 
     /**
      * The column <code>public.annotation.thumbnail</code>. Reference to the
@@ -258,14 +259,14 @@ public class JooqAnnotation extends TableImpl<JooqAnnotationRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row17<java.util.UUID, JooqAnnotationType, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JSONB, String> fieldsRow() {
+    public Row17<java.util.UUID, JooqAnnotationType, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, String, String, Integer, Integer, Integer, Integer, Integer, Integer, JsonObject, String> fieldsRow() {
         return (Row17) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function17<? super java.util.UUID, ? super JooqAnnotationType, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JSONB, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function17<? super java.util.UUID, ? super JooqAnnotationType, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JsonObject, ? super String, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -273,7 +274,7 @@ public class JooqAnnotation extends TableImpl<JooqAnnotationRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function17<? super java.util.UUID, ? super JooqAnnotationType, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JSONB, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function17<? super java.util.UUID, ? super JooqAnnotationType, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super String, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JsonObject, ? super String, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

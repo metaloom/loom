@@ -7,7 +7,9 @@ package io.metaloom.loom.db.jooq.tables;
 import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
+import io.metaloom.loom.db.jooq.converter.JsonObjectConverter;
 import io.metaloom.loom.db.jooq.tables.records.JooqTagRecord;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -18,7 +20,6 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Function9;
 import org.jooq.Index;
-import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
@@ -74,7 +75,7 @@ public class JooqTag extends TableImpl<JooqTagRecord> {
      * The column <code>public.tag.meta</code>. Custom meta properties to the
      * element
      */
-    public final TableField<JooqTagRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the element");
+    public final TableField<JooqTagRecord, JsonObject> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the element", new JsonObjectConverter());
 
     /**
      * The column <code>public.tag.rating</code>. Absolute or
@@ -224,14 +225,14 @@ public class JooqTag extends TableImpl<JooqTagRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<java.util.UUID, String, String, JSONB, Integer, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
+    public Row9<java.util.UUID, String, String, JsonObject, Integer, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row9) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function9<? super java.util.UUID, ? super String, ? super String, ? super JSONB, ? super Integer, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function9<? super java.util.UUID, ? super String, ? super String, ? super JsonObject, ? super Integer, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -239,7 +240,7 @@ public class JooqTag extends TableImpl<JooqTagRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super java.util.UUID, ? super String, ? super String, ? super JSONB, ? super Integer, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super java.util.UUID, ? super String, ? super String, ? super JsonObject, ? super Integer, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

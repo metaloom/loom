@@ -5,12 +5,12 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqCollection;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.jooq.Field;
-import org.jooq.JSONB;
 import org.jooq.Record1;
 import org.jooq.Record9;
 import org.jooq.Row9;
@@ -23,7 +23,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * project.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionRecord> implements Record9<UUID, String, JSONB, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> {
+public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionRecord> implements Record9<UUID, String, JsonObject, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -58,15 +58,15 @@ public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionReco
     /**
      * Setter for <code>public.collection.meta</code>. Custom meta properties
      */
-    public void setMeta(JSONB value) {
+    public void setMeta(JsonObject value) {
         set(2, value);
     }
 
     /**
      * Getter for <code>public.collection.meta</code>. Custom meta properties
      */
-    public JSONB getMeta() {
-        return (JSONB) get(2);
+    public JsonObject getMeta() {
+        return (JsonObject) get(2);
     }
 
     /**
@@ -167,12 +167,12 @@ public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionReco
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<UUID, String, JSONB, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> fieldsRow() {
+    public Row9<UUID, String, JsonObject, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> fieldsRow() {
         return (Row9) super.fieldsRow();
     }
 
     @Override
-    public Row9<UUID, String, JSONB, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> valuesRow() {
+    public Row9<UUID, String, JsonObject, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> valuesRow() {
         return (Row9) super.valuesRow();
     }
 
@@ -187,7 +187,7 @@ public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionReco
     }
 
     @Override
-    public Field<JSONB> field3() {
+    public Field<JsonObject> field3() {
         return JooqCollection.COLLECTION.META;
     }
 
@@ -232,7 +232,7 @@ public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionReco
     }
 
     @Override
-    public JSONB component3() {
+    public JsonObject component3() {
         return getMeta();
     }
 
@@ -277,7 +277,7 @@ public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionReco
     }
 
     @Override
-    public JSONB value3() {
+    public JsonObject value3() {
         return getMeta();
     }
 
@@ -324,7 +324,7 @@ public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionReco
     }
 
     @Override
-    public JooqCollectionRecord value3(JSONB value) {
+    public JooqCollectionRecord value3(JsonObject value) {
         setMeta(value);
         return this;
     }
@@ -366,7 +366,7 @@ public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionReco
     }
 
     @Override
-    public JooqCollectionRecord values(UUID value1, String value2, JSONB value3, String value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8, UUID value9) {
+    public JooqCollectionRecord values(UUID value1, String value2, JsonObject value3, String value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8, UUID value9) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -393,7 +393,7 @@ public class JooqCollectionRecord extends UpdatableRecordImpl<JooqCollectionReco
     /**
      * Create a detached, initialised JooqCollectionRecord
      */
-    public JooqCollectionRecord(UUID uuid, String name, JSONB meta, String description, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID parentCollectionUuid) {
+    public JooqCollectionRecord(UUID uuid, String name, JsonObject meta, String description, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID parentCollectionUuid) {
         super(JooqCollection.COLLECTION);
 
         setUuid(uuid);

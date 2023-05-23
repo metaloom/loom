@@ -122,6 +122,7 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 				throw new LoomRestException(404, "Tag not found " + tagUuid);
 			}
 			dao().untagAsset(tag, asset);
+			lrc.sendNoContent();
 		});
 	}
 

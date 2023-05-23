@@ -5,6 +5,7 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqAssetUserMeta;
+import io.vertx.core.json.JsonObject;
 
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Stores user specific metadata that can be added to asset
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMetaRecord> implements Record3<UUID, UUID, String> {
+public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMetaRecord> implements Record3<UUID, UUID, JsonObject> {
 
     private static final long serialVersionUID = 1L;
 
@@ -55,7 +56,7 @@ public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMe
      * Setter for <code>public.asset_user_meta.meta</code>. Custom meta
      * properties
      */
-    public void setMeta(String value) {
+    public void setMeta(JsonObject value) {
         set(2, value);
     }
 
@@ -63,8 +64,8 @@ public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMe
      * Getter for <code>public.asset_user_meta.meta</code>. Custom meta
      * properties
      */
-    public String getMeta() {
-        return (String) get(2);
+    public JsonObject getMeta() {
+        return (JsonObject) get(2);
     }
 
     // -------------------------------------------------------------------------
@@ -81,12 +82,12 @@ public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMe
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<UUID, UUID, String> fieldsRow() {
+    public Row3<UUID, UUID, JsonObject> fieldsRow() {
         return (Row3) super.fieldsRow();
     }
 
     @Override
-    public Row3<UUID, UUID, String> valuesRow() {
+    public Row3<UUID, UUID, JsonObject> valuesRow() {
         return (Row3) super.valuesRow();
     }
 
@@ -101,7 +102,7 @@ public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMe
     }
 
     @Override
-    public Field<String> field3() {
+    public Field<JsonObject> field3() {
         return JooqAssetUserMeta.ASSET_USER_META.META;
     }
 
@@ -116,7 +117,7 @@ public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMe
     }
 
     @Override
-    public String component3() {
+    public JsonObject component3() {
         return getMeta();
     }
 
@@ -131,7 +132,7 @@ public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMe
     }
 
     @Override
-    public String value3() {
+    public JsonObject value3() {
         return getMeta();
     }
 
@@ -148,13 +149,13 @@ public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMe
     }
 
     @Override
-    public JooqAssetUserMetaRecord value3(String value) {
+    public JooqAssetUserMetaRecord value3(JsonObject value) {
         setMeta(value);
         return this;
     }
 
     @Override
-    public JooqAssetUserMetaRecord values(UUID value1, UUID value2, String value3) {
+    public JooqAssetUserMetaRecord values(UUID value1, UUID value2, JsonObject value3) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -175,7 +176,7 @@ public class JooqAssetUserMetaRecord extends UpdatableRecordImpl<JooqAssetUserMe
     /**
      * Create a detached, initialised JooqAssetUserMetaRecord
      */
-    public JooqAssetUserMetaRecord(UUID assetUuid, UUID userUuid, String meta) {
+    public JooqAssetUserMetaRecord(UUID assetUuid, UUID userUuid, JsonObject meta) {
         super(JooqAssetUserMeta.ASSET_USER_META);
 
         setAssetUuid(assetUuid);

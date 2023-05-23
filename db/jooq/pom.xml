@@ -229,6 +229,13 @@
 									<inputSchema>public</inputSchema>
 									<outputSchema>public</outputSchema>
 									<unsignedTypes>false</unsignedTypes>
+                  <forcedTypes>
+                    <forcedType>
+                      <userType>io.vertx.core.json.JsonObject</userType>
+                      <converter>io.metaloom.loom.db.jooq.converter.JsonObjectConverter</converter>
+                      <includeExpression>.*\.meta.*</includeExpression>
+                    </forcedType>
+                  </forcedTypes>
 								</database>
 								<target>
 									<packageName>io.metaloom.loom.db.jooq</packageName>

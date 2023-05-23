@@ -28,6 +28,8 @@ public class TagAssetEndpointTest extends AbstractEndpointTest {
 			client.untagAsset(ASSET_UUID, tag.getUuid()).sync();
 
 			AssetResponse asset2 = client.loadAsset(ASSET_UUID).sync();
+			
+			TagResponse tag2 = client.loadTag(tag.getUuid()).sync();
 		}
 	}
 

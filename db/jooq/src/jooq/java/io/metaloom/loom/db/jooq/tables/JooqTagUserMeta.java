@@ -6,7 +6,9 @@ package io.metaloom.loom.db.jooq.tables;
 
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
+import io.metaloom.loom.db.jooq.converter.JsonObjectConverter;
 import io.metaloom.loom.db.jooq.tables.records.JooqTagUserMetaRecord;
+import io.vertx.core.json.JsonObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +18,6 @@ import java.util.function.Function;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Function4;
-import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
@@ -72,7 +73,7 @@ public class JooqTagUserMeta extends TableImpl<JooqTagUserMetaRecord> {
     /**
      * The column <code>public.tag_user_meta.meta</code>. Custom meta properties
      */
-    public final TableField<JooqTagUserMetaRecord, JSONB> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties");
+    public final TableField<JooqTagUserMetaRecord, JsonObject> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties", new JsonObjectConverter());
 
     private JooqTagUserMeta(Name alias, Table<JooqTagUserMetaRecord> aliased) {
         this(alias, aliased, null);
@@ -189,14 +190,14 @@ public class JooqTagUserMeta extends TableImpl<JooqTagUserMetaRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<UUID, UUID, Integer, JSONB> fieldsRow() {
+    public Row4<UUID, UUID, Integer, JsonObject> fieldsRow() {
         return (Row4) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function4<? super UUID, ? super UUID, ? super Integer, ? super JSONB, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function4<? super UUID, ? super UUID, ? super Integer, ? super JsonObject, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -204,7 +205,7 @@ public class JooqTagUserMeta extends TableImpl<JooqTagUserMetaRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super UUID, ? super UUID, ? super Integer, ? super JSONB, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super UUID, ? super UUID, ? super Integer, ? super JsonObject, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

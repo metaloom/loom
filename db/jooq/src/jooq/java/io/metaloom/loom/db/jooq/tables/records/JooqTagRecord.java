@@ -5,12 +5,12 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqTag;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.jooq.Field;
-import org.jooq.JSONB;
 import org.jooq.Record1;
 import org.jooq.Record9;
 import org.jooq.Row9;
@@ -21,7 +21,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Tag on various elements. Tags are not user specifc
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements Record9<UUID, String, String, JSONB, Integer, LocalDateTime, UUID, LocalDateTime, UUID> {
+public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements Record9<UUID, String, String, JsonObject, Integer, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -71,7 +71,7 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
      * Setter for <code>public.tag.meta</code>. Custom meta properties to the
      * element
      */
-    public void setMeta(JSONB value) {
+    public void setMeta(JsonObject value) {
         set(3, value);
     }
 
@@ -79,8 +79,8 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
      * Getter for <code>public.tag.meta</code>. Custom meta properties to the
      * element
      */
-    public JSONB getMeta() {
-        return (JSONB) get(3);
+    public JsonObject getMeta() {
+        return (JsonObject) get(3);
     }
 
     /**
@@ -169,12 +169,12 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<UUID, String, String, JSONB, Integer, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+    public Row9<UUID, String, String, JsonObject, Integer, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
         return (Row9) super.fieldsRow();
     }
 
     @Override
-    public Row9<UUID, String, String, JSONB, Integer, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
+    public Row9<UUID, String, String, JsonObject, Integer, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
         return (Row9) super.valuesRow();
     }
 
@@ -194,7 +194,7 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     @Override
-    public Field<JSONB> field4() {
+    public Field<JsonObject> field4() {
         return JooqTag.TAG.META;
     }
 
@@ -239,7 +239,7 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     @Override
-    public JSONB component4() {
+    public JsonObject component4() {
         return getMeta();
     }
 
@@ -284,7 +284,7 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     @Override
-    public JSONB value4() {
+    public JsonObject value4() {
         return getMeta();
     }
 
@@ -332,7 +332,7 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     @Override
-    public JooqTagRecord value4(JSONB value) {
+    public JooqTagRecord value4(JsonObject value) {
         setMeta(value);
         return this;
     }
@@ -368,7 +368,7 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     @Override
-    public JooqTagRecord values(UUID value1, String value2, String value3, JSONB value4, Integer value5, LocalDateTime value6, UUID value7, LocalDateTime value8, UUID value9) {
+    public JooqTagRecord values(UUID value1, String value2, String value3, JsonObject value4, Integer value5, LocalDateTime value6, UUID value7, LocalDateTime value8, UUID value9) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -395,7 +395,7 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     /**
      * Create a detached, initialised JooqTagRecord
      */
-    public JooqTagRecord(UUID uuid, String name, String collection, JSONB meta, Integer rating, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
+    public JooqTagRecord(UUID uuid, String name, String collection, JsonObject meta, Integer rating, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
         super(JooqTag.TAG);
 
         setUuid(uuid);

@@ -7,7 +7,9 @@ package io.metaloom.loom.db.jooq.tables;
 import io.metaloom.loom.db.jooq.Indexes;
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
+import io.metaloom.loom.db.jooq.converter.JsonObjectConverter;
 import io.metaloom.loom.db.jooq.tables.records.JooqAssetLocationRecord;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -97,7 +99,7 @@ public class JooqAssetLocation extends TableImpl<JooqAssetLocationRecord> {
      * The column <code>public.asset_location.meta</code>. Custom meta
      * properties to the asset_location
      */
-    public final TableField<JooqAssetLocationRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties to the asset_location");
+    public final TableField<JooqAssetLocationRecord, JsonObject> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the asset_location", new JsonObjectConverter());
 
     /**
      * The column <code>public.asset_location.mime_type</code>.
@@ -273,14 +275,14 @@ public class JooqAssetLocation extends TableImpl<JooqAssetLocationRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<java.util.UUID, java.util.UUID, String, Integer, Integer, Integer, Integer, String, String, String, String, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
+    public Row16<java.util.UUID, java.util.UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
         return (Row16) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function16<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super String, ? super String, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function16<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JsonObject, ? super String, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -288,7 +290,7 @@ public class JooqAssetLocation extends TableImpl<JooqAssetLocationRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super String, ? super String, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JsonObject, ? super String, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

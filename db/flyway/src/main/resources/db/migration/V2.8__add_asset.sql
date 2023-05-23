@@ -106,7 +106,7 @@ COMMENT ON TABLE "tag_asset" IS 'Store tag <-> asset reference';
 CREATE TABLE "asset_user_meta" (
   "asset_uuid" uuid NOT NULL,
   "user_uuid" uuid NOT NULL,
-  "meta" varchar,
+  "meta" jsonb,
   PRIMARY KEY ("asset_uuid", "user_uuid")
 );
 ALTER TABLE "asset_user_meta" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");

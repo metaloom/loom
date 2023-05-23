@@ -5,12 +5,12 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqCluster;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.jooq.Field;
-import org.jooq.JSONB;
 import org.jooq.Record1;
 import org.jooq.Record8;
 import org.jooq.Row8;
@@ -25,7 +25,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * together by visual similarity.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> implements Record8<UUID, String, JSONB, String, LocalDateTime, UUID, LocalDateTime, UUID> {
+public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> implements Record8<UUID, String, JsonObject, String, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -63,7 +63,7 @@ public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> im
      * Setter for <code>public.cluster.meta</code>. Custom meta properties to
      * the embedding.
      */
-    public void setMeta(JSONB value) {
+    public void setMeta(JsonObject value) {
         set(2, value);
     }
 
@@ -71,8 +71,8 @@ public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> im
      * Getter for <code>public.cluster.meta</code>. Custom meta properties to
      * the embedding.
      */
-    public JSONB getMeta() {
-        return (JSONB) get(2);
+    public JsonObject getMeta() {
+        return (JsonObject) get(2);
     }
 
     /**
@@ -161,12 +161,12 @@ public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> im
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<UUID, String, JSONB, String, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+    public Row8<UUID, String, JsonObject, String, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
         return (Row8) super.fieldsRow();
     }
 
     @Override
-    public Row8<UUID, String, JSONB, String, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
+    public Row8<UUID, String, JsonObject, String, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
         return (Row8) super.valuesRow();
     }
 
@@ -181,7 +181,7 @@ public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> im
     }
 
     @Override
-    public Field<JSONB> field3() {
+    public Field<JsonObject> field3() {
         return JooqCluster.CLUSTER.META;
     }
 
@@ -221,7 +221,7 @@ public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> im
     }
 
     @Override
-    public JSONB component3() {
+    public JsonObject component3() {
         return getMeta();
     }
 
@@ -261,7 +261,7 @@ public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> im
     }
 
     @Override
-    public JSONB value3() {
+    public JsonObject value3() {
         return getMeta();
     }
 
@@ -303,7 +303,7 @@ public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> im
     }
 
     @Override
-    public JooqClusterRecord value3(JSONB value) {
+    public JooqClusterRecord value3(JsonObject value) {
         setMeta(value);
         return this;
     }
@@ -339,7 +339,7 @@ public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> im
     }
 
     @Override
-    public JooqClusterRecord values(UUID value1, String value2, JSONB value3, String value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8) {
+    public JooqClusterRecord values(UUID value1, String value2, JsonObject value3, String value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -365,7 +365,7 @@ public class JooqClusterRecord extends UpdatableRecordImpl<JooqClusterRecord> im
     /**
      * Create a detached, initialised JooqClusterRecord
      */
-    public JooqClusterRecord(UUID uuid, String name, JSONB meta, String type, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
+    public JooqClusterRecord(UUID uuid, String name, JsonObject meta, String type, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
         super(JooqCluster.CLUSTER);
 
         setUuid(uuid);

@@ -6,7 +6,9 @@ package io.metaloom.loom.db.jooq.tables;
 
 import io.metaloom.loom.db.jooq.JooqPublic;
 import io.metaloom.loom.db.jooq.Keys;
+import io.metaloom.loom.db.jooq.converter.JsonObjectConverter;
 import io.metaloom.loom.db.jooq.tables.records.JooqAssetUserMetaRecord;
+import io.vertx.core.json.JsonObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -66,7 +68,7 @@ public class JooqAssetUserMeta extends TableImpl<JooqAssetUserMetaRecord> {
      * The column <code>public.asset_user_meta.meta</code>. Custom meta
      * properties
      */
-    public final TableField<JooqAssetUserMetaRecord, String> META = createField(DSL.name("meta"), SQLDataType.VARCHAR, this, "Custom meta properties");
+    public final TableField<JooqAssetUserMetaRecord, JsonObject> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties", new JsonObjectConverter());
 
     private JooqAssetUserMeta(Name alias, Table<JooqAssetUserMetaRecord> aliased) {
         this(alias, aliased, null);
@@ -172,14 +174,14 @@ public class JooqAssetUserMeta extends TableImpl<JooqAssetUserMetaRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<UUID, UUID, String> fieldsRow() {
+    public Row3<UUID, UUID, JsonObject> fieldsRow() {
         return (Row3) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function3<? super UUID, ? super UUID, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function3<? super UUID, ? super UUID, ? super JsonObject, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -187,7 +189,7 @@ public class JooqAssetUserMeta extends TableImpl<JooqAssetUserMetaRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super UUID, ? super UUID, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super UUID, ? super UUID, ? super JsonObject, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

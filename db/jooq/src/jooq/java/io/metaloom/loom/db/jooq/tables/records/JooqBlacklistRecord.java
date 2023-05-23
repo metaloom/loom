@@ -5,12 +5,12 @@ package io.metaloom.loom.db.jooq.tables.records;
 
 
 import io.metaloom.loom.db.jooq.tables.JooqBlacklist;
+import io.vertx.core.json.JsonObject;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.jooq.Field;
-import org.jooq.JSONB;
 import org.jooq.Record1;
 import org.jooq.Record9;
 import org.jooq.Row9;
@@ -23,7 +23,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * scanner marked it.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord> implements Record9<UUID, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, Integer, JSONB> {
+public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord> implements Record9<UUID, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, Integer, JsonObject> {
 
     private static final long serialVersionUID = 1L;
 
@@ -149,7 +149,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
      * Setter for <code>public.blacklist.meta</code>. Custom meta properties of
      * the block entry. May contain additional information on the reason.
      */
-    public void setMeta(JSONB value) {
+    public void setMeta(JsonObject value) {
         set(8, value);
     }
 
@@ -157,8 +157,8 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
      * Getter for <code>public.blacklist.meta</code>. Custom meta properties of
      * the block entry. May contain additional information on the reason.
      */
-    public JSONB getMeta() {
-        return (JSONB) get(8);
+    public JsonObject getMeta() {
+        return (JsonObject) get(8);
     }
 
     // -------------------------------------------------------------------------
@@ -175,12 +175,12 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<UUID, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, Integer, JSONB> fieldsRow() {
+    public Row9<UUID, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, Integer, JsonObject> fieldsRow() {
         return (Row9) super.fieldsRow();
     }
 
     @Override
-    public Row9<UUID, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, Integer, JSONB> valuesRow() {
+    public Row9<UUID, UUID, LocalDateTime, UUID, LocalDateTime, UUID, String, Integer, JsonObject> valuesRow() {
         return (Row9) super.valuesRow();
     }
 
@@ -225,7 +225,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     }
 
     @Override
-    public Field<JSONB> field9() {
+    public Field<JsonObject> field9() {
         return JooqBlacklist.BLACKLIST.META;
     }
 
@@ -270,7 +270,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     }
 
     @Override
-    public JSONB component9() {
+    public JsonObject component9() {
         return getMeta();
     }
 
@@ -315,7 +315,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     }
 
     @Override
-    public JSONB value9() {
+    public JsonObject value9() {
         return getMeta();
     }
 
@@ -368,13 +368,13 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     }
 
     @Override
-    public JooqBlacklistRecord value9(JSONB value) {
+    public JooqBlacklistRecord value9(JsonObject value) {
         setMeta(value);
         return this;
     }
 
     @Override
-    public JooqBlacklistRecord values(UUID value1, UUID value2, LocalDateTime value3, UUID value4, LocalDateTime value5, UUID value6, String value7, Integer value8, JSONB value9) {
+    public JooqBlacklistRecord values(UUID value1, UUID value2, LocalDateTime value3, UUID value4, LocalDateTime value5, UUID value6, String value7, Integer value8, JsonObject value9) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -401,7 +401,7 @@ public class JooqBlacklistRecord extends UpdatableRecordImpl<JooqBlacklistRecord
     /**
      * Create a detached, initialised JooqBlacklistRecord
      */
-    public JooqBlacklistRecord(UUID uuid, UUID assetUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String type, Integer reviewCount, JSONB meta) {
+    public JooqBlacklistRecord(UUID uuid, UUID assetUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, String type, Integer reviewCount, JsonObject meta) {
         super(JooqBlacklist.BLACKLIST);
 
         setUuid(uuid);

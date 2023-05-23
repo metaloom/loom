@@ -6,7 +6,7 @@ CREATE TABLE "asset_location" (
   "filekey_stdev" int,
   "filekey_edate_nano" int,
   "filekey_edate" int,
-  "meta" varchar,
+  "meta" jsonb,
   "mime_type" varchar,
   "license" varchar, /* unclear */
   "state" varchar, /* unclear */
