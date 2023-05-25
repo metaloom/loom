@@ -87,4 +87,24 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 		list(lrc, READ_ASSET_LOCATION, modelBuilder::toLocationList);
 	}
 
+	public void listAssetLocations(LoomRoutingContext lrc, String pathParam) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void loadAssetLocation(LoomRoutingContext lrc, String pathParam, UUID pathParamUUID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void createAssetLocation(LoomRoutingContext lrc, String pathParam) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateAssetLocation(LoomRoutingContext lrc, String pathParam, UUID pathParamUUID) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

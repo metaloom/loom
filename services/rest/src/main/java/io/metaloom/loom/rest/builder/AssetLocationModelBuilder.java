@@ -8,13 +8,14 @@ import io.metaloom.loom.rest.model.asset.location.AssetLocationListResponse;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationReference;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationResponse;
 
-public interface AssetLocationModelBuilder extends ModelBuilder {
+public interface AssetLocationModelBuilder extends ModelBuilder, UserModelBuilder {
 
 	default AssetLocationResponse toResponse(AssetLocation location) {
 		AssetLocationResponse model = new AssetLocationResponse();
-		model.setMeta(location.getMeta());
 		model.setUuid(location.getUuid());
+		model.setMeta(location.getMeta());
 		model.setFilesystem(filesystemLocationInfo(location));
+		setStatus(location, model);
 		return model;
 	}
 

@@ -14,6 +14,8 @@ public final class LoomAssertions {
 		if (expected != actual) {
 			fail("Objects did not match: " + msg);
 		}
-		assertEquals(expected.encodePrettily(), actual.encodePrettily(), msg);
+		if (expected != null && actual != null) {
+			assertEquals(expected.encodePrettily(), actual.encodePrettily(), msg);
+		}
 	}
 }

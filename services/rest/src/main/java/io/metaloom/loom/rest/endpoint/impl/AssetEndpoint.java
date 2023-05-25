@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import io.metaloom.loom.rest.AbstractEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
 import io.metaloom.loom.rest.service.impl.AssetEndpointService;
+import io.metaloom.loom.rest.service.impl.AssetLocationEndpointService;
 import io.metaloom.loom.rest.service.impl.TagEndpointService;
 
 public class AssetEndpoint extends AbstractEndpoint {
@@ -19,12 +20,15 @@ public class AssetEndpoint extends AbstractEndpoint {
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpoint.class);
 	private final AssetEndpointService service;
 	private final TagEndpointService tagService;
+	private final AssetLocationEndpointService locationService;
 
 	@Inject
-	public AssetEndpoint(AssetEndpointService service, TagEndpointService tagService, EndpointDependencies deps) {
+	public AssetEndpoint(AssetEndpointService service, TagEndpointService tagService, AssetLocationEndpointService locationService,
+		EndpointDependencies deps) {
 		super(deps);
 		this.service = service;
 		this.tagService = tagService;
+		this.locationService = locationService;
 	}
 
 	@Override
@@ -57,6 +61,8 @@ public class AssetEndpoint extends AbstractEndpoint {
 			service.load(lrc, lrc.pathParam("sha512orUUID"));
 		});
 
+		// TAG
+
 		addRoute(basePath() + "/:sha512orUUID" + "/tags", POST, lrc -> {
 			tagService.tagAsset(lrc, lrc.pathParam("sha512orUUID"));
 		});
@@ -64,6 +70,25 @@ public class AssetEndpoint extends AbstractEndpoint {
 		addRoute(basePath() + "/:sha512orUUID/tags/:tagUuid", DELETE, lrc -> {
 			tagService.untagAsset(lrc, lrc.pathParam("sha512orUUID"), lrc.pathParamUUID("tagUuid"));
 		});
+
+		// LOCATION
+
+		addRoute(basePath() + "/:sha512orUUID/locations", GET, lrc -> {
+			locationService.listAssetLocations(lrc, lrc.pathParam("sha512orUUID"));
+		});
+
+		addRoute(basePath() + "/:sha512orUUID/locations/:locationUuid", GET, lrc -> {
+			locationService.loadAssetLocation(lrc, lrc.pathParam("sha512orUUID"), lrc.pathParamUUID("locationUuid"));
+		});
+
+		addRoute(basePath() + "/:sha512orUUID/locations", POST, lrc -> {
+			locationService.createAssetLocation(lrc, lrc.pathParam("sha512orUUID"));
+		});
+
+		addRoute(basePath() + "/:sha512orUUID/locations/:locationUuid", POST, lrc -> {
+			locationService.updateAssetLocation(lrc, lrc.pathParam("sha512orUUID"), lrc.pathParamUUID("locationUuid"));
+		});
+
 	}
 
 	private String basePath() {

@@ -9,6 +9,7 @@ public interface GroupModelBuilder extends ModelBuilder, UserModelBuilder {
 
 	default GroupResponse toResponse(Group group) {
 		GroupResponse response = new GroupResponse();
+		response.setUuid(group.getUuid());
 		response.setName(group.getName());
 		response.setMeta(group.getMeta());
 		setStatus(group, response);

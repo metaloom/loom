@@ -25,7 +25,7 @@ public class AssetLocationEndpoint extends AbstractCRUDEndpoint<AssetLocationEnd
 
 	@Override
 	protected String basePath() {
-		return "/assets/:assetUuid/locations";
+		return "/locations";
 	}
 
 }

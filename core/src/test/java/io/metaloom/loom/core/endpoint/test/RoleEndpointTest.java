@@ -1,7 +1,9 @@
 package io.metaloom.loom.core.endpoint.test;
 
 import static io.metaloom.loom.rest.model.assertj.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.api.sort.LoomSortKey;
@@ -44,11 +46,16 @@ public class RoleEndpointTest extends AbstractCRUDEndpointTest {
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 
-			client.listRoles()
+			HttpErrorException ex = Assertions.assertThrows(HttpErrorException.class, () ->  {
+				client.listRoles()
 				.addLimit(10)
 				.sortBy(LoomSortKey.EMAIL)
 				.sortDirection(SortDirection.ASCENDING)
 				.sync();
+			});
+			assertEquals(400, ex.getStatusCode());
+			assertEquals("Bad Request", ex.getStatusMsg());
+			assertEquals("Internal Server Error Field for sortkey email not found for type Roles", ex.getResponse().getMessage());
 		}
 	}
 

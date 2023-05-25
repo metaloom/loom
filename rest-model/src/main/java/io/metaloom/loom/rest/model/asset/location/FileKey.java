@@ -2,30 +2,30 @@ package io.metaloom.loom.rest.model.asset.location;
 
 public class FileKey {
 
-	private long inode;
-	private long stDev;
-	private long edate;
-	private long edateNano;
+	private Long inode;
+	private Long stDev;
+	private Long edate;
+	private Long edateNano;
 
-	public long getInode() {
+	public Long getInode() {
 		return inode;
 	}
 
-	public FileKey setInode(long inode) {
+	public FileKey setInode(Long inode) {
 		this.inode = inode;
 		return this;
 	}
 
-	public long getStDev() {
+	public Long getStDev() {
 		return stDev;
 	}
 
-	public FileKey setStDev(long stDev) {
+	public FileKey setStDev(Long stDev) {
 		this.stDev = stDev;
 		return this;
 	}
 
-	public long getEdate() {
+	public Long getEdate() {
 		return edate;
 	}
 
@@ -34,7 +34,7 @@ public class FileKey {
 		return this;
 	}
 
-	public long getEdateNano() {
+	public Long getEdateNano() {
 		return edateNano;
 	}
 

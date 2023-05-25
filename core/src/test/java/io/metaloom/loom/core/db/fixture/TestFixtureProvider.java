@@ -176,7 +176,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 
 	private AssetLocation createAssetLocation(Library library, Asset asset, User user) {
 		AssetLocation assetLocation = assetLocationDao().createAssetLocation("blume.mp4", asset.getUuid(), user.getUuid(), library.getUuid());
-		assetLocation.setUuid(ASSET_UUID);
+		assetLocation.setUuid(ASSET_LOCATION_UUID);
 		assetLocationDao().store(assetLocation);
 		return assetLocation;
 	}

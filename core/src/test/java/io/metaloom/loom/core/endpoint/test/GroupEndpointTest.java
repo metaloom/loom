@@ -47,7 +47,7 @@ public class GroupEndpointTest extends AbstractCRUDEndpointTest {
 	protected void testReadPage(LoomHttpClient client) throws HttpErrorException {
 		for (int i = 0; i < 100; i++) {
 			GroupCreateRequest request = new GroupCreateRequest();
-			request.setName("dummy name");
+			request.setName("dummy name " + i);
 			client.createGroup(request).sync();
 		}
 		GroupListResponse list = client.listGroups().sync();

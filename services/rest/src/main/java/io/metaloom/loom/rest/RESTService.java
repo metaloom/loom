@@ -15,7 +15,6 @@ import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.common.service.AbstractService;
 import io.metaloom.loom.rest.dagger.RESTEndpoints;
 import io.metaloom.loom.rest.endpoint.RESTEndpoint;
-import io.metaloom.loom.rest.model.error.ErrorResponse;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
@@ -67,20 +66,20 @@ public class RESTService extends AbstractService {
 		// endpoints.register();
 		router.errorHandler(404, rc -> {
 			log.error("Request failed {}", rc.normalizedPath(), rc.failure());
-			ErrorResponse error = new ErrorResponse();
-			error.setStatus("Not Found " + rc.statusCode() + " " + rc.normalizedPath());
+			GenericMessageResponse error = new GenericMessageResponse();
+			error.setMessage("Not Found " + rc.statusCode() + " " + rc.normalizedPath());
 			rc.response().setStatusCode(500).end(Json.encodeToBuffer(error));
 		});
 		router.route().failureHandler(rc -> {
 			log.error("Request failed {}", rc.normalizedPath(), rc.failure());
-			ErrorResponse error = new ErrorResponse();
+			GenericMessageResponse error = new GenericMessageResponse();
 			// TODO Don't expose error details
 			if (rc.failure() instanceof LoomRestException lre) {
 				GenericMessageResponse errorResponse = new GenericMessageResponse();
 				errorResponse.setMessage(lre.getMessage());
 				rc.response().setStatusCode(lre.httpCode()).end(Json.encodeToBuffer(errorResponse));
 			} else {
-				error.setStatus("Internal Server Error " + rc.failure().getMessage());
+				error.setMessage("Internal Server Error " + rc.failure().getMessage());
 				rc.response().setStatusCode(400).end(Json.encodeToBuffer(error));
 			}
 		});

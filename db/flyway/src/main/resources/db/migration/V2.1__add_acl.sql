@@ -169,8 +169,8 @@ CREATE TABLE "role_group" (
   "role_uuid" uuid NOT NULL,
   PRIMARY KEY ("group_uuid", "role_uuid")
 );
-ALTER TABLE "role_group" ADD FOREIGN KEY ("group_uuid") REFERENCES "group" ("uuid");
-ALTER TABLE "role_group" ADD FOREIGN KEY ("role_uuid") REFERENCES "role" ("uuid");
+ALTER TABLE "role_group" ADD FOREIGN KEY ("group_uuid") REFERENCES "group" ("uuid") ON DELETE CASCADE;
+ALTER TABLE "role_group" ADD FOREIGN KEY ("role_uuid") REFERENCES "role" ("uuid") ON DELETE CASCADE;
 
 
 CREATE TABLE "user_group" (
@@ -178,6 +178,6 @@ CREATE TABLE "user_group" (
   "group_uuid" uuid NOT NULL,
   PRIMARY KEY ("user_uuid", "group_uuid")
 );
-ALTER TABLE "user_group" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid");
-ALTER TABLE "user_group" ADD FOREIGN KEY ("group_uuid") REFERENCES "group" ("uuid");
+ALTER TABLE "user_group" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid") ON DELETE CASCADE;
+ALTER TABLE "user_group" ADD FOREIGN KEY ("group_uuid") REFERENCES "group" ("uuid") ON DELETE CASCADE;
 

@@ -1,5 +1,7 @@
 package io.metaloom.loom.core.endpoint.test;
 
+import static io.metaloom.loom.rest.model.assertj.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.client.http.LoomHttpClient;
@@ -22,14 +24,18 @@ public class TagAssetEndpointTest extends AbstractEndpointTest {
 			request.setCollection("colors");
 			request.setMeta(new JsonObject().put("hello", "world"));
 			TagResponse tag = client.tagAsset(ASSET_UUID, request).sync();
+			assertThat(tag).isValid();
 
 			AssetResponse asset = client.loadAsset(ASSET_UUID).sync();
+			assertThat(asset).isValid();
 
 			client.untagAsset(ASSET_UUID, tag.getUuid()).sync();
 
 			AssetResponse asset2 = client.loadAsset(ASSET_UUID).sync();
-			
+			assertThat(asset2).isValid();
+
 			TagResponse tag2 = client.loadTag(tag.getUuid()).sync();
+			assertThat(tag2).isValid();
 		}
 	}
 

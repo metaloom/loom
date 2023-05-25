@@ -18,7 +18,6 @@ import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.RestResponseModel;
-import io.metaloom.loom.rest.model.message.GenericMessageResponse;
 import io.metaloom.loom.rest.parameter.FilterParameters;
 import io.metaloom.loom.rest.parameter.PagingParameters;
 import io.metaloom.loom.rest.parameter.SortParameters;
