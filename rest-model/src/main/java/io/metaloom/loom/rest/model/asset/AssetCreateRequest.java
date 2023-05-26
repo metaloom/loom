@@ -6,17 +6,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
-import io.metaloom.loom.rest.model.asset.location.HashInfo;
+import io.metaloom.loom.rest.model.asset.info.AudioInfo;
+import io.metaloom.loom.rest.model.asset.info.DocumentInfo;
+import io.metaloom.loom.rest.model.asset.info.FileInfo;
+import io.metaloom.loom.rest.model.asset.info.GeoLocationInfo;
+import io.metaloom.loom.rest.model.asset.info.HashInfo;
+import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.vertx.core.json.JsonObject;
 
-public class AssetCreateRequest implements RestRequestModel {
+public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCreateRequest> {
 
 	@JsonPropertyDescription("The specific identified kind of asset.")
 	private AssetKind kind;
-
-	@JsonPropertyDescription("The filename for the asset.")
-	private String filename;
 
 	@JsonPropertyDescription("The mime type of the asset. (e.g. video/mp4)")
 	private String mimeType;
@@ -28,7 +31,7 @@ public class AssetCreateRequest implements RestRequestModel {
 	private JsonObject meta;
 
 	@JsonPropertyDescription("The GPS location of the asset.")
-	private AssetGeoLocation location;
+	private GeoLocationInfo geo;
 
 	@JsonPropertyDescription("Timeline information on the asset.")
 	private List<AnnotationResponse> timeline;
@@ -38,6 +41,9 @@ public class AssetCreateRequest implements RestRequestModel {
 
 	@JsonPropertyDescription("The local path of the asset. This will only be returned when the asset was created using a local path.")
 	private String localPath;
+
+	@JsonPropertyDescription("Information about the file of the asset")
+	private FileInfo file;
 
 	@JsonPropertyDescription("A set of different computed hashes for the asset.")
 	private HashInfo hashes;
@@ -56,9 +62,6 @@ public class AssetCreateRequest implements RestRequestModel {
 
 	private String origin;
 
-	@JsonPropertyDescription("The size of the asset in bytes.")
-	private long size;
-
 	public AssetCreateRequest() {
 	}
 
@@ -71,30 +74,14 @@ public class AssetCreateRequest implements RestRequestModel {
 		return this;
 	}
 
-	public String getFilename() {
-		return filename;
+	@Override
+	public GeoLocationInfo getGeo() {
+		return geo;
 	}
 
-	public AssetCreateRequest setFilename(String fileName) {
-		this.filename = fileName;
-		return this;
-	}
-
-	public String getMimeType() {
-		return mimeType;
-	}
-
-	public AssetCreateRequest setMimeType(String mimeType) {
-		this.mimeType = mimeType;
-		return this;
-	}
-
-	public AssetGeoLocation getLocation() {
-		return location;
-	}
-
-	public AssetCreateRequest setLocation(AssetGeoLocation location) {
-		this.location = location;
+	@Override
+	public AssetCreateRequest setGeo(GeoLocationInfo geo) {
+		this.geo = geo;
 		return this;
 	}
 
@@ -107,10 +94,12 @@ public class AssetCreateRequest implements RestRequestModel {
 		return this;
 	}
 
+	@Override
 	public JsonObject getMeta() {
 		return meta;
 	}
 
+	@Override
 	public AssetCreateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
@@ -143,46 +132,56 @@ public class AssetCreateRequest implements RestRequestModel {
 		return this;
 	}
 
+	@Override
 	public HashInfo getHashes() {
 		return hashes;
 	}
 
+	@Override
 	public AssetCreateRequest setHashes(HashInfo hashes) {
 		this.hashes = hashes;
 		return this;
 	}
 
+	@Override
 	public AudioInfo getAudio() {
 		return audio;
 	}
 
+	@Override
 	public AssetCreateRequest setAudio(AudioInfo audio) {
 		this.audio = audio;
 		return this;
 	}
 
+	@Override
 	public ImageInfo getImage() {
 		return image;
 	}
 
+	@Override
 	public AssetCreateRequest setImage(ImageInfo image) {
 		this.image = image;
 		return this;
 	}
 
+	@Override
 	public VideoInfo getVideo() {
 		return video;
 	}
 
+	@Override
 	public AssetCreateRequest setVideo(VideoInfo video) {
 		this.video = video;
 		return this;
 	}
 
+	@Override
 	public DocumentInfo getDocument() {
 		return document;
 	}
 
+	@Override
 	public AssetCreateRequest setDocument(DocumentInfo document) {
 		this.document = document;
 		return this;
@@ -197,13 +196,19 @@ public class AssetCreateRequest implements RestRequestModel {
 		return this;
 	}
 
-	public long getSize() {
-		return size;
+	@Override
+	public FileInfo getFile() {
+		return file;
 	}
 
-	public AssetCreateRequest setSize(long size) {
-		this.size = size;
+	@Override
+	public AssetCreateRequest setFile(FileInfo file) {
+		this.file = file;
 		return this;
 	}
 
+	@Override
+	public AssetCreateRequest self() {
+		return this;
+	}
 }

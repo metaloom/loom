@@ -14,6 +14,8 @@ public interface AssetLocationModelBuilder extends ModelBuilder, UserModelBuilde
 		AssetLocationResponse model = new AssetLocationResponse();
 		model.setUuid(location.getUuid());
 		model.setMeta(location.getMeta());
+		model.setLibraryUuid(location.getLibraryUuid());
+		model.setAssetUuid(location.getAssetUuid());
 		model.setFilesystem(filesystemLocationInfo(location));
 		setStatus(location, model);
 		return model;

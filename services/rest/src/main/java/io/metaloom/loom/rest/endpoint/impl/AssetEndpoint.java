@@ -71,23 +71,6 @@ public class AssetEndpoint extends AbstractEndpoint {
 			tagService.untagAsset(lrc, lrc.pathParam("sha512orUUID"), lrc.pathParamUUID("tagUuid"));
 		});
 
-		// LOCATION
-
-		addRoute(basePath() + "/:sha512orUUID/locations", GET, lrc -> {
-			locationService.listAssetLocations(lrc, lrc.pathParam("sha512orUUID"));
-		});
-
-		addRoute(basePath() + "/:sha512orUUID/locations/:locationUuid", GET, lrc -> {
-			locationService.loadAssetLocation(lrc, lrc.pathParam("sha512orUUID"), lrc.pathParamUUID("locationUuid"));
-		});
-
-		addRoute(basePath() + "/:sha512orUUID/locations", POST, lrc -> {
-			locationService.createAssetLocation(lrc, lrc.pathParam("sha512orUUID"));
-		});
-
-		addRoute(basePath() + "/:sha512orUUID/locations/:locationUuid", POST, lrc -> {
-			locationService.updateAssetLocation(lrc, lrc.pathParam("sha512orUUID"), lrc.pathParamUUID("locationUuid"));
-		});
 
 	}
 

@@ -16,6 +16,10 @@ public interface AssetModelValidator extends ModelValidator {
 	}
 
 	default void validate(AssetCreateRequest request) {
-
+		requireNonNull(request.getFile(), "The fileinfo must be set");
+		requireNonNullOrEmpty(request.getFile().getMimeType(), "Mimetype must be set");
+		requireNonNull(request.getFile().getSize(), "The filesize must be set");
+		requireNonNull(request.getHashes(), "Hashes must be set");
+		requireNonNull(request.getHashes().getSha512(), "The SHA512 checksum is required when creating an asset");
 	}
 }

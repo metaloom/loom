@@ -6,12 +6,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
+import io.metaloom.loom.rest.model.asset.info.AudioInfo;
+import io.metaloom.loom.rest.model.asset.info.DocumentInfo;
+import io.metaloom.loom.rest.model.asset.info.FileInfo;
+import io.metaloom.loom.rest.model.asset.info.GeoLocationInfo;
+import io.metaloom.loom.rest.model.asset.info.HashInfo;
+import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetS3Meta;
-import io.metaloom.loom.rest.model.asset.location.HashInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.vertx.core.json.JsonObject;
 
-public class AssetUpdateRequest implements RestRequestModel {
+public class AssetUpdateRequest implements RestRequestModel, AssetModel<AssetUpdateRequest> {
 
 	@JsonPropertyDescription("The specific identified kind of asset.")
 	private AssetKind kind;
@@ -19,17 +25,11 @@ public class AssetUpdateRequest implements RestRequestModel {
 	@JsonPropertyDescription("The filename for the asset.")
 	private String filename;
 
-	@JsonPropertyDescription("The mime type of the asset. (e.g. video/mp4)")
-	private String mimeType;
-
 	@JsonPropertyDescription("The dominant color for the asset.")
 	private String dominantColor;
 
 	@JsonPropertyDescription("Custom meta properties for the asset.")
 	private JsonObject meta;
-
-	@JsonPropertyDescription("The GPS location of the asset.")
-	private AssetGeoLocation location;
 
 	@JsonPropertyDescription("Timeline information on the asset.")
 	private List<AnnotationResponse> timeline;
@@ -42,6 +42,9 @@ public class AssetUpdateRequest implements RestRequestModel {
 
 	@JsonPropertyDescription("A list of tags on the asset.")
 	private List<TagReference> tags;
+
+	@JsonPropertyDescription("Information about the asset file.")
+	private FileInfo file;
 
 	@JsonPropertyDescription("A set of different computed hashes for the asset.")
 	private HashInfo hashes;
@@ -58,11 +61,8 @@ public class AssetUpdateRequest implements RestRequestModel {
 	@JsonPropertyDescription("Information about the document (text) component of the asset (if present)")
 	private DocumentInfo document;
 
-	@JsonPropertyDescription("The spatial location of the asset.")
-	private AssetGeoLocation geo;
-	
-	@JsonPropertyDescription("The size of the asset in bytes.")
-	private long size;
+	@JsonPropertyDescription("The geo spatial location of the asset.")
+	private GeoLocationInfo geo;
 
 	public AssetUpdateRequest() {
 	}
@@ -94,21 +94,14 @@ public class AssetUpdateRequest implements RestRequestModel {
 		return this;
 	}
 
-	public String getMimeType() {
-		return mimeType;
+	@Override
+	public FileInfo getFile() {
+		return file;
 	}
 
-	public AssetUpdateRequest setMimeType(String mimeType) {
-		this.mimeType = mimeType;
-		return this;
-	}
-
-	public AssetGeoLocation getLocation() {
-		return location;
-	}
-
-	public AssetUpdateRequest setLocation(AssetGeoLocation location) {
-		this.location = location;
+	@Override
+	public AssetUpdateRequest setFile(FileInfo file) {
+		this.file = file;
 		return this;
 	}
 
@@ -121,10 +114,12 @@ public class AssetUpdateRequest implements RestRequestModel {
 		return this;
 	}
 
+	@Override
 	public JsonObject getMeta() {
 		return meta;
 	}
 
+	@Override
 	public AssetUpdateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
@@ -157,68 +152,75 @@ public class AssetUpdateRequest implements RestRequestModel {
 		return this;
 	}
 
+	@Override
 	public HashInfo getHashes() {
 		return hashes;
 	}
 
+	@Override
 	public AssetUpdateRequest setHashes(HashInfo hashes) {
 		this.hashes = hashes;
 		return this;
 	}
 
+	@Override
 	public AudioInfo getAudio() {
 		return audio;
 	}
 
+	@Override
 	public AssetUpdateRequest setAudio(AudioInfo audio) {
 		this.audio = audio;
 		return this;
 	}
 
+	@Override
 	public ImageInfo getImage() {
 		return image;
 	}
 
+	@Override
 	public AssetUpdateRequest setImage(ImageInfo image) {
 		this.image = image;
 		return this;
 	}
 
+	@Override
 	public VideoInfo getVideo() {
 		return video;
 	}
 
+	@Override
 	public AssetUpdateRequest setVideo(VideoInfo video) {
 		this.video = video;
 		return this;
 	}
 
+	@Override
 	public DocumentInfo getDocument() {
 		return document;
 	}
 
+	@Override
 	public AssetUpdateRequest setDocument(DocumentInfo document) {
 		this.document = document;
 		return this;
 	}
 
-	public AssetGeoLocation getGeo() {
+	@Override
+	public GeoLocationInfo getGeo() {
 		return geo;
 	}
 
-	public AssetUpdateRequest setGeo(AssetGeoLocation geo) {
+	@Override
+	public AssetUpdateRequest setGeo(GeoLocationInfo geo) {
 		this.geo = geo;
 		return this;
 	}
-	
-	public long getSize() {
-		return size;
-	}
 
-	public AssetUpdateRequest setSize(long size) {
-		this.size = size;
+	@Override
+	public AssetUpdateRequest self() {
 		return this;
 	}
-
 
 }

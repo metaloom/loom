@@ -18,12 +18,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function16;
+import org.jooq.Function17;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row16;
+import org.jooq.Row17;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -68,6 +68,11 @@ public class JooqAssetLocation extends TableImpl<JooqAssetLocationRecord> {
      * the media asset for the asset_location.
      */
     public final TableField<JooqAssetLocationRecord, java.util.UUID> ASSET_UUID = createField(DSL.name("asset_uuid"), SQLDataType.UUID.nullable(false), this, "Reference to the media asset for the asset_location.");
+
+    /**
+     * The column <code>public.asset_location.library_uuid</code>.
+     */
+    public final TableField<JooqAssetLocationRecord, java.util.UUID> LIBRARY_UUID = createField(DSL.name("library_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.asset_location.path</code>. Currently known path
@@ -191,12 +196,23 @@ public class JooqAssetLocation extends TableImpl<JooqAssetLocationRecord> {
 
     @Override
     public List<ForeignKey<JooqAssetLocationRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ASSET_LOCATION__ASSET_LOCATION_LOCKED_BY_UUID_FKEY, Keys.ASSET_LOCATION__ASSET_LOCATION_CREATOR_UUID_FKEY, Keys.ASSET_LOCATION__ASSET_LOCATION_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.ASSET_LOCATION__ASSET_LOCATION_LIBRARY_UUID_FKEY, Keys.ASSET_LOCATION__ASSET_LOCATION_LOCKED_BY_UUID_FKEY, Keys.ASSET_LOCATION__ASSET_LOCATION_CREATOR_UUID_FKEY, Keys.ASSET_LOCATION__ASSET_LOCATION_EDITOR_UUID_FKEY);
     }
 
+    private transient JooqLibrary _library;
     private transient JooqUser _assetLocationLockedByUuidFkey;
     private transient JooqUser _assetLocationCreatorUuidFkey;
     private transient JooqUser _assetLocationEditorUuidFkey;
+
+    /**
+     * Get the implicit join path to the <code>public.library</code> table.
+     */
+    public JooqLibrary library() {
+        if (_library == null)
+            _library = new JooqLibrary(this, Keys.ASSET_LOCATION__ASSET_LOCATION_LIBRARY_UUID_FKEY);
+
+        return _library;
+    }
 
     /**
      * Get the implicit join path to the <code>public.user</code> table, via the
@@ -271,18 +287,18 @@ public class JooqAssetLocation extends TableImpl<JooqAssetLocationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row16 type methods
+    // Row17 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<java.util.UUID, java.util.UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
-        return (Row16) super.fieldsRow();
+    public Row17<java.util.UUID, java.util.UUID, java.util.UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
+        return (Row17) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function16<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JsonObject, ? super String, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function17<? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JsonObject, ? super String, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -290,7 +306,7 @@ public class JooqAssetLocation extends TableImpl<JooqAssetLocationRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super java.util.UUID, ? super java.util.UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JsonObject, ? super String, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function17<? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super JsonObject, ? super String, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

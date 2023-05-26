@@ -1,5 +1,9 @@
 package io.metaloom.loom.rest.model.asset;
 
+import io.metaloom.loom.rest.model.asset.info.AudioInfo;
+import io.metaloom.loom.rest.model.asset.info.FileInfo;
+import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationExamples;
 import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
 import io.metaloom.loom.rest.model.example.ExampleValues;
@@ -10,6 +14,7 @@ public interface AssetExamples extends ExampleValues, AssetLocationExamples {
 		AssetResponse model = new AssetResponse();
 		setCreatorEditor(model);
 		model.setUuid(uuidA());
+		model.setFile(assetFileInfo());
 		model.getLicenses().add(new LicenseInfo().setName("license-name").setVersion("v1"));
 		model.setMeta(meta());
 		model.addLocation(locationReference());
@@ -51,22 +56,29 @@ public interface AssetExamples extends ExampleValues, AssetLocationExamples {
 		AssetUpdateRequest model = new AssetUpdateRequest();
 		model.setDominantColor("#FFFF00")
 			.setMeta(meta())
-			.setMimeType("video/mp4")
-			.setLocation(assetGeoLocation())
+			.setFile(assetFileInfo())
+			.setGeo(assetGeoLocation())
 			.setTimeline(assetAnnotations());
 		return model;
 	}
 
 	default AssetCreateRequest assetCreateRequest() {
 		AssetCreateRequest model = new AssetCreateRequest();
-		model.setFilename("bigbuckbunny-4k.mp4")
-			.setDominantColor("#FFFF00")
+		model.setDominantColor("#FFFF00")
 			.setLocalPath("/opt/movies/bigbuckbunny-4k.mp4")
 			.setMeta(meta())
-			.setMimeType("video/mp4")
-			.setLocation(assetGeoLocation())
-			.setTimeline(assetAnnotations());
+			.setGeo(assetGeoLocation())
+			.setTimeline(assetAnnotations())
+			.setFile(assetFileInfo());
 		return model;
+	}
+
+	default FileInfo assetFileInfo() {
+		FileInfo info = new FileInfo();
+		info.setSize(42L * 1000 * 1000);
+		info.setFilename("bigbuckbunny-4k.mp4");
+		info.setMimeType("video/mp4");
+		return info;
 	}
 
 }

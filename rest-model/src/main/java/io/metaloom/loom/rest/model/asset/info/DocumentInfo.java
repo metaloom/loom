@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.asset;
+package io.metaloom.loom.rest.model.asset.info;
 
 import io.metaloom.loom.rest.model.RestModel;
 

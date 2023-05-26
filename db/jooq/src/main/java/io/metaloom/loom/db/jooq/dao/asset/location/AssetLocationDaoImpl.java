@@ -1,6 +1,5 @@
 package io.metaloom.loom.db.jooq.dao.asset.location;
 
-import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -46,12 +45,9 @@ public class AssetLocationDaoImpl extends AbstractJooqDao<AssetLocation> impleme
 		Objects.requireNonNull(assetUuid, "Binary uuid must not be null");
 		AssetLocation location = new AssetLocationImpl();
 		location.setPath(filename);
-		Instant now = Instant.now();
-		location.setCreated(now);
-		location.setEdited(now);
-		location.setCreatorUuid(creatorUuid);
-		location.setEditorUuid(creatorUuid);
+		setCreatorEditor(location, creatorUuid);
 		location.setAssetUuid(assetUuid);
+		location.setLibraryUuid(libraryUuid);
 		return location;
 	}
 

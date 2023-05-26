@@ -12,8 +12,8 @@ import java.util.UUID;
 
 import org.jooq.Field;
 import org.jooq.Record1;
-import org.jooq.Record16;
-import org.jooq.Row16;
+import org.jooq.Record17;
+import org.jooq.Row17;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
@@ -23,7 +23,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * decoupled from asset.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocationRecord> implements Record16<UUID, UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> {
+public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocationRecord> implements Record17<UUID, UUID, UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -58,11 +58,25 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     /**
+     * Setter for <code>public.asset_location.library_uuid</code>.
+     */
+    public void setLibraryUuid(UUID value) {
+        set(2, value);
+    }
+
+    /**
+     * Getter for <code>public.asset_location.library_uuid</code>.
+     */
+    public UUID getLibraryUuid() {
+        return (UUID) get(2);
+    }
+
+    /**
      * Setter for <code>public.asset_location.path</code>. Currently known path
      * to the asset_location in the filesystem
      */
     public void setPath(String value) {
-        set(2, value);
+        set(3, value);
     }
 
     /**
@@ -70,63 +84,63 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
      * to the asset_location in the filesystem
      */
     public String getPath() {
-        return (String) get(2);
+        return (String) get(3);
     }
 
     /**
      * Setter for <code>public.asset_location.filekey_inode</code>.
      */
     public void setFilekeyInode(Integer value) {
-        set(3, value);
+        set(4, value);
     }
 
     /**
      * Getter for <code>public.asset_location.filekey_inode</code>.
      */
     public Integer getFilekeyInode() {
-        return (Integer) get(3);
+        return (Integer) get(4);
     }
 
     /**
      * Setter for <code>public.asset_location.filekey_stdev</code>.
      */
     public void setFilekeyStdev(Integer value) {
-        set(4, value);
+        set(5, value);
     }
 
     /**
      * Getter for <code>public.asset_location.filekey_stdev</code>.
      */
     public Integer getFilekeyStdev() {
-        return (Integer) get(4);
+        return (Integer) get(5);
     }
 
     /**
      * Setter for <code>public.asset_location.filekey_edate_nano</code>.
      */
     public void setFilekeyEdateNano(Integer value) {
-        set(5, value);
+        set(6, value);
     }
 
     /**
      * Getter for <code>public.asset_location.filekey_edate_nano</code>.
      */
     public Integer getFilekeyEdateNano() {
-        return (Integer) get(5);
+        return (Integer) get(6);
     }
 
     /**
      * Setter for <code>public.asset_location.filekey_edate</code>.
      */
     public void setFilekeyEdate(Integer value) {
-        set(6, value);
+        set(7, value);
     }
 
     /**
      * Getter for <code>public.asset_location.filekey_edate</code>.
      */
     public Integer getFilekeyEdate() {
-        return (Integer) get(6);
+        return (Integer) get(7);
     }
 
     /**
@@ -134,7 +148,7 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
      * properties to the asset_location
      */
     public void setMeta(JsonObject value) {
-        set(7, value);
+        set(8, value);
     }
 
     /**
@@ -142,119 +156,119 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
      * properties to the asset_location
      */
     public JsonObject getMeta() {
-        return (JsonObject) get(7);
+        return (JsonObject) get(8);
     }
 
     /**
      * Setter for <code>public.asset_location.mime_type</code>.
      */
     public void setMimeType(String value) {
-        set(8, value);
+        set(9, value);
     }
 
     /**
      * Getter for <code>public.asset_location.mime_type</code>.
      */
     public String getMimeType() {
-        return (String) get(8);
+        return (String) get(9);
     }
 
     /**
      * Setter for <code>public.asset_location.license</code>.
      */
     public void setLicense(String value) {
-        set(9, value);
+        set(10, value);
     }
 
     /**
      * Getter for <code>public.asset_location.license</code>.
      */
     public String getLicense() {
-        return (String) get(9);
+        return (String) get(10);
     }
 
     /**
      * Setter for <code>public.asset_location.state</code>.
      */
     public void setState(String value) {
-        set(10, value);
+        set(11, value);
     }
 
     /**
      * Getter for <code>public.asset_location.state</code>.
      */
     public String getState() {
-        return (String) get(10);
+        return (String) get(11);
     }
 
     /**
      * Setter for <code>public.asset_location.locked_by_uuid</code>.
      */
     public void setLockedByUuid(UUID value) {
-        set(11, value);
+        set(12, value);
     }
 
     /**
      * Getter for <code>public.asset_location.locked_by_uuid</code>.
      */
     public UUID getLockedByUuid() {
-        return (UUID) get(11);
+        return (UUID) get(12);
     }
 
     /**
      * Setter for <code>public.asset_location.created</code>.
      */
     public void setCreated(LocalDateTime value) {
-        set(12, value);
+        set(13, value);
     }
 
     /**
      * Getter for <code>public.asset_location.created</code>.
      */
     public LocalDateTime getCreated() {
-        return (LocalDateTime) get(12);
+        return (LocalDateTime) get(13);
     }
 
     /**
      * Setter for <code>public.asset_location.creator_uuid</code>.
      */
     public void setCreatorUuid(UUID value) {
-        set(13, value);
+        set(14, value);
     }
 
     /**
      * Getter for <code>public.asset_location.creator_uuid</code>.
      */
     public UUID getCreatorUuid() {
-        return (UUID) get(13);
+        return (UUID) get(14);
     }
 
     /**
      * Setter for <code>public.asset_location.edited</code>.
      */
     public void setEdited(LocalDateTime value) {
-        set(14, value);
+        set(15, value);
     }
 
     /**
      * Getter for <code>public.asset_location.edited</code>.
      */
     public LocalDateTime getEdited() {
-        return (LocalDateTime) get(14);
+        return (LocalDateTime) get(15);
     }
 
     /**
      * Setter for <code>public.asset_location.editor_uuid</code>.
      */
     public void setEditorUuid(UUID value) {
-        set(15, value);
+        set(16, value);
     }
 
     /**
      * Getter for <code>public.asset_location.editor_uuid</code>.
      */
     public UUID getEditorUuid() {
-        return (UUID) get(15);
+        return (UUID) get(16);
     }
 
     // -------------------------------------------------------------------------
@@ -267,17 +281,17 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     // -------------------------------------------------------------------------
-    // Record16 type implementation
+    // Record17 type implementation
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<UUID, UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
-        return (Row16) super.fieldsRow();
+    public Row17<UUID, UUID, UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+        return (Row17) super.fieldsRow();
     }
 
     @Override
-    public Row16<UUID, UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
-        return (Row16) super.valuesRow();
+    public Row17<UUID, UUID, UUID, String, Integer, Integer, Integer, Integer, JsonObject, String, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
+        return (Row17) super.valuesRow();
     }
 
     @Override
@@ -291,72 +305,77 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     @Override
-    public Field<String> field3() {
+    public Field<UUID> field3() {
+        return JooqAssetLocation.ASSET_LOCATION.LIBRARY_UUID;
+    }
+
+    @Override
+    public Field<String> field4() {
         return JooqAssetLocation.ASSET_LOCATION.PATH;
     }
 
     @Override
-    public Field<Integer> field4() {
+    public Field<Integer> field5() {
         return JooqAssetLocation.ASSET_LOCATION.FILEKEY_INODE;
     }
 
     @Override
-    public Field<Integer> field5() {
+    public Field<Integer> field6() {
         return JooqAssetLocation.ASSET_LOCATION.FILEKEY_STDEV;
     }
 
     @Override
-    public Field<Integer> field6() {
+    public Field<Integer> field7() {
         return JooqAssetLocation.ASSET_LOCATION.FILEKEY_EDATE_NANO;
     }
 
     @Override
-    public Field<Integer> field7() {
+    public Field<Integer> field8() {
         return JooqAssetLocation.ASSET_LOCATION.FILEKEY_EDATE;
     }
 
     @Override
-    public Field<JsonObject> field8() {
+    public Field<JsonObject> field9() {
         return JooqAssetLocation.ASSET_LOCATION.META;
     }
 
     @Override
-    public Field<String> field9() {
+    public Field<String> field10() {
         return JooqAssetLocation.ASSET_LOCATION.MIME_TYPE;
     }
 
     @Override
-    public Field<String> field10() {
+    public Field<String> field11() {
         return JooqAssetLocation.ASSET_LOCATION.LICENSE;
     }
 
     @Override
-    public Field<String> field11() {
+    public Field<String> field12() {
         return JooqAssetLocation.ASSET_LOCATION.STATE;
     }
 
     @Override
-    public Field<UUID> field12() {
+    public Field<UUID> field13() {
         return JooqAssetLocation.ASSET_LOCATION.LOCKED_BY_UUID;
     }
 
     @Override
-    public Field<LocalDateTime> field13() {
+    public Field<LocalDateTime> field14() {
         return JooqAssetLocation.ASSET_LOCATION.CREATED;
     }
 
     @Override
-    public Field<UUID> field14() {
+    public Field<UUID> field15() {
         return JooqAssetLocation.ASSET_LOCATION.CREATOR_UUID;
     }
 
     @Override
-    public Field<LocalDateTime> field15() {
+    public Field<LocalDateTime> field16() {
         return JooqAssetLocation.ASSET_LOCATION.EDITED;
     }
 
     @Override
-    public Field<UUID> field16() {
+    public Field<UUID> field17() {
         return JooqAssetLocation.ASSET_LOCATION.EDITOR_UUID;
     }
 
@@ -371,72 +390,77 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     @Override
-    public String component3() {
+    public UUID component3() {
+        return getLibraryUuid();
+    }
+
+    @Override
+    public String component4() {
         return getPath();
     }
 
     @Override
-    public Integer component4() {
+    public Integer component5() {
         return getFilekeyInode();
     }
 
     @Override
-    public Integer component5() {
+    public Integer component6() {
         return getFilekeyStdev();
     }
 
     @Override
-    public Integer component6() {
+    public Integer component7() {
         return getFilekeyEdateNano();
     }
 
     @Override
-    public Integer component7() {
+    public Integer component8() {
         return getFilekeyEdate();
     }
 
     @Override
-    public JsonObject component8() {
+    public JsonObject component9() {
         return getMeta();
     }
 
     @Override
-    public String component9() {
+    public String component10() {
         return getMimeType();
     }
 
     @Override
-    public String component10() {
+    public String component11() {
         return getLicense();
     }
 
     @Override
-    public String component11() {
+    public String component12() {
         return getState();
     }
 
     @Override
-    public UUID component12() {
+    public UUID component13() {
         return getLockedByUuid();
     }
 
     @Override
-    public LocalDateTime component13() {
+    public LocalDateTime component14() {
         return getCreated();
     }
 
     @Override
-    public UUID component14() {
+    public UUID component15() {
         return getCreatorUuid();
     }
 
     @Override
-    public LocalDateTime component15() {
+    public LocalDateTime component16() {
         return getEdited();
     }
 
     @Override
-    public UUID component16() {
+    public UUID component17() {
         return getEditorUuid();
     }
 
@@ -451,72 +475,77 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     @Override
-    public String value3() {
+    public UUID value3() {
+        return getLibraryUuid();
+    }
+
+    @Override
+    public String value4() {
         return getPath();
     }
 
     @Override
-    public Integer value4() {
+    public Integer value5() {
         return getFilekeyInode();
     }
 
     @Override
-    public Integer value5() {
+    public Integer value6() {
         return getFilekeyStdev();
     }
 
     @Override
-    public Integer value6() {
+    public Integer value7() {
         return getFilekeyEdateNano();
     }
 
     @Override
-    public Integer value7() {
+    public Integer value8() {
         return getFilekeyEdate();
     }
 
     @Override
-    public JsonObject value8() {
+    public JsonObject value9() {
         return getMeta();
     }
 
     @Override
-    public String value9() {
+    public String value10() {
         return getMimeType();
     }
 
     @Override
-    public String value10() {
+    public String value11() {
         return getLicense();
     }
 
     @Override
-    public String value11() {
+    public String value12() {
         return getState();
     }
 
     @Override
-    public UUID value12() {
+    public UUID value13() {
         return getLockedByUuid();
     }
 
     @Override
-    public LocalDateTime value13() {
+    public LocalDateTime value14() {
         return getCreated();
     }
 
     @Override
-    public UUID value14() {
+    public UUID value15() {
         return getCreatorUuid();
     }
 
     @Override
-    public LocalDateTime value15() {
+    public LocalDateTime value16() {
         return getEdited();
     }
 
     @Override
-    public UUID value16() {
+    public UUID value17() {
         return getEditorUuid();
     }
 
@@ -533,91 +562,97 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     }
 
     @Override
-    public JooqAssetLocationRecord value3(String value) {
+    public JooqAssetLocationRecord value3(UUID value) {
+        setLibraryUuid(value);
+        return this;
+    }
+
+    @Override
+    public JooqAssetLocationRecord value4(String value) {
         setPath(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value4(Integer value) {
+    public JooqAssetLocationRecord value5(Integer value) {
         setFilekeyInode(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value5(Integer value) {
+    public JooqAssetLocationRecord value6(Integer value) {
         setFilekeyStdev(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value6(Integer value) {
+    public JooqAssetLocationRecord value7(Integer value) {
         setFilekeyEdateNano(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value7(Integer value) {
+    public JooqAssetLocationRecord value8(Integer value) {
         setFilekeyEdate(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value8(JsonObject value) {
+    public JooqAssetLocationRecord value9(JsonObject value) {
         setMeta(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value9(String value) {
+    public JooqAssetLocationRecord value10(String value) {
         setMimeType(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value10(String value) {
+    public JooqAssetLocationRecord value11(String value) {
         setLicense(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value11(String value) {
+    public JooqAssetLocationRecord value12(String value) {
         setState(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value12(UUID value) {
+    public JooqAssetLocationRecord value13(UUID value) {
         setLockedByUuid(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value13(LocalDateTime value) {
+    public JooqAssetLocationRecord value14(LocalDateTime value) {
         setCreated(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value14(UUID value) {
+    public JooqAssetLocationRecord value15(UUID value) {
         setCreatorUuid(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value15(LocalDateTime value) {
+    public JooqAssetLocationRecord value16(LocalDateTime value) {
         setEdited(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord value16(UUID value) {
+    public JooqAssetLocationRecord value17(UUID value) {
         setEditorUuid(value);
         return this;
     }
 
     @Override
-    public JooqAssetLocationRecord values(UUID value1, UUID value2, String value3, Integer value4, Integer value5, Integer value6, Integer value7, JsonObject value8, String value9, String value10, String value11, UUID value12, LocalDateTime value13, UUID value14, LocalDateTime value15, UUID value16) {
+    public JooqAssetLocationRecord values(UUID value1, UUID value2, UUID value3, String value4, Integer value5, Integer value6, Integer value7, Integer value8, JsonObject value9, String value10, String value11, String value12, UUID value13, LocalDateTime value14, UUID value15, LocalDateTime value16, UUID value17) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -634,6 +669,7 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
         value14(value14);
         value15(value15);
         value16(value16);
+        value17(value17);
         return this;
     }
 
@@ -651,11 +687,12 @@ public class JooqAssetLocationRecord extends UpdatableRecordImpl<JooqAssetLocati
     /**
      * Create a detached, initialised JooqAssetLocationRecord
      */
-    public JooqAssetLocationRecord(UUID uuid, UUID assetUuid, String path, Integer filekeyInode, Integer filekeyStdev, Integer filekeyEdateNano, Integer filekeyEdate, JsonObject meta, String mimeType, String license, String state, UUID lockedByUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
+    public JooqAssetLocationRecord(UUID uuid, UUID assetUuid, UUID libraryUuid, String path, Integer filekeyInode, Integer filekeyStdev, Integer filekeyEdateNano, Integer filekeyEdate, JsonObject meta, String mimeType, String license, String state, UUID lockedByUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
         super(JooqAssetLocation.ASSET_LOCATION);
 
         setUuid(uuid);
         setAssetUuid(assetUuid);
+        setLibraryUuid(libraryUuid);
         setPath(path);
         setFilekeyInode(filekeyInode);
         setFilekeyStdev(filekeyStdev);

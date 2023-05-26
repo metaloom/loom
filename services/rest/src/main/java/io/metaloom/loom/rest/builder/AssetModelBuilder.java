@@ -10,14 +10,15 @@ import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
-import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
 import io.metaloom.loom.rest.model.asset.AssetListResponse;
 import io.metaloom.loom.rest.model.asset.AssetResponse;
-import io.metaloom.loom.rest.model.asset.AudioInfo;
-import io.metaloom.loom.rest.model.asset.DocumentInfo;
-import io.metaloom.loom.rest.model.asset.ImageInfo;
-import io.metaloom.loom.rest.model.asset.VideoInfo;
-import io.metaloom.loom.rest.model.asset.location.HashInfo;
+import io.metaloom.loom.rest.model.asset.info.AudioInfo;
+import io.metaloom.loom.rest.model.asset.info.DocumentInfo;
+import io.metaloom.loom.rest.model.asset.info.FileInfo;
+import io.metaloom.loom.rest.model.asset.info.GeoLocationInfo;
+import io.metaloom.loom.rest.model.asset.info.HashInfo;
+import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationReference;
 import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
 import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
@@ -30,8 +31,8 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 		return info;
 	}
 
-	default AssetGeoLocation assetGeoLocation(Asset asset) {
-		AssetGeoLocation location = new AssetGeoLocation();
+	default GeoLocationInfo assetGeoLocation(Asset asset) {
+		GeoLocationInfo location = new GeoLocationInfo();
 		Double lat = asset.getGeoLat() == null ? null : asset.getGeoLat().doubleValue();
 		Double lon = asset.getGeoLon() == null ? null : asset.getGeoLon().doubleValue();
 		location.setLat(lat);
@@ -47,13 +48,13 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 
 	default AssetResponse toResponse(Asset asset) {
 		AssetResponse response = new AssetResponse();
-		//response.setProcessStatus(null)
-		//response.setKind(null)
-		//response.setViews
+		// response.setProcessStatus(null)
+		// response.setKind(null)
+		// response.setViews
 
 		response.setUuid(asset.getUuid());
 		response.setMeta(asset.getMeta());
-		response.setMimeType(asset.getMimeType());
+		response.setFile(assetFileInfo(asset));
 		response.setSize(asset.getSize());
 		response.setHashes(assetHasheInfo(asset));
 		response.setImage(assetImageInfo(asset));
@@ -85,9 +86,9 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 
 	default SocialInfo assetSocialInfo(Asset asset) {
 		SocialInfo social = new SocialInfo();
-		//daos().reactionDao()
-		//social.setRating(rating)
-		//social.setReactions(null);
+		// daos().reactionDao()
+		// social.setRating(rating)
+		// social.setReactions(null);
 		return social;
 	}
 
@@ -108,6 +109,7 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 	default AudioInfo assetAudioInfo(Asset asset) {
 		AudioInfo info = new AudioInfo();
 		info.setBpm(asset.getAudioBPM());
+		info.setBitrate(asset.getAudioBitrate());
 		info.setChannels(asset.getAudioChannels());
 		info.setDuration(asset.getMediaDuration());
 		info.setEncoding(asset.getAudioEncoding());
@@ -116,11 +118,20 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 		return info;
 	}
 
+	default FileInfo assetFileInfo(Asset asset) {
+		FileInfo info = new FileInfo();
+		info.setMimeType(asset.getMimeType());
+		info.setSize(asset.getSize());
+//		info.setFilename(asset.getFilename());
+		return info;
+	}
+
 	default VideoInfo assetVideoInfo(Asset asset) {
 		VideoInfo info = new VideoInfo();
 		info.setDuration(asset.getMediaDuration());
 		// TODO use dedicated /asset/:uuid/embeddings endpoint for this
 		// info.setEmbeddings();
+		info.setBitrate(asset.getVideoBitrate());
 		info.setEncoding(asset.getVideoEncoding());
 		info.setFingerprint(asset.getVideoFingerprint());
 		info.setHeight(asset.getMediaHeight());

@@ -1,10 +1,16 @@
 package io.metaloom.loom.rest.model.asset.location;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
 public class AssetLocationResponse extends AbstractCreatorEditorRestResponse<AssetLocationResponse> {
+
+	private UUID libraryUuid;
+
+	private UUID assetUuid;
 
 	@JsonPropertyDescription("Information about the location of the asset in the filesystem.")
 	private AssetLocationFilesystemInfo filesystem;
@@ -13,6 +19,24 @@ public class AssetLocationResponse extends AbstractCreatorEditorRestResponse<Ass
 	private AssetS3Meta s3;
 
 	public AssetLocationResponse() {
+	}
+
+	public UUID getLibraryUuid() {
+		return libraryUuid;
+	}
+
+	public AssetLocationResponse setLibraryUuid(UUID libraryUuid) {
+		this.libraryUuid = libraryUuid;
+		return this;
+	}
+
+	public UUID getAssetUuid() {
+		return assetUuid;
+	}
+
+	public AssetLocationResponse setAssetUuid(UUID assetUuid) {
+		this.assetUuid = assetUuid;
+		return this;
 	}
 
 	public AssetLocationFilesystemInfo getFilesystem() {

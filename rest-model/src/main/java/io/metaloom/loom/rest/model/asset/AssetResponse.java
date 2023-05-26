@@ -9,7 +9,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
-import io.metaloom.loom.rest.model.asset.location.HashInfo;
+import io.metaloom.loom.rest.model.asset.info.AudioInfo;
+import io.metaloom.loom.rest.model.asset.info.DocumentInfo;
+import io.metaloom.loom.rest.model.asset.info.FileInfo;
+import io.metaloom.loom.rest.model.asset.info.GeoLocationInfo;
+import io.metaloom.loom.rest.model.asset.info.HashInfo;
+import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationReference;
 import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
 import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
@@ -17,7 +23,7 @@ import io.metaloom.loom.rest.model.collection.CollectionResponse;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
-public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetResponse> {
+public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetResponse> implements AssetModel<AssetResponse> {
 
 	@JsonPropertyDescription("The current processing status of the asset.")
 	private AssetProcessStatus processStatus;
@@ -25,14 +31,11 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 	@JsonPropertyDescription("The specific identified kind of asset.")
 	private AssetKind kind;
 
-	@JsonPropertyDescription("The mime type of the asset. (e.g. video/mp4)")
-	private String mimeType;
-
 	@JsonPropertyDescription("Times the asset has been viewed.")
 	private long views;
 
 	@JsonPropertyDescription("The GPS location of the asset.")
-	private AssetGeoLocation geo;
+	private GeoLocationInfo geo;
 
 	@JsonPropertyDescription("Licenses related to the asset.")
 	private List<LicenseInfo> licenses = new ArrayList<>();
@@ -48,6 +51,9 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 
 	@JsonPropertyDescription("List of collections to which the asset has been added")
 	private List<CollectionResponse> collections = new ArrayList<>();
+
+	@JsonPropertyDescription("Information about the asset file.")
+	private FileInfo file;
 
 	@JsonPropertyDescription("A set of different computed hashes for the asset.")
 	private HashInfo hashes;
@@ -107,20 +113,13 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 		return this;
 	}
 
-	public String getMimeType() {
-		return mimeType;
-	}
-
-	public AssetResponse setMimeType(String mimeType) {
-		this.mimeType = mimeType;
-		return this;
-	}
-
-	public AssetGeoLocation getGeo() {
+	@Override
+	public GeoLocationInfo getGeo() {
 		return geo;
 	}
 
-	public AssetResponse setGeo(AssetGeoLocation geo) {
+	@Override
+	public AssetResponse setGeo(GeoLocationInfo geo) {
 		this.geo = geo;
 		return this;
 	}
@@ -151,6 +150,17 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 		return this;
 	}
 
+	@Override
+	public FileInfo getFile() {
+		return file;
+	}
+
+	@Override
+	public AssetResponse setFile(FileInfo file) {
+		this.file = file;
+		return this;
+	}
+
 	public HashInfo getHashes() {
 		return hashes;
 	}
@@ -160,28 +170,34 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 		return this;
 	}
 
+	@Override
 	public AudioInfo getAudio() {
 		return audio;
 	}
 
+	@Override
 	public AssetResponse setAudio(AudioInfo audio) {
 		this.audio = audio;
 		return this;
 	}
 
+	@Override
 	public ImageInfo getImage() {
 		return image;
 	}
 
+	@Override
 	public AssetResponse setImage(ImageInfo image) {
 		this.image = image;
 		return this;
 	}
 
+	@Override
 	public VideoInfo getVideo() {
 		return video;
 	}
 
+	@Override
 	public AssetResponse setVideo(VideoInfo video) {
 		this.video = video;
 		return this;

@@ -11,6 +11,8 @@ public class AssetLocationImpl extends AbstractEditableElement<AssetLocation> im
 
 	private UUID assetUuid;
 
+	private UUID libraryUuid;
+
 	private String mimeType;
 
 	private Long filekeyInode;
@@ -29,6 +31,17 @@ public class AssetLocationImpl extends AbstractEditableElement<AssetLocation> im
 	@Override
 	public AssetLocation setPath(String path) {
 		this.path = path;
+		return this;
+	}
+
+	@Override
+	public UUID getLibraryUuid() {
+		return libraryUuid;
+	}
+
+	@Override
+	public AssetLocation setLibraryUuid(UUID libraryUuid) {
+		this.libraryUuid = libraryUuid;
 		return this;
 	}
 

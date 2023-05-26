@@ -13,10 +13,12 @@ CREATE TABLE "task" (
   "due_date" timestamp,
   "status" task_status DEFAULT 'PENDING',
   "priority" int,
+
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp NOT NULL DEFAULT (now()),
   "editor_uuid" uuid NOT NULL,
+
   PRIMARY KEY ("uuid")
 );
 COMMENT ON COLUMN "task"."title" IS 'Title of the task';

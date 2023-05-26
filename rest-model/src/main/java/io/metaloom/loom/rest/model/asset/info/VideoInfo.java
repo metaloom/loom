@@ -1,10 +1,11 @@
-package io.metaloom.loom.rest.model.asset;
+package io.metaloom.loom.rest.model.asset.info;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.model.asset.location.video.Embeddings;
 
-public class VideoInfo {
+public class VideoInfo implements RestModel {
 
 	@JsonPropertyDescription("The duration of the media in milliseconds.")
 	private Long duration;

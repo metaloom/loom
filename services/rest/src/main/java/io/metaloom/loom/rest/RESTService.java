@@ -10,7 +10,6 @@ import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.common.service.AbstractService;
 import io.metaloom.loom.rest.dagger.RESTEndpoints;
@@ -28,16 +27,19 @@ public class RESTService extends AbstractService {
 
 	private static final Logger log = LoggerFactory.getLogger(RESTService.class);
 
-	private Router router;
 	private HttpServer server;
 
-	private Set<RESTEndpoint> endpoints;
+	private final Router router;
+	private final Set<RESTEndpoint> endpoints;
+	private final ServerFailureHandler failureHandler;
 
 	@Inject
-	public RESTService(Vertx vertx, LoomOptions options, @Named("restRouter") Router router, @RESTEndpoints Set<RESTEndpoint> endpoints) {
+	public RESTService(Vertx vertx, LoomOptions options, @Named("restRouter") Router router, @RESTEndpoints Set<RESTEndpoint> endpoints,
+		ServerFailureHandler failureHandler) {
 		super(vertx, options);
 		this.router = router;
 		this.endpoints = endpoints;
+		this.failureHandler = failureHandler;
 	}
 
 	public HttpServer start() throws InterruptedException, ExecutionException {
@@ -63,26 +65,13 @@ public class RESTService extends AbstractService {
 		for (RESTEndpoint endpoint : endpoints) {
 			endpoint.register();
 		}
-		// endpoints.register();
 		router.errorHandler(404, rc -> {
 			log.error("Request failed {}", rc.normalizedPath(), rc.failure());
 			GenericMessageResponse error = new GenericMessageResponse();
-			error.setMessage("Not Found " + rc.statusCode() + " " + rc.normalizedPath());
-			rc.response().setStatusCode(500).end(Json.encodeToBuffer(error));
+			error.setMessage("Path not Found: " + rc.normalizedPath());
+			rc.response().setStatusCode(404).end(Json.encodeToBuffer(error));
 		});
-		router.route().failureHandler(rc -> {
-			log.error("Request failed {}", rc.normalizedPath(), rc.failure());
-			GenericMessageResponse error = new GenericMessageResponse();
-			// TODO Don't expose error details
-			if (rc.failure() instanceof LoomRestException lre) {
-				GenericMessageResponse errorResponse = new GenericMessageResponse();
-				errorResponse.setMessage(lre.getMessage());
-				rc.response().setStatusCode(lre.httpCode()).end(Json.encodeToBuffer(errorResponse));
-			} else {
-				error.setMessage("Internal Server Error " + rc.failure().getMessage());
-				rc.response().setStatusCode(400).end(Json.encodeToBuffer(error));
-			}
-		});
+		router.route().failureHandler(failureHandler);
 
 	}
 

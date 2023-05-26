@@ -1,8 +1,10 @@
-package io.metaloom.loom.rest.model.asset;
+package io.metaloom.loom.rest.model.asset.info;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-public class ImageInfo {
+import io.metaloom.loom.rest.model.RestModel;
+
+public class ImageInfo implements RestModel {
 
 	@JsonPropertyDescription("The image width in pixel of the asset.")
 	private Integer width;

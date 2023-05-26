@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.asset.location;
+package io.metaloom.loom.rest.model.asset.info;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 

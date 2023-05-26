@@ -164,11 +164,13 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
 
     @Override
     public List<ForeignKey<JooqReactionRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.REACTION__REACTION_CREATOR_UUID_FKEY, Keys.REACTION__REACTION_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.REACTION__REACTION_CREATOR_UUID_FKEY, Keys.REACTION__REACTION_EDITOR_UUID_FKEY, Keys.REACTION__REACTION_COMMENT_UUID_FKEY, Keys.REACTION__REACTION_ANNOTATION_UUID_FKEY);
     }
 
     private transient JooqUser _reactionCreatorUuidFkey;
     private transient JooqUser _reactionEditorUuidFkey;
+    private transient JooqComment _comment;
+    private transient JooqAnnotation _annotation;
 
     /**
      * Get the implicit join path to the <code>public.user</code> table, via the
@@ -190,6 +192,26 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
             _reactionEditorUuidFkey = new JooqUser(this, Keys.REACTION__REACTION_EDITOR_UUID_FKEY);
 
         return _reactionEditorUuidFkey;
+    }
+
+    /**
+     * Get the implicit join path to the <code>public.comment</code> table.
+     */
+    public JooqComment comment() {
+        if (_comment == null)
+            _comment = new JooqComment(this, Keys.REACTION__REACTION_COMMENT_UUID_FKEY);
+
+        return _comment;
+    }
+
+    /**
+     * Get the implicit join path to the <code>public.annotation</code> table.
+     */
+    public JooqAnnotation annotation() {
+        if (_annotation == null)
+            _annotation = new JooqAnnotation(this, Keys.REACTION__REACTION_ANNOTATION_UUID_FKEY);
+
+        return _annotation;
     }
 
     @Override

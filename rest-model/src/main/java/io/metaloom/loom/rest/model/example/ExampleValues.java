@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.annotation.AreaInfo;
-import io.metaloom.loom.rest.model.asset.AssetGeoLocation;
-import io.metaloom.loom.rest.model.asset.location.HashInfo;
+import io.metaloom.loom.rest.model.asset.info.GeoLocationInfo;
+import io.metaloom.loom.rest.model.asset.info.HashInfo;
 import io.metaloom.loom.rest.model.asset.location.social.ReactionType;
 import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
 import io.metaloom.loom.rest.model.comment.CommentResponse;
@@ -92,8 +92,8 @@ public interface ExampleValues {
 		return hashes;
 	}
 
-	default AssetGeoLocation assetGeoLocation() {
-		AssetGeoLocation location = new AssetGeoLocation();
+	default GeoLocationInfo assetGeoLocation() {
+		GeoLocationInfo location = new GeoLocationInfo();
 		location.setLat(52.156);
 		location.setLon(32.56);
 		return location;

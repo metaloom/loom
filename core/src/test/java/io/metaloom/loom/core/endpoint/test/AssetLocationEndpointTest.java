@@ -24,6 +24,8 @@ public class AssetLocationEndpointTest extends AbstractCRUDEndpointTest {
 	protected void testCreate(LoomHttpClient client) throws HttpErrorException {
 		AssetLocationCreateRequest request = new AssetLocationCreateRequest();
 		request.setFilesystem(new AssetLocationFilesystemInfo().setPath("/dummy/path"));
+		request.setLibraryUuid(LIBRARY_UUID);
+		request.setAssetUuid(ASSET_UUID);
 		AssetLocationResponse assetLocation = client.createLocation(request).sync();
 		assertThat(assetLocation).isValid();
 
@@ -49,6 +51,8 @@ public class AssetLocationEndpointTest extends AbstractCRUDEndpointTest {
 	protected void testReadPage(LoomHttpClient client) throws HttpErrorException {
 		for (int i = 0; i < 100; i++) {
 			AssetLocationCreateRequest request = new AssetLocationCreateRequest();
+			request.setAssetUuid(ASSET_UUID);
+			request.setLibraryUuid(LIBRARY_UUID);
 			request.setFilesystem(new AssetLocationFilesystemInfo().setPath("dummy path " + i));
 			client.createLocation(request).sync();
 		}

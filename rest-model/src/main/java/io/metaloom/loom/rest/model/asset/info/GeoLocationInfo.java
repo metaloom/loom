@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.asset;
+package io.metaloom.loom.rest.model.asset.info;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
@@ -7,7 +7,7 @@ import io.metaloom.loom.rest.model.RestModel;
 /**
  * Longitude and latitude information of the asset. (e.g. extracted Photo GPS information)
  */
-public class AssetGeoLocation implements RestModel {
+public class GeoLocationInfo implements RestModel {
 
 	@JsonPropertyDescription("The longitude in decimal degrees.")
 	private Double lon;
@@ -22,7 +22,7 @@ public class AssetGeoLocation implements RestModel {
 		return lon;
 	}
 
-	public AssetGeoLocation setLon(Double lon) {
+	public GeoLocationInfo setLon(Double lon) {
 		this.lon = lon;
 		return this;
 	}
@@ -31,7 +31,7 @@ public class AssetGeoLocation implements RestModel {
 		return lat;
 	}
 
-	public AssetGeoLocation setLat(Double lat) {
+	public GeoLocationInfo setLat(Double lat) {
 		this.lat = lat;
 		return this;
 	}
@@ -40,7 +40,7 @@ public class AssetGeoLocation implements RestModel {
 		return alias;
 	}
 
-	public AssetGeoLocation setAlias(String alias) {
+	public GeoLocationInfo setAlias(String alias) {
 		this.alias = alias;
 		return this;
 	}

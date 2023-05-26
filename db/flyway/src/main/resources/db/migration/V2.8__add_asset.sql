@@ -75,8 +75,8 @@ CREATE TABLE "asset_remix" (
 );
 CREATE INDEX ON "asset_remix" ("asset_a_uuid");
 CREATE INDEX ON "asset_remix" ("asset_b_uuid");
-ALTER TABLE "asset_remix" ADD FOREIGN KEY ("asset_a_uuid") REFERENCES "asset" ("uuid");
-ALTER TABLE "asset_remix" ADD FOREIGN KEY ("asset_b_uuid") REFERENCES "asset" ("uuid");
+ALTER TABLE "asset_remix" ADD FOREIGN KEY ("asset_a_uuid") REFERENCES "asset" ("uuid") ON DELETE CASCADE;
+ALTER TABLE "asset_remix" ADD FOREIGN KEY ("asset_b_uuid") REFERENCES "asset" ("uuid") ON DELETE CASCADE;
 ALTER TABLE "asset_remix" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 COMMENT ON TABLE "asset_remix" IS 'Store information on remixes of binaries.';
 COMMENT ON COLUMN "asset_remix"."meta" IS 'Custom meta properties to the element';
@@ -121,12 +121,3 @@ CREATE TABLE "asset_task" (
 );
 ALTER TABLE "asset_task" ADD FOREIGN KEY ("task_uuid") REFERENCES "task" ("uuid");
 ALTER TABLE "asset_task" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
-
-CREATE TABLE "asset_reaction" (
-  "asset_uuid" uuid,
-  "reaction_uuid" uuid,
-  PRIMARY KEY ("asset_uuid", "reaction_uuid")
-);
-ALTER TABLE "asset_reaction" ADD FOREIGN KEY ("asset_uuid") REFERENCES "asset" ("uuid");
-ALTER TABLE "asset_reaction" ADD FOREIGN KEY ("reaction_uuid") REFERENCES "reaction" ("uuid");
-

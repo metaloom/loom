@@ -27,6 +27,10 @@ public interface AssetLocation extends CUDElement<AssetLocation>, Taggable, Meta
 
 	AssetLocation setAssetUuid(UUID assetUuid);
 
+	UUID getLibraryUuid();
+
+	AssetLocation setLibraryUuid(UUID libraryUuid);
+
 	String getMimeType();
 
 	AssetLocation setMimeType(String mimeType);
