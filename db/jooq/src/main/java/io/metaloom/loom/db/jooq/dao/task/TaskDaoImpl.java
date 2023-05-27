@@ -1,9 +1,11 @@
 package io.metaloom.loom.db.jooq.dao.task;
 
 import static io.metaloom.loom.db.jooq.tables.JooqAnnotationAsset.ANNOTATION_ASSET;
+import static io.metaloom.loom.db.jooq.tables.JooqTask.TASK;
 import static io.metaloom.loom.db.jooq.tables.JooqAnnotationTask.ANNOTATION_TASK;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -52,10 +54,12 @@ public class TaskDaoImpl extends AbstractJooqDao<Task> implements TaskDao {
 
 	@Override
 	public List<Task> loadForAnnotation(UUID annotationUuid) {
-		return ctx().select(getTable()).from(getTable())
+		Objects.requireNonNull(annotationUuid, "The annotation uuid must be provided");
+		return ctx().select(getTable())
+			.from(getTable())
 			.join(ANNOTATION_TASK)
-			.on(ANNOTATION_ASSET.ANNOTATION_UUID.eq(JooqAnnotation.ANNOTATION.UUID))
-			.where(ANNOTATION_ASSET.ANNOTATION_UUID.eq(annotationUuid))
+			.on(ANNOTATION_TASK.TASK_UUID.eq(TASK.UUID))
+			.where(ANNOTATION_TASK.ANNOTATION_UUID.eq(annotationUuid))
 			.fetchInto(getPojoClass());
 	}
 

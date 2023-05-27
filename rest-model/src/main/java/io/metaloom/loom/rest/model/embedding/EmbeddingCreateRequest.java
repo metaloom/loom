@@ -2,12 +2,11 @@ package io.metaloom.loom.rest.model.embedding;
 
 import java.util.UUID;
 
-import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.annotation.AreaInfo;
 import io.vertx.core.json.JsonObject;
 
-public class EmbeddingCreateRequest implements MetaModel<EmbeddingCreateRequest>, RestRequestModel {
+public class EmbeddingCreateRequest implements RestRequestModel, EmbeddingModel<EmbeddingCreateRequest> {
 
 	private Long id;
 
@@ -50,10 +49,12 @@ public class EmbeddingCreateRequest implements MetaModel<EmbeddingCreateRequest>
 		return this;
 	}
 
+	@Override
 	public AreaInfo getArea() {
 		return area;
 	}
 
+	@Override
 	public EmbeddingCreateRequest setArea(AreaInfo area) {
 		this.area = area;
 		return this;
@@ -65,11 +66,6 @@ public class EmbeddingCreateRequest implements MetaModel<EmbeddingCreateRequest>
 
 	public EmbeddingCreateRequest setType(EmbeddingType type) {
 		this.type = type;
-		return this;
-	}
-
-	@Override
-	public EmbeddingCreateRequest self() {
 		return this;
 	}
 
@@ -88,6 +84,12 @@ public class EmbeddingCreateRequest implements MetaModel<EmbeddingCreateRequest>
 
 	public EmbeddingCreateRequest setAssetUuid(UUID assetUuid) {
 		this.assetUuid = assetUuid;
+		return this;
+	}
+
+
+	@Override
+	public EmbeddingCreateRequest self() {
 		return this;
 	}
 

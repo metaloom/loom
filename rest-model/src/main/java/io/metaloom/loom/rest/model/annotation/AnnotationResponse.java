@@ -10,7 +10,10 @@ import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.metaloom.loom.rest.model.task.TaskResponse;
 
-public class AnnotationResponse extends AbstractCreatorEditorRestResponse<AnnotationResponse> {
+public class AnnotationResponse extends AbstractCreatorEditorRestResponse<AnnotationResponse> implements AnnotationModel<AnnotationResponse> {
+
+	@JsonPropertyDescription("The type of the annotation.")
+	private AnnotationType type;
 
 	@JsonPropertyDescription("Title of the annotation")
 	private String title;
@@ -34,6 +37,28 @@ public class AnnotationResponse extends AbstractCreatorEditorRestResponse<Annota
 	@JsonPropertyDescription("List of tags for the entry")
 	private List<TagReference> tags = new ArrayList<>();
 
+	@Override
+	public AnnotationType getType() {
+		return type;
+	}
+
+	@Override
+	public AnnotationResponse setType(AnnotationType type) {
+		this.type = type;
+		return this;
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
+	}
+
+	@Override
+	public AnnotationResponse setTitle(String title) {
+		this.title = title;
+		return this;
+	}
+
 	public List<TagReference> getTags() {
 		return tags;
 	}
@@ -43,28 +68,23 @@ public class AnnotationResponse extends AbstractCreatorEditorRestResponse<Annota
 		return this;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
+	@Override
 	public AnnotationResponse setDescription(String description) {
 		this.description = description;
 		return this;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public AnnotationResponse setTitle(String title) {
-		this.title = title;
-		return this;
-	}
-
+	@Override
 	public AreaInfo getArea() {
 		return area;
 	}
 
+	@Override
 	public AnnotationResponse setArea(AreaInfo area) {
 		this.area = area;
 		return this;

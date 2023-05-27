@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
-public class GroupResponse extends AbstractCreatorEditorRestResponse<GroupResponse> {
+public class GroupResponse extends AbstractCreatorEditorRestResponse<GroupResponse> implements GroupModel<GroupResponse> {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("Name of the group")
@@ -14,10 +14,12 @@ public class GroupResponse extends AbstractCreatorEditorRestResponse<GroupRespon
 	public GroupResponse() {
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public GroupResponse setName(String name) {
 		this.name = name;
 		return this;

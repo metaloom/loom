@@ -3,11 +3,10 @@ package io.metaloom.loom.rest.model.group;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
 
-public class GroupUpdateRequest implements MetaModel<GroupUpdateRequest>, RestRequestModel {
+public class GroupUpdateRequest implements RestRequestModel, GroupModel<GroupUpdateRequest> {
 
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Name of the group")
@@ -20,10 +19,12 @@ public class GroupUpdateRequest implements MetaModel<GroupUpdateRequest>, RestRe
 	public GroupUpdateRequest() {
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public GroupUpdateRequest setName(String name) {
 		this.name = name;
 		return this;

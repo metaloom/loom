@@ -3,11 +3,10 @@ package io.metaloom.loom.rest.model.asset.location;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
 
-public class AssetLocationUpdateRequest implements RestRequestModel, MetaModel<AssetLocationUpdateRequest> {
+public class AssetLocationUpdateRequest implements RestRequestModel, AssetLocationModel<AssetLocationUpdateRequest> {
 
 	@JsonPropertyDescription("Information about the location of the asset in the filesystem.")
 	private AssetLocationFilesystemInfo filesystem;
@@ -30,19 +29,23 @@ public class AssetLocationUpdateRequest implements RestRequestModel, MetaModel<A
 		return this;
 	}
 
+	@Override
 	public AssetLocationFilesystemInfo getFilesystem() {
 		return filesystem;
 	}
 
+	@Override
 	public AssetLocationUpdateRequest setFilesystem(AssetLocationFilesystemInfo filesystem) {
 		this.filesystem = filesystem;
 		return this;
 	}
 
+	@Override
 	public AssetS3Meta getS3() {
 		return s3;
 	}
 
+	@Override
 	public AssetLocationUpdateRequest setS3(AssetS3Meta s3) {
 		this.s3 = s3;
 		return this;

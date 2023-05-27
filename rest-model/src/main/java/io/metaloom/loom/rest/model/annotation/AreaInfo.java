@@ -54,7 +54,7 @@ public class AreaInfo {
 		return this;
 	}
 
-	public long getFrom() {
+	public Long getFrom() {
 		return from;
 	}
 

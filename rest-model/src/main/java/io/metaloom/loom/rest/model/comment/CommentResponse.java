@@ -3,7 +3,7 @@ package io.metaloom.loom.rest.model.comment;
 import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
-public class CommentResponse extends AbstractCreatorEditorRestResponse<CommentResponse> {
+public class CommentResponse extends AbstractCreatorEditorRestResponse<CommentResponse> implements CommentModel<CommentResponse> {
 
 	private String title;
 
@@ -11,19 +11,23 @@ public class CommentResponse extends AbstractCreatorEditorRestResponse<CommentRe
 
 	private SocialInfo social;
 
+	@Override
 	public String getTitle() {
 		return title;
 	}
 
+	@Override
 	public CommentResponse setTitle(String title) {
 		this.title = title;
 		return this;
 	}
 
+	@Override
 	public String getText() {
 		return text;
 	}
 
+	@Override
 	public CommentResponse setText(String text) {
 		this.text = text;
 		return this;

@@ -68,7 +68,8 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 
 	@Override
 	public List<Tag> assetTags(Asset asset) {
-		return ctx().select(getTable()).from(getTable())
+		return ctx().select(getTable())
+			.from(getTable())
 			.join(TAG_ASSET)
 			.on(TAG_ASSET.ASSET_UUID.eq(TAG_ASSET.ASSET_UUID))
 			.where(TAG_ASSET.ASSET_UUID.eq(asset.getUuid()))

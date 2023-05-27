@@ -1,19 +1,20 @@
 package io.metaloom.loom.rest.model.cluster;
 
-import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
 
-public class ClusterCreateRequest implements RestRequestModel, MetaModel<ClusterCreateRequest> {
+public class ClusterCreateRequest implements RestRequestModel, ClusterModel<ClusterCreateRequest> {
 
 	private String name;
 
 	private JsonObject meta;
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public ClusterCreateRequest setName(String name) {
 		this.name = name;
 		return this;

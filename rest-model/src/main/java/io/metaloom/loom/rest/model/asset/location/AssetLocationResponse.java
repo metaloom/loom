@@ -6,7 +6,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
-public class AssetLocationResponse extends AbstractCreatorEditorRestResponse<AssetLocationResponse> {
+public class AssetLocationResponse extends AbstractCreatorEditorRestResponse<AssetLocationResponse>
+	implements AssetLocationModel<AssetLocationResponse> {
 
 	private UUID libraryUuid;
 
@@ -39,19 +40,23 @@ public class AssetLocationResponse extends AbstractCreatorEditorRestResponse<Ass
 		return this;
 	}
 
+	@Override
 	public AssetLocationFilesystemInfo getFilesystem() {
 		return filesystem;
 	}
 
+	@Override
 	public AssetLocationResponse setFilesystem(AssetLocationFilesystemInfo location) {
 		this.filesystem = location;
 		return this;
 	}
 
+	@Override
 	public AssetS3Meta getS3() {
 		return s3;
 	}
 
+	@Override
 	public AssetLocationResponse setS3(AssetS3Meta s3) {
 		this.s3 = s3;
 		return this;

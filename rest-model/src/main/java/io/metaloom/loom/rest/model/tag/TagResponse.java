@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 
-public class TagResponse extends AbstractCreatorEditorRestResponse<TagResponse> {
+public class TagResponse extends AbstractCreatorEditorRestResponse<TagResponse> implements TagModel<TagResponse> {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("Text value of the tag.")
@@ -18,19 +18,23 @@ public class TagResponse extends AbstractCreatorEditorRestResponse<TagResponse> 
 	public TagResponse() {
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public TagResponse setName(String name) {
 		this.name = name;
 		return this;
 	}
 
+	@Override
 	public String getCollection() {
 		return collection;
 	}
 
+	@Override
 	public TagResponse setCollection(String collection) {
 		this.collection = collection;
 		return this;

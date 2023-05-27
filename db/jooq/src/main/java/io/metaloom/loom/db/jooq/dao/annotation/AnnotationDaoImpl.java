@@ -53,7 +53,8 @@ public class AnnotationDaoImpl extends AbstractJooqDao<Annotation> implements An
 
 	@Override
 	public List<Annotation> loadForAsset(UUID assetUuid) {
-		return ctx().select(getTable()).from(getTable())
+		return ctx().select(getTable())
+			.from(getTable())
 			.join(ANNOTATION_ASSET)
 			.on(ANNOTATION_ASSET.ANNOTATION_UUID.eq(JooqAnnotation.ANNOTATION.UUID))
 			.where(ANNOTATION_ASSET.ASSET_UUID.eq(assetUuid))

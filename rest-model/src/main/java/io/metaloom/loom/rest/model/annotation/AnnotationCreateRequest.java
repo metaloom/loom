@@ -7,7 +7,10 @@ import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
 
-public class AnnotationCreateRequest implements RestRequestModel, MetaModel<AnnotationCreateRequest> {
+public class AnnotationCreateRequest implements RestRequestModel, MetaModel<AnnotationCreateRequest>, AnnotationModel<AnnotationCreateRequest> {
+
+	@JsonPropertyDescription("The type of the annotation.")
+	private AnnotationType type;
 
 	@JsonPropertyDescription("Title of the annotation")
 	private String title;
@@ -33,28 +36,45 @@ public class AnnotationCreateRequest implements RestRequestModel, MetaModel<Anno
 		return this;
 	}
 
+	@Override
+	public AnnotationType getType() {
+		return type;
+	}
+
+	@Override
+	public AnnotationCreateRequest setType(AnnotationType type) {
+		this.type = type;
+		return this;
+	}
+
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
+	@Override
 	public AnnotationCreateRequest setDescription(String description) {
 		this.description = description;
 		return this;
 	}
 
+	@Override
 	public String getTitle() {
 		return title;
 	}
 
+	@Override
 	public AnnotationCreateRequest setTitle(String title) {
 		this.title = title;
 		return this;
 	}
 
+	@Override
 	public AreaInfo getArea() {
 		return area;
 	}
 
+	@Override
 	public AnnotationCreateRequest setArea(AreaInfo area) {
 		this.area = area;
 		return this;

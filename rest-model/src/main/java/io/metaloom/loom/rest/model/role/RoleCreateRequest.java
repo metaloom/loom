@@ -9,7 +9,7 @@ import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
 
-public class RoleCreateRequest implements RestRequestModel {
+public class RoleCreateRequest implements RestRequestModel, RoleModel<RoleCreateRequest> {
 
 	@JsonProperty(required = true)
 	@JsonPropertyDescription("The name of the new role")
@@ -26,19 +26,23 @@ public class RoleCreateRequest implements RestRequestModel {
 	public RoleCreateRequest() {
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public RoleCreateRequest setName(String name) {
 		this.name = name;
 		return this;
 	}
 
+	@Override
 	public JsonObject getMeta() {
 		return meta;
 	}
 
+	@Override
 	public RoleCreateRequest setMeta(JsonObject meta) {
 		this.meta = meta;
 		return this;
@@ -50,6 +54,11 @@ public class RoleCreateRequest implements RestRequestModel {
 
 	public RoleCreateRequest setPermissions(List<RolePermission> permissions) {
 		this.permissions = permissions;
+		return this;
+	}
+
+	@Override
+	public RoleCreateRequest self() {
 		return this;
 	}
 
