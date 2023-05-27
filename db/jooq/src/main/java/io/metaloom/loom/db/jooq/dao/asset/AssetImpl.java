@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.asset;
 
+import java.time.Instant;
+
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.asset.Asset;
 
@@ -10,7 +12,13 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	private String md5sum;
 	private String chunkHash;
 	private long zeroChunkCount;
+
+	// File
 	private long size;
+	private String filename;
+	private String mimeType;
+	private Instant firstSeen;
+	private String initialOrigin;
 
 	// Video
 	private String videoFingerprint;
@@ -43,9 +51,6 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	private Double geoLat;
 	private Double geoLon;
 	private String geoAlias;
-
-	private String mimeType;
-	private String initialOrigin;
 
 	public AssetImpl() {
 	}
@@ -172,6 +177,17 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	}
 
 	@Override
+	public String getFilename() {
+		return filename;
+	}
+
+	@Override
+	public Asset setFilename(String filename) {
+		this.filename = filename;
+		return this;
+	}
+
+	@Override
 	public String getS3BucketName() {
 		return this.s3BucketName;
 	}
@@ -245,6 +261,17 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	@Override
 	public Asset setMimeType(String mimeType) {
 		this.mimeType = mimeType;
+		return this;
+	}
+
+	@Override
+	public Instant getFirstSeen() {
+		return firstSeen;
+	}
+
+	@Override
+	public Asset setFirstSeen(Instant time) {
+		this.firstSeen = time;
 		return this;
 	}
 

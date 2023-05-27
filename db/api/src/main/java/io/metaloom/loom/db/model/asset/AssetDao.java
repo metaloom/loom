@@ -9,11 +9,11 @@ import io.vertx.core.json.JsonObject;
 
 public interface AssetDao extends CRUDDao<Asset> {
 
-	default Asset createAsset(User user, SHA512Sum sha512sum, String mimeType, String initialOrigin, long size) {
-		return createAsset(user.getUuid(), sha512sum, mimeType, initialOrigin, size);
+	default Asset createAsset(User user, SHA512Sum sha512sum, String mimeType, String filename, String initialOrigin, long size) {
+		return createAsset(user.getUuid(), sha512sum, mimeType, filename, initialOrigin, size);
 	}
 
-	Asset createAsset(UUID userUuid, SHA512Sum sha512sum, String mimeType, String initialOrigin, long size);
+	Asset createAsset(UUID userUuid, SHA512Sum sha512sum, String mimeType, String filename, String initialOrigin, long size);
 
 	void storeUserMeta(User user, Asset asset, JsonObject meta);
 

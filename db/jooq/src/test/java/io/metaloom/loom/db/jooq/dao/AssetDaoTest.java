@@ -13,7 +13,7 @@ public class AssetDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<A
 
 	@Override
 	public Asset createElement(User user, int i) {
-		return assetDao().createAsset(user.getUuid(), SHA512Sum.fromString(SHA256SUM), IMAGE_MIMETYPE, DUMMY_IMAGE_ORIGIN, 42L);
+		return assetDao().createAsset(user.getUuid(), SHA512Sum.fromString(SHA256SUM), IMAGE_MIMETYPE, DUMMY_FILENAME, DUMMY_IMAGE_ORIGIN, 42L);
 	}
 
 	@Override

@@ -3,11 +3,13 @@ package io.metaloom.loom.rest.model.asset;
 
 import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.asset.info.AudioInfo;
+import io.metaloom.loom.rest.model.asset.info.ConsistencyInfo;
 import io.metaloom.loom.rest.model.asset.info.DocumentInfo;
 import io.metaloom.loom.rest.model.asset.info.FileInfo;
 import io.metaloom.loom.rest.model.asset.info.GeoLocationInfo;
 import io.metaloom.loom.rest.model.asset.info.HashInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 
 public interface AssetModel<T extends AssetModel<T>> extends MetaModel<T> {
@@ -39,5 +41,13 @@ public interface AssetModel<T extends AssetModel<T>> extends MetaModel<T> {
 	FileInfo getFile();
 
 	T setFile(FileInfo file);
+
+	MediaInfo getMedia();
+
+	T setMedia(MediaInfo media);
+
+	ConsistencyInfo getConsistency();
+
+	T setConsistency(ConsistencyInfo consistency);
 
 }

@@ -13,11 +13,13 @@ import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.asset.AssetListResponse;
 import io.metaloom.loom.rest.model.asset.AssetResponse;
 import io.metaloom.loom.rest.model.asset.info.AudioInfo;
+import io.metaloom.loom.rest.model.asset.info.ConsistencyInfo;
 import io.metaloom.loom.rest.model.asset.info.DocumentInfo;
 import io.metaloom.loom.rest.model.asset.info.FileInfo;
 import io.metaloom.loom.rest.model.asset.info.GeoLocationInfo;
 import io.metaloom.loom.rest.model.asset.info.HashInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationReference;
 import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
@@ -55,16 +57,16 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 		response.setUuid(asset.getUuid());
 		response.setMeta(asset.getMeta());
 		response.setFile(assetFileInfo(asset));
-		response.setSize(asset.getSize());
+		response.setConsistency(assetConsistencyInfo(asset));
 		response.setHashes(assetHasheInfo(asset));
+		response.setMedia(assetMediaInfo(asset));
 		response.setImage(assetImageInfo(asset));
 		response.setVideo(assetVideoInfo(asset));
 		response.setAudio(assetAudioInfo(asset));
 		response.setDocument(assetDocumentInfo(asset));
 		response.setSocial(assetSocialInfo(asset));
 		response.setGeo(assetGeoLocation(asset));
-		response.setLicenses(assetLicense(asset));
-		response.setOrigin(asset.getInitialOrigin());
+		// response.setLicenses(assetLicense(asset));
 		response.setMeta(asset.getMeta());
 		setStatus(asset, response);
 
@@ -77,11 +79,17 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 		List<AnnotationResponse> restAnnotations = annotations.stream().map(this::toResponse).collect(Collectors.toList());
 		response.setAnnotations(restAnnotations);
 
-		response.setKind(null);
+		// response.setKind(null);
 		// response.setViews();
-		response.setCollections(null);
+		// response.setCollections(null);
 
 		return validator().validate(response);
+	}
+
+	default ConsistencyInfo assetConsistencyInfo(Asset asset) {
+		ConsistencyInfo info = new ConsistencyInfo();
+		info.setZeroChunkCount(asset.getZeroChunkCount());
+		return info;
 	}
 
 	default SocialInfo assetSocialInfo(Asset asset) {
@@ -111,7 +119,6 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 		info.setBpm(asset.getAudioBPM());
 		info.setBitrate(asset.getAudioBitrate());
 		info.setChannels(asset.getAudioChannels());
-		info.setDuration(asset.getMediaDuration());
 		info.setEncoding(asset.getAudioEncoding());
 		info.setFingerprint(asset.getAudioFingerprint());
 		info.setSamplingRate(asset.getAudioSamplingRate());
@@ -122,28 +129,35 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 		FileInfo info = new FileInfo();
 		info.setMimeType(asset.getMimeType());
 		info.setSize(asset.getSize());
-//		info.setFilename(asset.getFilename());
+		info.setFilename(asset.getFilename());
+		info.setOrigin(asset.getInitialOrigin());
+		info.setFirstSeen(asset.getFirstSeen());
 		return info;
 	}
 
 	default VideoInfo assetVideoInfo(Asset asset) {
 		VideoInfo info = new VideoInfo();
-		info.setDuration(asset.getMediaDuration());
+
 		// TODO use dedicated /asset/:uuid/embeddings endpoint for this
 		// info.setEmbeddings();
 		info.setBitrate(asset.getVideoBitrate());
 		info.setEncoding(asset.getVideoEncoding());
 		info.setFingerprint(asset.getVideoFingerprint());
+
+		return info;
+	}
+
+	default MediaInfo assetMediaInfo(Asset asset) {
+		MediaInfo info = new MediaInfo();
 		info.setHeight(asset.getMediaHeight());
 		info.setWidth(asset.getMediaWidth());
+		info.setDuration(asset.getMediaDuration());
 		return info;
 	}
 
 	default ImageInfo assetImageInfo(Asset asset) {
 		ImageInfo info = new ImageInfo();
 		info.setDominantColor(asset.getDominantColor());
-		info.setHeight(asset.getMediaHeight());
-		info.setWidth(asset.getMediaWidth());
 		return info;
 	}
 

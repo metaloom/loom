@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.service.impl;
 
+import static io.metaloom.filter.Operation.RANGE;
 import static io.metaloom.loom.db.model.perm.Permission.CREATE_ASSET;
 import static io.metaloom.loom.db.model.perm.Permission.DELETE_ASSET;
 import static io.metaloom.loom.db.model.perm.Permission.READ_ASSET;
@@ -23,11 +24,13 @@ import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
 import io.metaloom.loom.rest.model.asset.AssetModel;
 import io.metaloom.loom.rest.model.asset.AssetUpdateRequest;
 import io.metaloom.loom.rest.model.asset.info.AudioInfo;
+import io.metaloom.loom.rest.model.asset.info.ConsistencyInfo;
 import io.metaloom.loom.rest.model.asset.info.DocumentInfo;
 import io.metaloom.loom.rest.model.asset.info.FileInfo;
 import io.metaloom.loom.rest.model.asset.info.GeoLocationInfo;
 import io.metaloom.loom.rest.model.asset.info.HashInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetS3Meta;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
@@ -134,12 +137,16 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 
 			UUID userUuid = lrc.userUuid();
 			HashInfo hashes = request.getHashes();
+
+			// Mandatory fields
 			String sha512sumStr = hashes.getSha512();
 			SHA512Sum sha512sum = SHA512Sum.fromString(sha512sumStr);
 			String mimeType = request.getFile().getMimeType();
-			String initialOrigin = request.getOrigin();
+			String filename = request.getFile().getFilename();
+			String origin = request.getFile().getOrigin();
 			Long size = request.getFile().getSize();
-			Asset asset = dao().createAsset(userUuid, sha512sum, mimeType, initialOrigin, size);
+
+			Asset asset = dao().createAsset(userUuid, sha512sum, mimeType, filename, origin, size);
 			update(request, asset);
 			return asset;
 		}, modelBuilder::toResponse);
@@ -151,35 +158,54 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 		// update(request::getOrigin, asset::setInitialOrigin);
 		// update(request::getZeroChunkCount, asset::setZeroChunkCount);
 		// License
+		// author
 		// Annotations?
 		// Tasks?
 		// Reactions?
 		// tags
-		// firstSeen?
+		// lastSeen?
+		// firstSeen? - created?
 		// Collections
 		// kind?
 		// procesStatus?
 		// views?
 		FileInfo fileInfo = model.getFile();
 		if (fileInfo != null) {
+			update(fileInfo::getFirstSeen, asset::setFirstSeen);
+			update(fileInfo::getFilename, asset::setFilename);
+			update(fileInfo::getOrigin, asset::setInitialOrigin);
 			update(fileInfo::getMimeType, asset::setMimeType);
 			update(fileInfo::getSize, asset::setSize);
+		}
+
+		HashInfo hashes = model.getHashes();
+		if (hashes != null) {
+			update(hashes::getMD5, asset::setMD5);
+			update(hashes::getSha256, asset::setSHA256);
+			update(hashes::getSha512, asset::setSHA512);
+		}
+
+		ConsistencyInfo consistency = model.getConsistency();
+		if (consistency != null) {
+			update(consistency::getZeroChunkCount, asset::setZeroChunkCount);
 		}
 
 		ImageInfo imageInfo = model.getImage();
 		if (imageInfo != null) {
 			update(imageInfo::getDominantColor, asset::setDominantColor);
-			update(imageInfo::getHeight, asset::setMediaHeight);
-			update(imageInfo::getWidth, asset::setMediaWidth);
+		}
+
+		MediaInfo mediaInfo = model.getMedia();
+		if (mediaInfo != null) {
+			update(mediaInfo::getDuration, asset::setMediaDuration);
+			update(mediaInfo::getHeight, asset::setMediaHeight);
+			update(mediaInfo::getWidth, asset::setMediaWidth);
 		}
 
 		VideoInfo videoInfo = model.getVideo();
 		if (videoInfo != null) {
-			update(videoInfo::getHeight, asset::setMediaHeight);
-			update(videoInfo::getWidth, asset::setMediaWidth);
 			update(videoInfo::getFingerprint, asset::setVideoFingerprint);
 			update(videoInfo::getEncoding, asset::setVideoEncoding);
-			update(videoInfo::getDuration, asset::setMediaDuration);
 			update(videoInfo::getBitrate, asset::setVideoBitrate);
 		}
 
@@ -203,13 +229,6 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 		DocumentInfo docInfo = model.getDocument();
 		if (docInfo != null) {
 			update(docInfo::getWordCount, asset::setDocumentWordCount);
-		}
-
-		HashInfo hashes = model.getHashes();
-		if (hashes != null) {
-			update(hashes::getMD5, asset::setMD5);
-			update(hashes::getSha256, asset::setSHA256);
-			update(hashes::getSha512, asset::setSHA512);
 		}
 
 	}

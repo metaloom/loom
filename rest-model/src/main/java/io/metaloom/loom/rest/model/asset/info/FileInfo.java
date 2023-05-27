@@ -1,5 +1,9 @@
 package io.metaloom.loom.rest.model.asset.info;
 
+import java.time.Instant;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 import io.metaloom.loom.rest.model.RestModel;
@@ -13,6 +17,13 @@ public class FileInfo implements RestModel {
 
 	@JsonPropertyDescription("The size of the asset in bytes.")
 	private long size;
+
+	private String origin;
+
+	@JsonProperty(required = true)
+	@JsonPropertyDescription("ISO8601 formatted date string when the asset was first seen.")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+	private Instant firstSeen;
 
 	public String getMimeType() {
 		return mimeType;
@@ -40,4 +51,23 @@ public class FileInfo implements RestModel {
 		this.size = size;
 		return this;
 	}
+
+	public Instant getFirstSeen() {
+		return firstSeen;
+	}
+
+	public FileInfo setFirstSeen(Instant firstSeen) {
+		this.firstSeen = firstSeen;
+		return this;
+	}
+
+	public String getOrigin() {
+		return origin;
+	}
+
+	public FileInfo setOrigin(String origin) {
+		this.origin = origin;
+		return this;
+	}
+
 }

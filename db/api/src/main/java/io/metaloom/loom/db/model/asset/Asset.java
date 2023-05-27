@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.model.asset;
 
+import java.time.Instant;
+
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.Taggable;
 
@@ -25,6 +27,10 @@ public interface Asset
 	 */
 	Asset setSize(long size);
 
+	String getFilename();
+
+	Asset setFilename(String filename);
+
 	String getMimeType();
 
 	Asset setMimeType(String mimeType);
@@ -40,5 +46,9 @@ public interface Asset
 	String getInitialOrigin();
 
 	Asset setInitialOrigin(String initialOrigin);
+
+	Instant getFirstSeen();
+
+	Asset setFirstSeen(Instant time);
 
 }

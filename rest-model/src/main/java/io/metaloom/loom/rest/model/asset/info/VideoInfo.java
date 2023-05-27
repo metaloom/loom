@@ -7,15 +7,6 @@ import io.metaloom.loom.rest.model.asset.location.video.Embeddings;
 
 public class VideoInfo implements RestModel {
 
-	@JsonPropertyDescription("The duration of the media in milliseconds.")
-	private Long duration;
-
-	@JsonPropertyDescription("The video width in pixel of the asset.")
-	private Integer width;
-
-	@JsonPropertyDescription("The video height in pixel of the asset.")
-	private Integer height;
-
 	@JsonPropertyDescription("The digital fingerprint of the media.")
 	private String fingerprint;
 
@@ -24,33 +15,6 @@ public class VideoInfo implements RestModel {
 	private Integer bitrate;
 
 	private String encoding;
-
-	public Long getDuration() {
-		return duration;
-	}
-
-	public VideoInfo setDuration(Long duration) {
-		this.duration = duration;
-		return this;
-	}
-
-	public Integer getWidth() {
-		return width;
-	}
-
-	public VideoInfo setWidth(Integer width) {
-		this.width = width;
-		return this;
-	}
-
-	public Integer getHeight() {
-		return height;
-	}
-
-	public VideoInfo setHeight(Integer height) {
-		this.height = height;
-		return this;
-	}
 
 	public String getFingerprint() {
 		return fingerprint;

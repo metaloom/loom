@@ -36,13 +36,13 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		SHA512Sum sha512sum = SHA512Sum.fromString(sha512sumStr);
 		String mimeType = request.getMimeType();
 		long size = request.getSize();
-		String path = request.getPath();
 		String initialOrigin = request.getInitialOrigin();
+		String filename = request.getFilename();
 
 		User user = null;
 		Asset asset = daos.assetDao().loadBySHA512(sha512sum);
 		if (asset == null) {
-			asset = daos.assetDao().createAsset(user, sha512sum, mimeType, initialOrigin, size);
+			asset = daos.assetDao().createAsset(user, sha512sum, mimeType, filename, initialOrigin, size);
 		}
 
 		asset.setSHA256(sha256sum);
@@ -55,7 +55,7 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		daos.userDao().store(creator);
 		
 		Library library = daos.libraryDao().createLibrary(user, "test");
-		AssetLocation assetLocation = daos.assetLocationDao().createAssetLocation(path, asset.getUuid(), creator.getUuid(), library.getUuid());
+		AssetLocation assetLocation = daos.assetLocationDao().createAssetLocation(filename, asset.getUuid(), creator.getUuid(), library.getUuid());
 		daos.assetLocationDao().store(assetLocation);
 
 		UUID uuid = asset.getUuid();
@@ -64,7 +64,7 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 			AssetResponse.newBuilder()
 				.setUuid(uuid.toString())
 				.setSize(size)
-				.setPath(path)
+				.setFilename(filename)
 				.setChunkHash(chunkHash)
 				.setSha256Sum(sha256sum)
 				.setSha512Sum(sha512sum.toString())

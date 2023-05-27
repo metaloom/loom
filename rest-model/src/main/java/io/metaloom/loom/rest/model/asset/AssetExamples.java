@@ -1,11 +1,12 @@
 package io.metaloom.loom.rest.model.asset;
 
 import io.metaloom.loom.rest.model.asset.info.AudioInfo;
+import io.metaloom.loom.rest.model.asset.info.ConsistencyInfo;
 import io.metaloom.loom.rest.model.asset.info.FileInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationExamples;
-import io.metaloom.loom.rest.model.asset.location.license.LicenseInfo;
 import io.metaloom.loom.rest.model.example.ExampleValues;
 
 public interface AssetExamples extends ExampleValues, AssetLocationExamples {
@@ -15,20 +16,18 @@ public interface AssetExamples extends ExampleValues, AssetLocationExamples {
 		setCreatorEditor(model);
 		model.setUuid(uuidA());
 		model.setFile(assetFileInfo());
-		model.getLicenses().add(new LicenseInfo().setName("license-name").setVersion("v1"));
+		// model.getLicenses().add(new LicenseInfo().setName("license-name").setVersion("v1"));
 		model.setMeta(meta());
 		model.addLocation(locationReference());
 		model.setGeo(assetGeoLocation())
 			.setAnnotations(assetAnnotations());
 
-		model.setImage(new ImageInfo().setWidth(800).setHeight(600).setDominantColor("#FFFF00"));
-		model.setVideo(new VideoInfo().setDuration(20000L).setWidth(4000).setHeight(2250));
-		model.setAudio(new AudioInfo().setBpm(120).setChannels(2).setDuration(240L).setSamplingRate(48000).setEncoding("mp3"));
-		model.setMeta(meta())
-			.setHashes(assetHashes())
-			.setSize(2005225)
-			.setFirstSeen(DATE_OLD)
-			.setOrigin("/initialPath/bigbuckbunny-4k.mp4");
+		model.setImage(new ImageInfo().setDominantColor("#FFFF00"));
+		model.setVideo(new VideoInfo().setFingerprint(VIDEO_FINGERPRINT));
+		model.setMedia(new MediaInfo().setDuration(20000L).setWidth(4000).setHeight(2250));
+		model.setAudio(new AudioInfo().setBpm(120).setChannels(2).setSamplingRate(48000).setEncoding("mp3"));
+		model.setMeta(meta());
+		model.setHashes(assetHashes());
 
 		model.getTags().add(tagReferenceA());
 		// .setLocalPath("/opt/movies/bigbuckbunny-4k.mp4")
@@ -54,7 +53,7 @@ public interface AssetExamples extends ExampleValues, AssetLocationExamples {
 
 	default AssetUpdateRequest assetUpdateRequest() {
 		AssetUpdateRequest model = new AssetUpdateRequest();
-		model.setDominantColor("#FFFF00")
+		model.setImage(assetImageInfo())
 			.setMeta(meta())
 			.setFile(assetFileInfo())
 			.setGeo(assetGeoLocation())
@@ -62,10 +61,15 @@ public interface AssetExamples extends ExampleValues, AssetLocationExamples {
 		return model;
 	}
 
+	default ImageInfo assetImageInfo() {
+		ImageInfo info = new ImageInfo();
+		info.setDominantColor("#FFFF00");
+		return info;
+	}
+
 	default AssetCreateRequest assetCreateRequest() {
 		AssetCreateRequest model = new AssetCreateRequest();
-		model.setDominantColor("#FFFF00")
-			.setLocalPath("/opt/movies/bigbuckbunny-4k.mp4")
+		model.setImage(assetImageInfo())
 			.setMeta(meta())
 			.setGeo(assetGeoLocation())
 			.setTimeline(assetAnnotations())
@@ -73,11 +77,19 @@ public interface AssetExamples extends ExampleValues, AssetLocationExamples {
 		return model;
 	}
 
+	default ConsistencyInfo assetConsistencyInfo() {
+		ConsistencyInfo info = new ConsistencyInfo();
+		info.setZeroChunkCount(42L);
+		return info;
+	}
+
 	default FileInfo assetFileInfo() {
 		FileInfo info = new FileInfo();
 		info.setSize(42L * 1000 * 1000);
 		info.setFilename("bigbuckbunny-4k.mp4");
 		info.setMimeType("video/mp4");
+		info.setOrigin("https://www.youtube.com/watch?v=aqz-KE-bpKQ");
+		info.setFirstSeen(DATE_OLD);
 		return info;
 	}
 

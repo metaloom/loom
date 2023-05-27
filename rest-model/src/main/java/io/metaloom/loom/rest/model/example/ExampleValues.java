@@ -22,6 +22,12 @@ import io.vertx.core.json.JsonObject;
 
 public interface ExampleValues {
 
+	public static final String IMAGE_MIMETYPE = "image/jpeg";
+
+	public static final String AUDIO_FINGERPRINT = "0002000100ffdfffdfdfdfffdfdf9ffd9fff9f193f007800780078807810b806e83e8718017d";
+
+	public static final String VIDEO_FINGERPRINT = "0002000100ffdfffdfdfdfffdfdf9ffd9fff9f193f007800780078807810b806e83e8718017d";
+
 	public static final Instant DATE_OLD = Instant.parse("2018-10-12T14:15:06.024Z");
 
 	public static final Instant DATE_NEW = Instant.parse("2018-11-20T20:12:01.084Z");

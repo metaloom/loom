@@ -93,15 +93,27 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
     public final TableField<JooqAssetRecord, String> MIME_TYPE = createField(DSL.name("mime_type"), SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
+     * The column <code>public.asset.filename</code>.
+     */
+    public final TableField<JooqAssetRecord, String> FILENAME = createField(DSL.name("filename"), SQLDataType.VARCHAR.nullable(false), this, "");
+
+    /**
+     * The column <code>public.asset.initial_origin</code>. Document the initial
+     * origin of the asset (e.g. first filepath encountered, first s3 path, url,
+     * hash)
+     */
+    public final TableField<JooqAssetRecord, String> INITIAL_ORIGIN = createField(DSL.name("initial_origin"), SQLDataType.VARCHAR.nullable(false), this, "Document the initial origin of the asset (e.g. first filepath encountered, first s3 path, url, hash)");
+
+    /**
+     * The column <code>public.asset.first_seen</code>.
+     */
+    public final TableField<JooqAssetRecord, LocalDateTime> FIRST_SEEN = createField(DSL.name("first_seen"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+
+    /**
      * The column <code>public.asset.meta</code>. Custom meta properties to the
      * asset
      */
     public final TableField<JooqAssetRecord, JsonObject> META = createField(DSL.name("meta"), SQLDataType.JSONB, this, "Custom meta properties to the asset", new JsonObjectConverter());
-
-    /**
-     * The column <code>public.asset.author</code>.
-     */
-    public final TableField<JooqAssetRecord, String> AUTHOR = createField(DSL.name("author"), SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.asset.geo_lon</code>.
@@ -117,13 +129,6 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
      * The column <code>public.asset.geo_alias</code>.
      */
     public final TableField<JooqAssetRecord, String> GEO_ALIAS = createField(DSL.name("geo_alias"), SQLDataType.VARCHAR, this, "");
-
-    /**
-     * The column <code>public.asset.initial_origin</code>. Document the initial
-     * origin of the asset (e.g. first filepath encountered, first s3 path, url,
-     * hash)
-     */
-    public final TableField<JooqAssetRecord, String> INITIAL_ORIGIN = createField(DSL.name("initial_origin"), SQLDataType.VARCHAR.nullable(false), this, "Document the initial origin of the asset (e.g. first filepath encountered, first s3 path, url, hash)");
 
     /**
      * The column <code>public.asset.created</code>.

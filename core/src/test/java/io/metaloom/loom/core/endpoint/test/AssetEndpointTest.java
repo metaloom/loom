@@ -17,6 +17,7 @@ import io.metaloom.loom.rest.model.asset.info.FileInfo;
 import io.metaloom.loom.rest.model.asset.info.GeoLocationInfo;
 import io.metaloom.loom.rest.model.asset.info.HashInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 
 public class AssetEndpointTest extends AbstractCRUDEndpointTest {
@@ -24,14 +25,13 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 	@Override
 	protected void testCreate(LoomHttpClient client) throws HttpErrorException {
 		AssetCreateRequest request = new AssetCreateRequest();
-		request.setLocalPath("/tmp/test.png");
 		request.setMeta(meta());
-		request.setOrigin(INITIAL_ORIGIN);
 
 		FileInfo fileInfo = new FileInfo();
 		fileInfo.setMimeType(IMAGE_MIMETYPE);
 		fileInfo.setFilename("test.png");
 		fileInfo.setSize(42L * 1024);
+		fileInfo.setOrigin(INITIAL_ORIGIN);
 		request.setFile(fileInfo);
 
 		HashInfo hashes = new HashInfo();
@@ -40,9 +40,14 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 		hashes.setSha512(SHA512SUM);
 		request.setHashes(hashes);
 
+		MediaInfo mediaInfo = new MediaInfo();
+		mediaInfo.setDuration(242L);
+		mediaInfo.setWidth(800);
+		mediaInfo.setHeight(600);
+		request.setMedia(mediaInfo);
+
 		AudioInfo audioInfo = new AudioInfo();
 		audioInfo.setBpm(140);
-		audioInfo.setDuration(242L);
 		audioInfo.setBitrate(320 * 1024);
 		audioInfo.setChannels(2);
 		audioInfo.setEncoding("FLAC");
@@ -52,9 +57,6 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 
 		VideoInfo videoInfo = new VideoInfo();
 		videoInfo.setBitrate(40_000);
-		videoInfo.setDuration(242L);
-		videoInfo.setWidth(800);
-		videoInfo.setHeight(600);
 		videoInfo.setFingerprint(VIDEO_FINGERPRINT);
 		videoInfo.setEncoding("H265");
 		request.setVideo(videoInfo);
@@ -65,8 +67,6 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 
 		ImageInfo imageInfo = new ImageInfo();
 		imageInfo.setDominantColor(DOMINANT_COLOR);
-		imageInfo.setWidth(800);
-		imageInfo.setHeight(600);
 		request.setImage(imageInfo);
 
 		GeoLocationInfo geoInfo = new GeoLocationInfo();
@@ -95,7 +95,7 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		final String NEW_NAME = "the_new_local_path.jpg";
 		AssetUpdateRequest request = new AssetUpdateRequest();
-		request.setLocalPath(NEW_NAME);
+		request.setFile(new FileInfo().setFilename(NEW_NAME));
 		AssetResponse response = client.updateAsset(ASSET_UUID, request).sync();
 		assertEquals(NEW_NAME, response.getLocations().get(0).getPath());
 
@@ -107,8 +107,15 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 	protected void testReadPage(LoomHttpClient client) throws HttpErrorException {
 		for (int i = 0; i < 100; i++) {
 			AssetCreateRequest request = new AssetCreateRequest();
-			request.getFile().setFilename("test_" + i + ".png");
-			request.setLocalPath("/tmp/test_" + i + ".png");
+
+			FileInfo fileInfo = new FileInfo();
+			fileInfo.setFilename("test_" + i + ".png");
+			fileInfo.setMimeType(IMAGE_MIMETYPE);
+			fileInfo.setSize(42L * 1024);
+			fileInfo.setOrigin(INITIAL_ORIGIN);
+
+			request.setFile(fileInfo);
+			request.setHashes(new HashInfo().setSha512(SHA512SUM + i));
 			client.storeAsset(request).sync();
 		}
 

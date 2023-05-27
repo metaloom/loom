@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
+import io.metaloom.loom.rest.validation.ValidationException;
 import io.vertx.core.Handler;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
@@ -23,7 +24,12 @@ public class ServerFailureHandler implements Handler<RoutingContext> {
 
 	@Override
 	public void handle(RoutingContext rc) {
-		if (rc.failure() instanceof LoomRestException lre) {
+		if (rc.failure() instanceof ValidationException ve) {
+			log.error("Request failed with validation error in path {}", rc.normalizedPath(), rc.failure());
+			GenericMessageResponse errorResponse = new GenericMessageResponse();
+			errorResponse.setMessage(ve.getMessage());
+			rc.response().setStatusCode(400).end(Json.encodeToBuffer(errorResponse));
+		} else if (rc.failure() instanceof LoomRestException lre) {
 			log.error("Request failed with REST error in path {}", rc.normalizedPath(), rc.failure());
 			GenericMessageResponse errorResponse = new GenericMessageResponse();
 			errorResponse.setMessage(lre.getMessage());

@@ -7,25 +7,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.asset.info.AudioInfo;
+import io.metaloom.loom.rest.model.asset.info.ConsistencyInfo;
 import io.metaloom.loom.rest.model.asset.info.DocumentInfo;
 import io.metaloom.loom.rest.model.asset.info.FileInfo;
 import io.metaloom.loom.rest.model.asset.info.GeoLocationInfo;
 import io.metaloom.loom.rest.model.asset.info.HashInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
+import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.vertx.core.json.JsonObject;
 
 public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCreateRequest> {
 
-	@JsonPropertyDescription("The specific identified kind of asset.")
-	private AssetKind kind;
-
-	@JsonPropertyDescription("The mime type of the asset. (e.g. video/mp4)")
-	private String mimeType;
-
-	@JsonPropertyDescription("The dominant color for the asset.")
-	private String dominantColor;
+	// @JsonPropertyDescription("The specific identified kind of asset.")
+	// private AssetKind kind;
 
 	@JsonPropertyDescription("Custom meta properties for the asset.")
 	private JsonObject meta;
@@ -39,14 +35,20 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 	@JsonPropertyDescription("A list of tags on the asset.")
 	private List<TagReference> tags;
 
-	@JsonPropertyDescription("The local path of the asset. This will only be returned when the asset was created using a local path.")
-	private String localPath;
+//	@JsonPropertyDescription("The local path of the asset. This will only be returned when the asset was created using a local path.")
+//	private String localPath;
 
 	@JsonPropertyDescription("Information about the file of the asset")
 	private FileInfo file;
 
+	@JsonPropertyDescription("Information about consistency checks on the the asset.")
+	private ConsistencyInfo consistency;
+
 	@JsonPropertyDescription("A set of different computed hashes for the asset.")
 	private HashInfo hashes;
+
+	@JsonPropertyDescription("Information about common media properties (e.g. duration, dimension)")
+	private MediaInfo media;
 
 	@JsonPropertyDescription("Information about the image component of the asset (if present)")
 	private ImageInfo image;
@@ -60,19 +62,19 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 	@JsonPropertyDescription("Information about the document (text) component of the asset (if present)")
 	private DocumentInfo document;
 
-	private String origin;
+//	private String origin;
 
 	public AssetCreateRequest() {
 	}
 
-	public AssetKind getKind() {
-		return kind;
-	}
-
-	public AssetCreateRequest setKind(AssetKind kind) {
-		this.kind = kind;
-		return this;
-	}
+	// public AssetKind getKind() {
+	// return kind;
+	// }
+	//
+	// public AssetCreateRequest setKind(AssetKind kind) {
+	// this.kind = kind;
+	// return this;
+	// }
 
 	@Override
 	public GeoLocationInfo getGeo() {
@@ -82,15 +84,6 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 	@Override
 	public AssetCreateRequest setGeo(GeoLocationInfo geo) {
 		this.geo = geo;
-		return this;
-	}
-
-	public String getDominantColor() {
-		return dominantColor;
-	}
-
-	public AssetCreateRequest setDominantColor(String dominantColor) {
-		this.dominantColor = dominantColor;
 		return this;
 	}
 
@@ -114,14 +107,14 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 		return this;
 	}
 
-	public String getLocalPath() {
-		return localPath;
-	}
-
-	public AssetCreateRequest setLocalPath(String localPath) {
-		this.localPath = localPath;
-		return this;
-	}
+//	public String getLocalPath() {
+//		return localPath;
+//	}
+//
+//	public AssetCreateRequest setLocalPath(String localPath) {
+//		this.localPath = localPath;
+//		return this;
+//	}
 
 	public List<TagReference> getTags() {
 		return tags;
@@ -140,6 +133,17 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 	@Override
 	public AssetCreateRequest setHashes(HashInfo hashes) {
 		this.hashes = hashes;
+		return this;
+	}
+
+	@Override
+	public MediaInfo getMedia() {
+		return media;
+	}
+
+	@Override
+	public AssetCreateRequest setMedia(MediaInfo media) {
+		this.media = media;
 		return this;
 	}
 
@@ -187,14 +191,14 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 		return this;
 	}
 
-	public String getOrigin() {
-		return origin;
-	}
+//	public String getOrigin() {
+//		return origin;
+//	}
 
-	public AssetCreateRequest setOrigin(String origin) {
-		this.origin = origin;
-		return this;
-	}
+//	public AssetCreateRequest setOrigin(String origin) {
+//		this.origin = origin;
+//		return this;
+//	}
 
 	@Override
 	public FileInfo getFile() {
@@ -204,6 +208,17 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 	@Override
 	public AssetCreateRequest setFile(FileInfo file) {
 		this.file = file;
+		return this;
+	}
+
+	@Override
+	public ConsistencyInfo getConsistency() {
+		return consistency;
+	}
+
+	@Override
+	public AssetCreateRequest setConsistency(ConsistencyInfo consistency) {
+		this.consistency = consistency;
 		return this;
 	}
 

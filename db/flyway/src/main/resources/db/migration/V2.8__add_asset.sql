@@ -2,23 +2,26 @@ CREATE TABLE "asset" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "sha512sum" varchar NOT NULL,
   "size" bigint NOT NULL,
+
   "sha256sum" varchar,
   "md5sum" varchar,
   "chunk_hash" varchar,
   "zero_chunk_count" bigint,
   "mime_type" varchar NOT NULL,
+  "filename" varchar NOT NULL,
+  "initial_origin" varchar NOT NULL,
+  "first_seen" timestamp NOT NULL DEFAULT (now()),
   "meta" jsonb,
-  "author" varchar,
 
   "geo_lon" decimal(9,6),
   "geo_lat" decimal(8,6),
   "geo_alias" varchar,
 
-  "initial_origin" varchar NOT NULL,
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp NOT NULL DEFAULT (now()),
   "editor_uuid" uuid NOT NULL,
+
   "s3_bucket_name" varchar,
   "s3_object_path" varchar,
 

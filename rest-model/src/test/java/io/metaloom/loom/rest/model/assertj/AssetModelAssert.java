@@ -21,6 +21,7 @@ public class AssetModelAssert extends AbstractModelAssert<AssetModelAssert, Asse
 	public AssetModelAssert matches(AssetCreateRequest request) {
 		assertJson(request.getMeta(), actual.getMeta(), "The meta information mismatch");
 		assertJson(request.getHashes(), actual.getHashes(), "The hash information mismatch");
+		assertJson(request.getMedia(), actual.getMedia(), "The media information mismatch");
 		assertJson(request.getAudio(), actual.getAudio(), "The audio information mismatch");
 		assertJson(request.getVideo(), actual.getVideo(), "The video information mismatch");
 		assertJson(request.getDocument(), actual.getDocument(), "The video information mismatch");
@@ -32,7 +33,7 @@ public class AssetModelAssert extends AbstractModelAssert<AssetModelAssert, Asse
 		// tags
 		// dominant color
 		// views
-		// origin 
+		// origin
 		// localpath
 		// social
 		// collections

@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import io.metaloom.loom.rest.model.RestModel;
 
 public class AudioInfo implements RestModel {
-
-	@JsonPropertyDescription("The duration of the media in milliseconds.")
-	private Long duration;
-
+	
 	private Integer channels;
 
 	private String encoding;
@@ -21,15 +18,6 @@ public class AudioInfo implements RestModel {
 
 	@JsonPropertyDescription("The digital fingerprint of the media.")
 	private String fingerprint;
-
-	public Long getDuration() {
-		return duration;
-	}
-
-	public AudioInfo setDuration(Long duration) {
-		this.duration = duration;
-		return this;
-	}
 
 	public Integer getChannels() {
 		return channels;

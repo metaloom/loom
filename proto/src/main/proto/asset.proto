@@ -23,7 +23,7 @@ message AssetRequest {
   string md5sum = 3;
   string chunkHash = 4;
   string mimeType = 5;
-  string path = 6;
+  string filename = 6;
   uint64 size = 7;
   string fingerprint = 8;
   uint64 zeroChunkCount = 9;
@@ -33,7 +33,7 @@ message AssetRequest {
 // The response for the asset
 message AssetResponse {
   string uuid = 1;
-  string path = 2;
+  string filename = 2;
   string initialOrigin = 3;
   string mimeType = 4;
   uint64 size = 5;
