@@ -9,6 +9,7 @@ import io.metaloom.loom.db.model.annotation.Annotation;
 import io.metaloom.loom.db.model.annotation.AnnotationType;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetLocation;
+import io.metaloom.loom.db.model.attachment.Attachment;
 import io.metaloom.loom.db.model.blacklist.Blacklist;
 import io.metaloom.loom.db.model.cluster.Cluster;
 import io.metaloom.loom.db.model.collection.Collection;
@@ -57,6 +58,9 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		Embedding embedding2 = createEmbedding(UUID.randomUUID(), user, asset);
 		Embedding embedding3 = createEmbedding(UUID.randomUUID(), user, asset);
 		Cluster cluster = clusterEmbeddings(user, embedding1, embedding2, embedding3);
+
+		// Attachment for embedding
+		Attachment attachment1 = createAttachment(ATTACHMENT_UUID, embedding1, user);
 
 		// Create project
 		Project project = createProject(user);
@@ -168,11 +172,21 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 	}
 
 	private Asset createAsset(Library library, User user) {
-		Asset asset = assetDao().createAsset(user, SHA512Sum.fromString(SHA256SUM), IMAGE_MIMETYPE, DUMMY_FILENAME, DUMMY_IMAGE_ORIGIN, 42L);
+		Asset asset = assetDao().createAsset(user, SHA512Sum.fromString(SHA256SUM), IMAGE_MIMETYPE, DUMMY_IMAGE_FILENAME, DUMMY_IMAGE_ORIGIN, 42L);
 		asset.setUuid(ASSET_UUID);
 		asset.setFilename("bigbuckbunny.mp4");
 		assetDao().store(asset);
 		return asset;
+	}
+
+	private Attachment createAttachment(UUID attachmentUuid, Embedding embedding, User user) {
+		Attachment attachment = attachmentDao().createAttachment(user.getUuid(), DUMMY_IMAGE_FILENAME, 42L, IMAGE_MIMETYPE);
+		attachment.setEmbeddingUuid(embedding.getUuid());
+		attachment.setAssetUuid(embedding.getAssetUuid());
+		attachment.setSha512sum(SHA512SUM_3);
+		attachment.setUuid(attachmentUuid);
+		attachmentDao().store(attachment);
+		return attachment;
 	}
 
 	private AssetLocation createAssetLocation(Library library, Asset asset, User user) {
@@ -193,7 +207,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 
 		// User
 		User adminUser = userDao().createUser("admin");
-		adminUser.setUuid(ADMIN_UUID); 
+		adminUser.setUuid(ADMIN_UUID);
 		adminUser.setCreator(adminUser);
 		adminUser.setEditor(adminUser);
 		adminUser.setEdited(Instant.now());

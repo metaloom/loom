@@ -7,6 +7,7 @@ import dagger.Lazy;
 import io.metaloom.loom.db.model.annotation.AnnotationDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.asset.AssetLocationDao;
+import io.metaloom.loom.db.model.attachment.AttachmentDao;
 import io.metaloom.loom.db.model.blacklist.BlacklistDao;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
 import io.metaloom.loom.db.model.collection.CollectionDao;
@@ -30,9 +31,10 @@ public class DaoCollectionImpl implements DaoCollection {
 	private final Lazy<UserDao> userDao;
 	private final Lazy<GroupDao> groupDao;
 	private final Lazy<RoleDao> roleDao;
-	private final Lazy<AssetLocationDao> assetLocationDao;
 	private final Lazy<PermissionDao> permissionDao;
 	private final Lazy<AssetDao> assetDao;
+	private final Lazy<AssetLocationDao> assetLocationDao;
+	private final Lazy<AttachmentDao> attachmentDao;
 	private final Lazy<WebhookDao> webhookDao;
 	private final Lazy<CollectionDao> collectionDao;
 	private final Lazy<LibraryDao> libraryDao;
@@ -54,7 +56,7 @@ public class DaoCollectionImpl implements DaoCollection {
 		Lazy<AnnotationDao> annotationDao, Lazy<TaskDao> taskDao, Lazy<ReactionDao> reactionDao,
 		Lazy<BlacklistDao> blacklistDao, Lazy<CommentDao> commentDao, Lazy<ProjectDao> projectDao,
 		Lazy<ClusterDao> clusterDao, Lazy<EmbeddingDao> embeddingDao, Lazy<TokenDao> tokenDao,
-		Lazy<TagDao> tagDao) {
+		Lazy<TagDao> tagDao, Lazy<AttachmentDao> attachmentDao) {
 		this.userDao = userDao;
 		this.groupDao = groupDao;
 		this.roleDao = roleDao;
@@ -74,11 +76,17 @@ public class DaoCollectionImpl implements DaoCollection {
 		this.embeddingDao = embeddingDao;
 		this.tokenDao = tokenDao;
 		this.tagDao = tagDao;
+		this.attachmentDao = attachmentDao;
 	}
 
 	@Override
 	public AssetLocationDao assetLocationDao() {
 		return assetLocationDao.get();
+	}
+
+	@Override
+	public AttachmentDao attachmentDao() {
+		return attachmentDao.get();
 	}
 
 	@Override

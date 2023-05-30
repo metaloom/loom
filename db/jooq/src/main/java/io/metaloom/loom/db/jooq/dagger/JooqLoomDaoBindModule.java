@@ -5,6 +5,7 @@ import dagger.Module;
 import io.metaloom.loom.db.jooq.dao.annotation.AnnotationDaoImpl;
 import io.metaloom.loom.db.jooq.dao.asset.AssetDaoImpl;
 import io.metaloom.loom.db.jooq.dao.asset.location.AssetLocationDaoImpl;
+import io.metaloom.loom.db.jooq.dao.attachment.AttachmentDaoImpl;
 import io.metaloom.loom.db.jooq.dao.blacklist.BlacklistDaoImpl;
 import io.metaloom.loom.db.jooq.dao.cluster.ClusterDaoImpl;
 import io.metaloom.loom.db.jooq.dao.collection.CollectionDaoImpl;
@@ -24,6 +25,7 @@ import io.metaloom.loom.db.jooq.dao.webhook.WebhookDaoImpl;
 import io.metaloom.loom.db.model.annotation.AnnotationDao;
 import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.asset.AssetLocationDao;
+import io.metaloom.loom.db.model.attachment.AttachmentDao;
 import io.metaloom.loom.db.model.blacklist.BlacklistDao;
 import io.metaloom.loom.db.model.cluster.ClusterDao;
 import io.metaloom.loom.db.model.collection.CollectionDao;
@@ -67,6 +69,9 @@ public abstract class JooqLoomDaoBindModule {
 
 	@Binds
 	abstract AssetLocationDao assetDao(AssetLocationDaoImpl dao);
+
+	@Binds
+	abstract AttachmentDao attachmentDao(AttachmentDaoImpl dao);
 
 	@Binds
 	abstract CollectionDao collectionDao(CollectionDaoImpl dao);

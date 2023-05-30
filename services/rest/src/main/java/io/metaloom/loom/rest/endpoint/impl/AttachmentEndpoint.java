@@ -1,27 +1,37 @@
-package io.metaloom.loom.rest;
+package io.metaloom.loom.rest.endpoint.impl;
 
 import static io.vertx.core.http.HttpMethod.DELETE;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
+import io.metaloom.loom.rest.AbstractCRUDEndpoint;
+import io.metaloom.loom.rest.EndpointDependencies;
+import io.metaloom.loom.rest.service.impl.AttachmentEndpointService;
 
-public abstract class AbstractCRUDEndpoint<S extends AbstractCRUDEndpointService<?, ?>> extends AbstractEndpoint {
+public class AttachmentEndpoint  extends AbstractCRUDEndpoint<AttachmentEndpointService> {
 
-	private static final Logger log = LoggerFactory.getLogger(AbstractCRUDEndpoint.class);
+	private static final Logger log = LoggerFactory.getLogger(AttachmentEndpoint.class);
 
-	private S service;
-
-	public AbstractCRUDEndpoint(S service, EndpointDependencies deps) {
-		super(deps);
-		this.service = service;
+	@Inject
+	public AttachmentEndpoint(AttachmentEndpointService service, EndpointDependencies deps) {
+		super(service, deps);
 	}
 
-	protected abstract String basePath();
+	@Override
+	public String name() {
+		return "attachment";
+	}
 
+	@Override
+	protected String basePath() {
+		return "/attachments";
+	}
+	
 	@Override
 	public void register() {
 		log.info("Registering {} endpoint", name());
@@ -52,9 +62,8 @@ public abstract class AbstractCRUDEndpoint<S extends AbstractCRUDEndpointService
 		addRoute(basePath() + "/:uuid", GET, lrc -> {
 			service().load(lrc, lrc.pathParamUUID("uuid"));
 		});
+
 	}
 
-	public S service() {
-		return service;
-	}
+
 }

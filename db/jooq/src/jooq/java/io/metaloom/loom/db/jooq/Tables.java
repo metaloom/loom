@@ -16,6 +16,8 @@ import io.metaloom.loom.db.jooq.tables.JooqAssetReaction;
 import io.metaloom.loom.db.jooq.tables.JooqAssetRemix;
 import io.metaloom.loom.db.jooq.tables.JooqAssetTask;
 import io.metaloom.loom.db.jooq.tables.JooqAssetUserMeta;
+import io.metaloom.loom.db.jooq.tables.JooqAttachment;
+import io.metaloom.loom.db.jooq.tables.JooqAttachmentBinary;
 import io.metaloom.loom.db.jooq.tables.JooqBlacklist;
 import io.metaloom.loom.db.jooq.tables.JooqCluster;
 import io.metaloom.loom.db.jooq.tables.JooqCollection;
@@ -122,6 +124,16 @@ public class Tables {
      * Stores user specific metadata that can be added to asset
      */
     public static final JooqAssetUserMeta ASSET_USER_META = JooqAssetUserMeta.ASSET_USER_META;
+
+    /**
+     * The table <code>public.attachment</code>.
+     */
+    public static final JooqAttachment ATTACHMENT = JooqAttachment.ATTACHMENT;
+
+    /**
+     * The table <code>public.attachment_binary</code>.
+     */
+    public static final JooqAttachmentBinary ATTACHMENT_BINARY = JooqAttachmentBinary.ATTACHMENT_BINARY;
 
     /**
      * Stores information on blocked binaries.

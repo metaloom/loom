@@ -27,13 +27,8 @@ CREATE TABLE "project_collection" (
 COMMENT ON COLUMN "project"."meta" IS 'Custom meta properties to the element';
 
 ALTER TABLE "project" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
-
 ALTER TABLE "project" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
-
 ALTER TABLE "project_library" ADD FOREIGN KEY ("project_uuid") REFERENCES "project" ("uuid");
-
 ALTER TABLE "project_library" ADD FOREIGN KEY ("library_uuid") REFERENCES "library" ("uuid");
-
 ALTER TABLE "project_collection" ADD FOREIGN KEY ("project_uuid") REFERENCES "project" ("uuid");
-
 ALTER TABLE "project_collection" ADD FOREIGN KEY ("collection_uuid") REFERENCES "collection" ("uuid");

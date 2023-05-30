@@ -1,5 +1,11 @@
 package io.metaloom.loom.core.endpoint.test;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Instant;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +25,7 @@ import io.metaloom.loom.rest.model.asset.location.AssetLocationCreateRequest;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationFilesystemInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationResponse;
 import io.metaloom.loom.rest.model.asset.location.FileKey;
+import io.metaloom.loom.rest.model.attachment.AttachmentResponse;
 import io.metaloom.loom.rest.model.collection.CollectionCreateRequest;
 import io.metaloom.loom.rest.model.collection.CollectionResponse;
 import io.metaloom.loom.rest.model.comment.CommentCreateRequest;
@@ -34,12 +41,15 @@ import io.metaloom.loom.rest.model.tag.TagResponse;
 import io.metaloom.loom.rest.model.task.TaskCreateRequest;
 import io.metaloom.loom.rest.model.task.TaskPriority;
 import io.metaloom.loom.rest.model.task.TaskResponse;
+import io.metaloom.loom.test.TestEnvHelper;
+import io.metaloom.loom.test.Testdata;
 import io.vertx.core.json.JsonObject;
 
 public class CombinedEndpointTest extends AbstractEndpointTest {
 
 	@Test
-	public void testBasics() throws HttpErrorException {
+	public void testBasics() throws HttpErrorException, FileNotFoundException, IOException {
+		Testdata env = TestEnvHelper.prepareTestdata("combined");
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 
@@ -51,7 +61,7 @@ public class CombinedEndpointTest extends AbstractEndpointTest {
 			// Create an asset
 			AssetCreateRequest assetRequest = new AssetCreateRequest();
 			assetRequest.getHashes().setSha512(SHA512SUM);
-			assetRequest.setFile(new FileInfo().setFilename(DUMMY_FILENAME).setMimeType(IMAGE_MIMETYPE));
+			assetRequest.setFile(new FileInfo().setFilename(DUMMY_IMAGE_FILENAME).setMimeType(IMAGE_MIMETYPE));
 			assetRequest.setVideoFingerprint(VIDEO_FINGERPRINT);
 			AssetResponse asset = client.createAsset(assetRequest).sync();
 
@@ -63,8 +73,10 @@ public class CombinedEndpointTest extends AbstractEndpointTest {
 				embeddingRequest.setId(i);
 				embeddingRequest.setMeta(new JsonObject().put("test", "1234"));
 				EmbeddingResponse embedding = client.createEmbedding(embeddingRequest).sync();
-				
-				EmbeddingAttachmentResponse uploadResponse = client.uploadEmbeddingAttachment(embedding.getUuid(), "FILE").sync();
+				Path videoPath = env.sampleVideo2Path();
+				try (InputStream stream = Files.newInputStream(videoPath)) {
+					AttachmentResponse uploadResponse = client.uploadAttachment(DUMMY_VIDEO_FILENAME, VIDEO_MIMETYPE, stream, Files.size(videoPath)).sync();
+				}
 			}
 
 			// Create a location for the asset

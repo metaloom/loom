@@ -29,7 +29,7 @@ public interface DatabaseTest extends TestValues, DaoProvider {
 	}
 
 	default Asset createAsset(User user) {
-		Asset asset = assetDao().createAsset(user, SHA512Sum.fromString(SHA512SUM), IMAGE_MIMETYPE, DUMMY_FILENAME, DUMMY_IMAGE_ORIGIN, 42L);
+		Asset asset = assetDao().createAsset(user, SHA512Sum.fromString(SHA512SUM), IMAGE_MIMETYPE, DUMMY_IMAGE_FILENAME, DUMMY_IMAGE_ORIGIN, 42L);
 		assetDao().store(asset);
 		return asset;
 	}

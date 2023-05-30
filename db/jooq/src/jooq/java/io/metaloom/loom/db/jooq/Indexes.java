@@ -7,6 +7,8 @@ package io.metaloom.loom.db.jooq;
 import io.metaloom.loom.db.jooq.tables.JooqAsset;
 import io.metaloom.loom.db.jooq.tables.JooqAssetLocation;
 import io.metaloom.loom.db.jooq.tables.JooqAssetRemix;
+import io.metaloom.loom.db.jooq.tables.JooqAttachment;
+import io.metaloom.loom.db.jooq.tables.JooqAttachmentBinary;
 import io.metaloom.loom.db.jooq.tables.JooqBlacklist;
 import io.metaloom.loom.db.jooq.tables.JooqCluster;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionAsset;
@@ -44,6 +46,8 @@ public class Indexes {
     public static final Index ASSET_REMIX_ASSET_A_UUID_IDX = Internal.createIndex(DSL.name("asset_remix_asset_a_uuid_idx"), JooqAssetRemix.ASSET_REMIX, new OrderField[] { JooqAssetRemix.ASSET_REMIX.ASSET_A_UUID }, false);
     public static final Index ASSET_REMIX_ASSET_B_UUID_IDX = Internal.createIndex(DSL.name("asset_remix_asset_b_uuid_idx"), JooqAssetRemix.ASSET_REMIX, new OrderField[] { JooqAssetRemix.ASSET_REMIX.ASSET_B_UUID }, false);
     public static final Index ASSET_UUID_IDX = Internal.createIndex(DSL.name("asset_uuid_idx"), JooqAsset.ASSET, new OrderField[] { JooqAsset.ASSET.UUID }, true);
+    public static final Index ATTACHMENT_BINARY_SHA512SUM_IDX = Internal.createIndex(DSL.name("attachment_binary_sha512sum_idx"), JooqAttachmentBinary.ATTACHMENT_BINARY, new OrderField[] { JooqAttachmentBinary.ATTACHMENT_BINARY.SHA512SUM }, true);
+    public static final Index ATTACHMENT_UUID_IDX = Internal.createIndex(DSL.name("attachment_uuid_idx"), JooqAttachment.ATTACHMENT, new OrderField[] { JooqAttachment.ATTACHMENT.UUID }, true);
     public static final Index BLACKLIST_ASSET_UUID_CREATOR_UUID_IDX = Internal.createIndex(DSL.name("blacklist_asset_uuid_creator_uuid_idx"), JooqBlacklist.BLACKLIST, new OrderField[] { JooqBlacklist.BLACKLIST.ASSET_UUID, JooqBlacklist.BLACKLIST.CREATOR_UUID }, true);
     public static final Index CLUSTER_NAME_IDX = Internal.createIndex(DSL.name("cluster_name_idx"), JooqCluster.CLUSTER, new OrderField[] { JooqCluster.CLUSTER.NAME }, true);
     public static final Index COLLECTION_ASSET_ASSET_UUID_IDX = Internal.createIndex(DSL.name("collection_asset_asset_uuid_idx"), JooqCollectionAsset.COLLECTION_ASSET, new OrderField[] { JooqCollectionAsset.COLLECTION_ASSET.ASSET_UUID }, false);

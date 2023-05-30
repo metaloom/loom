@@ -15,15 +15,9 @@ CREATE TABLE "webhook" (
 );
 
 ALTER TABLE "webhook" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
-
 ALTER TABLE "webhook" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 
-
 COMMENT ON TABLE "webhook" IS 'Table which stores the registered webhooks';
-
 COMMENT ON COLUMN "webhook"."triggers" IS 'List of triggers which can invoke the webhook';
-
 COMMENT ON COLUMN "webhook"."secretToken" IS 'Secret token which webhook services can use to authenticate the request.';
-
 COMMENT ON COLUMN "webhook"."meta" IS 'Custom meta properties to the element';
-

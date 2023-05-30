@@ -87,15 +87,20 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 
 	}
 
-	public void listAttachment() {
+	public void listEmbeddingAttachments(UUID embeddingUuid) {
 
 	}
 
-	public void updateAttachment() {
+	public void updateAttachment(UUID attachmentUuid) {
 
 	}
 
-	public void loadAttachment() {
+	public void loadAttachment(UUID attachmentUuid) {
 
+	}
+
+	public void createEmbeddingAttachment(UUID pathParamUUID) {
+		// TODO Auto-generated method stub
+		
 	}
 }

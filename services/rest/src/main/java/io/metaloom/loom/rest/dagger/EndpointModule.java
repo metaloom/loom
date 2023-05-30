@@ -11,6 +11,7 @@ import io.metaloom.loom.rest.endpoint.RESTEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.AnnotationEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.AssetEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.AssetLocationEndpoint;
+import io.metaloom.loom.rest.endpoint.impl.AttachmentEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.CollectionEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.CommentEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.EmbeddingEndpoint;
@@ -47,7 +48,8 @@ public class EndpointModule {
 		LibraryEndpoint libraryEndpoint,
 		ProjectEndpoint projectEndpoint,
 		LoginEndpoint loginEndpoint,
-		CommentEndpoint commentEndpoint) {
+		CommentEndpoint commentEndpoint,
+		AttachmentEndpoint attachmentEndpoint) {
 		return new HashSet<>(Arrays.asList(
 			userEndpoint,
 			roleEndpoint,
@@ -64,6 +66,7 @@ public class EndpointModule {
 			libraryEndpoint,
 			projectEndpoint,
 			loginEndpoint,
+			attachmentEndpoint,
 			commentEndpoint));
 	}
 }

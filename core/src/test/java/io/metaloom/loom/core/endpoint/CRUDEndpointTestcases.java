@@ -2,22 +2,20 @@ package io.metaloom.loom.core.endpoint;
 
 import org.junit.jupiter.api.Test;
 
-import io.metaloom.loom.client.http.impl.HttpErrorException;
-
 public interface CRUDEndpointTestcases extends EndpointTest {
 
 	@Test
-	void testRead() throws HttpErrorException;
+	void testRead() throws Exception;
 
 	@Test
-	void testCreate() throws HttpErrorException;
+	void testCreate() throws Exception;
 
 	@Test
-	void testDelete() throws HttpErrorException;
+	void testDelete() throws Exception;
 
 	@Test
-	void testUpdate() throws HttpErrorException;
+	void testUpdate() throws Exception;
 
 	@Test
-	void testReadPaged() throws HttpErrorException;
+	void testReadPaged() throws Exception;
 }

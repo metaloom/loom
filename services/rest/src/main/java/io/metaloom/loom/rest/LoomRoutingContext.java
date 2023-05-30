@@ -23,6 +23,7 @@ import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authorization.PermissionBasedAuthorization;
+import io.vertx.ext.web.FileUpload;
 import io.vertx.ext.web.RoutingContext;
 
 public class LoomRoutingContext {
@@ -128,6 +129,10 @@ public class LoomRoutingContext {
 
 	public SortParameters sortParams() {
 		return SortParameters.create(this);
+	}
+
+	public List<FileUpload> fileUploads() {
+		return rc.fileUploads();
 	}
 
 }

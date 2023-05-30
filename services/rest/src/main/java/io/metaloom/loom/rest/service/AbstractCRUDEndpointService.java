@@ -107,7 +107,7 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 		checkPerm(lrc, permission, () -> {
 			E element = loader.get();
 			if (element == null) {
-				throw new LoomRestException(404, "Element not found " + dao().getTypeName());
+				throw new LoomRestException(404, "Element not found for type: " + dao().getTypeName());
 			}
 			RestResponseModel<?> response = builder.apply(element);
 			lrc.send(response);

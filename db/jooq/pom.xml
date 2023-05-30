@@ -49,6 +49,10 @@
 			<artifactId>jooq</artifactId>
 			<version>${jooq.version}</version>
 		</dependency>
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>javax.persistence-api</artifactId>
+    </dependency>
 
 		<!-- JDBC / Connection Pooling support -->
 		<dependency>
