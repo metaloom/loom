@@ -75,7 +75,7 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 		geoInfo.setLon(41.0);
 		request.setGeo(geoInfo);
 
-		AssetResponse response = client.storeAsset(request).sync();
+		AssetResponse response = client.createAsset(request).sync();
 		Assertions.assertThat(response).matches(request);
 	}
 
@@ -116,7 +116,7 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 
 			request.setFile(fileInfo);
 			request.setHashes(new HashInfo().setSha512(SHA512SUM + i));
-			client.storeAsset(request).sync();
+			client.createAsset(request).sync();
 		}
 
 		AssetListResponse response = client.listAssets().sync();

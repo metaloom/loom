@@ -10,10 +10,10 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.embedding.Embedding;
 import io.metaloom.loom.db.model.embedding.EmbeddingDao;
-import io.metaloom.loom.db.model.embedding.EmbeddingType;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.embedding.EmbeddingCreateRequest;
@@ -80,5 +80,22 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 			setEditor(embedding, userUuid);
 			return embedding;
 		}, modelBuilder::toResponse);
+	}
+
+	public void createAttachment(UUID pathParamUUID) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void listAttachment() {
+
+	}
+
+	public void updateAttachment() {
+
+	}
+
+	public void loadAttachment() {
+
 	}
 }

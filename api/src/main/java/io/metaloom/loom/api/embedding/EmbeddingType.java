@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.embedding;
+package io.metaloom.loom.api.embedding;
 
 public enum EmbeddingType {
 

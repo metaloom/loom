@@ -71,4 +71,8 @@ public class AreaInfo {
 		this.to = to;
 		return this;
 	}
+
+	public static AreaInfo create(int startX, int startY, int width, int height) {
+		return new AreaInfo().setStartX(startX).setStartY(startY).setWidth(width).setHeight(height);
+	}
 }

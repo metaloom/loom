@@ -2,6 +2,7 @@ package io.metaloom.loom.rest.model.embedding;
 
 import java.util.UUID;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.annotation.AreaInfo;
 import io.vertx.core.json.JsonObject;

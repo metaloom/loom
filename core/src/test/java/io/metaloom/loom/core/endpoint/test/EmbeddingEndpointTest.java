@@ -2,13 +2,13 @@ package io.metaloom.loom.core.endpoint.test;
 
 import static io.metaloom.loom.rest.model.assertj.Assertions.assertThat;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractCRUDEndpointTest;
 import io.metaloom.loom.rest.model.embedding.EmbeddingCreateRequest;
 import io.metaloom.loom.rest.model.embedding.EmbeddingListResponse;
 import io.metaloom.loom.rest.model.embedding.EmbeddingResponse;
-import io.metaloom.loom.rest.model.embedding.EmbeddingType;
 import io.metaloom.loom.rest.model.embedding.EmbeddingUpdateRequest;
 
 public class EmbeddingEndpointTest extends AbstractCRUDEndpointTest {

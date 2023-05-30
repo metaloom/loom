@@ -9,11 +9,11 @@ import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.jooq.TableRecord;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqEmbedding;
 import io.metaloom.loom.db.model.embedding.Embedding;
 import io.metaloom.loom.db.model.embedding.EmbeddingDao;
-import io.metaloom.loom.db.model.embedding.EmbeddingType;
 
 @Singleton
 public class EmbeddingDaoImpl extends AbstractJooqDao<Embedding> implements EmbeddingDao {

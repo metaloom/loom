@@ -54,4 +54,7 @@ public abstract class AbstractCRUDEndpoint<S extends AbstractCRUDEndpointService
 		});
 	}
 
+	public S service() {
+		return service;
+	}
 }

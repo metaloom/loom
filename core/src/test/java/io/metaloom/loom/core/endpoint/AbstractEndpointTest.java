@@ -10,7 +10,6 @@ import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.LoomCoreTestExtension;
 import io.metaloom.loom.rest.model.auth.AuthLoginResponse;
-import io.metaloom.loom.rest.model.task.TaskResponse;
 
 public abstract class AbstractEndpointTest implements EndpointTest {
 

@@ -39,6 +39,12 @@
       <artifactId>loom-rest-model</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.metaloom.video</groupId>
+      <artifactId>video4j-fingerprint</artifactId>
+    </dependency>
+
+    <!-- Test -->
+    <dependency>
       <groupId>io.metaloom.loom.client</groupId>
       <artifactId>loom-client-rest</artifactId>
       <scope>test</scope>

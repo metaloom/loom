@@ -1,4 +1,4 @@
-package io.metaloom.loom.rest.model.asset.location.social;
+package io.metaloom.loom.api.reaction;
 
 public enum ReactionType {
 
@@ -8,7 +8,11 @@ public enum ReactionType {
 
 	THUMBSDOWN("👎", ":thumbsdown:"),
 
-	THUMBSUP("👍", ":thumbsup:");
+	THUMBSUP("👍", ":thumbsup:"),
+
+	PLUS_ONE("👍", ":+1:"),
+
+	MINUS_ONE("👎", ":-1:");
 
 	private String id;
 	private String icon;

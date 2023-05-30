@@ -3,6 +3,7 @@ package io.metaloom.loom.core.db.fixture;
 import java.time.Instant;
 import java.util.UUID;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
 import io.metaloom.loom.db.model.annotation.Annotation;
 import io.metaloom.loom.db.model.annotation.AnnotationType;
@@ -12,7 +13,6 @@ import io.metaloom.loom.db.model.blacklist.Blacklist;
 import io.metaloom.loom.db.model.cluster.Cluster;
 import io.metaloom.loom.db.model.collection.Collection;
 import io.metaloom.loom.db.model.embedding.Embedding;
-import io.metaloom.loom.db.model.embedding.EmbeddingType;
 import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.perm.Permission;

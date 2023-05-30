@@ -2,9 +2,9 @@ package io.metaloom.loom.db.jooq.dao.embedding;
 
 import java.util.UUID;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.embedding.Embedding;
-import io.metaloom.loom.db.model.embedding.EmbeddingType;
 
 public class EmbeddingImpl extends AbstractEditableElement<Embedding> implements Embedding {
 

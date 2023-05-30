@@ -2,6 +2,7 @@ package io.metaloom.loom.db.model.embedding;
 
 import java.util.UUID;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.db.CUDElement;
 
 public interface Embedding extends CUDElement<Embedding> {

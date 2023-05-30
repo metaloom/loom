@@ -1,6 +1,5 @@
 package io.metaloom.loom.rest.service.impl;
 
-import static io.metaloom.filter.Operation.RANGE;
 import static io.metaloom.loom.db.model.perm.Permission.CREATE_ASSET;
 import static io.metaloom.loom.db.model.perm.Permission.DELETE_ASSET;
 import static io.metaloom.loom.db.model.perm.Permission.READ_ASSET;
@@ -15,9 +14,11 @@ import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
+import io.metaloom.loom.db.model.embedding.Embedding;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
@@ -35,8 +36,10 @@ import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetS3Meta;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
+import io.metaloom.utils.FloatUtils;
 import io.metaloom.utils.UUIDUtils;
 import io.metaloom.utils.hash.SHA512Sum;
+import io.metaloom.video4j.fingerprint.v2.MultiSectorFingerprint;
 
 @Singleton
 public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, Asset> {
@@ -148,6 +151,18 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 
 			Asset asset = dao().createAsset(userUuid, sha512sum, mimeType, filename, origin, size);
 			update(request, asset);
+
+			// Create initial embedding for asset
+			if (request.getVideo() != null && request.getVideo().getFingerprint() != null) {
+				MultiSectorFingerprint fp = MultiSectorFingerprint.of(request.getVideo().getFingerprint());
+				Float[] vectorData = FloatUtils.floatToFloat(fp.vector());
+				Embedding embedding = daos().embeddingDao().createEmbedding(userUuid, asset.getUuid(), vectorData,
+					EmbeddingType.VIDEO4J_FINGERPRINT_V1, 0L);
+			}
+			// if (request.getAudio() != null && request.getAudio().getFingerprint() != null) {
+			// Embedding embedding = daos().embeddingDao().createEmbedding(userUuid, asset.getUuid(), null, 0);
+			// }
+
 			return asset;
 		}, modelBuilder::toResponse);
 	}

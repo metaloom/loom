@@ -2,6 +2,7 @@ package io.metaloom.loom.db.model.embedding;
 
 import java.util.UUID;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.user.User;

@@ -7,6 +7,16 @@ public class FileKey {
 	private Long edate;
 	private Long edateNano;
 
+	public FileKey() {
+	}
+
+	public FileKey(long inode, long stDev, long edate, long edateNano) {
+		this.inode = inode;
+		this.stDev = stDev;
+		this.edate = edate;
+		this.edateNano = edateNano;
+	}
+
 	public Long getInode() {
 		return inode;
 	}
