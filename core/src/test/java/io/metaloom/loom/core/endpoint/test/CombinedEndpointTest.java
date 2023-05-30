@@ -1,6 +1,5 @@
 package io.metaloom.loom.core.endpoint.test;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -75,7 +74,7 @@ public class CombinedEndpointTest extends AbstractEndpointTest {
 				EmbeddingResponse embedding = client.createEmbedding(embeddingRequest).sync();
 				Path videoPath = env.sampleVideo2Path();
 				try (InputStream stream = Files.newInputStream(videoPath)) {
-					AttachmentResponse uploadResponse = client.uploadAttachment(DUMMY_VIDEO_FILENAME, VIDEO_MIMETYPE, stream, Files.size(videoPath)).sync();
+					AttachmentResponse uploadResponse = client.uploadAttachment(DUMMY_VIDEO_FILENAME, VIDEO_MIMETYPE, stream).sync();
 				}
 			}
 

@@ -21,6 +21,11 @@ public class CollectionDaoTest extends AbstractJooqTest implements CRUDDaoTestca
 	}
 
 	@Override
+	public void assertCreate(Collection createdElement) {
+		assertEquals("name_" + 0, createdElement.getName());
+	}
+
+	@Override
 	public void assertUpdate(Collection updatedElement) {
 		assertEquals("new_name", updatedElement.getName());
 	}

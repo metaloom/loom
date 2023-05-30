@@ -12,6 +12,8 @@ public interface AttachmentModelBuilder extends ModelBuilder, UserModelBuilder {
 		response.setUuid(attachment.getUuid());
 		response.setFilename(attachment.getFilename());
 		response.setMimeType(attachment.getMimeType());
+		response.setSha512sum(attachment.getSha512sum());
+		System.out.println(attachment.getSize());
 		response.setSize(attachment.getSize());
 		setStatus(attachment, response);
 		return response;

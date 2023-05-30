@@ -16,6 +16,11 @@ public class LibraryDaoTest extends AbstractJooqTest implements CRUDDaoTestcases
 	}
 
 	@Override
+	public void assertCreate(Library createdElement) {
+		assertEquals("library_0", createdElement.getName());
+	}
+
+	@Override
 	public LibraryDao getDao() {
 		return libraryDao();
 	}

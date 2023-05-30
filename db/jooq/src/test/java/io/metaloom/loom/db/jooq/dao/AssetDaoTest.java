@@ -10,15 +10,23 @@ import io.metaloom.loom.db.model.user.User;
 import io.metaloom.utils.hash.SHA512Sum;
 
 public class AssetDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<AssetDao, Asset> {
-
-	@Override
-	public Asset createElement(User user, int i) {
-		return assetDao().createAsset(user.getUuid(), SHA512Sum.fromString(SHA256SUM), IMAGE_MIMETYPE, DUMMY_IMAGE_FILENAME, DUMMY_IMAGE_ORIGIN, 42L);
-	}
-
 	@Override
 	public AssetDao getDao() {
 		return assetDao();
+	}
+
+	@Override
+	public Asset createElement(User user, int i) {
+		return assetDao().createAsset(user.getUuid(), SHA512Sum.fromString(SHA512SUM), IMAGE_MIMETYPE, DUMMY_IMAGE_FILENAME, DUMMY_IMAGE_ORIGIN, 42L);
+	}
+
+	@Override
+	public void assertCreate(Asset createdElement) {
+		assertEquals(SHA512SUM, createdElement.getSHA512());
+		assertEquals(IMAGE_MIMETYPE, createdElement.getMimeType());
+		assertEquals(DUMMY_IMAGE_FILENAME, createdElement.getFilename());
+		assertEquals(DUMMY_IMAGE_ORIGIN, createdElement.getInitialOrigin());
+		assertEquals(42L, createdElement.getSize());
 	}
 
 	@Override

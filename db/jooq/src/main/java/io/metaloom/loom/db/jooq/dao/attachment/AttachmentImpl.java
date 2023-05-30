@@ -12,7 +12,7 @@ public class AttachmentImpl extends AbstractEditableElement<Attachment> implemen
 
 	private String filename;
 
-	@Column(name = "binary_sha512sum")
+	@Column(name = "binary.sha512sum")
 	private String sha512sum;
 
 	private String mimeType;
@@ -21,6 +21,7 @@ public class AttachmentImpl extends AbstractEditableElement<Attachment> implemen
 
 	private UUID embeddingUUID;
 
+	@Column(name = "binary.size")
 	private long size;
 
 	private AttachmentType type;

@@ -1,22 +1,29 @@
 package io.metaloom.loom.db.jooq.dao.attachment;
 
+import static io.metaloom.loom.db.jooq.tables.JooqAttachment.ATTACHMENT;
 import static io.metaloom.loom.db.jooq.tables.JooqAttachmentBinary.ATTACHMENT_BINARY;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
+import org.jooq.SelectJoinStep;
 import org.jooq.Table;
 import org.jooq.TableRecord;
 
+import io.metaloom.filter.Filter;
 import io.metaloom.loom.api.attachment.AttachmentType;
+import io.metaloom.loom.api.sort.SortDirection;
+import io.metaloom.loom.api.sort.SortKey;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqAttachment;
 import io.metaloom.loom.db.jooq.tables.records.JooqAttachmentBinaryRecord;
 import io.metaloom.loom.db.model.attachment.Attachment;
 import io.metaloom.loom.db.model.attachment.AttachmentDao;
+import io.metaloom.loom.db.page.Page;
 
 @Singleton
 public class AttachmentDaoImpl extends AbstractJooqDao<Attachment> implements AttachmentDao {
@@ -42,6 +49,28 @@ public class AttachmentDaoImpl extends AbstractJooqDao<Attachment> implements At
 	}
 
 	@Override
+	public Attachment load(UUID uuid) {
+		return ctx()
+			.select()
+			.from(ATTACHMENT)
+			.leftJoin(ATTACHMENT_BINARY)
+			.on(ATTACHMENT_BINARY.SHA512SUM.eq(ATTACHMENT.BINARY_SHA512SUM))
+			.where(ATTACHMENT.UUID.eq(uuid))
+			.fetchOneInto(getPojoClass());
+	}
+
+	@Override
+	public Page<Attachment> loadPage(UUID fromId, int pageSize, List<Filter> filters, SortKey sortBy, SortDirection sortDirection) {
+		SelectJoinStep<?> query = ctx()
+			.select()
+			.from(ATTACHMENT)
+			.leftJoin(ATTACHMENT_BINARY)
+			.on(ATTACHMENT_BINARY.SHA512SUM.eq(ATTACHMENT.BINARY_SHA512SUM));
+
+		return loadPage(query, fromId, pageSize, filters, sortBy, sortDirection);
+	}
+
+	@Override
 	public void store(Attachment attachment) {
 
 		// 1. Ensure that binary is stored
@@ -63,7 +92,7 @@ public class AttachmentDaoImpl extends AbstractJooqDao<Attachment> implements At
 			.returning(getTable().field("uuid", UUID.class))
 			.fetchOne("uuid", UUID.class);
 		if (uuid == null) {
-			throw new RuntimeException("Key null!!");
+			throw new RuntimeException("Key null!");
 		}
 		attachment.setUuid(uuid);
 	}

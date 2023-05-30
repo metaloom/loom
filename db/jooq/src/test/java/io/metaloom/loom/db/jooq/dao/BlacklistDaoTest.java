@@ -21,6 +21,11 @@ public class BlacklistDaoTest extends AbstractJooqTest implements CRUDDaoTestcas
 	}
 
 	@Override
+	public void assertCreate(Blacklist createdElement) {
+		assertEquals("name_0", createdElement.getName());
+	}
+
+	@Override
 	public void assertUpdate(Blacklist updatedElement) {
 		assertEquals("new_name", updatedElement.getName());
 	}

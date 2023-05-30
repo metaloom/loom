@@ -21,6 +21,11 @@ public class TaskDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<Ta
 	}
 
 	@Override
+	public void assertCreate(Task createdElement) {
+		assertEquals("task_0", createdElement.getTitle());
+	}
+
+	@Override
 	public void assertUpdate(Task updatedTask) {
 		assertEquals("updated_title", updatedTask.getTitle());
 	}

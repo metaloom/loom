@@ -9,15 +9,19 @@ import io.metaloom.loom.db.model.asset.AssetLocationDao;
 import io.metaloom.loom.db.model.user.User;
 
 public class AssetLocationDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<AssetLocationDao, AssetLocation> {
+	@Override
+	public AssetLocationDao getDao() {
+		return assetLocationDao();
+	}
 
 	@Override
 	public AssetLocation createElement(User user, int i) {
 		return assetLocationDao().createAssetLocation(DUMMY_IMAGE_ORIGIN, ASSET_UUID, ADMIN_UUID, LIBRARY_UUID);
 	}
-
 	@Override
-	public AssetLocationDao getDao() {
-		return assetLocationDao();
+	public void assertCreate(AssetLocation createdElement) {
+		assertEquals(LIBRARY_UUID, createdElement.getLibraryUuid());
+		assertEquals(ASSET_UUID, createdElement.getAssetUuid());
 	}
 
 	@Override

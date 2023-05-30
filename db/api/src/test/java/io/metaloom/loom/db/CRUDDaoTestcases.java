@@ -29,13 +29,14 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T>, T extends Element<T>> 
 			T element = createElement(creator, 0);
 			assertNotNull(element);
 			dao.store(element);
-			ref.set(element.getUuid());
 			assertNotNull(element.getUuid());
-			getDao().store(element);
+			ref.set(element.getUuid());
 		});
 
 		assertEquals(before + 1, dao.count());
-		assertNotNull(dao.load(ref.get()));
+		T loaded = dao.load(ref.get());
+		assertNotNull(loaded);
+		assertCreate(loaded);
 	}
 
 	@Test
@@ -71,6 +72,8 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T>, T extends Element<T>> 
 
 	}
 
+	void assertCreate(T createdElement);
+
 	void assertUpdate(T updatedElement);
 
 	void updateElement(T element);
@@ -91,11 +94,12 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T>, T extends Element<T>> 
 
 	@Test
 	default void testLoadPage() {
+		long before = getDao().count();
 		for (int i = 0; i < 1024; i++) {
 			T element = createElement(dummyUser(), i);
 			getDao().store(element);
 		}
-		assertEquals(1024, getDao().count());
+		assertEquals(before + 1024, getDao().count());
 
 		UUID id = null;
 		long totalFound = 0;
@@ -113,7 +117,7 @@ public interface CRUDDaoTestcases<DAO extends CRUDDao<T>, T extends Element<T>> 
 			System.out.println("--");
 		}
 
-		assertEquals(1024, totalFound);
+		assertEquals(before + 1024, totalFound);
 	}
 
 }

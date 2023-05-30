@@ -21,6 +21,12 @@ public class ClusterDaoTest extends AbstractJooqTest implements CRUDDaoTestcases
 	}
 
 	@Override
+	public void assertCreate(Cluster createdElement) {
+		assertEquals("cluster_name_0", createdElement.getName());
+		assertEquals("PERSON", createdElement.getType());
+	}
+
+	@Override
 	public void assertUpdate(Cluster updatedElement) {
 		assertEquals("new_name", updatedElement.getName());
 	}

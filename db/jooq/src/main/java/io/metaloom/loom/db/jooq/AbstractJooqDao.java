@@ -125,16 +125,6 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 			.from(getTable())
 			.where(getIdField().eq(id))
 			.fetchOneInto(getPojoClass());
-		// return ctx().selectFrom(USER)
-		// .where(USER.UUID.equal(uuid))
-		// .fetchOneInto(User.class);
-
-		// JooqUser user = dao().findById(uuid);
-		// if (user == null) {
-		// return null;
-		// }
-		// return new UserImpl(user);
-
 	}
 
 	@Override
@@ -150,6 +140,12 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 		SelectJoinStep<?> query = ctx()
 			.select(getTable())
 			.from(getTable());
+
+		return loadPage(query, fromId, pageSize, filters, sortBy, sortDirection);
+	}
+
+	protected Page<T> loadPage(SelectJoinStep<?> query, UUID fromId, int pageSize, List<Filter> filters, SortKey sortBy,
+		SortDirection sortDirection) {
 
 		// Filtering
 		if (filters != null) {
@@ -183,6 +179,7 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 			.fetchStreamInto(getPojoClass())
 			.collect(Collectors.toList());
 		return new Page<>(pageSize, list);
+
 	}
 
 	protected SelectConditionStep<?> applyFilter(SelectJoinStep<?> query, Filter filter) {

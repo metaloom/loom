@@ -22,6 +22,13 @@ public class EmbeddingDaoTest extends AbstractJooqTest implements CRUDDaoTestcas
 	}
 
 	@Override
+	public void assertCreate(Embedding createdElement) {
+		assertEquals(asset().getUuid(), createdElement.getAssetUuid());
+		assertEquals(EmbeddingType.DLIB_FACE_RESNET_v1, createdElement.getType());
+		assertEquals(0, createdElement.getId());
+	}
+
+	@Override
 	public void assertUpdate(Embedding updatedElement) {
 		assertEquals(42, updatedElement.getId());
 	}

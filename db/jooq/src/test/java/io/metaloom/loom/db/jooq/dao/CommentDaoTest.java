@@ -21,6 +21,11 @@ public class CommentDaoTest extends AbstractJooqTest implements CRUDDaoTestcases
 	}
 
 	@Override
+	public void assertCreate(Comment createdElement) {
+		assertEquals("title_0", createdElement.getTitle());
+	}
+
+	@Override
 	public void assertUpdate(Comment updatedElement) {
 		assertEquals("updated_title", updatedElement.getTitle());
 	}

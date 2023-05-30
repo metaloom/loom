@@ -27,6 +27,11 @@ public class UserDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<Us
 	}
 
 	@Override
+	public void assertCreate(User createdElement) {
+		assertEquals("user_0", createdElement.getUsername());
+	}
+
+	@Override
 	public void assertUpdate(User updatedElement) {
 		assertEquals("new_name", updatedElement.getUsername());
 	}

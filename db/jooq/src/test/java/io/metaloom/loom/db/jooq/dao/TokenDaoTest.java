@@ -21,6 +21,12 @@ public class TokenDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<T
 	}
 
 	@Override
+	public void assertCreate(Token createdElement) {
+		assertEquals("name_0", createdElement.getName());
+		assertEquals("TOKEN_VALUE", createdElement.getToken());
+	}
+
+	@Override
 	public void assertUpdate(Token updatedElement) {
 		assertEquals("new_name", updatedElement.getName());
 	}

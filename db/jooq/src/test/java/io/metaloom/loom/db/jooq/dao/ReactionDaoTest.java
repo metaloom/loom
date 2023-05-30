@@ -21,6 +21,11 @@ public class ReactionDaoTest extends AbstractJooqTest implements CRUDDaoTestcase
 	}
 
 	@Override
+	public void assertCreate(Reaction createdElement) {
+		assertEquals("type_0", createdElement.getType());
+	}
+
+	@Override
 	public void assertUpdate(Reaction updatedElement) {
 		assertEquals("new", updatedElement.getType());
 	}

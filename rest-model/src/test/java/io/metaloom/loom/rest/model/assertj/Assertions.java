@@ -3,6 +3,7 @@ package io.metaloom.loom.rest.model.assertj;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.asset.AssetResponse;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationResponse;
+import io.metaloom.loom.rest.model.attachment.AttachmentResponse;
 import io.metaloom.loom.rest.model.cluster.ClusterResponse;
 import io.metaloom.loom.rest.model.comment.CommentResponse;
 import io.metaloom.loom.rest.model.common.AbstractListResponse;
@@ -27,6 +28,10 @@ public class Assertions extends org.assertj.core.api.Assertions {
 
 	public static AssetLocationModelAssert assertThat(AssetLocationResponse model) {
 		return new AssetLocationModelAssert(model);
+	}
+
+	public static AttachmentModelAssert assertThat(AttachmentResponse model) {
+		return new AttachmentModelAssert(model);
 	}
 
 	public static CommentModelAssert assertThat(CommentResponse model) {

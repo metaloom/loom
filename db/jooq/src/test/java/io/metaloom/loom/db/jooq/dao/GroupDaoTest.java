@@ -21,6 +21,11 @@ public class GroupDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<G
 	}
 
 	@Override
+	public void assertCreate(Group createdElement) {
+		assertEquals("group_0", createdElement.getName());
+	}
+
+	@Override
 	public void assertUpdate(Group updatedElement) {
 		assertEquals("new_name", updatedElement.getName());
 	}

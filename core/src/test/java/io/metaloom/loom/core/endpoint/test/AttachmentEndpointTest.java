@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractCRUDEndpointTest;
+import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.attachment.AttachmentListResponse;
 import io.metaloom.loom.rest.model.attachment.AttachmentResponse;
 import io.metaloom.loom.rest.model.attachment.AttachmentUpdateRequest;
@@ -34,9 +35,8 @@ public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 	protected void testCreate(LoomHttpClient client) throws Exception {
 
 		Path path = env.sampleVideo2Path();
-		long size = Files.size(path);
 		try (InputStream stream = Files.newInputStream(path)) {
-			AttachmentResponse response = client.uploadAttachment(DUMMY_VIDEO_FILENAME, VIDEO_MIMETYPE, stream, size).sync();
+			AttachmentResponse response = client.uploadAttachment(DUMMY_VIDEO_FILENAME, VIDEO_MIMETYPE, stream).sync();
 		}
 	}
 
@@ -52,8 +52,16 @@ public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testReadPage(LoomHttpClient client) throws HttpErrorException {
+	protected void testReadPage(LoomHttpClient client) throws Exception {
+		for (int i = 0; i < 10; i++) {
+			Path path = env.sampleVideo2Path();
+			try (InputStream stream = Files.newInputStream(path)) {
+				AttachmentResponse response = client.uploadAttachment(DUMMY_VIDEO_FILENAME, VIDEO_MIMETYPE, stream).sync();
+			}
+		}
 		AttachmentListResponse list = client.listAttachments().sync();
+		System.out.println(Json.parse(list));
+		
 
 	}
 

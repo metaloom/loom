@@ -31,35 +31,35 @@ public abstract class AbstractCRUDEndpointTest extends AbstractEndpointTest impl
 
 	@Test
 	@Override
-	public void testDelete() throws HttpErrorException {
+	public void testDelete() throws Exception {
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 			testDelete(client);
 		}
 	}
 
-	protected abstract void testDelete(LoomHttpClient client) throws HttpErrorException;
+	protected abstract void testDelete(LoomHttpClient client) throws Exception;
 
 	@Test
 	@Override
-	public void testUpdate() throws HttpErrorException {
+	public void testUpdate() throws Exception {
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 			testUpdate(client);
 		}
 	}
 
-	protected abstract void testUpdate(LoomHttpClient client) throws HttpErrorException;
+	protected abstract void testUpdate(LoomHttpClient client) throws Exception;
 
 	@Test
 	@Override
-	public void testReadPaged() throws HttpErrorException {
+	public void testReadPaged() throws Exception {
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 			testReadPage(client);
 		}
 	}
 
-	protected abstract void testReadPage(LoomHttpClient client) throws HttpErrorException;
+	protected abstract void testReadPage(LoomHttpClient client) throws Exception;
 
 }

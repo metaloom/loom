@@ -39,11 +39,10 @@ public class JooqTestContext implements BeforeEachCallback, AfterEachCallback, D
 
 	@Override
 	public void afterEach(ExtensionContext context) throws Exception {
-		log.info("Stopping test context");
-		if (dbProvider != null) {
-			dbProvider.afterEach(context);
-		}
-
+//		log.info("Stopping test context");
+//		if (dbProvider != null) {
+//			dbProvider.afterEach(context);
+//		}
 	}
 
 	public DataSource dataSource() {

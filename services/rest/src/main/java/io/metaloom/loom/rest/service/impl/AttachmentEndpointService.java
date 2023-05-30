@@ -62,6 +62,7 @@ public class AttachmentEndpointService extends AbstractCRUDEndpointService<Attac
 				throw new LoomRestException(400, "No uploads found in request.");
 			}
 			FileUpload upload = lrc.fileUploads().get(0);
+			//validator.validate(upload);
 			UUID userUuid = lrc.userUuid();
 			String filename = upload.fileName();
 			long size = upload.size();
