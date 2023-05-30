@@ -15,8 +15,8 @@ CREATE TABLE "attachment" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "binary_sha512sum" varchar NOT NULL,
 
-  "embedding_uuid" uuid NOT NULL,
-  "asset_uuid" uuid NOT NULL,
+  "embedding_uuid" uuid,
+  "asset_uuid" uuid,
 
   "mime_type" varchar NOT NULL,
   "type" attachment_type NOT NULL,

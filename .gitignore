@@ -21,3 +21,4 @@ keystore.jceks
 #dlib models
 worker/actions/facedetect/dlib/
 containers/server/config
+core/file-uploads

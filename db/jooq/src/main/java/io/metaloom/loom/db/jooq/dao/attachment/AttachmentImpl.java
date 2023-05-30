@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 
+import io.metaloom.loom.api.attachment.AttachmentType;
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.attachment.Attachment;
 
@@ -22,6 +23,8 @@ public class AttachmentImpl extends AbstractEditableElement<Attachment> implemen
 
 	private long size;
 
+	private AttachmentType type;
+
 	@Override
 	public String getFilename() {
 		return filename;
@@ -35,6 +38,10 @@ public class AttachmentImpl extends AbstractEditableElement<Attachment> implemen
 
 	@Override
 	public String getSha512sum() {
+		return sha512sum;
+	}
+
+	public String binarySha512sum() {
 		return sha512sum;
 	}
 
@@ -85,6 +92,17 @@ public class AttachmentImpl extends AbstractEditableElement<Attachment> implemen
 	@Override
 	public Attachment setAssetUuid(UUID assetUuid) {
 		this.assetUuid = assetUuid;
+		return this;
+	}
+
+	@Override
+	public AttachmentType getType() {
+		return type;
+	}
+
+	@Override
+	public Attachment setType(AttachmentType type) {
+		this.type = type;
 		return this;
 	}
 

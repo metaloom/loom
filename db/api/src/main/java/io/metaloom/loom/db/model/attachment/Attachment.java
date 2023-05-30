@@ -2,6 +2,7 @@ package io.metaloom.loom.db.model.attachment;
 
 import java.util.UUID;
 
+import io.metaloom.loom.api.attachment.AttachmentType;
 import io.metaloom.loom.db.CUDElement;
 
 public interface Attachment extends CUDElement<Attachment> {
@@ -29,5 +30,9 @@ public interface Attachment extends CUDElement<Attachment> {
 	UUID getAssetUuid();
 
 	Attachment setAssetUuid(UUID assetUuid);
+
+	AttachmentType getType();
+
+	Attachment setType(AttachmentType type);
 
 }

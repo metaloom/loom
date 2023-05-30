@@ -5,6 +5,7 @@ import static io.metaloom.loom.db.model.perm.Permission.DELETE_ATTACHMENT;
 import static io.metaloom.loom.db.model.perm.Permission.READ_ATTACHMENT;
 import static io.metaloom.loom.db.model.perm.Permission.UPDATE_ATTACHMENT;
 
+import java.nio.file.Paths;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.metaloom.loom.api.attachment.AttachmentType;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.attachment.Attachment;
@@ -21,6 +23,7 @@ import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.attachment.AttachmentUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
+import io.metaloom.utils.hash.HashUtils;
 import io.vertx.ext.web.FileUpload;
 
 public class AttachmentEndpointService extends AbstractCRUDEndpointService<AttachmentDao, Attachment> {
@@ -63,7 +66,9 @@ public class AttachmentEndpointService extends AbstractCRUDEndpointService<Attac
 			String filename = upload.fileName();
 			long size = upload.size();
 			String mimeType = upload.contentType();
-			Attachment attachment = dao().createAttachment(userUuid, filename, size, mimeType);
+			AttachmentType type = AttachmentType.EMBEDDING_ATTACHMENT;
+			String sha512sum =  HashUtils.computeSHA512(Paths.get(upload.uploadedFileName()));
+			Attachment attachment = dao().createAttachment(userUuid, sha512sum, filename, size, mimeType, type);
 			return attachment;
 		}, modelBuilder::toResponse);
 	}

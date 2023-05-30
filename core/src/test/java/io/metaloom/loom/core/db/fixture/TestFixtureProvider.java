@@ -3,6 +3,7 @@ package io.metaloom.loom.core.db.fixture;
 import java.time.Instant;
 import java.util.UUID;
 
+import io.metaloom.loom.api.attachment.AttachmentType;
 import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
 import io.metaloom.loom.db.model.annotation.Annotation;
@@ -180,10 +181,10 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 	}
 
 	private Attachment createAttachment(UUID attachmentUuid, Embedding embedding, User user) {
-		Attachment attachment = attachmentDao().createAttachment(user.getUuid(), DUMMY_IMAGE_FILENAME, 42L, IMAGE_MIMETYPE);
+		Attachment attachment = attachmentDao().createAttachment(user.getUuid(), SHA512SUM_3, DUMMY_IMAGE_FILENAME, 42L, IMAGE_MIMETYPE,
+			AttachmentType.EMBEDDING_ATTACHMENT);
 		attachment.setEmbeddingUuid(embedding.getUuid());
 		attachment.setAssetUuid(embedding.getAssetUuid());
-		attachment.setSha512sum(SHA512SUM_3);
 		attachment.setUuid(attachmentUuid);
 		attachmentDao().store(attachment);
 		return attachment;
