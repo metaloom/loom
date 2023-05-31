@@ -18,10 +18,6 @@ public interface AssetAudioInfo extends AssetMediaInfo {
 
 	Asset setAudioChannels(Integer channels);
 
-	String getAudioFingerprint();
-
-	Asset setAudioFingerprint(String fingerprint);
-
 	Integer getAudioBitrate();
 
 	Asset setAudioBitrate(Integer bitrate);

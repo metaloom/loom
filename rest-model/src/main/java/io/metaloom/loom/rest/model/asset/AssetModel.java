@@ -1,8 +1,11 @@
 
 package io.metaloom.loom.rest.model.asset;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.asset.info.AudioInfo;
 import io.metaloom.loom.rest.model.asset.info.ConsistencyInfo;
@@ -13,6 +16,8 @@ import io.metaloom.loom.rest.model.asset.info.HashInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
 import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.info.VideoInfo;
+import io.metaloom.loom.rest.model.embedding.EmbeddingModel;
+import io.metaloom.loom.rest.model.embedding.EmbeddingResponse;
 import io.metaloom.utils.hash.SHA512Sum;
 
 public interface AssetModel<T extends AssetModel<T>> extends MetaModel<T> {
@@ -66,12 +71,4 @@ public interface AssetModel<T extends AssetModel<T>> extends MetaModel<T> {
 		return self();
 	}
 
-	@JsonIgnore
-	default T setVideoFingerprint(String fingerprint) {
-		if (getVideo() == null) {
-			setVideo(new VideoInfo());
-		}
-		getVideo().setFingerprint(fingerprint);
-		return self();
-	}
 }

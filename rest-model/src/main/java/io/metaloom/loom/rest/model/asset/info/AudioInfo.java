@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import io.metaloom.loom.rest.model.RestModel;
 
 public class AudioInfo implements RestModel {
-	
+
 	private Integer channels;
 
 	private String encoding;
@@ -15,9 +15,6 @@ public class AudioInfo implements RestModel {
 	private Integer samplingRate;
 
 	private Integer bpm;
-
-	@JsonPropertyDescription("The digital fingerprint of the media.")
-	private String fingerprint;
 
 	public Integer getChannels() {
 		return channels;
@@ -52,15 +49,6 @@ public class AudioInfo implements RestModel {
 
 	public AudioInfo setEncoding(String encoding) {
 		this.encoding = encoding;
-		return this;
-	}
-
-	public String getFingerprint() {
-		return fingerprint;
-	}
-
-	public AudioInfo setFingerprint(String fingerprint) {
-		this.fingerprint = fingerprint;
 		return this;
 	}
 

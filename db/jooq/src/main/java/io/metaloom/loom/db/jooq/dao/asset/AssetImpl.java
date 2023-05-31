@@ -21,7 +21,6 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	private String initialOrigin;
 
 	// Video
-	private String videoFingerprint;
 	private Integer videoBitrate;
 	private String videoEncoding;
 
@@ -31,7 +30,6 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	private Integer audioSampleRate;
 	private Integer audioBitrate;
 	private String audioEncoding;
-	private String audioFingerprint;
 
 	// Image
 	private String imageDominantColor;
@@ -133,17 +131,6 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	}
 
 	@Override
-	public String getVideoFingerprint() {
-		return videoFingerprint;
-	}
-
-	@Override
-	public Asset setVideoFingerprint(String videoFingerprint) {
-		this.videoFingerprint = videoFingerprint;
-		return this;
-	}
-
-	@Override
 	public Integer getVideoBitrate() {
 		return videoBitrate;
 	}
@@ -151,17 +138,6 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	@Override
 	public Asset setVideoBitrate(Integer bitrate) {
 		this.videoBitrate = bitrate;
-		return this;
-	}
-
-	@Override
-	public String getAudioFingerprint() {
-		return audioFingerprint;
-	}
-
-	@Override
-	public Asset setAudioFingerprint(String audioFingerprint) {
-		this.audioFingerprint = audioFingerprint;
 		return this;
 	}
 

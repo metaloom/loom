@@ -10,8 +10,4 @@ public interface AssetVideoInfo extends AssetMediaInfo {
 
 	Asset setVideoBitrate(Integer bitrate);
 
-	String getVideoFingerprint();
-
-	Asset setVideoFingerprint(String fingerprint);
-
 }

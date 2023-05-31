@@ -46,7 +46,6 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		}
 
 		asset.setSHA256(sha256sum);
-		asset.setVideoFingerprint(fingerprint);
 		asset.setZeroChunkCount(zeroChunkCount);
 		asset.setChunkHash(chunkHash);
 		daos.assetDao().store(asset);

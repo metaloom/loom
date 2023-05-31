@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.model.embedding;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.model.annotation.AreaInfo;
@@ -9,5 +10,13 @@ public interface EmbeddingModel<T extends EmbeddingModel<T>> extends MetaModel<T
 	AreaInfo getArea();
 
 	T setArea(AreaInfo area);
+
+	Float[] getVector();
+
+	T setVector(Float[] vector);
+
+	EmbeddingType getType();
+
+	T setType(EmbeddingType type);
 
 }

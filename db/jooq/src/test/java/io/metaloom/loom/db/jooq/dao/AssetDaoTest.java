@@ -31,12 +31,12 @@ public class AssetDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<A
 
 	@Override
 	public void updateElement(Asset element) {
-		element.setAudioFingerprint("new fingerprint");
+		element.setMimeType("new mimetype");
 	}
 
 	@Override
 	public void assertUpdate(Asset updatedAsset) {
-		assertEquals("new fingerprint", updatedAsset.getAudioFingerprint());
+		assertEquals("new mimetype", updatedAsset.getMimeType());
 	}
 
 }

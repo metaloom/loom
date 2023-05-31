@@ -5,7 +5,6 @@ import io.metaloom.loom.rest.model.asset.info.ConsistencyInfo;
 import io.metaloom.loom.rest.model.asset.info.FileInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
 import io.metaloom.loom.rest.model.asset.info.MediaInfo;
-import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationExamples;
 import io.metaloom.loom.rest.model.example.ExampleValues;
 
@@ -23,7 +22,6 @@ public interface AssetExamples extends ExampleValues, AssetLocationExamples {
 			.setAnnotations(assetAnnotations());
 
 		model.setImage(new ImageInfo().setDominantColor("#FFFF00"));
-		model.setVideo(new VideoInfo().setFingerprint(VIDEO_FINGERPRINT));
 		model.setMedia(new MediaInfo().setDuration(20000L).setWidth(4000).setHeight(2250));
 		model.setAudio(new AudioInfo().setBpm(120).setChannels(2).setSamplingRate(48000).setEncoding("mp3"));
 		model.setMeta(meta());

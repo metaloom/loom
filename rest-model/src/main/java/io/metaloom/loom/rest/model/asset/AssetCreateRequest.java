@@ -2,8 +2,10 @@ package io.metaloom.loom.rest.model.asset;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.asset.info.AudioInfo;
@@ -15,6 +17,7 @@ import io.metaloom.loom.rest.model.asset.info.HashInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
 import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.info.VideoInfo;
+import io.metaloom.loom.rest.model.embedding.EmbeddingCreateRequest;
 import io.metaloom.loom.rest.model.tag.TagReference;
 import io.vertx.core.json.JsonObject;
 
@@ -35,8 +38,8 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 	@JsonPropertyDescription("A list of tags on the asset.")
 	private List<TagReference> tags;
 
-//	@JsonPropertyDescription("The local path of the asset. This will only be returned when the asset was created using a local path.")
-//	private String localPath;
+	// @JsonPropertyDescription("The local path of the asset. This will only be returned when the asset was created using a local path.")
+	// private String localPath;
 
 	@JsonPropertyDescription("Information about the file of the asset")
 	private FileInfo file;
@@ -62,7 +65,10 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 	@JsonPropertyDescription("Information about the document (text) component of the asset (if present)")
 	private DocumentInfo document;
 
-//	private String origin;
+	@JsonPropertyDescription("Information on embeddings")
+	private List<EmbeddingCreateRequest> embeddings;
+
+	// private String origin;
 
 	public AssetCreateRequest() {
 	}
@@ -106,15 +112,6 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 		this.timeline = timeline;
 		return this;
 	}
-
-//	public String getLocalPath() {
-//		return localPath;
-//	}
-//
-//	public AssetCreateRequest setLocalPath(String localPath) {
-//		this.localPath = localPath;
-//		return this;
-//	}
 
 	public List<TagReference> getTags() {
 		return tags;
@@ -191,14 +188,14 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 		return this;
 	}
 
-//	public String getOrigin() {
-//		return origin;
-//	}
+	// public String getOrigin() {
+	// return origin;
+	// }
 
-//	public AssetCreateRequest setOrigin(String origin) {
-//		this.origin = origin;
-//		return this;
-//	}
+	// public AssetCreateRequest setOrigin(String origin) {
+	// this.origin = origin;
+	// return this;
+	// }
 
 	@Override
 	public FileInfo getFile() {
@@ -222,8 +219,24 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 		return this;
 	}
 
+	public List<EmbeddingCreateRequest> getEmbeddings() {
+		return this.embeddings;
+	}
+
+	public AssetCreateRequest setEmbeddings(List<EmbeddingCreateRequest> embeddings) {
+		this.embeddings = embeddings;
+		return this;
+	}
+
 	@Override
 	public AssetCreateRequest self() {
 		return this;
 	}
+
+	@JsonIgnore
+	public AssetCreateRequest addVideoFingerprint(Float[] vector) {
+		getEmbeddings().add(new EmbeddingCreateRequest().setVector(vector).setType(EmbeddingType.VIDEO4J_FINGERPRINT_V2));
+		return this;
+	}
+
 }

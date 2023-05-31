@@ -51,13 +51,11 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 		audioInfo.setBitrate(320 * 1024);
 		audioInfo.setChannels(2);
 		audioInfo.setEncoding("FLAC");
-		audioInfo.setFingerprint(AUDIO_FINGERPRINT);
 		audioInfo.setSamplingRate(44100);
 		request.setAudio(audioInfo);
 
 		VideoInfo videoInfo = new VideoInfo();
 		videoInfo.setBitrate(40_000);
-		videoInfo.setFingerprint(VIDEO_FINGERPRINT);
 		videoInfo.setEncoding("H265");
 		request.setVideo(videoInfo);
 

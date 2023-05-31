@@ -19,7 +19,7 @@ import io.metaloom.loom.rest.model.asset.location.AssetLocationReference;
 import io.metaloom.loom.rest.model.asset.location.social.SocialInfo;
 import io.metaloom.loom.rest.model.collection.CollectionResponse;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
-import io.metaloom.loom.rest.model.embedding.EmbeddingReference;
+import io.metaloom.loom.rest.model.embedding.EmbeddingInfo;
 import io.metaloom.loom.rest.model.tag.TagReference;
 
 public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetResponse> implements AssetModel<AssetResponse> {
@@ -52,7 +52,7 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 	private List<CollectionResponse> collections = new ArrayList<>();
 
 	@JsonPropertyDescription
-	private List<EmbeddingReference> embeddings = new ArrayList<>();
+	private List<EmbeddingInfo> embeddings = new ArrayList<>();
 
 	@JsonPropertyDescription("Information about the asset file.")
 	private FileInfo file;
@@ -148,11 +148,11 @@ public class AssetResponse extends AbstractCreatorEditorRestResponse<AssetRespon
 		return this;
 	}
 
-	public List<EmbeddingReference> getEmbeddings() {
+	public List<EmbeddingInfo> getEmbeddings() {
 		return embeddings;
 	}
 
-	public AssetResponse setEmbeddings(List<EmbeddingReference> embeddings) {
+	public AssetResponse setEmbeddings(List<EmbeddingInfo> embeddings) {
 		this.embeddings = embeddings;
 		return this;
 	}

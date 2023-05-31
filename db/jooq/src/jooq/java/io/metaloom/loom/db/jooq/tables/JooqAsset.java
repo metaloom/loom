@@ -189,12 +189,6 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
     public final TableField<JooqAssetRecord, Integer> VIDEO_HEIGHT = createField(DSL.name("video_height"), SQLDataType.INTEGER, this, "");
 
     /**
-     * The column <code>public.asset.video_fingerprint</code>. Video fingerprint
-     * information
-     */
-    public final TableField<JooqAssetRecord, String> VIDEO_FINGERPRINT = createField(DSL.name("video_fingerprint"), SQLDataType.VARCHAR, this, "Video fingerprint information");
-
-    /**
      * The column <code>public.asset.video_bitrate</code>.
      */
     public final TableField<JooqAssetRecord, Integer> VIDEO_BITRATE = createField(DSL.name("video_bitrate"), SQLDataType.INTEGER, this, "");
@@ -213,12 +207,6 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
      * The column <code>public.asset.image_encoding</code>.
      */
     public final TableField<JooqAssetRecord, String> IMAGE_ENCODING = createField(DSL.name("image_encoding"), SQLDataType.VARCHAR, this, "");
-
-    /**
-     * The column <code>public.asset.image_fingerprint</code>. Image fingerprint
-     * information
-     */
-    public final TableField<JooqAssetRecord, String> IMAGE_FINGERPRINT = createField(DSL.name("image_fingerprint"), SQLDataType.VARCHAR, this, "Image fingerprint information");
 
     /**
      * The column <code>public.asset.audio_bpm</code>.
@@ -245,12 +233,6 @@ public class JooqAsset extends TableImpl<JooqAssetRecord> {
      * encoding used for the asset (e.g. mp3, flac)
      */
     public final TableField<JooqAssetRecord, String> AUDIO_ENCODING = createField(DSL.name("audio_encoding"), SQLDataType.VARCHAR, this, "Store the audio encoding used for the asset (e.g. mp3, flac)");
-
-    /**
-     * The column <code>public.asset.audio_fingerprint</code>. Audio fingerprint
-     * information
-     */
-    public final TableField<JooqAssetRecord, String> AUDIO_FINGERPRINT = createField(DSL.name("audio_fingerprint"), SQLDataType.VARCHAR, this, "Audio fingerprint information");
 
     /**
      * The column <code>public.asset.doc_plain_text</code>. Extracted text of

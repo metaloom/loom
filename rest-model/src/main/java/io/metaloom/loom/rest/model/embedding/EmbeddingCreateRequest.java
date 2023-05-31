@@ -5,19 +5,20 @@ import java.util.UUID;
 import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.annotation.AreaInfo;
-import io.vertx.core.json.JsonObject;
+import io.metaloom.loom.rest.model.common.AbstractMetaModel;
 
-public class EmbeddingCreateRequest implements RestRequestModel, EmbeddingModel<EmbeddingCreateRequest> {
+public class EmbeddingCreateRequest extends AbstractMetaModel<EmbeddingCreateRequest>
+	implements EmbeddingModel<EmbeddingCreateRequest>, RestRequestModel {
 
 	private Long id;
 
 	private String source;
-	private JsonObject meta;
+
 	private AreaInfo area;
 
 	private EmbeddingType type;
 
-	private Float[] data;
+	private Float[] vector;
 
 	private UUID assetUuid;
 
@@ -36,17 +37,6 @@ public class EmbeddingCreateRequest implements RestRequestModel, EmbeddingModel<
 
 	public EmbeddingCreateRequest setSource(String source) {
 		this.source = source;
-		return this;
-	}
-
-	@Override
-	public JsonObject getMeta() {
-		return meta;
-	}
-
-	@Override
-	public EmbeddingCreateRequest setMeta(JsonObject meta) {
-		this.meta = meta;
 		return this;
 	}
 
@@ -70,12 +60,14 @@ public class EmbeddingCreateRequest implements RestRequestModel, EmbeddingModel<
 		return this;
 	}
 
-	public Float[] getData() {
-		return data;
+	@Override
+	public Float[] getVector() {
+		return vector;
 	}
 
-	public EmbeddingCreateRequest setData(Float[] data) {
-		this.data = data;
+	@Override
+	public EmbeddingCreateRequest setVector(Float[] vector) {
+		this.vector = vector;
 		return this;
 	}
 
@@ -87,7 +79,6 @@ public class EmbeddingCreateRequest implements RestRequestModel, EmbeddingModel<
 		this.assetUuid = assetUuid;
 		return this;
 	}
-
 
 	@Override
 	public EmbeddingCreateRequest self() {

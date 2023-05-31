@@ -52,7 +52,7 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 			EmbeddingCreateRequest request = lrc.requestBody(EmbeddingCreateRequest.class);
 			validator.validate(request);
 
-			Float[] data = request.getData();
+			Float[] data = request.getVector();
 			EmbeddingType type = request.getType() == null ? null : EmbeddingType.valueOf(request.getType().name());
 			Long id = request.getId();
 			UUID assetUuid = request.getAssetUuid();

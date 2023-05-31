@@ -34,12 +34,11 @@ import io.metaloom.loom.rest.model.asset.info.ImageInfo;
 import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.info.VideoInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetS3Meta;
+import io.metaloom.loom.rest.model.embedding.EmbeddingCreateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
-import io.metaloom.utils.FloatUtils;
 import io.metaloom.utils.UUIDUtils;
 import io.metaloom.utils.hash.SHA512Sum;
-import io.metaloom.video4j.fingerprint.v2.MultiSectorFingerprint;
 
 @Singleton
 public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, Asset> {
@@ -153,12 +152,14 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 			update(request, asset);
 
 			// Create initial embedding for asset
-			if (request.getVideo() != null && request.getVideo().getFingerprint() != null) {
-				MultiSectorFingerprint fp = MultiSectorFingerprint.of(request.getVideo().getFingerprint());
-				Float[] vectorData = FloatUtils.floatToFloat(fp.vector());
+
+			for (EmbeddingCreateRequest  embeddingRequest: request.getEmbeddings()) {
+				Float[] vectorData = embeddingRequest.getVector();
 				Embedding embedding = daos().embeddingDao().createEmbedding(userUuid, asset.getUuid(), vectorData,
 					EmbeddingType.VIDEO4J_FINGERPRINT_V1, 0L);
+
 			}
+			// TODO audio + image
 			// if (request.getAudio() != null && request.getAudio().getFingerprint() != null) {
 			// Embedding embedding = daos().embeddingDao().createEmbedding(userUuid, asset.getUuid(), null, 0);
 			// }
@@ -219,7 +220,6 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 
 		VideoInfo videoInfo = model.getVideo();
 		if (videoInfo != null) {
-			update(videoInfo::getFingerprint, asset::setVideoFingerprint);
 			update(videoInfo::getEncoding, asset::setVideoEncoding);
 			update(videoInfo::getBitrate, asset::setVideoBitrate);
 		}
@@ -230,7 +230,7 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 			update(audioInfo::getSamplingRate, asset::setAudioSampleRate);
 			update(audioInfo::getBpm, asset::setAudioBPM);
 			update(audioInfo::getChannels, asset::setAudioChannels);
-			update(audioInfo::getFingerprint, asset::setAudioFingerprint);
+
 			update(audioInfo::getBitrate, asset::setAudioBitrate);
 		}
 

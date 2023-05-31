@@ -31,20 +31,17 @@ CREATE TABLE "asset" (
 
   "video_width" int,
   "video_height" int,
-  "video_fingerprint" varchar,
   "video_bitrate" int,
   "video_encoding" varchar,
 
   "image_dominant_color" varchar,
   "image_encoding" varchar,
-  "image_fingerprint" varchar,
 
   "audio_bpm" int,
   "audio_sampling_rate" int,
   "audio_channels" int,
   "audio_bitrate"  int,
   "audio_encoding" varchar,
-  "audio_fingerprint" varchar,
 
   "doc_plain_text" varchar,
   "doc_word_count" int,
@@ -54,16 +51,14 @@ CREATE UNIQUE INDEX ON "asset" ("uuid");
 CREATE INDEX ON "asset" ("geo_lon", "geo_lat");
 ALTER TABLE "asset" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
 ALTER TABLE "asset" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
+
 COMMENT ON TABLE "asset" IS 'This table stores information on the asset component of the asset';
 COMMENT ON COLUMN "asset"."meta" IS 'Custom meta properties to the asset';
 COMMENT ON COLUMN "asset"."initial_origin" IS 'Document the initial origin of the asset (e.g. first filepath encountered, first s3 path, url, hash)';
 COMMENT ON COLUMN "asset"."media_width" IS 'Only set for images, video';
 COMMENT ON COLUMN "asset"."media_height" IS 'Only set for images, video';
 COMMENT ON COLUMN "asset"."media_duration" IS 'Duration of the video, audio';
-COMMENT ON COLUMN "asset"."video_fingerprint" IS 'Video fingerprint information';
-COMMENT ON COLUMN "asset"."image_fingerprint" IS 'Image fingerprint information';
 COMMENT ON COLUMN "asset"."audio_encoding" IS 'Store the audio encoding used for the asset (e.g. mp3, flac)';
-COMMENT ON COLUMN "asset"."audio_fingerprint" IS 'Audio fingerprint information';
 COMMENT ON COLUMN "asset"."doc_plain_text" IS 'Extracted text of the document';
 
 

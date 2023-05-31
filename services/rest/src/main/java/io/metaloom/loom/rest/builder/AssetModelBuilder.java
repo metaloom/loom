@@ -120,10 +120,10 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 		info.setBitrate(asset.getAudioBitrate());
 		info.setChannels(asset.getAudioChannels());
 		info.setEncoding(asset.getAudioEncoding());
-		info.setFingerprint(asset.getAudioFingerprint());
 		info.setSamplingRate(asset.getAudioSamplingRate());
 		return info;
 	}
+
 
 	default FileInfo assetFileInfo(Asset asset) {
 		FileInfo info = new FileInfo();
@@ -142,8 +142,6 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 		// info.setEmbeddings();
 		info.setBitrate(asset.getVideoBitrate());
 		info.setEncoding(asset.getVideoEncoding());
-		info.setFingerprint(asset.getVideoFingerprint());
-
 		return info;
 	}
 
