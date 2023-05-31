@@ -1,9 +1,11 @@
 package io.metaloom.loom.rest.model.annotation;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.vertx.core.json.JsonObject;
@@ -25,6 +27,8 @@ public class AnnotationCreateRequest implements RestRequestModel, MetaModel<Anno
 	@JsonProperty(required = false)
 	@JsonPropertyDescription("Additional custom meta properties for the element.")
 	private JsonObject meta;
+
+	private UUID assetUuid;
 
 	@Override
 	public JsonObject getMeta() {
@@ -78,6 +82,17 @@ public class AnnotationCreateRequest implements RestRequestModel, MetaModel<Anno
 	@Override
 	public AnnotationCreateRequest setArea(AreaInfo area) {
 		this.area = area;
+		return this;
+	}
+
+	@Override
+	public UUID getAssetUuid() {
+		return assetUuid;
+	}
+
+	@Override
+	public AnnotationCreateRequest setAssetUuid(UUID assetUuid) {
+		this.assetUuid = assetUuid;
 		return this;
 	}
 

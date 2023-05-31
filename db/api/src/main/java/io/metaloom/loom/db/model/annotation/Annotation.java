@@ -2,6 +2,7 @@ package io.metaloom.loom.db.model.annotation;
 
 import java.util.UUID;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.MetaElement;
 import io.metaloom.loom.db.Taggable;

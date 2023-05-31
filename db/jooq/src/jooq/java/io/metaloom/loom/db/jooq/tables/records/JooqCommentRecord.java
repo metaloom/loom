@@ -11,8 +11,8 @@ import java.util.UUID;
 
 import org.jooq.Field;
 import org.jooq.Record1;
-import org.jooq.Record7;
-import org.jooq.Row7;
+import org.jooq.Record8;
+import org.jooq.Row8;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
@@ -20,7 +20,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Stores comments on tasks, annotations..
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> implements Record7<UUID, String, String, UUID, LocalDateTime, LocalDateTime, UUID> {
+public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> implements Record8<UUID, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -67,16 +67,16 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     /**
-     * Setter for <code>public.comment.user_uuid</code>.
+     * Setter for <code>public.comment.parent_uuid</code>.
      */
-    public void setUserUuid(UUID value) {
+    public void setParentUuid(UUID value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>public.comment.user_uuid</code>.
+     * Getter for <code>public.comment.parent_uuid</code>.
      */
-    public UUID getUserUuid() {
+    public UUID getParentUuid() {
         return (UUID) get(3);
     }
 
@@ -95,31 +95,45 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     /**
+     * Setter for <code>public.comment.creator_uuid</code>.
+     */
+    public void setCreatorUuid(UUID value) {
+        set(5, value);
+    }
+
+    /**
+     * Getter for <code>public.comment.creator_uuid</code>.
+     */
+    public UUID getCreatorUuid() {
+        return (UUID) get(5);
+    }
+
+    /**
      * Setter for <code>public.comment.edited</code>. Edit timestamp
      */
     public void setEdited(LocalDateTime value) {
-        set(5, value);
+        set(6, value);
     }
 
     /**
      * Getter for <code>public.comment.edited</code>. Edit timestamp
      */
     public LocalDateTime getEdited() {
-        return (LocalDateTime) get(5);
+        return (LocalDateTime) get(6);
     }
 
     /**
-     * Setter for <code>public.comment.parent_uuid</code>.
+     * Setter for <code>public.comment.editor_uuid</code>.
      */
-    public void setParentUuid(UUID value) {
-        set(6, value);
+    public void setEditorUuid(UUID value) {
+        set(7, value);
     }
 
     /**
-     * Getter for <code>public.comment.parent_uuid</code>.
+     * Getter for <code>public.comment.editor_uuid</code>.
      */
-    public UUID getParentUuid() {
-        return (UUID) get(6);
+    public UUID getEditorUuid() {
+        return (UUID) get(7);
     }
 
     // -------------------------------------------------------------------------
@@ -132,17 +146,17 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     // -------------------------------------------------------------------------
-    // Record7 type implementation
+    // Record8 type implementation
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<UUID, String, String, UUID, LocalDateTime, LocalDateTime, UUID> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row8<UUID, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+        return (Row8) super.fieldsRow();
     }
 
     @Override
-    public Row7<UUID, String, String, UUID, LocalDateTime, LocalDateTime, UUID> valuesRow() {
-        return (Row7) super.valuesRow();
+    public Row8<UUID, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
+        return (Row8) super.valuesRow();
     }
 
     @Override
@@ -162,7 +176,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
 
     @Override
     public Field<UUID> field4() {
-        return JooqComment.COMMENT.USER_UUID;
+        return JooqComment.COMMENT.PARENT_UUID;
     }
 
     @Override
@@ -171,13 +185,18 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
-    public Field<LocalDateTime> field6() {
+    public Field<UUID> field6() {
+        return JooqComment.COMMENT.CREATOR_UUID;
+    }
+
+    @Override
+    public Field<LocalDateTime> field7() {
         return JooqComment.COMMENT.EDITED;
     }
 
     @Override
-    public Field<UUID> field7() {
-        return JooqComment.COMMENT.PARENT_UUID;
+    public Field<UUID> field8() {
+        return JooqComment.COMMENT.EDITOR_UUID;
     }
 
     @Override
@@ -197,7 +216,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
 
     @Override
     public UUID component4() {
-        return getUserUuid();
+        return getParentUuid();
     }
 
     @Override
@@ -206,13 +225,18 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
-    public LocalDateTime component6() {
+    public UUID component6() {
+        return getCreatorUuid();
+    }
+
+    @Override
+    public LocalDateTime component7() {
         return getEdited();
     }
 
     @Override
-    public UUID component7() {
-        return getParentUuid();
+    public UUID component8() {
+        return getEditorUuid();
     }
 
     @Override
@@ -232,7 +256,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
 
     @Override
     public UUID value4() {
-        return getUserUuid();
+        return getParentUuid();
     }
 
     @Override
@@ -241,13 +265,18 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
-    public LocalDateTime value6() {
+    public UUID value6() {
+        return getCreatorUuid();
+    }
+
+    @Override
+    public LocalDateTime value7() {
         return getEdited();
     }
 
     @Override
-    public UUID value7() {
-        return getParentUuid();
+    public UUID value8() {
+        return getEditorUuid();
     }
 
     @Override
@@ -270,7 +299,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
 
     @Override
     public JooqCommentRecord value4(UUID value) {
-        setUserUuid(value);
+        setParentUuid(value);
         return this;
     }
 
@@ -281,19 +310,25 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
-    public JooqCommentRecord value6(LocalDateTime value) {
+    public JooqCommentRecord value6(UUID value) {
+        setCreatorUuid(value);
+        return this;
+    }
+
+    @Override
+    public JooqCommentRecord value7(LocalDateTime value) {
         setEdited(value);
         return this;
     }
 
     @Override
-    public JooqCommentRecord value7(UUID value) {
-        setParentUuid(value);
+    public JooqCommentRecord value8(UUID value) {
+        setEditorUuid(value);
         return this;
     }
 
     @Override
-    public JooqCommentRecord values(UUID value1, String value2, String value3, UUID value4, LocalDateTime value5, LocalDateTime value6, UUID value7) {
+    public JooqCommentRecord values(UUID value1, String value2, String value3, UUID value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -301,6 +336,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
         value5(value5);
         value6(value6);
         value7(value7);
+        value8(value8);
         return this;
     }
 
@@ -318,15 +354,16 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     /**
      * Create a detached, initialised JooqCommentRecord
      */
-    public JooqCommentRecord(UUID uuid, String title, String content, UUID userUuid, LocalDateTime created, LocalDateTime edited, UUID parentUuid) {
+    public JooqCommentRecord(UUID uuid, String title, String content, UUID parentUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
         super(JooqComment.COMMENT);
 
         setUuid(uuid);
         setTitle(title);
         setContent(content);
-        setUserUuid(userUuid);
-        setCreated(created);
-        setEdited(edited);
         setParentUuid(parentUuid);
+        setCreated(created);
+        setCreatorUuid(creatorUuid);
+        setEdited(edited);
+        setEditorUuid(editorUuid);
     }
 }

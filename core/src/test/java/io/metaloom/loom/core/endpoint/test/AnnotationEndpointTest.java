@@ -22,6 +22,7 @@ public class AnnotationEndpointTest extends AbstractCRUDEndpointTest {
 	protected void testCreate(LoomHttpClient client) throws HttpErrorException {
 		AnnotationCreateRequest request = new AnnotationCreateRequest();
 		request.setTitle("dummy title");
+		request.setAssetUuid(ASSET_UUID);
 		AnnotationResponse annotation = client.createAnnotation(request).sync();
 		assertThat(annotation).isValid();
 

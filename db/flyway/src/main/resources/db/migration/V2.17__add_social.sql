@@ -2,13 +2,17 @@ CREATE TABLE "comment" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "title" varchar,
   "content" varchar NOT NULL,
-  "user_uuid" uuid NOT NULL,
-  "created" timestamp NOT NULL DEFAULT (now()),
-  "edited" timestamp NOT NULL DEFAULT (now()),
   "parent_uuid" uuid,
+
+  "created" timestamp NOT NULL DEFAULT (now()),
+  "creator_uuid" uuid NOT NULL,
+  "edited" timestamp NOT NULL DEFAULT (now()),
+  "editor_uuid" uuid NOT NULL,
+
   PRIMARY KEY ("uuid")
 );
-ALTER TABLE "comment" ADD FOREIGN KEY ("user_uuid") REFERENCES "user" ("uuid");
+ALTER TABLE "comment" ADD FOREIGN KEY ("creator_uuid") REFERENCES "user" ("uuid");
+ALTER TABLE "comment" ADD FOREIGN KEY ("editor_uuid") REFERENCES "user" ("uuid");
 ALTER TABLE "comment" ADD FOREIGN KEY ("parent_uuid") REFERENCES "comment" ("uuid");
 COMMENT ON TABLE "comment" IS 'Stores comments on tasks, annotations..';
 COMMENT ON COLUMN "comment"."title" IS 'Comment title';

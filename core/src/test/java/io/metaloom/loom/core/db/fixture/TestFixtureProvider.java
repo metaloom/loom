@@ -3,11 +3,11 @@ package io.metaloom.loom.core.db.fixture;
 import java.time.Instant;
 import java.util.UUID;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.api.attachment.AttachmentType;
 import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
 import io.metaloom.loom.db.model.annotation.Annotation;
-import io.metaloom.loom.db.model.annotation.AnnotationType;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.attachment.Attachment;

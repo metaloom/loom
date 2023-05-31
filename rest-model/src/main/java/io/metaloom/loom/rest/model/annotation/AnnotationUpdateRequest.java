@@ -1,7 +1,10 @@
 package io.metaloom.loom.rest.model.annotation;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.common.AbstractMetaModel;
 
@@ -19,6 +22,8 @@ public class AnnotationUpdateRequest extends AbstractMetaModel<AnnotationUpdateR
 
 	@JsonPropertyDescription("Description of the annotation")
 	private String description;
+
+	private UUID assetUuid;
 
 	@Override
 	public AnnotationType getType() {
@@ -61,6 +66,17 @@ public class AnnotationUpdateRequest extends AbstractMetaModel<AnnotationUpdateR
 	@Override
 	public AnnotationUpdateRequest setArea(AreaInfo area) {
 		this.area = area;
+		return this;
+	}
+
+	@Override
+	public UUID getAssetUuid() {
+		return assetUuid;
+	}
+
+	@Override
+	public AnnotationUpdateRequest setAssetUuid(UUID assetUuid) {
+		this.assetUuid = assetUuid;
 		return this;
 	}
 

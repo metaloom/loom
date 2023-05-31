@@ -9,6 +9,7 @@ import java.time.Instant;
 
 import org.junit.jupiter.api.Test;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.api.reaction.ReactionType;
 import io.metaloom.loom.client.http.LoomHttpClient;
@@ -19,7 +20,6 @@ import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.annotation.AreaInfo;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
 import io.metaloom.loom.rest.model.asset.AssetResponse;
-import io.metaloom.loom.rest.model.asset.info.FileInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationCreateRequest;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationFilesystemInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationResponse;
@@ -59,8 +59,7 @@ public class CombinedEndpointTest extends AbstractEndpointTest {
 
 			// Create an asset
 			AssetCreateRequest assetRequest = new AssetCreateRequest();
-			assetRequest.getHashes().setSha512(SHA512SUM);
-			assetRequest.setFile(new FileInfo().setFilename(DUMMY_IMAGE_FILENAME).setMimeType(IMAGE_MIMETYPE));
+			assetRequest.setRequired(DUMMY_IMAGE_FILENAME, IMAGE_MIMETYPE, ASSET_SHA512SUM, 42L, DUMMY_IMAGE_ORIGIN);
 			assetRequest.setVideoFingerprint(VIDEO_FINGERPRINT);
 			AssetResponse asset = client.createAsset(assetRequest).sync();
 
@@ -68,6 +67,7 @@ public class CombinedEndpointTest extends AbstractEndpointTest {
 				EmbeddingCreateRequest embeddingRequest = new EmbeddingCreateRequest();
 				embeddingRequest.setType(EmbeddingType.DLIB_FACE_RESNET_v1);
 				embeddingRequest.setArea(AreaInfo.create(20, 40, 200, 200));
+				embeddingRequest.setData(VECTOR_DATA);
 				embeddingRequest.setAssetUuid(asset.getUuid());
 				embeddingRequest.setId(i);
 				embeddingRequest.setMeta(new JsonObject().put("test", "1234"));
@@ -96,6 +96,8 @@ public class CombinedEndpointTest extends AbstractEndpointTest {
 			annotationRequest.setArea(2L, 42L);
 			annotationRequest.setDescription("This area needs to be reworked");
 			annotationRequest.setTitle("Feedback on intro");
+			annotationRequest.setType(AnnotationType.FEEDBACK);
+			annotationRequest.setAssetUuid(asset.getUuid());
 			AnnotationResponse annotation = client.createAnnotation(annotationRequest).sync();
 
 			TaskCreateRequest taskRequest = new TaskCreateRequest();

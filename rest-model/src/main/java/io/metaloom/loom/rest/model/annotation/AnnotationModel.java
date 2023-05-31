@@ -1,7 +1,10 @@
 package io.metaloom.loom.rest.model.annotation;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.rest.model.MetaModel;
 import io.metaloom.loom.rest.model.RestModel;
 
@@ -22,6 +25,10 @@ public interface AnnotationModel<T extends AnnotationModel<T>> extends RestModel
 	AreaInfo getArea();
 
 	T setArea(AreaInfo area);
+
+	UUID getAssetUuid();
+
+	T setAssetUuid(UUID assetUuid);
 
 	@JsonIgnore
 	default T setArea(long from, long to) {

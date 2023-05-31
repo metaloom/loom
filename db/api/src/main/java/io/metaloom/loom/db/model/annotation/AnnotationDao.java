@@ -3,6 +3,7 @@ package io.metaloom.loom.db.model.annotation;
 import java.util.List;
 import java.util.UUID;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.user.User;

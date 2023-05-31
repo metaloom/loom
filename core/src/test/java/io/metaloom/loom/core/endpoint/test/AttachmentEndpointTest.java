@@ -1,5 +1,7 @@
 package io.metaloom.loom.core.endpoint.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -33,7 +35,6 @@ public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 
 	@Override
 	protected void testCreate(LoomHttpClient client) throws Exception {
-
 		Path path = env.sampleVideo2Path();
 		try (InputStream stream = Files.newInputStream(path)) {
 			AttachmentResponse response = client.uploadAttachment(DUMMY_VIDEO_FILENAME, VIDEO_MIMETYPE, stream).sync();
@@ -48,7 +49,9 @@ public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 	@Override
 	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
 		AttachmentUpdateRequest request = new AttachmentUpdateRequest();
+		request.setFilename("new_filename.jpg");
 		AttachmentResponse response = client.updateAttachment(ATTACHMENT_UUID, request).sync();
+		assertEquals("new_filename.jpg", response.getFilename(), "The filename should have been updated.");
 	}
 
 	@Override
@@ -61,7 +64,6 @@ public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 		}
 		AttachmentListResponse list = client.listAttachments().sync();
 		System.out.println(Json.parse(list));
-		
 
 	}
 

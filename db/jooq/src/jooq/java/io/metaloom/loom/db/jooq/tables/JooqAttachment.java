@@ -70,12 +70,12 @@ public class JooqAttachment extends TableImpl<JooqAttachmentRecord> {
     /**
      * The column <code>public.attachment.embedding_uuid</code>.
      */
-    public final TableField<JooqAttachmentRecord, java.util.UUID> EMBEDDING_UUID = createField(DSL.name("embedding_uuid"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<JooqAttachmentRecord, java.util.UUID> EMBEDDING_UUID = createField(DSL.name("embedding_uuid"), SQLDataType.UUID, this, "");
 
     /**
      * The column <code>public.attachment.asset_uuid</code>.
      */
-    public final TableField<JooqAttachmentRecord, java.util.UUID> ASSET_UUID = createField(DSL.name("asset_uuid"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<JooqAttachmentRecord, java.util.UUID> ASSET_UUID = createField(DSL.name("asset_uuid"), SQLDataType.UUID, this, "");
 
     /**
      * The column <code>public.attachment.mime_type</code>.

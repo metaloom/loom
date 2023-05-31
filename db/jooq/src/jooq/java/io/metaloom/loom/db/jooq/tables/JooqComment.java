@@ -15,11 +15,11 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function7;
+import org.jooq.Function8;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row7;
+import org.jooq.Row8;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -68,9 +68,9 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
     public final TableField<JooqCommentRecord, String> CONTENT = createField(DSL.name("content"), SQLDataType.VARCHAR.nullable(false), this, "Comment text");
 
     /**
-     * The column <code>public.comment.user_uuid</code>.
+     * The column <code>public.comment.parent_uuid</code>.
      */
-    public final TableField<JooqCommentRecord, java.util.UUID> USER_UUID = createField(DSL.name("user_uuid"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<JooqCommentRecord, java.util.UUID> PARENT_UUID = createField(DSL.name("parent_uuid"), SQLDataType.UUID, this, "");
 
     /**
      * The column <code>public.comment.created</code>. Creation timestamp
@@ -78,14 +78,19 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
     public final TableField<JooqCommentRecord, LocalDateTime> CREATED = createField(DSL.name("created"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "Creation timestamp");
 
     /**
+     * The column <code>public.comment.creator_uuid</code>.
+     */
+    public final TableField<JooqCommentRecord, java.util.UUID> CREATOR_UUID = createField(DSL.name("creator_uuid"), SQLDataType.UUID.nullable(false), this, "");
+
+    /**
      * The column <code>public.comment.edited</code>. Edit timestamp
      */
     public final TableField<JooqCommentRecord, LocalDateTime> EDITED = createField(DSL.name("edited"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "Edit timestamp");
 
     /**
-     * The column <code>public.comment.parent_uuid</code>.
+     * The column <code>public.comment.editor_uuid</code>.
      */
-    public final TableField<JooqCommentRecord, java.util.UUID> PARENT_UUID = createField(DSL.name("parent_uuid"), SQLDataType.UUID, this, "");
+    public final TableField<JooqCommentRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
     private JooqComment(Name alias, Table<JooqCommentRecord> aliased) {
         this(alias, aliased, null);
@@ -132,21 +137,12 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
 
     @Override
     public List<ForeignKey<JooqCommentRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.COMMENT__COMMENT_USER_UUID_FKEY, Keys.COMMENT__COMMENT_PARENT_UUID_FKEY);
+        return Arrays.asList(Keys.COMMENT__COMMENT_PARENT_UUID_FKEY, Keys.COMMENT__COMMENT_CREATOR_UUID_FKEY, Keys.COMMENT__COMMENT_EDITOR_UUID_FKEY);
     }
 
-    private transient JooqUser _user;
     private transient JooqComment _comment;
-
-    /**
-     * Get the implicit join path to the <code>public.user</code> table.
-     */
-    public JooqUser user() {
-        if (_user == null)
-            _user = new JooqUser(this, Keys.COMMENT__COMMENT_USER_UUID_FKEY);
-
-        return _user;
-    }
+    private transient JooqUser _commentCreatorUuidFkey;
+    private transient JooqUser _commentEditorUuidFkey;
 
     /**
      * Get the implicit join path to the <code>public.comment</code> table.
@@ -156,6 +152,28 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
             _comment = new JooqComment(this, Keys.COMMENT__COMMENT_PARENT_UUID_FKEY);
 
         return _comment;
+    }
+
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>comment_creator_uuid_fkey</code> key.
+     */
+    public JooqUser commentCreatorUuidFkey() {
+        if (_commentCreatorUuidFkey == null)
+            _commentCreatorUuidFkey = new JooqUser(this, Keys.COMMENT__COMMENT_CREATOR_UUID_FKEY);
+
+        return _commentCreatorUuidFkey;
+    }
+
+    /**
+     * Get the implicit join path to the <code>public.user</code> table, via the
+     * <code>comment_editor_uuid_fkey</code> key.
+     */
+    public JooqUser commentEditorUuidFkey() {
+        if (_commentEditorUuidFkey == null)
+            _commentEditorUuidFkey = new JooqUser(this, Keys.COMMENT__COMMENT_EDITOR_UUID_FKEY);
+
+        return _commentEditorUuidFkey;
     }
 
     @Override
@@ -198,18 +216,18 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row8 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<java.util.UUID, String, String, java.util.UUID, LocalDateTime, LocalDateTime, java.util.UUID> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row8<java.util.UUID, String, String, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
+        return (Row8) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function7<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function8<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -217,7 +235,7 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

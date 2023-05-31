@@ -6,7 +6,6 @@ import io.metaloom.loom.rest.model.comment.CommentUpdateRequest;
 
 public interface CommentModelValidator extends ModelValidator {
 
-	
 	default void validate(CommentUpdateRequest request) {
 
 	}
@@ -16,6 +15,7 @@ public interface CommentModelValidator extends ModelValidator {
 	}
 
 	default void validate(CommentCreateRequest request) {
-
+		requireNonNull(request.getTitle(), "The title must be set.");
+		requireNonNull(request.getText(), "The text must be set.");
 	}
 }

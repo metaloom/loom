@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.comment;
 
+import javax.persistence.Column;
+
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.comment.Comment;
 
@@ -7,6 +9,7 @@ public class CommentImpl extends AbstractEditableElement<Comment> implements Com
 
 	private String title;
 
+	@Column(name = "content")
 	private String text;
 
 	@Override
@@ -22,6 +25,10 @@ public class CommentImpl extends AbstractEditableElement<Comment> implements Com
 
 	@Override
 	public String getText() {
+		return text;
+	}
+
+	public String getContent() {
 		return text;
 	}
 

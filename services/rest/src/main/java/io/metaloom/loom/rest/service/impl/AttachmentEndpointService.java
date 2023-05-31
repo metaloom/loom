@@ -63,6 +63,10 @@ public class AttachmentEndpointService extends AbstractCRUDEndpointService<Attac
 			}
 			FileUpload upload = lrc.fileUploads().get(0);
 			//validator.validate(upload);
+			// TODO check for free space
+			// TODO configure upload directory
+			// TODO copy / move file into place
+			// TODO segment the sha512sum into subfolder structure (3 levels)
 			UUID userUuid = lrc.userUuid();
 			String filename = upload.fileName();
 			long size = upload.size();

@@ -14,7 +14,7 @@ public class AssetLocationFilesystemInfo {
 	private FileKey filekey;
 
 	@JsonPropertyDescription("ISO8601 formatted date string when the asset was last seen online.")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
 	private Instant lastSeen;
 
 	public String getPath() {

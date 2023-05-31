@@ -16,6 +16,7 @@ public interface AnnotationModelBuilder extends ModelBuilder, UserModelBuilder, 
 	default AnnotationResponse toResponse(Annotation annotation) {
 		AnnotationResponse response = new AnnotationResponse();
 		response.setUuid(annotation.getUuid());
+		response.setAssetUuid(annotation.getAssetUuid());
 		response.setTitle(annotation.getTitle());
 		response.setMeta(annotation.getMeta());
 		response.setDescription(annotation.getDescription());

@@ -10,13 +10,14 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.annotation.Annotation;
 import io.metaloom.loom.db.model.annotation.AnnotationDao;
-import io.metaloom.loom.db.model.annotation.AnnotationType;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.annotation.AnnotationCreateRequest;
+import io.metaloom.loom.rest.model.annotation.AnnotationModel;
 import io.metaloom.loom.rest.model.annotation.AnnotationUpdateRequest;
 import io.metaloom.loom.rest.model.annotation.AreaInfo;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
@@ -54,12 +55,11 @@ public class AnnotationEndpointService extends AbstractCRUDEndpointService<Annot
 			validator.validate(request);
 
 			UUID userUuid = lrc.userUuid();
-			UUID assetUuid = null;
+			UUID assetUuid = request.getAssetUuid();
 			String title = request.getTitle();
-			AnnotationType type = null;
+			AnnotationType type = request.getType();
 			Annotation annotation = dao().createAnnotation(userUuid, assetUuid, title, type);
-			update(request::getMeta, annotation::setMeta);
-			update(request::getDescription, annotation::setDescription);
+			update(request, annotation);
 			return annotation;
 		}, modelBuilder::toResponse);
 	}
@@ -72,20 +72,25 @@ public class AnnotationEndpointService extends AbstractCRUDEndpointService<Annot
 			UUID userUuid = lrc.userUuid();
 
 			Annotation annotation = dao().load(id);
-			update(request::getTitle, annotation::setTitle);
-			update(request::getDescription, annotation::setDescription);
-			AreaInfo areaInfo = request.getArea();
-			if (areaInfo != null) {
-				update(areaInfo::getHeight, annotation::setAreaHeight);
-				update(areaInfo::getWidth, annotation::setAreaWidth);
-				update(areaInfo::getStartX, annotation::setAreaStartX);
-				update(areaInfo::getStartY, annotation::setAreaStartY);
-				update(areaInfo::getFrom, annotation::setTimeFrom);
-				update(areaInfo::getTo, annotation::setTimeTo);
-			}
-			update(request::getMeta, annotation::setMeta);
+			update(request, annotation);
 			setEditor(annotation, userUuid);
 			return annotation;
 		}, modelBuilder::toResponse);
+	}
+
+	private void update(AnnotationModel<?> model, Annotation annotation) {
+		update(model::getMeta, annotation::setMeta);
+		update(model::getDescription, annotation::setDescription);
+		update(model::getTitle, annotation::setTitle);
+
+		AreaInfo areaInfo = model.getArea();
+		if (areaInfo != null) {
+			update(areaInfo::getHeight, annotation::setAreaHeight);
+			update(areaInfo::getWidth, annotation::setAreaWidth);
+			update(areaInfo::getStartX, annotation::setAreaStartX);
+			update(areaInfo::getStartY, annotation::setAreaStartY);
+			update(areaInfo::getFrom, annotation::setTimeFrom);
+			update(areaInfo::getTo, annotation::setTimeTo);
+		}
 	}
 }

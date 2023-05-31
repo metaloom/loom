@@ -2,9 +2,9 @@ package io.metaloom.loom.db.jooq.dao.annotation;
 
 import java.util.UUID;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.annotation.Annotation;
-import io.metaloom.loom.db.model.annotation.AnnotationType;
 
 public class AnnotationImpl extends AbstractEditableElement<Annotation> implements Annotation {
 

@@ -16,6 +16,7 @@ import io.metaloom.loom.db.model.comment.CommentDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
 import io.metaloom.loom.rest.model.comment.CommentCreateRequest;
+import io.metaloom.loom.rest.model.comment.CommentModel;
 import io.metaloom.loom.rest.model.comment.CommentUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
@@ -54,8 +55,7 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 			UUID userUuid = lrc.userUuid();
 			String title = request.getTitle();
 			Comment comment = dao().createComment(userUuid, title);
-			comment.setText(request.getText());
-			comment.setMeta(request.getMeta());
+			update(request, comment);
 			return comment;
 		}, modelBuilder::toResponse);
 	}
@@ -67,11 +67,14 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 			validator.validate(request);
 
 			Comment comment = dao().load(id);
-			// TOOD update
-			update(request::getTitle, comment::setTitle);
-			update(request::getText, comment::setText);
-			update(request::getMeta, comment::setMeta);
+			update(request, comment);
 			return comment;
 		}, modelBuilder::toResponse);
+	}
+
+	private void update(CommentModel<?> model, Comment comment) {
+		update(model::getTitle, comment::setTitle);
+		update(model::getText, comment::setText);
+		update(model::getMeta, comment::setMeta);
 	}
 }

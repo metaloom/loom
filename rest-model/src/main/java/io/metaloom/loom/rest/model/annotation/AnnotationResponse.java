@@ -2,9 +2,11 @@ package io.metaloom.loom.rest.model.annotation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.rest.model.comment.CommentResponse;
 import io.metaloom.loom.rest.model.common.AbstractCreatorEditorRestResponse;
 import io.metaloom.loom.rest.model.tag.TagReference;
@@ -36,6 +38,8 @@ public class AnnotationResponse extends AbstractCreatorEditorRestResponse<Annota
 
 	@JsonPropertyDescription("List of tags for the entry")
 	private List<TagReference> tags = new ArrayList<>();
+
+	private UUID assetUuid;
 
 	@Override
 	public AnnotationType getType() {
@@ -114,6 +118,17 @@ public class AnnotationResponse extends AbstractCreatorEditorRestResponse<Annota
 
 	public AnnotationResponse setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+		return this;
+	}
+
+	@Override
+	public UUID getAssetUuid() {
+		return assetUuid;
+	}
+
+	@Override
+	public AnnotationResponse setAssetUuid(UUID assetUuid) {
+		this.assetUuid = assetUuid;
 		return this;
 	}
 

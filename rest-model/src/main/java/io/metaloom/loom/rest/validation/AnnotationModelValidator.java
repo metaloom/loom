@@ -15,7 +15,8 @@ public interface AnnotationModelValidator extends ModelValidator {
 	}
 
 	default void validate(AnnotationCreateRequest request) {
-		requireNonNull(request.getType(), "The type of the annotation must be set");
-		requireNonNull(request.getTitle(), "The title of the annotation must be set");
+		requireNonNull(request.getType(), "The type of the annotation must be set.");
+		requireNonNull(request.getTitle(), "The title of the annotation must be set.");
+		requireNonNull(request.getAssetUuid(), "The asset uuid for the annotation must be set.");
 	}
 }

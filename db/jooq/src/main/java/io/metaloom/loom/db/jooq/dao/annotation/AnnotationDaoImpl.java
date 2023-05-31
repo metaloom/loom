@@ -12,11 +12,11 @@ import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.jooq.TableRecord;
 
+import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqAnnotation;
 import io.metaloom.loom.db.model.annotation.Annotation;
 import io.metaloom.loom.db.model.annotation.AnnotationDao;
-import io.metaloom.loom.db.model.annotation.AnnotationType;
 
 @Singleton
 public class AnnotationDaoImpl extends AbstractJooqDao<Annotation> implements AnnotationDao {
