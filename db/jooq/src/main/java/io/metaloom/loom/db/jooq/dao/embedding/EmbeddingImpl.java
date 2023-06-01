@@ -8,15 +8,26 @@ import io.metaloom.loom.db.model.embedding.Embedding;
 
 public class EmbeddingImpl extends AbstractEditableElement<Embedding> implements Embedding {
 
-	private long id;
+	private String source;
 
-	private Float[] data;
+	private Float[] vector;
 
 	private EmbeddingType type;
 
 	private UUID assetUuid;
 
 	public EmbeddingImpl() {
+	}
+
+	@Override
+	public String getSource() {
+		return source;
+	}
+
+	@Override
+	public Embedding setSource(String source) {
+		this.source = source;
+		return this;
 	}
 
 	@Override
@@ -27,17 +38,6 @@ public class EmbeddingImpl extends AbstractEditableElement<Embedding> implements
 	@Override
 	public Embedding setAssetUuid(UUID assetUuid) {
 		this.assetUuid = assetUuid;
-		return this;
-	}
-
-	@Override
-	public long getId() {
-		return id;
-	}
-
-	@Override
-	public Embedding setId(long id) {
-		this.id = id;
 		return this;
 	}
 
@@ -53,13 +53,13 @@ public class EmbeddingImpl extends AbstractEditableElement<Embedding> implements
 	}
 
 	@Override
-	public Float[] getData() {
-		return data;
+	public Float[] getVector() {
+		return vector;
 	}
 
 	@Override
-	public Embedding setData(Float[] vectorData) {
-		this.data = vectorData;
+	public Embedding setVector(Float[] vectorData) {
+		this.vector = vectorData;
 		return this;
 	}
 

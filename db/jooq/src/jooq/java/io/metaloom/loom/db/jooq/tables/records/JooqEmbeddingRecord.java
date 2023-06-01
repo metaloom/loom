@@ -21,7 +21,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Embedding information which was extracted from an asset.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord> implements Record16<UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> {
+public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord> implements Record16<UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Integer, Float[], String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -72,19 +72,31 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     /**
-     * Setter for <code>public.embedding.frame</code>. Source frame where the
-     * face has been detected.
+     * Setter for <code>public.embedding.fromTime</code>.
      */
-    public void setFrame(Integer value) {
+    public void setFromtime(Integer value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>public.embedding.frame</code>. Source frame where the
-     * face has been detected.
+     * Getter for <code>public.embedding.fromTime</code>.
      */
-    public Integer getFrame() {
+    public Integer getFromtime() {
         return (Integer) get(3);
+    }
+
+    /**
+     * Setter for <code>public.embedding.toTime</code>.
+     */
+    public void setTotime(Integer value) {
+        set(4, value);
+    }
+
+    /**
+     * Getter for <code>public.embedding.toTime</code>.
+     */
+    public Integer getTotime() {
+        return (Integer) get(4);
     }
 
     /**
@@ -92,7 +104,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
      * face has been detected.
      */
     public void setAreaheight(Integer value) {
-        set(4, value);
+        set(5, value);
     }
 
     /**
@@ -100,7 +112,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
      * face has been detected.
      */
     public Integer getAreaheight() {
-        return (Integer) get(4);
+        return (Integer) get(5);
     }
 
     /**
@@ -108,7 +120,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
      * face has been detected.
      */
     public void setAreawidth(Integer value) {
-        set(5, value);
+        set(6, value);
     }
 
     /**
@@ -116,7 +128,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
      * face has been detected.
      */
     public Integer getAreawidth() {
-        return (Integer) get(5);
+        return (Integer) get(6);
     }
 
     /**
@@ -124,7 +136,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
      * face has been detected.
      */
     public void setAreastartx(Integer value) {
-        set(6, value);
+        set(7, value);
     }
 
     /**
@@ -132,7 +144,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
      * face has been detected.
      */
     public Integer getAreastartx() {
-        return (Integer) get(6);
+        return (Integer) get(7);
     }
 
     /**
@@ -140,7 +152,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
      * face has been detected.
      */
     public void setAreastarty(Integer value) {
-        set(7, value);
+        set(8, value);
     }
 
     /**
@@ -148,35 +160,23 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
      * face has been detected.
      */
     public Integer getAreastarty() {
-        return (Integer) get(7);
+        return (Integer) get(8);
     }
 
     /**
-     * Setter for <code>public.embedding.data</code>. Actual embedding data
+     * Setter for <code>public.embedding.vector</code>. Actual embedding vector
+     * data
      */
-    public void setData(Float[] value) {
-        set(8, value);
-    }
-
-    /**
-     * Getter for <code>public.embedding.data</code>. Actual embedding data
-     */
-    public Float[] getData() {
-        return (Float[]) get(8);
-    }
-
-    /**
-     * Setter for <code>public.embedding.id</code>.
-     */
-    public void setId(Long value) {
+    public void setVector(Float[] value) {
         set(9, value);
     }
 
     /**
-     * Getter for <code>public.embedding.id</code>.
+     * Getter for <code>public.embedding.vector</code>. Actual embedding vector
+     * data
      */
-    public Long getId() {
-        return (Long) get(9);
+    public Float[] getVector() {
+        return (Float[]) get(9);
     }
 
     /**
@@ -279,12 +279,12 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> fieldsRow() {
+    public Row16<UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Integer, Float[], String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> fieldsRow() {
         return (Row16) super.fieldsRow();
     }
 
     @Override
-    public Row16<UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> valuesRow() {
+    public Row16<UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Integer, Float[], String, LocalDateTime, UUID, LocalDateTime, UUID, UUID> valuesRow() {
         return (Row16) super.valuesRow();
     }
 
@@ -305,37 +305,37 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
 
     @Override
     public Field<Integer> field4() {
-        return JooqEmbedding.EMBEDDING.FRAME;
+        return JooqEmbedding.EMBEDDING.FROMTIME;
     }
 
     @Override
     public Field<Integer> field5() {
-        return JooqEmbedding.EMBEDDING.AREAHEIGHT;
+        return JooqEmbedding.EMBEDDING.TOTIME;
     }
 
     @Override
     public Field<Integer> field6() {
-        return JooqEmbedding.EMBEDDING.AREAWIDTH;
+        return JooqEmbedding.EMBEDDING.AREAHEIGHT;
     }
 
     @Override
     public Field<Integer> field7() {
-        return JooqEmbedding.EMBEDDING.AREASTARTX;
+        return JooqEmbedding.EMBEDDING.AREAWIDTH;
     }
 
     @Override
     public Field<Integer> field8() {
+        return JooqEmbedding.EMBEDDING.AREASTARTX;
+    }
+
+    @Override
+    public Field<Integer> field9() {
         return JooqEmbedding.EMBEDDING.AREASTARTY;
     }
 
     @Override
-    public Field<Float[]> field9() {
-        return JooqEmbedding.EMBEDDING.DATA;
-    }
-
-    @Override
-    public Field<Long> field10() {
-        return JooqEmbedding.EMBEDDING.ID;
+    public Field<Float[]> field10() {
+        return JooqEmbedding.EMBEDDING.VECTOR;
     }
 
     @Override
@@ -385,37 +385,37 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
 
     @Override
     public Integer component4() {
-        return getFrame();
+        return getFromtime();
     }
 
     @Override
     public Integer component5() {
-        return getAreaheight();
+        return getTotime();
     }
 
     @Override
     public Integer component6() {
-        return getAreawidth();
+        return getAreaheight();
     }
 
     @Override
     public Integer component7() {
-        return getAreastartx();
+        return getAreawidth();
     }
 
     @Override
     public Integer component8() {
+        return getAreastartx();
+    }
+
+    @Override
+    public Integer component9() {
         return getAreastarty();
     }
 
     @Override
-    public Float[] component9() {
-        return getData();
-    }
-
-    @Override
-    public Long component10() {
-        return getId();
+    public Float[] component10() {
+        return getVector();
     }
 
     @Override
@@ -465,37 +465,37 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
 
     @Override
     public Integer value4() {
-        return getFrame();
+        return getFromtime();
     }
 
     @Override
     public Integer value5() {
-        return getAreaheight();
+        return getTotime();
     }
 
     @Override
     public Integer value6() {
-        return getAreawidth();
+        return getAreaheight();
     }
 
     @Override
     public Integer value7() {
-        return getAreastartx();
+        return getAreawidth();
     }
 
     @Override
     public Integer value8() {
+        return getAreastartx();
+    }
+
+    @Override
+    public Integer value9() {
         return getAreastarty();
     }
 
     @Override
-    public Float[] value9() {
-        return getData();
-    }
-
-    @Override
-    public Long value10() {
-        return getId();
+    public Float[] value10() {
+        return getVector();
     }
 
     @Override
@@ -548,43 +548,43 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
 
     @Override
     public JooqEmbeddingRecord value4(Integer value) {
-        setFrame(value);
+        setFromtime(value);
         return this;
     }
 
     @Override
     public JooqEmbeddingRecord value5(Integer value) {
-        setAreaheight(value);
+        setTotime(value);
         return this;
     }
 
     @Override
     public JooqEmbeddingRecord value6(Integer value) {
-        setAreawidth(value);
+        setAreaheight(value);
         return this;
     }
 
     @Override
     public JooqEmbeddingRecord value7(Integer value) {
-        setAreastartx(value);
+        setAreawidth(value);
         return this;
     }
 
     @Override
     public JooqEmbeddingRecord value8(Integer value) {
+        setAreastartx(value);
+        return this;
+    }
+
+    @Override
+    public JooqEmbeddingRecord value9(Integer value) {
         setAreastarty(value);
         return this;
     }
 
     @Override
-    public JooqEmbeddingRecord value9(Float[] value) {
-        setData(value);
-        return this;
-    }
-
-    @Override
-    public JooqEmbeddingRecord value10(Long value) {
-        setId(value);
+    public JooqEmbeddingRecord value10(Float[] value) {
+        setVector(value);
         return this;
     }
 
@@ -625,7 +625,7 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     }
 
     @Override
-    public JooqEmbeddingRecord values(UUID value1, JsonObject value2, String value3, Integer value4, Integer value5, Integer value6, Integer value7, Integer value8, Float[] value9, Long value10, String value11, LocalDateTime value12, UUID value13, LocalDateTime value14, UUID value15, UUID value16) {
+    public JooqEmbeddingRecord values(UUID value1, JsonObject value2, String value3, Integer value4, Integer value5, Integer value6, Integer value7, Integer value8, Integer value9, Float[] value10, String value11, LocalDateTime value12, UUID value13, LocalDateTime value14, UUID value15, UUID value16) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -659,19 +659,19 @@ public class JooqEmbeddingRecord extends UpdatableRecordImpl<JooqEmbeddingRecord
     /**
      * Create a detached, initialised JooqEmbeddingRecord
      */
-    public JooqEmbeddingRecord(UUID uuid, JsonObject meta, String source, Integer frame, Integer areaheight, Integer areawidth, Integer areastartx, Integer areastarty, Float[] data, Long id, String type, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID assetUuid) {
+    public JooqEmbeddingRecord(UUID uuid, JsonObject meta, String source, Integer fromtime, Integer totime, Integer areaheight, Integer areawidth, Integer areastartx, Integer areastarty, Float[] vector, String type, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID assetUuid) {
         super(JooqEmbedding.EMBEDDING);
 
         setUuid(uuid);
         setMeta(meta);
         setSource(source);
-        setFrame(frame);
+        setFromtime(fromtime);
+        setTotime(totime);
         setAreaheight(areaheight);
         setAreawidth(areawidth);
         setAreastartx(areastartx);
         setAreastarty(areastarty);
-        setData(data);
-        setId(id);
+        setVector(vector);
         setType(type);
         setCreated(created);
         setCreatorUuid(creatorUuid);

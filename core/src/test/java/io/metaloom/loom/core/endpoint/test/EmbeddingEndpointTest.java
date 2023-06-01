@@ -22,7 +22,6 @@ public class EmbeddingEndpointTest extends AbstractCRUDEndpointTest {
 	@Override
 	protected void testCreate(LoomHttpClient client) throws HttpErrorException {
 		EmbeddingCreateRequest request = new EmbeddingCreateRequest();
-		request.setId(42L);
 		request.setVector(new Float[] { 0.42f, 0.24f });
 		request.setType(EmbeddingType.VIDEO4J_FINGERPRINT_V1);
 		request.setAssetUuid(ASSET_UUID);

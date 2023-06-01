@@ -69,7 +69,7 @@ public class CombinedEndpointTest extends AbstractEndpointTest {
 				embeddingRequest.setArea(AreaInfo.create(20, 40, 200, 200));
 				embeddingRequest.setVector(VECTOR_DATA);
 				embeddingRequest.setAssetUuid(asset.getUuid());
-				embeddingRequest.setId(i);
+				embeddingRequest.setSource("embedding_" + i);
 				embeddingRequest.setMeta(new JsonObject().put("test", "1234"));
 				EmbeddingResponse embedding = client.createEmbedding(embeddingRequest).sync();
 				Path videoPath = env.sampleVideo2Path();

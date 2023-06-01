@@ -9,4 +9,5 @@ public interface MetaModel<T extends MetaModel<T>> extends RestModel {
 	T setMeta(JsonObject meta);
 
 	T self();
+
 }

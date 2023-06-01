@@ -74,10 +74,14 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
     public final TableField<JooqEmbeddingRecord, String> SOURCE = createField(DSL.name("source"), SQLDataType.VARCHAR, this, "Additional source information (e.g. face number by dlib)");
 
     /**
-     * The column <code>public.embedding.frame</code>. Source frame where the
-     * face has been detected.
+     * The column <code>public.embedding.fromTime</code>.
      */
-    public final TableField<JooqEmbeddingRecord, Integer> FRAME = createField(DSL.name("frame"), SQLDataType.INTEGER, this, "Source frame where the face has been detected.");
+    public final TableField<JooqEmbeddingRecord, Integer> FROMTIME = createField(DSL.name("fromTime"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.embedding.toTime</code>.
+     */
+    public final TableField<JooqEmbeddingRecord, Integer> TOTIME = createField(DSL.name("toTime"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>public.embedding.areaHeight</code>. Area info where the
@@ -104,14 +108,10 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
     public final TableField<JooqEmbeddingRecord, Integer> AREASTARTY = createField(DSL.name("areaStartY"), SQLDataType.INTEGER, this, "Area info where the face has been detected.");
 
     /**
-     * The column <code>public.embedding.data</code>. Actual embedding data
+     * The column <code>public.embedding.vector</code>. Actual embedding vector
+     * data
      */
-    public final TableField<JooqEmbeddingRecord, Float[]> DATA = createField(DSL.name("data"), SQLDataType.REAL.getArrayDataType(), this, "Actual embedding data");
-
-    /**
-     * The column <code>public.embedding.id</code>.
-     */
-    public final TableField<JooqEmbeddingRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT, this, "");
+    public final TableField<JooqEmbeddingRecord, Float[]> VECTOR = createField(DSL.name("vector"), SQLDataType.REAL.getArrayDataType(), this, "Actual embedding vector data");
 
     /**
      * The column <code>public.embedding.type</code>. Type of the embedding
@@ -266,14 +266,14 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<java.util.UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Float[], Long, String, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID> fieldsRow() {
+    public Row16<java.util.UUID, JsonObject, String, Integer, Integer, Integer, Integer, Integer, Integer, Float[], String, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID> fieldsRow() {
         return (Row16) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function16<? super java.util.UUID, ? super JsonObject, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Float[], ? super Long, ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function16<? super java.util.UUID, ? super JsonObject, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Float[], ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -281,7 +281,7 @@ public class JooqEmbedding extends TableImpl<JooqEmbeddingRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super java.util.UUID, ? super JsonObject, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Float[], ? super Long, ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super java.util.UUID, ? super JsonObject, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Float[], ? super String, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

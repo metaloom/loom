@@ -11,13 +11,13 @@ public interface Embedding extends CUDElement<Embedding> {
 
 	Embedding setAssetUuid(UUID assetUuid);
 
-	Float[] getData();
+	Float[] getVector();
 
-	Embedding setData(Float[] vectorData);
+	Embedding setVector(Float[] vectorData);
 
-	long getId();
+	String getSource();
 
-	Embedding setId(long id);
+	Embedding setSource(String source);
 
 	EmbeddingType getType();
 

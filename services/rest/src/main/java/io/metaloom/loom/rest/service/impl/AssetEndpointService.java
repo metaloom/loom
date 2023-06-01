@@ -156,7 +156,7 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 			for (EmbeddingCreateRequest  embeddingRequest: request.getEmbeddings()) {
 				Float[] vectorData = embeddingRequest.getVector();
 				Embedding embedding = daos().embeddingDao().createEmbedding(userUuid, asset.getUuid(), vectorData,
-					EmbeddingType.VIDEO4J_FINGERPRINT_V1, 0L);
+					EmbeddingType.VIDEO4J_FINGERPRINT_V2);
 
 			}
 			// TODO audio + image

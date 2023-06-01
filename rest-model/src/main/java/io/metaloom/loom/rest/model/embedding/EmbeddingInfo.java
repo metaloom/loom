@@ -4,11 +4,13 @@ import java.util.UUID;
 
 import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.rest.model.annotation.AreaInfo;
-import io.vertx.core.json.JsonObject;
+import io.metaloom.loom.rest.model.common.AbstractMetaModel;
 
-public class EmbeddingInfo implements EmbeddingModel<EmbeddingInfo> {
+public class EmbeddingInfo extends AbstractMetaModel<EmbeddingInfo> implements EmbeddingModel<EmbeddingInfo> {
 
 	private UUID uuid;
+
+	private String source;
 
 	private EmbeddingType type;
 
@@ -16,7 +18,7 @@ public class EmbeddingInfo implements EmbeddingModel<EmbeddingInfo> {
 
 	private AreaInfo area;
 
-	private JsonObject meta;
+	private UUID assetUuid;
 
 	public UUID getUuid() {
 		return uuid;
@@ -24,6 +26,17 @@ public class EmbeddingInfo implements EmbeddingModel<EmbeddingInfo> {
 
 	public EmbeddingInfo setUuid(UUID uuid) {
 		this.uuid = uuid;
+		return this;
+	}
+
+	@Override
+	public String getSource() {
+		return source;
+	}
+
+	@Override
+	public EmbeddingInfo setSource(String source) {
+		this.source = source;
 		return this;
 	}
 
@@ -61,13 +74,13 @@ public class EmbeddingInfo implements EmbeddingModel<EmbeddingInfo> {
 	}
 
 	@Override
-	public JsonObject getMeta() {
-		return meta;
+	public UUID getAssetUuid() {
+		return assetUuid;
 	}
 
 	@Override
-	public EmbeddingInfo setMeta(JsonObject meta) {
-		this.meta = meta;
+	public EmbeddingInfo setAssetUuid(UUID assetUuid) {
+		this.assetUuid = assetUuid;
 		return this;
 	}
 

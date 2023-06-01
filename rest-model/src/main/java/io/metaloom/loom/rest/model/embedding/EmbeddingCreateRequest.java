@@ -10,8 +10,6 @@ import io.metaloom.loom.rest.model.common.AbstractMetaModel;
 public class EmbeddingCreateRequest extends AbstractMetaModel<EmbeddingCreateRequest>
 	implements EmbeddingModel<EmbeddingCreateRequest>, RestRequestModel {
 
-	private Long id;
-
 	private String source;
 
 	private AreaInfo area;
@@ -21,15 +19,6 @@ public class EmbeddingCreateRequest extends AbstractMetaModel<EmbeddingCreateReq
 	private Float[] vector;
 
 	private UUID assetUuid;
-
-	public Long getId() {
-		return id;
-	}
-
-	public EmbeddingCreateRequest setId(Long id) {
-		this.id = id;
-		return this;
-	}
 
 	public String getSource() {
 		return source;

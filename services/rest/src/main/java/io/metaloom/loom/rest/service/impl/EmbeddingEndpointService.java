@@ -54,9 +54,8 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 
 			Float[] data = request.getVector();
 			EmbeddingType type = request.getType() == null ? null : EmbeddingType.valueOf(request.getType().name());
-			Long id = request.getId();
 			UUID assetUuid = request.getAssetUuid();
-			return dao().createEmbedding(lrc.userUuid(), assetUuid, data, type, id);
+			return dao().createEmbedding(lrc.userUuid(), assetUuid, data, type);
 		}, modelBuilder::toResponse);
 	}
 
@@ -67,16 +66,15 @@ public class EmbeddingEndpointService extends AbstractCRUDEndpointService<Embedd
 			validator.validate(request);
 
 			UUID userUuid = lrc.userUuid();
+
 			Embedding embedding = dao().load(uuid);
-			UUID assetUuid = request.getAssetUuid();
-			embedding.setAssetUuid(assetUuid);
-			Float[] data = request.getData();
-			embedding.setData(data);
+			update(request::getAssetUuid, embedding::setAssetUuid);
+			update(request::getVector, embedding::setVector);
 			EmbeddingType type = request.getType() == null ? null : EmbeddingType.valueOf(request.getType().name());
 			if (type != null) {
 				embedding.setType(type);
 			}
-			Long id = request.getId();
+			update(request::getSource, embedding::setSource);
 			setEditor(embedding, userUuid);
 			return embedding;
 		}, modelBuilder::toResponse);

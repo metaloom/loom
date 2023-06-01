@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.model.asset;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -66,7 +67,7 @@ public class AssetCreateRequest implements RestRequestModel, AssetModel<AssetCre
 	private DocumentInfo document;
 
 	@JsonPropertyDescription("Information on embeddings")
-	private List<EmbeddingCreateRequest> embeddings;
+	private List<EmbeddingCreateRequest> embeddings = new ArrayList<>();
 
 	// private String origin;
 
