@@ -27,5 +27,12 @@ public class CommentEndpoint extends AbstractCRUDEndpoint<CommentEndpointService
 	protected String basePath() {
 		return "/comments";
 	}
+	
+	@Override
+	public void register() {
+		super.register();
+		
+		
+	}
 
 }

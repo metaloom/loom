@@ -18,6 +18,7 @@ import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
+import io.metaloom.loom.db.model.asset.AssetId;
 import io.metaloom.loom.db.model.embedding.Embedding;
 import io.metaloom.loom.rest.LoomRoutingContext;
 import io.metaloom.loom.rest.builder.LoomModelBuilder;
@@ -37,7 +38,6 @@ import io.metaloom.loom.rest.model.asset.location.AssetS3Meta;
 import io.metaloom.loom.rest.model.embedding.EmbeddingCreateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
-import io.metaloom.utils.UUIDUtils;
 import io.metaloom.utils.hash.SHA512Sum;
 
 @Singleton
@@ -50,33 +50,31 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 		super(assetDao, daos, modelBuilder, validator);
 	}
 
-	public void delete(LoomRoutingContext lrc, String sha512orUUID) {
-		if (UUIDUtils.isUUID(sha512orUUID)) {
-			delete(lrc, UUID.fromString(sha512orUUID));
+	public void delete(LoomRoutingContext lrc, AssetId assetId) {
+		if (assetId.isUUID()) {
+			delete(lrc, assetId.uuid());
 		} else {
-			SHA512Sum sha512 = SHA512Sum.fromString(sha512orUUID);
 			delete(lrc, DELETE_ASSET, () -> {
-				return dao().loadBySHA512(sha512);
+				return dao().loadBySHA512(assetId.hashsum());
 			});
 		}
 	}
 
 	@Override
-	public void delete(LoomRoutingContext lrc, UUID id) {
-		delete(lrc, DELETE_ASSET, id);
+	public void delete(LoomRoutingContext lrc, UUID uuid) {
+		delete(lrc, DELETE_ASSET, uuid);
 	}
 
 	public void list(LoomRoutingContext lrc) {
 		list(lrc, READ_ASSET, modelBuilder::toAssetList);
 	}
 
-	public void load(LoomRoutingContext lrc, String sha512orUUID) {
-		if (UUIDUtils.isUUID(sha512orUUID)) {
-			load(lrc, UUID.fromString(sha512orUUID));
+	public void load(LoomRoutingContext lrc, AssetId assetId) {
+		if (assetId.isUUID()) {
+			load(lrc, assetId.uuid());
 		} else {
-			SHA512Sum sha512 = SHA512Sum.fromString(sha512orUUID);
 			load(lrc, () -> {
-				return dao().loadBySHA512(sha512);
+				return dao().loadBySHA512(assetId.hashsum());
 			});
 		}
 	}
@@ -94,12 +92,12 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 		}, modelBuilder::toResponse);
 	}
 
-	public void update(LoomRoutingContext lrc, String sha512orUUID) {
-		if (UUIDUtils.isUUID(sha512orUUID)) {
-			update(lrc, UUID.fromString(sha512orUUID));
+	public void update(LoomRoutingContext lrc, AssetId assetId) {
+		if (assetId.isUUID()) {
+			update(lrc, assetId.uuid());
 		} else {
 			update(lrc, () -> {
-				return dao().loadBySHA512(SHA512Sum.fromString(sha512orUUID));
+				return dao().loadBySHA512(assetId.hashsum());
 			});
 		}
 	}

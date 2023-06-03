@@ -1,6 +1,6 @@
 package io.metaloom.loom.db.jooq.dao.comment;
 
-import javax.persistence.Column;
+import java.util.UUID;
 
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.comment.Comment;
@@ -9,8 +9,9 @@ public class CommentImpl extends AbstractEditableElement<Comment> implements Com
 
 	private String title;
 
-	@Column(name = "content")
 	private String text;
+
+	private UUID taskUuid;
 
 	@Override
 	public String getTitle() {
@@ -28,13 +29,20 @@ public class CommentImpl extends AbstractEditableElement<Comment> implements Com
 		return text;
 	}
 
-	public String getContent() {
-		return text;
-	}
-
 	@Override
 	public Comment setText(String text) {
 		this.text = text;
+		return this;
+	}
+
+	@Override
+	public UUID getTaskUuid() {
+		return taskUuid;
+	}
+
+	@Override
+	public Comment setTaskUuid(UUID taskUuid) {
+		this.taskUuid = taskUuid;
 		return this;
 	}
 

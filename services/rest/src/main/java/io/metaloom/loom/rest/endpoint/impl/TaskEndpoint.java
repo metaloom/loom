@@ -27,4 +27,10 @@ public class TaskEndpoint extends AbstractCRUDEndpoint<TaskEndpointService> {
 	protected String basePath() {
 		return "/tasks";
 	}
+
+	@Override
+	public void register() {
+		super.register();
+
+	}
 }

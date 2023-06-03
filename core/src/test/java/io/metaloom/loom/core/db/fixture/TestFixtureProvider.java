@@ -14,6 +14,7 @@ import io.metaloom.loom.db.model.attachment.Attachment;
 import io.metaloom.loom.db.model.blacklist.Blacklist;
 import io.metaloom.loom.db.model.cluster.Cluster;
 import io.metaloom.loom.db.model.collection.Collection;
+import io.metaloom.loom.db.model.comment.Comment;
 import io.metaloom.loom.db.model.embedding.Embedding;
 import io.metaloom.loom.db.model.group.Group;
 import io.metaloom.loom.db.model.library.Library;
@@ -71,8 +72,11 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 
 		// Create task
 		Task task = createTask(user);
-		Reaction reaction1 = reactOnTask(user, task);
-		Reaction reaction2 = reactOnAsset(user, asset);
+		Comment comment = commentOn(user, task, "The comment");
+		Reaction reaction1 = reactOn(REACTION_1_UUID, user, comment);
+		Reaction reaction2 = reactOn(REACTION_2_UUID, user, asset);
+		Reaction reaction3 = reactOn(REACTION_3_UUID, user, task);
+		Reaction reaction4 = reactOn(REACTION_4_UUID, user, annotation);
 
 		// Create blacklist with multiple entries
 		Blacklist blacklist = createBlacklist(user, asset, "blocked");
@@ -80,6 +84,13 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		// Register webhook
 		Webhook webhook = createWebhook(user, "http://localhost:9090/trigger");
 
+	}
+
+	private Comment commentOn(User user, Task task, String text) {
+		Comment comment = commentDao().createComment(user, "Comment title", text);
+		comment.setTaskUuid(task.getUuid());
+		commentDao().store(comment);
+		return comment;
 	}
 
 	private Webhook createWebhook(User user, String url) {
@@ -96,18 +107,35 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 		return blacklist;
 	}
 
-	private Reaction reactOnAsset(User user, Asset asset) {
-		Reaction reaction = reactionDao().createReaction(user, "thumbsup");
-		reaction.setUuid(REACTION_UUID);
+	private Reaction reactOn(UUID uuid, User user, Asset asset) {
+		Reaction reaction = reactionDao().createReaction(user, IMAGE_MIMETYPE);
+		reaction.setUuid(uuid);
+		reaction.setAssetUuid(asset.getUuid());
 		reactionDao().store(reaction);
-		reactionDao().link(reaction, asset);
 		return reaction;
 	}
 
-	private Reaction reactOnTask(User user, Task task) {
-		Reaction reaction = reactionDao().createReaction(user, "thumbsup");
+	private Reaction reactOn(UUID uuid, User user, Task task) {
+		Reaction reaction = reactionDao().createReaction(user, IMAGE_MIMETYPE);
+		reaction.setUuid(uuid);
+		reaction.setTaskUuid(task.getUuid());
 		reactionDao().store(reaction);
-		reactionDao().link(reaction, task);
+		return reaction;
+	}
+
+	private Reaction reactOn(UUID uuid, User user, Comment comment) {
+		Reaction reaction = reactionDao().createReaction(user, IMAGE_MIMETYPE);
+		reaction.setUuid(uuid);
+		reaction.setCommentUuid(comment.getUuid());
+		reactionDao().store(reaction);
+		return reaction;
+	}
+
+	private Reaction reactOn(UUID uuid, User user, Annotation task) {
+		Reaction reaction = reactionDao().createReaction(user, "thumbsup");
+		reaction.setUuid(uuid);
+		reaction.setAnnotationUuid(task.getUuid());
+		reactionDao().store(reaction);
 		return reaction;
 	}
 

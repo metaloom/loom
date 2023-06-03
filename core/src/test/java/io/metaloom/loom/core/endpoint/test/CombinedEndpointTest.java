@@ -121,9 +121,9 @@ public class CombinedEndpointTest extends AbstractEndpointTest {
 			ReactionCreateRequest reactionRequest = new ReactionCreateRequest();
 			reactionRequest.setRating(42);
 			reactionRequest.setType(ReactionType.PLUS_ONE);
-			ReactionResponse reaction1 = client.createReactionOnAsset(asset.getUuid(), reactionRequest).sync();
-			ReactionResponse reaction2 = client.createReactionOnComment(comment.getUuid(), reactionRequest).sync();
-			ReactionResponse reaction3 = client.createReactionOnTask(task.getUuid(), reactionRequest).sync();
+			ReactionResponse reaction1 = client.createAssetReaction(asset.getUuid(), reactionRequest).sync();
+			ReactionResponse reaction2 = client.createCommentReaction(comment.getUuid(), reactionRequest).sync();
+			ReactionResponse reaction3 = client.createTaskReaction(task.getUuid(), reactionRequest).sync();
 		}
 
 	}

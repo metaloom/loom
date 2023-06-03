@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.metaloom.loom.db.dagger.DaoCollection;
+import io.metaloom.loom.db.model.asset.AssetId;
 import io.metaloom.loom.db.model.reaction.Reaction;
 import io.metaloom.loom.db.model.reaction.ReactionDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
@@ -60,18 +61,51 @@ public class ReactionEndpointService extends AbstractCRUDEndpointService<Reactio
 	}
 
 	@Override
-	public void update(LoomRoutingContext lrc, UUID id) {
+	public void update(LoomRoutingContext lrc, UUID uuid) {
 		update(lrc, UPDATE_REACTION, () -> {
 			ReactionUpdateRequest request = lrc.requestBody(ReactionUpdateRequest.class);
 			validator.validate(request);
 
 			UUID userUuid = lrc.userUuid();
-			Reaction reaction = dao().load(id);
+			Reaction reaction = dao().load(uuid);
 			// TODO update
 			// update(request::getType, reaction::setType);
 			update(request::getMeta, reaction::setMeta);
 			setEditor(reaction, userUuid);
 			return reaction;
 		}, modelBuilder::toResponse);
+	}
+
+	public void createAssetReaction(LoomRoutingContext lrc, AssetId assetId) {
+		create(lrc, CREATE_REACTION, () -> {
+			ReactionCreateRequest request = lrc.requestBody(ReactionCreateRequest.class);
+			validator.validate(request);
+
+			UUID userUuid = lrc.userUuid();
+			String type = request.getType().name();
+			Reaction reaction = dao().createAssetReaction(userUuid, assetId, type);
+			update(request::getMeta, reaction::setMeta);
+			return reaction;
+		}, modelBuilder::toResponse);
+	}
+
+	public void deleteAssetReaction(LoomRoutingContext lrc, AssetId assetId, UUID reactionUuid) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void listAssetReactions(LoomRoutingContext lrc, AssetId assetId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void loadAssetReaction(LoomRoutingContext lrc, AssetId assetId, UUID reactionUuid) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateAssetReaction(LoomRoutingContext lrc, AssetId assetId, UUID reactionUuid) {
+		// TODO Auto-generated method stub
+		
 	}
 }

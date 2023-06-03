@@ -28,4 +28,11 @@ public class AnnotationEndpoint extends AbstractCRUDEndpoint<AnnotationEndpointS
 		return "/annotations";
 	}
 
+	@Override
+	public void register() {
+		super.register();
+		
+		
+	}
+	
 }

@@ -10,13 +10,15 @@ public class ReactionImpl extends AbstractEditableElement<Reaction> implements R
 
 	private String type;
 
-	private UUID assetUuid;
-
 	private Integer rating;
+
+	private UUID assetUuid;
 
 	private UUID annotationUuid;
 
 	private UUID commentUuid;
+
+	private UUID taskUuid;
 
 	private JsonObject meta;
 
@@ -83,6 +85,17 @@ public class ReactionImpl extends AbstractEditableElement<Reaction> implements R
 	@Override
 	public Reaction setMeta(JsonObject meta) {
 		this.meta = meta;
+		return this;
+	}
+
+	@Override
+	public UUID getTaskUuid() {
+		return taskUuid;
+	}
+
+	@Override
+	public Reaction setTaskUuid(UUID taskUuid) {
+		this.taskUuid = taskUuid;
 		return this;
 	}
 }

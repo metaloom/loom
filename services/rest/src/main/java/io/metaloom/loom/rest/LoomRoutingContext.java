@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.auth.LoomAuthorizationProvider;
 import io.metaloom.loom.auth.LoomUser;
+import io.metaloom.loom.db.model.asset.AssetId;
 import io.metaloom.loom.db.model.perm.Permission;
 import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestRequestModel;
@@ -104,6 +105,14 @@ public class LoomRoutingContext {
 			throw new LoomRestException(400, "Path parameter " + key + " not found");
 		}
 		return UUID.fromString(val);
+	}
+
+	public AssetId pathParamAssetId(String key) {
+		String val = pathParam(key);
+		if (val == null) {
+			throw new LoomRestException(400, "Path parameter " + key + " not found");
+		}
+		return new AssetId(val);
 	}
 
 	public int pageSize() {

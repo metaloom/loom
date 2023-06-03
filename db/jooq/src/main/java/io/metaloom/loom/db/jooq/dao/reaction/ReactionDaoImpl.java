@@ -12,6 +12,7 @@ import org.jooq.TableRecord;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqReaction;
 import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.loom.db.model.asset.AssetId;
 import io.metaloom.loom.db.model.reaction.Reaction;
 import io.metaloom.loom.db.model.reaction.ReactionDao;
 import io.metaloom.loom.db.model.task.Task;
@@ -46,29 +47,11 @@ public class ReactionDaoImpl extends AbstractJooqDao<Reaction> implements Reacti
 		setCreatorEditor(reaction, userUuid);
 		return reaction;
 	}
-
+	
 	@Override
-	public void link(Reaction reaction, Asset asset) {
+	public Reaction createAssetReaction(UUID userUuid, AssetId assetId, String type) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void unlink(Reaction reaction, Asset asset) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void link(Reaction reaction, Task task) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void unlink(Reaction reaction, Task task) {
-		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 }

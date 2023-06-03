@@ -15,16 +15,22 @@ public interface Reaction extends CUDElement<Reaction>, MetaElement<Reaction> {
 
 	Reaction setRating(Integer rating);
 
-	Reaction setAssetUuid(UUID assetUuid);
+	// References
 
 	UUID getAssetUuid();
 
-	Reaction setCommentUuid(UUID commentUuid);
+	Reaction setAssetUuid(UUID assetUuid);
 
 	UUID getCommentUuid();
 
-	Reaction setAnnotationUuid(UUID annotationUuid);
+	Reaction setCommentUuid(UUID commentUuid);
 
 	UUID getAnnotationUuid();
+
+	Reaction setAnnotationUuid(UUID annotationUuid);
+
+	UUID getTaskUuid();
+
+	Reaction setTaskUuid(UUID taskUuid);
 
 }

@@ -13,6 +13,7 @@ import io.metaloom.loom.rest.AbstractEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
 import io.metaloom.loom.rest.service.impl.AssetEndpointService;
 import io.metaloom.loom.rest.service.impl.AssetLocationEndpointService;
+import io.metaloom.loom.rest.service.impl.ReactionEndpointService;
 import io.metaloom.loom.rest.service.impl.TagEndpointService;
 
 public class AssetEndpoint extends AbstractEndpoint {
@@ -21,14 +22,17 @@ public class AssetEndpoint extends AbstractEndpoint {
 	private final AssetEndpointService service;
 	private final TagEndpointService tagService;
 	private final AssetLocationEndpointService locationService;
+	private final ReactionEndpointService reactionService;
 
 	@Inject
 	public AssetEndpoint(AssetEndpointService service, TagEndpointService tagService, AssetLocationEndpointService locationService,
+		ReactionEndpointService reactionService,
 		EndpointDependencies deps) {
 		super(deps);
 		this.service = service;
 		this.tagService = tagService;
 		this.locationService = locationService;
+		this.reactionService = reactionService;
 	}
 
 	@Override
@@ -46,11 +50,11 @@ public class AssetEndpoint extends AbstractEndpoint {
 		});
 
 		addRoute(basePath() + "/:sha512orUUID", POST, lrc -> {
-			service.update(lrc, lrc.pathParam("sha512orUUID"));
+			service.update(lrc, lrc.pathParamAssetId("sha512orUUID"));
 		});
 
 		addRoute(basePath() + "/:sha512orUUID", DELETE, lrc -> {
-			service.delete(lrc, lrc.pathParam("sha512orUUID"));
+			service.delete(lrc, lrc.pathParamAssetId("sha512orUUID"));
 		});
 
 		addRoute(basePath(), GET, lrc -> {
@@ -58,19 +62,40 @@ public class AssetEndpoint extends AbstractEndpoint {
 		});
 
 		addRoute(basePath() + "/:sha512orUUID", GET, lrc -> {
-			service.load(lrc, lrc.pathParam("sha512orUUID"));
+			service.load(lrc, lrc.pathParamAssetId("sha512orUUID"));
 		});
 
 		// TAG
 
 		addRoute(basePath() + "/:sha512orUUID" + "/tags", POST, lrc -> {
-			tagService.tagAsset(lrc, lrc.pathParam("sha512orUUID"));
+			tagService.tagAsset(lrc, lrc.pathParamAssetId("sha512orUUID"));
 		});
 
 		addRoute(basePath() + "/:sha512orUUID/tags/:tagUuid", DELETE, lrc -> {
-			tagService.untagAsset(lrc, lrc.pathParam("sha512orUUID"), lrc.pathParamUUID("tagUuid"));
+			tagService.untagAsset(lrc, lrc.pathParamAssetId("sha512orUUID"), lrc.pathParamUUID("tagUuid"));
 		});
 
+		// REACTION
+
+		addRoute(basePath() + "/:sha512orUUID/reactions", POST, lrc -> {
+			reactionService.createAssetReaction(lrc, lrc.pathParamAssetId("sha512orUUID"));
+		});
+
+		addRoute(basePath() + "/:sha512orUUID/reactions/:reactionUuid", DELETE, lrc -> {
+			reactionService.deleteAssetReaction(lrc, lrc.pathParamAssetId("sha512orUUID"), lrc.pathParamUUID("reactionUuid"));
+		});
+
+		addRoute(basePath() + "/:sha512orUUID/reactions", GET, lrc -> {
+			reactionService.listAssetReactions(lrc, lrc.pathParamAssetId("sha512orUUID"));
+		});
+
+		addRoute(basePath() + "/:sha512orUUID/reactions/:reactionUuid", GET, lrc -> {
+			reactionService.loadAssetReaction(lrc, lrc.pathParamAssetId("sha512orUUID"), lrc.pathParamUUID("reactionUuid"));
+		});
+
+		addRoute(basePath() + "/:sha512orUUID/reactions/:reactionUuid", POST, lrc -> {
+			reactionService.updateAssetReaction(lrc, lrc.pathParamAssetId("sha512orUUID"), lrc.pathParamUUID("reactionUuid"));
+		});
 
 	}
 

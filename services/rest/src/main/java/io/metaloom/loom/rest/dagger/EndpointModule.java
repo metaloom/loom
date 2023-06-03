@@ -19,7 +19,6 @@ import io.metaloom.loom.rest.endpoint.impl.GroupEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.LibraryEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.LoginEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.ProjectEndpoint;
-import io.metaloom.loom.rest.endpoint.impl.ReactionEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.RoleEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.TagEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.TaskEndpoint;
@@ -42,7 +41,6 @@ public class EndpointModule {
 		CollectionEndpoint collectionEndpoint,
 		EmbeddingEndpoint embeddingEndpoint,
 		TaskEndpoint taskEndoint,
-		ReactionEndpoint reactionEndpoint,
 		TagEndpoint tagEndpoint,
 		WebhookEndpoint webhookEndpoint,
 		LibraryEndpoint libraryEndpoint,
@@ -60,7 +58,6 @@ public class EndpointModule {
 			collectionEndpoint,
 			embeddingEndpoint,
 			taskEndoint,
-			reactionEndpoint,
 			tagEndpoint,
 			webhookEndpoint,
 			libraryEndpoint,

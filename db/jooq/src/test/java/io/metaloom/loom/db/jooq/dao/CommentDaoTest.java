@@ -17,7 +17,7 @@ public class CommentDaoTest extends AbstractJooqTest implements CRUDDaoTestcases
 
 	@Override
 	public Comment createElement(User user, int i) {
-		return getDao().createComment(user, "title_" + i);
+		return getDao().createComment(user, "title_" + i, "dummy text");
 	}
 
 	@Override

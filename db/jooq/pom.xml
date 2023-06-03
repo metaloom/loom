@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -49,21 +50,21 @@
 			<artifactId>jooq</artifactId>
 			<version>${jooq.version}</version>
 		</dependency>
-    <dependency>
-      <groupId>javax.persistence</groupId>
-      <artifactId>javax.persistence-api</artifactId>
-    </dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+		</dependency>
 
 		<!-- JDBC / Connection Pooling support -->
 		<dependency>
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
 		</dependency>
-		
+
 		<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-lang3</artifactId>
-    </dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
 
 		<!-- Test -->
 		<dependency>
@@ -233,13 +234,13 @@
 									<inputSchema>public</inputSchema>
 									<outputSchema>public</outputSchema>
 									<unsignedTypes>false</unsignedTypes>
-                  <forcedTypes>
-                    <forcedType>
-                      <userType>io.vertx.core.json.JsonObject</userType>
-                      <converter>io.metaloom.loom.db.jooq.converter.JsonObjectConverter</converter>
-                      <includeExpression>.*\.meta.*</includeExpression>
-                    </forcedType>
-                  </forcedTypes>
+									<forcedTypes>
+										<forcedType>
+											<userType>io.vertx.core.json.JsonObject</userType>
+											<converter>io.metaloom.loom.db.jooq.converter.JsonObjectConverter</converter>
+											<includeExpression>.*\.meta.*</includeExpression>
+										</forcedType>
+									</forcedTypes>
 								</database>
 								<target>
 									<packageName>io.metaloom.loom.db.jooq</packageName>

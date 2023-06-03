@@ -6,13 +6,10 @@ package io.metaloom.loom.db.jooq;
 
 import io.metaloom.loom.db.jooq.tables.JooqAnnotation;
 import io.metaloom.loom.db.jooq.tables.JooqAnnotationAsset;
-import io.metaloom.loom.db.jooq.tables.JooqAnnotationComment;
-import io.metaloom.loom.db.jooq.tables.JooqAnnotationReaction;
 import io.metaloom.loom.db.jooq.tables.JooqAnnotationTag;
 import io.metaloom.loom.db.jooq.tables.JooqAnnotationTask;
 import io.metaloom.loom.db.jooq.tables.JooqAsset;
 import io.metaloom.loom.db.jooq.tables.JooqAssetLocation;
-import io.metaloom.loom.db.jooq.tables.JooqAssetReaction;
 import io.metaloom.loom.db.jooq.tables.JooqAssetRemix;
 import io.metaloom.loom.db.jooq.tables.JooqAssetTask;
 import io.metaloom.loom.db.jooq.tables.JooqAssetUserMeta;
@@ -24,8 +21,6 @@ import io.metaloom.loom.db.jooq.tables.JooqCollection;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionAsset;
 import io.metaloom.loom.db.jooq.tables.JooqCollectionCluster;
 import io.metaloom.loom.db.jooq.tables.JooqComment;
-import io.metaloom.loom.db.jooq.tables.JooqCommentReaction;
-import io.metaloom.loom.db.jooq.tables.JooqCommentTask;
 import io.metaloom.loom.db.jooq.tables.JooqEmbedding;
 import io.metaloom.loom.db.jooq.tables.JooqEmbeddingCluster;
 import io.metaloom.loom.db.jooq.tables.JooqFlywaySchemaHistory;
@@ -74,16 +69,6 @@ public class Tables {
     public static final JooqAnnotationAsset ANNOTATION_ASSET = JooqAnnotationAsset.ANNOTATION_ASSET;
 
     /**
-     * The table <code>public.annotation_comment</code>.
-     */
-    public static final JooqAnnotationComment ANNOTATION_COMMENT = JooqAnnotationComment.ANNOTATION_COMMENT;
-
-    /**
-     * The table <code>public.annotation_reaction</code>.
-     */
-    public static final JooqAnnotationReaction ANNOTATION_REACTION = JooqAnnotationReaction.ANNOTATION_REACTION;
-
-    /**
      * The table <code>public.annotation_tag</code>.
      */
     public static final JooqAnnotationTag ANNOTATION_TAG = JooqAnnotationTag.ANNOTATION_TAG;
@@ -104,11 +89,6 @@ public class Tables {
      * decoupled from asset.
      */
     public static final JooqAssetLocation ASSET_LOCATION = JooqAssetLocation.ASSET_LOCATION;
-
-    /**
-     * The table <code>public.asset_reaction</code>.
-     */
-    public static final JooqAssetReaction ASSET_REACTION = JooqAssetReaction.ASSET_REACTION;
 
     /**
      * Store information on remixes of binaries.
@@ -172,16 +152,6 @@ public class Tables {
      * Stores comments on tasks, annotations..
      */
     public static final JooqComment COMMENT = JooqComment.COMMENT;
-
-    /**
-     * The table <code>public.comment_reaction</code>.
-     */
-    public static final JooqCommentReaction COMMENT_REACTION = JooqCommentReaction.COMMENT_REACTION;
-
-    /**
-     * The table <code>public.comment_task</code>.
-     */
-    public static final JooqCommentTask COMMENT_TASK = JooqCommentTask.COMMENT_TASK;
 
     /**
      * Embedding information which was extracted from an asset.

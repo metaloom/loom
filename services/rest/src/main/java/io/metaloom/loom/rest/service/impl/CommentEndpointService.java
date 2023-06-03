@@ -30,8 +30,8 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 	}
 
 	@Override
-	public void delete(LoomRoutingContext lrc, UUID id) {
-		delete(lrc, DELETE_COMMENT, id);
+	public void delete(LoomRoutingContext lrc, UUID uuid) {
+		delete(lrc, DELETE_COMMENT, uuid);
 	}
 
 	@Override
@@ -40,9 +40,9 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 	}
 
 	@Override
-	public void load(LoomRoutingContext lrc, UUID id) {
+	public void load(LoomRoutingContext lrc, UUID uuid) {
 		load(lrc, READ_COMMENT, () -> {
-			return dao().load(id);
+			return dao().load(uuid);
 		}, modelBuilder::toResponse);
 	}
 
@@ -54,19 +54,20 @@ public class CommentEndpointService extends AbstractCRUDEndpointService<CommentD
 
 			UUID userUuid = lrc.userUuid();
 			String title = request.getTitle();
-			Comment comment = dao().createComment(userUuid, title);
+			String text = request.getText();
+			Comment comment = dao().createComment(userUuid, title, text);
 			update(request, comment);
 			return comment;
 		}, modelBuilder::toResponse);
 	}
 
 	@Override
-	public void update(LoomRoutingContext lrc, UUID id) {
+	public void update(LoomRoutingContext lrc, UUID uuid) {
 		update(lrc, UPDATE_COMMENT, () -> {
 			CommentUpdateRequest request = lrc.requestBody(CommentUpdateRequest.class);
 			validator.validate(request);
 
-			Comment comment = dao().load(id);
+			Comment comment = dao().load(uuid);
 			update(request, comment);
 			return comment;
 		}, modelBuilder::toResponse);

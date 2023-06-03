@@ -11,8 +11,8 @@ import java.util.UUID;
 
 import org.jooq.Field;
 import org.jooq.Record1;
-import org.jooq.Record8;
-import org.jooq.Row8;
+import org.jooq.Record11;
+import org.jooq.Row11;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
@@ -20,7 +20,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Stores comments on tasks, annotations..
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> implements Record8<UUID, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> {
+public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> implements Record11<UUID, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -136,6 +136,48 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
         return (UUID) get(7);
     }
 
+    /**
+     * Setter for <code>public.comment.task_uuid</code>.
+     */
+    public void setTaskUuid(UUID value) {
+        set(8, value);
+    }
+
+    /**
+     * Getter for <code>public.comment.task_uuid</code>.
+     */
+    public UUID getTaskUuid() {
+        return (UUID) get(8);
+    }
+
+    /**
+     * Setter for <code>public.comment.asset_uuid</code>.
+     */
+    public void setAssetUuid(UUID value) {
+        set(9, value);
+    }
+
+    /**
+     * Getter for <code>public.comment.asset_uuid</code>.
+     */
+    public UUID getAssetUuid() {
+        return (UUID) get(9);
+    }
+
+    /**
+     * Setter for <code>public.comment.annotation_uuid</code>.
+     */
+    public void setAnnotationUuid(UUID value) {
+        set(10, value);
+    }
+
+    /**
+     * Getter for <code>public.comment.annotation_uuid</code>.
+     */
+    public UUID getAnnotationUuid() {
+        return (UUID) get(10);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -146,17 +188,17 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     // -------------------------------------------------------------------------
-    // Record8 type implementation
+    // Record11 type implementation
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<UUID, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
-        return (Row8) super.fieldsRow();
+    public Row11<UUID, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> fieldsRow() {
+        return (Row11) super.fieldsRow();
     }
 
     @Override
-    public Row8<UUID, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
-        return (Row8) super.valuesRow();
+    public Row11<UUID, String, String, UUID, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> valuesRow() {
+        return (Row11) super.valuesRow();
     }
 
     @Override
@@ -200,6 +242,21 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
+    public Field<UUID> field9() {
+        return JooqComment.COMMENT.TASK_UUID;
+    }
+
+    @Override
+    public Field<UUID> field10() {
+        return JooqComment.COMMENT.ASSET_UUID;
+    }
+
+    @Override
+    public Field<UUID> field11() {
+        return JooqComment.COMMENT.ANNOTATION_UUID;
+    }
+
+    @Override
     public UUID component1() {
         return getUuid();
     }
@@ -240,6 +297,21 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
+    public UUID component9() {
+        return getTaskUuid();
+    }
+
+    @Override
+    public UUID component10() {
+        return getAssetUuid();
+    }
+
+    @Override
+    public UUID component11() {
+        return getAnnotationUuid();
+    }
+
+    @Override
     public UUID value1() {
         return getUuid();
     }
@@ -277,6 +349,21 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     @Override
     public UUID value8() {
         return getEditorUuid();
+    }
+
+    @Override
+    public UUID value9() {
+        return getTaskUuid();
+    }
+
+    @Override
+    public UUID value10() {
+        return getAssetUuid();
+    }
+
+    @Override
+    public UUID value11() {
+        return getAnnotationUuid();
     }
 
     @Override
@@ -328,7 +415,25 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     @Override
-    public JooqCommentRecord values(UUID value1, String value2, String value3, UUID value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8) {
+    public JooqCommentRecord value9(UUID value) {
+        setTaskUuid(value);
+        return this;
+    }
+
+    @Override
+    public JooqCommentRecord value10(UUID value) {
+        setAssetUuid(value);
+        return this;
+    }
+
+    @Override
+    public JooqCommentRecord value11(UUID value) {
+        setAnnotationUuid(value);
+        return this;
+    }
+
+    @Override
+    public JooqCommentRecord values(UUID value1, String value2, String value3, UUID value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8, UUID value9, UUID value10, UUID value11) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -337,6 +442,9 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
         value6(value6);
         value7(value7);
         value8(value8);
+        value9(value9);
+        value10(value10);
+        value11(value11);
         return this;
     }
 
@@ -354,7 +462,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     /**
      * Create a detached, initialised JooqCommentRecord
      */
-    public JooqCommentRecord(UUID uuid, String title, String content, UUID parentUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
+    public JooqCommentRecord(UUID uuid, String title, String content, UUID parentUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID taskUuid, UUID assetUuid, UUID annotationUuid) {
         super(JooqComment.COMMENT);
 
         setUuid(uuid);
@@ -365,5 +473,8 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
         setCreatorUuid(creatorUuid);
         setEdited(edited);
         setEditorUuid(editorUuid);
+        setTaskUuid(taskUuid);
+        setAssetUuid(assetUuid);
+        setAnnotationUuid(annotationUuid);
     }
 }

@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.loom.db.model.asset.AssetId;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.model.tag.TagDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
@@ -86,14 +87,14 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 		}, modelBuilder::toResponse);
 	}
 
-	public void tagAsset(LoomRoutingContext lrc, String assetSHA512OrUuid) {
+	public void tagAsset(LoomRoutingContext lrc, AssetId assetId) {
 		checkPerm(lrc, TAG_ASSET, () -> {
 			TagCreateRequest request = lrc.requestBody(TagCreateRequest.class);
 			validator.validate(request);
 
-			Asset asset = daos().assetDao().loadBySHA512OrUuid(assetSHA512OrUuid);
+			Asset asset = daos().assetDao().loadById(assetId);
 			if (asset == null) {
-				throw new LoomRestException(404, "Asset not found " + assetSHA512OrUuid);
+				throw new LoomRestException(404, "Asset not found " + assetId);
 			}
 
 			String name = request.getName();
@@ -111,11 +112,12 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 
 	}
 
-	public void untagAsset(LoomRoutingContext lrc, String assetSHA512OrUuid, UUID tagUuid) {
+	public void untagAsset(LoomRoutingContext lrc, AssetId assetId, UUID tagUuid) {
 		checkPerm(lrc, UNTAG_ASSET, () -> {
-			Asset asset = daos().assetDao().loadBySHA512OrUuid(assetSHA512OrUuid);
+			
+			Asset asset = daos().assetDao().loadById(assetId);
 			if (asset == null) {
-				throw new LoomRestException(404, "Asset not found " + assetSHA512OrUuid);
+				throw new LoomRestException(404, "Asset not found " + assetId);
 			}
 			Tag tag = dao().load(tagUuid);
 			if (tag == null) {

@@ -15,11 +15,11 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function8;
+import org.jooq.Function11;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row8;
+import org.jooq.Row11;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -92,6 +92,21 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
      */
     public final TableField<JooqCommentRecord, java.util.UUID> EDITOR_UUID = createField(DSL.name("editor_uuid"), SQLDataType.UUID.nullable(false), this, "");
 
+    /**
+     * The column <code>public.comment.task_uuid</code>.
+     */
+    public final TableField<JooqCommentRecord, java.util.UUID> TASK_UUID = createField(DSL.name("task_uuid"), SQLDataType.UUID, this, "");
+
+    /**
+     * The column <code>public.comment.asset_uuid</code>.
+     */
+    public final TableField<JooqCommentRecord, java.util.UUID> ASSET_UUID = createField(DSL.name("asset_uuid"), SQLDataType.UUID, this, "");
+
+    /**
+     * The column <code>public.comment.annotation_uuid</code>.
+     */
+    public final TableField<JooqCommentRecord, java.util.UUID> ANNOTATION_UUID = createField(DSL.name("annotation_uuid"), SQLDataType.UUID, this, "");
+
     private JooqComment(Name alias, Table<JooqCommentRecord> aliased) {
         this(alias, aliased, null);
     }
@@ -137,12 +152,14 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
 
     @Override
     public List<ForeignKey<JooqCommentRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.COMMENT__COMMENT_PARENT_UUID_FKEY, Keys.COMMENT__COMMENT_CREATOR_UUID_FKEY, Keys.COMMENT__COMMENT_EDITOR_UUID_FKEY);
+        return Arrays.asList(Keys.COMMENT__COMMENT_PARENT_UUID_FKEY, Keys.COMMENT__COMMENT_CREATOR_UUID_FKEY, Keys.COMMENT__COMMENT_EDITOR_UUID_FKEY, Keys.COMMENT__COMMENT_TASK_UUID_FKEY, Keys.COMMENT__COMMENT_ANNOTATION_UUID_FKEY);
     }
 
     private transient JooqComment _comment;
     private transient JooqUser _commentCreatorUuidFkey;
     private transient JooqUser _commentEditorUuidFkey;
+    private transient JooqTask _task;
+    private transient JooqAnnotation _annotation;
 
     /**
      * Get the implicit join path to the <code>public.comment</code> table.
@@ -174,6 +191,26 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
             _commentEditorUuidFkey = new JooqUser(this, Keys.COMMENT__COMMENT_EDITOR_UUID_FKEY);
 
         return _commentEditorUuidFkey;
+    }
+
+    /**
+     * Get the implicit join path to the <code>public.task</code> table.
+     */
+    public JooqTask task() {
+        if (_task == null)
+            _task = new JooqTask(this, Keys.COMMENT__COMMENT_TASK_UUID_FKEY);
+
+        return _task;
+    }
+
+    /**
+     * Get the implicit join path to the <code>public.annotation</code> table.
+     */
+    public JooqAnnotation annotation() {
+        if (_annotation == null)
+            _annotation = new JooqAnnotation(this, Keys.COMMENT__COMMENT_ANNOTATION_UUID_FKEY);
+
+        return _annotation;
     }
 
     @Override
@@ -216,18 +253,18 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row8 type methods
+    // Row11 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<java.util.UUID, String, String, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID> fieldsRow() {
-        return (Row8) super.fieldsRow();
+    public Row11<java.util.UUID, String, String, java.util.UUID, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID, java.util.UUID, java.util.UUID> fieldsRow() {
+        return (Row11) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function8<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function11<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -235,7 +272,7 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super java.util.UUID, ? super String, ? super String, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

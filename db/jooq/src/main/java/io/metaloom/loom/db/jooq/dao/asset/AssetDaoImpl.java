@@ -22,6 +22,7 @@ import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqAsset;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
+import io.metaloom.loom.db.model.asset.AssetId;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.utils.UUIDUtils;
 import io.metaloom.utils.hash.SHA512Sum;
@@ -64,6 +65,15 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	}
 
 	@Override
+	public Asset loadById(AssetId assetId) {
+		if (assetId.isUUID()) {
+			return load(assetId.uuid());
+		} else {
+			return loadBySHA512(assetId.hashsum());
+		}	
+	}
+
+	@Override
 	public Asset load(UUID uuid) {
 		return ctx()
 			.select(getTable())
@@ -79,16 +89,6 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 			.from(getTable())
 			.where(JooqAsset.ASSET.SHA512SUM.eq(sha512sum.toString()))
 			.fetchOneInto(getPojoClass());
-	}
-
-	@Override
-	public Asset loadBySHA512OrUuid(String sha512sumOrUuid) {
-		if (UUIDUtils.isUUID(sha512sumOrUuid)) {
-			return load(UUID.fromString(sha512sumOrUuid));
-		} else {
-			SHA512Sum sha512 = SHA512Sum.fromString(sha512sumOrUuid);
-			return loadBySHA512(sha512);
-		}
 	}
 
 	@Override
