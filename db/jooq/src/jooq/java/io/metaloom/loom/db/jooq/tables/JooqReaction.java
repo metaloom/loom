@@ -18,12 +18,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function11;
+import org.jooq.Function12;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row11;
+import org.jooq.Row12;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -105,6 +105,11 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
     public final TableField<JooqReactionRecord, java.util.UUID> ASSET_UUID = createField(DSL.name("asset_uuid"), SQLDataType.UUID, this, "");
 
     /**
+     * The column <code>public.reaction.task_uuid</code>.
+     */
+    public final TableField<JooqReactionRecord, java.util.UUID> TASK_UUID = createField(DSL.name("task_uuid"), SQLDataType.UUID, this, "");
+
+    /**
      * The column <code>public.reaction.comment_uuid</code>.
      */
     public final TableField<JooqReactionRecord, java.util.UUID> COMMENT_UUID = createField(DSL.name("comment_uuid"), SQLDataType.UUID, this, "");
@@ -164,11 +169,12 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
 
     @Override
     public List<ForeignKey<JooqReactionRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.REACTION__REACTION_CREATOR_UUID_FKEY, Keys.REACTION__REACTION_EDITOR_UUID_FKEY, Keys.REACTION__REACTION_COMMENT_UUID_FKEY, Keys.REACTION__REACTION_ANNOTATION_UUID_FKEY);
+        return Arrays.asList(Keys.REACTION__REACTION_CREATOR_UUID_FKEY, Keys.REACTION__REACTION_EDITOR_UUID_FKEY, Keys.REACTION__REACTION_TASK_UUID_FKEY, Keys.REACTION__REACTION_COMMENT_UUID_FKEY, Keys.REACTION__REACTION_ANNOTATION_UUID_FKEY);
     }
 
     private transient JooqUser _reactionCreatorUuidFkey;
     private transient JooqUser _reactionEditorUuidFkey;
+    private transient JooqTask _task;
     private transient JooqComment _comment;
     private transient JooqAnnotation _annotation;
 
@@ -192,6 +198,16 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
             _reactionEditorUuidFkey = new JooqUser(this, Keys.REACTION__REACTION_EDITOR_UUID_FKEY);
 
         return _reactionEditorUuidFkey;
+    }
+
+    /**
+     * Get the implicit join path to the <code>public.task</code> table.
+     */
+    public JooqTask task() {
+        if (_task == null)
+            _task = new JooqTask(this, Keys.REACTION__REACTION_TASK_UUID_FKEY);
+
+        return _task;
     }
 
     /**
@@ -254,18 +270,18 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row12 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<java.util.UUID, String, Integer, JsonObject, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID, java.util.UUID, java.util.UUID> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row12<java.util.UUID, String, Integer, JsonObject, LocalDateTime, java.util.UUID, LocalDateTime, java.util.UUID, java.util.UUID, java.util.UUID, java.util.UUID, java.util.UUID> fieldsRow() {
+        return (Row12) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function11<? super java.util.UUID, ? super String, ? super Integer, ? super JsonObject, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function12<? super java.util.UUID, ? super String, ? super Integer, ? super JsonObject, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -273,7 +289,7 @@ public class JooqReaction extends TableImpl<JooqReactionRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super java.util.UUID, ? super String, ? super Integer, ? super JsonObject, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function12<? super java.util.UUID, ? super String, ? super Integer, ? super JsonObject, ? super LocalDateTime, ? super java.util.UUID, ? super LocalDateTime, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? super java.util.UUID, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

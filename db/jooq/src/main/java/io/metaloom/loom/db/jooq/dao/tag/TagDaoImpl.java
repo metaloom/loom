@@ -12,7 +12,6 @@ import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
 import org.jooq.SelectConditionStep;
-import org.jooq.SelectJoinStep;
 import org.jooq.Table;
 import org.jooq.TableRecord;
 
@@ -101,13 +100,13 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 	}
 
 	@Override
-	protected SelectConditionStep<?> applyFilter(SelectJoinStep<?> query, Filter filter) {
+	protected SelectConditionStep<?> applyFilter(SelectConditionStep<?> query, Filter filter) {
 		FilterKey key = filter.filterKey();
 		if (key == LoomFilterKey.NAME) {
-			return query.where(TAG.NAME.eq(filter.valueStr()));
+			return query.and(TAG.NAME.eq(filter.valueStr()));
 		}
 		if (key == LoomFilterKey.COLLECTION) {
-			return query.where(TAG.COLLECTION.eq(filter.valueStr()));
+			return query.and(TAG.COLLECTION.eq(filter.valueStr()));
 		}
 		return super.applyFilter(query, filter);
 	}

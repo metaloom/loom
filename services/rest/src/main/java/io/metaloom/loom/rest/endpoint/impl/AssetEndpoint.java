@@ -19,6 +19,7 @@ import io.metaloom.loom.rest.service.impl.TagEndpointService;
 public class AssetEndpoint extends AbstractEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(AssetEndpoint.class);
+
 	private final AssetEndpointService service;
 	private final TagEndpointService tagService;
 	private final AssetLocationEndpointService locationService;

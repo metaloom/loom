@@ -63,9 +63,9 @@ public class JooqComment extends TableImpl<JooqCommentRecord> {
     public final TableField<JooqCommentRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR, this, "Comment title");
 
     /**
-     * The column <code>public.comment.content</code>. Comment text
+     * The column <code>public.comment.text</code>. Comment text
      */
-    public final TableField<JooqCommentRecord, String> CONTENT = createField(DSL.name("content"), SQLDataType.VARCHAR.nullable(false), this, "Comment text");
+    public final TableField<JooqCommentRecord, String> TEXT = createField(DSL.name("text"), SQLDataType.VARCHAR.nullable(false), this, "Comment text");
 
     /**
      * The column <code>public.comment.parent_uuid</code>.

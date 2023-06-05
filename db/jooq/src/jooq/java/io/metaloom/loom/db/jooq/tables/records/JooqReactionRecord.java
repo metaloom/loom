@@ -12,8 +12,8 @@ import java.util.UUID;
 
 import org.jooq.Field;
 import org.jooq.Record1;
-import org.jooq.Record11;
-import org.jooq.Row11;
+import org.jooq.Record12;
+import org.jooq.Row12;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
@@ -21,7 +21,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Stores social reactions on multiple elements
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> implements Record11<UUID, String, Integer, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> {
+public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> implements Record12<UUID, String, Integer, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -158,31 +158,45 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
     }
 
     /**
+     * Setter for <code>public.reaction.task_uuid</code>.
+     */
+    public void setTaskUuid(UUID value) {
+        set(9, value);
+    }
+
+    /**
+     * Getter for <code>public.reaction.task_uuid</code>.
+     */
+    public UUID getTaskUuid() {
+        return (UUID) get(9);
+    }
+
+    /**
      * Setter for <code>public.reaction.comment_uuid</code>.
      */
     public void setCommentUuid(UUID value) {
-        set(9, value);
+        set(10, value);
     }
 
     /**
      * Getter for <code>public.reaction.comment_uuid</code>.
      */
     public UUID getCommentUuid() {
-        return (UUID) get(9);
+        return (UUID) get(10);
     }
 
     /**
      * Setter for <code>public.reaction.annotation_uuid</code>.
      */
     public void setAnnotationUuid(UUID value) {
-        set(10, value);
+        set(11, value);
     }
 
     /**
      * Getter for <code>public.reaction.annotation_uuid</code>.
      */
     public UUID getAnnotationUuid() {
-        return (UUID) get(10);
+        return (UUID) get(11);
     }
 
     // -------------------------------------------------------------------------
@@ -195,17 +209,17 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
     }
 
     // -------------------------------------------------------------------------
-    // Record11 type implementation
+    // Record12 type implementation
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<UUID, String, Integer, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row12<UUID, String, Integer, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID, UUID> fieldsRow() {
+        return (Row12) super.fieldsRow();
     }
 
     @Override
-    public Row11<UUID, String, Integer, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID> valuesRow() {
-        return (Row11) super.valuesRow();
+    public Row12<UUID, String, Integer, JsonObject, LocalDateTime, UUID, LocalDateTime, UUID, UUID, UUID, UUID, UUID> valuesRow() {
+        return (Row12) super.valuesRow();
     }
 
     @Override
@@ -255,11 +269,16 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
 
     @Override
     public Field<UUID> field10() {
-        return JooqReaction.REACTION.COMMENT_UUID;
+        return JooqReaction.REACTION.TASK_UUID;
     }
 
     @Override
     public Field<UUID> field11() {
+        return JooqReaction.REACTION.COMMENT_UUID;
+    }
+
+    @Override
+    public Field<UUID> field12() {
         return JooqReaction.REACTION.ANNOTATION_UUID;
     }
 
@@ -310,11 +329,16 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
 
     @Override
     public UUID component10() {
-        return getCommentUuid();
+        return getTaskUuid();
     }
 
     @Override
     public UUID component11() {
+        return getCommentUuid();
+    }
+
+    @Override
+    public UUID component12() {
         return getAnnotationUuid();
     }
 
@@ -365,11 +389,16 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
 
     @Override
     public UUID value10() {
-        return getCommentUuid();
+        return getTaskUuid();
     }
 
     @Override
     public UUID value11() {
+        return getCommentUuid();
+    }
+
+    @Override
+    public UUID value12() {
         return getAnnotationUuid();
     }
 
@@ -429,18 +458,24 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
 
     @Override
     public JooqReactionRecord value10(UUID value) {
-        setCommentUuid(value);
+        setTaskUuid(value);
         return this;
     }
 
     @Override
     public JooqReactionRecord value11(UUID value) {
+        setCommentUuid(value);
+        return this;
+    }
+
+    @Override
+    public JooqReactionRecord value12(UUID value) {
         setAnnotationUuid(value);
         return this;
     }
 
     @Override
-    public JooqReactionRecord values(UUID value1, String value2, Integer value3, JsonObject value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8, UUID value9, UUID value10, UUID value11) {
+    public JooqReactionRecord values(UUID value1, String value2, Integer value3, JsonObject value4, LocalDateTime value5, UUID value6, LocalDateTime value7, UUID value8, UUID value9, UUID value10, UUID value11, UUID value12) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -452,6 +487,7 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
         value9(value9);
         value10(value10);
         value11(value11);
+        value12(value12);
         return this;
     }
 
@@ -469,7 +505,7 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
     /**
      * Create a detached, initialised JooqReactionRecord
      */
-    public JooqReactionRecord(UUID uuid, String type, Integer rating, JsonObject meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID assetUuid, UUID commentUuid, UUID annotationUuid) {
+    public JooqReactionRecord(UUID uuid, String type, Integer rating, JsonObject meta, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID assetUuid, UUID taskUuid, UUID commentUuid, UUID annotationUuid) {
         super(JooqReaction.REACTION);
 
         setUuid(uuid);
@@ -481,6 +517,7 @@ public class JooqReactionRecord extends UpdatableRecordImpl<JooqReactionRecord> 
         setEdited(edited);
         setEditorUuid(editorUuid);
         setAssetUuid(assetUuid);
+        setTaskUuid(taskUuid);
         setCommentUuid(commentUuid);
         setAnnotationUuid(annotationUuid);
     }

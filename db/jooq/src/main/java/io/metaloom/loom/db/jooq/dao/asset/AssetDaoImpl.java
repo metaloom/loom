@@ -117,10 +117,10 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	}
 
 	@Override
-	protected SelectConditionStep<?> applyFilter(SelectJoinStep<?> query, Filter filter) {
+	protected SelectConditionStep<?> applyFilter(SelectConditionStep<?> query, Filter filter) {
 		if (filter.matches(LoomFilterKey.FILE_SIZE, Operation.RANGE)) {
 			return filter.apply(SizeRangeFilterValue.class, sv -> {
-				return query.where(ASSET.SIZE.ge(sv.getFrom())).and(ASSET.SIZE.le(sv.getTo()));
+				return query.and(ASSET.SIZE.ge(sv.getFrom())).and(ASSET.SIZE.le(sv.getTo()));
 			});
 		}
 		return super.applyFilter(query, filter);

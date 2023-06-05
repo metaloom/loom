@@ -53,16 +53,16 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     }
 
     /**
-     * Setter for <code>public.comment.content</code>. Comment text
+     * Setter for <code>public.comment.text</code>. Comment text
      */
-    public void setContent(String value) {
+    public void setText(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>public.comment.content</code>. Comment text
+     * Getter for <code>public.comment.text</code>. Comment text
      */
-    public String getContent() {
+    public String getText() {
         return (String) get(2);
     }
 
@@ -213,7 +213,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
 
     @Override
     public Field<String> field3() {
-        return JooqComment.COMMENT.CONTENT;
+        return JooqComment.COMMENT.TEXT;
     }
 
     @Override
@@ -268,7 +268,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
 
     @Override
     public String component3() {
-        return getContent();
+        return getText();
     }
 
     @Override
@@ -323,7 +323,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
 
     @Override
     public String value3() {
-        return getContent();
+        return getText();
     }
 
     @Override
@@ -380,7 +380,7 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
 
     @Override
     public JooqCommentRecord value3(String value) {
-        setContent(value);
+        setText(value);
         return this;
     }
 
@@ -462,12 +462,12 @@ public class JooqCommentRecord extends UpdatableRecordImpl<JooqCommentRecord> im
     /**
      * Create a detached, initialised JooqCommentRecord
      */
-    public JooqCommentRecord(UUID uuid, String title, String content, UUID parentUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID taskUuid, UUID assetUuid, UUID annotationUuid) {
+    public JooqCommentRecord(UUID uuid, String title, String text, UUID parentUuid, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid, UUID taskUuid, UUID assetUuid, UUID annotationUuid) {
         super(JooqComment.COMMENT);
 
         setUuid(uuid);
         setTitle(title);
-        setContent(content);
+        setText(text);
         setParentUuid(parentUuid);
         setCreated(created);
         setCreatorUuid(creatorUuid);

@@ -10,7 +10,6 @@ import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.SelectConditionStep;
-import org.jooq.SelectJoinStep;
 import org.jooq.SelectSeekStep1;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -119,11 +118,11 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 	}
 
 	@Override
-	public T load(UUID id) {
+	public T load(UUID uuid) {
 		return ctx()
 			.select(getTable())
 			.from(getTable())
-			.where(getIdField().eq(id))
+			.where(getIdField().eq(uuid))
 			.fetchOneInto(getPojoClass());
 	}
 
@@ -136,15 +135,15 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	@Override
 	public Page<T> loadPage(UUID fromId, int pageSize, List<Filter> filters, SortKey sortBy, SortDirection sortDirection) {
-		// SelectSeekStep1<Record3<UUID, String, UUID>, UUID>
-		SelectJoinStep<?> query = ctx()
+		SelectConditionStep<?> query = ctx()
 			.select(getTable())
-			.from(getTable());
+			.from(getTable())
+			.where();
 
 		return loadPage(query, fromId, pageSize, filters, sortBy, sortDirection);
 	}
 
-	protected Page<T> loadPage(SelectJoinStep<?> query, UUID fromId, int pageSize, List<Filter> filters, SortKey sortBy,
+	protected Page<T> loadPage(SelectConditionStep<?> query, UUID fromId, int pageSize, List<Filter> filters, SortKey sortBy,
 		SortDirection sortDirection) {
 
 		// Filtering
@@ -182,10 +181,10 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	}
 
-	protected SelectConditionStep<?> applyFilter(SelectJoinStep<?> query, Filter filter) {
+	protected SelectConditionStep<?> applyFilter(SelectConditionStep<?> query, Filter filter) {
 		FilterKey key = filter.filterKey();
 		if (key == LoomFilterKey.UUID) {
-			return query.where(getTable().field("uuid", UUID.class).eq(UUID.fromString(filter.valueStr())));
+			return query.and(getTable().field("uuid", UUID.class).eq(UUID.fromString(filter.valueStr())));
 		}
 		throw new LoomRestException(400, "Unknown filter field " + key.id() + " for " + getTypeName());
 	}

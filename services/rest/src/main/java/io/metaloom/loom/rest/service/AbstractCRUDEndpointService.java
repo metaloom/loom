@@ -1,6 +1,5 @@
 package io.metaloom.loom.rest.service;
 
-import java.time.Instant;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -10,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.db.CRUDDao;
-import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.Element;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.perm.Permission;
@@ -22,7 +20,6 @@ import io.metaloom.loom.rest.parameter.FilterParameters;
 import io.metaloom.loom.rest.parameter.PagingParameters;
 import io.metaloom.loom.rest.parameter.SortParameters;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
-import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
 
 /**
  * 
@@ -73,15 +70,6 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 		});
 	}
 
-	protected void checkPerm(LoomRoutingContext lrc, Permission permission, Runnable action) {
-		lrc.requirePerm(permission).onSuccess(l -> {
-			action.run();
-		}).onFailure(e -> {
-			// TODO this should be 500 error
-			log.error("Failed to check perms", e);
-			throw new LoomRestException(403, "Invalid permissions");
-		});
-	}
 
 	public abstract void list(LoomRoutingContext lrc);
 
@@ -136,19 +124,6 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 			RestResponseModel<?> response = builder.apply(element);
 			lrc.send(response, 200);
 		});
-	}
-
-	protected void setEditor(CUDElement<?> element, UUID userUuid) {
-		element.setEditorUuid(userUuid);
-		element.setEdited(Instant.now());
-	}
-
-	// TODO maybe add validation parameter?
-	protected <T> void update(Supplier<T> getter, Consumer<T> setter) {
-		T value = getter.get();
-		if (value != null) {
-			setter.accept(value);
-		}
 	}
 
 }

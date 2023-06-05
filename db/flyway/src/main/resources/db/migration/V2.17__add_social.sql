@@ -25,7 +25,7 @@ ALTER TABLE "comment" ADD FOREIGN KEY ("annotation_uuid") REFERENCES "annotation
 
 COMMENT ON TABLE "comment" IS 'Stores comments on tasks, annotations..';
 COMMENT ON COLUMN "comment"."title" IS 'Comment title';
-COMMENT ON COLUMN "comment"."content" IS 'Comment text';
+COMMENT ON COLUMN "comment"."text" IS 'Comment text';
 COMMENT ON COLUMN "comment"."created" IS 'Creation timestamp';
 COMMENT ON COLUMN "comment"."edited" IS 'Edit timestamp';
 

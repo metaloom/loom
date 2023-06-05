@@ -65,10 +65,10 @@ public class UserDaoImpl extends AbstractJooqDao<User> implements UserDao, JooqD
 	}
 
 	@Override
-	protected SelectConditionStep<?> applyFilter(SelectJoinStep<?> query, Filter filter) {
+	protected SelectConditionStep<?> applyFilter(SelectConditionStep<?> query, Filter filter) {
 		FilterKey key = filter.filterKey();
 		if (key == LoomFilterKey.USERNAME && filter.getOperationKey().equals("eq")) {
-			return query.where(USER.USERNAME.eq(filter.value().toString()));
+			return query.and(USER.USERNAME.eq(filter.value().toString()));
 		}
 		return super.applyFilter(query, filter);
 	}

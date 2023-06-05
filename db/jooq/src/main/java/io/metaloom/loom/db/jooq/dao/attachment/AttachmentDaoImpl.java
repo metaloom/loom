@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
-import org.jooq.SelectJoinStep;
+import org.jooq.SelectConditionStep;
 import org.jooq.Table;
 import org.jooq.TableRecord;
 
@@ -61,11 +61,12 @@ public class AttachmentDaoImpl extends AbstractJooqDao<Attachment> implements At
 
 	@Override
 	public Page<Attachment> loadPage(UUID fromId, int pageSize, List<Filter> filters, SortKey sortBy, SortDirection sortDirection) {
-		SelectJoinStep<?> query = ctx()
+		SelectConditionStep<?> query = ctx()
 			.select()
 			.from(ATTACHMENT)
 			.leftJoin(ATTACHMENT_BINARY)
-			.on(ATTACHMENT_BINARY.SHA512SUM.eq(ATTACHMENT.BINARY_SHA512SUM));
+			.on(ATTACHMENT_BINARY.SHA512SUM.eq(ATTACHMENT.BINARY_SHA512SUM))
+			.where();
 
 		return loadPage(query, fromId, pageSize, filters, sortBy, sortDirection);
 	}
