@@ -8,10 +8,10 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.metaloom.loom.api.asset.AssetId;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.auth.LoomAuthorizationProvider;
 import io.metaloom.loom.auth.LoomUser;
-import io.metaloom.loom.db.model.asset.AssetId;
 import io.metaloom.loom.db.model.perm.Permission;
 import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestRequestModel;
@@ -112,7 +112,7 @@ public class LoomRoutingContext {
 		if (val == null) {
 			throw new LoomRestException(400, "Path parameter " + key + " not found");
 		}
-		return new AssetId(val);
+		return AssetId.assetId(val);
 	}
 
 	public int pageSize() {

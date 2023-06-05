@@ -2,6 +2,7 @@ package io.metaloom.loom.db.model.asset;
 
 import java.util.UUID;
 
+import io.metaloom.loom.api.asset.AssetId;
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.utils.hash.SHA512Sum;

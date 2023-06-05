@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.UUID;
 
 import io.metaloom.filter.Filter;
+import io.metaloom.loom.api.asset.AssetId;
 import io.metaloom.loom.api.sort.SortDirection;
 import io.metaloom.loom.api.sort.SortKey;
 import io.metaloom.loom.db.CRUDDao;
-import io.metaloom.loom.db.model.asset.AssetId;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.page.Page;
 

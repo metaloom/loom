@@ -16,11 +16,11 @@ import org.jooq.Table;
 import org.jooq.TableRecord;
 
 import io.metaloom.filter.Filter;
+import io.metaloom.loom.api.asset.AssetId;
 import io.metaloom.loom.api.sort.SortDirection;
 import io.metaloom.loom.api.sort.SortKey;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqReaction;
-import io.metaloom.loom.db.model.asset.AssetId;
 import io.metaloom.loom.db.model.reaction.Reaction;
 import io.metaloom.loom.db.model.reaction.ReactionDao;
 import io.metaloom.loom.db.page.Page;
