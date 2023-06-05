@@ -19,6 +19,8 @@ import io.metaloom.filter.Filter;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.api.sort.SortDirection;
 import io.metaloom.loom.api.sort.SortKey;
+import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.asset.AssetId;
 import io.metaloom.loom.db.model.perm.Permission;
 import io.metaloom.loom.db.model.reaction.Reaction;
@@ -42,10 +44,13 @@ public class ReactionEndpointService extends AbstractEndpointService {
 
 	private ReactionDao dao;
 
+	private AssetDao assetDao;
+
 	@Inject
-	public ReactionEndpointService(ReactionDao reactionDao, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
+	public ReactionEndpointService(ReactionDao reactionDao, AssetDao assetDao, LoomModelBuilder modelBuilder, LoomModelValidator validator) {
 		super(modelBuilder, validator);
 		this.dao = reactionDao;
+		this.assetDao = assetDao;
 	}
 
 	public ReactionDao dao() {
@@ -117,7 +122,15 @@ public class ReactionEndpointService extends AbstractEndpointService {
 	// ASSET
 
 	public void createAssetReaction(LoomRoutingContext lrc, AssetId assetId) {
-		create(lrc, CREATE_REACTION, (userUuid, type) -> dao().createReaction(userUuid, type).setAssetUuid(userUuid));
+		UUID assetUuid = null;
+		if (assetId.isUUID()) {
+			assetUuid = assetId.uuid();
+		} else {
+			Asset asset = assetDao.loadBySHA512(assetId.hashsum());
+			assetUuid = asset.getUuid();
+		}
+		final UUID auid = assetUuid;
+		create(lrc, CREATE_REACTION, (userUuid, type) -> dao().createReaction(userUuid, type).setAssetUuid(auid));
 	}
 
 	public void deleteAssetReaction(LoomRoutingContext lrc, AssetId assetId, UUID reactionUuid) {
