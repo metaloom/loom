@@ -71,15 +71,16 @@ public class UserEndpoint extends AbstractEndpoint {
 			});
 
 		// List
-		addRoute(basePath(), GET, "Load a paged list of users",
-			null,
+		addListRoute(basePath(), GET,
+			"Load a paged list of users",
 			examples.userListResponseExample(),
 			lrc -> {
 				service.list(lrc);
 			});
 
 		// Read
-		addRoute(basePath() + "/:uuid", GET, "Load a user",
+		addRoute(basePath() + "/:uuid", GET,
+			"Load a user",
 			null,
 			examples.userResponseExample(),
 			lrc -> {

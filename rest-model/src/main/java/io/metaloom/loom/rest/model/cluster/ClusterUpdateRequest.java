@@ -1,8 +1,9 @@
 package io.metaloom.loom.rest.model.cluster;
 
 import io.metaloom.loom.rest.model.RestRequestModel;
+import io.metaloom.loom.rest.model.common.AbstractMetaModel;
 
-public class ClusterUpdateRequest implements RestRequestModel {
+public class ClusterUpdateRequest extends AbstractMetaModel<ClusterUpdateRequest> implements RestRequestModel {
 
 	private String name;
 
@@ -23,6 +24,11 @@ public class ClusterUpdateRequest implements RestRequestModel {
 
 	public ClusterUpdateRequest setType(String type) {
 		this.type = type;
+		return this;
+	}
+
+	@Override
+	public ClusterUpdateRequest self() {
 		return this;
 	}
 

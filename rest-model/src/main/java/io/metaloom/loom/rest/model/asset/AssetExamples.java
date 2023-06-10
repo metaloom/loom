@@ -6,10 +6,30 @@ import io.metaloom.loom.rest.model.asset.info.FileInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
 import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationExamples;
+import io.metaloom.loom.rest.model.example.Example;
 import io.metaloom.loom.rest.model.example.ExampleValues;
+import io.metaloom.loom.rest.model.example.impl.ExampleImpl;
+import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface AssetExamples extends ExampleValues, AssetLocationExamples {
 
+	default Example assetResponseExample() {
+		return new ExampleImpl(assetResponse(), "The asset response", HttpResponseStatus.OK);
+	}
+
+	default Example assetUpdateRequestExample() {
+		return new ExampleImpl(assetUpdateRequest(), "The asset update request", HttpResponseStatus.OK);
+	}
+
+	default Example assetCreateRequestExample() {
+		return new ExampleImpl(assetCreateRequest(), "The asset create request", HttpResponseStatus.CREATED);
+	}
+
+	default Example assetListResponseExample() {
+		return new ExampleImpl(assetListResponse(), "The asset list response", HttpResponseStatus.OK);
+	}
+
+	
 	default AssetResponse assetResponse() {
 		AssetResponse model = new AssetResponse();
 		setCreatorEditor(model);

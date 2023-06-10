@@ -1,8 +1,27 @@
 package io.metaloom.loom.rest.model.tag;
 
+import io.metaloom.loom.rest.model.example.Example;
 import io.metaloom.loom.rest.model.example.ExampleValues;
+import io.metaloom.loom.rest.model.example.impl.ExampleImpl;
+import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface TagExamples extends ExampleValues {
+
+	default Example tagResponseExample() {
+		return new ExampleImpl(tagResponse(), "The tag response", HttpResponseStatus.OK);
+	}
+
+	default Example tagUpdateRequestExample() {
+		return new ExampleImpl(tagUpdateRequest(), "The tag update request", HttpResponseStatus.OK);
+	}
+
+	default Example tagCreateRequestExample() {
+		return new ExampleImpl(tagCreateRequest(), "The tag create request", HttpResponseStatus.CREATED);
+	}
+
+	default Example tagListResponseExample() {
+		return new ExampleImpl(tagListResponse(), "The tag list response", HttpResponseStatus.OK);
+	}
 
 	default TagResponse tagResponse() {
 		TagResponse model = new TagResponse();

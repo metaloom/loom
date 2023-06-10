@@ -8,6 +8,7 @@ import io.metaloom.loom.rest.dagger.RestComponent;
 import io.metaloom.loom.rest.endpoint.RESTEndpoint;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.example.Example;
+import io.metaloom.loom.rest.parameter.QueryParameterKey;
 import io.metaloom.vertx.route.ApiRoute;
 import io.metaloom.vertx.router.ApiRouter;
 import io.vertx.core.Handler;
@@ -29,6 +30,15 @@ public abstract class AbstractEndpoint implements RESTEndpoint {
 
 	public Vertx vertx() {
 		return deps.vertx;
+	}
+
+	public <REQ extends RestRequestModel> ApiRoute addListRoute(String path, HttpMethod method, String description, Example responseExample,
+		Handler<LoomRoutingContext> handler) {
+		ApiRoute route = addRoute(path, method, description, null, responseExample, handler);
+		for (QueryParameterKey param : QueryParameterKey.values()) {
+			route.queryParameter(param.key(), param.example(), param.description());
+		}
+		return route;
 	}
 
 	public <REQ extends RestRequestModel> ApiRoute addRoute(String path, HttpMethod method, String description, Handler<LoomRoutingContext> handler) {

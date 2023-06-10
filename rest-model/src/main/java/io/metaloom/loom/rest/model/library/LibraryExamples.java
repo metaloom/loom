@@ -1,8 +1,27 @@
 package io.metaloom.loom.rest.model.library;
 
+import io.metaloom.loom.rest.model.example.Example;
 import io.metaloom.loom.rest.model.example.ExampleValues;
+import io.metaloom.loom.rest.model.example.impl.ExampleImpl;
+import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface LibraryExamples extends ExampleValues {
+
+	default Example libraryUpdateExample() {
+		return new ExampleImpl(libraryUpdateRequest(), "The library update request", HttpResponseStatus.OK);
+	}
+
+	default Example libraryCreateExample() {
+		return new ExampleImpl(libraryCreateRequest(), "The library create request", HttpResponseStatus.CREATED);
+	}
+
+	default Example libraryResponseExample() {
+		return new ExampleImpl(libraryResponse(), "The library response", HttpResponseStatus.OK);
+	}
+
+	default Example libraryListResponseExample() {
+		return new ExampleImpl(libraryListResponse(), "The library list response", HttpResponseStatus.OK);
+	}
 
 	default LibraryResponse libraryResponse() {
 		LibraryResponse model = new LibraryResponse();

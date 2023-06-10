@@ -3,6 +3,7 @@ package io.metaloom.loom.rest.model.example;
 import io.metaloom.loom.rest.model.annotation.AnnotationExamples;
 import io.metaloom.loom.rest.model.asset.AssetExamples;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationExamples;
+import io.metaloom.loom.rest.model.attachment.AttachmentExamples;
 import io.metaloom.loom.rest.model.cluster.ClusterExamples;
 import io.metaloom.loom.rest.model.comment.CommentExamples;
 import io.metaloom.loom.rest.model.example.impl.ExampleImpl;
@@ -22,6 +23,7 @@ public interface Examples extends
 	AnnotationExamples,
 	AssetExamples,
 	AssetLocationExamples,
+	AttachmentExamples,
 	ClusterExamples,
 	CommentExamples,
 	TaskExamples,
