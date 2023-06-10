@@ -37,10 +37,10 @@ public class EmbeddingEndpoint extends AbstractCRUDEndpoint<EmbeddingEndpointSer
 	public void register() {
 		super.register();
 
-		addRoute(basePath() + "/:embeddingUuid/attachments", POST, lrc -> {
+		addRoute(basePath() + "/:embeddingUuid/attachments", POST, "Create a new attachment for the embedding", lrc -> {
 			service().createEmbeddingAttachment(lrc.pathParamUUID("embeddingUuid"));
 		});
-		addRoute(basePath() + "/:embeddingUuid/attachments", GET, lrc -> {
+		addRoute(basePath() + "/:embeddingUuid/attachments", GET, "List the attachments for the embedding", lrc -> {
 			service().listEmbeddingAttachments(lrc.pathParamUUID("embeddingUuid"));
 		});
 

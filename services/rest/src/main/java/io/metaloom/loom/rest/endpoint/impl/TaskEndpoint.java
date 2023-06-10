@@ -42,23 +42,23 @@ public class TaskEndpoint extends AbstractCRUDEndpoint<TaskEndpointService> {
 
 		// REACTION
 
-		addRoute(basePath() + "/:taskUuid/reactions", POST, lrc -> {
+		addRoute(basePath() + "/:taskUuid/reactions", POST, "Create a new reaction for a task", lrc -> {
 			reactionService.createTaskReaction(lrc, lrc.pathParamUUID("taskUuid"));
 		});
 
-		addRoute(basePath() + "/:taskUuid/reactions/:reactionUuid", DELETE, lrc -> {
+		addRoute(basePath() + "/:taskUuid/reactions/:reactionUuid", DELETE, "Delete a reaction for a task",lrc -> {
 			reactionService.deleteTaskReaction(lrc, lrc.pathParamUUID("taskUuid"), lrc.pathParamUUID("reactionUuid"));
 		});
 
-		addRoute(basePath() + "/:taskUuid/reactions", GET, lrc -> {
+		addRoute(basePath() + "/:taskUuid/reactions", GET, "Load a paged list of reactions for a task",  lrc -> {
 			reactionService.listTaskReactions(lrc, lrc.pathParamUUID("taskUuid"));
 		});
 
-		addRoute(basePath() + "/:taskUuid/reactions/:reactionUuid", GET, lrc -> {
+		addRoute(basePath() + "/:taskUuid/reactions/:reactionUuid", GET, "Return a specific reaction for a task", lrc -> {
 			reactionService.loadTaskReaction(lrc, lrc.pathParamUUID("taskUuid"), lrc.pathParamUUID("reactionUuid"));
 		});
 
-		addRoute(basePath() + "/:taskUuid/reactions/:reactionUuid", POST, lrc -> {
+		addRoute(basePath() + "/:taskUuid/reactions/:reactionUuid", POST, "Update a reaction for a task", lrc -> {
 			reactionService.updateTaskReaction(lrc, lrc.pathParamUUID("taskUuid"), lrc.pathParamUUID("reactionUuid"));
 		});
 

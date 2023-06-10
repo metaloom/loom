@@ -46,55 +46,55 @@ public class AssetEndpoint extends AbstractEndpoint {
 		log.info("Registering assets endpoint");
 
 		secure(basePath() + "*");
-		addRoute(basePath(), POST, lrc -> {
+		addRoute(basePath(), POST, "Create a new asset", lrc -> {
 			service.create(lrc);
 		});
 
-		addRoute(basePath() + "/:sha512orUUID", POST, lrc -> {
+		addRoute(basePath() + "/:sha512orUUID", POST, "Update an asset", lrc -> {
 			service.update(lrc, lrc.pathParamAssetId("sha512orUUID"));
 		});
 
-		addRoute(basePath() + "/:sha512orUUID", DELETE, lrc -> {
+		addRoute(basePath() + "/:sha512orUUID", DELETE, "Delete a specific asset", lrc -> {
 			service.delete(lrc, lrc.pathParamAssetId("sha512orUUID"));
 		});
 
-		addRoute(basePath(), GET, lrc -> {
+		addRoute(basePath(), GET, "List assets", lrc -> {
 			service.list(lrc);
 		});
 
-		addRoute(basePath() + "/:sha512orUUID", GET, lrc -> {
+		addRoute(basePath() + "/:sha512orUUID", GET, "Load an asset", lrc -> {
 			service.load(lrc, lrc.pathParamAssetId("sha512orUUID"));
 		});
 
 		// TAG
 
-		addRoute(basePath() + "/:sha512orUUID" + "/tags", POST, lrc -> {
+		addRoute(basePath() + "/:sha512orUUID" + "/tags", POST, "Tag the asset", lrc -> {
 			tagService.tagAsset(lrc, lrc.pathParamAssetId("sha512orUUID"));
 		});
 
-		addRoute(basePath() + "/:sha512orUUID/tags/:tagUuid", DELETE, lrc -> {
+		addRoute(basePath() + "/:sha512orUUID/tags/:tagUuid", DELETE, "Remove a tag from an asset", lrc -> {
 			tagService.untagAsset(lrc, lrc.pathParamAssetId("sha512orUUID"), lrc.pathParamUUID("tagUuid"));
 		});
 
 		// REACTION
 
-		addRoute(basePath() + "/:sha512orUUID/reactions", POST, lrc -> {
+		addRoute(basePath() + "/:sha512orUUID/reactions", POST, "Create a new reaction on an asset", lrc -> {
 			reactionService.createAssetReaction(lrc, lrc.pathParamAssetId("sha512orUUID"));
 		});
 
-		addRoute(basePath() + "/:sha512orUUID/reactions/:reactionUuid", DELETE, lrc -> {
+		addRoute(basePath() + "/:sha512orUUID/reactions/:reactionUuid", DELETE, "Delete the reaction on an asset", lrc -> {
 			reactionService.deleteAssetReaction(lrc, lrc.pathParamAssetId("sha512orUUID"), lrc.pathParamUUID("reactionUuid"));
 		});
 
-		addRoute(basePath() + "/:sha512orUUID/reactions", GET, lrc -> {
+		addRoute(basePath() + "/:sha512orUUID/reactions", GET, "List the reactions on an asset", lrc -> {
 			reactionService.listAssetReactions(lrc, lrc.pathParamAssetId("sha512orUUID"));
 		});
 
-		addRoute(basePath() + "/:sha512orUUID/reactions/:reactionUuid", GET, lrc -> {
+		addRoute(basePath() + "/:sha512orUUID/reactions/:reactionUuid", GET, "Load a reaction for an asset", lrc -> {
 			reactionService.loadAssetReaction(lrc, lrc.pathParamAssetId("sha512orUUID"), lrc.pathParamUUID("reactionUuid"));
 		});
 
-		addRoute(basePath() + "/:sha512orUUID/reactions/:reactionUuid", POST, lrc -> {
+		addRoute(basePath() + "/:sha512orUUID/reactions/:reactionUuid", POST, "Update an reaction for an asset", lrc -> {
 			reactionService.updateAssetReaction(lrc, lrc.pathParamAssetId("sha512orUUID"), lrc.pathParamUUID("reactionUuid"));
 		});
 

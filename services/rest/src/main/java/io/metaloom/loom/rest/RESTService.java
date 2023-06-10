@@ -15,11 +15,11 @@ import io.metaloom.loom.common.service.AbstractService;
 import io.metaloom.loom.rest.dagger.RESTEndpoints;
 import io.metaloom.loom.rest.endpoint.RESTEndpoint;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
+import io.metaloom.vertx.router.ApiRouter;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.json.Json;
-import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 
 @Singleton
@@ -29,12 +29,12 @@ public class RESTService extends AbstractService {
 
 	private HttpServer server;
 
-	private final Router router;
+	private final ApiRouter router;
 	private final Set<RESTEndpoint> endpoints;
 	private final ServerFailureHandler failureHandler;
 
 	@Inject
-	public RESTService(Vertx vertx, LoomOptions options, @Named("restRouter") Router router, @RESTEndpoints Set<RESTEndpoint> endpoints,
+	public RESTService(Vertx vertx, LoomOptions options, @Named("restApiRouter") ApiRouter router, @RESTEndpoints Set<RESTEndpoint> endpoints,
 		ServerFailureHandler failureHandler) {
 		super(vertx, options);
 		this.router = router;
@@ -59,19 +59,19 @@ public class RESTService extends AbstractService {
 		return server;
 	}
 
-	private void setupRouter() {
-		router.route().handler(BodyHandler.create());
+	public void setupRouter() {
+		router.getDelegate().route().handler(BodyHandler.create());
 
 		for (RESTEndpoint endpoint : endpoints) {
 			endpoint.register();
 		}
-		router.errorHandler(404, rc -> {
+		router.getDelegate().errorHandler(404, rc -> {
 			log.error("Request failed {}", rc.normalizedPath(), rc.failure());
 			GenericMessageResponse error = new GenericMessageResponse();
 			error.setMessage("Path not Found: " + rc.normalizedPath());
 			rc.response().setStatusCode(404).end(Json.encodeToBuffer(error));
 		});
-		router.route().failureHandler(failureHandler);
+		router.getDelegate().route().failureHandler(failureHandler);
 
 	}
 

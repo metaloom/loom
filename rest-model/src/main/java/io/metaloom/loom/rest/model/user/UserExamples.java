@@ -1,8 +1,27 @@
 package io.metaloom.loom.rest.model.user;
 
+import io.metaloom.loom.rest.model.example.Example;
 import io.metaloom.loom.rest.model.example.ExampleValues;
+import io.metaloom.loom.rest.model.example.impl.ExampleImpl;
+import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface UserExamples extends ExampleValues {
+
+	default Example userResponseExample() {
+		return new ExampleImpl(userResponse(), "The user response", HttpResponseStatus.OK);
+	}
+
+	default Example userUpdateRequestExample() {
+		return new ExampleImpl(userUpdateRequest(), "The user update request", HttpResponseStatus.OK);
+	}
+
+	default Example userCreateRequestExample() {
+		return new ExampleImpl(userCreateRequest(), "The user create request", HttpResponseStatus.CREATED);
+	}
+
+	default Example userListResponseExample() {
+		return new ExampleImpl(userListResponse(), "The user list response", HttpResponseStatus.OK);
+	}
 
 	default UserResponse userResponse() {
 		UserResponse model = new UserResponse();

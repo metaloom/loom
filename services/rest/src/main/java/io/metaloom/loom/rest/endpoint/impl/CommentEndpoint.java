@@ -17,7 +17,7 @@ import io.metaloom.loom.rest.service.impl.ReactionEndpointService;
 public class CommentEndpoint extends AbstractCRUDEndpoint<CommentEndpointService> {
 
 	private static final Logger log = LoggerFactory.getLogger(CommentEndpoint.class);
-	
+
 	private final ReactionEndpointService reactionService;
 
 	@Inject
@@ -35,30 +35,30 @@ public class CommentEndpoint extends AbstractCRUDEndpoint<CommentEndpointService
 	protected String basePath() {
 		return "/comments";
 	}
-	
+
 	@Override
 	public void register() {
 		super.register();
-		
+
 		// REACTION
 
-		addRoute(basePath() + "/:commentUuid/reactions", POST, lrc -> {
+		addRoute(basePath() + "/:commentUuid/reactions", POST, "Create a reaction on a comment", lrc -> {
 			reactionService.createCommentReaction(lrc, lrc.pathParamUUID("commentUuid"));
 		});
 
-		addRoute(basePath() + "/:commentUuid/reactions/:reactionUuid", DELETE, lrc -> {
+		addRoute(basePath() + "/:commentUuid/reactions/:reactionUuid", DELETE, "Delete the commment for the reaction", lrc -> {
 			reactionService.deleteCommentReaction(lrc, lrc.pathParamUUID("commentUuid"), lrc.pathParamUUID("reactionUuid"));
 		});
 
-		addRoute(basePath() + "/:commentUuid/reactions", GET, lrc -> {
+		addRoute(basePath() + "/:commentUuid/reactions", GET, "Load a paged list for reactions on a specific comment", lrc -> {
 			reactionService.listCommentReactions(lrc, lrc.pathParamUUID("commentUuid"));
 		});
 
-		addRoute(basePath() + "/:commentUuid/reactions/:reactionUuid", GET, lrc -> {
+		addRoute(basePath() + "/:commentUuid/reactions/:reactionUuid", GET, "Load a specific reaction for a comment", lrc -> {
 			reactionService.loadCommentReaction(lrc, lrc.pathParamUUID("commentUuid"), lrc.pathParamUUID("reactionUuid"));
 		});
 
-		addRoute(basePath() + "/:commentUuid/reactions/:reactionUuid", POST, lrc -> {
+		addRoute(basePath() + "/:commentUuid/reactions/:reactionUuid", POST, "Update a specific reaction on a comment", lrc -> {
 			reactionService.updateCommentReaction(lrc, lrc.pathParamUUID("commentUuid"), lrc.pathParamUUID("reactionUuid"));
 		});
 	}

@@ -31,7 +31,7 @@ public class LoginEndpoint extends AbstractEndpoint {
 	@Override
 	public void register() {
 		log.info("Registering login endpoints");
-		addRoute("/login", POST, lrc -> {
+		addRoute("/login", POST, "Login the user with the provided credentials", lrc -> {
 			service.login(lrc);
 		});
 	}

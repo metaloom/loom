@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 
+@Deprecated
 public abstract class AbstractCRUDEndpoint<S extends AbstractCRUDEndpointService<?, ?>> extends AbstractEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractCRUDEndpoint.class);
@@ -29,27 +30,27 @@ public abstract class AbstractCRUDEndpoint<S extends AbstractCRUDEndpointService
 		secure(basePath() + "*");
 
 		// Create
-		addRoute(basePath(), POST, lrc -> {
+		addRoute(basePath(), POST, "Create new " + name(), lrc -> {
 			service().create(lrc);
 		});
 
 		// Update
-		addRoute(basePath() + "/:uuid", POST, lrc -> {
+		addRoute(basePath() + "/:uuid", POST, "Update the " + name(), lrc -> {
 			service().update(lrc, lrc.pathParamUUID("uuid"));
 		});
 
 		// Delete
-		addRoute(basePath() + "/:uuid", DELETE, lrc -> {
+		addRoute(basePath() + "/:uuid", DELETE, "Delete the " + name(), lrc -> {
 			service().delete(lrc, lrc.pathParamUUID("uuid"));
 		});
 
 		// List
-		addRoute(basePath(), GET, lrc -> {
+		addRoute(basePath(), GET, "Load a paged list of " + name(), lrc -> {
 			service().list(lrc);
 		});
 
 		// Read
-		addRoute(basePath() + "/:uuid", GET, lrc -> {
+		addRoute(basePath() + "/:uuid", GET, "Load a single " + name(), lrc -> {
 			service().load(lrc, lrc.pathParamUUID("uuid"));
 		});
 	}

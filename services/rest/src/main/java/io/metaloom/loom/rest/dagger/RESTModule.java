@@ -7,6 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 import io.metaloom.loom.rest.validation.impl.LoomModelValidatorImpl;
+import io.metaloom.vertx.router.ApiRouter;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
 
@@ -18,6 +19,13 @@ public class RESTModule {
 	@Named("restRouter")
 	public Router restRouter(Vertx vertx) {
 		return Router.router(vertx);
+	}
+
+	@Provides
+	@Singleton
+	@Named("restApiRouter")
+	public ApiRouter restApiRouter(Vertx vertx) {
+		return ApiRouter.create(vertx);
 	}
 
 	@Provides

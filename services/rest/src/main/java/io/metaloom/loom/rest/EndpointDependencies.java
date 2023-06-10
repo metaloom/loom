@@ -8,19 +8,19 @@ import javax.inject.Singleton;
 import io.metaloom.loom.auth.LoomAuthenticationHandler;
 import io.metaloom.loom.rest.dagger.RestComponent;
 import io.metaloom.loom.rest.dagger.RestComponent.Builder;
+import io.metaloom.vertx.router.ApiRouter;
 import io.vertx.core.Vertx;
-import io.vertx.ext.web.Router;
 
 @Singleton
 public class EndpointDependencies {
 
 	public final Vertx vertx;
-	public final Router router;
+	public final ApiRouter router;
 	public final LoomAuthenticationHandler authHandler;
 	public final Provider<Builder> restComponentProvider;
 
 	@Inject
-	public EndpointDependencies(Vertx vertx, @Named("restRouter") Router router, Provider<RestComponent.Builder> restComponentProvider,
+	public EndpointDependencies(Vertx vertx, @Named("restApiRouter") ApiRouter router, Provider<RestComponent.Builder> restComponentProvider,
 		LoomAuthenticationHandler authHandler) {
 		this.vertx = vertx;
 		this.router = router;

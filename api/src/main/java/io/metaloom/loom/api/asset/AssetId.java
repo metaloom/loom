@@ -2,56 +2,32 @@ package io.metaloom.loom.api.asset;
 
 import java.util.UUID;
 
+import io.metaloom.loom.api.asset.impl.AssetIdImpl;
 import io.metaloom.utils.UUIDUtils;
 import io.metaloom.utils.hash.SHA512Sum;
 
-public class AssetId {
+public interface AssetId {
 
-	private final UUID uuid;
+	boolean isUUID();
 
-	private final SHA512Sum hash;
+	SHA512Sum hashsum();
 
-	public AssetId(UUID uuid) {
-		this.uuid = uuid;
-		this.hash = null;
-	}
-
-	public AssetId(SHA512Sum hash) {
-		this.hash = hash;
-		this.uuid = null;
-	}
-
-	public UUID uuid() {
-		return uuid;
-	}
-
-	public SHA512Sum hashsum() {
-		return hash;
-	}
-
-	public boolean isUUID() {
-		return uuid != null;
-	}
-
-	@Override
-	public String toString() {
-		return uuid != null ? uuid.toString() : hash.toString();
-	}
+	UUID uuid();
 
 	public static AssetId assetId(UUID uuid) {
-		return new AssetId(uuid);
+		return new AssetIdImpl(uuid);
 	}
 
 	public static AssetId assetId(SHA512Sum hash) {
-		return new AssetId(hash);
+		return new AssetIdImpl(hash);
 	}
 
 	public static AssetId assetId(String id) {
 		if (UUIDUtils.isUUID(id)) {
-			return new AssetId(UUIDUtils.fromString(id));
+			return new AssetIdImpl(UUIDUtils.fromString(id));
 		} else {
 			SHA512Sum sha512 = SHA512Sum.fromString(id);
-			return new AssetId(sha512);
+			return new AssetIdImpl(sha512);
 		}
 	}
 }

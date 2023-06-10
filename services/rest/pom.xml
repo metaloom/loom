@@ -42,6 +42,10 @@
       <groupId>io.metaloom.video</groupId>
       <artifactId>video4j-fingerprint</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.metaloom.vertx</groupId>
+      <artifactId>vertx-web-openapi-generator</artifactId>
+    </dependency>
 
     <!-- Test -->
     <dependency>

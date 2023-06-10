@@ -13,7 +13,7 @@ import io.metaloom.loom.rest.AbstractCRUDEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
 import io.metaloom.loom.rest.service.impl.AttachmentEndpointService;
 
-public class AttachmentEndpoint  extends AbstractCRUDEndpoint<AttachmentEndpointService> {
+public class AttachmentEndpoint extends AbstractCRUDEndpoint<AttachmentEndpointService> {
 
 	private static final Logger log = LoggerFactory.getLogger(AttachmentEndpoint.class);
 
@@ -31,7 +31,7 @@ public class AttachmentEndpoint  extends AbstractCRUDEndpoint<AttachmentEndpoint
 	protected String basePath() {
 		return "/attachments";
 	}
-	
+
 	@Override
 	public void register() {
 		log.info("Registering {} endpoint", name());
@@ -39,31 +39,30 @@ public class AttachmentEndpoint  extends AbstractCRUDEndpoint<AttachmentEndpoint
 		secure(basePath() + "*");
 
 		// Create
-		addRoute(basePath(), POST, lrc -> {
+		addRoute(basePath(), POST, "Create a new attachment", lrc -> {
 			service().create(lrc);
 		});
 
 		// Update
-		addRoute(basePath() + "/:uuid", POST, lrc -> {
+		addRoute(basePath() + "/:uuid", POST, "Update a existing attachment", lrc -> {
 			service().update(lrc, lrc.pathParamUUID("uuid"));
 		});
 
 		// Delete
-		addRoute(basePath() + "/:uuid", DELETE, lrc -> {
+		addRoute(basePath() + "/:uuid", DELETE, "Delete a specific attachment", lrc -> {
 			service().delete(lrc, lrc.pathParamUUID("uuid"));
 		});
 
 		// List
-		addRoute(basePath(), GET, lrc -> {
+		addRoute(basePath(), GET, "Load a paged list of attachments", lrc -> {
 			service().list(lrc);
 		});
 
 		// Read
-		addRoute(basePath() + "/:uuid", GET, lrc -> {
+		addRoute(basePath() + "/:uuid", GET, "Load a specific attachment", lrc -> {
 			service().load(lrc, lrc.pathParamUUID("uuid"));
 		});
 
 	}
-
 
 }

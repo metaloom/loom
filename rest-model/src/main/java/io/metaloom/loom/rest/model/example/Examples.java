@@ -5,6 +5,7 @@ import io.metaloom.loom.rest.model.asset.AssetExamples;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationExamples;
 import io.metaloom.loom.rest.model.cluster.ClusterExamples;
 import io.metaloom.loom.rest.model.comment.CommentExamples;
+import io.metaloom.loom.rest.model.example.impl.ExampleImpl;
 import io.metaloom.loom.rest.model.group.GroupExamples;
 import io.metaloom.loom.rest.model.library.LibraryExamples;
 import io.metaloom.loom.rest.model.project.ProjectExamples;
@@ -15,6 +16,7 @@ import io.metaloom.loom.rest.model.task.TaskExamples;
 import io.metaloom.loom.rest.model.token.TokenExamples;
 import io.metaloom.loom.rest.model.user.UserExamples;
 import io.metaloom.loom.rest.model.webhook.WebhookExamples;
+import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface Examples extends
 	AnnotationExamples,
@@ -32,4 +34,8 @@ public interface Examples extends
 	ProjectExamples,
 	LibraryExamples,
 	WebhookExamples {
+
+	default Example deleteResponseExample() {
+		return new ExampleImpl(null, "The delete response", HttpResponseStatus.NO_CONTENT);
+	}
 }

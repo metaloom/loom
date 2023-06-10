@@ -42,23 +42,23 @@ public class AnnotationEndpoint extends AbstractCRUDEndpoint<AnnotationEndpointS
 		
 		// REACTION
 
-		addRoute(basePath() + "/:annotationUuid/reactions", POST, lrc -> {
+		addRoute(basePath() + "/:annotationUuid/reactions", POST, "Create a new reaction for an annotation", lrc -> {
 			reactionService.createAnnotationReaction(lrc, lrc.pathParamUUID("annotationUuid"));
 		});
 
-		addRoute(basePath() + "/:commentUuid/reactions/:reactionUuid", DELETE, lrc -> {
+		addRoute(basePath() + "/:annotationUuid/reactions/:reactionUuid", DELETE, "Delete a reaction for an annotation",lrc -> {
 			reactionService.deleteAnnotationReaction(lrc, lrc.pathParamUUID("annotationUuid"), lrc.pathParamUUID("reactionUuid"));
 		});
 
-		addRoute(basePath() + "/:commentUuid/reactions", GET, lrc -> {
+		addRoute(basePath() + "/:annotationUuid/reactions", GET, "Load a paged list of reactions on the annotation",lrc -> {
 			reactionService.listAnnotationReactions(lrc, lrc.pathParamUUID("annotationUuid"));
 		});
 
-		addRoute(basePath() + "/:commentUuid/reactions/:reactionUuid", GET, lrc -> {
+		addRoute(basePath() + "/:annotationUuid/reactions/:reactionUuid", GET, "Load the reaction for the annotation",lrc -> {
 			reactionService.loadAnnotationReaction(lrc, lrc.pathParamUUID("annotationUuid"), lrc.pathParamUUID("reactionUuid"));
 		});
 
-		addRoute(basePath() + "/:commentUuid/reactions/:reactionUuid", POST, lrc -> {
+		addRoute(basePath() + "/:annotationUuid/reactions/:reactionUuid", POST, "Update the reaction on the annotation", lrc -> {
 			reactionService.updateAnnotationReaction(lrc, lrc.pathParamUUID("annotationUuid"), lrc.pathParamUUID("reactionUuid"));
 		});
 	}
