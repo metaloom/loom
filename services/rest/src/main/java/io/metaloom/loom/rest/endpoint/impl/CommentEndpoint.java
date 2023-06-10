@@ -9,21 +9,27 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.metaloom.loom.rest.AbstractCRUDEndpoint;
+import io.metaloom.loom.rest.AbstractEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
+import io.metaloom.loom.rest.model.ModelExamples;
 import io.metaloom.loom.rest.service.impl.CommentEndpointService;
 import io.metaloom.loom.rest.service.impl.ReactionEndpointService;
 
-public class CommentEndpoint extends AbstractCRUDEndpoint<CommentEndpointService> {
+public class CommentEndpoint extends AbstractEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(CommentEndpoint.class);
 
 	private final ReactionEndpointService reactionService;
+	private final CommentEndpointService service;
+	private final ModelExamples examples;
 
 	@Inject
-	public CommentEndpoint(CommentEndpointService service, ReactionEndpointService reactionService, EndpointDependencies deps) {
-		super(service, deps);
+	public CommentEndpoint(CommentEndpointService service, ReactionEndpointService reactionService, EndpointDependencies deps,
+		ModelExamples examples) {
+		super(deps);
+		this.service = service;
 		this.reactionService = reactionService;
+		this.examples = examples;
 	}
 
 	@Override
@@ -31,14 +37,59 @@ public class CommentEndpoint extends AbstractCRUDEndpoint<CommentEndpointService
 		return "comment";
 	}
 
-	@Override
 	protected String basePath() {
 		return "/comments";
 	}
 
 	@Override
 	public void register() {
-		super.register();
+		log.info("Registering {} endpoint", name());
+
+		secure(basePath() + "*");
+
+		// Create
+		addRoute(basePath(), POST,
+			"Create new comment",
+			examples.commentCreateRequestExample(),
+			examples.commentResponseExample(),
+			lrc -> {
+				service.create(lrc);
+			});
+
+		// Update
+		addRoute(basePath() + "/:uuid", POST,
+			"Update a comment",
+			examples.commentUpdateRequestExample(),
+			examples.commentResponseExample(),
+			lrc -> {
+				service.update(lrc, lrc.pathParamUUID("uuid"));
+			});
+
+		// Delete
+		addRoute(basePath() + "/:uuid", DELETE,
+			"Delete a comment",
+			null,
+			examples.deleteResponseExample(),
+			lrc -> {
+				service.delete(lrc, lrc.pathParamUUID("uuid"));
+			});
+
+		// List
+		addListRoute(basePath(), GET,
+			"Load a paged list of comments",
+			examples.commentListResponseExample(),
+			lrc -> {
+				service.list(lrc);
+			});
+
+		// Read
+		addRoute(basePath() + "/:uuid", GET,
+			"Load a comment",
+			null,
+			examples.commentResponseExample(),
+			lrc -> {
+				service.load(lrc, lrc.pathParamUUID("uuid"));
+			});
 
 		// REACTION
 

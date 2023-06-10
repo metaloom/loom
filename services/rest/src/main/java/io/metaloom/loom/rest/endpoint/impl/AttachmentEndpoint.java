@@ -9,17 +9,23 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.metaloom.loom.rest.AbstractCRUDEndpoint;
+import io.metaloom.loom.rest.AbstractEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
+import io.metaloom.loom.rest.model.ModelExamples;
 import io.metaloom.loom.rest.service.impl.AttachmentEndpointService;
 
-public class AttachmentEndpoint extends AbstractCRUDEndpoint<AttachmentEndpointService> {
+public class AttachmentEndpoint extends AbstractEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(AttachmentEndpoint.class);
 
+	private final AttachmentEndpointService service;
+	private final ModelExamples examples;
+
 	@Inject
-	public AttachmentEndpoint(AttachmentEndpointService service, EndpointDependencies deps) {
-		super(service, deps);
+	public AttachmentEndpoint(AttachmentEndpointService service, EndpointDependencies deps, ModelExamples examples) {
+		super(deps);
+		this.service = service;
+		this.examples = examples;
 	}
 
 	@Override
@@ -27,7 +33,6 @@ public class AttachmentEndpoint extends AbstractCRUDEndpoint<AttachmentEndpointS
 		return "attachment";
 	}
 
-	@Override
 	protected String basePath() {
 		return "/attachments";
 	}
@@ -39,29 +44,48 @@ public class AttachmentEndpoint extends AbstractCRUDEndpoint<AttachmentEndpointS
 		secure(basePath() + "*");
 
 		// Create
-		addRoute(basePath(), POST, "Create a new attachment", lrc -> {
-			service().create(lrc);
-		});
+		addRoute(basePath(), POST,
+			"Create new attachment",
+			null,
+			examples.attachmentResponseExample(),
+			lrc -> {
+				service.create(lrc);
+			});
 
 		// Update
-		addRoute(basePath() + "/:uuid", POST, "Update a existing attachment", lrc -> {
-			service().update(lrc, lrc.pathParamUUID("uuid"));
-		});
+		addRoute(basePath() + "/:uuid", POST,
+			"Update a attachment",
+			examples.attachmentUpdateRequestExample(),
+			examples.attachmentResponseExample(),
+			lrc -> {
+				service.update(lrc, lrc.pathParamUUID("uuid"));
+			});
 
 		// Delete
-		addRoute(basePath() + "/:uuid", DELETE, "Delete a specific attachment", lrc -> {
-			service().delete(lrc, lrc.pathParamUUID("uuid"));
-		});
+		addRoute(basePath() + "/:uuid", DELETE,
+			"Delete a attachment",
+			null,
+			examples.deleteResponseExample(),
+			lrc -> {
+				service.delete(lrc, lrc.pathParamUUID("uuid"));
+			});
 
 		// List
-		addRoute(basePath(), GET, "Load a paged list of attachments", lrc -> {
-			service().list(lrc);
-		});
+		addListRoute(basePath(), GET,
+			"Load a paged list of attachments",
+			examples.attachmentListResponseExample(),
+			lrc -> {
+				service.list(lrc);
+			});
 
 		// Read
-		addRoute(basePath() + "/:uuid", GET, "Load a specific attachment", lrc -> {
-			service().load(lrc, lrc.pathParamUUID("uuid"));
-		});
+		addRoute(basePath() + "/:uuid", GET,
+			"Load a attachment",
+			null,
+			examples.attachmentResponseExample(),
+			lrc -> {
+				service.load(lrc, lrc.pathParamUUID("uuid"));
+			});
 
 	}
 

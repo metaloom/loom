@@ -32,6 +32,8 @@ public interface ExampleValues {
 
 	public static final Instant DATE_NEW = Instant.parse("2018-11-20T20:12:01.084Z");
 
+	public static final Float[] VECTOR_DATA = { 0.42f, 0.24f, 0.44f, 21.5f };
+
 	default UUID uuidA() {
 		return UUIDUtils.fromString("f04e89d0-076d-4d90-b192-715a25a2cd59");
 	}

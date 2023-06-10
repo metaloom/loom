@@ -7,11 +7,11 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface CommentExamples extends ExampleValues {
 
-	default Example commentUpdateExample() {
+	default Example commentUpdateRequestExample() {
 		return new ExampleImpl(commentUpdateRequest(), "The comment update request", HttpResponseStatus.OK);
 	}
 
-	default Example commentCreateExample() {
+	default Example commentCreateRequestExample() {
 		return new ExampleImpl(commentCreateRequest(), "The comment create request", HttpResponseStatus.CREATED);
 	}
 

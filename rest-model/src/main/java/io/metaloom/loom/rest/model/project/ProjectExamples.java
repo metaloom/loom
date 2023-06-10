@@ -7,6 +7,14 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface ProjectExamples extends ExampleValues {
 
+	default Example projectUpdateRequestExample() {
+		return new ExampleImpl(projectUpdateRequest(), "The project update request", HttpResponseStatus.OK);
+	}
+
+	default Example projectCreateRequestExample() {
+		return new ExampleImpl(projectCreateRequest(), "The project create request", HttpResponseStatus.CREATED);
+	}
+
 	default Example projectResponseExample() {
 		return new ExampleImpl(projectResponse(), "The project response", HttpResponseStatus.OK);
 	}

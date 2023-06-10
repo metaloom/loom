@@ -7,11 +7,11 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface LibraryExamples extends ExampleValues {
 
-	default Example libraryUpdateExample() {
+	default Example libraryUpdateRequestExample() {
 		return new ExampleImpl(libraryUpdateRequest(), "The library update request", HttpResponseStatus.OK);
 	}
 
-	default Example libraryCreateExample() {
+	default Example libraryCreateRequestExample() {
 		return new ExampleImpl(libraryCreateRequest(), "The library create request", HttpResponseStatus.CREATED);
 	}
 

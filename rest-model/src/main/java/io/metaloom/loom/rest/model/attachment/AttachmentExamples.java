@@ -7,7 +7,11 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface AttachmentExamples extends ExampleValues {
 
-	default Example attachmentUpdateExample() {
+//	default Example attachmentCreateRequestExample() {
+//		return new ExampleImpl(attachmentCreateRequest(), "The attachment create request", HttpResponseStatus.CREATED);
+//	}
+	
+	default Example attachmentUpdateRequestExample() {
 		return new ExampleImpl(attachmentUpdateRequest(), "The attachment update request", HttpResponseStatus.OK);
 	}
 

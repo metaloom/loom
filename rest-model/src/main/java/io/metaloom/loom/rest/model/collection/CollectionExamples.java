@@ -7,11 +7,11 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface CollectionExamples extends ExampleValues {
 
-	default Example collectionUpdateExample() {
+	default Example collectionUpdateRequestExample() {
 		return new ExampleImpl(collectionUpdateRequest(), "The collection update request", HttpResponseStatus.OK);
 	}
 
-	default Example collectionCreateExample() {
+	default Example collectionCreateRequestExample() {
 		return new ExampleImpl(collectionCreateRequest(), "The collection create request", HttpResponseStatus.CREATED);
 	}
 

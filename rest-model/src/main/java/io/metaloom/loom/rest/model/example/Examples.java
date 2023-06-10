@@ -5,7 +5,9 @@ import io.metaloom.loom.rest.model.asset.AssetExamples;
 import io.metaloom.loom.rest.model.asset.location.AssetLocationExamples;
 import io.metaloom.loom.rest.model.attachment.AttachmentExamples;
 import io.metaloom.loom.rest.model.cluster.ClusterExamples;
+import io.metaloom.loom.rest.model.collection.CollectionExamples;
 import io.metaloom.loom.rest.model.comment.CommentExamples;
+import io.metaloom.loom.rest.model.embedding.EmbeddingExamples;
 import io.metaloom.loom.rest.model.example.impl.ExampleImpl;
 import io.metaloom.loom.rest.model.group.GroupExamples;
 import io.metaloom.loom.rest.model.library.LibraryExamples;
@@ -26,6 +28,8 @@ public interface Examples extends
 	AttachmentExamples,
 	ClusterExamples,
 	CommentExamples,
+	CollectionExamples,
+	EmbeddingExamples,
 	TaskExamples,
 	TagExamples,
 	TokenExamples,

@@ -2,9 +2,28 @@ package io.metaloom.loom.rest.model.webhook;
 
 import java.util.Arrays;
 
+import io.metaloom.loom.rest.model.example.Example;
 import io.metaloom.loom.rest.model.example.ExampleValues;
+import io.metaloom.loom.rest.model.example.impl.ExampleImpl;
+import io.netty.handler.codec.http.HttpResponseStatus;
 
 public interface WebhookExamples extends ExampleValues {
+
+	default Example webhookResponseExample() {
+		return new ExampleImpl(webhookResponse(), "The webhook response", HttpResponseStatus.OK);
+	}
+
+	default Example webhookUpdateRequestExample() {
+		return new ExampleImpl(webhookUpdateRequest(), "The webhook update request", HttpResponseStatus.OK);
+	}
+
+	default Example webhookCreateRequestExample() {
+		return new ExampleImpl(webhookCreateRequest(), "The webhook create request", HttpResponseStatus.CREATED);
+	}
+
+	default Example webhookListResponseExample() {
+		return new ExampleImpl(webhookListResponse(), "The webhook list response", HttpResponseStatus.OK);
+	}
 
 	default WebhookResponse webhookResponse() {
 		WebhookResponse model = new WebhookResponse();
