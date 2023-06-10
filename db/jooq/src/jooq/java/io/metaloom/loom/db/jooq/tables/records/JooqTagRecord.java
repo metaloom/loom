@@ -12,8 +12,8 @@ import java.util.UUID;
 
 import org.jooq.Field;
 import org.jooq.Record1;
-import org.jooq.Record9;
-import org.jooq.Row9;
+import org.jooq.Record10;
+import org.jooq.Row10;
 import org.jooq.impl.UpdatableRecordImpl;
 
 
@@ -21,7 +21,7 @@ import org.jooq.impl.UpdatableRecordImpl;
  * Tag on various elements. Tags are not user specifc
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
-public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements Record9<UUID, String, String, JsonObject, Integer, LocalDateTime, UUID, LocalDateTime, UUID> {
+public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements Record10<UUID, String, String, JsonObject, Integer, String, LocalDateTime, UUID, LocalDateTime, UUID> {
 
     private static final long serialVersionUID = 1L;
 
@@ -100,59 +100,73 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     /**
+     * Setter for <code>public.tag.color</code>.
+     */
+    public void setColor(String value) {
+        set(5, value);
+    }
+
+    /**
+     * Getter for <code>public.tag.color</code>.
+     */
+    public String getColor() {
+        return (String) get(5);
+    }
+
+    /**
      * Setter for <code>public.tag.created</code>.
      */
     public void setCreated(LocalDateTime value) {
-        set(5, value);
+        set(6, value);
     }
 
     /**
      * Getter for <code>public.tag.created</code>.
      */
     public LocalDateTime getCreated() {
-        return (LocalDateTime) get(5);
+        return (LocalDateTime) get(6);
     }
 
     /**
      * Setter for <code>public.tag.creator_uuid</code>.
      */
     public void setCreatorUuid(UUID value) {
-        set(6, value);
+        set(7, value);
     }
 
     /**
      * Getter for <code>public.tag.creator_uuid</code>.
      */
     public UUID getCreatorUuid() {
-        return (UUID) get(6);
+        return (UUID) get(7);
     }
 
     /**
      * Setter for <code>public.tag.edited</code>.
      */
     public void setEdited(LocalDateTime value) {
-        set(7, value);
+        set(8, value);
     }
 
     /**
      * Getter for <code>public.tag.edited</code>.
      */
     public LocalDateTime getEdited() {
-        return (LocalDateTime) get(7);
+        return (LocalDateTime) get(8);
     }
 
     /**
      * Setter for <code>public.tag.editor_uuid</code>.
      */
     public void setEditorUuid(UUID value) {
-        set(8, value);
+        set(9, value);
     }
 
     /**
      * Getter for <code>public.tag.editor_uuid</code>.
      */
     public UUID getEditorUuid() {
-        return (UUID) get(8);
+        return (UUID) get(9);
     }
 
     // -------------------------------------------------------------------------
@@ -165,17 +179,17 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     // -------------------------------------------------------------------------
-    // Record9 type implementation
+    // Record10 type implementation
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<UUID, String, String, JsonObject, Integer, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
-        return (Row9) super.fieldsRow();
+    public Row10<UUID, String, String, JsonObject, Integer, String, LocalDateTime, UUID, LocalDateTime, UUID> fieldsRow() {
+        return (Row10) super.fieldsRow();
     }
 
     @Override
-    public Row9<UUID, String, String, JsonObject, Integer, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
-        return (Row9) super.valuesRow();
+    public Row10<UUID, String, String, JsonObject, Integer, String, LocalDateTime, UUID, LocalDateTime, UUID> valuesRow() {
+        return (Row10) super.valuesRow();
     }
 
     @Override
@@ -204,22 +218,27 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     @Override
-    public Field<LocalDateTime> field6() {
+    public Field<String> field6() {
+        return JooqTag.TAG.COLOR;
+    }
+
+    @Override
+    public Field<LocalDateTime> field7() {
         return JooqTag.TAG.CREATED;
     }
 
     @Override
-    public Field<UUID> field7() {
+    public Field<UUID> field8() {
         return JooqTag.TAG.CREATOR_UUID;
     }
 
     @Override
-    public Field<LocalDateTime> field8() {
+    public Field<LocalDateTime> field9() {
         return JooqTag.TAG.EDITED;
     }
 
     @Override
-    public Field<UUID> field9() {
+    public Field<UUID> field10() {
         return JooqTag.TAG.EDITOR_UUID;
     }
 
@@ -249,22 +268,27 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     @Override
-    public LocalDateTime component6() {
+    public String component6() {
+        return getColor();
+    }
+
+    @Override
+    public LocalDateTime component7() {
         return getCreated();
     }
 
     @Override
-    public UUID component7() {
+    public UUID component8() {
         return getCreatorUuid();
     }
 
     @Override
-    public LocalDateTime component8() {
+    public LocalDateTime component9() {
         return getEdited();
     }
 
     @Override
-    public UUID component9() {
+    public UUID component10() {
         return getEditorUuid();
     }
 
@@ -294,22 +318,27 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     @Override
-    public LocalDateTime value6() {
+    public String value6() {
+        return getColor();
+    }
+
+    @Override
+    public LocalDateTime value7() {
         return getCreated();
     }
 
     @Override
-    public UUID value7() {
+    public UUID value8() {
         return getCreatorUuid();
     }
 
     @Override
-    public LocalDateTime value8() {
+    public LocalDateTime value9() {
         return getEdited();
     }
 
     @Override
-    public UUID value9() {
+    public UUID value10() {
         return getEditorUuid();
     }
 
@@ -344,31 +373,37 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     }
 
     @Override
-    public JooqTagRecord value6(LocalDateTime value) {
+    public JooqTagRecord value6(String value) {
+        setColor(value);
+        return this;
+    }
+
+    @Override
+    public JooqTagRecord value7(LocalDateTime value) {
         setCreated(value);
         return this;
     }
 
     @Override
-    public JooqTagRecord value7(UUID value) {
+    public JooqTagRecord value8(UUID value) {
         setCreatorUuid(value);
         return this;
     }
 
     @Override
-    public JooqTagRecord value8(LocalDateTime value) {
+    public JooqTagRecord value9(LocalDateTime value) {
         setEdited(value);
         return this;
     }
 
     @Override
-    public JooqTagRecord value9(UUID value) {
+    public JooqTagRecord value10(UUID value) {
         setEditorUuid(value);
         return this;
     }
 
     @Override
-    public JooqTagRecord values(UUID value1, String value2, String value3, JsonObject value4, Integer value5, LocalDateTime value6, UUID value7, LocalDateTime value8, UUID value9) {
+    public JooqTagRecord values(UUID value1, String value2, String value3, JsonObject value4, Integer value5, String value6, LocalDateTime value7, UUID value8, LocalDateTime value9, UUID value10) {
         value1(value1);
         value2(value2);
         value3(value3);
@@ -378,6 +413,7 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
         value7(value7);
         value8(value8);
         value9(value9);
+        value10(value10);
         return this;
     }
 
@@ -395,7 +431,7 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
     /**
      * Create a detached, initialised JooqTagRecord
      */
-    public JooqTagRecord(UUID uuid, String name, String collection, JsonObject meta, Integer rating, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
+    public JooqTagRecord(UUID uuid, String name, String collection, JsonObject meta, Integer rating, String color, LocalDateTime created, UUID creatorUuid, LocalDateTime edited, UUID editorUuid) {
         super(JooqTag.TAG);
 
         setUuid(uuid);
@@ -403,6 +439,7 @@ public class JooqTagRecord extends UpdatableRecordImpl<JooqTagRecord> implements
         setCollection(collection);
         setMeta(meta);
         setRating(rating);
+        setColor(color);
         setCreated(created);
         setCreatorUuid(creatorUuid);
         setEdited(edited);

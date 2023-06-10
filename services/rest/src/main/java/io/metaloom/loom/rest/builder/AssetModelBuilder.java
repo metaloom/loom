@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import io.metaloom.loom.db.model.annotation.Annotation;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetLocation;
-import io.metaloom.loom.db.model.tag.Tag;
+import io.metaloom.loom.db.model.tag.AssetTag;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
 import io.metaloom.loom.rest.model.asset.AssetListResponse;
@@ -44,7 +44,7 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 	}
 
 	default List<TagReference> assetTags(Asset asset) {
-		List<Tag> tags = daos().tagDao().assetTags(asset);
+		List<AssetTag> tags = daos().tagDao().assetTags(asset);
 		return tags.stream().map(tag -> toReference(tag)).collect(Collectors.toList());
 	}
 

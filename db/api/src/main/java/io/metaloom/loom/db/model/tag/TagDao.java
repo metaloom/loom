@@ -19,7 +19,13 @@ public interface TagDao extends CRUDDao<Tag> {
 
 	Tag createTag(UUID userUuid, String name, String collection);
 
-	void tagAsset(Tag tag, Asset asset);
+	default AssetTag createAssetTag(User user, String name, String collection) {
+		return createAssetTag(user.getUuid(), name, collection);
+	}
+
+	AssetTag createAssetTag(UUID userUuid, String name, String collection);
+
+	void tagAsset(AssetTag tag, Asset asset);
 
 	void untagAsset(Tag tag, Asset asset);
 
@@ -27,6 +33,6 @@ public interface TagDao extends CRUDDao<Tag> {
 
 	void untagAnnotation(Tag tag, Annotation annotation);
 
-	List<Tag> assetTags(Asset asset);
+	List<AssetTag> assetTags(Asset asset);
 
 }

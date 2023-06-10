@@ -15,11 +15,11 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function2;
+import org.jooq.Function8;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row2;
+import org.jooq.Row8;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -61,6 +61,36 @@ public class JooqTagAsset extends TableImpl<JooqTagAssetRecord> {
      * The column <code>public.tag_asset.asset_uuid</code>.
      */
     public final TableField<JooqTagAssetRecord, UUID> ASSET_UUID = createField(DSL.name("asset_uuid"), SQLDataType.UUID.nullable(false), this, "");
+
+    /**
+     * The column <code>public.tag_asset.time_from</code>.
+     */
+    public final TableField<JooqTagAssetRecord, Integer> TIME_FROM = createField(DSL.name("time_from"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.tag_asset.time_to</code>.
+     */
+    public final TableField<JooqTagAssetRecord, Integer> TIME_TO = createField(DSL.name("time_to"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.tag_asset.areaStartX</code>.
+     */
+    public final TableField<JooqTagAssetRecord, Integer> AREASTARTX = createField(DSL.name("areaStartX"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.tag_asset.areaStartY</code>.
+     */
+    public final TableField<JooqTagAssetRecord, Integer> AREASTARTY = createField(DSL.name("areaStartY"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.tag_asset.areaWidth</code>.
+     */
+    public final TableField<JooqTagAssetRecord, Integer> AREAWIDTH = createField(DSL.name("areaWidth"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.tag_asset.areaHeight</code>.
+     */
+    public final TableField<JooqTagAssetRecord, Integer> AREAHEIGHT = createField(DSL.name("areaHeight"), SQLDataType.INTEGER, this, "");
 
     private JooqTagAsset(Name alias, Table<JooqTagAssetRecord> aliased) {
         this(alias, aliased, null);
@@ -162,18 +192,18 @@ public class JooqTagAsset extends TableImpl<JooqTagAssetRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row8 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<UUID, UUID> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row8<UUID, UUID, Integer, Integer, Integer, Integer, Integer, Integer> fieldsRow() {
+        return (Row8) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function2<? super UUID, ? super UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function8<? super UUID, ? super UUID, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -181,7 +211,7 @@ public class JooqTagAsset extends TableImpl<JooqTagAssetRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function2<? super UUID, ? super UUID, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super UUID, ? super UUID, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? super Integer, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

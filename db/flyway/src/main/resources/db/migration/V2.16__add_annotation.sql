@@ -16,12 +16,14 @@ CREATE TABLE "annotation" (
 
   "title" varchar,
   "description" varchar,
+
   "time_from" int,
   "time_to" int,
   "areaStartX" int,
   "areaStartY" int,
   "areaWidth" int,
   "areaHeight" int,
+
   "meta" jsonb,
   "thumbnail" varchar,
   PRIMARY KEY ("uuid")

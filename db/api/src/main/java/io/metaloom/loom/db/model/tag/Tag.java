@@ -36,4 +36,9 @@ public interface Tag extends CUDElement<Tag> {
 	 * @return Fluent API
 	 */
 	Tag setCollection(String collectionName);
+
+	String getColor();
+
+	Tag setColor(String color);
+
 }

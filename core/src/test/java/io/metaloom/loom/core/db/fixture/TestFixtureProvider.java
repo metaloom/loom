@@ -22,6 +22,7 @@ import io.metaloom.loom.db.model.perm.Permission;
 import io.metaloom.loom.db.model.project.Project;
 import io.metaloom.loom.db.model.reaction.Reaction;
 import io.metaloom.loom.db.model.role.Role;
+import io.metaloom.loom.db.model.tag.AssetTag;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.model.task.Task;
 import io.metaloom.loom.db.model.token.Token;
@@ -194,7 +195,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 	}
 
 	private Tag tagAsset(User user, Asset asset, String name) {
-		Tag tag = tagDao().createTag(user, name, "colors");
+		AssetTag tag = tagDao().createAssetTag(user, name, "colors");
 		tagDao().store(tag);
 		tagDao().tagAsset(tag, asset);
 		return tag;

@@ -95,6 +95,14 @@ COMMENT ON TABLE "collection_asset" IS 'Track assets that belong to a collection
 CREATE TABLE "tag_asset" (
   "tag_uuid" uuid NOT NULL,
   "asset_uuid" uuid NOT NULL,
+
+  "time_from" int,
+  "time_to" int,
+  "areaStartX" int,
+  "areaStartY" int,
+  "areaWidth" int,
+  "areaHeight" int,
+
   PRIMARY KEY ("tag_uuid", "asset_uuid")
 );
 ALTER TABLE "tag_asset" ADD FOREIGN KEY ("tag_uuid") REFERENCES "tag" ("uuid");

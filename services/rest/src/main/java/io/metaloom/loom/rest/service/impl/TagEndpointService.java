@@ -19,6 +19,7 @@ import io.metaloom.loom.api.asset.AssetId;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.loom.db.model.tag.AssetTag;
 import io.metaloom.loom.db.model.tag.Tag;
 import io.metaloom.loom.db.model.tag.TagDao;
 import io.metaloom.loom.rest.LoomRoutingContext;
@@ -100,7 +101,7 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 			String name = request.getName();
 			String collection = request.getCollection();
 			UUID userUuid = lrc.userUuid();
-			Tag tag = dao().createTag(userUuid, name, collection);
+			AssetTag tag = dao().createAssetTag(userUuid, name, collection);
 			update(request::getMeta, tag::setMeta);
 
 			dao().store(tag);

@@ -29,6 +29,8 @@ public interface TagExamples extends ExampleValues {
 		model.setName("red");
 		model.setCollection("colors");
 		model.setMeta(meta());
+		model.setColor("1681de");
+		model.setArea(12, 42, 120, 240, 480, 200);
 		setCreatorEditor(model);
 		return model;
 	}

@@ -10,6 +10,7 @@ public class TagImpl extends AbstractEditableElement<Tag> implements Tag {
 
 	private String name;
 	private String collectionName;
+	private String color;
 
 	@Override
 	public String getName() {
@@ -25,6 +26,17 @@ public class TagImpl extends AbstractEditableElement<Tag> implements Tag {
 	@Override
 	public Tag setCollection(String collectionName) {
 		this.collectionName = collectionName;
+		return this;
+	}
+
+	@Override
+	public String getColor() {
+		return color;
+	}
+
+	@Override
+	public Tag setColor(String color) {
+		this.color = color;
 		return this;
 	}
 

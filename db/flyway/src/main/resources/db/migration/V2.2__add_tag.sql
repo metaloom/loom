@@ -2,12 +2,16 @@ CREATE TABLE "tag" (
   "uuid" uuid DEFAULT uuid_generate_v4 (),
   "name" varchar NOT NULL,
   "collection" varchar NOT NULL,
+
   "meta" jsonb,
   "rating" int,
+  "color" char(6),
+
   "created" timestamp NOT NULL DEFAULT (now()),
   "creator_uuid" uuid NOT NULL,
   "edited" timestamp NOT NULL DEFAULT (now()),
   "editor_uuid" uuid NOT NULL,
+
   PRIMARY KEY ("uuid")
 );
 CREATE UNIQUE INDEX ON "tag" ("name", "collection");
