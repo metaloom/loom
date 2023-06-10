@@ -50,8 +50,13 @@ public class LoomRoutingContext {
 	}
 
 	public void send(RestResponseModel<?> response, int statusCode) {
-		rc.response().headers().set(HttpHeaders.CONTENT_TYPE, "application/json");
+		rc.response().headers().set(HttpHeaders.CONTENT_TYPE, HTTPConstants.APPLICATION_JSON);
 		rc.response().setStatusCode(statusCode).end(Json.encodeToBuffer(response));
+	}
+
+	public void sendText(String body, String mimeType, int code) {
+		rc.response().headers().set(HttpHeaders.CONTENT_TYPE, mimeType);
+		rc.response().setStatusCode(code).end(body);
 	}
 
 	/**

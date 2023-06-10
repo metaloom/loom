@@ -35,6 +35,7 @@ public class PoolSetupActionTest {
 		String url = config.getPostgresql().jdbcUrl(templateDBName);
 		String user = config.getPostgresql().getUsername();
 		String password = config.getPostgresql().getPassword();
+		System.out.println("Using: " + url + " " + user + " @ " + password);
 		Flyway flyway = Flyway.configure()
 			.validateMigrationNaming(true)
 			.dataSource(url, user, password)

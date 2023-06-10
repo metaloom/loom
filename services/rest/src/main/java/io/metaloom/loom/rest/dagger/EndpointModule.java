@@ -19,6 +19,7 @@ import io.metaloom.loom.rest.endpoint.impl.GroupEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.LibraryEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.LoginEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.ProjectEndpoint;
+import io.metaloom.loom.rest.endpoint.impl.RESTInfoEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.RoleEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.TagEndpoint;
 import io.metaloom.loom.rest.endpoint.impl.TaskEndpoint;
@@ -46,6 +47,7 @@ public class EndpointModule {
 		LibraryEndpoint libraryEndpoint,
 		ProjectEndpoint projectEndpoint,
 		LoginEndpoint loginEndpoint,
+		RESTInfoEndpoint restInfoEndpoint,
 		CommentEndpoint commentEndpoint,
 		AttachmentEndpoint attachmentEndpoint) {
 		return new HashSet<>(Arrays.asList(
@@ -63,6 +65,7 @@ public class EndpointModule {
 			libraryEndpoint,
 			projectEndpoint,
 			loginEndpoint,
+			restInfoEndpoint,
 			attachmentEndpoint,
 			commentEndpoint));
 	}

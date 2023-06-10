@@ -6,8 +6,7 @@ import io.metaloom.loom.rest.model.example.ExampleValues;
 import io.metaloom.loom.rest.model.example.impl.ExampleImpl;
 import io.netty.handler.codec.http.HttpResponseStatus;
 
-public interface AnnotationExamples  extends ExampleValues {
-
+public interface AnnotationExamples extends ExampleValues {
 
 	default Example annotationResponseExample() {
 		return new ExampleImpl(annotationResponse(), "The annotation response", HttpResponseStatus.OK);
@@ -60,7 +59,6 @@ public interface AnnotationExamples  extends ExampleValues {
 		return model;
 	}
 
-
 	default AnnotationListResponse annotationListResponse() {
 		AnnotationListResponse model = new AnnotationListResponse();
 		model.setMetainfo(pagingInfo());
@@ -68,5 +66,5 @@ public interface AnnotationExamples  extends ExampleValues {
 		model.add(annotationResponse());
 		return model;
 	}
-	
+
 }
