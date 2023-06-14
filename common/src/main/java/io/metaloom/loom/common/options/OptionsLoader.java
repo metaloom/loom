@@ -116,7 +116,7 @@ public final class OptionsLoader {
 	private static LoomOptions loadConfiguration(InputStream ins) {
 		if (ins == null) {
 			log.info("Config file {" + LOOM_CONF_FILENAME + "} not found. Using default configuration.");
-			return new LoomOptions();
+			return defaultLoomConfig();
 		}
 
 		ObjectMapper mapper = getYAMLMapper();
@@ -126,6 +126,11 @@ public final class OptionsLoader {
 			log.error("Could not parse configuration.", e);
 			throw new RuntimeException("Could not parse options file", e);
 		}
+	}
+
+	public static LoomOptions defaultLoomConfig() {
+		LoomOptions options = new LoomOptions();
+		return options;
 	}
 
 	/**

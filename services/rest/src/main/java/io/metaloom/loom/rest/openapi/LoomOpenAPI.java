@@ -3,8 +3,6 @@ package io.metaloom.loom.rest.openapi;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.Test;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.metaloom.loom.api.LoomVersion;
@@ -22,10 +20,9 @@ import io.metaloom.vertx.openapi.OpenAPIGenerator.Builder;
 import io.metaloom.vertx.router.ApiRouter;
 import io.vertx.core.Vertx;
 
-public class OpenAPIGeneratorTest {
+public class LoomOpenAPI {
 
-	@Test
-	public void testGenerate() throws JsonProcessingException {
+	public String generateJson() throws JsonProcessingException {
 		Vertx vertx = Vertx.vertx();
 		LoomOptions options = new LoomOptions();
 		ApiRouter router = ApiRouter.create(vertx);
@@ -46,9 +43,6 @@ public class OpenAPIGeneratorTest {
 		builder.description("The API for our example server");
 		builder.apiRouter(router);
 
-		String yaml = builder.generate();
-
-		System.out.println(yaml);
-
+		return builder.generateJson();
 	}
 }

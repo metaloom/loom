@@ -47,7 +47,8 @@ public class RESTInfoEndpoint extends AbstractEndpoint {
 				builder.version(LoomVersion.VERSION);
 				builder.description("The API for our example server");
 				builder.apiRouter(apiRouter());
-				String yaml = builder.generate();
+				// TODO check accept header for types
+				String yaml = builder.generateYaml();
 				lrc.sendText(yaml, HTTPConstants.TEXT_YAML, 200);
 			} catch (Exception e) {
 				log.error("Error while invoking API spec generator", e);
