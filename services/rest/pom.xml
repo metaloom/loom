@@ -35,7 +35,7 @@
       <artifactId>loom-db-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.metaloom.loom</groupId>
+      <groupId>io.metaloom.loom.shared</groupId>
       <artifactId>loom-rest-model</artifactId>
     </dependency>
     <dependency>

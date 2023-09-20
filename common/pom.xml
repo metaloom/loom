@@ -41,7 +41,7 @@
 		</dependency>
 
 		<dependency>
-      <groupId>io.metaloom.loom</groupId>
+      <groupId>io.metaloom.loom.shared</groupId>
       <artifactId>loom-api</artifactId>
     </dependency>
     <dependency>

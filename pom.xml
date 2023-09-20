@@ -65,12 +65,9 @@
   <inceptionYear>2021</inceptionYear>
 
   <modules>
-    <module>api</module>
     <module>common</module>
     <module>db</module>
-    <module>proto</module>
     <module>services</module>
-    <module>rest-model</module>
     <module>core</module>
     <module>cli</module>
     <module>nexus</module>
@@ -91,12 +88,24 @@
         <version>${project.version}</version>
       </dependency>
 
-      <!-- Loom Core -->
+      <!-- Loom Shared -->
       <dependency>
-        <groupId>io.metaloom.loom</groupId>
+        <groupId>io.metaloom.loom.shared</groupId>
         <artifactId>loom-api</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.shared</groupId>
+        <artifactId>loom-rest-model</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.metaloom.loom.shared</groupId>
+        <artifactId>loom-proto</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- Loom Core -->
       <dependency>
         <groupId>io.metaloom.loom</groupId>
         <artifactId>loom-common</artifactId>
@@ -239,11 +248,6 @@
 
       <!-- Loom Client -->
       <dependency>
-        <groupId>io.metaloom.loom</groupId>
-        <artifactId>loom-proto</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
         <groupId>io.metaloom.loom.client</groupId>
         <artifactId>loom-client-grpc</artifactId>
         <version>${project.version}</version>
@@ -256,11 +260,6 @@
       <dependency>
         <groupId>io.metaloom.loom.client</groupId>
         <artifactId>loom-client-common</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.metaloom.loom</groupId>
-        <artifactId>loom-rest-model</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
