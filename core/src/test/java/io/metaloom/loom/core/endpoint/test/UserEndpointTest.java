@@ -2,6 +2,7 @@ package io.metaloom.loom.core.endpoint.test;
 
 import static io.metaloom.loom.rest.model.assertj.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.UUID;
@@ -130,6 +131,34 @@ public class UserEndpointTest extends AbstractCRUDEndpointTest {
 		UserListResponse secondPage = client.listUsers().addLimit(2).addFrom(pageResponse.getMetainfo().getLastUuid()).sync();
 		assertEquals(2, secondPage.getMetainfo().getTotalCount(), "There should only be two users in the list");
 		assertEquals(2, secondPage.getData().size(), "There should only be two responses");
+	}
+
+	@Test
+	public void testReadPageWithDeletedUsers() throws HttpErrorException {
+		try (LoomHttpClient client = loom.httpClient()) {
+			loginAdmin(client);
+			for (int i = 0; i < 10; i++) {
+				UserCreateRequest request = new UserCreateRequest();
+				request.setUsername("user_" + i);
+				client.createUser(request).sync();
+			}
+
+			for (int i = 0; i < 10; i++) {
+				UserCreateRequest request = new UserCreateRequest();
+				request.setUsername("deleted_user_" + i);
+				UserResponse user = client.createUser(request).sync();
+				client.deleteUser(user.getUuid()).sync();
+			}
+
+			UserListResponse pageResponse = client.listUsers().addLimit(100).sync();
+			// Test fixture provides 2 users
+			assertThat(pageResponse).isValid().hasSize(10 + 2).hasPerPage(100);
+			for (UserResponse user : pageResponse.getData()) {
+				assertFalse(user.getUsername().startsWith("deleted_user_"), "There should not be deleted users listed in the page response");
+			}
+			assertEquals(12, pageResponse.getMetainfo().getTotalCount(), "There should only be 10 users in the list");
+			assertEquals(12, pageResponse.getData().size(), "There should only be 10 responses");
+		}
 	}
 
 }

@@ -35,7 +35,13 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 
 	@Override
 	public void delete(LoomRoutingContext lrc, UUID uuid) {
-		delete(lrc, DELETE_USER, uuid);
+		update(lrc, DELETE_USER, () -> {
+			UUID userUuid = lrc.userUuid();
+			User user = dao().load(uuid);
+			user.markDeleted();
+			setEditor(user, userUuid);
+			return user;
+		}, modelBuilder::toResponse);
 	}
 
 	public void create(LoomRoutingContext lrc) {

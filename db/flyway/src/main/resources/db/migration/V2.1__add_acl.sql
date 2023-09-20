@@ -64,6 +64,7 @@ CREATE TABLE "user" (
   "lastname" varchar,
   "email" varchar,
   "enabled" boolean NOT NULL DEFAULT true,
+  "deleted" boolean NOT NULL DEFAULT false,
   "sso" boolean NOT NULL DEFAULT false,
   "password_hash" varchar,
   "meta" jsonb,

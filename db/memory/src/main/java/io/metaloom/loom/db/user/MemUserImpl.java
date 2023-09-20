@@ -14,6 +14,7 @@ public class MemUserImpl extends AbstractMemCUDElement<User> implements User {
 	private JsonObject meta;
 	private boolean sso;
 	private boolean enabled;
+	private boolean deleted;
 
 	@Override
 	public String getUsername() {
@@ -63,7 +64,7 @@ public class MemUserImpl extends AbstractMemCUDElement<User> implements User {
 	public String getPasswordHash() {
 		return passwordHash;
 	}
-	
+
 	@Override
 	public User setPasswordHash(String hash) {
 		this.passwordHash = hash;
@@ -103,4 +104,14 @@ public class MemUserImpl extends AbstractMemCUDElement<User> implements User {
 		return this;
 	}
 
+	@Override
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	@Override
+	public User setDeleted(boolean flag) {
+		this.deleted = flag;
+		return this;
+	}
 }

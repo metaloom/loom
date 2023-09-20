@@ -11,6 +11,7 @@ public class UserImpl extends AbstractEditableElement<User> implements User {
 	private String lastname;
 	private String passwordHash;
 	private boolean enabled;
+	private boolean deleted;
 	private boolean sso;
 
 	public UserImpl() {
@@ -68,6 +69,17 @@ public class UserImpl extends AbstractEditableElement<User> implements User {
 	@Override
 	public User setEnabled(boolean flag) {
 		this.enabled = flag;
+		return this;
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	@Override
+	public User setDeleted(boolean flag) {
+		this.deleted = flag;
 		return this;
 	}
 

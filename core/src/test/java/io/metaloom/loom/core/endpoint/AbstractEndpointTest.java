@@ -29,7 +29,7 @@ public abstract class AbstractEndpointTest implements EndpointTest {
 	protected void expect(int statusCode, String statusMsg, LoomClientRequest<?> request) {
 		try {
 			request.sync();
-			fail("The rquest should have failed with code " + statusCode + " and msg " + statusMsg + " but it succeeded.");
+			fail("The request should have failed with code " + statusCode + " and msg " + statusMsg + " but it succeeded.");
 		} catch (HttpErrorException e) {
 			assertEquals(statusCode, e.getStatusCode(), "The status code did not match");
 			assertEquals(statusMsg, e.getStatusMsg(), "The status message did not match up");

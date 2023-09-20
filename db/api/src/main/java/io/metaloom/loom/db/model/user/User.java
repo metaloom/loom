@@ -59,12 +59,43 @@ public interface User extends CUDElement<User>, MetaElement<User> {
 	boolean isEnabled();
 
 	/**
-	 * Set the enabled flag for the user.
+	 * Set the enabled flag for the user. This flag can be controlled via regular update requests and the state may switched by users with the required
+	 * permission.
 	 * 
 	 * @param flag
 	 * @return Fluent API
 	 */
 	User setEnabled(boolean flag);
+
+	/**
+	 * Check whether the user has been deleted.
+	 * 
+	 * @return
+	 */
+	boolean isDeleted();
+
+	/**
+	 * Set the deletion flag for the user. This will indicate that the user deletion has occurred. The user record will not be removed in order to pass FK
+	 * constraints.
+	 * 
+	 * @param flag
+	 * @return Fluent API
+	 */
+	User setDeleted(boolean flag);
+
+	/**
+	 * Delete mark the user as deleted and purge all DSGVO related fields.
+	 * 
+	 * @return
+	 */
+	default User markDeleted() {
+		setDeleted(true);
+		setUsername(null);
+		setFirstname(null);
+		setLastname(null);
+		setMeta(null);
+		return this;
+	}
 
 	/**
 	 * Enable the user. This will enable login.
