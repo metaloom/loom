@@ -3,7 +3,6 @@ package io.metaloom.loom.core.endpoint;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.client.http.LoomHttpClient;
-import io.metaloom.loom.client.http.impl.HttpErrorException;
 
 public abstract class AbstractCRUDEndpointTest extends AbstractEndpointTest implements CRUDEndpointTestcases {
 

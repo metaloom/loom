@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.endpoint.impl;
 
+import static io.metaloom.loom.rest.RESTConstants.API_V1_PATH;
 import static io.vertx.core.http.HttpMethod.POST;
 
 import javax.inject.Inject;
@@ -29,9 +30,14 @@ public class LoginEndpoint extends AbstractEndpoint {
 	}
 
 	@Override
+	public String basePath() {
+		return API_V1_PATH + "/login";
+	}
+
+	@Override
 	public void register() {
 		log.info("Registering login endpoints");
-		addRoute("/login", POST, "Login the user with the provided credentials", lrc -> {
+		addRoute(basePath(), POST, "Login the user with the provided credentials", lrc -> {
 			service.login(lrc);
 		});
 	}

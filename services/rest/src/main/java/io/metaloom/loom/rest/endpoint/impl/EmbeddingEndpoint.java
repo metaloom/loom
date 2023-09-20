@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.endpoint.impl;
 
+import static io.metaloom.loom.rest.RESTConstants.API_V1_PATH;
 import static io.vertx.core.http.HttpMethod.DELETE;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
@@ -34,8 +35,9 @@ public class EmbeddingEndpoint extends AbstractEndpoint{
 		return "embedding";
 	}
 
-	protected String basePath() {
-		return "/embeddings";
+	@Override
+	public String basePath() {
+		return API_V1_PATH + "/embeddings";
 	}
 
 	@Override

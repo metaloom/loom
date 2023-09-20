@@ -53,6 +53,7 @@ public class AssetLocationEndpointService extends AbstractCRUDEndpointService<As
 				update(request::getMeta, location::setMeta);
 				return location;
 			} else if (request.getS3() != null) {
+				log.error("S3 support has not yet been implemented");
 				lrc.error("S3 support not yet implemented");
 				return null;
 			} else {

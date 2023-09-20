@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.endpoint.impl;
 
+import static io.metaloom.loom.rest.RESTConstants.API_V1_PATH;
 import static io.vertx.core.http.HttpMethod.DELETE;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
@@ -33,8 +34,9 @@ public class RoleEndpoint extends AbstractEndpoint {
 		return "role";
 	}
 
-	protected String basePath() {
-		return "/roles";
+	@Override
+	public String basePath() {
+		return API_V1_PATH + "/roles";
 	}
 
 	@Override

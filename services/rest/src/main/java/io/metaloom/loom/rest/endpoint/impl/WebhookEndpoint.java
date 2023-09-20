@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.endpoint.impl;
 
+import static io.metaloom.loom.rest.RESTConstants.API_V1_PATH;
 import static io.vertx.core.http.HttpMethod.DELETE;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
@@ -14,7 +15,7 @@ import io.metaloom.loom.rest.EndpointDependencies;
 import io.metaloom.loom.rest.model.ModelExamples;
 import io.metaloom.loom.rest.service.impl.WebhookEndpointService;
 
-public class WebhookEndpoint extends AbstractEndpoint{
+public class WebhookEndpoint extends AbstractEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(WebhookEndpoint.class);
 
@@ -23,7 +24,7 @@ public class WebhookEndpoint extends AbstractEndpoint{
 
 	@Inject
 	public WebhookEndpoint(WebhookEndpointService service, EndpointDependencies deps, ModelExamples examples) {
-		super( deps);
+		super(deps);
 		this.service = service;
 		this.examples = examples;
 	}
@@ -33,11 +34,11 @@ public class WebhookEndpoint extends AbstractEndpoint{
 		return "webhook";
 	}
 
-	protected String basePath() {
-		return "/webhooks";
+	@Override
+	public String basePath() {
+		return API_V1_PATH + "/webhooks";
 	}
 
-	
 	@Override
 	public void register() {
 		log.info("Registering {} endpoint", name());
@@ -88,5 +89,5 @@ public class WebhookEndpoint extends AbstractEndpoint{
 				service.load(lrc, lrc.pathParamUUID("uuid"));
 			});
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.endpoint.impl;
 
+import static io.metaloom.loom.rest.RESTConstants.API_V1_PATH;
 import static io.vertx.core.http.HttpMethod.GET;
 
 import javax.inject.Inject;
@@ -28,18 +29,17 @@ public class RESTInfoEndpoint extends AbstractEndpoint {
 
 	@Override
 	public String name() {
-		// TODO Auto-generated method stub
-		return null;
+		return "info";
 	}
 
 	@Override
 	public void register() {
-		addRoute("/v1", GET, "Load REST API info", lrc -> {
+		addRoute(basePath(), GET, "Load REST API info", lrc -> {
 			// TODO implement handler
 			lrc.error("not yet implemented");
 		});
 
-		addRoute("/v1/openapi", GET, "Load REST API OpenAPI spec", lrc -> {
+		addRoute(basePath() + "/openapi", GET, "Load REST API OpenAPI spec", lrc -> {
 			try {
 				Builder builder = OpenAPIGenerator.builder();
 				builder.title("MetaLoom // Loom REST API");
@@ -55,6 +55,11 @@ public class RESTInfoEndpoint extends AbstractEndpoint {
 				throw new LoomRestException(500, "Error while generating spec");
 			}
 		});
+	}
+
+	@Override
+	public String basePath() {
+		return API_V1_PATH;
 	}
 
 }

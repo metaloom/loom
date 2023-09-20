@@ -1,5 +1,6 @@
 package io.metaloom.loom.rest.endpoint.impl;
 
+import static io.metaloom.loom.rest.RESTConstants.API_V1_PATH;
 import static io.vertx.core.http.HttpMethod.DELETE;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.POST;
@@ -38,8 +39,9 @@ public class AnnotationEndpoint extends AbstractEndpoint {
 		return "annotation";
 	}
 
-	protected String basePath() {
-		return "/annotations";
+	@Override
+	public String basePath() {
+		return API_V1_PATH + "/annotations";
 	}
 
 	@Override

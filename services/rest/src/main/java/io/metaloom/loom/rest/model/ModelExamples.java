@@ -5,6 +5,9 @@ import javax.inject.Singleton;
 
 import io.metaloom.loom.rest.model.example.Examples;
 
+/**
+ * Injectable aggregator dependency for REST model examples.
+ */
 @Singleton
 public class ModelExamples implements Examples {
 
