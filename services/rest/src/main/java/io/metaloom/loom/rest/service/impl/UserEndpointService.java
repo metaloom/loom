@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.model.user.UserDao;
@@ -67,6 +68,9 @@ public class UserEndpointService extends AbstractCRUDEndpointService<UserDao, Us
 
 			UUID userUuid = lrc.userUuid();
 			User user = dao().load(uuid);
+			if (user == null) {
+				throw new LoomRestException(404, "User not found.");
+			}
 			// TODO update
 			update(request::getMeta, user::setMeta);
 			setEditor(user, userUuid);

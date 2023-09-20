@@ -4,6 +4,7 @@ import static io.metaloom.loom.rest.model.assertj.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.UUID;
 
@@ -115,6 +116,27 @@ public class UserEndpointTest extends AbstractCRUDEndpointTest {
 		update.setUsername("updated-username");
 		UserResponse response = client.updateUser(USER_UUID, update).sync();
 		assertThat(response).isValid();
+	}
+
+	@Test
+	protected void testUpdateDeletedUser() throws HttpErrorException {
+		try (LoomHttpClient client = loom.httpClient()) {
+			loginAdmin(client);
+
+			// 1. Delete user
+			client.deleteUser(USER_UUID).sync();
+
+			// 2. Assert that update fails
+			UserUpdateRequest update = new UserUpdateRequest();
+			update.setUsername("updated-username");
+			// TODO encapsulate call in lambda to process errors with less code
+			try {
+				client.updateUser(USER_UUID, update).sync();
+				fail("The request should have failed.");
+			} catch (HttpErrorException e) {
+				assertEquals("Request failed {Not Found}", e.getMessage());
+			}
+		}
 	}
 
 	@Override
