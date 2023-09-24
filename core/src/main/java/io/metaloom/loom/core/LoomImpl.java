@@ -10,6 +10,7 @@ import io.metaloom.loom.api.Loom;
 import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.core.dagger.DaggerLoomCoreComponent;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
+import io.vertx.core.http.HttpServer;
 
 public class LoomImpl implements Loom {
 
@@ -79,6 +80,15 @@ public class LoomImpl implements Loom {
 	}
 
 	@Override
+	public Integer actualRestPort() {
+		HttpServer server = getInternal().boot().getRestService().getServer();
+		if (server == null) {
+			return null;
+		}
+		return server.actualPort();
+	}
+
+	@Override
 	public void shutdownAndTerminate(int code) {
 		Runtime.getRuntime().exit(code);
 	}
@@ -90,7 +100,7 @@ public class LoomImpl implements Loom {
 	private void printProductInformation() {
 		log.info("###############################################################");
 		logLines(SplashTextProvider.getSplashText());
-		//log.info("#-------------------------------------------------------------#");
+		// log.info("#-------------------------------------------------------------#");
 		// if (getOptions().getClusterOptions() != null && getOptions().getClusterOptions().isEnabled()) {
 		// log.info(infoLine("Cluster Name: " + getOptions().getClusterOptions().getClusterName()));
 		// }
@@ -99,8 +109,8 @@ public class LoomImpl implements Loom {
 	}
 
 	private static void logLines(String text) {
-		 text.lines().forEachOrdered(line -> {
-			 log.info("# " + StringUtils.rightPad(line, 59) + " #");
+		text.lines().forEachOrdered(line -> {
+			log.info("# " + StringUtils.rightPad(line, 59) + " #");
 		});
 	}
 
