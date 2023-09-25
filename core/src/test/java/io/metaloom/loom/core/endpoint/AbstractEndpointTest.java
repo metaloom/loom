@@ -9,7 +9,10 @@ import io.metaloom.loom.client.http.LoomClientRequest;
 import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.LoomCoreTestExtension;
+import io.metaloom.loom.db.model.perm.Permission;
 import io.metaloom.loom.rest.model.auth.AuthLoginResponse;
+import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 
 public abstract class AbstractEndpointTest implements EndpointTest {
 
@@ -24,6 +27,13 @@ public abstract class AbstractEndpointTest implements EndpointTest {
 	public void loginAdmin(LoomHttpClient client) throws HttpErrorException {
 		AuthLoginResponse loginResponse = client.login("admin", "finger").sync();
 		client.setToken(loginResponse.getToken());
+	}
+
+	public String generateJWT() {
+		JsonArray claims = new JsonArray();
+		claims.add(Permission.CREATE_ASSET.name());
+		JsonObject userAttr = new JsonObject().put("claim", claims);
+		return loom.internal().authService().generate(userAttr);
 	}
 
 	protected void expect(int statusCode, String statusMsg, LoomClientRequest<?> request) {

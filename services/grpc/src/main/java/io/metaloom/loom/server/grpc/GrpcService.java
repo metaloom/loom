@@ -1,6 +1,6 @@
 package io.metaloom.loom.server.grpc;
 
-import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -8,70 +8,73 @@ import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.grpc.Metadata;
-import io.grpc.ServerInterceptor;
-import io.grpc.ServerInterceptors;
 import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.common.service.AbstractService;
-import io.metaloom.loom.server.grpc.auth.AuthInterceptor;
-import io.metaloom.loom.server.grpc.impl.GrpcAssetLoader;
+import io.metaloom.loom.proto.AssetLoaderGrpc;
+import io.metaloom.loom.proto.AssetRequest;
+import io.metaloom.loom.proto.AssetResponse;
 import io.vertx.core.Vertx;
-import io.vertx.grpc.BlockingServerInterceptor;
-import io.vertx.grpc.ContextServerInterceptor;
-import io.vertx.grpc.VertxServer;
-import io.vertx.grpc.VertxServerBuilder;
+import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpServerOptions;
+import io.vertx.ext.auth.User;
+import io.vertx.ext.auth.jwt.JWTAuth;
+import io.vertx.grpc.server.GrpcServerResponse;
+import io.vertx.grpc.server.auth.JWTGrpcServer;
 
 @Singleton
 public class GrpcService extends AbstractService {
 
 	public static final Logger log = LoggerFactory.getLogger(GrpcService.class);
 
-	private VertxServer server;
-
-	private final GrpcAssetLoader assetLoader;
-
-	private final AuthInterceptor authInterceptor;
+	private HttpServer server;
+	private final JWTAuth auth;
 
 	@Inject
-	public GrpcService(Vertx vertx, LoomOptions options, GrpcAssetLoader assetLoader, AuthInterceptor authInterceptor) {
+	public GrpcService(Vertx vertx, LoomOptions options, JWTAuth auth) {
 		super(vertx, options);
-		this.assetLoader = assetLoader;
-		this.authInterceptor = authInterceptor;
+		this.auth = auth;
 	}
 
-	public void start() throws IOException {
+	public void start() {
 		int port = options().getServer().getGrpcPort();
 		String host = options().getServer().getBindAddress();
 
-		ServerInterceptor wrappedAuthInterceptor = BlockingServerInterceptor.wrap(vertx(), authInterceptor);
+		JWTGrpcServer jwtServer = JWTGrpcServer.create(vertx(), auth);
+		jwtServer.callHandler(AssetLoaderGrpc.getLoadMethod(), true, request -> {
+			request.handler(hello -> {
+				User user = request.user();
+				log.info("Server got asset with hash {}", hello.getSha512Sum());
+				GrpcServerResponse<AssetRequest, AssetResponse> response = request.response();
+				AssetResponse reply = AssetResponse.newBuilder()
+					.setFilename("Hello " + hello.getSha512Sum() + " from " + user.subject())
+					.build();
+				response.end(reply);
+			});
+		});
 
-		ServerInterceptor contextInterceptor = new ContextServerInterceptor() {
-			@Override
-			public void bind(Metadata metadata) {
-				Metadata.Key<String> SESSION_ID_METADATA_KEY = Metadata.Key.of("test", Metadata.ASCII_STRING_MARSHALLER);
-				put("sessionId", metadata.get(SESSION_ID_METADATA_KEY));
-			}
-		};
+		server = vertx().createHttpServer(new HttpServerOptions().setPort(0)
+			.setHost("localhost")).requestHandler(jwtServer);
 
-		server = VertxServerBuilder
-			.forAddress(vertx(), host, port)
-			.addService(ServerInterceptors.intercept(assetLoader, wrappedAuthInterceptor))
-			.addService(ServerInterceptors.intercept(assetLoader, contextInterceptor))
-			.build();
+		log.info("Starting server");
+		CompletableFuture<Void> fut = new CompletableFuture<>();
+		server.listen(srv -> {
+			log.info("Server started and listening on port " + srv.result()
+				.actualPort());
+			fut.complete(null);
+		});
+		fut.join();
+	}
 
-		log.info("Starting gRPC server on {}:{}", host, port);
-		server.start();
+	public HttpServer getServer() {
+		return server;
+	}
+
+	public int port() {
+		return server.actualPort();
 	}
 
 	public void stop() {
-		if (server != null) {
-			log.info("Shuting down gRPC server");
-			server.shutdown();
-		}
+		getServer().close();
 	}
 
-	public VertxServer getServer() {
-		return server;
-	}
-	
 }

@@ -36,7 +36,7 @@ public class LoomCoreTestExtension implements BeforeEachCallback, AfterEachCallb
 	public LoomGRPCClient grpcClient() {
 		return LoomGRPCClient.builder()
 			.setHostname("localhost")
-			.setPort(loomInternal.boot().getGrpcService().getServer().getPort())
+			.setPort(loomInternal.boot().getGrpcService().getServer().actualPort())
 			.build();
 	}
 
@@ -78,6 +78,10 @@ public class LoomCoreTestExtension implements BeforeEachCallback, AfterEachCallb
 		if (loomInternal != null) {
 			loomInternal.boot().deinit();
 		}
+	}
+	
+	public LoomCoreComponent internal() {
+		return loomInternal;
 	}
 
 }

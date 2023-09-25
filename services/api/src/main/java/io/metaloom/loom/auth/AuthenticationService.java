@@ -7,6 +7,12 @@ public interface AuthenticationService {
 
 	void verify(String token);
 
+	/**
+	 * Generate a JWT using the provided credential information.
+	 * 
+	 * @param json
+	 * @return
+	 */
 	String generate(JsonObject json);
 
 	User login(String username, String password);

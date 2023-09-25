@@ -18,14 +18,12 @@ import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.auth.jwt.authorization.JWTAuthorization;
 
 public class VertxPermTest {
-	
+
 	public static Vertx vertx = Vertx.vertx();
 
-	
 	@Test
 	public void testVertxPerm() {
-		
-		
+
 		// Authenticate
 		LoomOptions options = new LoomOptions();
 		options.getAuth().setKeystorePassword("ABCD");

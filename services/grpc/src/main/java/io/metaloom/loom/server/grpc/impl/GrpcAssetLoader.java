@@ -11,11 +11,10 @@ import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.proto.AssetRequest;
 import io.metaloom.loom.proto.AssetResponse;
-import io.metaloom.loom.proto.VertxAssetLoaderGrpc.AssetLoaderVertxImplBase;
 import io.metaloom.utils.hash.SHA512Sum;
 import io.vertx.core.Future;
 
-public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
+public class GrpcAssetLoader  {
 
 	private final DaoCollection daos;
 
@@ -24,7 +23,6 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 		this.daos = daos;
 	}
 
-	@Override
 	public Future<AssetResponse> store(AssetRequest request) {
 		//String uuid = request.getUuid();
 		
@@ -72,7 +70,6 @@ public class GrpcAssetLoader extends AssetLoaderVertxImplBase {
 				.build());
 	}
 
-	@Override
 	public Future<AssetResponse> load(AssetRequest request) {
 		return Future.succeededFuture(
 			AssetResponse.newBuilder()
