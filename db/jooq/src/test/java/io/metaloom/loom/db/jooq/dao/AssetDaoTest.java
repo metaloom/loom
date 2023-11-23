@@ -7,7 +7,6 @@ import io.metaloom.loom.db.jooq.AbstractJooqTest;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.user.User;
-import io.metaloom.utils.hash.SHA512Sum;
 
 public class AssetDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<AssetDao, Asset> {
 	@Override
@@ -17,7 +16,7 @@ public class AssetDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<A
 
 	@Override
 	public Asset createElement(User user, int i) {
-		return assetDao().createAsset(user.getUuid(), SHA512Sum.fromString(SHA512SUM), IMAGE_MIMETYPE, DUMMY_IMAGE_FILENAME, DUMMY_IMAGE_ORIGIN, 42L);
+		return assetDao().createAsset(user.getUuid(), SHA512SUM, IMAGE_MIMETYPE, DUMMY_IMAGE_FILENAME, DUMMY_IMAGE_ORIGIN, 42L);
 	}
 
 	@Override

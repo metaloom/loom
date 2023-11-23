@@ -10,7 +10,6 @@ import javax.inject.Singleton;
 
 import org.jooq.DSLContext;
 import org.jooq.SelectConditionStep;
-import org.jooq.SelectJoinStep;
 import org.jooq.Table;
 import org.jooq.TableRecord;
 
@@ -24,8 +23,7 @@ import io.metaloom.loom.db.jooq.tables.JooqAsset;
 import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetDao;
 import io.metaloom.loom.db.model.user.User;
-import io.metaloom.utils.UUIDUtils;
-import io.metaloom.utils.hash.SHA512Sum;
+import io.metaloom.utils.hash.SHA512;
 import io.vertx.core.json.JsonObject;
 
 @Singleton
@@ -52,10 +50,10 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	}
 
 	@Override
-	public Asset createAsset(UUID userUuid, SHA512Sum sha512sum, String mimeType, String filename, String initialOrigin, long size) {
+	public Asset createAsset(UUID userUuid, SHA512 sha512sum, String mimeType, String filename, String initialOrigin, long size) {
 		Objects.requireNonNull(sha512sum, "Binary sha512sum must not be null");
 		Asset asset = new AssetImpl();
-		asset.setSHA512(sha512sum.toString());
+		asset.setSHA512(sha512sum);
 		asset.setSize(size);
 		asset.setMimeType(mimeType);
 		asset.setFilename(filename);
@@ -83,7 +81,7 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	}
 
 	@Override
-	public Asset loadBySHA512(SHA512Sum sha512sum) {
+	public Asset loadBySHA512(SHA512 sha512sum) {
 		return ctx()
 			.select(getTable())
 			.from(getTable())
@@ -92,7 +90,7 @@ public class AssetDaoImpl extends AbstractJooqDao<Asset> implements AssetDao {
 	}
 
 	@Override
-	public void deleteBySHA512(SHA512Sum sha512sum) {
+	public void deleteBySHA512(SHA512 sha512sum) {
 		ctx().delete(getTable())
 			.where(ASSET.SHA512SUM.eq(sha512sum.toString()))
 			.execute();

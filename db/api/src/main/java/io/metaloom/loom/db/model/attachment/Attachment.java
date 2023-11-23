@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import io.metaloom.loom.api.attachment.AttachmentType;
 import io.metaloom.loom.db.CUDElement;
+import io.metaloom.utils.hash.SHA512;
 
 public interface Attachment extends CUDElement<Attachment> {
 
@@ -19,9 +20,9 @@ public interface Attachment extends CUDElement<Attachment> {
 
 	Attachment setSize(long size);
 
-	String getSha512sum();
+	SHA512 getSha512sum();
 
-	Attachment setSha512sum(String sha512sum);
+	Attachment setSha512sum(SHA512 sha512sum);
 
 	UUID getEmbeddingUuid();
 

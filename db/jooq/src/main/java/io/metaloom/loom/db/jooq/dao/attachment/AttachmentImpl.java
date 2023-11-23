@@ -7,13 +7,14 @@ import javax.persistence.Column;
 import io.metaloom.loom.api.attachment.AttachmentType;
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.attachment.Attachment;
+import io.metaloom.utils.hash.SHA512;
 
 public class AttachmentImpl extends AbstractEditableElement<Attachment> implements Attachment {
 
 	private String filename;
 
 	@Column(name = "binary.sha512sum")
-	private String sha512sum;
+	private SHA512 sha512sum;
 
 	private String mimeType;
 
@@ -38,16 +39,16 @@ public class AttachmentImpl extends AbstractEditableElement<Attachment> implemen
 	}
 
 	@Override
-	public String getSha512sum() {
+	public SHA512 getSha512sum() {
 		return sha512sum;
 	}
 
-	public String binarySha512sum() {
+	public SHA512 binarySha512sum() {
 		return sha512sum;
 	}
 
 	@Override
-	public Attachment setSha512sum(String sha512sum) {
+	public Attachment setSha512sum(SHA512 sha512sum) {
 		this.sha512sum = sha512sum;
 		return this;
 	}

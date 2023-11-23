@@ -79,7 +79,6 @@ public class LoomImpl implements Loom {
 		latch.await();
 	}
 
-	@Override
 	public Integer actualRestPort() {
 		HttpServer server = getInternal().boot().getRestService().getServer();
 		if (server == null) {

@@ -11,10 +11,12 @@ import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.proto.AssetRequest;
 import io.metaloom.loom.proto.AssetResponse;
-import io.metaloom.utils.hash.SHA512Sum;
+import io.metaloom.utils.hash.ChunkHash;
+import io.metaloom.utils.hash.SHA256;
+import io.metaloom.utils.hash.SHA512;
 import io.vertx.core.Future;
 
-public class GrpcAssetLoader  {
+public class GrpcAssetLoader {
 
 	private final DaoCollection daos;
 
@@ -24,14 +26,14 @@ public class GrpcAssetLoader  {
 	}
 
 	public Future<AssetResponse> store(AssetRequest request) {
-		//String uuid = request.getUuid();
-		
+		// String uuid = request.getUuid();
+
 		String fingerprint = request.getFingerprint();
-		String chunkHash = request.getChunkHash();
+		ChunkHash chunkHash = ChunkHash.fromString(request.getChunkHash());
 		long zeroChunkCount = request.getZeroChunkCount();
-		String sha256sum = request.getSha256Sum();
+		SHA256 sha256sum = SHA256.fromString(request.getSha256Sum());
 		String sha512sumStr = request.getSha512Sum();
-		SHA512Sum sha512sum = SHA512Sum.fromString(sha512sumStr);
+		SHA512 sha512sum = SHA512.fromString(sha512sumStr);
 		String mimeType = request.getMimeType();
 		long size = request.getSize();
 		String initialOrigin = request.getInitialOrigin();
@@ -50,7 +52,7 @@ public class GrpcAssetLoader  {
 
 		User creator = daos.userDao().createUser("test");
 		daos.userDao().store(creator);
-		
+
 		Library library = daos.libraryDao().createLibrary(user, "test");
 		AssetLocation assetLocation = daos.assetLocationDao().createAssetLocation(filename, asset.getUuid(), creator.getUuid(), library.getUuid());
 		daos.assetLocationDao().store(assetLocation);
@@ -62,8 +64,8 @@ public class GrpcAssetLoader  {
 				.setUuid(uuid.toString())
 				.setSize(size)
 				.setFilename(filename)
-				.setChunkHash(chunkHash)
-				.setSha256Sum(sha256sum)
+				.setChunkHash(chunkHash.toString())
+				.setSha256Sum(sha256sum.toString())
 				.setSha512Sum(sha512sum.toString())
 				.setFingerprint(fingerprint)
 				.setZeroChunkCount(zeroChunkCount)

@@ -19,6 +19,7 @@ import io.metaloom.loom.rest.model.asset.info.HashInfo;
 import io.metaloom.loom.rest.model.asset.info.ImageInfo;
 import io.metaloom.loom.rest.model.asset.info.MediaInfo;
 import io.metaloom.loom.rest.model.asset.info.VideoInfo;
+import io.metaloom.utils.hash.SHA512;
 
 public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 
@@ -113,7 +114,7 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 			fileInfo.setOrigin(INITIAL_ORIGIN);
 
 			request.setFile(fileInfo);
-			request.setHashes(new HashInfo().setSha512(SHA512SUM + i));
+			request.setHashes(new HashInfo().setSha512(SHA512.fromString(SHA512SUM.toString() + i)));
 			client.createAsset(request).sync();
 		}
 

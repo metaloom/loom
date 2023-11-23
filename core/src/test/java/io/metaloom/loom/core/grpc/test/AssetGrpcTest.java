@@ -13,8 +13,7 @@ public class AssetGrpcTest extends AbstractEndpointTest {
 	@Test
 	public void testAssetLoad() {
 		try (LoomGRPCClient client = loom.grpcClient()) {
-			System.out.println(generateJWT());
-			client.setToken(generateJWT());
+			//client.setToken(generateJWT());
 			AssetResponse response = client.loadAsset(SHA512SUM).sync();
 			assertNotNull(response);
 		}

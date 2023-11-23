@@ -24,6 +24,7 @@ import io.metaloom.loom.db.jooq.tables.records.JooqAttachmentBinaryRecord;
 import io.metaloom.loom.db.model.attachment.Attachment;
 import io.metaloom.loom.db.model.attachment.AttachmentDao;
 import io.metaloom.loom.db.page.Page;
+import io.metaloom.utils.hash.SHA512;
 
 @Singleton
 public class AttachmentDaoImpl extends AbstractJooqDao<Attachment> implements AttachmentDao {
@@ -76,7 +77,7 @@ public class AttachmentDaoImpl extends AbstractJooqDao<Attachment> implements At
 
 		// 1. Ensure that binary is stored
 		JooqAttachmentBinaryRecord binary = ATTACHMENT_BINARY.newRecord();
-		binary.setSha512sum(attachment.getSha512sum());
+		binary.setSha512sum(attachment.getSha512sum().toString());
 		binary.setSize(attachment.getSize());
 		ctx().insertInto(ATTACHMENT_BINARY)
 			.set(binary)
@@ -99,7 +100,7 @@ public class AttachmentDaoImpl extends AbstractJooqDao<Attachment> implements At
 	}
 
 	@Override
-	public Attachment createAttachment(UUID userUuid, String sha512sum, String filename, long size, String mimeType, AttachmentType type) {
+	public Attachment createAttachment(UUID userUuid, SHA512 sha512sum, String filename, long size, String mimeType, AttachmentType type) {
 		Attachment attachment = new AttachmentImpl();
 		attachment.setFilename(filename);
 		attachment.setSize(size);

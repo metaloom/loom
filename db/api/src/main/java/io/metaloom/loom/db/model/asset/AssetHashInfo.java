@@ -1,21 +1,26 @@
 package io.metaloom.loom.db.model.asset;
 
+import io.metaloom.utils.hash.ChunkHash;
+import io.metaloom.utils.hash.MD5;
+import io.metaloom.utils.hash.SHA256;
+import io.metaloom.utils.hash.SHA512;
+
 public interface AssetHashInfo {
 
-	String getSHA512();
+	SHA512 getSHA512();
 
-	Asset setSHA512(String hashsum);
+	Asset setSHA512(SHA512 hashsum);
 
-	String getSHA256();
+	SHA256 getSHA256();
 
-	Asset setSHA256(String hashsum);
+	Asset setSHA256(SHA256 hashsum);
 
-	String getMD5();
+	MD5 getMD5();
 
-	Asset setMD5(String hashsum);
+	Asset setMD5(MD5 hashsum);
 
-	String getChunkHash();
+	ChunkHash getChunkHash();
 
-	Asset setChunkHash(String chunkHash);
+	Asset setChunkHash(ChunkHash chunkHash);
 
 }

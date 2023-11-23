@@ -5,7 +5,6 @@ import static io.metaloom.loom.api.LoomEnv.LOOM_CONF_FILENAME;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -23,11 +22,11 @@ import io.metaloom.loom.api.Loom;
 import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.utils.StringUtils;
 
-public final class OptionsLoader {
+public final class LoomOptionsLoader {
 
-	private static final Logger log = LoggerFactory.getLogger(OptionsLoader.class);
+	private static final Logger log = LoggerFactory.getLogger(LoomOptionsLoader.class);
 
-	private OptionsLoader() {
+	private LoomOptionsLoader() {
 
 	}
 
@@ -44,7 +43,7 @@ public final class OptionsLoader {
 		return mapper;
 	}
 
-	public static LoomOptions createOrloadOptions() {
+	public static LoomOptions createOrLoadOptions() {
 		LoomOptions options = loadLoomOptions();
 		// applyNonYamlProperties(defaultOption, options);
 		// applyEnvironmentVariables(options);
@@ -54,7 +53,7 @@ public final class OptionsLoader {
 	}
 
 	/**
-	 * Try to load the loom options from different locations (classpath, config folder). Otherwise a default configuration will be generated.
+	 * Try to load the loom options from different locations (config folder). Otherwise a default configuration will be generated.
 	 * 
 	 * @param defaultOption
 	 * 
@@ -81,11 +80,13 @@ public final class OptionsLoader {
 		if (confFile.exists()) {
 			try {
 				log.info("Loading configuration file {" + confFile + "}.");
-				LoomOptions configuration = loadConfiguration(new FileInputStream(confFile));
-				if (configuration != null) {
-					return configuration;
+				try (FileInputStream fis = new FileInputStream(confFile)) {
+					LoomOptions configuration = loadConfiguration(fis);
+					if (configuration != null) {
+						return configuration;
+					}
 				}
-			} catch (FileNotFoundException e) {
+			} catch (IOException e) {
 				log.error("Could not load configuration file {" + confFile.getAbsolutePath() + "}.", e);
 			}
 		} else {
@@ -136,7 +137,6 @@ public final class OptionsLoader {
 	/**
 	 * Generate a default configuration with meaningful default settings.
 	 * 
-	 * @param defaultOption
 	 * @return
 	 */
 	public static LoomOptions generateDefaultConfig() {

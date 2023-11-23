@@ -38,7 +38,7 @@ import io.metaloom.loom.rest.model.asset.location.AssetS3Meta;
 import io.metaloom.loom.rest.model.embedding.EmbeddingCreateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
-import io.metaloom.utils.hash.SHA512Sum;
+import io.metaloom.utils.hash.SHA512;
 
 @Singleton
 public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, Asset> {
@@ -139,8 +139,7 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 			HashInfo hashes = request.getHashes();
 
 			// Mandatory fields
-			String sha512sumStr = hashes.getSha512();
-			SHA512Sum sha512sum = SHA512Sum.fromString(sha512sumStr);
+			SHA512 sha512sum = hashes.getSha512();
 			String mimeType = request.getFile().getMimeType();
 			String filename = request.getFile().getFilename();
 			String origin = request.getFile().getOrigin();

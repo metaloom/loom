@@ -1,12 +1,12 @@
 package io.metaloom.loom.container.server;
 import io.metaloom.loom.api.Loom;
 import io.metaloom.loom.api.options.LoomOptions;
-import io.metaloom.loom.common.options.OptionsLoader;
+import io.metaloom.loom.common.options.LoomOptionsLoader;
 
 public class CetusServerRunner {
 
 	public static void main(String[] args) throws Exception {
-		LoomOptions options = OptionsLoader.createOrloadOptions();
+		LoomOptions options = LoomOptionsLoader.createOrLoadOptions();
 		options.getDatabase().setHost("cetus.sky");
 		options.getDatabase().setPort(5432);
 		options.getDatabase().setDatabaseName("loom");

@@ -24,6 +24,7 @@ import io.metaloom.loom.rest.model.attachment.AttachmentUpdateRequest;
 import io.metaloom.loom.rest.service.AbstractCRUDEndpointService;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 import io.metaloom.utils.hash.HashUtils;
+import io.metaloom.utils.hash.SHA512;
 import io.vertx.ext.web.FileUpload;
 
 public class AttachmentEndpointService extends AbstractCRUDEndpointService<AttachmentDao, Attachment> {
@@ -72,7 +73,7 @@ public class AttachmentEndpointService extends AbstractCRUDEndpointService<Attac
 			long size = upload.size();
 			String mimeType = upload.contentType();
 			AttachmentType type = AttachmentType.EMBEDDING_ATTACHMENT;
-			String sha512sum =  HashUtils.computeSHA512(Paths.get(upload.uploadedFileName()));
+			SHA512 sha512sum =  SHA512.fromString(HashUtils.computeSHA512(Paths.get(upload.uploadedFileName())));
 			Attachment attachment = dao().createAttachment(userUuid, sha512sum, filename, size, mimeType, type);
 			return attachment;
 		}, modelBuilder::toResponse);

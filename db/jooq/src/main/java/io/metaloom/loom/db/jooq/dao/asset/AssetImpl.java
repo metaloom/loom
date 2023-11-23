@@ -4,13 +4,17 @@ import java.time.Instant;
 
 import io.metaloom.loom.db.jooq.AbstractEditableElement;
 import io.metaloom.loom.db.model.asset.Asset;
+import io.metaloom.utils.hash.ChunkHash;
+import io.metaloom.utils.hash.MD5;
+import io.metaloom.utils.hash.SHA256;
+import io.metaloom.utils.hash.SHA512;
 
 public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 
-	private String sha512sum;
-	private String sha256sum;
-	private String md5sum;
-	private String chunkHash;
+	private SHA512 sha512sum;
+	private SHA256 sha256sum;
+	private MD5 md5sum;
+	private ChunkHash chunkHash;
 	private long zeroChunkCount;
 
 	// File
@@ -54,45 +58,45 @@ public class AssetImpl extends AbstractEditableElement<Asset> implements Asset {
 	}
 
 	@Override
-	public String getSHA512() {
+	public SHA512 getSHA512() {
 		return sha512sum;
 	}
 
 	@Override
-	public Asset setSHA512(String sha512sum) {
+	public Asset setSHA512(SHA512 sha512sum) {
 		this.sha512sum = sha512sum;
 		return this;
 	}
 
 	@Override
-	public String getSHA256() {
+	public SHA256 getSHA256() {
 		return sha256sum;
 	}
 
 	@Override
-	public Asset setSHA256(String sha256sum) {
+	public Asset setSHA256(SHA256 sha256sum) {
 		this.sha256sum = sha256sum;
 		return this;
 	}
 
 	@Override
-	public String getMD5() {
+	public MD5 getMD5() {
 		return md5sum;
 	}
 
 	@Override
-	public Asset setMD5(String md5sum) {
+	public Asset setMD5(MD5 md5sum) {
 		this.md5sum = md5sum;
 		return this;
 	}
 
 	@Override
-	public String getChunkHash() {
+	public ChunkHash getChunkHash() {
 		return chunkHash;
 	}
 
 	@Override
-	public Asset setChunkHash(String chunkHash) {
+	public Asset setChunkHash(ChunkHash chunkHash) {
 		this.chunkHash = chunkHash;
 		return this;
 	}
