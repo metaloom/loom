@@ -26,7 +26,7 @@ import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 import io.metaloom.loom.rest.validation.impl.LoomModelValidatorImpl;
-import io.metaloom.loom.test.TestValues;
+import io.metaloom.loom.test.data.TestValues;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 

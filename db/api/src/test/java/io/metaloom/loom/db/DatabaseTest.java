@@ -5,7 +5,7 @@ import io.metaloom.loom.db.model.asset.Asset;
 import io.metaloom.loom.db.model.asset.AssetLocation;
 import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.user.User;
-import io.metaloom.loom.test.TestValues;
+import io.metaloom.loom.test.data.TestValues;
 
 public interface DatabaseTest extends TestValues, DaoProvider {
 

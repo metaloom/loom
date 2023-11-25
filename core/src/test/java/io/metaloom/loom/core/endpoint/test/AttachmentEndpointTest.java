@@ -17,11 +17,11 @@ import io.metaloom.loom.rest.model.attachment.AttachmentListResponse;
 import io.metaloom.loom.rest.model.attachment.AttachmentResponse;
 import io.metaloom.loom.rest.model.attachment.AttachmentUpdateRequest;
 import io.metaloom.loom.test.TestEnvHelper;
-import io.metaloom.loom.test.Testdata;
+import io.metaloom.loom.test.data.TestDataCollection;
 
 public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 
-	private static Testdata env;
+	private static TestDataCollection env;
 
 	@BeforeAll
 	public static void setupEnv() throws IOException {

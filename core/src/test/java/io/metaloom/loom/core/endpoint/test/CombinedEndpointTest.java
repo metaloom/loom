@@ -41,14 +41,14 @@ import io.metaloom.loom.rest.model.task.TaskCreateRequest;
 import io.metaloom.loom.rest.model.task.TaskPriority;
 import io.metaloom.loom.rest.model.task.TaskResponse;
 import io.metaloom.loom.test.TestEnvHelper;
-import io.metaloom.loom.test.Testdata;
+import io.metaloom.loom.test.data.TestDataCollection;
 import io.vertx.core.json.JsonObject;
 
 public class CombinedEndpointTest extends AbstractEndpointTest {
 
 	@Test
 	public void testBasics() throws HttpErrorException, FileNotFoundException, IOException {
-		Testdata env = TestEnvHelper.prepareTestdata("combined");
+		TestDataCollection env = TestEnvHelper.prepareTestdata("combined");
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 

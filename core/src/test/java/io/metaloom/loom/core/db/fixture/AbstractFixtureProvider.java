@@ -4,7 +4,7 @@ import io.metaloom.loom.auth.AuthenticationService;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.dagger.DaoProvider;
-import io.metaloom.loom.test.TestValues;
+import io.metaloom.loom.test.data.TestValues;
 
 public abstract class AbstractFixtureProvider implements TestValues, DaoProvider {
 

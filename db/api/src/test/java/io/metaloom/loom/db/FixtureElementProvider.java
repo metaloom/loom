@@ -6,7 +6,7 @@ import io.metaloom.loom.db.model.library.Library;
 import io.metaloom.loom.db.model.project.Project;
 import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.transaction.TransactionCallable;
-import io.metaloom.loom.test.TestValues;
+import io.metaloom.loom.test.data.TestValues;
 
 /**
  * Defines methods that can be used to fetch elements from the database testfixture (e.g. user)

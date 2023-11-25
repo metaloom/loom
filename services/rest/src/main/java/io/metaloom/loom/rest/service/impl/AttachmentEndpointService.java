@@ -73,7 +73,7 @@ public class AttachmentEndpointService extends AbstractCRUDEndpointService<Attac
 			long size = upload.size();
 			String mimeType = upload.contentType();
 			AttachmentType type = AttachmentType.EMBEDDING_ATTACHMENT;
-			SHA512 sha512sum =  SHA512.fromString(HashUtils.computeSHA512(Paths.get(upload.uploadedFileName())));
+			SHA512 sha512sum =  HashUtils.computeSHA512(Paths.get(upload.uploadedFileName()));
 			Attachment attachment = dao().createAttachment(userUuid, sha512sum, filename, size, mimeType, type);
 			return attachment;
 		}, modelBuilder::toResponse);
