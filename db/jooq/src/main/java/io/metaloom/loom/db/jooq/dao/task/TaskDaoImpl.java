@@ -1,6 +1,5 @@
 package io.metaloom.loom.db.jooq.dao.task;
 
-import static io.metaloom.loom.db.jooq.tables.JooqAnnotationAsset.ANNOTATION_ASSET;
 import static io.metaloom.loom.db.jooq.tables.JooqTask.TASK;
 import static io.metaloom.loom.db.jooq.tables.JooqAnnotationTask.ANNOTATION_TASK;
 
@@ -16,7 +15,6 @@ import org.jooq.Table;
 import org.jooq.TableRecord;
 
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
-import io.metaloom.loom.db.jooq.tables.JooqAnnotation;
 import io.metaloom.loom.db.jooq.tables.JooqTask;
 import io.metaloom.loom.db.model.task.Task;
 import io.metaloom.loom.db.model.task.TaskDao;

@@ -35,7 +35,7 @@ public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 
 	@Override
 	protected void testCreate(LoomHttpClient client) throws Exception {
-		Path path = env.sampleVideo2Path();
+		Path path = env.video2().path();
 		try (InputStream stream = Files.newInputStream(path)) {
 			AttachmentResponse response = client.uploadAttachment(DUMMY_VIDEO_FILENAME, VIDEO_MIMETYPE, stream).sync();
 		}
@@ -57,7 +57,7 @@ public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 	@Override
 	protected void testReadPage(LoomHttpClient client) throws Exception {
 		for (int i = 0; i < 10; i++) {
-			Path path = env.sampleVideo2Path();
+			Path path = env.video2().path();
 			try (InputStream stream = Files.newInputStream(path)) {
 				AttachmentResponse response = client.uploadAttachment(DUMMY_VIDEO_FILENAME, VIDEO_MIMETYPE, stream).sync();
 			}

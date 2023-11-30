@@ -72,7 +72,7 @@ public class CombinedEndpointTest extends AbstractEndpointTest {
 				embeddingRequest.setSource("embedding_" + i);
 				embeddingRequest.setMeta(new JsonObject().put("test", "1234"));
 				EmbeddingResponse embedding = client.createEmbedding(embeddingRequest).sync();
-				Path videoPath = env.sampleVideo2Path();
+				Path videoPath = env.video1().path();
 				try (InputStream stream = Files.newInputStream(videoPath)) {
 					AttachmentResponse uploadResponse = client.uploadAttachment(DUMMY_VIDEO_FILENAME, VIDEO_MIMETYPE, stream).sync();
 				}
