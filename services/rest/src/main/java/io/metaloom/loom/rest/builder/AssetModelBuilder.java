@@ -102,8 +102,8 @@ public interface AssetModelBuilder extends ModelBuilder, UserModelBuilder, Asset
 
 	default HashInfo assetHasheInfo(Asset asset) {
 		HashInfo hashes = new HashInfo();
-		hashes.setSha512(asset.getSHA512());
-		hashes.setSha256(asset.getSHA256());
+		hashes.setSHA512(asset.getSHA512());
+		hashes.setSHA256(asset.getSHA256());
 		hashes.setMD5(asset.getMD5());
 		return hashes;
 	}

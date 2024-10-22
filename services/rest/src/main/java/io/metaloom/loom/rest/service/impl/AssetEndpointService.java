@@ -139,7 +139,7 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 			HashInfo hashes = request.getHashes();
 
 			// Mandatory fields
-			SHA512 sha512sum = hashes.getSha512();
+			SHA512 sha512sum = hashes.getSHA512();
 			String mimeType = request.getFile().getMimeType();
 			String filename = request.getFile().getFilename();
 			String origin = request.getFile().getOrigin();
@@ -194,8 +194,8 @@ public class AssetEndpointService extends AbstractCRUDEndpointService<AssetDao, 
 		HashInfo hashes = model.getHashes();
 		if (hashes != null) {
 			update(hashes::getMD5, asset::setMD5);
-			update(hashes::getSha256, asset::setSHA256);
-			update(hashes::getSha512, asset::setSHA512);
+			update(hashes::getSHA256, asset::setSHA256);
+			update(hashes::getSHA512, asset::setSHA512);
 		}
 
 		ConsistencyInfo consistency = model.getConsistency();

@@ -9,8 +9,8 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeAll;
 
+import io.metaloom.loom.client.common.LoomClientException;
 import io.metaloom.loom.client.http.LoomHttpClient;
-import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractCRUDEndpointTest;
 import io.metaloom.loom.rest.json.Json;
 import io.metaloom.loom.rest.model.attachment.AttachmentListResponse;
@@ -29,7 +29,7 @@ public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testRead(LoomHttpClient client) throws HttpErrorException {
+	protected void testRead(LoomHttpClient client) throws LoomClientException {
 		AttachmentResponse response = client.loadAttachment(ATTACHMENT_UUID).sync();
 	}
 
@@ -42,12 +42,12 @@ public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testDelete(LoomHttpClient client) throws HttpErrorException {
+	protected void testDelete(LoomHttpClient client) throws LoomClientException {
 		client.deleteAttachment(ATTACHMENT_UUID).sync();
 	}
 
 	@Override
-	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws LoomClientException {
 		AttachmentUpdateRequest request = new AttachmentUpdateRequest();
 		request.setFilename("new_filename.jpg");
 		AttachmentResponse response = client.updateAttachment(ATTACHMENT_UUID, request).sync();

@@ -11,7 +11,7 @@ import io.metaloom.loom.api.options.AuthenticationOptions;
 import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.api.options.ServerOptions;
-import io.metaloom.loom.client.grpc.LoomGRPCClient;
+import io.metaloom.loom.client.common.LoomClient;
 import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.core.dagger.DaggerLoomCoreComponent;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
@@ -33,12 +33,12 @@ public class LoomCoreTestExtension implements BeforeEachCallback, AfterEachCallb
 			.build();
 	}
 
-	public LoomGRPCClient grpcClient() {
-		return LoomGRPCClient.builder()
-			.setHostname("localhost")
-			.setPort(loomInternal.boot().getGrpcService().getServer().actualPort())
-			.build();
-	}
+//	public LoomClient grpcClient() {
+//		return LoomHttpClient.builder()
+//			.setHostname("localhost")
+//			.setPort(loomInternal.boot().getGrpcService().getServer().actualPort())
+//			.build();
+//	}
 
 	@Override
 	public void beforeEach(ExtensionContext context) throws Exception {

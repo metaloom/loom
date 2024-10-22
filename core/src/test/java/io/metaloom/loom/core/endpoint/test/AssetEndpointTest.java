@@ -3,8 +3,8 @@ package io.metaloom.loom.core.endpoint.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import io.metaloom.loom.client.common.LoomClientException;
 import io.metaloom.loom.client.http.LoomHttpClient;
-import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractCRUDEndpointTest;
 import io.metaloom.loom.rest.model.assertj.Assertions;
 import io.metaloom.loom.rest.model.asset.AssetCreateRequest;
@@ -24,7 +24,7 @@ import io.metaloom.utils.hash.SHA512;
 public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 
 	@Override
-	protected void testCreate(LoomHttpClient client) throws HttpErrorException {
+	protected void testCreate(LoomHttpClient client) throws LoomClientException {
 		AssetCreateRequest request = new AssetCreateRequest();
 		request.setMeta(meta());
 
@@ -36,9 +36,9 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 		request.setFile(fileInfo);
 
 		HashInfo hashes = new HashInfo();
-		hashes.setSha256(SHA256SUM);
+		hashes.setSHA256(SHA256SUM);
 		hashes.setMD5(MD5SUM);
-		hashes.setSha512(SHA512SUM);
+		hashes.setSHA512(SHA512SUM);
 		request.setHashes(hashes);
 
 		MediaInfo mediaInfo = new MediaInfo();
@@ -79,19 +79,19 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testRead(LoomHttpClient client) throws HttpErrorException {
+	protected void testRead(LoomHttpClient client) throws LoomClientException {
 		AssetResponse response = client.loadAsset(ASSET_UUID).sync();
 		assertNotNull(response);
 	}
 
 	@Override
-	protected void testDelete(LoomHttpClient client) throws HttpErrorException {
+	protected void testDelete(LoomHttpClient client) throws LoomClientException {
 		client.deleteAsset(ASSET_UUID).sync();
 		expect(404, "Not Found", client.loadAsset(ASSET_UUID));
 	}
 
 	@Override
-	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws LoomClientException {
 		final String NEW_NAME = "the_new_local_path.jpg";
 		AssetUpdateRequest request = new AssetUpdateRequest();
 		request.setFile(new FileInfo().setFilename(NEW_NAME));
@@ -103,7 +103,7 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testReadPage(LoomHttpClient client) throws HttpErrorException {
+	protected void testReadPage(LoomHttpClient client) throws LoomClientException {
 		for (int i = 0; i < 100; i++) {
 			AssetCreateRequest request = new AssetCreateRequest();
 
@@ -114,7 +114,7 @@ public class AssetEndpointTest extends AbstractCRUDEndpointTest {
 			fileInfo.setOrigin(INITIAL_ORIGIN);
 
 			request.setFile(fileInfo);
-			request.setHashes(new HashInfo().setSha512(SHA512.fromString(SHA512SUM.toString() + i)));
+			request.setHashes(new HashInfo().setSHA512(SHA512.fromString(SHA512SUM.toString() + i)));
 			client.createAsset(request).sync();
 		}
 

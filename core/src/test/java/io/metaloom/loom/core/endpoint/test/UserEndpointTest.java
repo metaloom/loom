@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import io.metaloom.loom.api.filter.LoomFilterKey;
 import io.metaloom.loom.api.sort.LoomSortKey;
 import io.metaloom.loom.api.sort.SortDirection;
+import io.metaloom.loom.client.common.LoomClientException;
 import io.metaloom.loom.client.http.LoomHttpClient;
-import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractCRUDEndpointTest;
 import io.metaloom.loom.rest.model.user.UserCreateRequest;
 import io.metaloom.loom.rest.model.user.UserListResponse;
@@ -46,7 +46,7 @@ public class UserEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Test
-	public void testFilterByUsername() throws HttpErrorException {
+	public void testFilterByUsername() throws LoomClientException {
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 
@@ -65,7 +65,7 @@ public class UserEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Test
-	public void testSortByUsername() throws HttpErrorException {
+	public void testSortByUsername() throws LoomClientException {
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 
@@ -88,13 +88,13 @@ public class UserEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testRead(LoomHttpClient client) throws HttpErrorException {
+	protected void testRead(LoomHttpClient client) throws LoomClientException {
 		UserResponse user = client.loadUser(USER_UUID).sync();
 		assertThat(user).isValid();
 	}
 
 	@Override
-	protected void testCreate(LoomHttpClient client) throws HttpErrorException {
+	protected void testCreate(LoomHttpClient client) throws LoomClientException {
 		UserCreateRequest request = new UserCreateRequest();
 		request.setUsername("dummy username");
 		UserResponse user = client.createUser(request).sync();
@@ -105,13 +105,13 @@ public class UserEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Override
-	protected void testDelete(LoomHttpClient client) throws HttpErrorException {
+	protected void testDelete(LoomHttpClient client) throws LoomClientException {
 		client.deleteUser(USER_UUID).sync();
 		expect(404, "Not Found", client.loadUser(USER_UUID));
 	}
 
 	@Override
-	protected void testUpdate(LoomHttpClient client) throws HttpErrorException {
+	protected void testUpdate(LoomHttpClient client) throws LoomClientException {
 		UserUpdateRequest update = new UserUpdateRequest();
 		update.setUsername("updated-username");
 		UserResponse response = client.updateUser(USER_UUID, update).sync();
@@ -119,7 +119,7 @@ public class UserEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Test
-	protected void testUpdateDeletedUser() throws HttpErrorException {
+	protected void testUpdateDeletedUser() throws LoomClientException {
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 
@@ -133,14 +133,14 @@ public class UserEndpointTest extends AbstractCRUDEndpointTest {
 			try {
 				client.updateUser(USER_UUID, update).sync();
 				fail("The request should have failed.");
-			} catch (HttpErrorException e) {
+			} catch (LoomClientException e) {
 				assertEquals("Request failed {Not Found}", e.getMessage());
 			}
 		}
 	}
 
 	@Override
-	protected void testReadPage(LoomHttpClient client) throws HttpErrorException {
+	protected void testReadPage(LoomHttpClient client) throws LoomClientException {
 		for (int i = 0; i < 100; i++) {
 			UserCreateRequest request = new UserCreateRequest();
 			request.setUsername("user_" + i);
@@ -156,7 +156,7 @@ public class UserEndpointTest extends AbstractCRUDEndpointTest {
 	}
 
 	@Test
-	public void testReadPageWithDeletedUsers() throws HttpErrorException {
+	public void testReadPageWithDeletedUsers() throws LoomClientException {
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 			for (int i = 0; i < 10; i++) {

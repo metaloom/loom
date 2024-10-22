@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import io.metaloom.loom.client.http.LoomClientRequest;
+import io.metaloom.loom.client.common.LoomClientException;
+import io.metaloom.loom.client.common.LoomClientRequest;
 import io.metaloom.loom.client.http.LoomHttpClient;
-import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.LoomCoreTestExtension;
 import io.metaloom.loom.db.model.perm.Permission;
 import io.metaloom.loom.rest.model.auth.AuthLoginResponse;
@@ -24,7 +24,7 @@ public abstract class AbstractEndpointTest implements EndpointTest {
 		return loom.httpClient();
 	}
 
-	public void loginAdmin(LoomHttpClient client) throws HttpErrorException {
+	public void loginAdmin(LoomHttpClient client) throws LoomClientException {
 		AuthLoginResponse loginResponse = client.login("admin", "finger").sync();
 		client.setToken(loginResponse.getToken());
 	}
@@ -40,7 +40,7 @@ public abstract class AbstractEndpointTest implements EndpointTest {
 		try {
 			request.sync();
 			fail("The request should have failed with code " + statusCode + " and msg " + statusMsg + " but it succeeded.");
-		} catch (HttpErrorException e) {
+		} catch (LoomClientException e) {
 			assertEquals(statusCode, e.getStatusCode(), "The status code did not match");
 			assertEquals(statusMsg, e.getStatusMsg(), "The status message did not match up");
 			// TODO assert body

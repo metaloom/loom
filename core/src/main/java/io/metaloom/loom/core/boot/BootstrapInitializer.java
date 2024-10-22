@@ -11,14 +11,13 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.auth.AuthenticationService;
 import io.metaloom.loom.rest.RESTService;
-import io.metaloom.loom.server.grpc.GrpcService;
 
 @Singleton
 public class BootstrapInitializer {
 
 	public static final Logger log = LoggerFactory.getLogger(BootstrapInitializer.class);
 
-	private final GrpcService grpcService;
+	// private final GrpcService grpcService;
 
 	private final RESTService restService;
 
@@ -27,8 +26,7 @@ public class BootstrapInitializer {
 	private final Flyway flyway;
 
 	@Inject
-	public BootstrapInitializer(GrpcService grpcService, RESTService restService, AuthenticationService authService, Flyway flyway) {
-		this.grpcService = grpcService;
+	public BootstrapInitializer(RESTService restService, AuthenticationService authService, Flyway flyway) {
 		this.restService = restService;
 		this.authService = authService;
 		this.flyway = flyway;
@@ -44,18 +42,18 @@ public class BootstrapInitializer {
 			}
 		}
 
-//		try {
-//			authService.init();
-//		} catch (Exception e) {
-//			throw new RuntimeException("Error while initializing the authentication service", e);
-//		}
+		// try {
+		// authService.init();
+		// } catch (Exception e) {
+		// throw new RuntimeException("Error while initializing the authentication service", e);
+		// }
 
-		try {
-			log.info("Starting gRPC service");
-			grpcService.start();
-		} catch (Exception e) {
-			throw new RuntimeException("Error while starting gRPC service", e);
-		}
+		// try {
+		// log.info("Starting gRPC service");
+		// grpcService.start();
+		// } catch (Exception e) {
+		// throw new RuntimeException("Error while starting gRPC service", e);
+		// }
 
 		try {
 			log.info("Starting REST service");
@@ -69,12 +67,12 @@ public class BootstrapInitializer {
 		return restService;
 	}
 
-	public GrpcService getGrpcService() {
-		return grpcService;
-	}
+	// public GrpcService getGrpcService() {
+	// return grpcService;
+	// }
 
 	public void deinit() {
-		grpcService.stop();
+		// grpcService.stop();
 		restService.stop();
 	}
 }

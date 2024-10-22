@@ -47,10 +47,12 @@
     </dependency>
 
     <!-- Needed services -->
+    <!--
     <dependency>
       <groupId>io.metaloom.loom.service</groupId>
       <artifactId>loom-service-grpc</artifactId>
     </dependency>
+    -->
     <dependency>
       <groupId>io.metaloom.loom.service</groupId>
       <artifactId>loom-service-rest</artifactId>
@@ -91,11 +93,13 @@
       <artifactId>loom-client-rest</artifactId>
       <scope>test</scope>
     </dependency>
+    <!--
     <dependency>
       <groupId>io.metaloom.loom.client</groupId>
       <artifactId>loom-client-grpc</artifactId>
       <scope>test</scope>
     </dependency>
+    -->
   </dependencies>
 
   <build>

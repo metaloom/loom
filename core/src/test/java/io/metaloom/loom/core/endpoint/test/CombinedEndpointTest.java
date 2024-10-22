@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 import io.metaloom.loom.api.annotation.AnnotationType;
 import io.metaloom.loom.api.embedding.EmbeddingType;
 import io.metaloom.loom.api.reaction.ReactionType;
+import io.metaloom.loom.client.common.LoomClientException;
 import io.metaloom.loom.client.http.LoomHttpClient;
-import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractEndpointTest;
 import io.metaloom.loom.rest.model.annotation.AnnotationCreateRequest;
 import io.metaloom.loom.rest.model.annotation.AnnotationResponse;
@@ -47,7 +47,7 @@ import io.vertx.core.json.JsonObject;
 public class CombinedEndpointTest extends AbstractEndpointTest {
 
 	@Test
-	public void testBasics() throws HttpErrorException, FileNotFoundException, IOException {
+	public void testBasics() throws LoomClientException, FileNotFoundException, IOException {
 		TestDataCollection env = TestEnvHelper.prepareTestdata("combined");
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);

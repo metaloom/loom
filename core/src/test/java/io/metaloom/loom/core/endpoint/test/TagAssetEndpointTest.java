@@ -4,8 +4,8 @@ import static io.metaloom.loom.rest.model.assertj.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
+import io.metaloom.loom.client.common.LoomClientException;
 import io.metaloom.loom.client.http.LoomHttpClient;
-import io.metaloom.loom.client.http.impl.HttpErrorException;
 import io.metaloom.loom.core.endpoint.AbstractEndpointTest;
 import io.metaloom.loom.rest.model.asset.AssetResponse;
 import io.metaloom.loom.rest.model.tag.TagCreateRequest;
@@ -15,7 +15,7 @@ import io.vertx.core.json.JsonObject;
 public class TagAssetEndpointTest extends AbstractEndpointTest {
 
 	@Test
-	public void testTagAsset() throws HttpErrorException {
+	public void testTagAsset() throws LoomClientException {
 		try (LoomHttpClient client = loom.httpClient()) {
 			loginAdmin(client);
 
