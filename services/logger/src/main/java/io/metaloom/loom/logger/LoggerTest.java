@@ -1,11 +1,11 @@
 package io.metaloom.loom.logger;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LoggerTest {
 
-	public static final Logger logger = LogManager.getLogger(LoggerTest.class);
+	public static final Logger logger = LoggerFactory.getLogger(LoggerTest.class);
 
 	public static void main(String[] args) {
 		logger.error("Test Error");
