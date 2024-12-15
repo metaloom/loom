@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.BindsInstance;
 import dagger.Component;
 import io.metaloom.loom.api.options.LoomOptions;
+import io.metaloom.loom.api.options.LoomOptionsLookup;
 import io.metaloom.loom.auth.AuthenticationService;
 import io.metaloom.loom.auth.jwt.AuthModule;
 import io.metaloom.loom.common.dagger.LoomModule;
@@ -23,7 +24,8 @@ import io.metaloom.loom.rest.dagger.RESTModule;
  * Central dagger loom component.
  */
 @Singleton
-@Component(modules = { VertxModule.class,
+@Component(modules = {
+	VertxModule.class,
 	LoomModule.class,
 	AuthModule.class,
 	AuthBindModule.class,
@@ -53,7 +55,7 @@ public interface LoomCoreComponent {
 		 * @return
 		 */
 		@BindsInstance
-		Builder configuration(LoomOptions options);
+		Builder configuration(LoomOptionsLookup lookup);
 
 		/**
 		 * Build the component.

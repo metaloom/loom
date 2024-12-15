@@ -5,6 +5,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.api.options.LoomOptions;
+import io.metaloom.loom.api.options.LoomOptionsLookup;
 import io.metaloom.loom.db.model.perm.Permission;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
@@ -27,7 +28,8 @@ public class VertxPermTest {
 		// Authenticate
 		LoomOptions options = new LoomOptions();
 		options.getAuth().setKeystorePassword("ABCD");
-		JWTAuth jwtAuth = new AuthModule().jwtAuthProvider(vertx, options);
+		LoomOptionsLookup lookup = new LoomOptionsLookup(null, options);
+		JWTAuth jwtAuth = new AuthModule().jwtAuthProvider(vertx, lookup);
 
 		AuthorizationProvider authProvider = JWTAuthorization.create("claim");
 

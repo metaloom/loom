@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.Loom;
-import io.metaloom.loom.api.options.LoomOptions;
+import io.metaloom.loom.api.options.LoomOptionsLookup;
 import io.metaloom.loom.core.dagger.DaggerLoomCoreComponent;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
 import io.vertx.core.http.HttpServer;
@@ -16,7 +16,7 @@ public class LoomImpl implements Loom {
 
 	private static final Logger log = LoggerFactory.getLogger(LoomImpl.class);
 
-	private LoomOptions options;
+	private LoomOptionsLookup optionsLookup;
 
 	private boolean shutdown = true;
 
@@ -24,8 +24,8 @@ public class LoomImpl implements Loom {
 
 	private LoomCoreComponent loomInternal;
 
-	public LoomImpl(LoomOptions options) {
-		this.options = options;
+	public LoomImpl(LoomOptionsLookup optionsLookup) {
+		this.optionsLookup = optionsLookup;
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class LoomImpl implements Loom {
 			printProductInformation();
 			log.info("Starting loom...");
 			shutdown = false;
-			loomInternal = DaggerLoomCoreComponent.builder().configuration(options).build();
+			loomInternal = DaggerLoomCoreComponent.builder().configuration(optionsLookup).build();
 			loomInternal.boot().init(true);
 		} catch (Exception e) {
 			log.error("Error while starting loom", e);

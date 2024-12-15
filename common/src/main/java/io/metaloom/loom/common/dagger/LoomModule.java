@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.api.options.LoomOptions;
+import io.metaloom.loom.api.options.LoomOptionsLookup;
 
 @Module
 public class LoomModule {
@@ -15,4 +16,11 @@ public class LoomModule {
 	public DatabaseOptions databaseOptions(LoomOptions options) {
 		return options.getDatabase();
 	}
+
+	@Provides
+	@Singleton
+	public LoomOptions loomOptions(LoomOptionsLookup lookup) {
+		return lookup.options();
+	}
+
 }

@@ -1,11 +1,14 @@
 package io.metaloom.loom.core.db;
 
+import java.io.File;
+
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.output.MigrateResult;
 import org.junit.jupiter.api.Test;
 
 import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.api.options.LoomOptions;
+import io.metaloom.loom.api.options.LoomOptionsLookup;
 import io.metaloom.loom.core.dagger.DaggerLoomCoreComponent;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
 import io.metaloom.loom.core.db.fixture.TestFixtureProvider;
@@ -54,7 +57,10 @@ public class PoolSetupActionTest {
 		dbOptions.setPassword(config.getPostgresql().getPassword());
 		dbOptions.setUsername(config.getPostgresql().getUsername());
 
-		LoomCoreComponent component = DaggerLoomCoreComponent.builder().configuration(loomOptions).build();
+		// TODO randomize config folder to avoid collisions
+		File baseFolder = new File("target", "test-config");
+		LoomOptionsLookup loomOptionsLookup = new LoomOptionsLookup(baseFolder, loomOptions);
+		LoomCoreComponent component = DaggerLoomCoreComponent.builder().configuration(loomOptionsLookup).build();
 		TestFixtureProvider provider = new TestFixtureProvider(component);
 		provider.setup();
 

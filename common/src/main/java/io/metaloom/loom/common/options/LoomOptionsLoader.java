@@ -1,6 +1,7 @@
 package io.metaloom.loom.common.options;
 
-import static io.metaloom.loom.api.LoomEnv.CONFIG_FOLDERNAME;
+import static io.metaloom.loom.api.LoomEnv.HOME_CONFIG_PATH;
+import static io.metaloom.loom.api.LoomEnv.*;
 import static io.metaloom.loom.api.LoomEnv.LOOM_CONF_FILENAME;
 
 import java.io.File;
@@ -8,6 +9,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -19,7 +24,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import io.metaloom.loom.api.Loom;
+import io.metaloom.loom.api.LoomEnv;
 import io.metaloom.loom.api.options.LoomOptions;
+import io.metaloom.loom.api.options.LoomOptionsLookup;
 import io.metaloom.utils.StringUtils;
 
 public final class LoomOptionsLoader {
@@ -43,69 +50,84 @@ public final class LoomOptionsLoader {
 		return mapper;
 	}
 
-	public static LoomOptions createOrLoadOptions() {
-		LoomOptions options = loadLoomOptions();
+	public static LoomOptionsLookup createOrLoadOptions() {
+		LoomOptionsLookup lookup = loadLoomOptions();
 		// applyNonYamlProperties(defaultOption, options);
 		// applyEnvironmentVariables(options);
 		// applyCommandLineArgs(options, args);
-		options.validate();
-		return options;
+		lookup.options().validate();
+		return lookup;
 	}
 
 	/**
 	 * Try to load the loom options from different locations (config folder). Otherwise a default configuration will be generated.
 	 * 
-	 * @param defaultOption
-	 * 
 	 * @return
 	 */
-	private static LoomOptions loadLoomOptions() {
+	private static LoomOptionsLookup loadLoomOptions() {
 
-		File confFile = new File(CONFIG_FOLDERNAME, LOOM_CONF_FILENAME);
+		// Lookup order to local files
+		List<Path> configLookupOrder = List.of(LOCAL_ETC_PATH, HOME_CONFIG_PATH, LOCAL_CONFIG_PATH);
+		for (Path confPath : configLookupOrder) {
+			Optional<LoomOptions> etcConf = loadFromPath(confPath);
+			if (etcConf.isPresent()) {
+				LoomOptions options = etcConf.get();
+				File baseFolder = confPath.toFile().getParentFile().getAbsoluteFile();
+				return new LoomOptionsLookup(baseFolder, options);
+			}
+		}
+
+		// Try to load from classpath
 		LoomOptions options = null;
 		InputStream ins = Loom.class.getResourceAsStream("/" + LOOM_CONF_FILENAME);
-		// 1. Try to load from classpath
 		if (ins != null) {
 			log.info("Loading configuration file from classpath.");
 			options = loadConfiguration(ins);
 			if (options != null) {
-				return options;
+				return new LoomOptionsLookup(null, options);
 			} else {
 				throw new RuntimeException("Could not read configuration file");
 			}
 		} else {
 			log.info("Configuration file {" + LOOM_CONF_FILENAME + "} was not found within classpath.");
 		}
-		// 2. Try to use config file
-		if (confFile.exists()) {
+
+		ObjectMapper mapper = getYAMLMapper();
+		File localConfigFile = LoomEnv.LOCAL_CONFIG_PATH.toFile();
+		File parentFolder = localConfigFile.getParentFile();
+		try {
+			if (!parentFolder.exists() && !parentFolder.mkdirs()) {
+				throw new RuntimeException("Failed to create config folder " + localConfigFile.getParentFile().getAbsolutePath());
+			}
+			// Generate default config
+			options = generateDefaultConfig();
+			FileUtils.writeStringToFile(localConfigFile, mapper.writeValueAsString(options), StandardCharsets.UTF_8, false);
+			log.info("Saved default configuration to file {}.", localConfigFile.getAbsolutePath());
+		} catch (IOException e) {
+			log.error("Error while saving default configuration to file {" + localConfigFile.getAbsolutePath() + "}.", e);
+		}
+		// No luck - use default config
+		log.info("Loading default configuration.");
+		return new LoomOptionsLookup(LoomEnv.LOCAL_CONFIG_PATH.toFile().getParentFile().getAbsoluteFile(), options);
+
+	}
+
+	private static Optional<LoomOptions> loadFromPath(Path confPath) {
+		if (Files.exists(confPath)) {
 			try {
-				log.info("Loading configuration file {" + confFile + "}.");
-				try (FileInputStream fis = new FileInputStream(confFile)) {
+				log.info("Loading configuration file {" + confPath + "}.");
+				try (FileInputStream fis = new FileInputStream(confPath.toFile())) {
 					LoomOptions configuration = loadConfiguration(fis);
-					if (configuration != null) {
-						return configuration;
-					}
+					return Optional.ofNullable(configuration);
 				}
 			} catch (IOException e) {
-				log.error("Could not load configuration file {" + confFile.getAbsolutePath() + "}.", e);
+				log.error("Could not load configuration file {" + confPath + "}.", e);
 			}
+			return Optional.empty();
 		} else {
-			log.info("Configuration file {" + CONFIG_FOLDERNAME + "/" + LOOM_CONF_FILENAME + "} was not found within filesystem.");
-
-			ObjectMapper mapper = getYAMLMapper();
-			try {
-				// Generate default config
-				options = generateDefaultConfig();
-				FileUtils.writeStringToFile(confFile, mapper.writeValueAsString(options), StandardCharsets.UTF_8, false);
-				log.info("Saved default configuration to file {" + confFile.getAbsolutePath() + "}.");
-			} catch (IOException e) {
-				log.error("Error while saving default configuration to file {" + confFile.getAbsolutePath() + "}.", e);
-			}
+			log.info("No config found at {}", confPath);
+			return Optional.empty();
 		}
-		// 2. No luck - use default config
-		log.info("Loading default configuration.");
-		return options;
-
 	}
 
 	/**

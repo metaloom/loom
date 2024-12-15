@@ -1,5 +1,6 @@
 package io.metaloom.loom.core;
 
+import java.io.File;
 import java.time.Duration;
 
 import org.junit.jupiter.api.extension.AfterEachCallback;
@@ -10,8 +11,8 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import io.metaloom.loom.api.options.AuthenticationOptions;
 import io.metaloom.loom.api.options.DatabaseOptions;
 import io.metaloom.loom.api.options.LoomOptions;
+import io.metaloom.loom.api.options.LoomOptionsLookup;
 import io.metaloom.loom.api.options.ServerOptions;
-import io.metaloom.loom.client.common.LoomClient;
 import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.core.dagger.DaggerLoomCoreComponent;
 import io.metaloom.loom.core.dagger.LoomCoreComponent;
@@ -33,12 +34,12 @@ public class LoomCoreTestExtension implements BeforeEachCallback, AfterEachCallb
 			.build();
 	}
 
-//	public LoomClient grpcClient() {
-//		return LoomHttpClient.builder()
-//			.setHostname("localhost")
-//			.setPort(loomInternal.boot().getGrpcService().getServer().actualPort())
-//			.build();
-//	}
+	// public LoomClient grpcClient() {
+	// return LoomHttpClient.builder()
+	// .setHostname("localhost")
+	// .setPort(loomInternal.boot().getGrpcService().getServer().actualPort())
+	// .build();
+	// }
 
 	@Override
 	public void beforeEach(ExtensionContext context) throws Exception {
@@ -65,21 +66,21 @@ public class LoomCoreTestExtension implements BeforeEachCallback, AfterEachCallb
 		AuthenticationOptions authOptions = options.getAuth();
 		authOptions.setKeystorePassword("ABCD");
 		// TODO use tempfile to avoid collisions
-		authOptions.setKeystorePath("target/keystore.jceks");
-
-		loomInternal = DaggerLoomCoreComponent.builder().configuration(options).build();
+		File baseFolder = new File("target", "test-config");
+		LoomOptionsLookup optionsLookup = new LoomOptionsLookup(baseFolder,  options);
+		loomInternal = DaggerLoomCoreComponent.builder().configuration(optionsLookup).build();
 		loomInternal.boot().init(false);
 
 	}
 
 	@Override
 	public void afterEach(ExtensionContext context) throws Exception {
-		//ext.afterEach(context);
+		// ext.afterEach(context);
 		if (loomInternal != null) {
 			loomInternal.boot().deinit();
 		}
 	}
-	
+
 	public LoomCoreComponent internal() {
 		return loomInternal;
 	}
