@@ -48,13 +48,6 @@ public class BootstrapInitializer {
 		// throw new RuntimeException("Error while initializing the authentication service", e);
 		// }
 
-		// try {
-		// log.info("Starting gRPC service");
-		// grpcService.start();
-		// } catch (Exception e) {
-		// throw new RuntimeException("Error while starting gRPC service", e);
-		// }
-
 		try {
 			log.info("Starting REST service");
 			restService.start();
@@ -67,12 +60,7 @@ public class BootstrapInitializer {
 		return restService;
 	}
 
-	// public GrpcService getGrpcService() {
-	// return grpcService;
-	// }
-
 	public void deinit() {
-		// grpcService.stop();
 		restService.stop();
 	}
 }

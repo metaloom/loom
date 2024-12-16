@@ -4,7 +4,6 @@ import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import io.metaloom.loom.api.options.LoomOptions;
 import io.metaloom.loom.api.options.LoomOptionsLookup;
 import io.metaloom.loom.auth.AuthenticationService;
 import io.metaloom.loom.auth.jwt.AuthModule;

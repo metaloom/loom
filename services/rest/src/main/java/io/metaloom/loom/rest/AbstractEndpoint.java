@@ -4,8 +4,13 @@ import static io.metaloom.loom.rest.HTTPConstants.APPLICATION_JSON;
 import static io.metaloom.vertx.route.request.impl.RequestImpl.request;
 import static io.metaloom.vertx.route.response.impl.ResponseImpl.response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.metaloom.loom.rest.dagger.RestComponent;
 import io.metaloom.loom.rest.endpoint.RESTEndpoint;
+import io.metaloom.loom.rest.json.LoomJson;
+import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.example.Example;
 import io.metaloom.loom.rest.parameter.QueryParameterKey;
@@ -17,6 +22,8 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.Json;
 
 public abstract class AbstractEndpoint implements RESTEndpoint {
+
+	private static final Logger log = LoggerFactory.getLogger(AbstractEndpoint.class);
 
 	private EndpointDependencies deps;
 
@@ -61,11 +68,19 @@ public abstract class AbstractEndpoint implements RESTEndpoint {
 
 		if (responseExample != null) {
 			if (responseExample.body() != null) {
+				RestModel body = responseExample.body();
 				route.produces(APPLICATION_JSON);
-				route.exampleResponse(responseExample.code(),
-					response(APPLICATION_JSON)
-						.body(Json.encode(responseExample.body()))
-						.description(responseExample.description()));
+				try {
+					String json = LoomJson.encode(body);
+					route.exampleResponse(responseExample.code(),
+						response(APPLICATION_JSON)
+							.body(json)
+							.description(responseExample.description()));
+				} catch (Exception e) {
+					log.error("Failed to construct response example for endpoint {} {} of type {}", path, method,
+						body != null ? body.getClass().getName() : "null");
+					log.error("Failed to setup example", e);
+				}
 			} else {
 				// NO CONTENT Response
 				route.exampleResponse(responseExample.code(),

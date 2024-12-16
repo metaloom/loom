@@ -13,7 +13,7 @@ import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.auth.LoomAuthorizationProvider;
 import io.metaloom.loom.auth.LoomUser;
 import io.metaloom.loom.db.model.perm.Permission;
-import io.metaloom.loom.rest.json.Json;
+import io.metaloom.loom.rest.json.LoomJson;
 import io.metaloom.loom.rest.model.RestRequestModel;
 import io.metaloom.loom.rest.model.RestResponseModel;
 import io.metaloom.loom.rest.model.message.GenericMessageResponse;
@@ -41,7 +41,7 @@ public class LoomRoutingContext {
 	}
 
 	public <T extends RestRequestModel> T requestBody(Class<T> clazz) {
-		T model = Json.parse(rc.body().buffer(), clazz);
+		T model = LoomJson.parse(rc.body().buffer(), clazz);
 		return model;
 	}
 
@@ -51,7 +51,7 @@ public class LoomRoutingContext {
 
 	public void send(RestResponseModel<?> response, int statusCode) {
 		rc.response().headers().set(HttpHeaders.CONTENT_TYPE, HTTPConstants.APPLICATION_JSON);
-		rc.response().setStatusCode(statusCode).end(Json.encodeToBuffer(response));
+		rc.response().setStatusCode(statusCode).end(LoomJson.encodeToBuffer(response));
 	}
 
 	public void sendText(String body, String mimeType, int code) {

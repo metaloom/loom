@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeAll;
 import io.metaloom.loom.client.common.LoomClientException;
 import io.metaloom.loom.client.http.LoomHttpClient;
 import io.metaloom.loom.core.endpoint.AbstractCRUDEndpointTest;
-import io.metaloom.loom.rest.json.Json;
+import io.metaloom.loom.rest.json.LoomJson;
 import io.metaloom.loom.rest.model.attachment.AttachmentListResponse;
 import io.metaloom.loom.rest.model.attachment.AttachmentResponse;
 import io.metaloom.loom.rest.model.attachment.AttachmentUpdateRequest;
@@ -63,7 +63,7 @@ public class AttachmentEndpointTest extends AbstractCRUDEndpointTest {
 			}
 		}
 		AttachmentListResponse list = client.listAttachments().sync();
-		System.out.println(Json.parse(list));
+		System.out.println(LoomJson.encode(list));
 
 	}
 

@@ -22,7 +22,7 @@ import io.metaloom.loom.db.model.user.User;
 import io.metaloom.loom.db.model.user.UserDao;
 import io.metaloom.loom.db.page.Page;
 import io.metaloom.loom.rest.builder.impl.LoomModelBuilderImpl;
-import io.metaloom.loom.rest.json.Json;
+import io.metaloom.loom.rest.json.LoomJson;
 import io.metaloom.loom.rest.model.RestModel;
 import io.metaloom.loom.rest.validation.LoomModelValidator;
 import io.metaloom.loom.rest.validation.impl.LoomModelValidatorImpl;
@@ -46,7 +46,7 @@ public abstract class AbstractModelBuilderTest implements TestValues {
 	}
 
 	public void assertWithModel(RestModel model, String modelName) throws IOException {
-		String json = Json.parse(model);
+		String json = LoomJson.encode(model);
 		assertWithModel(json, modelName);
 	}
 

@@ -14,7 +14,7 @@ public class SplashTextProvider {
 			|______|\\___/  \\___/ |_| |_| |_|
 			
 			Version v""" + LoomVersion.getBuildInfo() + "\n\n" +
-			"made in Vienna by MetaLoom";
+			"Made in Vienna by MetaLoom";
 
 	}
 
