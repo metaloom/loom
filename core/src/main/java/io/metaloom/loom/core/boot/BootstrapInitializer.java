@@ -25,11 +25,14 @@ public class BootstrapInitializer {
 
 	private final Flyway flyway;
 
+	private final DatabaseInitializer initializer;
+
 	@Inject
-	public BootstrapInitializer(RESTService restService, AuthenticationService authService, Flyway flyway) {
+	public BootstrapInitializer(RESTService restService, AuthenticationService authService, Flyway flyway, DatabaseInitializer initializer) {
 		this.restService = restService;
 		this.authService = authService;
 		this.flyway = flyway;
+		this.initializer = initializer;
 	}
 
 	public void init(boolean migrate) throws IOException {
@@ -40,6 +43,13 @@ public class BootstrapInitializer {
 			} catch (Exception e) {
 				throw new RuntimeException("Error while invoking database migration", e);
 			}
+		}
+
+		try {
+			log.info("Invoking database initializer");
+			initializer.init();
+		} catch (Exception e) {
+			throw new RuntimeException("Error while initializing database", e);
 		}
 
 		// try {

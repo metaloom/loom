@@ -1,5 +1,7 @@
 package io.metaloom.loom.db.jooq.dao.role;
 
+import static io.metaloom.loom.db.jooq.tables.JooqRole.ROLE;
+
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -43,6 +45,13 @@ public class RoleDaoImpl extends AbstractJooqDao<Role> implements RoleDao {
 		role.setName(name);
 		setCreatorEditor(role, creatorUuid);
 		return role;
+	}
+
+	@Override
+	public Role loadByName(String name) {
+		return ctx().selectFrom(ROLE)
+			.where(ROLE.NAME.equal(name))
+			.fetchOneInto(Role.class);
 	}
 
 }

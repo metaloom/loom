@@ -31,4 +31,12 @@ public interface GroupDao extends CRUDDao<Group> {
 
 	void testMultiOp();
 
+	/**
+	 * Load the group by its name.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	Group loadByName(String name);
+
 }

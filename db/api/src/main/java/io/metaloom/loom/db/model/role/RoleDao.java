@@ -15,4 +15,12 @@ public interface RoleDao extends CRUDDao<Role> {
 	 */
 	Role createRole(UUID creatorUuid, String name);
 
+	/**
+	 * Load the role by name.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	Role loadByName(String name);
+
 }

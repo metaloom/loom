@@ -69,7 +69,7 @@ public class UserDaoImpl extends AbstractJooqDao<User> implements UserDao, JooqD
 	}
 
 	@Override
-	public User loadUserByUsername(String username) {
+	public User loadByUsername(String username) {
 		return ctx().selectFrom(USER)
 			.where(USER.USERNAME.equal(username).and(JooqUser.USER.DELETED.eq(false)))
 			.fetchOneInto(User.class);

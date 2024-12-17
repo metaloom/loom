@@ -46,6 +46,14 @@ public class GroupDaoImpl extends AbstractJooqDao<Group> implements GroupDao {
 		return JooqGroup.GROUP;
 	}
 
+	@Override
+	public Group loadByName(String name) {
+		return ctx().selectFrom(GROUP)
+			.where(GROUP.NAME.equal(name))
+			.fetchOneInto(Group.class);
+		// .and(JooqGroup.GROUP.DELETED.eq(false)
+	}
+
 	// @Override
 	// public Completable addUserToGroup(Group group, LoomUser user) {
 	// Completable result = Completable.create(sub -> {

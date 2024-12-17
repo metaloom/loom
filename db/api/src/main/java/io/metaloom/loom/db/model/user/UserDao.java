@@ -25,6 +25,6 @@ public interface UserDao extends CRUDDao<User> {
 	 * @param username
 	 * @return
 	 */
-	User loadUserByUsername(String username);
+	User loadByUsername(String username);
 
 }

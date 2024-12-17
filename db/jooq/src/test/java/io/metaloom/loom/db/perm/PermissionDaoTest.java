@@ -15,7 +15,7 @@ public class PermissionDaoTest extends AbstractJooqTest {
 
 	@Test
 	public void testLoadUserPerms() {
-		User user = userDao().loadUserByUsername("admin");
+		User user = userDao().loadByUsername("admin");
 		UUID userUuid = user.getUuid();
 		ResourcePermissionSet perms = permissionDao().loadPermissionsForUser(userUuid);
 		assertNotNull(perms);

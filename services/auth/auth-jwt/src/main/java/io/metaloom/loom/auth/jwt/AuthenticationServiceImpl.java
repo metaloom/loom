@@ -50,7 +50,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public User login(String username, String password) {
-		User user = userDao.loadUserByUsername(username);
+		User user = userDao.loadByUsername(username);
 		if (user == null) {
 			return null;
 		}

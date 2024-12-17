@@ -10,7 +10,7 @@ import io.metaloom.utils.UUIDUtils;
 public class MemUsersDaoImpl extends AbstractMemDao<User> implements UserDao {
 
 	@Override
-	public User loadUserByUsername(String username) {
+	public User loadByUsername(String username) {
 		return storage.values().stream().filter(u -> u.getUsername().equals(username)).findFirst().get();
 	}
 
