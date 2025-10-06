@@ -8,9 +8,7 @@ import javax.inject.Singleton;
 import io.metaloom.loom.db.model.perm.PermissionDao;
 import io.metaloom.loom.db.model.perm.ResourcePermission;
 import io.metaloom.loom.db.model.perm.ResourcePermissionSet;
-import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
-import io.vertx.core.Handler;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authorization.Authorization;
 import io.vertx.ext.auth.authorization.AuthorizationProvider;
@@ -39,12 +37,6 @@ public class LoomAuthorizationProvider implements AuthorizationProvider {
 	}
 
 	@Override
-	public void getAuthorizations(User user, Handler<AsyncResult<Void>> handler) {
-		getAuthorizations(user)
-			.onComplete(handler);
-	}
-
-	@Override
 	public Future<Void> getAuthorizations(User user) {
 		String userUuidStr = user.get(USER_UUID_CLAIM);
 		if (userUuidStr == null) {
@@ -57,7 +49,7 @@ public class LoomAuthorizationProvider implements AuthorizationProvider {
 
 		for (ResourcePermission perm : cachedPerms) {
 			Authorization authorization = PermissionBasedAuthorization.create(perm.getPermission());
-			user.authorizations().add(getId(), authorization);
+			user.authorizations().put(getId(), authorization);
 		}
 		return Future.succeededFuture();
 	}

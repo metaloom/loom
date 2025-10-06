@@ -43,10 +43,9 @@ public class VertxPermTest {
 		// Authorize
 		// PermissionBasedAuthorization perm1 = PermissionBasedAuthorization.create(Permissions.CREATE_ASSET.name());
 		// user.authorizations().add("test", perm1);
-		Set<Authorization> auths = user.authorizations().get("test");
-		for (Authorization auth : auths) {
+		user.authorizations().forEach("test", auth -> {
 			System.out.println("Auth " + auth);
-		}
+		});
 		authProvider.getAuthorizations(user)
 			.onSuccess(done -> {
 				// cache is populated, perform query

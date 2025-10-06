@@ -1,11 +1,11 @@
 package io.metaloom.loom.auth;
 
+import java.security.AuthProvider;
 import java.util.UUID;
 
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.json.JsonObject;
-import io.vertx.ext.auth.AuthProvider;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.auth.authorization.Authorization;
 
@@ -23,18 +23,8 @@ public class LoomUser implements User {
 	}
 
 	@Override
-	public User isAuthorized(Authorization authority, Handler<AsyncResult<Boolean>> resultHandler) {
-		return delegate.isAuthorized(authority, resultHandler);
-	}
-
-	@Override
 	public JsonObject principal() {
 		return delegate.principal();
-	}
-
-	@Override
-	public void setAuthProvider(AuthProvider authProvider) {
-		delegate.setAuthProvider(authProvider);
 	}
 
 	@Override

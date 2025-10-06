@@ -39,13 +39,6 @@
       <artifactId>loom-db-jooq</artifactId>
     </dependency>
 
-    <!-- Vert.x -->
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-io_uring-incubator</artifactId>
-      <version>${vertx.version}</version>
-    </dependency>
-
     <!-- Needed services -->
     <!--
     <dependency>
