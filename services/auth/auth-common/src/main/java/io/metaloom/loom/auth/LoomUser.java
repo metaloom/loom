@@ -1,13 +1,9 @@
 package io.metaloom.loom.auth;
 
-import java.security.AuthProvider;
 import java.util.UUID;
 
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.User;
-import io.vertx.ext.auth.authorization.Authorization;
 
 public class LoomUser implements User {
 
