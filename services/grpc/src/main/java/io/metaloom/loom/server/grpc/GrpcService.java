@@ -1,7 +1,5 @@
 package io.metaloom.loom.server.grpc;
 
-import java.util.concurrent.CompletableFuture;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -13,6 +11,7 @@ import io.metaloom.loom.common.service.AbstractService;
 import io.metaloom.loom.proto.AssetLoaderGrpc;
 import io.metaloom.loom.proto.AssetRequest;
 import io.metaloom.loom.proto.AssetResponse;
+import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
@@ -56,13 +55,11 @@ public class GrpcService extends AbstractService {
 			.setHost("localhost")).requestHandler(jwtServer);
 
 		log.info("Starting server");
-		CompletableFuture<Void> fut = new CompletableFuture<>();
-		server.listen(srv -> {
-			log.info("Server started and listening on port " + srv.result()
-				.actualPort());
-			fut.complete(null);
-		});
-		fut.join();
+
+		Future<HttpServer> fut = server.listen();
+		HttpServer srv = fut.await();
+		log.info("Server started and listening on port " + srv
+			.actualPort());
 	}
 
 	public HttpServer getServer() {

@@ -120,6 +120,8 @@ public class GroupDaoImpl extends AbstractJooqDao<Group> implements GroupDao {
 		ctx().insertInto(ROLE_GROUP,
 			ROLE_GROUP.ROLE_UUID, ROLE_GROUP.GROUP_UUID)
 			.values(role.getUuid(), group.getUuid())
+			.onConflict(ROLE_GROUP.ROLE_UUID, ROLE_GROUP.GROUP_UUID)
+			.doNothing()
 			.execute();
 	}
 
@@ -146,6 +148,8 @@ public class GroupDaoImpl extends AbstractJooqDao<Group> implements GroupDao {
 		ctx().insertInto(USER_GROUP,
 			USER_GROUP.USER_UUID, USER_GROUP.GROUP_UUID)
 			.values(user.getUuid(), group.getUuid())
+			.onConflict(USER_GROUP.USER_UUID, USER_GROUP.GROUP_UUID)
+			.doNothing()
 			.execute();
 	}
 
