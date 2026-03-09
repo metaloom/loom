@@ -55,7 +55,9 @@ public class UserDaoTest extends AbstractJooqTest implements CRUDDaoTestcases<Us
 
 		GroupDao groupDao = groupDao();
 		Group group = groupDao.create(loadedUser, "test");
+		groupDao.store(group);
 		assertNotNull(group);
+		assertNotNull(group.getUuid());
 
 		groupDao.addUserToGroup(group, loadedUser);
 

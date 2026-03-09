@@ -39,6 +39,8 @@ public class AuthModule {
 			} catch (Exception e) {
 				throw new RuntimeException("Failure while creating keystore " + keystorePath, e);
 			}
+		} else {
+			log.info("Using keystore location {}", keystorePath);
 		}
 
 		KeyStoreOptions keyStoreOptions = new KeyStoreOptions().setPath(keystorePath.toAbsolutePath().toString())

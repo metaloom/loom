@@ -10,10 +10,10 @@ import io.metaloom.loom.db.model.user.User;
 public interface GroupDao extends CRUDDao<Group> {
 
 	default Group create(User user, String name) {
-		return create(user.getUuid(), name);
+		return createGroup(user.getUuid(), name);
 	}
 
-	Group create(UUID userUuid, String name);
+	Group createGroup(UUID userUuid, String name);
 
 	// Users
 	void addUserToGroup(Group group, User user);

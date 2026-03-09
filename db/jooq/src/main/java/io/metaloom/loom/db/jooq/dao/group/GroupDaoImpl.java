@@ -136,7 +136,7 @@ public class GroupDaoImpl extends AbstractJooqDao<Group> implements GroupDao {
 	}
 
 	@Override
-	public Group create(UUID userUuid, String name) {
+	public Group createGroup(UUID userUuid, String name) {
 		Group group = new GroupImpl();
 		group.setName(name);
 		setCreatorEditor(group, userUuid);

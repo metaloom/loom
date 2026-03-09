@@ -53,7 +53,7 @@ public class GroupEndpointService extends AbstractCRUDEndpointService<GroupDao, 
 
 			UUID userUuid = lrc.userUuid();
 			String name = request.getName();
-			Group group = dao().create(userUuid, name);
+			Group group = dao().createGroup(userUuid, name);
 			return group;
 		}, modelBuilder::toResponse);
 	}

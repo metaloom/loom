@@ -114,7 +114,7 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	@Override
 	public Stream<? extends T> findAll() {
-		return ctx().select(getTable()).fetchStreamInto(getPojoClass());
+		return ctx().selectFrom(getTable()).fetchStreamInto(getPojoClass());
 	}
 
 	@Override

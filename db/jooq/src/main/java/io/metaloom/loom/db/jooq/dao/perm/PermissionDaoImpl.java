@@ -7,6 +7,7 @@ import static io.metaloom.loom.db.jooq.tables.JooqUserGroup.USER_GROUP;
 import static io.metaloom.loom.db.jooq.tables.JooqUserPermission.USER_PERMISSION;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -57,21 +58,22 @@ public class PermissionDaoImpl implements PermissionDao {
 
 	public ResourcePermissionSet loadPermissionsForToken(UUID tokenUUID) {
 		return ctx.select(TOKEN_PERMISSION).where(TOKEN_PERMISSION.TOKEN_UUID.eq(tokenUUID)).fetchOneInto(ResourcePermissionSet.class);
-//		List<ResourcePermission> tokenPerms = fetchByJooqTokenUuid(tokenUUID).stream().map(perm -> {
-//			return new ResourcePermission().setPermission(perm.getPermission().name()).setResource(perm.getResource());
-//		}).collect(Collectors.toList());
-//		ResourcePermissionSet permSet = new ResourcePermissionSet();
-//		permSet.addAll(tokenPerms);
-//		return permSet;
+		// List<ResourcePermission> tokenPerms = fetchByJooqTokenUuid(tokenUUID).stream().map(perm -> {
+		// return new ResourcePermission().setPermission(perm.getPermission().name()).setResource(perm.getResource());
+		// }).collect(Collectors.toList());
+		// ResourcePermissionSet permSet = new ResourcePermissionSet();
+		// permSet.addAll(tokenPerms);
+		// return permSet;
 	}
 
 	@Override
 	public void grantRolePermission(UUID roleUuid, Permission perm) {
-		grantRolePermission(roleUuid, perm, null);
+		grantRolePermission(roleUuid, perm, "all");
 	}
 
 	@Override
 	public void grantRolePermission(UUID roleUuid, Permission perm, String resource) {
+		Objects.requireNonNull(resource, "A valid resource must be specified to grant a permission");
 		ctx.insertInto(ROLE_PERMISSION, ROLE_PERMISSION.ROLE_UUID, ROLE_PERMISSION.RESOURCE, ROLE_PERMISSION.PERMISSION)
 			.values(roleUuid, resource, JooqLoomPermission.valueOf(perm.name()))
 			.execute();
@@ -85,6 +87,7 @@ public class PermissionDaoImpl implements PermissionDao {
 
 	@Override
 	public void grantUserPermission(UUID userUuid, Permission perm, String resource) {
+		Objects.requireNonNull(resource, "A valid resource must be specified to grant a permission");
 		ctx.insertInto(USER_PERMISSION, USER_PERMISSION.USER_UUID, USER_PERMISSION.RESOURCE, USER_PERMISSION.PERMISSION)
 			.values(userUuid, resource, JooqLoomPermission.valueOf(perm.name()))
 			.execute();

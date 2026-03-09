@@ -22,12 +22,17 @@ import io.metaloom.utils.UUIDUtils;
 @Singleton
 public class DatabaseInitializer {
 
+	public static final String GROUP_NAME = "admins";
+	public static final String ROLE_NAME = "admin-role";
+
 	private final LoomOptions options;
 	private final UserDao userDao;
 	private final GroupDao groupDao;
 	private final RoleDao roleDao;
 	private final PermissionDao permissionDao;
 	private final AuthenticationService authService;
+
+	private User adminUser;
 
 	@Inject
 	public DatabaseInitializer(LoomOptions options, UserDao userDao, GroupDao groupDao, RoleDao roleDao, PermissionDao permissionDao,
@@ -41,14 +46,11 @@ public class DatabaseInitializer {
 	}
 
 	public void init() {
-		final String GROUP_NAME = "admins";
-		final String ADMIN_USER_NAME = "admin";
-		final String ROLE_NAME = "admin-role";
 
 		// User
-		User adminUser = userDao.loadByUsername(ADMIN_USER_NAME);
+		User adminUser = userDao.loadAdmin();
 		if (adminUser == null) {
-			adminUser = userDao.createUser(ADMIN_USER_NAME);
+			adminUser = userDao.createUser(UserDao.ADMIN_USER_NAME);
 			adminUser.setUuid(UUIDUtils.randomUUID());
 			adminUser.setCreator(adminUser);
 			adminUser.setEditor(adminUser);
@@ -61,7 +63,7 @@ public class DatabaseInitializer {
 				System.out.println("####################");
 				System.out.println("# Initial Password #");
 				System.out.println("####################");
-				System.out.println("# USER: " + ADMIN_USER_NAME);
+				System.out.println("# USER: " + UserDao.ADMIN_USER_NAME);
 				System.out.println("# PASS: " + password);
 				System.out.println("####################");
 			}
