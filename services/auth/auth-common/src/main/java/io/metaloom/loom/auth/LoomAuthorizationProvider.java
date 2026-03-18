@@ -1,5 +1,7 @@
 package io.metaloom.loom.auth;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -47,10 +49,11 @@ public class LoomAuthorizationProvider implements AuthorizationProvider {
 			return permissionDao.loadPermissionsForUser(userUuid);
 		});
 
+		Set<Authorization> authorizationSet = new HashSet<>();
 		for (ResourcePermission perm : cachedPerms) {
-			Authorization authorization = PermissionBasedAuthorization.create(perm.getPermission());
-			user.authorizations().put(getId(), authorization);
+			authorizationSet.add(PermissionBasedAuthorization.create(perm.getPermission()));
 		}
+		user.authorizations().put(getId(), authorizationSet);
 		return Future.succeededFuture();
 	}
 
