@@ -34,4 +34,11 @@ public interface UserDao extends CRUDDao<User> {
 		return loadByUsername(ADMIN_USER_NAME);
 	}
 
+	/**
+	 * Create the main admin user.
+	 * 
+	 * @return
+	 */
+	User createAdmin();
+
 }

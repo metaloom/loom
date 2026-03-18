@@ -235,7 +235,7 @@ public class TestFixtureProvider extends AbstractFixtureProvider {
 	private User setupACL() {
 
 		// User
-		User adminUser = userDao().createUser("admin");
+		User adminUser = userDao().createAdmin();
 		adminUser.setUuid(ADMIN_UUID);
 		adminUser.setCreator(adminUser);
 		adminUser.setEditor(adminUser);

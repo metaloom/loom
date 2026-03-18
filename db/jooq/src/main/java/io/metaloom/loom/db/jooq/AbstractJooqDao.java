@@ -98,7 +98,9 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 		if (uuid == null) {
 			throw new RuntimeException("Key null!!");
 		}
-		element.setUuid(uuid);
+		if (element.getUuid() != null) {
+			element.setUuid(uuid);
+		}
 	}
 
 	@Override

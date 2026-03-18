@@ -59,6 +59,14 @@ public class UserDaoImpl extends AbstractJooqDao<User> implements UserDao, JooqD
 	}
 
 	@Override
+	public User createAdmin() {
+		UUID uuid = UUID.randomUUID();
+		User admin = createUser(uuid, ADMIN_USER_NAME);
+		admin.setUuid(uuid);
+		return admin;
+	}
+
+	@Override
 	public User load(UUID uuid) {
 		return ctx()
 			.select(getTable())
