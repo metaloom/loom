@@ -18,6 +18,7 @@ import org.jooq.TableRecord;
 import io.metaloom.filter.Filter;
 import io.metaloom.filter.FilterKey;
 import io.metaloom.loom.api.filter.LoomFilterKey;
+import io.metaloom.loom.db.DaoUtils;
 import io.metaloom.loom.db.jooq.AbstractJooqDao;
 import io.metaloom.loom.db.jooq.tables.JooqTag;
 import io.metaloom.loom.db.model.annotation.Annotation;
@@ -69,6 +70,9 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 
 	@Override
 	public void tagAsset(AssetTag tag, Asset asset) {
+		DaoUtils.requireUuid(tag, "tag");
+		DaoUtils.requireUuid(asset, "asset");
+
 		ctx().insertInto(TAG_ASSET,
 			TAG_ASSET.TAG_UUID, TAG_ASSET.ASSET_UUID)
 			.values(tag.getUuid(), asset.getUuid())
@@ -77,6 +81,8 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 
 	@Override
 	public List<AssetTag> assetTags(Asset asset) {
+		DaoUtils.requireUuid(asset, "asset");
+
 		return ctx().select(getTable())
 			.from(getTable())
 			.join(TAG_ASSET)
@@ -87,6 +93,9 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 
 	@Override
 	public void untagAsset(Tag tag, Asset asset) {
+		DaoUtils.requireUuid(tag, "tag");
+		DaoUtils.requireUuid(asset, "asset");
+
 		ctx().deleteFrom(TAG_ASSET)
 			.where(TAG_ASSET.TAG_UUID.eq(tag.getUuid())
 				.and(TAG_ASSET.ASSET_UUID.eq(asset.getUuid())))
@@ -95,6 +104,9 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 
 	@Override
 	public void tagAnnotation(Tag tag, Annotation annotation) {
+		DaoUtils.requireUuid(tag, "tag");
+		DaoUtils.requireUuid(annotation, "annotation");
+
 		ctx().insertInto(ANNOTATION_TAG,
 			ANNOTATION_TAG.TAG_UUID, ANNOTATION_TAG.ANNOTATION_UUID)
 			.values(tag.getUuid(), annotation.getUuid())
@@ -103,6 +115,9 @@ public class TagDaoImpl extends AbstractJooqDao<Tag> implements TagDao {
 
 	@Override
 	public void untagAnnotation(Tag tag, Annotation annotation) {
+		DaoUtils.requireUuid(tag, "tag");
+		DaoUtils.requireUuid(annotation, "annotation");
+
 		ctx().deleteFrom(ANNOTATION_TAG)
 			.where(ANNOTATION_TAG.TAG_UUID.eq(tag.getUuid())
 				.and(ANNOTATION_TAG.ANNOTATION_UUID.eq(annotation.getUuid())))

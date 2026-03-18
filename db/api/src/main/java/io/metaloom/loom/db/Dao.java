@@ -20,4 +20,6 @@ public interface Dao {
 	 * @return
 	 */
 	long count();
+	
+
 }

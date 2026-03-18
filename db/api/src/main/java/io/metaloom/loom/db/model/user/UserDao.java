@@ -39,6 +39,11 @@ public interface UserDao extends CRUDDao<User> {
 	 * 
 	 * @return
 	 */
-	User createAdmin();
+	default User createAdmin() {
+		UUID uuid = UUID.randomUUID();
+		User admin = createUser(uuid, ADMIN_USER_NAME);
+		admin.setUuid(uuid);
+		return admin;
+	}
 
 }
