@@ -60,7 +60,7 @@ public class RESTService extends AbstractService {
 	}
 
 	public void setupRouter() {
-		router.getDelegate().route().handler(BodyHandler.create());
+		router.getDelegate().route().handler(BodyHandler.create().setBodyLimit(-1));
 
 		// Register all injected endpoint routes
 		for (RESTEndpoint endpoint : endpoints) {

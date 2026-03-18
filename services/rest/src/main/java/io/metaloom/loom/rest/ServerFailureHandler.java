@@ -24,6 +24,14 @@ public class ServerFailureHandler implements Handler<RoutingContext> {
 
 	@Override
 	public void handle(RoutingContext rc) {
+		if (rc.response().headWritten()) {
+			log.error("Request failed in path {} but response head was already sent. Cannot send error response.", rc.normalizedPath(), rc.failure());
+			// Attempt to close the response if not yet ended
+			if (!rc.response().ended()) {
+				rc.response().end();
+			}
+			return;
+		}
 		if (rc.failure() instanceof ValidationException ve) {
 			log.error("Request failed with validation error in path {}", rc.normalizedPath(), rc.failure());
 			GenericMessageResponse errorResponse = new GenericMessageResponse();
