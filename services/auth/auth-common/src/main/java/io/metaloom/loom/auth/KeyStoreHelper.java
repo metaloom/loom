@@ -46,7 +46,7 @@ public class KeyStoreHelper {
 		for (String type : Arrays.asList("SHA256", "SHA384", "SHA512")) {
 			KeyGenerator keygen = KeyGenerator.getInstance("Hmac" + type);
 			SecretKey key = keygen.generateKey();
-			String entryKey =type.replace("SHA", "H");
+			String entryKey = type.replace("SHA", "HS");
 			keystore.setKeyEntry(entryKey, key, keystorePassword.toCharArray(), null);
 		}
 
