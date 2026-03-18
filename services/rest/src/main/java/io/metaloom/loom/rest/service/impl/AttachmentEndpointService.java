@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.attachment.AttachmentType;
+import io.metaloom.loom.api.error.LoomRestErrorCode;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.attachment.Attachment;
@@ -57,13 +58,14 @@ public class AttachmentEndpointService extends AbstractCRUDEndpointService<Attac
 	public void create(LoomRoutingContext lrc) {
 		create(lrc, CREATE_ATTACHMENT, () -> {
 			if (lrc.fileUploads().size() > 1) {
-				throw new LoomRestException(400, "Upload with multiple files in one request is currently not supported");
+				throw new LoomRestException(400, LoomRestErrorCode.BAD_REQUEST,
+					"Upload with multiple files in one request is currently not supported");
 			}
 			if (lrc.fileUploads().isEmpty()) {
-				throw new LoomRestException(400, "No uploads found in request.");
+				throw new LoomRestException(400, LoomRestErrorCode.UPLOAD_DATA_MISSING, "No uploads found in request.");
 			}
 			FileUpload upload = lrc.fileUploads().get(0);
-			//validator.validate(upload);
+			// validator.validate(upload);
 			// TODO check for free space
 			// TODO configure upload directory
 			// TODO copy / move file into place
@@ -73,7 +75,7 @@ public class AttachmentEndpointService extends AbstractCRUDEndpointService<Attac
 			long size = upload.size();
 			String mimeType = upload.contentType();
 			AttachmentType type = AttachmentType.EMBEDDING_ATTACHMENT;
-			SHA512 sha512sum =  HashUtils.computeSHA512(Paths.get(upload.uploadedFileName()));
+			SHA512 sha512sum = HashUtils.computeSHA512(Paths.get(upload.uploadedFileName()));
 			Attachment attachment = dao().createAttachment(userUuid, sha512sum, filename, size, mimeType, type);
 			return attachment;
 		}, modelBuilder::toResponse);

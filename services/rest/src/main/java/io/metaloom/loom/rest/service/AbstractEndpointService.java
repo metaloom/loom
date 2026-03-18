@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.metaloom.loom.api.error.LoomRestErrorCode;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.db.CUDElement;
 import io.metaloom.loom.db.model.perm.Permission;
@@ -46,7 +47,7 @@ public abstract class AbstractEndpointService implements EndpointService {
 		}).onFailure(e -> {
 			// TODO this should be 500 error
 			log.error("Failed to check perms", e);
-			throw new LoomRestException(403, "Invalid permissions");
+			throw new LoomRestException(403, LoomRestErrorCode.MISSING_PERM, "Invalid permissions");
 		});
 	}
 

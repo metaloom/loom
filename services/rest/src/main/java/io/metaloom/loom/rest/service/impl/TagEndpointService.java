@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.asset.AssetId;
+import io.metaloom.loom.api.error.LoomRestErrorCode;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.db.dagger.DaoCollection;
 import io.metaloom.loom.db.model.asset.Asset;
@@ -95,7 +96,7 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 
 			Asset asset = daos().assetDao().loadById(assetId);
 			if (asset == null) {
-				throw new LoomRestException(404, "Asset not found " + assetId);
+				throw new LoomRestException(404, LoomRestErrorCode.NOT_FOUND, "Asset not found " + assetId);
 			}
 
 			String name = request.getName();
@@ -115,14 +116,14 @@ public class TagEndpointService extends AbstractCRUDEndpointService<TagDao, Tag>
 
 	public void untagAsset(LoomRoutingContext lrc, AssetId assetId, UUID tagUuid) {
 		checkPerm(lrc, UNTAG_ASSET, () -> {
-			
+
 			Asset asset = daos().assetDao().loadById(assetId);
 			if (asset == null) {
-				throw new LoomRestException(404, "Asset not found " + assetId);
+				throw new LoomRestException(404, LoomRestErrorCode.NOT_FOUND, "Asset not found " + assetId);
 			}
 			Tag tag = dao().load(tagUuid);
 			if (tag == null) {
-				throw new LoomRestException(404, "Tag not found " + tagUuid);
+				throw new LoomRestException(404, LoomRestErrorCode.NOT_FOUND, "Tag not found " + tagUuid);
 			}
 			dao().untagAsset(tag, asset);
 			lrc.sendNoContent();

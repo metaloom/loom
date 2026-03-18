@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import io.metaloom.filter.Filter;
 import io.metaloom.loom.api.asset.AssetId;
+import io.metaloom.loom.api.error.LoomRestErrorCode;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.api.sort.SortDirection;
 import io.metaloom.loom.api.sort.SortKey;
@@ -41,6 +42,8 @@ import io.metaloom.loom.rest.validation.LoomModelValidator;
 public class ReactionEndpointService extends AbstractEndpointService {
 
 	private static final Logger log = LoggerFactory.getLogger(ReactionEndpointService.class);
+
+	private static final LoomRestErrorCode NOT_FOUND = null;
 
 	private ReactionDao dao;
 
@@ -75,7 +78,7 @@ public class ReactionEndpointService extends AbstractEndpointService {
 		checkPerm(lrc, permission, () -> {
 			Reaction reaction = loader.get();
 			if (reaction == null) {
-				throw new LoomRestException(404, "Reaction not found.");
+				throw new LoomRestException(404, NOT_FOUND, "Reaction not found.");
 			} else {
 				dao().delete(reaction);
 				lrc.sendNoContent();
@@ -87,7 +90,7 @@ public class ReactionEndpointService extends AbstractEndpointService {
 		checkPerm(lrc, permission, () -> {
 			Reaction reaction = loader.get();
 			if (reaction == null) {
-				throw new LoomRestException(404, "Reaction not found");
+				throw new LoomRestException(404, NOT_FOUND, "Reaction not found");
 			}
 			ReactionResponse response = modelBuilder.toResponse(reaction);
 			lrc.send(response);

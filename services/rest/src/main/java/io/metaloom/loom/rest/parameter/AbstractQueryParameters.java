@@ -2,6 +2,7 @@ package io.metaloom.loom.rest.parameter;
 
 import java.util.List;
 
+import io.metaloom.loom.api.error.LoomRestErrorCode;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.rest.LoomRoutingContext;
 
@@ -19,7 +20,7 @@ public abstract class AbstractQueryParameters {
 			return paramKey.defaultValue();
 		}
 		if (values.size() > 1) {
-			throw new LoomRestException(400, "Parameter " + paramKey.key() + " was found multiple times");
+			throw new LoomRestException(400, LoomRestErrorCode.BAD_QUERY_PARAMS, "Parameter " + paramKey.key() + " was found multiple times");
 		}
 		String value = values.get(0);
 		if (value == null) {

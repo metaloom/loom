@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.metaloom.loom.api.error.LoomRestErrorCode;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.db.CRUDDao;
 import io.metaloom.loom.db.Element;
@@ -62,14 +63,13 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 		checkPerm(lrc, permission, () -> {
 			E element = loader.get();
 			if (element == null) {
-				throw new LoomRestException(404, "Element not found.");
+				throw new LoomRestException(404, LoomRestErrorCode.NOT_FOUND, "Element not found.");
 			} else {
 				dao().delete(element);
 				lrc.sendNoContent();
 			}
 		});
 	}
-
 
 	public abstract void list(LoomRoutingContext lrc);
 
@@ -95,7 +95,7 @@ public abstract class AbstractCRUDEndpointService<D extends CRUDDao<E>, E extend
 		checkPerm(lrc, permission, () -> {
 			E element = loader.get();
 			if (element == null) {
-				throw new LoomRestException(404, "Element not found for type: " + dao().getTypeName());
+				throw new LoomRestException(404, LoomRestErrorCode.NOT_FOUND, "Element not found for type: " + dao().getTypeName());
 			}
 			RestResponseModel<?> response = builder.apply(element);
 			lrc.send(response);

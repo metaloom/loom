@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.LoomVersion;
+import io.metaloom.loom.api.error.LoomRestErrorCode;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.rest.AbstractEndpoint;
 import io.metaloom.loom.rest.EndpointDependencies;
@@ -52,7 +53,7 @@ public class RESTInfoEndpoint extends AbstractEndpoint {
 				lrc.sendText(yaml, HTTPConstants.TEXT_YAML, 200);
 			} catch (Exception e) {
 				log.error("Error while invoking API spec generator", e);
-				throw new LoomRestException(500, "Error while generating spec");
+				throw new LoomRestException(500, LoomRestErrorCode.INTERNAL_ERROR, "Error while generating spec");
 			}
 		});
 	}

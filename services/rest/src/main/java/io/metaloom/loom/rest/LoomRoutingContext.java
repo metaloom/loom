@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.metaloom.loom.api.asset.AssetId;
+import io.metaloom.loom.api.error.LoomRestErrorCode;
 import io.metaloom.loom.api.error.LoomRestException;
 import io.metaloom.loom.auth.LoomAuthorizationProvider;
 import io.metaloom.loom.auth.LoomUser;
@@ -107,7 +108,7 @@ public class LoomRoutingContext {
 	public UUID pathParamUUID(String key) {
 		String val = pathParam(key);
 		if (val == null) {
-			throw new LoomRestException(400, "Path parameter " + key + " not found");
+			throw new LoomRestException(400, LoomRestErrorCode.BAD_PATH_PARAMS, "Path parameter " + key + " not found");
 		}
 		return UUID.fromString(val);
 	}
@@ -115,7 +116,7 @@ public class LoomRoutingContext {
 	public AssetId pathParamAssetId(String key) {
 		String val = pathParam(key);
 		if (val == null) {
-			throw new LoomRestException(400, "Path parameter " + key + " not found");
+			throw new LoomRestException(400, LoomRestErrorCode.BAD_PATH_PARAMS, "Path parameter " + key + " not found");
 		}
 		return AssetId.assetId(val);
 	}
