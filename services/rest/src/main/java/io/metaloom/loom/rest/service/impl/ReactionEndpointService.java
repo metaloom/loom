@@ -43,8 +43,6 @@ public class ReactionEndpointService extends AbstractEndpointService {
 
 	private static final Logger log = LoggerFactory.getLogger(ReactionEndpointService.class);
 
-	private static final LoomRestErrorCode NOT_FOUND = null;
-
 	private ReactionDao dao;
 
 	private AssetDao assetDao;
@@ -78,7 +76,7 @@ public class ReactionEndpointService extends AbstractEndpointService {
 		checkPerm(lrc, permission, () -> {
 			Reaction reaction = loader.get();
 			if (reaction == null) {
-				throw new LoomRestException(404, NOT_FOUND, "Reaction not found.");
+				throw new LoomRestException(404, LoomRestErrorCode.NOT_FOUND, "Reaction not found.");
 			} else {
 				dao().delete(reaction);
 				lrc.sendNoContent();
@@ -90,7 +88,7 @@ public class ReactionEndpointService extends AbstractEndpointService {
 		checkPerm(lrc, permission, () -> {
 			Reaction reaction = loader.get();
 			if (reaction == null) {
-				throw new LoomRestException(404, NOT_FOUND, "Reaction not found");
+				throw new LoomRestException(404, LoomRestErrorCode.NOT_FOUND, "Reaction not found");
 			}
 			ReactionResponse response = modelBuilder.toResponse(reaction);
 			lrc.send(response);

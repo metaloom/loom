@@ -40,8 +40,6 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 
 	private static final Logger log = LoggerFactory.getLogger(AbstractJooqDao.class);
 
-	private static final LoomRestErrorCode BAD_FILTER_KEY = null;
-
 	private final DSLContext ctx;
 
 	public AbstractJooqDao(DSLContext ctx) {
@@ -190,7 +188,7 @@ public abstract class AbstractJooqDao<T extends Element<T>> implements JooqDao, 
 		if (key == LoomFilterKey.UUID) {
 			return query.and(getTable().field("uuid", UUID.class).eq(UUID.fromString(filter.valueStr())));
 		}
-		throw new LoomRestException(400, BAD_FILTER_KEY, "Unknown filter field " + key.id() + " for " + getTypeName());
+		throw new LoomRestException(400, LoomRestErrorCode.BAD_FILTER_KEY, "Unknown filter field " + key.id() + " for " + getTypeName());
 	}
 
 	public T findByUUID(UUID id) {
